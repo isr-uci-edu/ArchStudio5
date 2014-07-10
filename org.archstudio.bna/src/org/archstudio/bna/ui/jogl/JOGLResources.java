@@ -148,7 +148,7 @@ public class JOGLResources extends AbstractUIResources implements IJOGLResources
 				continue;
 			}
 			try {
-				pushAlpha(thingToRender.get(IHasAlpha.ALPHA_KEY, 1f));
+				pushAlpha((float)thingToRender.get(IHasAlpha.ALPHA_KEY, 1f));
 				try {
 					gl.setTint(thingToRender.get(IHasTint.TINT_KEY, new RGB(0, 0, 0)));
 					IThingPeer<?> peer = view.getThingPeer(thingToRender);

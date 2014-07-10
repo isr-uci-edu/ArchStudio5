@@ -164,6 +164,7 @@ public class CodeGeneration {
 
 							cleanupContexts.clear();
 							if (cleanup.getRequirements().requiresAST()) {
+								@SuppressWarnings("deprecation")
 								ASTParser parser = ASTParser.newParser(AST.JLS4);
 								parser.setProject(javaProject);
 								parser.setKind(ASTParser.K_COMPILATION_UNIT);

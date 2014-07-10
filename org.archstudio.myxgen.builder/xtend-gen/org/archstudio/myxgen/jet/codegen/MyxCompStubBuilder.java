@@ -18,21 +18,20 @@ import org.eclipse.xtext.xbase.lib.StringExtensions;
 @SuppressWarnings("all")
 public class MyxCompStubBuilder extends MyxCompUtils {
   public static String generate(final MyxGenBrick b) {
-    MyxGenBrick _xtrycatchfinallyexpression = null;
     try {
-      String _parentBrickId = b.getParentBrickId();
-      MyxGenBrick _activeMyxGenBrick = MyxGenWorkspaceExtensions.getActiveMyxGenBrick(_parentBrickId);
-      _xtrycatchfinallyexpression = _activeMyxGenBrick;
-    } catch (final Throwable _t) {
-      if (_t instanceof Exception) {
-        final Exception e = (Exception)_t;
-        _xtrycatchfinallyexpression = null;
-      } else {
-        throw Exceptions.sneakyThrow(_t);
+      MyxGenBrick _xtrycatchfinallyexpression = null;
+      try {
+        String _parentBrickId = b.getParentBrickId();
+        _xtrycatchfinallyexpression = MyxGenWorkspaceExtensions.getActiveMyxGenBrick(_parentBrickId);
+      } catch (final Throwable _t) {
+        if (_t instanceof Exception) {
+          final Exception e = (Exception)_t;
+          _xtrycatchfinallyexpression = null;
+        } else {
+          throw Exceptions.sneakyThrow(_t);
+        }
       }
-    }
-    final MyxGenBrick pb = _xtrycatchfinallyexpression;
-    try {
+      final MyxGenBrick pb = _xtrycatchfinallyexpression;
       StringConcatenation _builder = new StringConcatenation();
       _builder.append("package ");
       String _stubClassName = b.getStubClassName();
@@ -134,11 +133,10 @@ public class MyxCompStubBuilder extends MyxCompUtils {
       _builder.newLine();
       {
         Collection<MyxGenInterface> _interfaces_1 = b.getInterfaces();
-        final Function1<MyxGenInterface,Boolean> _function = new Function1<MyxGenInterface,Boolean>() {
+        final Function1<MyxGenInterface, Boolean> _function = new Function1<MyxGenInterface, Boolean>() {
           public Boolean apply(final MyxGenInterface i) {
             EServiceObjectDelegate _serviceObjectDelegate = i.getServiceObjectDelegate();
-            boolean _equals = Objects.equal(_serviceObjectDelegate, EServiceObjectDelegate.brick);
-            return Boolean.valueOf(_equals);
+            return Boolean.valueOf(Objects.equal(_serviceObjectDelegate, EServiceObjectDelegate.brick));
           }
         };
         Iterable<MyxGenInterface> _filter = IterableExtensions.<MyxGenInterface>filter(_interfaces_1, _function);
@@ -167,7 +165,7 @@ public class MyxCompStubBuilder extends MyxCompUtils {
           String _name_3 = _contributor_1.getName();
           String _className_3 = pb.getClassName();
           String _constructorsFor = MyxCompUtils.constructorsFor(b, _name_3, _className_3);
-          _builder.append(_constructorsFor, "	");
+          _builder.append(_constructorsFor, "\t");
           _builder.newLineIfNotEmpty();
         } else {
           _builder.append("\t");
@@ -270,7 +268,7 @@ public class MyxCompStubBuilder extends MyxCompUtils {
           _builder.append(" ");
           _builder.append("* Myx name for the <code>");
           String _name_4 = i_1.getName();
-          _builder.append(_name_4, "	 ");
+          _builder.append(_name_4, "\t ");
           _builder.append("</code> interface.");
           _builder.newLineIfNotEmpty();
           _builder.append("\t");
@@ -282,7 +280,7 @@ public class MyxCompStubBuilder extends MyxCompUtils {
             if (_notEquals_2) {
               _builder.append("<p>");
               String _description_3 = i_1.getDescription();
-              _builder.append(_description_3, "	 ");
+              _builder.append(_description_3, "\t ");
             }
           }
           _builder.newLineIfNotEmpty();
@@ -303,10 +301,10 @@ public class MyxCompStubBuilder extends MyxCompUtils {
           String _firstUpper = StringExtensions.toFirstUpper(_name_6);
           String _plus = (_lowerCase + _firstUpper);
           String _constantName = MyxCompUtils.toConstantName(_plus);
-          _builder.append(_constantName, "	");
+          _builder.append(_constantName, "\t");
           _builder.append(" = MyxUtils.createName(\"");
           String _id = i_1.getId();
-          _builder.append(_id, "	");
+          _builder.append(_id, "\t");
           _builder.append("\");");
           _builder.newLineIfNotEmpty();
           _builder.append("\t");
@@ -330,7 +328,7 @@ public class MyxCompStubBuilder extends MyxCompUtils {
               }
               _builder.append(" for the ");
               String _name_7 = i_1.getName();
-              _builder.append(_name_7, "	 ");
+              _builder.append(_name_7, "\t ");
               _builder.append(" interface.");
               _builder.newLineIfNotEmpty();
               _builder.append("\t");
@@ -343,7 +341,7 @@ public class MyxCompStubBuilder extends MyxCompUtils {
               String _firstUpper_1 = StringExtensions.toFirstUpper(_name_9);
               String _plus_1 = (_lowerCase_1 + _firstUpper_1);
               String _constantName_1 = MyxCompUtils.toConstantName(_plus_1);
-              _builder.append(_constantName_1, "	 ");
+              _builder.append(_constantName_1, "\t ");
               _builder.newLineIfNotEmpty();
               _builder.append("\t");
               _builder.append(" ");
@@ -359,23 +357,23 @@ public class MyxCompStubBuilder extends MyxCompUtils {
                   _builder.append("\t");
                   _builder.append("protected ");
                   String _className_4 = i_1.getClassName();
-                  _builder.append(_className_4, "	");
+                  _builder.append(_className_4, "\t");
                   _builder.append(" ");
                   String _name_10 = i_1.getName();
-                  _builder.append(_name_10, "	");
+                  _builder.append(_name_10, "\t");
                   _builder.append(" = null;");
                   _builder.newLineIfNotEmpty();
                 } else {
                   _builder.append("\t");
                   _builder.append("protected final java.util.Collection<");
                   String _className_5 = i_1.getClassName();
-                  _builder.append(_className_5, "	");
+                  _builder.append(_className_5, "\t");
                   _builder.append("> ");
                   String _name_11 = i_1.getName();
-                  _builder.append(_name_11, "	");
+                  _builder.append(_name_11, "\t");
                   _builder.append(" = new java.util.concurrent.CopyOnWriteArrayList<");
                   String _className_6 = i_1.getClassName();
-                  _builder.append(_className_6, "	");
+                  _builder.append(_className_6, "\t");
                   _builder.append(">();");
                   _builder.newLineIfNotEmpty();
                 }
@@ -395,7 +393,7 @@ public class MyxCompStubBuilder extends MyxCompUtils {
               _builder.append(" ");
               _builder.append("* Service object proxy for the ");
               String _name_12 = i_1.getName();
-              _builder.append(_name_12, "	 ");
+              _builder.append(_name_12, "\t ");
               _builder.append(" interface.");
               _builder.newLineIfNotEmpty();
               _builder.append("\t");
@@ -407,7 +405,7 @@ public class MyxCompStubBuilder extends MyxCompUtils {
                 if (_equals_2) {
                   _builder.append("all service objects in the MyxRegistry of type ");
                   String _className_7 = i_1.getClassName();
-                  _builder.append(_className_7, "	 ");
+                  _builder.append(_className_7, "\t ");
                   _builder.append(".");
                 } else {
                   _builder.append("all connections on the interface");
@@ -423,7 +421,7 @@ public class MyxCompStubBuilder extends MyxCompUtils {
               String _firstUpper_2 = StringExtensions.toFirstUpper(_name_14);
               String _plus_2 = (_lowerCase_2 + _firstUpper_2);
               String _constantName_2 = MyxCompUtils.toConstantName(_plus_2);
-              _builder.append(_constantName_2, "	");
+              _builder.append(_constantName_2, "\t");
               _builder.newLineIfNotEmpty();
               _builder.append("\t");
               _builder.append("* @generated");
@@ -434,30 +432,30 @@ public class MyxCompStubBuilder extends MyxCompUtils {
               _builder.append("\t");
               _builder.append("protected final ");
               String _className_8 = i_1.getClassName();
-              _builder.append(_className_8, "	");
+              _builder.append(_className_8, "\t");
               _builder.append(" ");
               String _name_15 = i_1.getName();
-              _builder.append(_name_15, "	");
+              _builder.append(_name_15, "\t");
               _builder.append("Proxy =");
               _builder.newLineIfNotEmpty();
               _builder.append("\t");
               _builder.append("\t");
               _builder.append("(");
               String _className_9 = i_1.getClassName();
-              _builder.append(_className_9, "		");
+              _builder.append(_className_9, "\t\t");
               _builder.append(") java.lang.reflect.Proxy.newProxyInstance(");
               _builder.newLineIfNotEmpty();
               _builder.append("\t");
               _builder.append("\t\t");
               String _className_10 = i_1.getClassName();
-              _builder.append(_className_10, "			");
+              _builder.append(_className_10, "\t\t\t");
               _builder.append(".class.getClassLoader(), ");
               _builder.newLineIfNotEmpty();
               _builder.append("\t");
               _builder.append("\t\t");
               _builder.append("new Class[] { ");
               String _className_11 = i_1.getClassName();
-              _builder.append(_className_11, "			");
+              _builder.append(_className_11, "\t\t\t");
               _builder.append(".class },");
               _builder.newLineIfNotEmpty();
               _builder.append("\t");
@@ -480,14 +478,14 @@ public class MyxCompStubBuilder extends MyxCompUtils {
                   _builder.append("\t\t\t\t");
                   _builder.append("for (");
                   String _className_12 = i_1.getClassName();
-                  _builder.append(_className_12, "					");
+                  _builder.append(_className_12, "\t\t\t\t\t");
                   _builder.append(" o : myxRegistry.getObjects(");
                   String _stubClassName_2 = b.getStubClassName();
                   String _className_13 = MyxCompUtils.toClassName(_stubClassName_2);
-                  _builder.append(_className_13, "					");
+                  _builder.append(_className_13, "\t\t\t\t\t");
                   _builder.append(".this, ");
                   String _className_14 = i_1.getClassName();
-                  _builder.append(_className_14, "					");
+                  _builder.append(_className_14, "\t\t\t\t\t");
                   _builder.append(".class)) {");
                   _builder.newLineIfNotEmpty();
                 } else {
@@ -498,20 +496,20 @@ public class MyxCompStubBuilder extends MyxCompUtils {
                     _builder.append("\t\t\t\t");
                     _builder.append("for (");
                     String _className_15 = i_1.getClassName();
-                    _builder.append(_className_15, "					");
+                    _builder.append(_className_15, "\t\t\t\t\t");
                     _builder.append(" o : ");
                     String _name_16 = i_1.getName();
-                    _builder.append(_name_16, "					");
+                    _builder.append(_name_16, "\t\t\t\t\t");
                     _builder.append(") {");
                     _builder.newLineIfNotEmpty();
                   } else {
                     _builder.append("\t");
                     _builder.append("\t\t\t\t");
                     String _className_16 = i_1.getClassName();
-                    _builder.append(_className_16, "					");
+                    _builder.append(_className_16, "\t\t\t\t\t");
                     _builder.append(" o = ");
                     String _name_17 = i_1.getName();
-                    _builder.append(_name_17, "					");
+                    _builder.append(_name_17, "\t\t\t\t\t");
                     _builder.append(";");
                     _builder.newLineIfNotEmpty();
                     _builder.append("\t");
@@ -523,7 +521,7 @@ public class MyxCompStubBuilder extends MyxCompUtils {
                     _builder.append("\t");
                     _builder.append("throw new NullPointerException(\"");
                     String _name_18 = i_1.getName();
-                    _builder.append(_name_18, "						");
+                    _builder.append(_name_18, "\t\t\t\t\t\t");
                     _builder.append("\");");
                     _builder.newLineIfNotEmpty();
                     _builder.append("\t");
@@ -589,7 +587,7 @@ public class MyxCompStubBuilder extends MyxCompUtils {
               _builder.append("\t");
               _builder.append("* Returns the service object(s) for the ");
               String _name_19 = i_1.getName();
-              _builder.append(_name_19, "	");
+              _builder.append(_name_19, "\t");
               _builder.append(" interface.");
               _builder.newLineIfNotEmpty();
               _builder.append("\t");
@@ -601,7 +599,7 @@ public class MyxCompStubBuilder extends MyxCompUtils {
               String _firstUpper_3 = StringExtensions.toFirstUpper(_name_21);
               String _plus_3 = (_lowerCase_3 + _firstUpper_3);
               String _constantName_3 = MyxCompUtils.toConstantName(_plus_3);
-              _builder.append(_constantName_3, "	");
+              _builder.append(_constantName_3, "\t");
               _builder.newLineIfNotEmpty();
               _builder.append("\t");
               _builder.append("* @generated");
@@ -616,11 +614,11 @@ public class MyxCompStubBuilder extends MyxCompUtils {
                   _builder.append("\t");
                   _builder.append("public ");
                   String _className_17 = i_1.getClassName();
-                  _builder.append(_className_17, "	");
+                  _builder.append(_className_17, "\t");
                   _builder.append(" get");
                   String _name_22 = i_1.getName();
                   String _firstUpper_4 = StringExtensions.toFirstUpper(_name_22);
-                  _builder.append(_firstUpper_4, "	");
+                  _builder.append(_firstUpper_4, "\t");
                   _builder.append("() {");
                   _builder.newLineIfNotEmpty();
                 } else {
@@ -630,18 +628,18 @@ public class MyxCompStubBuilder extends MyxCompUtils {
                     boolean _isSingle_3 = i_1.isSingle();
                     if (_isSingle_3) {
                       String _className_18 = i_1.getClassName();
-                      _builder.append(_className_18, "	");
+                      _builder.append(_className_18, "\t");
                     } else {
                       _builder.append("java.util.Collection<");
                       String _className_19 = i_1.getClassName();
-                      _builder.append(_className_19, "	");
+                      _builder.append(_className_19, "\t");
                       _builder.append(">");
                     }
                   }
                   _builder.append(" get");
                   String _name_23 = i_1.getName();
                   String _firstUpper_5 = StringExtensions.toFirstUpper(_name_23);
-                  _builder.append(_firstUpper_5, "	");
+                  _builder.append(_firstUpper_5, "\t");
                   _builder.append("() {");
                   _builder.newLineIfNotEmpty();
                 }
@@ -664,14 +662,14 @@ public class MyxCompStubBuilder extends MyxCompUtils {
                       _and = false;
                     } else {
                       boolean _isSingle_4 = i_1.isSingle();
-                      _and = (_not_2 && _isSingle_4);
+                      _and = _isSingle_4;
                     }
                     if (_and) {
                       _builder.append("\t");
                       _builder.append("\t");
                       _builder.append("if (");
                       String _name_24 = i_1.getName();
-                      _builder.append(_name_24, "		");
+                      _builder.append(_name_24, "\t\t");
                       _builder.append(" == null) {");
                       _builder.newLineIfNotEmpty();
                       _builder.append("\t");
@@ -679,7 +677,7 @@ public class MyxCompStubBuilder extends MyxCompUtils {
                       _builder.append("\t");
                       _builder.append("throw new NullPointerException(\"Uninitialized service object: ");
                       String _name_25 = i_1.getName();
-                      _builder.append(_name_25, "			");
+                      _builder.append(_name_25, "\t\t\t");
                       _builder.append("\");");
                       _builder.newLineIfNotEmpty();
                       _builder.append("\t");
@@ -692,7 +690,7 @@ public class MyxCompStubBuilder extends MyxCompUtils {
                   _builder.append("\t");
                   _builder.append("return ");
                   String _name_26 = i_1.getName();
-                  _builder.append(_name_26, "		");
+                  _builder.append(_name_26, "\t\t");
                   {
                     EServiceObjectDelegate _serviceObjectDelegate_7 = i_1.getServiceObjectDelegate();
                     boolean _isNeedsProxy_3 = _serviceObjectDelegate_7.isNeedsProxy();
@@ -722,11 +720,10 @@ public class MyxCompStubBuilder extends MyxCompUtils {
       _builder.newLine();
       {
         Collection<MyxGenInterface> _interfaces_3 = b.getInterfaces();
-        final Function1<MyxGenInterface,Boolean> _function_1 = new Function1<MyxGenInterface,Boolean>() {
+        final Function1<MyxGenInterface, Boolean> _function_1 = new Function1<MyxGenInterface, Boolean>() {
           public Boolean apply(final MyxGenInterface i) {
             EMyxInterfaceDirection _direction = i.getDirection();
-            boolean _equals = Objects.equal(_direction, EMyxInterfaceDirection.IN);
-            return Boolean.valueOf(_equals);
+            return Boolean.valueOf(Objects.equal(_direction, EMyxInterfaceDirection.IN));
           }
         };
         Iterable<MyxGenInterface> _filter_1 = IterableExtensions.<MyxGenInterface>filter(_interfaces_3, _function_1);
@@ -740,7 +737,7 @@ public class MyxCompStubBuilder extends MyxCompUtils {
           String _firstUpper_6 = StringExtensions.toFirstUpper(_name_28);
           String _plus_4 = (_lowerCase_4 + _firstUpper_6);
           String _constantName_4 = MyxCompUtils.toConstantName(_plus_4);
-          _builder.append(_constantName_4, "	");
+          _builder.append(_constantName_4, "\t");
           _builder.newLineIfNotEmpty();
         }
       }
@@ -758,11 +755,10 @@ public class MyxCompStubBuilder extends MyxCompUtils {
       _builder.newLine();
       {
         Collection<MyxGenInterface> _interfaces_4 = b.getInterfaces();
-        final Function1<MyxGenInterface,Boolean> _function_2 = new Function1<MyxGenInterface,Boolean>() {
+        final Function1<MyxGenInterface, Boolean> _function_2 = new Function1<MyxGenInterface, Boolean>() {
           public Boolean apply(final MyxGenInterface i) {
             EMyxInterfaceDirection _direction = i.getDirection();
-            boolean _equals = Objects.equal(_direction, EMyxInterfaceDirection.IN);
-            return Boolean.valueOf(_equals);
+            return Boolean.valueOf(Objects.equal(_direction, EMyxInterfaceDirection.IN));
           }
         };
         Iterable<MyxGenInterface> _filter_2 = IterableExtensions.<MyxGenInterface>filter(_interfaces_4, _function_2);
@@ -776,7 +772,7 @@ public class MyxCompStubBuilder extends MyxCompUtils {
           String _firstUpper_7 = StringExtensions.toFirstUpper(_name_30);
           String _plus_5 = (_lowerCase_5 + _firstUpper_7);
           String _constantName_5 = MyxCompUtils.toConstantName(_plus_5);
-          _builder.append(_constantName_5, "	");
+          _builder.append(_constantName_5, "\t");
           _builder.append(")) {");
           _builder.newLineIfNotEmpty();
           {
@@ -797,14 +793,14 @@ public class MyxCompStubBuilder extends MyxCompUtils {
                   _and_1 = false;
                 } else {
                   boolean _isSingle_5 = i_3.isSingle();
-                  _and_1 = (_not_3 && _isSingle_5);
+                  _and_1 = _isSingle_5;
                 }
                 if (_and_1) {
                   _builder.append("\t");
                   _builder.append("\t");
                   _builder.append("if (");
                   String _name_31 = i_3.getName();
-                  _builder.append(_name_31, "		");
+                  _builder.append(_name_31, "\t\t");
                   _builder.append(" == null) {");
                   _builder.newLineIfNotEmpty();
                   _builder.append("\t");
@@ -812,7 +808,7 @@ public class MyxCompStubBuilder extends MyxCompUtils {
                   _builder.append("\t");
                   _builder.append("throw new NullPointerException(\"Uninitialized service object: ");
                   String _name_32 = i_3.getName();
-                  _builder.append(_name_32, "			");
+                  _builder.append(_name_32, "\t\t\t");
                   _builder.append("\");");
                   _builder.newLineIfNotEmpty();
                   _builder.append("\t");
@@ -825,7 +821,7 @@ public class MyxCompStubBuilder extends MyxCompUtils {
               _builder.append("\t");
               _builder.append("return ");
               String _name_33 = i_3.getName();
-              _builder.append(_name_33, "		");
+              _builder.append(_name_33, "\t\t");
               {
                 EServiceObjectDelegate _serviceObjectDelegate_10 = i_3.getServiceObjectDelegate();
                 boolean _isNeedsProxy_5 = _serviceObjectDelegate_10.isNeedsProxy();
@@ -867,11 +863,10 @@ public class MyxCompStubBuilder extends MyxCompUtils {
       _builder.newLine();
       {
         Collection<MyxGenInterface> _interfaces_5 = b.getInterfaces();
-        final Function1<MyxGenInterface,Boolean> _function_3 = new Function1<MyxGenInterface,Boolean>() {
+        final Function1<MyxGenInterface, Boolean> _function_3 = new Function1<MyxGenInterface, Boolean>() {
           public Boolean apply(final MyxGenInterface i) {
             EMyxInterfaceDirection _direction = i.getDirection();
-            boolean _equals = Objects.equal(_direction, EMyxInterfaceDirection.OUT);
-            return Boolean.valueOf(_equals);
+            return Boolean.valueOf(Objects.equal(_direction, EMyxInterfaceDirection.OUT));
           }
         };
         Iterable<MyxGenInterface> _filter_3 = IterableExtensions.<MyxGenInterface>filter(_interfaces_5, _function_3);
@@ -885,7 +880,7 @@ public class MyxCompStubBuilder extends MyxCompUtils {
           String _firstUpper_8 = StringExtensions.toFirstUpper(_name_35);
           String _plus_6 = (_lowerCase_6 + _firstUpper_8);
           String _constantName_6 = MyxCompUtils.toConstantName(_plus_6);
-          _builder.append(_constantName_6, "	");
+          _builder.append(_constantName_6, "\t");
           _builder.newLineIfNotEmpty();
         }
       }
@@ -909,11 +904,10 @@ public class MyxCompStubBuilder extends MyxCompUtils {
       _builder.newLine();
       {
         Collection<MyxGenInterface> _interfaces_6 = b.getInterfaces();
-        final Function1<MyxGenInterface,Boolean> _function_4 = new Function1<MyxGenInterface,Boolean>() {
+        final Function1<MyxGenInterface, Boolean> _function_4 = new Function1<MyxGenInterface, Boolean>() {
           public Boolean apply(final MyxGenInterface i) {
             EMyxInterfaceDirection _direction = i.getDirection();
-            boolean _equals = Objects.equal(_direction, EMyxInterfaceDirection.OUT);
-            return Boolean.valueOf(_equals);
+            return Boolean.valueOf(Objects.equal(_direction, EMyxInterfaceDirection.OUT));
           }
         };
         Iterable<MyxGenInterface> _filter_4 = IterableExtensions.<MyxGenInterface>filter(_interfaces_6, _function_4);
@@ -928,7 +922,7 @@ public class MyxCompStubBuilder extends MyxCompUtils {
           String _firstUpper_9 = StringExtensions.toFirstUpper(_name_37);
           String _plus_7 = (_lowerCase_7 + _firstUpper_9);
           String _constantName_7 = MyxCompUtils.toConstantName(_plus_7);
-          _builder.append(_constantName_7, "	");
+          _builder.append(_constantName_7, "\t");
           _builder.append(")) {");
           _builder.newLineIfNotEmpty();
           {
@@ -938,7 +932,7 @@ public class MyxCompStubBuilder extends MyxCompUtils {
               _builder.append("\t\t");
               _builder.append("if (");
               String _name_38 = i_5.getName();
-              _builder.append(_name_38, "			");
+              _builder.append(_name_38, "\t\t\t");
               _builder.append(" != null)");
               _builder.newLineIfNotEmpty();
               _builder.append("\t");
@@ -946,26 +940,26 @@ public class MyxCompStubBuilder extends MyxCompUtils {
               _builder.append("\t");
               _builder.append("throw new IllegalStateException(\"Only a single connection is supported on interface: ");
               String _name_39 = i_5.getName();
-              _builder.append(_name_39, "				");
+              _builder.append(_name_39, "\t\t\t\t");
               _builder.append("\");");
               _builder.newLineIfNotEmpty();
               _builder.append("\t");
               _builder.append("\t\t");
               String _name_40 = i_5.getName();
-              _builder.append(_name_40, "			");
+              _builder.append(_name_40, "\t\t\t");
               _builder.append(" = (");
               String _className_20 = i_5.getClassName();
-              _builder.append(_className_20, "			");
+              _builder.append(_className_20, "\t\t\t");
               _builder.append(") serviceObject;");
               _builder.newLineIfNotEmpty();
             } else {
               _builder.append("\t");
               _builder.append("\t\t");
               String _name_41 = i_5.getName();
-              _builder.append(_name_41, "			");
+              _builder.append(_name_41, "\t\t\t");
               _builder.append(".add((");
               String _className_21 = i_5.getClassName();
-              _builder.append(_className_21, "			");
+              _builder.append(_className_21, "\t\t\t");
               _builder.append(") serviceObject);");
               _builder.newLineIfNotEmpty();
             }
@@ -1006,11 +1000,10 @@ public class MyxCompStubBuilder extends MyxCompUtils {
       _builder.newLine();
       {
         Collection<MyxGenInterface> _interfaces_7 = b.getInterfaces();
-        final Function1<MyxGenInterface,Boolean> _function_5 = new Function1<MyxGenInterface,Boolean>() {
+        final Function1<MyxGenInterface, Boolean> _function_5 = new Function1<MyxGenInterface, Boolean>() {
           public Boolean apply(final MyxGenInterface i) {
             EMyxInterfaceDirection _direction = i.getDirection();
-            boolean _equals = Objects.equal(_direction, EMyxInterfaceDirection.OUT);
-            return Boolean.valueOf(_equals);
+            return Boolean.valueOf(Objects.equal(_direction, EMyxInterfaceDirection.OUT));
           }
         };
         Iterable<MyxGenInterface> _filter_5 = IterableExtensions.<MyxGenInterface>filter(_interfaces_7, _function_5);
@@ -1024,7 +1017,7 @@ public class MyxCompStubBuilder extends MyxCompUtils {
           String _firstUpper_10 = StringExtensions.toFirstUpper(_name_43);
           String _plus_8 = (_lowerCase_8 + _firstUpper_10);
           String _constantName_8 = MyxCompUtils.toConstantName(_plus_8);
-          _builder.append(_constantName_8, "	");
+          _builder.append(_constantName_8, "\t");
           _builder.newLineIfNotEmpty();
         }
       }
@@ -1048,11 +1041,10 @@ public class MyxCompStubBuilder extends MyxCompUtils {
       _builder.newLine();
       {
         Collection<MyxGenInterface> _interfaces_8 = b.getInterfaces();
-        final Function1<MyxGenInterface,Boolean> _function_6 = new Function1<MyxGenInterface,Boolean>() {
+        final Function1<MyxGenInterface, Boolean> _function_6 = new Function1<MyxGenInterface, Boolean>() {
           public Boolean apply(final MyxGenInterface i) {
             EMyxInterfaceDirection _direction = i.getDirection();
-            boolean _equals = Objects.equal(_direction, EMyxInterfaceDirection.OUT);
-            return Boolean.valueOf(_equals);
+            return Boolean.valueOf(Objects.equal(_direction, EMyxInterfaceDirection.OUT));
           }
         };
         Iterable<MyxGenInterface> _filter_6 = IterableExtensions.<MyxGenInterface>filter(_interfaces_8, _function_6);
@@ -1067,7 +1059,7 @@ public class MyxCompStubBuilder extends MyxCompUtils {
           String _firstUpper_11 = StringExtensions.toFirstUpper(_name_45);
           String _plus_9 = (_lowerCase_9 + _firstUpper_11);
           String _constantName_9 = MyxCompUtils.toConstantName(_plus_9);
-          _builder.append(_constantName_9, "	");
+          _builder.append(_constantName_9, "\t");
           _builder.append(")) {");
           _builder.newLineIfNotEmpty();
           {
@@ -1077,7 +1069,7 @@ public class MyxCompStubBuilder extends MyxCompUtils {
               _builder.append("\t\t");
               _builder.append("if (");
               String _name_46 = i_7.getName();
-              _builder.append(_name_46, "			");
+              _builder.append(_name_46, "\t\t\t");
               _builder.append(" == null)");
               _builder.newLineIfNotEmpty();
               _builder.append("\t");
@@ -1085,20 +1077,20 @@ public class MyxCompStubBuilder extends MyxCompUtils {
               _builder.append("\t");
               _builder.append("throw new IllegalStateException(\"A connection was never made on interface: ");
               String _name_47 = i_7.getName();
-              _builder.append(_name_47, "				");
+              _builder.append(_name_47, "\t\t\t\t");
               _builder.append("\");");
               _builder.newLineIfNotEmpty();
               _builder.append("\t");
               _builder.append("\t\t");
               String _name_48 = i_7.getName();
-              _builder.append(_name_48, "			");
+              _builder.append(_name_48, "\t\t\t");
               _builder.append(" = null;");
               _builder.newLineIfNotEmpty();
             } else {
               _builder.append("\t");
               _builder.append("\t\t");
               String _name_49 = i_7.getName();
-              _builder.append(_name_49, "			");
+              _builder.append(_name_49, "\t\t\t");
               _builder.append(".remove(serviceObject);");
               _builder.newLineIfNotEmpty();
             }

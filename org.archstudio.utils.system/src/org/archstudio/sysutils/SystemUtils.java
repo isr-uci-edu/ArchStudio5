@@ -1134,7 +1134,7 @@ public class SystemUtils {
 	private static final Comparator<Map.Entry<?, ?>> mapEntryKeyComparator = new Comparator<Map.Entry<?, ?>>() {
 
 		@Override
-		public int compare(@Nullable Map.Entry<?, ?> o1, @Nullable Map.Entry<?, ?> o2) {
+		public int compare(Map.Entry<?, ?> o1, Map.Entry<?, ?> o2) {
 			return SystemUtils.compare(o1 != null ? o1.getKey() : null, o2 != null ? o2.getKey() : null);
 		}
 	};
@@ -1142,7 +1142,7 @@ public class SystemUtils {
 	private static final Comparator<Map.Entry<?, ?>> mapEntryValueComparator = new Comparator<Map.Entry<?, ?>>() {
 
 		@Override
-		public int compare(@Nullable Map.Entry<?, ?> o1, @Nullable Map.Entry<?, ?> o2) {
+		public int compare(Map.Entry<?, ?> o1, Map.Entry<?, ?> o2) {
 			return SystemUtils.compare(o1 != null ? o1.getValue() : null, o2 != null ? o2.getValue() : null);
 		}
 	};
@@ -1150,7 +1150,7 @@ public class SystemUtils {
 	private static final Predicate<Map.Entry<?, ?>> nonNullMapEntryKeyPredicate = new Predicate<Map.Entry<?, ?>>() {
 
 		@Override
-		public boolean apply(@Nullable Map.Entry<?, ?> input) {
+		public boolean apply(Map.Entry<?, ?> input) {
 			return input != null ? input.getKey() != null : false;
 		}
 	};
@@ -1158,7 +1158,7 @@ public class SystemUtils {
 	private static final Predicate<Map.Entry<?, ?>> nonNullMapEntryValuePredicate = new Predicate<Map.Entry<?, ?>>() {
 
 		@Override
-		public boolean apply(@Nullable Map.Entry<?, ?> input) {
+		public boolean apply(Map.Entry<?, ?> input) {
 			return input != null ? input.getValue() != null : false;
 		}
 	};

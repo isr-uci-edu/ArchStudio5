@@ -28,20 +28,17 @@ import org.osgi.framework.Bundle;
 public class MyxCompUtils {
   public static String toPackageName(final String fullClassName) {
     int _lastIndexOf = fullClassName.lastIndexOf(".");
-    String _substring = fullClassName.substring(0, _lastIndexOf);
-    return _substring;
+    return fullClassName.substring(0, _lastIndexOf);
   }
   
   public static String toClassName(final String fullClassName) {
     int _lastIndexOf = fullClassName.lastIndexOf(".");
     int _plus = (_lastIndexOf + 1);
-    String _substring = fullClassName.substring(_plus);
-    return _substring;
+    return fullClassName.substring(_plus);
   }
   
   public static String toConstantName(final String fullVariableName) {
-    StringBuilder _stringBuilder = new StringBuilder();
-    final StringBuilder sb = _stringBuilder;
+    final StringBuilder sb = new StringBuilder();
     char[] _charArray = fullVariableName.toCharArray();
     for (final char c : _charArray) {
       {
@@ -58,8 +55,7 @@ public class MyxCompUtils {
   
   public static String constructorsFor(final MyxGenBrick brick, final String bundleProjectId, final String fullClassName) throws MalformedURLException {
     try {
-      StringBuffer _stringBuffer = new StringBuffer();
-      final StringBuffer sb = _stringBuffer;
+      final StringBuffer sb = new StringBuffer();
       try {
         IWorkspace _workspace = ResourcesPlugin.getWorkspace();
         IWorkspaceRoot _root = _workspace.getRoot();
@@ -86,9 +82,9 @@ public class MyxCompUtils {
             } else {
               int _flags_1 = m.getFlags();
               boolean _isProtected = Flags.isProtected(_flags_1);
-              _or = (_isPublic || _isProtected);
+              _or = _isProtected;
             }
-            _and = (_isConstructor && _or);
+            _and = _or;
           }
           if (_and) {
             StringConcatenation _builder = new StringConcatenation();
@@ -110,10 +106,8 @@ public class MyxCompUtils {
             String _className_1 = MyxCompUtils.toClassName(_stubClassName);
             String _plus_3 = (_plus_2 + _className_1);
             sb.append(_plus_3);
-            StringBuffer _stringBuffer_1 = new StringBuffer();
-            final StringBuffer args = _stringBuffer_1;
-            StringBuffer _stringBuffer_2 = new StringBuffer();
-            final StringBuffer superArgs = _stringBuffer_2;
+            final StringBuffer args = new StringBuffer();
+            final StringBuffer superArgs = new StringBuffer();
             int i = 0;
             int _numberOfParameters = m.getNumberOfParameters();
             boolean _lessThan = (i < _numberOfParameters);
@@ -123,30 +117,21 @@ public class MyxCompUtils {
                 String[] _parameterNames = m.getParameterNames();
                 final String name = _parameterNames[i];
                 final String type = MyxCompUtils.toType(cuType, m, i);
-                boolean _greaterThan = (i > 0);
-                if (_greaterThan) {
+                if ((i > 0)) {
                   args.append(", ");
                 }
-                String _plus_4 = (type + " ");
-                String _plus_5 = (_plus_4 + name);
-                args.append(_plus_5);
-                boolean _greaterThan_1 = (i > 0);
-                if (_greaterThan_1) {
+                args.append(((type + " ") + name));
+                if ((i > 0)) {
                   superArgs.append(", ");
                 }
                 superArgs.append(name);
-                int _plus_6 = (i + 1);
-                i = _plus_6;
+                i = (i + 1);
               }
               int _numberOfParameters_1 = m.getNumberOfParameters();
               boolean _lessThan_1 = (i < _numberOfParameters_1);
               _while = _lessThan_1;
             }
-            String _plus_4 = ("(" + args);
-            String _plus_5 = (_plus_4 + ") { super(");
-            String _plus_6 = (_plus_5 + superArgs);
-            String _plus_7 = (_plus_6 + "); }");
-            sb.append(_plus_7);
+            sb.append((((("(" + args) + ") { super(") + superArgs) + "); }"));
           }
         }
         return sb.toString();
@@ -155,7 +140,7 @@ public class MyxCompUtils {
           final Exception e = (Exception)_t;
           Bundle _bundle = Platform.getBundle(bundleProjectId);
           final Class<?> parent = _bundle.loadClass(fullClassName);
-          Constructor<? extends Object>[] _declaredConstructors = parent.getDeclaredConstructors();
+          Constructor<?>[] _declaredConstructors = parent.getDeclaredConstructors();
           for (final Constructor<?> c : _declaredConstructors) {
             boolean _or_1 = false;
             int _modifiers = c.getModifiers();
@@ -165,7 +150,7 @@ public class MyxCompUtils {
             } else {
               int _modifiers_1 = c.getModifiers();
               boolean _isProtected_1 = Modifier.isProtected(_modifiers_1);
-              _or_1 = (_isPublic_1 || _isProtected_1);
+              _or_1 = _isProtected_1;
             }
             if (_or_1) {
               StringConcatenation _builder_1 = new StringConcatenation();
@@ -182,49 +167,38 @@ public class MyxCompUtils {
               sb.append(_builder_1);
               int _modifiers_2 = c.getModifiers();
               String _string_1 = Modifier.toString(_modifiers_2);
-              String _plus_8 = (_string_1 + " ");
+              String _plus_4 = (_string_1 + " ");
               String _stubClassName_1 = brick.getStubClassName();
               String _className_2 = MyxCompUtils.toClassName(_stubClassName_1);
-              String _plus_9 = (_plus_8 + _className_2);
-              sb.append(_plus_9);
-              StringBuffer _stringBuffer_3 = new StringBuffer();
-              final StringBuffer args_1 = _stringBuffer_3;
-              StringBuffer _stringBuffer_4 = new StringBuffer();
-              final StringBuffer superArgs_1 = _stringBuffer_4;
+              String _plus_5 = (_plus_4 + _className_2);
+              sb.append(_plus_5);
+              final StringBuffer args_1 = new StringBuffer();
+              final StringBuffer superArgs_1 = new StringBuffer();
               int i_1 = 0;
-              Class<? extends Object>[] _parameterTypes = c.getParameterTypes();
-              int _size = ((List<Class<? extends Object>>)Conversions.doWrapArray(_parameterTypes)).size();
+              Class<?>[] _parameterTypes = c.getParameterTypes();
+              int _size = ((List<Class<?>>)Conversions.doWrapArray(_parameterTypes)).size();
               boolean _lessThan_1 = (i_1 < _size);
               boolean _while_1 = _lessThan_1;
               while (_while_1) {
                 {
                   final String name = ("arg" + Integer.valueOf(i_1));
                   final String type = MyxCompUtils.toType(c, i_1);
-                  boolean _greaterThan = (i_1 > 0);
-                  if (_greaterThan) {
+                  if ((i_1 > 0)) {
                     args_1.append(", ");
                   }
-                  String _plus_10 = (type + " ");
-                  String _plus_11 = (_plus_10 + name);
-                  args_1.append(_plus_11);
-                  boolean _greaterThan_1 = (i_1 > 0);
-                  if (_greaterThan_1) {
+                  args_1.append(((type + " ") + name));
+                  if ((i_1 > 0)) {
                     superArgs_1.append(", ");
                   }
                   superArgs_1.append(name);
-                  int _plus_12 = (i_1 + 1);
-                  i_1 = _plus_12;
+                  i_1 = (i_1 + 1);
                 }
-                Class<? extends Object>[] _parameterTypes_1 = c.getParameterTypes();
-                int _size_1 = ((List<Class<? extends Object>>)Conversions.doWrapArray(_parameterTypes_1)).size();
+                Class<?>[] _parameterTypes_1 = c.getParameterTypes();
+                int _size_1 = ((List<Class<?>>)Conversions.doWrapArray(_parameterTypes_1)).size();
                 boolean _lessThan_2 = (i_1 < _size_1);
                 _while_1 = _lessThan_2;
               }
-              String _plus_10 = ("(" + args_1);
-              String _plus_11 = (_plus_10 + ") { super(");
-              String _plus_12 = (_plus_11 + superArgs_1);
-              String _plus_13 = (_plus_12 + "); }");
-              sb.append(_plus_13);
+              sb.append((((("(" + args_1) + ") { super(") + superArgs_1) + "); }"));
             }
           }
           return sb.toString();
@@ -265,17 +239,17 @@ public class MyxCompUtils {
     }
   }
   
-  private static String toType(final Constructor<? extends Object> c, final int i) {
-    Class<? extends Object>[] _parameterTypes = c.getParameterTypes();
-    Class<? extends Object> _get = _parameterTypes[i];
+  private static String toType(final Constructor<?> c, final int i) {
+    Class<?>[] _parameterTypes = c.getParameterTypes();
+    Class<?> _get = _parameterTypes[i];
     final String t = MyxCompUtils.toType(_get);
     return t;
   }
   
-  private static String toType(final Class<? extends Object> c) {
+  private static String toType(final Class<?> c) {
     boolean _isArray = c.isArray();
     if (_isArray) {
-      Class<? extends Object> _componentType = c.getComponentType();
+      Class<?> _componentType = c.getComponentType();
       String _type = MyxCompUtils.toType(_componentType);
       return (_type + "[]");
     }

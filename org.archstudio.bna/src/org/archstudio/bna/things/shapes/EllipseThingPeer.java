@@ -59,7 +59,7 @@ public class EllipseThingPeer<T extends EllipseThing> extends AbstractEllipseThi
 
 		Shape localShape = new Ellipse2D.Float(lbb.x, lbb.y, lbb.width, lbb.height);
 
-		r.setColor(new RGB(0, 0, 0), t.get(IHasAlpha.ALPHA_KEY, 1f));
+		r.setColor(new RGB(0, 0, 0), (float)t.get(IHasAlpha.ALPHA_KEY, 1f));
 		r.fillShape(localShape, null, null);
 	}
 }
