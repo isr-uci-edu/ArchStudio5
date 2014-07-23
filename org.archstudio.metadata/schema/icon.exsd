@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- Schema file written by PDE -->
-<schema targetNamespace="org.archstudio.xadl3" xmlns="http://www.w3.org/2001/XMLSchema">
+<schema targetNamespace="org.archstudio.metadata" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
       <appinfo>
-         <meta.schema plugin="org.archstudio.xadl3" id="icon" name="icon"/>
+         <meta.schema plugin="org.archstudio.metadata" id="icon" name="icon"/>
       </appinfo>
       <documentation>
          [Enter description of this extension point.]
@@ -49,6 +49,9 @@
 
    <element name="Icon">
       <complexType>
+         <sequence>
+            <element ref="Type" minOccurs="0" maxOccurs="unbounded"/>
+         </sequence>
          <attribute name="name" type="string" use="required">
             <annotation>
                <documentation>
@@ -66,13 +69,18 @@
                </appinfo>
             </annotation>
          </attribute>
-         <attribute name="type" type="string" use="required">
+      </complexType>
+   </element>
+
+   <element name="Type">
+      <complexType>
+         <attribute name="class" type="string" use="required">
             <annotation>
                <documentation>
                   
                </documentation>
                <appinfo>
-                  <meta.attribute kind="java" basedOn=":org.eclipse.emf.ecore.EObject"/>
+                  <meta.attribute kind="java"/>
                </appinfo>
             </annotation>
          </attribute>

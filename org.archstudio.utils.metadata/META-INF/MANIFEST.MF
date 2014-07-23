@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: ArchStudio Metadata
+Bundle-SymbolicName: org.archstudio.utils.metadata
+Bundle-Version: 5.0.1.qualifier
+Bundle-Vendor: archstudio.org
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Require-Bundle: org.archstudio.metadata,
+ org.eclipse.core.runtime,
+ org.archstudio.guava
+Export-Package: org.archstudio.utils.metadata

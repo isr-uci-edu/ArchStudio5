@@ -2,7 +2,7 @@ package org.archstudio.resources;
 
 import java.net.URL;
 
-import org.archstudio.xadl3.IconUtils;
+import org.archstudio.utils.metadata.IconUtils;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.IXArchADTTypeMetadata;
 import org.archstudio.xarchadt.ObjRef;
@@ -54,7 +54,7 @@ public class ResourceCache {
 	}
 
 	public static final Image getIcon16(Class<?> forClass) {
-		URL imageURL = IconUtils.getIcon16URL(forClass);
+		URL imageURL = IconUtils.getIconForType(forClass);
 		if (imageURL != null) {
 			return ResourceCache.getImage(imageURL);
 		}

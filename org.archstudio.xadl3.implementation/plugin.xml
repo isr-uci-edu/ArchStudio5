@@ -2,16 +2,16 @@
 <plugin>
 
    <extension
-         point="org.archstudio.xadl3.icon">
+         point="org.archstudio.metadata.icon">
       <Icon
             icon16="res/impl.png"
-            name="implementation"
-            type="org.archstudio.xadl3.implementation_3_0.Implementation">
-      </Icon>
-      <Icon
-            icon16="res/impl.png"
-            name="implementation extension"
-            type="org.archstudio.xadl3.implementation_3_0.ImplementationExtension">
+            name="implementation">
+         <Type
+               class="org.archstudio.xadl3.implementation_3_0.Implementation">
+         </Type>
+         <Type
+               class="org.archstudio.xadl3.implementation_3_0.ImplementationExtension">
+         </Type>
       </Icon>
    </extension>
    <extension

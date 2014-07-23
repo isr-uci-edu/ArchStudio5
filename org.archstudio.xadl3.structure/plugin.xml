@@ -15,41 +15,51 @@ compatible_directions(&apos;none&apos;, &apos;none&apos;).
       </Statements>
    </extension>
    <extension
-         point="org.archstudio.xadl3.icon">
+         point="org.archstudio.metadata.icon">
       <Icon
             name="structure"
-            icon16="res/structure-16.png"
-            type="org.archstudio.xadl3.structure_3_0.Structure">
-      </Icon>
-      <Icon
-            icon16="res/structure-16.png"
-            name="substructure"
-            type="org.archstudio.xadl3.structure_3_0.SubStructure">
+            icon16="res/structure-16.png">
+         <Type
+               class="org.archstudio.xadl3.structure_3_0.Structure">
+         </Type>
+         <Type
+               class="org.archstudio.xadl3.structure_3_0.SubStructure">
+         </Type>
       </Icon>
       <Icon
             name="component"
-            icon16="res/component-16.png"
-            type="org.archstudio.xadl3.structure_3_0.Component">
+            icon16="res/component-16.png">
+         <Type
+               class="org.archstudio.xadl3.structure_3_0.Component">
+         </Type>
       </Icon>
       <Icon
             name="connector"
-            icon16="res/connector-16.png"
-            type="org.archstudio.xadl3.structure_3_0.Connector">
+            icon16="res/connector-16.png">
+         <Type
+               class="org.archstudio.xadl3.structure_3_0.Connector">
+         </Type>
       </Icon>
       <Icon
             name="interface"
-            icon16="res/interface-16.png"
-            type="org.archstudio.xadl3.structure_3_0.Interface">
+            icon16="res/interface-16.png">
+         <Type
+               class="org.archstudio.xadl3.structure_3_0.Interface">
+         </Type>
       </Icon>
       <Icon
             name="link"
-            icon16="res/link-16.png"
-            type="org.archstudio.xadl3.structure_3_0.Link">
+            icon16="res/link-16.png">
+         <Type
+               class="org.archstudio.xadl3.structure_3_0.Link">
+         </Type>
       </Icon>
       <Icon
             icon16="res/link-16.png"
-            name="mapping"
-            type="org.archstudio.xadl3.structure_3_0.InterfaceMapping">
+            name="mapping">
+         <Type
+               class="org.archstudio.xadl3.structure_3_0.InterfaceMapping">
+         </Type>
       </Icon>
    </extension>
    <extension

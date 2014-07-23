@@ -667,13 +667,6 @@
          unpack="false"/>
 
    <plugin
-         id="org.archstudio.xadl3"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="org.archstudio.bna.builder"
          download-size="0"
          install-size="0"
@@ -682,6 +675,19 @@
 
    <plugin
          id="org.archstudio.bna.builder.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.archstudio.metadata"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.archstudio.utils.metadata"
          download-size="0"
          install-size="0"
          version="0.0.0"

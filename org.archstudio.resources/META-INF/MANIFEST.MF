@@ -12,5 +12,5 @@ Require-Bundle: org.archstudio.utils.swt,
  org.eclipse.equinox.registry,
  org.eclipse.core.runtime,
  org.archstudio.xarchadt,
- org.archstudio.xadl3
+ org.archstudio.utils.metadata
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7

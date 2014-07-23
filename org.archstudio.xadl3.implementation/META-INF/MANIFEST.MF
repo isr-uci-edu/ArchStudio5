@@ -17,6 +17,6 @@ Require-Bundle: org.archstudio.xadl3.xadlcore;visibility:=reexport,
  org.eclipse.emf.ecore,
  org.eclipse.emf.ecore.xmi,
  org.archstudio.dblgen,
- org.archstudio.xadl3
+ org.archstudio.metadata
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy

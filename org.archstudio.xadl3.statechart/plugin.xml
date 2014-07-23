@@ -2,41 +2,47 @@
 <plugin>
 
    <extension
-         point="org.archstudio.xadl3.icon">
-      <Icon
-            name="statechart"
-            icon16="res/statechart-16.png"
-            type="org.archstudio.xadl3.statechart_1_0.Statechart">
-      </Icon>
+         point="org.archstudio.metadata.icon">
       <Icon
             icon16="res/statechart-16.png"
-            name="substatechart"
-            type="org.archstudio.xadl3.statechart_1_0.SubStatechart">
+            name="statechart">
+         <Type
+               class="org.archstudio.xadl3.statechart_1_0.Statechart">
+         </Type>
+         <Type
+               class="org.archstudio.xadl3.statechart_1_0.SubStatechart">
+         </Type>
+         <Type
+               class="org.archstudio.xadl3.statechart_1_0.StatechartSpecification">
+         </Type>
       </Icon>
       <Icon
-            name="statechart specification"
-            icon16="res/statechart-16.png"
-            type="org.archstudio.xadl3.statechart_1_0.StatechartSpecification">
-      </Icon>
-      <Icon
-            name="initial state"
             icon16="res/initial-state-16.png"
-            type="org.archstudio.xadl3.statechart_1_0.InitialState">
+            name="initial state">
+         <Type
+               class="org.archstudio.xadl3.statechart_1_0.InitialState">
+         </Type>
       </Icon>
       <Icon
-            name="final state"
             icon16="res/final-state-16.png"
-            type="org.archstudio.xadl3.statechart_1_0.FinalState">
+            name="final state">
+         <Type
+               class="org.archstudio.xadl3.statechart_1_0.FinalState">
+         </Type>
       </Icon>
       <Icon
-            name="state"
             icon16="res/state-16.png"
-            type="org.archstudio.xadl3.statechart_1_0.State">
+            name="state">
+         <Type
+               class="org.archstudio.xadl3.statechart_1_0.State">
+         </Type>
       </Icon>
       <Icon
             icon16="res/transition-16.png"
-            name="transition"
-            type="org.archstudio.xadl3.statechart_1_0.Transition">
+            name="transition">
+         <Type
+               class="org.archstudio.xadl3.statechart_1_0.Transition">
+         </Type>
       </Icon>
    </extension>
    <extension

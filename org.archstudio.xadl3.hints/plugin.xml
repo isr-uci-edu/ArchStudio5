@@ -2,16 +2,16 @@
 <plugin>
 
    <extension
-         point="org.archstudio.xadl3.icon">
+         point="org.archstudio.metadata.icon">
       <Icon
             icon16="res/hint-16.png"
-            name="hint"
-            type="org.archstudio.xadl3.hints_3_0.Hint">
-      </Icon>
-      <Icon
-            icon16="res/hint-16.png"
-            name="hint extension"
-            type="org.archstudio.xadl3.hints_3_0.HintsExtension">
+            name="hint">
+         <Type
+               class="org.archstudio.xadl3.hints_3_0.Hint">
+         </Type>
+         <Type
+               class="org.archstudio.xadl3.hints_3_0.HintsExtension">
+         </Type>
       </Icon>
    </extension>
    <extension
