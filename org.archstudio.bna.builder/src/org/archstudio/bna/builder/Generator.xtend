@@ -9,7 +9,6 @@ import java.util.Collections
 import java.util.List
 import java.util.Map
 import java.util.Set
-import org.archstudio.bna.keys.ThingKey
 import org.eclipse.core.resources.IFile
 import org.eclipse.core.resources.IFolder
 import org.eclipse.core.resources.IProject
@@ -208,13 +207,6 @@ class Generator {
 		val String clone = key.getAttribute("clone")
 		if (clone != null && clone.length > 0) {
 			return ", " + clone;
-		}
-		val String type = key.keyType;
-		val String cloneName = type.substring(type.lastIndexOf('.') + 1).toFirstKeywordLower
-		try {
-			typeof(ThingKey).getMethod(cloneName);
-			return ''', org.archstudio.bna.keys.ThingKey.«cloneName»()''';
-		} catch (Exception e) {
 		}
 		return ""
 	}
@@ -509,14 +501,14 @@ public abstract class «thing.thingAbstractClassName» extends «thing.thingExtends
 	public «thing.thingAbstractClassName»(@Nullable Object id) {
 		super(id);
 	}
-«IF !thing.thingIsAbstract»
 
+	«IF !thing.thingIsAbstract»
 	@Override
 	public IThingPeer<? extends «thing.thingClassName»> createPeer(IBNAView view, ICoordinateMapper cm){
 		return new «thing.thingPeerClassName»<>((«thing.thingClassName»)this, view, cm);
 	}
-«ENDIF»
 
+	«ENDIF»
 	@Override
 	protected void initProperties() {
 		«FOR keyToFacet : thing.thingAllKeysToFacet(mappings).entrySet.sortByKeyElementName»

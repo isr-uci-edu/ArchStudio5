@@ -14,7 +14,6 @@ import java.util.Map;
 import java.util.Set;
 import org.archstudio.bna.builder.ElementPath;
 import org.archstudio.bna.builder.Mappings;
-import org.archstudio.bna.keys.ThingKey;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
@@ -171,12 +170,12 @@ public class Generator {
     return _xblockexpression;
   }
   
-  private static List<Map.Entry<IConfigurationElement,IConfigurationElement>> sortByKeyElementName(final Iterable<Map.Entry<IConfigurationElement,IConfigurationElement>> entries) {
-    List<Map.Entry<IConfigurationElement,IConfigurationElement>> _xblockexpression = null;
+  private static List<Map.Entry<IConfigurationElement, IConfigurationElement>> sortByKeyElementName(final Iterable<Map.Entry<IConfigurationElement, IConfigurationElement>> entries) {
+    List<Map.Entry<IConfigurationElement, IConfigurationElement>> _xblockexpression = null;
     {
-      final List<Map.Entry<IConfigurationElement,IConfigurationElement>> sorted = Lists.<Map.Entry<IConfigurationElement,IConfigurationElement>>newArrayList(entries);
-      final Comparator<Map.Entry<IConfigurationElement,IConfigurationElement>> _function = new Comparator<Map.Entry<IConfigurationElement,IConfigurationElement>>() {
-        public int compare(final Map.Entry<IConfigurationElement,IConfigurationElement> x, final Map.Entry<IConfigurationElement,IConfigurationElement> y) {
+      final List<Map.Entry<IConfigurationElement, IConfigurationElement>> sorted = Lists.<Map.Entry<IConfigurationElement, IConfigurationElement>>newArrayList(entries);
+      final Comparator<Map.Entry<IConfigurationElement, IConfigurationElement>> _function = new Comparator<Map.Entry<IConfigurationElement, IConfigurationElement>>() {
+        public int compare(final Map.Entry<IConfigurationElement, IConfigurationElement> x, final Map.Entry<IConfigurationElement, IConfigurationElement> y) {
           IConfigurationElement _key = x.getKey();
           String _elementName = Generator.elementName(_key);
           IConfigurationElement _key_1 = y.getKey();
@@ -184,7 +183,7 @@ public class Generator {
           return _elementName.compareTo(_elementName_1);
         }
       };
-      Collections.<Map.Entry<IConfigurationElement,IConfigurationElement>>sort(sorted, _function);
+      Collections.<Map.Entry<IConfigurationElement, IConfigurationElement>>sort(sorted, _function);
       _xblockexpression = sorted;
     }
     return _xblockexpression;
@@ -386,49 +385,49 @@ public class Generator {
       if (_not) {
         boolean _matched = false;
         if (!_matched) {
-          if (Objects.equal(type,"java.lang.Boolean")) {
+          if (Objects.equal(type, "java.lang.Boolean")) {
             _matched=true;
             type = "boolean";
           }
         }
         if (!_matched) {
-          if (Objects.equal(type,"java.lang.Byte")) {
+          if (Objects.equal(type, "java.lang.Byte")) {
             _matched=true;
             type = "byte";
           }
         }
         if (!_matched) {
-          if (Objects.equal(type,"java.lang.Short")) {
+          if (Objects.equal(type, "java.lang.Short")) {
             _matched=true;
             type = "short";
           }
         }
         if (!_matched) {
-          if (Objects.equal(type,"java.lang.Integer")) {
+          if (Objects.equal(type, "java.lang.Integer")) {
             _matched=true;
             type = "int";
           }
         }
         if (!_matched) {
-          if (Objects.equal(type,"java.lang.Long")) {
+          if (Objects.equal(type, "java.lang.Long")) {
             _matched=true;
             type = "long";
           }
         }
         if (!_matched) {
-          if (Objects.equal(type,"java.lang.Float")) {
+          if (Objects.equal(type, "java.lang.Float")) {
             _matched=true;
             type = "float";
           }
         }
         if (!_matched) {
-          if (Objects.equal(type,"java.lang.Double")) {
+          if (Objects.equal(type, "java.lang.Double")) {
             _matched=true;
             type = "double";
           }
         }
         if (!_matched) {
-          if (Objects.equal(type,"java.lang.Character")) {
+          if (Objects.equal(type, "java.lang.Character")) {
             _matched=true;
             type = "char";
           }
@@ -494,25 +493,6 @@ public class Generator {
     }
     if (_and) {
       return (", " + clone);
-    }
-    final String type = Generator.keyType(key);
-    int _lastIndexOf = type.lastIndexOf(".");
-    int _plus = (_lastIndexOf + 1);
-    String _substring = type.substring(_plus);
-    final String cloneName = Generator.toFirstKeywordLower(_substring);
-    try {
-      ThingKey.class.getMethod(cloneName);
-      StringConcatenation _builder = new StringConcatenation();
-      _builder.append(", org.archstudio.bna.keys.ThingKey.");
-      _builder.append(cloneName, "");
-      _builder.append("()");
-      return _builder.toString();
-    } catch (final Throwable _t) {
-      if (_t instanceof Exception) {
-        final Exception e = (Exception)_t;
-      } else {
-        throw Exceptions.sneakyThrow(_t);
-      }
     }
     return "";
   }
@@ -680,10 +660,10 @@ public class Generator {
     return _xblockexpression;
   }
   
-  private static Map<IConfigurationElement,IConfigurationElement> thingAllKeysToFacet(final IConfigurationElement thing, final Mappings mappings) {
-    Map<IConfigurationElement,IConfigurationElement> _xblockexpression = null;
+  private static Map<IConfigurationElement, IConfigurationElement> thingAllKeysToFacet(final IConfigurationElement thing, final Mappings mappings) {
+    Map<IConfigurationElement, IConfigurationElement> _xblockexpression = null;
     {
-      final Map<IConfigurationElement,IConfigurationElement> keys = Maps.<IConfigurationElement, IConfigurationElement>newHashMap();
+      final Map<IConfigurationElement, IConfigurationElement> keys = Maps.<IConfigurationElement, IConfigurationElement>newHashMap();
       List<IConfigurationElement> _thingAllFacets = Generator.thingAllFacets(thing, mappings);
       for (final IConfigurationElement facet : _thingAllFacets) {
         IConfigurationElement[] _children = facet.getChildren("Key");
@@ -1266,32 +1246,36 @@ public class Generator {
           _builder.append("\t");
           _builder.append("}");
           _builder.newLine();
+          _builder.newLine();
           {
             boolean _thingIsAbstract = Generator.thingIsAbstract(thing);
             boolean _not_1 = (!_thingIsAbstract);
             if (_not_1) {
-              _builder.newLine();
+              _builder.append("\t");
               _builder.append("@Override");
               _builder.newLine();
+              _builder.append("\t");
               _builder.append("public IThingPeer<? extends ");
               String _thingClassName = Generator.thingClassName(thing);
-              _builder.append(_thingClassName, "");
+              _builder.append(_thingClassName, "\t");
               _builder.append("> createPeer(IBNAView view, ICoordinateMapper cm){");
               _builder.newLineIfNotEmpty();
               _builder.append("\t");
+              _builder.append("\t");
               _builder.append("return new ");
               String _thingPeerClassName = Generator.thingPeerClassName(thing);
-              _builder.append(_thingPeerClassName, "\t");
+              _builder.append(_thingPeerClassName, "\t\t");
               _builder.append("<>((");
               String _thingClassName_1 = Generator.thingClassName(thing);
-              _builder.append(_thingClassName_1, "\t");
+              _builder.append(_thingClassName_1, "\t\t");
               _builder.append(")this, view, cm);");
               _builder.newLineIfNotEmpty();
+              _builder.append("\t");
               _builder.append("}");
+              _builder.newLine();
               _builder.newLine();
             }
           }
-          _builder.newLine();
           _builder.append("\t");
           _builder.append("@Override");
           _builder.newLine();
@@ -1299,9 +1283,9 @@ public class Generator {
           _builder.append("protected void initProperties() {");
           _builder.newLine();
           {
-            Map<IConfigurationElement,IConfigurationElement> _thingAllKeysToFacet = Generator.thingAllKeysToFacet(thing, mappings);
-            Set<Map.Entry<IConfigurationElement,IConfigurationElement>> _entrySet = _thingAllKeysToFacet.entrySet();
-            List<Map.Entry<IConfigurationElement,IConfigurationElement>> _sortByKeyElementName = Generator.sortByKeyElementName(_entrySet);
+            Map<IConfigurationElement, IConfigurationElement> _thingAllKeysToFacet = Generator.thingAllKeysToFacet(thing, mappings);
+            Set<Map.Entry<IConfigurationElement, IConfigurationElement>> _entrySet = _thingAllKeysToFacet.entrySet();
+            List<Map.Entry<IConfigurationElement, IConfigurationElement>> _sortByKeyElementName = Generator.sortByKeyElementName(_entrySet);
             for(final Map.Entry<IConfigurationElement, IConfigurationElement> keyToFacet : _sortByKeyElementName) {
               _builder.append("\t\t");
               _builder.append("initProperty(");
@@ -1359,9 +1343,9 @@ public class Generator {
           _builder.newLine();
           _builder.newLine();
           {
-            Map<IConfigurationElement,IConfigurationElement> _thingAllKeysToFacet_1 = Generator.thingAllKeysToFacet(thing, mappings);
-            Set<Map.Entry<IConfigurationElement,IConfigurationElement>> _entrySet_1 = _thingAllKeysToFacet_1.entrySet();
-            List<Map.Entry<IConfigurationElement,IConfigurationElement>> _sortByKeyElementName_1 = Generator.sortByKeyElementName(_entrySet_1);
+            Map<IConfigurationElement, IConfigurationElement> _thingAllKeysToFacet_1 = Generator.thingAllKeysToFacet(thing, mappings);
+            Set<Map.Entry<IConfigurationElement, IConfigurationElement>> _entrySet_1 = _thingAllKeysToFacet_1.entrySet();
+            List<Map.Entry<IConfigurationElement, IConfigurationElement>> _sortByKeyElementName_1 = Generator.sortByKeyElementName(_entrySet_1);
             for(final Map.Entry<IConfigurationElement, IConfigurationElement> keyToFacet_1 : _sortByKeyElementName_1) {
               _builder.append("\t");
               _builder.append("public ");
