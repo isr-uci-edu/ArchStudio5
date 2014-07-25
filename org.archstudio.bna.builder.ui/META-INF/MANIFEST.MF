@@ -11,7 +11,8 @@ Require-Bundle: org.archstudio.eclipse,
  org.archstudio.utils.eclipse.ui,
  org.eclipse.core.resources,
  org.eclipse.ui,
- org.archstudio.myxgen.builder
+ org.archstudio.myxgen.builder,
+ org.archstudio.bna.builder
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
 Export-Package: org.archstudio.bna.builder.ui,
