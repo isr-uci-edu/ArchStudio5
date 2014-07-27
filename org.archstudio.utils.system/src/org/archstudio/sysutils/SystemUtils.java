@@ -1173,13 +1173,13 @@ public class SystemUtils {
 		return sorted(iterable, genericComparator);
 	}
 
-	public static final <K, V, E extends Map.Entry<K, V>> List<E> sortedByKey(Iterable<E> entries) {
+	public static final <E extends Map.Entry<?, ?>> List<E> sortedByKey(Iterable<E> entries) {
 		return sorted(//
 				Iterables.filter(entries, nonNullMapEntryKeyPredicate),//
 				mapEntryKeyComparator);
 	}
 
-	public static final <K, V, E extends Map.Entry<K, V>> List<E> sortedByValue(Iterable<E> entries) {
+	public static final <E extends Map.Entry<?, ?>> List<E> sortedByValue(Iterable<E> entries) {
 		return sorted(//
 				Iterables.filter(entries, nonNullMapEntryValuePredicate),//
 				mapEntryValueComparator);
@@ -1410,39 +1410,92 @@ public class SystemUtils {
 	}
 
 	public static final int floor(double v) {
-		checkArgument(v >= Integer.MIN_VALUE && v <= Integer.MAX_VALUE, v);
-		return (int) v;
+		double w = Math.floor(v);
+		checkArgument(w >= Integer.MIN_VALUE && w <= Integer.MAX_VALUE, v);
+		return (int) w;
 	}
 
 	public static final int floor(float v) {
-		checkArgument(v >= Integer.MIN_VALUE && v <= Integer.MAX_VALUE, v);
-		return (int) v;
+		return floor((double) v);
+	}
+
+	public static final int floorB(double v) {
+		double w = Math.floor(v);
+		return bound(Integer.MIN_VALUE, (int) w, Integer.MAX_VALUE);
+	}
+
+	public static final int floorB(float v) {
+		return floor((double) v);
 	}
 
 	public static final int ceil(double v) {
-		checkArgument(v >= Integer.MIN_VALUE && v <= Integer.MAX_VALUE, v);
-		return (int) Math.ceil(v);
+		double w = Math.ceil(v);
+		checkArgument(w >= Integer.MIN_VALUE && w <= Integer.MAX_VALUE, v);
+		return (int) w;
 	}
 
 	public static final int ceil(float v) {
-		checkArgument(v >= Integer.MIN_VALUE && v <= Integer.MAX_VALUE, v);
-		return (int) Math.ceil(v);
+		return ceil((double) v);
+	}
+
+	public static final int ceilB(double v) {
+		double w = Math.ceil(v);
+		return bound(Integer.MIN_VALUE, (int) w, Integer.MAX_VALUE);
+	}
+
+	public static final int ceilB(float v) {
+		return ceil((double) v);
 	}
 
 	public static final int round(double v) {
-		checkArgument(v >= Integer.MIN_VALUE && v <= Integer.MAX_VALUE, v);
-		return (int) Math.round(v);
+		double w = Math.round(v);
+		checkArgument(w >= Integer.MIN_VALUE && w <= Integer.MAX_VALUE, v);
+		return (int) w;
 	}
 
 	public static final int round(float v) {
-		checkArgument(v >= Integer.MIN_VALUE && v <= Integer.MAX_VALUE, v);
-		return Math.round(v);
+		return round((double) v);
+	}
+
+	public static final int roundB(double v) {
+		double w = Math.round(v);
+		return bound(Integer.MIN_VALUE, (int) w, Integer.MAX_VALUE);
+	}
+
+	public static final int roundB(float v) {
+		return round((double) v);
 	}
 
 	public static final <T> Collection<T> getAndClear(Collection<T> collection) {
 		List<T> copy = Lists.newArrayList(collection);
 		collection.clear();
 		return copy;
+	}
+
+	public static final void dispose(Disposable... disposables) {
+		for (Disposable disposable : disposables) {
+			try {
+				if (disposable != null) {
+					disposable.dispose();
+				}
+			}
+			catch (Throwable t) {
+				t.printStackTrace();
+			}
+		}
+	}
+
+	public static final void close(AutoCloseable... closeables) {
+		for (AutoCloseable closeable : closeables) {
+			try {
+				if (closeable != null) {
+					closeable.close();
+				}
+			}
+			catch (Throwable t) {
+				t.printStackTrace();
+			}
+		}
 	}
 
 }

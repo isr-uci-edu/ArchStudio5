@@ -36,10 +36,18 @@ public final class FastMap<K, V> implements Map<K, V> {
 		return (Collection<T>) entry.getValue();
 	}
 
+	public static final <K, T> Collection<T> removeCollection(FastMap<K, ? extends Collection<T>> map, Object key) {
+		Entry<K, ?> entry = map.removeEntry(key);
+		if (entry == null) {
+			return Collections.emptyList();
+		}
+		return (Collection<T>) entry.getValue();
+	}
+
 	public static final <K, T> List<T> createList(FastMap<K, List<T>> map, K key) {
 		Entry<K, List<T>> entry = map.createEntry(key);
 		if (entry.getValue() == null) {
-			entry.setValue(Lists.<T> newArrayList());
+			entry.setValue(Lists.<T> newArrayListWithCapacity(4));
 		}
 		return entry.getValue();
 	}
@@ -47,7 +55,7 @@ public final class FastMap<K, V> implements Map<K, V> {
 	public static final <K, T> Set<T> createSet(FastMap<K, Set<T>> map, K key) {
 		Entry<K, Set<T>> entry = map.createEntry(key);
 		if (entry.getValue() == null) {
-			entry.setValue(Sets.<T> newHashSet());
+			entry.setValue(Sets.<T> newHashSetWithExpectedSize(4));
 		}
 		return entry.getValue();
 	}
@@ -187,6 +195,7 @@ public final class FastMap<K, V> implements Map<K, V> {
 	public FastMap(boolean identity, int initialCapacity, float loadFactor) {
 		checkArgument(initialCapacity > 0);
 		checkArgument(loadFactor > 0);
+		initialCapacity = SystemUtils.ceilB(initialCapacity / loadFactor) + 1;
 		this.identity = identity;
 		this.loadFactor = loadFactor;
 		int capacityIndex = Arrays.binarySearch(powersOf2, Math.max(16, initialCapacity));
@@ -401,5 +410,15 @@ public final class FastMap<K, V> implements Map<K, V> {
 				};
 			}
 		};
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(SystemUtils.simpleName(getClass()));
+		for (Map.Entry<K, V> entry : SystemUtils.sortedByKey(entrySet())) {
+			sb.append("\n").append(entry.getKey()).append(" = ").append(entry.getValue());
+		}
+		return sb.toString();
 	}
 }
