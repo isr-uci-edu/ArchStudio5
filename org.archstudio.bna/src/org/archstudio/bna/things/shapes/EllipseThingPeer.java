@@ -64,7 +64,7 @@ public class EllipseThingPeer<T extends EllipseThing> extends AbstractThingPeer<
 
 		Shape localShape = createLocalShape(lbb, 0);
 
-		r.setColor(new RGB(0, 0, 0), t.get(IHasAlpha.ALPHA_KEY, 1f));
+		r.setColor(new RGB(0, 0, 0), t.get(IHasAlpha.ALPHA_KEY, 1d));
 		r.fillShape(localShape, null, null);
 		return true;
 	}

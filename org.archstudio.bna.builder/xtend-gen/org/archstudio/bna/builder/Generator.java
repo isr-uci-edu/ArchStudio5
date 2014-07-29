@@ -1258,7 +1258,7 @@ public class Generator {
               _builder.append("public IThingPeer<? extends ");
               String _thingClassName = Generator.thingClassName(thing);
               _builder.append(_thingClassName, "\t");
-              _builder.append("> createPeer(IBNAView view, ICoordinateMapper cm){");
+              _builder.append("> createPeer(IBNAView view, ICoordinateMapper cm) {");
               _builder.newLineIfNotEmpty();
               _builder.append("\t");
               _builder.append("\t");

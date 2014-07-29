@@ -18,7 +18,7 @@ import org.eclipse.jdt.annotation.Nullable;
 @NonNullByDefault
 public interface IHasMinimumSize extends org.archstudio.bna.IThing {
 
-	public static final IThingKey<java.awt.Dimension> MINIMUM_SIZE_KEY = ThingKey.create(com.google.common.collect.Lists.newArrayList("minimumSize", IHasMinimumSize.class), org.archstudio.bna.keys.ThingKey.dimension());
+	public static final IThingKey<java.awt.Dimension> MINIMUM_SIZE_KEY = ThingKey.create(com.google.common.collect.Lists.newArrayList("minimumSize", IHasMinimumSize.class));
 
 	public java.awt.Dimension getMinimumSize();
 

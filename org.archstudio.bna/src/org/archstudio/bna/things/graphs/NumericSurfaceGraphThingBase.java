@@ -25,7 +25,7 @@ public abstract class NumericSurfaceGraphThingBase extends org.archstudio.bna.th
 			org.archstudio.bna.facets.IHasMutableReferencePoint,
 			org.archstudio.bna.facets.IHasMutableSelected {
 
-	public static final IThingKey<org.archstudio.bna.things.graphs.NumericSurfaceGraphThing.Data> DATA_KEY = ThingKey.create(com.google.common.collect.Lists.newArrayList("data", NumericSurfaceGraphThingBase.class), org.archstudio.bna.keys.ThingKey.<org.archstudio.bna.things.graphs.NumericSurfaceGraphThing.Data>cloneable());
+	public static final IThingKey<org.archstudio.bna.things.graphs.NumericSurfaceGraphThing.Data> DATA_KEY = ThingKey.create(com.google.common.collect.Lists.newArrayList("data", NumericSurfaceGraphThingBase.class));
 
 	public static final IThingKey<java.lang.Boolean> FLIP_DATA_KEY = ThingKey.create(com.google.common.collect.Lists.newArrayList("flipData", NumericSurfaceGraphThingBase.class));
 
@@ -35,30 +35,30 @@ public abstract class NumericSurfaceGraphThingBase extends org.archstudio.bna.th
 
 	public static final IThingKey<java.lang.Double> MINOR_CONTOUR_ALPHA_KEY = ThingKey.create(com.google.common.collect.Lists.newArrayList("minorContourAlpha", NumericSurfaceGraphThingBase.class));
 
-	public static final IThingKey<org.archstudio.bna.things.graphs.NumericAxis> X_MAJOR_AXIS_KEY = ThingKey.create(com.google.common.collect.Lists.newArrayList("xMajorAxis", NumericSurfaceGraphThingBase.class), org.archstudio.bna.keys.ThingKey.<org.archstudio.bna.things.graphs.NumericAxis>cloneable());
+	public static final IThingKey<org.archstudio.bna.things.graphs.NumericAxis> X_MAJOR_AXIS_KEY = ThingKey.create(com.google.common.collect.Lists.newArrayList("xMajorAxis", NumericSurfaceGraphThingBase.class));
 
-	public static final IThingKey<org.archstudio.bna.things.graphs.NumericAxis> X_MINOR_AXIS_KEY = ThingKey.create(com.google.common.collect.Lists.newArrayList("xMinorAxis", NumericSurfaceGraphThingBase.class), org.archstudio.bna.keys.ThingKey.<org.archstudio.bna.things.graphs.NumericAxis>cloneable());
+	public static final IThingKey<org.archstudio.bna.things.graphs.NumericAxis> X_MINOR_AXIS_KEY = ThingKey.create(com.google.common.collect.Lists.newArrayList("xMinorAxis", NumericSurfaceGraphThingBase.class));
 
 	public static final IThingKey<java.lang.Integer> X_ROTATION_KEY = ThingKey.create(com.google.common.collect.Lists.newArrayList("xRotation", NumericSurfaceGraphThingBase.class));
 
-	public static final IThingKey<org.archstudio.bna.things.graphs.NumericAxis> Y_MAJOR_AXIS_KEY = ThingKey.create(com.google.common.collect.Lists.newArrayList("yMajorAxis", NumericSurfaceGraphThingBase.class), org.archstudio.bna.keys.ThingKey.<org.archstudio.bna.things.graphs.NumericAxis>cloneable());
+	public static final IThingKey<org.archstudio.bna.things.graphs.NumericAxis> Y_MAJOR_AXIS_KEY = ThingKey.create(com.google.common.collect.Lists.newArrayList("yMajorAxis", NumericSurfaceGraphThingBase.class));
 
-	public static final IThingKey<org.archstudio.bna.things.graphs.NumericAxis> Y_MINOR_AXIS_KEY = ThingKey.create(com.google.common.collect.Lists.newArrayList("yMinorAxis", NumericSurfaceGraphThingBase.class), org.archstudio.bna.keys.ThingKey.<org.archstudio.bna.things.graphs.NumericAxis>cloneable());
+	public static final IThingKey<org.archstudio.bna.things.graphs.NumericAxis> Y_MINOR_AXIS_KEY = ThingKey.create(com.google.common.collect.Lists.newArrayList("yMinorAxis", NumericSurfaceGraphThingBase.class));
 
 	public static final IThingKey<java.lang.Integer> Y_ROTATION_KEY = ThingKey.create(com.google.common.collect.Lists.newArrayList("yRotation", NumericSurfaceGraphThingBase.class));
 
-	public static final IThingKey<org.archstudio.bna.things.graphs.NumericAxis> Z_MAJOR_AXIS_KEY = ThingKey.create(com.google.common.collect.Lists.newArrayList("zMajorAxis", NumericSurfaceGraphThingBase.class), org.archstudio.bna.keys.ThingKey.<org.archstudio.bna.things.graphs.NumericAxis>cloneable());
+	public static final IThingKey<org.archstudio.bna.things.graphs.NumericAxis> Z_MAJOR_AXIS_KEY = ThingKey.create(com.google.common.collect.Lists.newArrayList("zMajorAxis", NumericSurfaceGraphThingBase.class));
 
-	public static final IThingKey<org.archstudio.bna.things.graphs.NumericAxis> Z_MINOR_AXIS_KEY = ThingKey.create(com.google.common.collect.Lists.newArrayList("zMinorAxis", NumericSurfaceGraphThingBase.class), org.archstudio.bna.keys.ThingKey.<org.archstudio.bna.things.graphs.NumericAxis>cloneable());
+	public static final IThingKey<org.archstudio.bna.things.graphs.NumericAxis> Z_MINOR_AXIS_KEY = ThingKey.create(com.google.common.collect.Lists.newArrayList("zMinorAxis", NumericSurfaceGraphThingBase.class));
 
 	public NumericSurfaceGraphThingBase(@Nullable Object id) {
 		super(id);
 	}
 
-@Override
-public IThingPeer<? extends NumericSurfaceGraphThing> createPeer(IBNAView view, ICoordinateMapper cm){
-	return new NumericSurfaceGraphThingPeer<>((NumericSurfaceGraphThing)this, view, cm);
-}
+	@Override
+	public IThingPeer<? extends NumericSurfaceGraphThing> createPeer(IBNAView view, ICoordinateMapper cm) {
+		return new NumericSurfaceGraphThingPeer<>((NumericSurfaceGraphThing)this, view, cm);
+	}
 
 	@Override
 	protected void initProperties() {

@@ -18,9 +18,9 @@ import org.eclipse.jdt.annotation.Nullable;
 @NonNullByDefault
 public interface IHasEndpoints extends org.archstudio.bna.IThing {
 
-	public static final IThingKey<java.awt.geom.Point2D> ENDPOINT_1_KEY = ThingKey.create(com.google.common.collect.Lists.newArrayList("endpoint1", IHasEndpoints.class), org.archstudio.bna.keys.ThingKey.point2D());
+	public static final IThingKey<java.awt.geom.Point2D> ENDPOINT_1_KEY = ThingKey.create(com.google.common.collect.Lists.newArrayList("endpoint1", IHasEndpoints.class));
 
-	public static final IThingKey<java.awt.geom.Point2D> ENDPOINT_2_KEY = ThingKey.create(com.google.common.collect.Lists.newArrayList("endpoint2", IHasEndpoints.class), org.archstudio.bna.keys.ThingKey.point2D());
+	public static final IThingKey<java.awt.geom.Point2D> ENDPOINT_2_KEY = ThingKey.create(com.google.common.collect.Lists.newArrayList("endpoint2", IHasEndpoints.class));
 
 	public java.awt.geom.Point2D getEndpoint1();
 

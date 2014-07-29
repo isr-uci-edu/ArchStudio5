@@ -18,7 +18,7 @@ import org.eclipse.jdt.annotation.Nullable;
 @NonNullByDefault
 public interface IHasShape extends org.archstudio.bna.IThing {
 
-	public static final IThingKey<java.awt.Shape> SHAPE_KEY = ThingKey.create(com.google.common.collect.Lists.newArrayList("shape", IHasShape.class), org.archstudio.bna.keys.ThingKey.shape());
+	public static final IThingKey<java.awt.Shape> SHAPE_KEY = ThingKey.create(com.google.common.collect.Lists.newArrayList("shape", IHasShape.class));
 
 	public java.awt.Shape getShape();
 

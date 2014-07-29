@@ -27,10 +27,10 @@ public abstract class SWTTextThingBase extends org.archstudio.bna.things.swt.Abs
 		super(id);
 	}
 
-@Override
-public IThingPeer<? extends SWTTextThing> createPeer(IBNAView view, ICoordinateMapper cm){
-	return new SWTTextThingPeer<>((SWTTextThing)this, view, cm);
-}
+	@Override
+	public IThingPeer<? extends SWTTextThing> createPeer(IBNAView view, ICoordinateMapper cm) {
+		return new SWTTextThingPeer<>((SWTTextThing)this, view, cm);
+	}
 
 	@Override
 	protected void initProperties() {

@@ -28,10 +28,10 @@ public abstract class MarqueeBoxBorderThingBase extends org.archstudio.bna.thing
 		super(id);
 	}
 
-@Override
-public IThingPeer<? extends MarqueeBoxBorderThing> createPeer(IBNAView view, ICoordinateMapper cm){
-	return new MarqueeBoxBorderThingPeer<>((MarqueeBoxBorderThing)this, view, cm);
-}
+	@Override
+	public IThingPeer<? extends MarqueeBoxBorderThing> createPeer(IBNAView view, ICoordinateMapper cm) {
+		return new MarqueeBoxBorderThingPeer<>((MarqueeBoxBorderThing)this, view, cm);
+	}
 
 	@Override
 	protected void initProperties() {

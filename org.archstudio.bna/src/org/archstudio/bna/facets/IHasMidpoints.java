@@ -18,7 +18,7 @@ import org.eclipse.jdt.annotation.Nullable;
 @NonNullByDefault
 public interface IHasMidpoints extends org.archstudio.bna.IThing {
 
-	public static final IThingKey<java.util.List<java.awt.geom.Point2D>> MIDPOINTS_KEY = ThingKey.create(com.google.common.collect.Lists.newArrayList("midpoints", IHasMidpoints.class), org.archstudio.bna.keys.ThingKey.list(org.archstudio.bna.keys.ThingKey.point2D()));
+	public static final IThingKey<java.util.List<java.awt.geom.Point2D>> MIDPOINTS_KEY = ThingKey.create(com.google.common.collect.Lists.newArrayList("midpoints", IHasMidpoints.class));
 
 	public java.util.List<java.awt.geom.Point2D> getMidpoints();
 

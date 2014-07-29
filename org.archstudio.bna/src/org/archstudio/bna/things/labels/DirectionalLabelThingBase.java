@@ -31,10 +31,10 @@ public abstract class DirectionalLabelThingBase extends org.archstudio.bna.thing
 		super(id);
 	}
 
-@Override
-public IThingPeer<? extends DirectionalLabelThing> createPeer(IBNAView view, ICoordinateMapper cm){
-	return new DirectionalLabelThingPeer<>((DirectionalLabelThing)this, view, cm);
-}
+	@Override
+	public IThingPeer<? extends DirectionalLabelThing> createPeer(IBNAView view, ICoordinateMapper cm) {
+		return new DirectionalLabelThingPeer<>((DirectionalLabelThing)this, view, cm);
+	}
 
 	@Override
 	protected void initProperties() {

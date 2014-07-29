@@ -18,7 +18,7 @@ import org.eclipse.jdt.annotation.Nullable;
 @NonNullByDefault
 public interface IHasInternalWorldPoint extends org.archstudio.bna.IThing {
 
-	public static final IThingKey<java.awt.geom.Point2D> INTERNAL_POINT_KEY = ThingKey.create(com.google.common.collect.Lists.newArrayList("internalPoint", IHasInternalWorldPoint.class), org.archstudio.bna.keys.ThingKey.point2D());
+	public static final IThingKey<java.awt.geom.Point2D> INTERNAL_POINT_KEY = ThingKey.create(com.google.common.collect.Lists.newArrayList("internalPoint", IHasInternalWorldPoint.class));
 
 	public static final IThingRefKey<org.archstudio.bna.facets.IHasWorld> INTERNAL_WORLD_KEY = ThingRefKey.create(com.google.common.collect.Lists.newArrayList("internalWorld", IHasInternalWorldPoint.class));
 

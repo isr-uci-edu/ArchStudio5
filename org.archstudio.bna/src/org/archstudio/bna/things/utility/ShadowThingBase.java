@@ -26,10 +26,10 @@ public abstract class ShadowThingBase extends org.archstudio.bna.things.Abstract
 		super(id);
 	}
 
-@Override
-public IThingPeer<? extends ShadowThing> createPeer(IBNAView view, ICoordinateMapper cm){
-	return new ShadowThingPeer<>((ShadowThing)this, view, cm);
-}
+	@Override
+	public IThingPeer<? extends ShadowThing> createPeer(IBNAView view, ICoordinateMapper cm) {
+		return new ShadowThingPeer<>((ShadowThing)this, view, cm);
+	}
 
 	@Override
 	protected void initProperties() {

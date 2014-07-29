@@ -34,10 +34,10 @@ public abstract class SWTScrollBarThingBase extends org.archstudio.bna.things.sw
 		super(id);
 	}
 
-@Override
-public IThingPeer<? extends SWTScrollBarThing> createPeer(IBNAView view, ICoordinateMapper cm){
-	return new SWTScrollBarThingPeer<>((SWTScrollBarThing)this, view, cm);
-}
+	@Override
+	public IThingPeer<? extends SWTScrollBarThing> createPeer(IBNAView view, ICoordinateMapper cm) {
+		return new SWTScrollBarThingPeer<>((SWTScrollBarThing)this, view, cm);
+	}
 
 	@Override
 	protected void initProperties() {

@@ -20,9 +20,9 @@ public class EnvironmentPropertiesThing extends NoThing {
 		return (EnvironmentPropertiesThing) world.getBNAModel().getThing(EnvironmentPropertiesThing.class);
 	}
 
-	public static final IThingKey<Point> NEW_THING_SPOT_KEY = ThingKey.create("#newThingSpot", ThingKey.point());
-	public static final IThingKey<Point> LAST_OPEN_SPOT_KEY = ThingKey.create("#lastOpenSpot", ThingKey.point());
-	public static final IThingKey<Rectangle> MODEL_BOUNDS_KEY = ThingKey.create("modelBounds", ThingKey.rectangle());
+	public static final IThingKey<Point> NEW_THING_SPOT_KEY = ThingKey.create("#newThingSpot");
+	public static final IThingKey<Point> LAST_OPEN_SPOT_KEY = ThingKey.create("#lastOpenSpot");
+	public static final IThingKey<Rectangle> MODEL_BOUNDS_KEY = ThingKey.create("modelBounds");
 
 	protected EnvironmentPropertiesThing() {
 		super(EnvironmentPropertiesThing.class);

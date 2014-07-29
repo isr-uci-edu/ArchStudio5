@@ -74,7 +74,7 @@ public class PolygonThingPeer<T extends PolygonThing> extends AbstractThingPeer<
 
 		Shape localShape = createLocalShape();
 
-		r.setColor(new RGB(0, 0, 0), (float) t.get(IHasAlpha.ALPHA_KEY, 1f));
+		r.setColor(new RGB(0, 0, 0), t.get(IHasAlpha.ALPHA_KEY, 1d));
 		r.fillShape(localShape, null, null);
 		return true;
 	}

@@ -31,10 +31,10 @@ public abstract class RotaterThingBase extends org.archstudio.bna.things.Abstrac
 		super(id);
 	}
 
-@Override
-public IThingPeer<? extends RotaterThing> createPeer(IBNAView view, ICoordinateMapper cm){
-	return new RotaterThingPeer<>((RotaterThing)this, view, cm);
-}
+	@Override
+	public IThingPeer<? extends RotaterThing> createPeer(IBNAView view, ICoordinateMapper cm) {
+		return new RotaterThingPeer<>((RotaterThing)this, view, cm);
+	}
 
 	@Override
 	protected void initProperties() {
@@ -43,7 +43,7 @@ public IThingPeer<? extends RotaterThing> createPeer(IBNAView view, ICoordinateM
 		addShapeModifyingKey(org.archstudio.bna.facets.IHasAnchorPoint.ANCHOR_POINT_KEY);
 		initProperty(org.archstudio.bna.facets.IHasAngle.ANGLE_KEY, 0);
 		addShapeModifyingKey(org.archstudio.bna.facets.IHasAngle.ANGLE_KEY);
-		initProperty(org.archstudio.bna.facets.IHasRadius.RADIUS_KEY, 10);
+		initProperty(org.archstudio.bna.facets.IHasRadius.RADIUS_KEY, 50);
 		super.initProperties();
 	}
 

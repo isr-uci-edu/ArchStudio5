@@ -32,10 +32,10 @@ public abstract class BoundedLabelThingBase extends org.archstudio.bna.things.Ab
 		super(id);
 	}
 
-@Override
-public IThingPeer<? extends BoundedLabelThing> createPeer(IBNAView view, ICoordinateMapper cm){
-	return new BoundedLabelThingPeer<>((BoundedLabelThing)this, view, cm);
-}
+	@Override
+	public IThingPeer<? extends BoundedLabelThing> createPeer(IBNAView view, ICoordinateMapper cm) {
+		return new BoundedLabelThingPeer<>((BoundedLabelThing)this, view, cm);
+	}
 
 	@Override
 	protected void initProperties() {

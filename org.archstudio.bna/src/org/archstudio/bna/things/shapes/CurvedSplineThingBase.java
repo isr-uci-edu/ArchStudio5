@@ -39,10 +39,10 @@ public abstract class CurvedSplineThingBase extends org.archstudio.bna.things.Ab
 		super(id);
 	}
 
-@Override
-public IThingPeer<? extends CurvedSplineThing> createPeer(IBNAView view, ICoordinateMapper cm){
-	return new CurvedSplineThingPeer<>((CurvedSplineThing)this, view, cm);
-}
+	@Override
+	public IThingPeer<? extends CurvedSplineThing> createPeer(IBNAView view, ICoordinateMapper cm) {
+		return new CurvedSplineThingPeer<>((CurvedSplineThing)this, view, cm);
+	}
 
 	@Override
 	protected void initProperties() {
@@ -65,9 +65,9 @@ public IThingPeer<? extends CurvedSplineThing> createPeer(IBNAView view, ICoordi
 		addShapeModifyingKey(org.archstudio.bna.facets.IHasEndpoints.ENDPOINT_1_KEY);
 		initProperty(org.archstudio.bna.facets.IHasEndpoints.ENDPOINT_2_KEY, new java.awt.geom.Point2D.Double(0, 10));
 		addShapeModifyingKey(org.archstudio.bna.facets.IHasEndpoints.ENDPOINT_2_KEY);
-		initProperty(org.archstudio.bna.facets.IHasGlow.GLOW_ALPHA_KEY, 0.5f);
+		initProperty(org.archstudio.bna.facets.IHasGlow.GLOW_ALPHA_KEY, 0.75d);
 		initProperty(org.archstudio.bna.facets.IHasGlow.GLOW_COLOR_KEY, null);
-		initProperty(org.archstudio.bna.facets.IHasGlow.GLOW_WIDTH_KEY, 10);
+		initProperty(org.archstudio.bna.facets.IHasGlow.GLOW_WIDTH_KEY, 20);
 		initProperty(org.archstudio.bna.facets.IHasLineStyle.LINE_STYLE_KEY, org.archstudio.swtutils.constants.LineStyle.SOLID);
 		initProperty(org.archstudio.bna.facets.IHasLineWidth.LINE_WIDTH_KEY, 1);
 		initProperty(org.archstudio.bna.facets.IHasLoopOrientation.LOOP_ORIENTATION_KEY, org.archstudio.swtutils.constants.Orientation.NONE);
@@ -334,19 +334,19 @@ public IThingPeer<? extends CurvedSplineThing> createPeer(IBNAView view, ICoordi
 		return setRaw(org.archstudio.bna.facets.IHasEndpoints.ENDPOINT_2_KEY, endpoint2);
 	}
 
-	public float getGlowAlpha() {
+	public double getGlowAlpha() {
 		return get(org.archstudio.bna.facets.IHasGlow.GLOW_ALPHA_KEY);
 	}
 
-	/*package*/ float getRawGlowAlpha() {
+	/*package*/ double getRawGlowAlpha() {
 		return getRaw(org.archstudio.bna.facets.IHasGlow.GLOW_ALPHA_KEY);
 	}
 
-	public void setGlowAlpha(float glowAlpha) {
+	public void setGlowAlpha(double glowAlpha) {
 		set(org.archstudio.bna.facets.IHasGlow.GLOW_ALPHA_KEY, glowAlpha);
 	}
 
-	/*package*/ float setRawGlowAlpha(float glowAlpha) {
+	/*package*/ double setRawGlowAlpha(double glowAlpha) {
 		return setRaw(org.archstudio.bna.facets.IHasGlow.GLOW_ALPHA_KEY, glowAlpha);
 	}
 

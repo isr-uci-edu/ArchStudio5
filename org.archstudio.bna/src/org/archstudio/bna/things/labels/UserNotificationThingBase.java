@@ -32,10 +32,10 @@ public abstract class UserNotificationThingBase extends org.archstudio.bna.thing
 		super(id);
 	}
 
-@Override
-public IThingPeer<? extends UserNotificationThing> createPeer(IBNAView view, ICoordinateMapper cm){
-	return new UserNotificationThingPeer<>((UserNotificationThing)this, view, cm);
-}
+	@Override
+	public IThingPeer<? extends UserNotificationThing> createPeer(IBNAView view, ICoordinateMapper cm) {
+		return new UserNotificationThingPeer<>((UserNotificationThing)this, view, cm);
+	}
 
 	@Override
 	protected void initProperties() {

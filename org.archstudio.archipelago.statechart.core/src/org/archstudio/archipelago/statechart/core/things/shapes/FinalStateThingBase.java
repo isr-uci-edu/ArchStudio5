@@ -4,7 +4,9 @@ import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinateMapper;
 import org.archstudio.bna.IThingPeer;
 import org.archstudio.bna.keys.IThingKey;
+import org.archstudio.bna.keys.IThingRefKey;
 import org.archstudio.bna.keys.ThingKey;
+import org.archstudio.bna.keys.ThingRefKey;
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
 
@@ -29,116 +31,116 @@ public abstract class FinalStateThingBase extends org.archstudio.bna.things.Abst
 		super(id);
 	}
 
-@Override
-public IThingPeer<? extends FinalStateThing> createPeer(IBNAView view, ICoordinateMapper cm){
-	return new FinalStateThingPeer<>((FinalStateThing)this, view, cm);
-}
+	@Override
+	public IThingPeer<? extends FinalStateThing> createPeer(IBNAView view, ICoordinateMapper cm) {
+		return new FinalStateThingPeer<>((FinalStateThing)this, view, cm);
+	}
 
 	@Override
 	protected void initProperties() {
 		initProperty(org.archstudio.bna.facets.IHasBoundingBox.BOUNDING_BOX_KEY, new org.eclipse.swt.graphics.Rectangle(0, 0, 30, 20));
 		addShapeModifyingKey(org.archstudio.bna.facets.IHasBoundingBox.BOUNDING_BOX_KEY);
-		initProperty(org.archstudio.bna.facets.IHasGlow.GLOW_ALPHA_KEY, 0.5f);
+		initProperty(org.archstudio.bna.facets.IHasGlow.GLOW_ALPHA_KEY, 0.75d);
 		initProperty(org.archstudio.bna.facets.IHasGlow.GLOW_COLOR_KEY, null);
-		initProperty(org.archstudio.bna.facets.IHasGlow.GLOW_WIDTH_KEY, 10);
+		initProperty(org.archstudio.bna.facets.IHasGlow.GLOW_WIDTH_KEY, 20);
 		initProperty(org.archstudio.bna.facets.IHasRotatingOffset.ROTATING_OFFSET_KEY, 0);
 		initProperty(org.archstudio.bna.facets.IHasSelected.SELECTED_KEY, false);
 		super.initProperties();
 	}
 
-	public org.eclipse.swt.graphics.Rectangle getBoundingBox(){
+	public org.eclipse.swt.graphics.Rectangle getBoundingBox() {
 		return get(org.archstudio.bna.facets.IHasBoundingBox.BOUNDING_BOX_KEY);
 	}
 
-	/*package*/ org.eclipse.swt.graphics.Rectangle getRawBoundingBox(){
+	/*package*/ org.eclipse.swt.graphics.Rectangle getRawBoundingBox() {
 		return getRaw(org.archstudio.bna.facets.IHasBoundingBox.BOUNDING_BOX_KEY);
 	}
 
-	public void setBoundingBox(org.eclipse.swt.graphics.Rectangle boundingBox){
+	public void setBoundingBox(org.eclipse.swt.graphics.Rectangle boundingBox) {
 		set(org.archstudio.bna.facets.IHasBoundingBox.BOUNDING_BOX_KEY, boundingBox);
 	}
 
-	/*package*/ org.eclipse.swt.graphics.Rectangle setRawBoundingBox(org.eclipse.swt.graphics.Rectangle boundingBox){
+	/*package*/ org.eclipse.swt.graphics.Rectangle setRawBoundingBox(org.eclipse.swt.graphics.Rectangle boundingBox) {
 		return setRaw(org.archstudio.bna.facets.IHasBoundingBox.BOUNDING_BOX_KEY, boundingBox);
 	}
 
-	public float getGlowAlpha(){
+	public double getGlowAlpha() {
 		return get(org.archstudio.bna.facets.IHasGlow.GLOW_ALPHA_KEY);
 	}
 
-	/*package*/ float getRawGlowAlpha(){
+	/*package*/ double getRawGlowAlpha() {
 		return getRaw(org.archstudio.bna.facets.IHasGlow.GLOW_ALPHA_KEY);
 	}
 
-	public void setGlowAlpha(float glowAlpha){
+	public void setGlowAlpha(double glowAlpha) {
 		set(org.archstudio.bna.facets.IHasGlow.GLOW_ALPHA_KEY, glowAlpha);
 	}
 
-	/*package*/ float setRawGlowAlpha(float glowAlpha){
+	/*package*/ double setRawGlowAlpha(double glowAlpha) {
 		return setRaw(org.archstudio.bna.facets.IHasGlow.GLOW_ALPHA_KEY, glowAlpha);
 	}
 
-	public @Nullable org.eclipse.swt.graphics.RGB getGlowColor(){
+	public @Nullable org.eclipse.swt.graphics.RGB getGlowColor() {
 		return get(org.archstudio.bna.facets.IHasGlow.GLOW_COLOR_KEY);
 	}
 
-	/*package*/ @Nullable org.eclipse.swt.graphics.RGB getRawGlowColor(){
+	/*package*/ @Nullable org.eclipse.swt.graphics.RGB getRawGlowColor() {
 		return getRaw(org.archstudio.bna.facets.IHasGlow.GLOW_COLOR_KEY);
 	}
 
-	public void setGlowColor(@Nullable org.eclipse.swt.graphics.RGB glowColor){
+	public void setGlowColor(@Nullable org.eclipse.swt.graphics.RGB glowColor) {
 		set(org.archstudio.bna.facets.IHasGlow.GLOW_COLOR_KEY, glowColor);
 	}
 
-	/*package*/ @Nullable org.eclipse.swt.graphics.RGB setRawGlowColor(@Nullable org.eclipse.swt.graphics.RGB glowColor){
+	/*package*/ @Nullable org.eclipse.swt.graphics.RGB setRawGlowColor(@Nullable org.eclipse.swt.graphics.RGB glowColor) {
 		return setRaw(org.archstudio.bna.facets.IHasGlow.GLOW_COLOR_KEY, glowColor);
 	}
 
-	public int getGlowWidth(){
+	public int getGlowWidth() {
 		return get(org.archstudio.bna.facets.IHasGlow.GLOW_WIDTH_KEY);
 	}
 
-	/*package*/ int getRawGlowWidth(){
+	/*package*/ int getRawGlowWidth() {
 		return getRaw(org.archstudio.bna.facets.IHasGlow.GLOW_WIDTH_KEY);
 	}
 
-	public void setGlowWidth(int glowWidth){
+	public void setGlowWidth(int glowWidth) {
 		set(org.archstudio.bna.facets.IHasGlow.GLOW_WIDTH_KEY, glowWidth);
 	}
 
-	/*package*/ int setRawGlowWidth(int glowWidth){
+	/*package*/ int setRawGlowWidth(int glowWidth) {
 		return setRaw(org.archstudio.bna.facets.IHasGlow.GLOW_WIDTH_KEY, glowWidth);
 	}
 
-	public int getRotatingOffset(){
+	public int getRotatingOffset() {
 		return get(org.archstudio.bna.facets.IHasRotatingOffset.ROTATING_OFFSET_KEY);
 	}
 
-	/*package*/ int getRawRotatingOffset(){
+	/*package*/ int getRawRotatingOffset() {
 		return getRaw(org.archstudio.bna.facets.IHasRotatingOffset.ROTATING_OFFSET_KEY);
 	}
 
-	public void setRotatingOffset(int rotatingOffset){
+	public void setRotatingOffset(int rotatingOffset) {
 		set(org.archstudio.bna.facets.IHasRotatingOffset.ROTATING_OFFSET_KEY, rotatingOffset);
 	}
 
-	/*package*/ int setRawRotatingOffset(int rotatingOffset){
+	/*package*/ int setRawRotatingOffset(int rotatingOffset) {
 		return setRaw(org.archstudio.bna.facets.IHasRotatingOffset.ROTATING_OFFSET_KEY, rotatingOffset);
 	}
 
-	public boolean isSelected(){
+	public boolean isSelected() {
 		return get(org.archstudio.bna.facets.IHasSelected.SELECTED_KEY);
 	}
 
-	/*package*/ boolean isRawSelected(){
+	/*package*/ boolean isRawSelected() {
 		return getRaw(org.archstudio.bna.facets.IHasSelected.SELECTED_KEY);
 	}
 
-	public void setSelected(boolean selected){
+	public void setSelected(boolean selected) {
 		set(org.archstudio.bna.facets.IHasSelected.SELECTED_KEY, selected);
 	}
 
-	/*package*/ boolean isRawSelected(boolean selected){
+	/*package*/ boolean isRawSelected(boolean selected) {
 		return setRaw(org.archstudio.bna.facets.IHasSelected.SELECTED_KEY, selected);
 	}
 

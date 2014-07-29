@@ -28,10 +28,10 @@ public abstract class WorldThingBase extends org.archstudio.bna.things.AbstractT
 		super(id);
 	}
 
-@Override
-public IThingPeer<? extends WorldThing> createPeer(IBNAView view, ICoordinateMapper cm){
-	return new WorldThingPeer<>((WorldThing)this, view, cm);
-}
+	@Override
+	public IThingPeer<? extends WorldThing> createPeer(IBNAView view, ICoordinateMapper cm) {
+		return new WorldThingPeer<>((WorldThing)this, view, cm);
+	}
 
 	@Override
 	protected void initProperties() {

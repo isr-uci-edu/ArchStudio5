@@ -38,10 +38,10 @@ public abstract class EndpointThingBase extends org.archstudio.bna.things.Abstra
 		super(id);
 	}
 
-@Override
-public IThingPeer<? extends EndpointThing> createPeer(IBNAView view, ICoordinateMapper cm){
-	return new EndpointThingPeer<>((EndpointThing)this, view, cm);
-}
+	@Override
+	public IThingPeer<? extends EndpointThing> createPeer(IBNAView view, ICoordinateMapper cm) {
+		return new EndpointThingPeer<>((EndpointThing)this, view, cm);
+	}
 
 	@Override
 	protected void initProperties() {
@@ -51,9 +51,9 @@ public IThingPeer<? extends EndpointThing> createPeer(IBNAView view, ICoordinate
 		initProperty(org.archstudio.bna.facets.IHasColor.COLOR_KEY, new org.eclipse.swt.graphics.RGB(0, 0, 0));
 		initProperty(org.archstudio.bna.facets.IHasCount.COUNT_KEY, 1);
 		initProperty(org.archstudio.bna.facets.IHasEdgeColor.EDGE_COLOR_KEY, new org.eclipse.swt.graphics.RGB(0, 0, 0));
-		initProperty(org.archstudio.bna.facets.IHasGlow.GLOW_ALPHA_KEY, 0.5f);
+		initProperty(org.archstudio.bna.facets.IHasGlow.GLOW_ALPHA_KEY, 0.75d);
 		initProperty(org.archstudio.bna.facets.IHasGlow.GLOW_COLOR_KEY, null);
-		initProperty(org.archstudio.bna.facets.IHasGlow.GLOW_WIDTH_KEY, 10);
+		initProperty(org.archstudio.bna.facets.IHasGlow.GLOW_WIDTH_KEY, 20);
 		initProperty(org.archstudio.bna.facets.IHasGradientFilled.GRADIENT_FILLED_KEY, true);
 		initProperty(org.archstudio.bna.facets.IHasLineStyle.LINE_STYLE_KEY, org.archstudio.swtutils.constants.LineStyle.SOLID);
 		initProperty(org.archstudio.bna.facets.IHasLineWidth.LINE_WIDTH_KEY, 1);
@@ -147,19 +147,19 @@ public IThingPeer<? extends EndpointThing> createPeer(IBNAView view, ICoordinate
 		return setRaw(org.archstudio.bna.facets.IHasEdgeColor.EDGE_COLOR_KEY, edgeColor);
 	}
 
-	public float getGlowAlpha() {
+	public double getGlowAlpha() {
 		return get(org.archstudio.bna.facets.IHasGlow.GLOW_ALPHA_KEY);
 	}
 
-	/*package*/ float getRawGlowAlpha() {
+	/*package*/ double getRawGlowAlpha() {
 		return getRaw(org.archstudio.bna.facets.IHasGlow.GLOW_ALPHA_KEY);
 	}
 
-	public void setGlowAlpha(float glowAlpha) {
+	public void setGlowAlpha(double glowAlpha) {
 		set(org.archstudio.bna.facets.IHasGlow.GLOW_ALPHA_KEY, glowAlpha);
 	}
 
-	/*package*/ float setRawGlowAlpha(float glowAlpha) {
+	/*package*/ double setRawGlowAlpha(double glowAlpha) {
 		return setRaw(org.archstudio.bna.facets.IHasGlow.GLOW_ALPHA_KEY, glowAlpha);
 	}
 

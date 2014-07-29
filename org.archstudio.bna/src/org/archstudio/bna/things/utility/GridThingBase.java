@@ -31,10 +31,10 @@ public abstract class GridThingBase extends org.archstudio.bna.things.AbstractTh
 		super(id);
 	}
 
-@Override
-public IThingPeer<? extends GridThing> createPeer(IBNAView view, ICoordinateMapper cm){
-	return new GridThingPeer<>((GridThing)this, view, cm);
-}
+	@Override
+	public IThingPeer<? extends GridThing> createPeer(IBNAView view, ICoordinateMapper cm) {
+		return new GridThingPeer<>((GridThing)this, view, cm);
+	}
 
 	@Override
 	protected void initProperties() {

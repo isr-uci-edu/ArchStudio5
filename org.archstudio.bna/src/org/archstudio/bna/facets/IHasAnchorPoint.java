@@ -18,7 +18,7 @@ import org.eclipse.jdt.annotation.Nullable;
 @NonNullByDefault
 public interface IHasAnchorPoint extends org.archstudio.bna.IThing {
 
-	public static final IThingKey<java.awt.geom.Point2D> ANCHOR_POINT_KEY = ThingKey.create(com.google.common.collect.Lists.newArrayList("anchorPoint", IHasAnchorPoint.class), org.archstudio.bna.keys.ThingKey.point2D());
+	public static final IThingKey<java.awt.geom.Point2D> ANCHOR_POINT_KEY = ThingKey.create(com.google.common.collect.Lists.newArrayList("anchorPoint", IHasAnchorPoint.class));
 
 	public java.awt.geom.Point2D getAnchorPoint();
 

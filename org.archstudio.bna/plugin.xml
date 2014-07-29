@@ -10,9 +10,9 @@
          <Facet
                name="Alpha">
             <Key
-                  default="1f"
+                  default="1d"
                   name="Alpha"
-                  type="java.lang.Float">
+                  type="java.lang.Double">
             </Key>
             <EditableQuality
                   name="UserMayChangeAlpha">
@@ -188,14 +188,14 @@
                   type="org.eclipse.swt.graphics.RGB">
             </Key>
             <Key
-                  default="10"
+                  default="20"
                   name="GlowWidth"
                   type="java.lang.Integer">
             </Key>
             <Key
-                  default="0.5f"
+                  default="0.75d"
                   name="GlowAlpha"
-                  type="java.lang.Float">
+                  type="java.lang.Double">
             </Key>
          </Facet>
          <Facet
@@ -256,7 +256,6 @@
          <Facet
                name="Midpoints">
             <Key
-                  clone="org.archstudio.bna.keys.ThingKey.list(org.archstudio.bna.keys.ThingKey.point2D())"
                   default="new java.util.ArrayList&lt;java.awt.geom.Point2D&gt;()"
                   generic="java.util.List&lt;java.awt.geom.Point2D&gt;"
                   name="Midpoints"
@@ -283,7 +282,7 @@
          <Facet
                name="Radius">
             <Key
-                  default="10"
+                  default="50"
                   name="Radius"
                   type="java.lang.Integer">
             </Key>
@@ -580,7 +579,6 @@
          <Facet
                name="Points">
             <Key
-                  clone="org.archstudio.bna.keys.ThingKey.list(org.archstudio.bna.keys.ThingKey.point2D())"
                   default="com.google.common.collect.Lists.&lt;java.awt.geom.Point2D&gt;newArrayList(new java.awt.geom.Point2D.Double(-1, 1), new java.awt.geom.Point2D.Double(0, -1), new java.awt.geom.Point2D.Double(1, 1))"
                   generic="java.util.List&lt;java.awt.geom.Point2D&gt;"
                   name="Points"
@@ -800,37 +798,6 @@
             </ImplementsFacet>
          </Thing>
          <Thing
-               name="Shape">
-            <ImplementsFacet
-                  facet="Shape">
-            </ImplementsFacet>
-            <ImplementsFacet
-                  facet="AnchorPoint">
-            </ImplementsFacet>
-            <ImplementsFacet
-                  facet="GradientFilled">
-            </ImplementsFacet>
-            <ImplementsFacet
-                  facet="LineData">
-            </ImplementsFacet>
-            <ImplementsFacet
-                  facet="Size">
-            </ImplementsFacet>
-            <ImplementsFacet
-                  facet="Selected">
-            </ImplementsFacet>
-            <ImplementsFacet
-                  facet="BoundingBox"
-                  readOnly="true">
-            </ImplementsFacet>
-            <ImplementsFacet
-                  facet="Glow">
-            </ImplementsFacet>
-            <ImplementsFacet
-                  facet="MinimumSize">
-            </ImplementsFacet>
-         </Thing>
-         <Thing
                name="LocalShape">
             <ImplementsFacet
                   facet="Shape">
@@ -1035,37 +1002,31 @@
                   facet="ReferencePoint">
             </ImplementsFacet>
             <Key
-                  clone="org.archstudio.bna.keys.ThingKey.&lt;org.archstudio.bna.things.graphs.NumericAxis&gt;cloneable()"
                   default="new org.archstudio.bna.things.graphs.NumericAxis()"
                   name="XMajorAxis"
                   type="org.archstudio.bna.things.graphs.NumericAxis">
             </Key>
             <Key
-                  clone="org.archstudio.bna.keys.ThingKey.&lt;org.archstudio.bna.things.graphs.NumericAxis&gt;cloneable()"
                   default="new org.archstudio.bna.things.graphs.NumericAxis()"
                   name="YMajorAxis"
                   type="org.archstudio.bna.things.graphs.NumericAxis">
             </Key>
             <Key
-                  clone="org.archstudio.bna.keys.ThingKey.&lt;org.archstudio.bna.things.graphs.NumericAxis&gt;cloneable()"
                   default="new org.archstudio.bna.things.graphs.NumericAxis()"
                   name="ZMajorAxis"
                   type="org.archstudio.bna.things.graphs.NumericAxis">
             </Key>
             <Key
-                  clone="org.archstudio.bna.keys.ThingKey.&lt;org.archstudio.bna.things.graphs.NumericAxis&gt;cloneable()"
                   default="new org.archstudio.bna.things.graphs.NumericAxis()"
                   name="XMinorAxis"
                   type="org.archstudio.bna.things.graphs.NumericAxis">
             </Key>
             <Key
-                  clone="org.archstudio.bna.keys.ThingKey.&lt;org.archstudio.bna.things.graphs.NumericAxis&gt;cloneable()"
                   default="new org.archstudio.bna.things.graphs.NumericAxis()"
                   name="YMinorAxis"
                   type="org.archstudio.bna.things.graphs.NumericAxis">
             </Key>
             <Key
-                  clone="org.archstudio.bna.keys.ThingKey.&lt;org.archstudio.bna.things.graphs.NumericAxis&gt;cloneable()"
                   default="new org.archstudio.bna.things.graphs.NumericAxis()"
                   name="ZMinorAxis"
                   type="org.archstudio.bna.things.graphs.NumericAxis">
@@ -1091,7 +1052,6 @@
                   type="java.lang.Double">
             </Key>
             <Key
-                  clone="org.archstudio.bna.keys.ThingKey.&lt;org.archstudio.bna.things.graphs.NumericSurfaceGraphThing.Data&gt;cloneable()"
                   default="new org.archstudio.bna.things.graphs.NumericSurfaceGraphThing.Data()"
                   name="Data"
                   type="org.archstudio.bna.things.graphs.NumericSurfaceGraphThing$Data">

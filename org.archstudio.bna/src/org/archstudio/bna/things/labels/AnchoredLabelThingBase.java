@@ -37,10 +37,10 @@ public abstract class AnchoredLabelThingBase extends org.archstudio.bna.things.A
 		super(id);
 	}
 
-@Override
-public IThingPeer<? extends AnchoredLabelThing> createPeer(IBNAView view, ICoordinateMapper cm){
-	return new AnchoredLabelThingPeer<>((AnchoredLabelThing)this, view, cm);
-}
+	@Override
+	public IThingPeer<? extends AnchoredLabelThing> createPeer(IBNAView view, ICoordinateMapper cm) {
+		return new AnchoredLabelThingPeer<>((AnchoredLabelThing)this, view, cm);
+	}
 
 	@Override
 	protected void initProperties() {

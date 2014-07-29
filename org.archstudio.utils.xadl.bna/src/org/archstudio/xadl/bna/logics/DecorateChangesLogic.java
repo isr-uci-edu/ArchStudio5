@@ -141,7 +141,7 @@ public class DecorateChangesLogic extends AbstractThingLogic implements IXArchAD
 		updateAttributes(t, 1f, true);
 	}
 
-	private void updateAttributes(IThing t, float alpha, boolean editable) {
+	private void updateAttributes(IThing t, double alpha, boolean editable) {
 		t.set(IHasAlpha.ALPHA_KEY, alpha);
 		t.set(IHasBackground.BACKGROUND_KEY, !editable);
 		if (!editable && t.has(IHasSelected.SELECTED_KEY, true)) {

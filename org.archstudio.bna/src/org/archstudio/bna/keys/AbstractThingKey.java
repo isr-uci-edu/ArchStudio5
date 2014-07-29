@@ -69,13 +69,14 @@ abstract class AbstractThingKey<V> implements IThingKey<V> {
 		return value == null ? null : cloneFunction != null ? cloneFunction.apply(value) : value;
 	}
 
+	@Override
 	public boolean isNullable() {
 		return nullable;
 	}
 
 	@Override
 	public String toString() {
-		return id.toString();
+		return id.toString().replaceAll("[\\[\\]]", "");
 	}
 
 }

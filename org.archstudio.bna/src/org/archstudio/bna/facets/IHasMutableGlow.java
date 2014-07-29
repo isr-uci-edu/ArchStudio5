@@ -16,7 +16,7 @@ import org.eclipse.jdt.annotation.Nullable;
 @NonNullByDefault
 public interface IHasMutableGlow extends IHasGlow {
 
-	public void setGlowAlpha(float glowAlpha);
+	public void setGlowAlpha(double glowAlpha);
 
 	public void setGlowColor(@Nullable org.eclipse.swt.graphics.RGB glowColor);
 

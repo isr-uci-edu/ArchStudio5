@@ -504,7 +504,7 @@ public abstract class «thing.thingAbstractClassName» extends «thing.thingExtends
 
 	«IF !thing.thingIsAbstract»
 	@Override
-	public IThingPeer<? extends «thing.thingClassName»> createPeer(IBNAView view, ICoordinateMapper cm){
+	public IThingPeer<? extends «thing.thingClassName»> createPeer(IBNAView view, ICoordinateMapper cm) {
 		return new «thing.thingPeerClassName»<>((«thing.thingClassName»)this, view, cm);
 	}
 

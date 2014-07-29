@@ -21,7 +21,7 @@ import org.eclipse.jdt.annotation.Nullable;
 @NonNullByDefault
 public interface IHasBoundingBox extends org.archstudio.bna.IThing {
 
-	public static final IThingKey<org.eclipse.swt.graphics.Rectangle> BOUNDING_BOX_KEY = ThingKey.create(com.google.common.collect.Lists.newArrayList("boundingBox", IHasBoundingBox.class), org.archstudio.bna.keys.ThingKey.rectangle());
+	public static final IThingKey<org.eclipse.swt.graphics.Rectangle> BOUNDING_BOX_KEY = ThingKey.create(com.google.common.collect.Lists.newArrayList("boundingBox", IHasBoundingBox.class));
 
 	public org.eclipse.swt.graphics.Rectangle getBoundingBox();
 

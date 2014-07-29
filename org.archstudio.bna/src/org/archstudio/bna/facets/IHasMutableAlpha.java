@@ -18,6 +18,6 @@ public interface IHasMutableAlpha extends IHasAlpha {
 
 	public static final String USER_MAY_CHANGE_ALPHA = "UserMayChangeAlpha";
 
-	public void setAlpha(float alpha);
+	public void setAlpha(double alpha);
 
 }

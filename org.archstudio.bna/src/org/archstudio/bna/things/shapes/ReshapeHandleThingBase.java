@@ -30,10 +30,10 @@ public abstract class ReshapeHandleThingBase extends org.archstudio.bna.things.A
 		super(id);
 	}
 
-@Override
-public IThingPeer<? extends ReshapeHandleThing> createPeer(IBNAView view, ICoordinateMapper cm){
-	return new ReshapeHandleThingPeer<>((ReshapeHandleThing)this, view, cm);
-}
+	@Override
+	public IThingPeer<? extends ReshapeHandleThing> createPeer(IBNAView view, ICoordinateMapper cm) {
+		return new ReshapeHandleThingPeer<>((ReshapeHandleThing)this, view, cm);
+	}
 
 	@Override
 	protected void initProperties() {

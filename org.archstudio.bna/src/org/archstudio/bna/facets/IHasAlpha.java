@@ -18,8 +18,8 @@ import org.eclipse.jdt.annotation.Nullable;
 @NonNullByDefault
 public interface IHasAlpha extends org.archstudio.bna.IThing {
 
-	public static final IThingKey<java.lang.Float> ALPHA_KEY = ThingKey.create(com.google.common.collect.Lists.newArrayList("alpha", IHasAlpha.class));
+	public static final IThingKey<java.lang.Double> ALPHA_KEY = ThingKey.create(com.google.common.collect.Lists.newArrayList("alpha", IHasAlpha.class));
 
-	public float getAlpha();
+	public double getAlpha();
 
 }

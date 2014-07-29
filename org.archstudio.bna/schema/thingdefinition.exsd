@@ -207,6 +207,13 @@
                </documentation>
             </annotation>
          </attribute>
+         <attribute name="readOnly" type="boolean">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
       </complexType>
    </element>
 
