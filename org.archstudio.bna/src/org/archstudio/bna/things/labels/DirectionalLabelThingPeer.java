@@ -1,18 +1,19 @@
 package org.archstudio.bna.things.labels;
 
+import java.awt.Insets;
 import java.awt.Shape;
 import java.awt.geom.Path2D;
 
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.ICoordinateMapper;
-import org.archstudio.bna.facets.IHasColor;
 import org.archstudio.bna.things.AbstractThingPeer;
 import org.archstudio.bna.ui.IUIResources;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.swtutils.constants.Flow;
 import org.archstudio.swtutils.constants.Orientation;
 import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.graphics.Rectangle;
 
 public class DirectionalLabelThingPeer<T extends DirectionalLabelThing> extends AbstractThingPeer<T> {
@@ -24,10 +25,10 @@ public class DirectionalLabelThingPeer<T extends DirectionalLabelThing> extends 
 
 		int x1 = lbb.x;
 		int y1 = lbb.y;
-		int xm = x1 + lbb.width / 2;
-		int ym = y1 + lbb.height / 2;
-		int x2 = x1 + lbb.width;
-		int y2 = y1 + lbb.height;
+		int xm = x1 + lbb.width / 2 + 1;
+		int ym = y1 + lbb.height / 2 + 1;
+		int x2 = x1 + lbb.width + 1;
+		int y2 = y1 + lbb.height + 1;
 
 		int xl = x1 + lbb.width * n / d;
 		int yl = y1 + lbb.height * n / d;
@@ -104,6 +105,14 @@ public class DirectionalLabelThingPeer<T extends DirectionalLabelThing> extends 
 			return false;
 		}
 
+		Insets insets = t.getRawLocalInsets();
+		lbb.x += insets.left;
+		lbb.y += insets.top;
+		lbb.width -= insets.left + insets.right;
+		lbb.height -= insets.top + insets.bottom;
+
+		//r.drawShape(BNAUtils.toRectangle2D(lbb), new RGB(255, 0, 0), 1);
+
 		flow = t.getRawFlow();
 		if (flow == Flow.NONE) {
 			return false;
@@ -114,15 +123,16 @@ public class DirectionalLabelThingPeer<T extends DirectionalLabelThing> extends 
 			return false;
 		}
 
-		if (r.setColor(t, IHasColor.COLOR_KEY)) {
+		RGB color = t.getRawColor();
+		if (color != null) {
 
 			int n = 1;
 			int d = 4;
 
 			int x1 = lbb.x;
 			int y1 = lbb.y;
-			int x2 = x1 + lbb.width;
-			int y2 = y1 + lbb.height;
+			int x2 = x1 + lbb.width + 1;
+			int y2 = y1 + lbb.height + 1;
 
 			int xl = x1 + lbb.width * n / d;
 			int yl = y1 + lbb.height * n / d;
@@ -134,11 +144,11 @@ public class DirectionalLabelThingPeer<T extends DirectionalLabelThing> extends 
 				/*
 				 * For "in" facing flows, the triangle points in the opposite direction.
 				 */
-				r.fillShape(createTriangle(orientation.getOpposite(), lbb), null, null);
+				r.fillShape(createTriangle(orientation.getOpposite(), lbb), color, null, 1);
 				break;
 
 			case OUT:
-				r.fillShape(createTriangle(orientation, lbb), null, null);
+				r.fillShape(createTriangle(orientation, lbb), color, null, 1);
 				break;
 
 			case INOUT: {
@@ -149,9 +159,9 @@ public class DirectionalLabelThingPeer<T extends DirectionalLabelThing> extends 
 					Rectangle a = BNAUtils.clone(lbb);
 					int height = a.height;
 					a.height = a.height / 2 - 1;
-					r.fillShape(createTriangle(Orientation.NORTH, a), null, null);
-					a.y += height / 2;
-					r.fillShape(createTriangle(Orientation.SOUTH, a), null, null);
+					r.fillShape(createTriangle(Orientation.NORTH, a), color, null, 1);
+					a.y += height / 2 + 1;
+					r.fillShape(createTriangle(Orientation.SOUTH, a), color, null, 1);
 				}
 					break;
 
@@ -160,9 +170,9 @@ public class DirectionalLabelThingPeer<T extends DirectionalLabelThing> extends 
 					Rectangle a = BNAUtils.clone(lbb);
 					int width = a.width;
 					a.width = a.width / 2 - 1;
-					r.fillShape(createTriangle(Orientation.WEST, a), null, null);
-					a.x += width / 2;
-					r.fillShape(createTriangle(Orientation.EAST, a), null, null);
+					r.fillShape(createTriangle(Orientation.WEST, a), color, null, 1);
+					a.x += width / 2 + 1;
+					r.fillShape(createTriangle(Orientation.EAST, a), color, null, 1);
 				}
 					break;
 
@@ -170,17 +180,17 @@ public class DirectionalLabelThingPeer<T extends DirectionalLabelThing> extends 
 				case SOUTHEAST: {
 					Path2D shape;
 					shape = new Path2D.Double();
-					shape.moveTo(xl - 1, yg);
+					shape.moveTo(xl - 0.5, yg - 0.5);
 					shape.lineTo(x1, y1);
-					shape.lineTo(xg, yl);
+					shape.lineTo(xg - 0.5, yl - 0.5);
 					shape.closePath();
-					r.fillShape(shape, null, null);
+					r.fillShape(shape, color, null, 1);
 					shape = new Path2D.Double();
-					shape.moveTo(xg + 1, yl);
+					shape.moveTo(xg + 0.5, yl + 0.5);
 					shape.lineTo(x2, y2);
-					shape.lineTo(xl, yg);
+					shape.lineTo(xl + 0.5, yg + 0.5);
 					shape.closePath();
-					r.fillShape(shape, null, null);
+					r.fillShape(shape, color, null, 1);
 				}
 					break;
 
@@ -188,17 +198,17 @@ public class DirectionalLabelThingPeer<T extends DirectionalLabelThing> extends 
 				case SOUTHWEST: {
 					Path2D shape;
 					shape = new Path2D.Double();
-					shape.moveTo(xl, yl);
+					shape.moveTo(xl + 0.5, yl - 0.5);
 					shape.lineTo(x2, y1);
-					shape.lineTo(xg, yg - 1);
+					shape.lineTo(xg + 0.5, yg - 0.5);
 					shape.closePath();
-					r.fillShape(shape, null, null);
+					r.fillShape(shape, color, null, 1);
 					shape = new Path2D.Double();
-					shape.moveTo(xg, yg + 1);
+					shape.moveTo(xg - 0.5, yg + 0.5);
 					shape.lineTo(x1, y2);
-					shape.lineTo(xl, yl);
+					shape.lineTo(xl - 0.5, yl + 0.5);
 					shape.closePath();
-					r.fillShape(shape, null, null);
+					r.fillShape(shape, color, null, 1);
 				}
 					break;
 

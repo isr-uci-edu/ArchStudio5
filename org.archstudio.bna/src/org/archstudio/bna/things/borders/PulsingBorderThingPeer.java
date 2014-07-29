@@ -13,7 +13,6 @@ import org.eclipse.swt.graphics.Rectangle;
 public class PulsingBorderThingPeer<T extends PulsingBorderThing> extends AbstractThingPeer<T> {
 
 	public static final int MAX_ROTATION = 8;
-	public static final int PULSE_WIDTH = 8;
 
 	public PulsingBorderThingPeer(T thing, IBNAView view, ICoordinateMapper cm) {
 		super(thing, view, cm);
@@ -26,11 +25,11 @@ public class PulsingBorderThingPeer<T extends PulsingBorderThing> extends Abstra
 			return false;
 		}
 
-		int offset = t.getRotatingOffset() % MAX_ROTATION * PULSE_WIDTH;
+		int offset = t.getRotatingOffset() % MAX_ROTATION * t.getRawGlowWidth() / 4 - 4;
 		Shape localShape = new Rectangle2D.Double(lbb.x - offset, lbb.y - offset, lbb.width + 2 * offset, lbb.height
 				+ 2 * offset);
 
-		r.glowShape(localShape, t.getRawGlowColor(), PULSE_WIDTH, 1);
+		r.glowShape(localShape, t.getRawGlowColor(), t.getRawGlowWidth(), t.getRawGlowAlpha());
 
 		return true;
 	}

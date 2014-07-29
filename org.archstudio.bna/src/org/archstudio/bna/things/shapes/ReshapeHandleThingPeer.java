@@ -8,7 +8,6 @@ import java.awt.geom.Rectangle2D;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.ICoordinateMapper;
-import org.archstudio.bna.facets.IHasColor;
 import org.archstudio.bna.things.AbstractThingPeer;
 import org.archstudio.bna.ui.IUIResources;
 import org.archstudio.bna.utils.BNAUtils;
@@ -31,9 +30,7 @@ public class ReshapeHandleThingPeer<T extends ReshapeHandleThing> extends Abstra
 
 		Shape localShape = createLocalShape();
 
-		if (r.setColor(t, IHasColor.COLOR_KEY)) {
-			r.fillShape(localShape, null, null);
-		}
+		r.fillShape(localShape, t.getRawColor(), null, 1);
 
 		return true;
 	}

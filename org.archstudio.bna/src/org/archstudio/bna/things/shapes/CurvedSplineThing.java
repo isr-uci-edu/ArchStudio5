@@ -42,57 +42,65 @@ public class CurvedSplineThing extends CurvedSplineThingBase {
 	void updateProperties() {
 		Point2D p1 = getRawEndpoint1();
 		Point2D p2 = getRawEndpoint2();
+		// curve amount
 		double l = getRawCurve();
-		double a = l + getRawSpacing();
-
+		double spacing = getRawSpacing();
+		double a = l + spacing;
+		// midpoint between p1 & p2
 		double mx = (p1.getX() + p2.getX()) / 2;
 		double my = (p1.getY() + p2.getY()) / 2;
+		// delta of p1 & p2
 		double dx = p2.getX() - p1.getX();
 		double dy = p2.getY() - p1.getY();
-		double dl = Math.sqrt(dx * dx + dy * dy);
+		// angle between p1 & p2
 		double angle = Math.PI - Math.atan2(dy, dx);
 
 		switch (getRawLoopOrientation()) {
 		case NONE: {
-			double cx = mx + 2 * l * -Math.sin(angle);
-			double cy = my + 2 * l * -Math.cos(angle);
-			double ax = mx + a * -Math.sin(angle);
-			double ay = my + a * -Math.cos(angle);
+			double cx = mx + 2 * l * Math.sin(angle);
+			double cy = my + 2 * l * Math.cos(angle);
+			double ax = mx + a * Math.sin(angle);
+			double ay = my + a * Math.cos(angle);
 			shape = new QuadCurve2D.Double(p1.getX(), p1.getY(), cx, cy, p2.getX(), p2.getY());
-			setAnchorPoint(new Point2D.Double(ax, ay));
-			double sx = (ax + cx) / 2;
-			double sy = (ay + cy) / 2;
+			setRawAnchorPoint(new Point2D.Double(ax, ay));
+			double sx = mx + 5 * l * Math.sin(angle) / 4;
+			double sy = my + 5 * l * Math.cos(angle) / 4;
 			endpoint1StemPoint = new Point2D.Double(sx, sy);
 			endpoint2StemPoint = new Point2D.Double(sx, sy);
 		}
 			break;
-		case NORTHEAST:
 		case NORTHWEST:
-		case SOUTHEAST:
-		case SOUTHWEST: {
-			double radius = Math.sqrt((dx * dx + dy * dy) / 4) + Math.abs(l) / 2;
+		case NORTH:
+		case NORTHEAST:
+		case WEST:
+		case EAST:
+		case SOUTHWEST:
+		case SOUTH:
+		case SOUTHEAST: {
+			double dl = Math.sqrt(dx * dx + dy * dy);
+			double radius = dl / 2 + Math.abs(l) / 2;
 			double ml = Math.sqrt(radius * radius - dl * dl / 4);
-			double cx = mx + ml * -Math.sin(angle);
-			double cy = my + ml * -Math.cos(angle);
-			double p1Angle = Math.atan2(cy - p1.getY(), cx - p1.getX());
-			double p2Angle = Math.atan2(cy - p2.getY(), cx - p2.getX());
+			double cx = mx + ml * Math.sin(angle);
+			double cy = my + ml * Math.cos(angle);
+			double p2Angle = Math.atan2(cy - p1.getY(), cx - p1.getX());
+			double p1Angle = Math.atan2(cy - p2.getY(), cx - p2.getX());
 			double angleExtent = SystemUtils.loop(0, p1Angle - p2Angle, 2 * Math.PI);
 			shape = new Arc2D.Double(cx - radius, cy - radius, radius * 2, radius * 2, //
 					(Math.PI - p1Angle) * 180 / Math.PI, angleExtent * 180 / Math.PI, Arc2D.OPEN);
-			double ax = mx + (ml + radius) * -Math.sin(angle);
-			double ay = my + (ml + radius) * -Math.cos(angle);
-			setAnchorPoint(new Point2D.Double(ax, ay));
+			double ax = mx + (ml + radius + spacing) * Math.sin(angle);
+			double ay = my + (ml + radius + spacing) * Math.cos(angle);
+			setRawAnchorPoint(new Point2D.Double(ax, ay));
 			double arrowheadStemLength = 20;
 			double circumference = radius * 2 * Math.PI;
 			double dAngle = 2 * Math.PI * arrowheadStemLength / circumference;
-			double d1Angle = p1Angle + Math.PI - dAngle;
-			double d2Angle = p2Angle + Math.PI + dAngle;
+			double d2Angle = p1Angle + Math.PI - dAngle;
+			double d1Angle = p2Angle + Math.PI + dAngle;
 			endpoint1StemPoint = new Point2D.Double(cx + radius * Math.cos(d1Angle), cy + radius * Math.sin(d1Angle));
 			endpoint2StemPoint = new Point2D.Double(cx + radius * Math.cos(d2Angle), cy + radius * Math.sin(d2Angle));
 		}
 			break;
 		default:
-			throw new IllegalArgumentException(getRawLoopOrientation().toString());
+			//throw new IllegalArgumentException(getRawLoopOrientation().toString());
 		}
 		setBoundingBox(BNAUtils.toRectangle(shape.getBounds2D()));
 	}
@@ -119,14 +127,14 @@ public class CurvedSplineThing extends CurvedSplineThingBase {
 			if (ENDPOINT_1_KEY.equals(pointKey) || ENDPOINT_2_KEY.equals(pointKey)) {
 				Point2D p1 = stickLogic.getStuckPoint(this, ENDPOINT_1_KEY);
 				Point2D p2 = stickLogic.getStuckPoint(this, ENDPOINT_2_KEY);
-				double l = getRawCurve();
-				double mx = (p1.getX() + p2.getX()) / 2;
-				double my = (p1.getY() + p2.getY()) / 2;
+				double l = -getRawCurve();
 				double dx = p2.getX() - p1.getX();
 				double dy = p2.getY() - p1.getY();
 				double angle = Math.PI - Math.atan2(dy, dx);
-				double cx = mx + 2 * l * -Math.sin(angle);
-				double cy = my + 2 * l * -Math.cos(angle);
+				double mx = (p1.getX() + p2.getX()) / 2;
+				double my = (p1.getY() + p2.getY()) / 2;
+				double cx = mx + l * -Math.sin(angle);
+				double cy = my + l * -Math.cos(angle);
 				return new Point2D.Double(cx, cy);
 			}
 			else {
@@ -139,7 +147,7 @@ public class CurvedSplineThing extends CurvedSplineThingBase {
 	public Orientation getLoopOrientation(IBNAModel model, StickPointLogic stickLogic, IThingKey<Point2D> pointKey) {
 		if (ENDPOINT_1_KEY.equals(pointKey) || ENDPOINT_2_KEY.equals(pointKey)) {
 			if (stickLogic.isLoopingPoint(this, ENDPOINT_1_KEY, ENDPOINT_2_KEY)) {
-				return getRawCurve() >= 0 ? Orientation.NORTHWEST : Orientation.SOUTHEAST;
+				return getRawCurve() >= 0 ? Orientation.NORTHEAST : Orientation.SOUTHWEST;
 			}
 			return Orientation.NONE;
 		}

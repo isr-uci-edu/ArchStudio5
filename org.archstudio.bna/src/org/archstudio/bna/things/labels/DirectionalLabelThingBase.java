@@ -24,6 +24,7 @@ public abstract class DirectionalLabelThingBase extends org.archstudio.bna.thing
 			org.archstudio.bna.facets.IHasMutableBoundingBox,
 			org.archstudio.bna.facets.IHasMutableColor,
 			org.archstudio.bna.facets.IHasMutableFlow,
+			org.archstudio.bna.facets.IHasMutableLocalInsets,
 			org.archstudio.bna.facets.IHasMutableOrientation,
 			org.archstudio.bna.facets.IHasMutableReferencePoint {
 
@@ -42,6 +43,7 @@ public abstract class DirectionalLabelThingBase extends org.archstudio.bna.thing
 		addShapeModifyingKey(org.archstudio.bna.facets.IHasBoundingBox.BOUNDING_BOX_KEY);
 		initProperty(org.archstudio.bna.facets.IHasColor.COLOR_KEY, new org.eclipse.swt.graphics.RGB(0, 0, 0));
 		initProperty(org.archstudio.bna.facets.IHasFlow.FLOW_KEY, org.archstudio.swtutils.constants.Flow.NONE);
+		initProperty(org.archstudio.bna.facets.IHasLocalInsets.LOCAL_INSETS_KEY, new java.awt.Insets(0, 0, 0, 0));
 		initProperty(org.archstudio.bna.facets.IHasOrientation.ORIENTATION_KEY, org.archstudio.swtutils.constants.Orientation.NONE);
 		super.initProperties();
 	}
@@ -92,6 +94,22 @@ public abstract class DirectionalLabelThingBase extends org.archstudio.bna.thing
 
 	/*package*/ org.archstudio.swtutils.constants.Flow setRawFlow(org.archstudio.swtutils.constants.Flow flow) {
 		return setRaw(org.archstudio.bna.facets.IHasFlow.FLOW_KEY, flow);
+	}
+
+	public java.awt.Insets getLocalInsets() {
+		return get(org.archstudio.bna.facets.IHasLocalInsets.LOCAL_INSETS_KEY);
+	}
+
+	/*package*/ java.awt.Insets getRawLocalInsets() {
+		return getRaw(org.archstudio.bna.facets.IHasLocalInsets.LOCAL_INSETS_KEY);
+	}
+
+	public void setLocalInsets(java.awt.Insets localInsets) {
+		set(org.archstudio.bna.facets.IHasLocalInsets.LOCAL_INSETS_KEY, localInsets);
+	}
+
+	/*package*/ java.awt.Insets setRawLocalInsets(java.awt.Insets localInsets) {
+		return setRaw(org.archstudio.bna.facets.IHasLocalInsets.LOCAL_INSETS_KEY, localInsets);
 	}
 
 	public org.archstudio.swtutils.constants.Orientation getOrientation() {

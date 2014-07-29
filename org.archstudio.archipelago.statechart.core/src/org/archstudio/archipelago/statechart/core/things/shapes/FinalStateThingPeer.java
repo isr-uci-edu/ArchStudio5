@@ -28,13 +28,13 @@ public class FinalStateThingPeer<T extends FinalStateThing> extends AbstractThin
 		}
 
 		Shape outerShape = new Ellipse2D.Double(lbb.x, lbb.y, lbb.width, lbb.height);
-		float delta = SystemUtils.bound(5, 8 * (float) cm.getLocalScale(), Float.MAX_VALUE);
-		Shape innerShape = new Ellipse2D.Double(lbb.x + delta, lbb.y + delta, lbb.width - 2 * delta, lbb.height - 2
-				* delta);
+		float delta = SystemUtils.bound(5, 6 * (float) cm.getLocalScale(), Float.MAX_VALUE);
+		Shape innerShape = new Ellipse2D.Double(lbb.x + delta, lbb.y + delta, lbb.width - 2 * delta + 1, lbb.height - 2
+				* delta + 1);
 
-		r.fillShape(outerShape, new RGB(255, 255, 255), null);
-		r.fillShape(innerShape, new RGB(0, 0, 0), null);
-		r.drawShape(outerShape);
+		r.fillShape(outerShape, new RGB(255, 255, 255), null, 1);
+		r.fillShape(innerShape, t.getRawColor(), t.isRawGradientFilled() ? t.getRawSecondaryColor() : null, 1);
+		r.drawShape(outerShape, t.getRawEdgeColor(), t.getRawLineWidth(), t.getRawLineStyle(), 1);
 		if (t.isSelected()) {
 			r.selectShape(outerShape, t.getRawRotatingOffset());
 		}
@@ -44,16 +44,17 @@ public class FinalStateThingPeer<T extends FinalStateThing> extends AbstractThin
 
 	@Override
 	public boolean drawShadow(Rectangle localBounds, IUIResources r) {
-		Rectangle lbb = cm.worldToLocal(t.getRawBoundingBox());
-		if (!localBounds.intersects(lbb)) {
-			return false;
+		if (t.getRawGlowColor() == null) {
+			Rectangle lbb = cm.worldToLocal(t.getRawBoundingBox());
+			if (!localBounds.intersects(lbb)) {
+				return false;
+			}
+
+			Shape outerShape = new Ellipse2D.Double(lbb.x, lbb.y, lbb.width, lbb.height);
+			r.fillShape(outerShape, null, null, 1);
+			return true;
 		}
-
-		Shape outerShape = new Ellipse2D.Double(lbb.x, lbb.y, lbb.width, lbb.height);
-
-		r.setColor(new RGB(0, 0, 0), 1);
-		r.fillShape(outerShape, null, null);
-		return true;
+		return false;
 	}
 
 	@Override

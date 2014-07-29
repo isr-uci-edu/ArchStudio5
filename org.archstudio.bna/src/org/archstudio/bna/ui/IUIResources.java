@@ -6,15 +6,13 @@ import java.awt.Shape;
 import java.awt.geom.Point2D;
 
 import org.archstudio.bna.IBNAView;
-import org.archstudio.bna.ICoordinateMapper;
-import org.archstudio.bna.IThing;
-import org.archstudio.bna.facets.IHasFontData;
-import org.archstudio.bna.facets.IHasLineData;
-import org.archstudio.bna.keys.IThingKey;
+import org.archstudio.swtutils.constants.FontStyle;
+import org.archstudio.swtutils.constants.LineStyle;
+import org.archstudio.sysutils.Disposable;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.graphics.Rectangle;
 
-public interface IUIResources {
+public interface IUIResources extends Disposable {
 
 	public static interface FontMetrics {
 
@@ -62,21 +60,7 @@ public interface IUIResources {
 
 	public double popAlpha();
 
-	public boolean setColor(IThing thing, IThingKey<RGB> colorKey);
-
-	public boolean setColor(IThing thing, IThingKey<RGB> colorKey, double alpha);
-
-	public boolean setColor(RGB color, double alpha);
-
-	public boolean setLineStyle(IHasLineData thing);
-
-	public boolean setLineStyle(int width, int stipple);
-
-	public void resetLineStyle();
-
-	public Font getFont(IHasFontData thing, ICoordinateMapper cm);
-
-	public Font getFont(IHasFontData thing, int size);
+	public Font getFont(String name, FontStyle style, int size);
 
 	public FontMetrics getFontMetrics(Font font);
 
@@ -87,19 +71,17 @@ public interface IUIResources {
 	 * the bounding box containing the leading, ascent and descent of the text.
 	 */
 
-	public void drawText(Font font, String text, double x, double y);
+	public void drawText(Font font, String text, double x, double y, RGB color, double alpha);
 
-	public void drawShape(Point2D localShape);
+	public void drawShape(Point2D localShape, RGB color, double alpha);
 
-	public void drawShape(Shape localShape);
+	public void drawShape(Shape localShape, RGB color, int width, LineStyle style, double alpha);
+
+	public void drawShape(Shape localShape, RGB color, int width, int stipple, double alpha);
 
 	public void glowShape(Shape localShape, RGB color, int width, double alpha);
 
 	public void selectShape(Shape localShape, int offset);
-
-	public void fillShape(Shape localShape);
-
-	public void fillShape(Shape localShape, RGB color1, RGB color2);
 
 	public void fillShape(Shape localShape, RGB color1, RGB color2, double alpha);
 

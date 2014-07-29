@@ -10,4 +10,9 @@ public class MappingThing extends MappingThingBase {
 		super(id);
 	}
 
+	@Override
+	public boolean shouldIncrementRotatingOffset() {
+		return isRawSelected();
+	}
+
 }

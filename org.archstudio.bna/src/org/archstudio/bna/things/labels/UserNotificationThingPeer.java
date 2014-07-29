@@ -9,9 +9,9 @@ import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.ICoordinateMapper;
 import org.archstudio.bna.IThingPeer;
-import org.archstudio.bna.facets.IHasEdgeColor;
 import org.archstudio.bna.things.AbstractThingPeer;
 import org.archstudio.bna.ui.IUIResources;
+import org.archstudio.swtutils.constants.LineStyle;
 import org.archstudio.sysutils.SystemUtils;
 import org.eclipse.swt.graphics.Rectangle;
 
@@ -29,7 +29,7 @@ public class UserNotificationThingPeer<T extends UserNotificationThing> extends 
 
 		Point2D lap = cm.worldToLocal(t.getRawAnchorPoint());
 		String text = t.getText().trim();
-		Font font = r.getFont(t, t.getFontSize());
+		Font font = r.getFont(t.getRawFontName(), t.getRawFontStyle(), t.getRawFontSize());
 		Dimension size = r.getTextSize(font, text);
 
 		Rectangle2D.Double localShape = new Rectangle2D.Double(lap.getX() - size.width / 2, lap.getY() - size.height
@@ -39,16 +39,15 @@ public class UserNotificationThingPeer<T extends UserNotificationThing> extends 
 		localShape.width += 2 * SPACING;
 		localShape.height += 2 * SPACING;
 
-		float alpha = SystemUtils.bound(0, (5000 - Math.abs(t.getLife() - 5000)) / 2500f, 1);
+		double alpha = SystemUtils
+				.bound(0, Math.sin(Math.PI * t.getLife() / UserNotificationThing.TIME_TO_LIVE) * 2, 1);
 
 		if (t.getColor() != null) {
 			r.fillShape(localShape, t.getColor(), t.isGradientFilled() ? t.getSecondaryColor() : null, alpha);
 		}
 
-		if (r.setColor(t, IHasEdgeColor.EDGE_COLOR_KEY, alpha)) {
-			r.drawShape(localShape);
-			r.drawText(font, text, localShape.x + SPACING, localShape.y + SPACING);
-		}
+		r.drawShape(localShape, t.getRawEdgeColor(), 1, LineStyle.SOLID, 1);
+		r.drawText(font, text, localShape.x + SPACING, localShape.y + SPACING, t.getRawEdgeColor(), 1);
 
 		return true;
 	}

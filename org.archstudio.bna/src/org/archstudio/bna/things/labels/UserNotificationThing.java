@@ -7,6 +7,8 @@ import org.eclipse.swt.graphics.RGB;
 @NonNullByDefault
 public class UserNotificationThing extends UserNotificationThingBase {
 
+	/* package */static final int TIME_TO_LIVE = 3000;
+
 	public UserNotificationThing(@Nullable Object id) {
 		super(id);
 	}
@@ -14,8 +16,8 @@ public class UserNotificationThing extends UserNotificationThingBase {
 	@Override
 	protected void initProperties() {
 		super.initProperties();
-		setRawLife(5000);
-		setRawColor(new RGB(128, 192, 255));
-		setRawSecondaryColor(new RGB(128, 128, 192));
+		setRawLife(TIME_TO_LIVE);
+		setRawColor(new RGB(255, 255, 128));
+		setRawSecondaryColor(new RGB(192, 192, 128));
 	}
 }

@@ -626,6 +626,9 @@
             <ImplementsFacet
                   facet="MinimumSize">
             </ImplementsFacet>
+            <ImplementsFacet
+                  facet="Alpha">
+            </ImplementsFacet>
          </Thing>
          <Thing
                name="Rectangle">
@@ -658,6 +661,9 @@
             </ImplementsFacet>
             <ImplementsFacet
                   facet="MinimumSize">
+            </ImplementsFacet>
+            <ImplementsFacet
+                  facet="Alpha">
             </ImplementsFacet>
          </Thing>
          <Thing
@@ -737,6 +743,9 @@
             <ImplementsFacet
                   facet="StickyShape">
             </ImplementsFacet>
+            <ImplementsFacet
+                  facet="Alpha">
+            </ImplementsFacet>
          </Thing>
          <Thing
                name="CurvedSpline">
@@ -796,6 +805,9 @@
             <ImplementsFacet
                   facet="Glow">
             </ImplementsFacet>
+            <ImplementsFacet
+                  facet="Selected">
+            </ImplementsFacet>
          </Thing>
          <Thing
                name="LocalShape">
@@ -822,6 +834,9 @@
             </ImplementsFacet>
             <ImplementsFacet
                   facet="MinimumSize">
+            </ImplementsFacet>
+            <ImplementsFacet
+                  facet="Alpha">
             </ImplementsFacet>
          </Thing>
          <Thing
@@ -862,6 +877,9 @@
             </ImplementsFacet>
             <ImplementsFacet
                   facet="MinimumSize">
+            </ImplementsFacet>
+            <ImplementsFacet
+                  facet="Alpha">
             </ImplementsFacet>
          </Thing>
       </Package>
@@ -905,6 +923,9 @@
             <ImplementsFacet
                   facet="ReferencePoint">
             </ImplementsFacet>
+            <ImplementsFacet
+                  facet="LocalInsets">
+            </ImplementsFacet>
          </Thing>
          <Thing
                name="AnchoredLabel">
@@ -940,6 +961,10 @@
             </ImplementsFacet>
             <ImplementsFacet
                   facet="Color">
+            </ImplementsFacet>
+            <ImplementsFacet
+                  facet="BoundingBox"
+                  readOnly="true">
             </ImplementsFacet>
          </Thing>
          <Thing

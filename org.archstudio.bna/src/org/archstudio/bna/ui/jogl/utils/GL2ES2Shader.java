@@ -8,15 +8,17 @@ import javax.media.opengl.GL;
 import javax.media.opengl.GL2ES2;
 import javax.media.opengl.GLException;
 
+import org.archstudio.sysutils.Disposable;
+
 import com.google.common.io.ByteStreams;
 
-public final class GL2ES2Shader {
+public final class GL2ES2Shader implements Disposable {
 
-	synchronized public static GL2ES2Shader create(GL2ES2 gl, int type, URL url) throws GLException {
+	public static GL2ES2Shader create(GL2ES2 gl, int type, URL url) throws GLException {
 		return new GL2ES2Shader(gl, type, url);
 	}
 
-	synchronized private static void dispose(GL2ES2Shader shader) throws GLException {
+	private static void dispose(GL2ES2Shader shader) throws GLException {
 		shader.gl.glDeleteShader(shader.shader);
 	}
 

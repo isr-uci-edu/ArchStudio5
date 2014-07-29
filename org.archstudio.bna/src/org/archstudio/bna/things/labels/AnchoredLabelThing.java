@@ -4,18 +4,29 @@ import java.awt.geom.Point2D;
 
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.facets.IHasIndicatorPoint;
+import org.archstudio.bna.facets.IHasText;
 import org.archstudio.bna.keys.IThingKey;
 import org.archstudio.bna.logics.coordinating.StickPointLogic;
 import org.archstudio.bna.utils.BNAUtils;
+import org.archstudio.sysutils.SystemUtils;
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Rectangle;
 
 @NonNullByDefault
 public class AnchoredLabelThing extends AnchoredLabelThingBase {
 
 	public AnchoredLabelThing(@Nullable Object id) {
 		super(id);
+	}
+
+	@Override
+	protected void initProperties() {
+		super.initProperties();
+		addShapeModifyingKey(IHasText.TEXT_KEY);
+		Point2D ap = getRawAnchorPoint();
+		setRawBoundingBox(new Rectangle(SystemUtils.round(ap.getX()), SystemUtils.round(ap.getY()), 0, 0));
 	}
 
 	@Override

@@ -13,10 +13,9 @@
 	precision mediump int;
 #endif
 
-// Incoming varying data sent from the vertex shader
-varying vec4 varying_color;
+varying vec4 varying_rgba;
 
 void main (void)
 {
-	gl_FragColor = varying_color;
+	gl_FragColor = varying_rgba;
 }

@@ -308,7 +308,7 @@ public final class Assemblies {
 		}
 
 		for (IThing editableThing : Assemblies.getAssemblyThings(model, rootOrPart)) {
-			if (UserEditableUtils.isEditableForAnyQualities(editableThing, editableQualities)) {
+			if (UserEditableUtils.isEditableForAllQualities(editableThing, editableQualities)) {
 				if (editableClass.isInstance(editableThing)) {
 					return (T) editableThing;
 				}
@@ -378,14 +378,12 @@ public final class Assemblies {
 	public static final IThing getLayer(IBNAModel model, Object layerThingID) {
 		IThing layerThing = model.getThing(layerThingID);
 		if (layerThing == null) {
-			synchronized (model) {
-				layerThing = model.getThing(layerThingID);
-				if (layerThing == null) {
-					for (Object layerID : Layer.values()) {
-						model.addThing(new NoThing(layerID));
-					}
-					layerThing = model.getThing(layerThingID);
+			layerThing = model.getThing(layerThingID);
+			if (layerThing == null) {
+				for (Object layerID : Layer.values()) {
+					model.addThing(new NoThing(layerID));
 				}
+				layerThing = model.getThing(layerThingID);
 			}
 		}
 		if (layerThing == null) {
@@ -479,11 +477,11 @@ public final class Assemblies {
 
 		IBNAModel model = world.getBNAModel();
 
-		EndpointThing bkg = model.addThing(new EndpointThing(null), parent != null ? parent
-				: getLayer(model, Layer.TOP));
+		EndpointThing bkg = model.addThing(new EndpointThing(id), parent != null ? parent : getLayer(model, Layer.TOP));
 		bkg.setColor(new RGB(255, 255, 255));
 		bkg.setSecondaryColor(null);
 		DirectionalLabelThing direction = model.addThing(new DirectionalLabelThing(null), bkg);
+		direction.setLocalInsets(new Insets(2, 2, 2, 2));
 
 		markRoot(bkg);
 		markPart(bkg, DIRECTION_KEY, direction);
@@ -491,7 +489,7 @@ public final class Assemblies {
 		IThingLogicManager tlm = world.getThingLogicManager();
 		MirrorBoundingBoxLogic mbbl = tlm.addThingLogic(MirrorBoundingBoxLogic.class);
 
-		mbbl.mirrorBoundingBox(bkg, direction, new Insets(2, 2, 2, 2));
+		mbbl.mirrorBoundingBox(bkg, direction, new Insets(0, 0, 0, 0));
 
 		if (parent != null) {
 			StickPointLogic stickLogic = tlm.addThingLogic(StickPointLogic.class);
@@ -510,8 +508,7 @@ public final class Assemblies {
 
 		IBNAModel model = world.getBNAModel();
 
-		SplineThing bkg = model
-				.addThing(new SplineThing(null), parent != null ? parent : getLayer(model, Layer.SPLINE));
+		SplineThing bkg = model.addThing(new SplineThing(id), parent != null ? parent : getLayer(model, Layer.SPLINE));
 
 		markRoot(bkg);
 

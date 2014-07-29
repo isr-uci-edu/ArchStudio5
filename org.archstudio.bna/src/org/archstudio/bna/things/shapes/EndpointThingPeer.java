@@ -49,14 +49,12 @@ public class EndpointThingPeer<T extends EndpointThing> extends AbstractThingPee
 		}
 		RGB color = t.getRawColor();
 		if (color != null) {
-			r.fillShape(localShape, color, t.isRawGradientFilled() ? t.getRawSecondaryColor() : null);
+			r.fillShape(localShape, color, t.isRawGradientFilled() ? t.getRawSecondaryColor() : null, t.getRawAlpha());
 		}
-		if (r.setLineStyle(t)) {
-			r.drawShape(localShape);
-			for (int count = t.getRawCount() - 1; count >= 0; count--) {
-				r.drawShape(createLocalShape(lbb, count * 2 * t.getRawLineWidth()));
-			}
-			r.resetLineStyle();
+		r.drawShape(localShape, t.getRawEdgeColor(), t.getRawLineWidth(), t.getRawLineStyle(), 1);
+		for (int count = t.getRawCount() - 1; count > 0; count--) {
+			r.drawShape(createLocalShape(lbb, count * 2 * t.getRawLineWidth()), t.getRawEdgeColor(),
+					t.getRawLineWidth(), t.getRawLineStyle(), 1);
 		}
 		if (t.isRawSelected()) {
 			r.selectShape(localShape, t.getRawRotatingOffset());
@@ -67,16 +65,17 @@ public class EndpointThingPeer<T extends EndpointThing> extends AbstractThingPee
 
 	@Override
 	public boolean drawShadow(Rectangle localBounds, IUIResources r) {
-		Rectangle lbb = cm.worldToLocal(t.getRawBoundingBox());
-		if (!localBounds.intersects(lbb) || t.getColor() == null) {
-			return false;
+		if (t.getRawGlowColor() == null && t.getColor() != null) {
+			Rectangle lbb = cm.worldToLocal(t.getRawBoundingBox());
+			if (!localBounds.intersects(lbb)) {
+				return false;
+			}
+
+			Shape localShape = createLocalShape(lbb, 0);
+			r.fillShape(localShape, new RGB(0, 0, 0), null, 1);
+			return true;
 		}
-
-		Shape localShape = createLocalShape(lbb, 0);
-
-		r.setColor(new RGB(0, 0, 0), 1);
-		r.fillShape(localShape, null, null);
-		return true;
+		return false;
 	}
 
 	@Override

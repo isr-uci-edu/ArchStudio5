@@ -30,6 +30,8 @@ import org.archstudio.bna.keys.ThingKey;
 import org.archstudio.bna.things.utility.EnvironmentPropertiesThing;
 import org.archstudio.swtutils.SWTWidgetUtils;
 import org.archstudio.swtutils.constants.Orientation;
+import org.archstudio.sysutils.ExpandableFloatBuffer;
+import org.archstudio.sysutils.ExpandableIntBuffer;
 import org.archstudio.sysutils.FastMap;
 import org.archstudio.sysutils.SystemUtils;
 import org.archstudio.sysutils.UIDGenerator;
@@ -57,6 +59,7 @@ public class BNAUtils {
 	public static final CycleDetectingLockFactory LOCK_FACTORY = CycleDetectingLockFactory
 			.newInstance(CycleDetectingLockFactory.Policies.DISABLED);
 	public static final double TO_POINTS_ERROR = 0.5d;
+	public static final double TO_POINTS_ERROR_SQ = TO_POINTS_ERROR * TO_POINTS_ERROR;
 	public static final double REAL_EQUAL_THRESHOLD = 0.0000001d;
 	public static final int LINE_CLICK_DISTANCE = 5;
 
@@ -103,7 +106,7 @@ public class BNAUtils {
 				&& isWithin(outsideRect, in.x + in.width, in.y + in.height);
 	}
 
-	private static boolean eq(double v1, double v2) {
+	public static boolean realEq(double v1, double v2) {
 		return Math.abs(v2 - v1) < REAL_EQUAL_THRESHOLD;
 	}
 
@@ -112,13 +115,13 @@ public class BNAUtils {
 		likeHelpers.put(Point2D.Float.class, new Comparator<Point2D>() {
 			@Override
 			public int compare(Point2D o1, Point2D o2) {
-				return eq(o1.getX(), o2.getX()) && eq(o1.getY(), o2.getY()) ? 0 : -1;
+				return realEq(o1.getX(), o2.getX()) && realEq(o1.getY(), o2.getY()) ? 0 : -1;
 			}
 		});
 		likeHelpers.put(Point2D.Double.class, new Comparator<Point2D>() {
 			@Override
 			public int compare(Point2D o1, Point2D o2) {
-				return eq(o1.getX(), o2.getX()) && eq(o1.getY(), o2.getY()) ? 0 : -1;
+				return realEq(o1.getX(), o2.getX()) && realEq(o1.getY(), o2.getY()) ? 0 : -1;
 			}
 		});
 	}
@@ -824,32 +827,29 @@ public class BNAUtils {
 
 		// search for the point closest to (nearX,nearY) that intersects the referenceLine
 		Line2D referenceLine = new Line2D.Double(refX, refY, nearX, nearY);
-		double[] pathCoords = new double[6];
+		double[] coords = new double[6];
 		double closestDistanceSq = Double.POSITIVE_INFINITY;
 		Point2D closestIntersection = new Point2D.Double(refX, refY);
 		{
-			Point2D lastMoveTo = new Point2D.Double();
 			Point2D lastPoint = new Point2D.Double();
 			Line2D lineSegment = new Line2D.Double();
 			for (PathIterator i = shape.getPathIterator(new AffineTransform(), 0.5f); !i.isDone(); i.next()) {
-				switch (i.currentSegment(pathCoords)) {
+				switch (i.currentSegment(coords)) {
 				case PathIterator.SEG_MOVETO:
-					lastMoveTo.setLocation(pathCoords[0], pathCoords[1]);
-					lastPoint.setLocation(pathCoords[0], pathCoords[1]);
+					lastPoint.setLocation(coords[0], coords[1]);
 					continue;
 				case PathIterator.SEG_CLOSE:
-					lineSegment.setLine(lastPoint, lastMoveTo);
-					break;
+					continue;
 				case PathIterator.SEG_LINETO:
-					lineSegment.setLine(lastPoint.getX(), lastPoint.getY(), pathCoords[0], pathCoords[1]);
-					lastPoint.setLocation(pathCoords[0], pathCoords[1]);
+					lineSegment.setLine(lastPoint.getX(), lastPoint.getY(), coords[0], coords[1]);
+					lastPoint.setLocation(coords[0], coords[1]);
 					break;
 				default:
 					throw new UnsupportedOperationException();
 				}
 
 				Point2D intersection = getLineIntersection(lineSegment, referenceLine);
-				if (lineSegment.ptSegDistSq(intersection) < 0.0000001d) {
+				if (lineSegment.ptSegDistSq(intersection) < REAL_EQUAL_THRESHOLD) {
 					double distanceSq = intersection.distanceSq(nearX, nearY);
 					if (distanceSq < closestDistanceSq) {
 						closestDistanceSq = distanceSq;
@@ -895,7 +895,7 @@ public class BNAUtils {
 		Point2D p2 = l.getP2();
 
 		// determine if the calculated intersection is between the segment points
-		if (l.ptSegDistSq(x, y) < 0.0000001d) {
+		if (l.ptSegDistSq(x, y) < REAL_EQUAL_THRESHOLD) {
 			return new Point2D.Double(x, y);
 		}
 		// its not, so use the closest end point
@@ -910,34 +910,28 @@ public class BNAUtils {
 		// search for the closest line segment
 		double[] pathCoords = new double[6];
 		double closestDistanceSq = Double.POSITIVE_INFINITY;
-		Line2D closestLineSeg = null;
-		{
-			Point2D lastMoveTo = null;
-			Point2D lastPoint = null;
-			for (PathIterator i = shape.getPathIterator(new AffineTransform(), 0.5f); !i.isDone(); i.next()) {
-				Line2D lineSegment = null;
-				switch (i.currentSegment(pathCoords)) {
-				case PathIterator.SEG_MOVETO:
-					lastMoveTo = new Point2D.Double(pathCoords[0], pathCoords[1]);
-					lastPoint = lastMoveTo;
-					continue;
-				case PathIterator.SEG_CLOSE:
-					lineSegment = new Line2D.Double(lastPoint, lastMoveTo);
-					break;
-				case PathIterator.SEG_LINETO:
-					Point2D lineTo = new Point2D.Double(pathCoords[0], pathCoords[1]);
-					lineSegment = new Line2D.Double(lastPoint, lineTo);
-					lastPoint = lineTo;
-					break;
-				default:
-					throw new UnsupportedOperationException();
-				}
+		Line2D closestLineSeg = new Line2D.Double();
+		Point2D lastPoint = new Point2D.Double(0, 0);
+		for (PathIterator i = shape.getPathIterator(new AffineTransform(), 0.5f); !i.isDone(); i.next()) {
+			Line2D lineSegment = new Line2D.Double();
+			switch (i.currentSegment(pathCoords)) {
+			case PathIterator.SEG_MOVETO:
+				lastPoint.setLocation(pathCoords[0], pathCoords[1]);
+				continue;
+			case PathIterator.SEG_CLOSE:
+				continue;
+			case PathIterator.SEG_LINETO:
+				lineSegment.setLine(lastPoint.getX(), lastPoint.getY(), pathCoords[0], pathCoords[1]);
+				lastPoint.setLocation(pathCoords[0], pathCoords[1]);
+				break;
+			default:
+				throw new UnsupportedOperationException();
+			}
 
-				double distanceSq = lineSegment.ptSegDistSq(nearX, nearY);
-				if (distanceSq < closestDistanceSq) {
-					closestDistanceSq = distanceSq;
-					closestLineSeg = lineSegment;
-				}
+			double distanceSq = lineSegment.ptSegDistSq(nearX, nearY);
+			if (distanceSq < closestDistanceSq) {
+				closestDistanceSq = distanceSq;
+				closestLineSeg.setLine(lineSegment);
 			}
 		}
 
@@ -1036,13 +1030,11 @@ public class BNAUtils {
 		float r = rgb.red * factor;
 		float g = rgb.green * factor;
 		float b = rgb.blue * factor;
-		float w = ((r > 255 ? r - 255 : 0) + (g > 255 ? g - 255 : 0) + (b > 255 ? b - 255 : 0))
-				/ ((r > 255 ? 1 : 0) + (g > 255 ? 1 : 0) + (b > 255 ? 1 : 0));
 
 		return new RGB(//
-				SystemUtils.bound(0, SystemUtils.round(r + w), 255),// 
-				SystemUtils.bound(0, SystemUtils.round(g + w), 255),// 
-				SystemUtils.bound(0, SystemUtils.round(b + w), 255));
+				SystemUtils.bound(0, SystemUtils.round(r), 255),// 
+				SystemUtils.bound(0, SystemUtils.round(g), 255),// 
+				SystemUtils.bound(0, SystemUtils.round(b), 255));
 	}
 
 	public static final Rectangle toRectangle(java.awt.Rectangle bounds) {
@@ -1050,10 +1042,10 @@ public class BNAUtils {
 	}
 
 	public static final Rectangle toRectangle(java.awt.geom.Rectangle2D bounds) {
-		int x1 = SystemUtils.round(bounds.getMinX());
-		int y1 = SystemUtils.round(bounds.getMinY());
-		int x2 = SystemUtils.round(bounds.getMaxX());
-		int y2 = SystemUtils.round(bounds.getMaxY());
+		int x1 = SystemUtils.floor(bounds.getMinX());
+		int y1 = SystemUtils.floor(bounds.getMinY());
+		int x2 = SystemUtils.ceil(bounds.getMaxX());
+		int y2 = SystemUtils.ceil(bounds.getMaxY());
 		return new Rectangle(x1, y1, x2 - x1 + 1, y2 - y1 + 1);
 	}
 
@@ -1089,83 +1081,68 @@ public class BNAUtils {
 		return new Dimension(lbb.width, lbb.height);
 	}
 
-	public static List<Point2D> toPoints(Shape localShape) {
-		List<Point2D> points = Lists.newArrayList();
-		PathIterator p = localShape.getPathIterator(new AffineTransform(), TO_POINTS_ERROR);
-		double[] startCoords = new double[6];
+	public static void toXYFloatBuffer(Shape localShape, ExpandableFloatBuffer xyFloatBuffer) {
+		float firstX = 0, firstY = 0;
+		float lastX = 0, lastY = 0;
+		PathIterator p = localShape.getPathIterator(null, TO_POINTS_ERROR);
 		double[] coords = new double[6];
 		while (!p.isDone()) {
 			switch (p.currentSegment(coords)) {
 			case PathIterator.SEG_CLOSE:
-				points.add(new Point2D.Double(startCoords[0], startCoords[1]));
+				if (Math.abs(firstX - lastX) > TO_POINTS_ERROR || Math.abs(firstY - lastY) > TO_POINTS_ERROR) {
+					xyFloatBuffer.put(lastX = firstX);
+					xyFloatBuffer.put(lastY = firstY);
+				}
 				break;
 			case PathIterator.SEG_MOVETO:
-				points.add(new Point2D.Double(coords[0], coords[1]));
-				System.arraycopy(coords, 0, startCoords, 0, 6);
+				xyFloatBuffer.put(firstX = lastX = (float) coords[0]);
+				xyFloatBuffer.put(firstY = lastY = (float) coords[1]);
 				break;
 			case PathIterator.SEG_LINETO:
-				points.add(new Point2D.Double(coords[0], coords[1]));
+				float nextX = (float) coords[0];
+				float nextY = (float) coords[1];
+				if (Math.abs(nextX - lastX) > TO_POINTS_ERROR || Math.abs(nextY - lastY) > TO_POINTS_ERROR) {
+					xyFloatBuffer.put(lastX = nextX);
+					xyFloatBuffer.put(lastY = nextY);
+				}
 				break;
 			default:
 				throw new IllegalArgumentException();
 			}
-			// remove duplicate points, especially necessary for glow things
-			if (points.size() >= 2) {
-				if (points.get(points.size() - 1).distanceSq(points.get(points.size() - 2)) < TO_POINTS_ERROR
-						* TO_POINTS_ERROR) {
-					points.remove(points.size() - 1);
+			p.next();
+		}
+	}
+
+	public static void toXYIntBuffer(Shape localShape, ExpandableIntBuffer xyIntBuffer) {
+		int firstX = 0, firstY = 0;
+		int lastX = 0, lastY = 0;
+		PathIterator p = localShape.getPathIterator(null, TO_POINTS_ERROR);
+		double[] coords = new double[6];
+		while (!p.isDone()) {
+			switch (p.currentSegment(coords)) {
+			case PathIterator.SEG_CLOSE:
+				if (Math.abs(firstX - lastX) > TO_POINTS_ERROR || Math.abs(firstY - lastY) > TO_POINTS_ERROR) {
+					xyIntBuffer.put(lastX = firstX);
+					xyIntBuffer.put(lastY = firstY);
 				}
+				break;
+			case PathIterator.SEG_MOVETO:
+				xyIntBuffer.put(firstX = lastX = SystemUtils.round(coords[0]));
+				xyIntBuffer.put(firstY = lastY = SystemUtils.round(coords[1]));
+				break;
+			case PathIterator.SEG_LINETO:
+				int nextX = SystemUtils.round(coords[0]);
+				int nextY = SystemUtils.round(coords[1]);
+				if (Math.abs(nextX - lastX) > TO_POINTS_ERROR || Math.abs(nextY - lastY) > TO_POINTS_ERROR) {
+					xyIntBuffer.put(lastX = nextX);
+					xyIntBuffer.put(lastY = nextY);
+				}
+				break;
+			default:
+				throw new IllegalArgumentException();
 			}
 			p.next();
 		}
-		return points;
-	}
-
-	public static final int[] toXYIntArray(Shape localShape) {
-		List<Point2D> points = toPoints(localShape);
-		int[] xyArray = new int[points.size() * 2];
-		int xyArrayIndex = 0;
-
-		for (Point2D point : points) {
-			int x = SystemUtils.round(point.getX());
-			int y = SystemUtils.round(point.getY());
-			// remove duplicate points, especially necessary for glow things
-			if (xyArrayIndex >= 2) {
-				if (xyArray[xyArrayIndex - 2] == x && xyArray[xyArrayIndex - 1] == y) {
-					continue;
-				}
-			}
-			xyArray[xyArrayIndex++] = x;
-			xyArray[xyArrayIndex++] = y;
-		}
-
-		int[] xyArraySubset = xyArray;
-		if (xyArrayIndex < xyArray.length) {
-			xyArraySubset = new int[xyArrayIndex];
-			System.arraycopy(xyArray, 0, xyArraySubset, 0, xyArrayIndex);
-		}
-		return xyArraySubset;
-	}
-
-	public static final float[] toXYFloatArray(Shape localShape) {
-		List<Point2D> points = toPoints(localShape);
-		float[] xyArray = new float[points.size() * 2];
-		int xyArrayIndex = 0;
-
-		for (Point2D point : points) {
-			float x = (float) point.getX();
-			float y = (float) point.getY();
-			// duplicate points were alerady removed in toPoints(...)
-			xyArray[xyArrayIndex++] = x;
-			xyArray[xyArrayIndex++] = y;
-		}
-
-		float[] xyArraySubset = xyArray;
-		if (xyArrayIndex < xyArray.length) {
-			xyArraySubset = new float[xyArrayIndex];
-			System.arraycopy(xyArray, 0, xyArraySubset, 0, xyArrayIndex);
-		}
-		return xyArraySubset;
 	}
 
 	public static final Path toPath(Path path, Shape localShape) {
@@ -1199,29 +1176,42 @@ public class BNAUtils {
 
 	public static Path2D worldToLocal(ICoordinateMapper cm, Shape shape) {
 		Path2D p = new Path2D.Double();
-		PathIterator i = shape.getPathIterator(new AffineTransform());
+		PathIterator i = shape.getPathIterator(null);
 		double[] coords = new double[6];
 		Point2D.Double d = new Point2D.Double();
+		Point2D d2;
 		while (!i.isDone()) {
-			int seg = i.currentSegment(coords);
-			for (int j = 0; j < 6; j += 2) {
-				d.x = coords[j];
-				d.y = coords[j + 1];
-				Point2D d2 = cm.worldToLocal(d);
-				coords[j] = d2.getX();
-				coords[j + 1] = d2.getY();
-			}
-			switch (seg) {
+			switch (i.currentSegment(coords)) {
 			case PathIterator.SEG_MOVETO:
-				p.moveTo(coords[0], coords[1]);
+				d.x = coords[0];
+				d.y = coords[1];
+				d2 = cm.worldToLocal(d);
+				p.moveTo(d2.getX(), d2.getY());
 				break;
 			case PathIterator.SEG_LINETO:
-				p.lineTo(coords[0], coords[1]);
+				d.x = coords[0];
+				d.y = coords[1];
+				d2 = cm.worldToLocal(d);
+				p.lineTo(d2.getX(), d2.getY());
 				break;
 			case PathIterator.SEG_QUADTO:
+				for (int j = 0; j < 4; j += 2) {
+					d.x = coords[j];
+					d.y = coords[j + 1];
+					d2 = cm.worldToLocal(d);
+					coords[j] = d2.getX();
+					coords[j + 1] = d2.getY();
+				}
 				p.quadTo(coords[0], coords[1], coords[2], coords[3]);
 				break;
 			case PathIterator.SEG_CUBICTO:
+				for (int j = 0; j < 6; j += 2) {
+					d.x = coords[j];
+					d.y = coords[j + 1];
+					d2 = cm.worldToLocal(d);
+					coords[j] = d2.getX();
+					coords[j + 1] = d2.getY();
+				}
 				p.curveTo(coords[0], coords[1], coords[2], coords[3], coords[4], coords[5]);
 				break;
 			case PathIterator.SEG_CLOSE:
@@ -1234,5 +1224,4 @@ public class BNAUtils {
 		}
 		return p;
 	}
-
 }

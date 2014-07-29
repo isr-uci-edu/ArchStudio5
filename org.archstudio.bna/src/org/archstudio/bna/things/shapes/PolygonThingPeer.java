@@ -8,7 +8,6 @@ import java.util.List;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.ICoordinateMapper;
-import org.archstudio.bna.facets.IHasAlpha;
 import org.archstudio.bna.facets.peers.IHasShadowPeer;
 import org.archstudio.bna.things.AbstractThingPeer;
 import org.archstudio.bna.ui.IUIResources;
@@ -52,14 +51,13 @@ public class PolygonThingPeer<T extends PolygonThing> extends AbstractThingPeer<
 		}
 		RGB color = t.getRawColor();
 		if (color != null) {
-			r.fillShape(localShape, color, t.isRawGradientFilled() ? t.getRawSecondaryColor() : null);
-		}
-		if (r.setLineStyle(t)) {
-			r.drawShape(localShape);
-			r.resetLineStyle();
+			r.fillShape(localShape, color, t.isRawGradientFilled() ? t.getRawSecondaryColor() : null, t.getRawAlpha());
 		}
 		if (t.isRawSelected()) {
 			r.selectShape(localShape, t.getRawRotatingOffset());
+		}
+		else {
+			r.drawShape(localShape, t.getRawEdgeColor(), t.getRawLineWidth(), t.getRawLineStyle(), 1);
 		}
 
 		return true;
@@ -67,16 +65,17 @@ public class PolygonThingPeer<T extends PolygonThing> extends AbstractThingPeer<
 
 	@Override
 	public boolean drawShadow(Rectangle localBounds, IUIResources r) {
-		Rectangle lbb = cm.worldToLocal(t.getRawBoundingBox());
-		if (!localBounds.intersects(lbb) || t.getColor() == null) {
-			return false;
+		if (t.getRawGlowColor() == null && t.getColor() != null) {
+			Rectangle lbb = cm.worldToLocal(t.getRawBoundingBox());
+			if (!localBounds.intersects(lbb)) {
+				return false;
+			}
+
+			Shape localShape = createLocalShape();
+			r.fillShape(localShape, new RGB(0, 0, 0), null, 1);
+			return true;
 		}
-
-		Shape localShape = createLocalShape();
-
-		r.setColor(new RGB(0, 0, 0), t.get(IHasAlpha.ALPHA_KEY, 1d));
-		r.fillShape(localShape, null, null);
-		return true;
+		return false;
 	}
 
 	@Override

@@ -52,6 +52,7 @@ public class JOGLBNAUI extends AbstractSWTUI {
 					}
 				}
 			});
+			thread.setName(RepaintThread.class.getName());
 			thread.setDaemon(true);
 			thread.start();
 		}
@@ -93,11 +94,18 @@ public class JOGLBNAUI extends AbstractSWTUI {
 
 		@Override
 		public void display(GLAutoDrawable drawable) {
-			loadPreferences(joglThreadResources, parent);
-			joglThreadResources.renderInit();
-			joglThreadResources.renderReshape(new Rectangle(0, 0, drawable.getWidth(), drawable.getHeight()));
-			joglThreadResources.renderTopLevelThings(view,
-					new Rectangle(0, 0, drawable.getWidth(), drawable.getHeight()));
+			try {
+				Rectangle localBounds = new Rectangle(0, 0, drawable.getWidth(), drawable.getHeight());
+				loadPreferences(joglThreadResources, parent);
+				joglThreadResources.setLocalBounds(localBounds);
+				joglThreadResources.renderInit();
+				joglThreadResources.renderReshape(localBounds);
+				joglThreadResources.renderTopLevelThings(view,
+						new Rectangle(0, 0, drawable.getWidth(), drawable.getHeight()));
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
 

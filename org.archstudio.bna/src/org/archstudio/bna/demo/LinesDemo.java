@@ -37,12 +37,12 @@ public class LinesDemo implements GLEventListener {
 		System.err.println("Chosen GLCapabilities: " + drawable.getChosenGLCapabilities());
 		System.err.println("INIT GL IS: " + gl.getClass().getName());
 		System.err.println("HARDWARE_ACCELERATION: " + gl.getGL2ES2().getGLProfile().isHardwareRasterizer());
-		System.err.println("GL_VENDOR: " + gl.glGetString(GL2ES2.GL_VENDOR));
-		System.err.println("GL_RENDERER: " + gl.glGetString(GL2ES2.GL_RENDERER));
-		System.err.println("GL_VERSION: " + gl.glGetString(GL2ES2.GL_VERSION));
+		System.err.println("GL_VENDOR: " + gl.glGetString(GL.GL_VENDOR));
+		System.err.println("GL_RENDERER: " + gl.glGetString(GL.GL_RENDERER));
+		System.err.println("GL_VERSION: " + gl.glGetString(GL.GL_VERSION));
 
-		line_vp = GL2ES2Shader.create(gl, GL2ES2.GL_VERTEX_SHADER, JOGLResources.class.getResource("glsl/line.vp"));
-		line_fp = GL2ES2Shader.create(gl, GL2ES2.GL_FRAGMENT_SHADER, JOGLResources.class.getResource("glsl/line.fp"));
+		line_vp = GL2ES2Shader.create(gl, GL2ES2.GL_VERTEX_SHADER, JOGLResources.class.getResource("glsl/line2d.vp"));
+		line_fp = GL2ES2Shader.create(gl, GL2ES2.GL_FRAGMENT_SHADER, JOGLResources.class.getResource("glsl/line2d.fp"));
 
 		line = GL2ES2Program.create(gl, line_vp, line_fp);
 		line.bindAttribute("attribute_position", 1);
@@ -50,8 +50,8 @@ public class LinesDemo implements GLEventListener {
 		line.bindAttribute("attribute_stipple_offset", 1);
 		line.link();
 
-		gl.glDisable(GL2ES2.GL_LINE_SMOOTH);
-		gl.glHint(GL2ES2.GL_LINE_SMOOTH_HINT, GL2ES2.GL_FASTEST);
+		gl.glDisable(GL.GL_LINE_SMOOTH);
+		gl.glHint(GL.GL_LINE_SMOOTH_HINT, GL.GL_FASTEST);
 
 		startTime = System.currentTimeMillis();
 	}
@@ -73,7 +73,7 @@ public class LinesDemo implements GLEventListener {
 		GL2ES2 gl = drawable.getGL().getGL2ES2();
 
 		gl.glClearColor(1, 1, 1, 1);
-		gl.glClear(GL2ES2.GL_STENCIL_BUFFER_BIT | GL2ES2.GL_COLOR_BUFFER_BIT | GL2ES2.GL_DEPTH_BUFFER_BIT);
+		gl.glClear(GL.GL_STENCIL_BUFFER_BIT | GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
 
 		float o = 0; // SystemUtils.loop(0, (System.currentTimeMillis() - startTime) % 1000, (float) Math.PI * 2);
 		for (float a = 0; a < 2 * Math.PI; a += (float) Math.PI / 360 * 15) {
@@ -89,11 +89,10 @@ public class LinesDemo implements GLEventListener {
 			line.use();
 			gl.glUniformMatrix4fv(line.getUniform("uniform_projection"), 1, false, matrix.glGetMatrixf());
 			gl.glUniform1i(line.getUniform("uniform_stipple"), 0x11111111);
-			line.bindBufferData(GL2ES2.GL_ARRAY_BUFFER, "attribute_position", vertices, GL.GL_STATIC_DRAW, 2, false);
-			line.bindBufferData(GL2ES2.GL_ARRAY_BUFFER, "attribute_color", colors, GL.GL_STATIC_DRAW, 4, false);
-			line.bindBufferData(GL2ES2.GL_ARRAY_BUFFER, "attribute_stipple_offset", offsets, GL.GL_STATIC_DRAW, 1,
-					false);
-			gl.glDrawArrays(GL2ES2.GL_LINE_STRIP, 0, 2);
+			line.bindBufferData(GL.GL_ARRAY_BUFFER, "attribute_position", 2, vertices, GL.GL_STATIC_DRAW, 2, false);
+			line.bindBufferData(GL.GL_ARRAY_BUFFER, "attribute_color", 2, colors, GL.GL_STATIC_DRAW, 4, false);
+			line.bindBufferData(GL.GL_ARRAY_BUFFER, "attribute_stipple_offset", 2, offsets, GL.GL_STATIC_DRAW, 1, false);
+			gl.glDrawArrays(GL.GL_LINE_STRIP, 0, 2);
 		}
 	}
 

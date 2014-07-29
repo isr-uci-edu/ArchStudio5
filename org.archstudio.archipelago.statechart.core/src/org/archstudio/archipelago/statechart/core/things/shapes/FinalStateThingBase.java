@@ -23,6 +23,8 @@ public abstract class FinalStateThingBase extends org.archstudio.bna.things.Abst
 	implements org.archstudio.bna.IThing,
 			org.archstudio.bna.facets.IHasMutableBoundingBox,
 			org.archstudio.bna.facets.IHasMutableGlow,
+			org.archstudio.bna.facets.IHasMutableGradientFilled,
+			org.archstudio.bna.facets.IHasMutableLineData,
 			org.archstudio.bna.facets.IHasMutableReferencePoint,
 			org.archstudio.bna.facets.IHasMutableSelected,
 			org.archstudio.bna.facets.IHasMutableStickyShape {
@@ -40,10 +42,16 @@ public abstract class FinalStateThingBase extends org.archstudio.bna.things.Abst
 	protected void initProperties() {
 		initProperty(org.archstudio.bna.facets.IHasBoundingBox.BOUNDING_BOX_KEY, new org.eclipse.swt.graphics.Rectangle(0, 0, 30, 20));
 		addShapeModifyingKey(org.archstudio.bna.facets.IHasBoundingBox.BOUNDING_BOX_KEY);
+		initProperty(org.archstudio.bna.facets.IHasColor.COLOR_KEY, new org.eclipse.swt.graphics.RGB(0, 0, 0));
+		initProperty(org.archstudio.bna.facets.IHasEdgeColor.EDGE_COLOR_KEY, new org.eclipse.swt.graphics.RGB(0, 0, 0));
 		initProperty(org.archstudio.bna.facets.IHasGlow.GLOW_ALPHA_KEY, 0.75d);
 		initProperty(org.archstudio.bna.facets.IHasGlow.GLOW_COLOR_KEY, null);
 		initProperty(org.archstudio.bna.facets.IHasGlow.GLOW_WIDTH_KEY, 20);
+		initProperty(org.archstudio.bna.facets.IHasGradientFilled.GRADIENT_FILLED_KEY, true);
+		initProperty(org.archstudio.bna.facets.IHasLineStyle.LINE_STYLE_KEY, org.archstudio.swtutils.constants.LineStyle.SOLID);
+		initProperty(org.archstudio.bna.facets.IHasLineWidth.LINE_WIDTH_KEY, 1);
 		initProperty(org.archstudio.bna.facets.IHasRotatingOffset.ROTATING_OFFSET_KEY, 0);
+		initProperty(org.archstudio.bna.facets.IHasSecondaryColor.SECONDARY_COLOR_KEY, new org.eclipse.swt.graphics.RGB(192, 192, 192));
 		initProperty(org.archstudio.bna.facets.IHasSelected.SELECTED_KEY, false);
 		super.initProperties();
 	}
@@ -62,6 +70,38 @@ public abstract class FinalStateThingBase extends org.archstudio.bna.things.Abst
 
 	/*package*/ org.eclipse.swt.graphics.Rectangle setRawBoundingBox(org.eclipse.swt.graphics.Rectangle boundingBox) {
 		return setRaw(org.archstudio.bna.facets.IHasBoundingBox.BOUNDING_BOX_KEY, boundingBox);
+	}
+
+	public @Nullable org.eclipse.swt.graphics.RGB getColor() {
+		return get(org.archstudio.bna.facets.IHasColor.COLOR_KEY);
+	}
+
+	/*package*/ @Nullable org.eclipse.swt.graphics.RGB getRawColor() {
+		return getRaw(org.archstudio.bna.facets.IHasColor.COLOR_KEY);
+	}
+
+	public void setColor(@Nullable org.eclipse.swt.graphics.RGB color) {
+		set(org.archstudio.bna.facets.IHasColor.COLOR_KEY, color);
+	}
+
+	/*package*/ @Nullable org.eclipse.swt.graphics.RGB setRawColor(@Nullable org.eclipse.swt.graphics.RGB color) {
+		return setRaw(org.archstudio.bna.facets.IHasColor.COLOR_KEY, color);
+	}
+
+	public @Nullable org.eclipse.swt.graphics.RGB getEdgeColor() {
+		return get(org.archstudio.bna.facets.IHasEdgeColor.EDGE_COLOR_KEY);
+	}
+
+	/*package*/ @Nullable org.eclipse.swt.graphics.RGB getRawEdgeColor() {
+		return getRaw(org.archstudio.bna.facets.IHasEdgeColor.EDGE_COLOR_KEY);
+	}
+
+	public void setEdgeColor(@Nullable org.eclipse.swt.graphics.RGB edgeColor) {
+		set(org.archstudio.bna.facets.IHasEdgeColor.EDGE_COLOR_KEY, edgeColor);
+	}
+
+	/*package*/ @Nullable org.eclipse.swt.graphics.RGB setRawEdgeColor(@Nullable org.eclipse.swt.graphics.RGB edgeColor) {
+		return setRaw(org.archstudio.bna.facets.IHasEdgeColor.EDGE_COLOR_KEY, edgeColor);
 	}
 
 	public double getGlowAlpha() {
@@ -112,6 +152,54 @@ public abstract class FinalStateThingBase extends org.archstudio.bna.things.Abst
 		return setRaw(org.archstudio.bna.facets.IHasGlow.GLOW_WIDTH_KEY, glowWidth);
 	}
 
+	public boolean isGradientFilled() {
+		return get(org.archstudio.bna.facets.IHasGradientFilled.GRADIENT_FILLED_KEY);
+	}
+
+	/*package*/ boolean isRawGradientFilled() {
+		return getRaw(org.archstudio.bna.facets.IHasGradientFilled.GRADIENT_FILLED_KEY);
+	}
+
+	public void setGradientFilled(boolean gradientFilled) {
+		set(org.archstudio.bna.facets.IHasGradientFilled.GRADIENT_FILLED_KEY, gradientFilled);
+	}
+
+	/*package*/ boolean isRawGradientFilled(boolean gradientFilled) {
+		return setRaw(org.archstudio.bna.facets.IHasGradientFilled.GRADIENT_FILLED_KEY, gradientFilled);
+	}
+
+	public org.archstudio.swtutils.constants.LineStyle getLineStyle() {
+		return get(org.archstudio.bna.facets.IHasLineStyle.LINE_STYLE_KEY);
+	}
+
+	/*package*/ org.archstudio.swtutils.constants.LineStyle getRawLineStyle() {
+		return getRaw(org.archstudio.bna.facets.IHasLineStyle.LINE_STYLE_KEY);
+	}
+
+	public void setLineStyle(org.archstudio.swtutils.constants.LineStyle lineStyle) {
+		set(org.archstudio.bna.facets.IHasLineStyle.LINE_STYLE_KEY, lineStyle);
+	}
+
+	/*package*/ org.archstudio.swtutils.constants.LineStyle setRawLineStyle(org.archstudio.swtutils.constants.LineStyle lineStyle) {
+		return setRaw(org.archstudio.bna.facets.IHasLineStyle.LINE_STYLE_KEY, lineStyle);
+	}
+
+	public int getLineWidth() {
+		return get(org.archstudio.bna.facets.IHasLineWidth.LINE_WIDTH_KEY);
+	}
+
+	/*package*/ int getRawLineWidth() {
+		return getRaw(org.archstudio.bna.facets.IHasLineWidth.LINE_WIDTH_KEY);
+	}
+
+	public void setLineWidth(int lineWidth) {
+		set(org.archstudio.bna.facets.IHasLineWidth.LINE_WIDTH_KEY, lineWidth);
+	}
+
+	/*package*/ int setRawLineWidth(int lineWidth) {
+		return setRaw(org.archstudio.bna.facets.IHasLineWidth.LINE_WIDTH_KEY, lineWidth);
+	}
+
 	public int getRotatingOffset() {
 		return get(org.archstudio.bna.facets.IHasRotatingOffset.ROTATING_OFFSET_KEY);
 	}
@@ -126,6 +214,22 @@ public abstract class FinalStateThingBase extends org.archstudio.bna.things.Abst
 
 	/*package*/ int setRawRotatingOffset(int rotatingOffset) {
 		return setRaw(org.archstudio.bna.facets.IHasRotatingOffset.ROTATING_OFFSET_KEY, rotatingOffset);
+	}
+
+	public @Nullable org.eclipse.swt.graphics.RGB getSecondaryColor() {
+		return get(org.archstudio.bna.facets.IHasSecondaryColor.SECONDARY_COLOR_KEY);
+	}
+
+	/*package*/ @Nullable org.eclipse.swt.graphics.RGB getRawSecondaryColor() {
+		return getRaw(org.archstudio.bna.facets.IHasSecondaryColor.SECONDARY_COLOR_KEY);
+	}
+
+	public void setSecondaryColor(@Nullable org.eclipse.swt.graphics.RGB secondaryColor) {
+		set(org.archstudio.bna.facets.IHasSecondaryColor.SECONDARY_COLOR_KEY, secondaryColor);
+	}
+
+	/*package*/ @Nullable org.eclipse.swt.graphics.RGB setRawSecondaryColor(@Nullable org.eclipse.swt.graphics.RGB secondaryColor) {
+		return setRaw(org.archstudio.bna.facets.IHasSecondaryColor.SECONDARY_COLOR_KEY, secondaryColor);
 	}
 
 	public boolean isSelected() {

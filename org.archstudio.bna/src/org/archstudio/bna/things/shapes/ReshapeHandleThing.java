@@ -23,7 +23,7 @@ public class ReshapeHandleThing extends ReshapeHandleThingBase {
 	protected void initProperties() {
 		super.initProperties();
 		initProperty(COLOR_KEY, NORMAL_COLOR);
-		initProperty(SIZE_KEY, new Dimension(8, 8));
+		initProperty(SIZE_KEY, new Dimension(10, 10));
 	}
 
 	@Override

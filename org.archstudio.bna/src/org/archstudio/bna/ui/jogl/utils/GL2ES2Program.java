@@ -11,11 +11,16 @@ import javax.media.opengl.GL;
 import javax.media.opengl.GL2ES2;
 import javax.media.opengl.GLException;
 
+import org.archstudio.sysutils.Disposable;
+
+import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.jogamp.common.nio.Buffers;
 
-public final class GL2ES2Program {
+public final class GL2ES2Program implements Disposable {
+
+	private static int[] vbo;
 
 	public static GL2ES2Program create(GL2ES2 gl, GL2ES2Shader... shaders) {
 		return new GL2ES2Program(gl, shaders);
@@ -23,12 +28,11 @@ public final class GL2ES2Program {
 
 	private final GL2ES2 gl;
 	private final List<GL2ES2Shader> shaders;
-	private int program;
+	private final int program;
 	private final int maxAttributes;
 	private final Map<String, Integer> attributes = Maps.newHashMap();
 	private int openAttribute = 1; // 0 is reserved
 	private boolean linked = false;
-	private int[] vbo;
 
 	private GL2ES2Program(GL2ES2 gl, GL2ES2Shader... shaders) {
 		this.gl = gl;
@@ -123,24 +127,33 @@ public final class GL2ES2Program {
 			throw new GLException("Program not linked.");
 		}
 		gl.glUseProgram(program);
-		vbo = new int[openAttribute];
-		gl.glGenBuffers(vbo.length, vbo, 0);
+		if (vbo == null || vbo.length < openAttribute) {
+			if (vbo != null) {
+				gl.glDeleteBuffers(vbo.length, vbo, 0);
+			}
+			vbo = new int[openAttribute];
+			gl.glGenBuffers(vbo.length, vbo, 0);
+		}
 	}
 
-	public void bindBufferData(int target, String name, FloatBuffer values, int usage, int size, boolean normalized) {
+	public void bindBufferData(int target, String name, int numberOfUnits, FloatBuffer values, int usage, int unitSize,
+			boolean normalized) {
+		Preconditions.checkPositionIndex(values.position() + numberOfUnits * unitSize, values.limit());
 		int attribute = getAttribute(name);
 		gl.glBindBuffer(target, vbo[attribute - 1]);
-		gl.glBufferData(target, Buffers.SIZEOF_FLOAT * values.capacity(), values, usage);
-		gl.glVertexAttribPointer(attribute, size, GL2ES2.GL_FLOAT, normalized, 0, 0);
+		gl.glBufferData(target, Buffers.SIZEOF_FLOAT * numberOfUnits * unitSize, values, usage);
+		gl.glVertexAttribPointer(attribute, unitSize, GL.GL_FLOAT, normalized, 0, 0);
 		gl.glEnableVertexAttribArray(attribute);
 		gl.glBindBuffer(target, 0);
 	}
 
-	public void bindBufferData(int target, String name, IntBuffer values, int usage, int size, boolean normalized) {
+	public void bindBufferData(int target, String name, int numberOfUnits, IntBuffer values, int usage, int unitSize,
+			boolean normalized) {
+		Preconditions.checkPositionIndex(values.position() + numberOfUnits * unitSize, values.limit());
 		int attribute = getAttribute(name);
 		gl.glBindBuffer(target, vbo[attribute - 1]);
-		gl.glBufferData(target, Buffers.SIZEOF_INT * values.capacity(), values, usage);
-		gl.glVertexAttribPointer(attribute, size, GL2ES2.GL_INT, normalized, 0, 0);
+		gl.glBufferData(target, Buffers.SIZEOF_INT * numberOfUnits * unitSize, values, usage);
+		gl.glVertexAttribPointer(attribute, unitSize, GL2ES2.GL_INT, normalized, 0, 0);
 		gl.glEnableVertexAttribArray(attribute);
 		gl.glBindBuffer(target, 0);
 	}
@@ -149,10 +162,10 @@ public final class GL2ES2Program {
 		for (int attribute : attributes.values()) {
 			gl.glDisableVertexAttribArray(attribute);
 		}
-		gl.glDeleteBuffers(vbo.length, vbo, 0);
 		gl.glUseProgram(0);
 	}
 
+	@Override
 	public void dispose() {
 		try {
 			dispose(program);
@@ -162,6 +175,10 @@ public final class GL2ES2Program {
 	}
 
 	private void dispose(int program) {
+		if (vbo != null) {
+			gl.glDeleteBuffers(vbo.length, vbo, 0);
+			vbo = null;
+		}
 		int[] count = new int[1];
 		int[] shaders = new int[1];
 		while (true) {

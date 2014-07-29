@@ -35,6 +35,7 @@ import org.archstudio.swtutils.constants.Orientation;
 import org.archstudio.sysutils.SystemUtils;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Display;
@@ -123,6 +124,8 @@ public class BNAStressTest {
 							IHasText.TEXT_KEY,
 							"Now is the time for all good men to come to the aid of their country (" + (cwi + chi * cw)
 									+ ")");
+					b.setColor(new RGB(255, 255, 128));
+					b.setSecondaryColor(new RGB(192, 192, 128));
 					UserEditableUtils.addEditableQualities(b, IHasMutableSelected.USER_MAY_SELECT,
 							IHasMutableReferencePoint.USER_MAY_MOVE);
 
@@ -205,7 +208,7 @@ public class BNAStressTest {
 					r.y = SystemUtils.round(y);
 					b.setBoundingBox(r);
 					try {
-						Thread.sleep(1000 / 60);
+						Thread.sleep(1000 / 120);
 					}
 					catch (InterruptedException e) {
 					}
@@ -224,7 +227,7 @@ public class BNAStressTest {
 		return "(" + id + ":" + orientation + "," + index + ")";
 	}
 
-	public static void createEndpoint(IBNAWorld world, Object id, IHasStickyShape parent, Point location, Flow flow,
+	private static void createEndpoint(IBNAWorld world, Object id, IHasStickyShape parent, Point location, Flow flow,
 			Orientation orientation) {
 		IBNAModel model = world.getBNAModel();
 
@@ -248,5 +251,7 @@ public class BNAStressTest {
 		StickPointLogic spl = tlm.addThingLogic(StickPointLogic.class);
 		spl.stick(s, IHasEndpoints.ENDPOINT_1_KEY, StickyMode.CENTER, a0);
 		spl.stick(s, IHasEndpoints.ENDPOINT_2_KEY, StickyMode.CENTER, a1);
+
+		UserEditableUtils.addEditableQualities(s, IHasMutableSelected.USER_MAY_SELECT);
 	}
 }

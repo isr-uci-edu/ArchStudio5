@@ -9,12 +9,12 @@ import java.util.List;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.ICoordinateMapper;
-import org.archstudio.bna.facets.IHasColor;
 import org.archstudio.bna.things.AbstractThingPeer;
 import org.archstudio.bna.ui.IUIResources;
 import org.archstudio.bna.ui.IUIResources.FontMetrics;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.sysutils.RegExBreakIterator;
+import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.graphics.Rectangle;
 
 import com.google.common.collect.Lists;
@@ -72,7 +72,7 @@ public class BoundedLabelThingPeer<T extends BoundedLabelThing> extends Abstract
 			int originalMinFontSize = minFontSize;
 			int maxFontSize = t.getFontSize();
 
-			breakWidthsFont = r.getFont(t, maxFontSize);
+			breakWidthsFont = r.getFont(t.getRawFontName(), t.getRawFontStyle(), maxFontSize);
 			/*
 			 * Here, we list the set of conditions under which the cache is valid. When one of the conditions changes,
 			 * the cache must be recalculated. This is done by creating a list of the conditions then comparing it to
@@ -108,7 +108,7 @@ public class BoundedLabelThingPeer<T extends BoundedLabelThing> extends Abstract
 					trialFontSize = (maxFontSize + minFontSize + 1) / 2;
 				}
 
-				font = r.getFont(t, trialFontSize);
+				font = r.getFont(t.getRawFontName(), t.getRawFontStyle(), trialFontSize);
 				lines.clear();
 				lineWidths.clear();
 				FontMetrics metrics = r.getFontMetrics(font);
@@ -193,7 +193,8 @@ public class BoundedLabelThingPeer<T extends BoundedLabelThing> extends Abstract
 			return false;
 		}
 
-		if (r.setColor(t, IHasColor.COLOR_KEY)) {
+		RGB color = t.getRawColor();
+		if (color != null) {
 
 			List<Object> layoutDataCacheConditions = Lists.newArrayList();
 			layoutDataCacheConditions.add(t.getRawText());
@@ -237,7 +238,7 @@ public class BoundedLabelThingPeer<T extends BoundedLabelThing> extends Abstract
 					case LEFT:
 						break;
 					}
-					r.drawText(layoutData.font, line, x, y - layoutData.lineLeading);
+					r.drawText(layoutData.font, line, x, y - layoutData.lineLeading, color, 1);
 					y += (layoutData.lineLeading + layoutData.lineAscent + layoutData.lineDescent) * scale;
 				}
 			}

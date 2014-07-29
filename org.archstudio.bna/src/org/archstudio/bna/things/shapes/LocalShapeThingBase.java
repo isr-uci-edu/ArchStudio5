@@ -21,6 +21,7 @@ import org.eclipse.jdt.annotation.Nullable;
 @NonNullByDefault
 public abstract class LocalShapeThingBase extends org.archstudio.bna.things.AbstractThing
 	implements org.archstudio.bna.IThing,
+			org.archstudio.bna.facets.IHasMutableAlpha,
 			org.archstudio.bna.facets.IHasMutableAnchorPoint,
 			org.archstudio.bna.facets.IHasMutableGlow,
 			org.archstudio.bna.facets.IHasMutableGradientFilled,
@@ -41,6 +42,7 @@ public abstract class LocalShapeThingBase extends org.archstudio.bna.things.Abst
 
 	@Override
 	protected void initProperties() {
+		initProperty(org.archstudio.bna.facets.IHasAlpha.ALPHA_KEY, 1d);
 		initProperty(org.archstudio.bna.facets.IHasAnchorPoint.ANCHOR_POINT_KEY, new java.awt.geom.Point2D.Double(0, 0));
 		addShapeModifyingKey(org.archstudio.bna.facets.IHasAnchorPoint.ANCHOR_POINT_KEY);
 		initProperty(org.archstudio.bna.facets.IHasColor.COLOR_KEY, new org.eclipse.swt.graphics.RGB(0, 0, 0));
@@ -59,6 +61,22 @@ public abstract class LocalShapeThingBase extends org.archstudio.bna.things.Abst
 		addShapeModifyingKey(org.archstudio.bna.facets.IHasShape.SHAPE_KEY);
 		initProperty(org.archstudio.bna.facets.IHasSize.SIZE_KEY, new java.awt.Dimension(10, 10));
 		super.initProperties();
+	}
+
+	public double getAlpha() {
+		return get(org.archstudio.bna.facets.IHasAlpha.ALPHA_KEY);
+	}
+
+	/*package*/ double getRawAlpha() {
+		return getRaw(org.archstudio.bna.facets.IHasAlpha.ALPHA_KEY);
+	}
+
+	public void setAlpha(double alpha) {
+		set(org.archstudio.bna.facets.IHasAlpha.ALPHA_KEY, alpha);
+	}
+
+	/*package*/ double setRawAlpha(double alpha) {
+		return setRaw(org.archstudio.bna.facets.IHasAlpha.ALPHA_KEY, alpha);
 	}
 
 	public java.awt.geom.Point2D getAnchorPoint() {

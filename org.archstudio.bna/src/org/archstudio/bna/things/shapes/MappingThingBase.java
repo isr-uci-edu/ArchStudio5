@@ -24,7 +24,8 @@ public abstract class MappingThingBase extends org.archstudio.bna.things.Abstrac
 			org.archstudio.bna.facets.IHasMutableAnchorPoint,
 			org.archstudio.bna.facets.IHasMutableGlow,
 			org.archstudio.bna.facets.IHasMutableInternalWorldPoint,
-			org.archstudio.bna.facets.IHasMutableLineData {
+			org.archstudio.bna.facets.IHasMutableLineData,
+			org.archstudio.bna.facets.IHasMutableSelected {
 
 	public MappingThingBase(@Nullable Object id) {
 		super(id);
@@ -46,6 +47,8 @@ public abstract class MappingThingBase extends org.archstudio.bna.things.Abstrac
 		initProperty(org.archstudio.bna.facets.IHasInternalWorldPoint.INTERNAL_POINT_KEY, new java.awt.geom.Point2D.Double(0, 0));
 		initProperty(org.archstudio.bna.facets.IHasLineStyle.LINE_STYLE_KEY, org.archstudio.swtutils.constants.LineStyle.SOLID);
 		initProperty(org.archstudio.bna.facets.IHasLineWidth.LINE_WIDTH_KEY, 1);
+		initProperty(org.archstudio.bna.facets.IHasRotatingOffset.ROTATING_OFFSET_KEY, 0);
+		initProperty(org.archstudio.bna.facets.IHasSelected.SELECTED_KEY, false);
 		initProperty(org.archstudio.bna.facets.IHasInternalWorldPoint.INTERNAL_WORLD_KEY, null);
 		super.initProperties();
 	}
@@ -176,6 +179,38 @@ public abstract class MappingThingBase extends org.archstudio.bna.things.Abstrac
 
 	/*package*/ int setRawLineWidth(int lineWidth) {
 		return setRaw(org.archstudio.bna.facets.IHasLineWidth.LINE_WIDTH_KEY, lineWidth);
+	}
+
+	public int getRotatingOffset() {
+		return get(org.archstudio.bna.facets.IHasRotatingOffset.ROTATING_OFFSET_KEY);
+	}
+
+	/*package*/ int getRawRotatingOffset() {
+		return getRaw(org.archstudio.bna.facets.IHasRotatingOffset.ROTATING_OFFSET_KEY);
+	}
+
+	public void setRotatingOffset(int rotatingOffset) {
+		set(org.archstudio.bna.facets.IHasRotatingOffset.ROTATING_OFFSET_KEY, rotatingOffset);
+	}
+
+	/*package*/ int setRawRotatingOffset(int rotatingOffset) {
+		return setRaw(org.archstudio.bna.facets.IHasRotatingOffset.ROTATING_OFFSET_KEY, rotatingOffset);
+	}
+
+	public boolean isSelected() {
+		return get(org.archstudio.bna.facets.IHasSelected.SELECTED_KEY);
+	}
+
+	/*package*/ boolean isRawSelected() {
+		return getRaw(org.archstudio.bna.facets.IHasSelected.SELECTED_KEY);
+	}
+
+	public void setSelected(boolean selected) {
+		set(org.archstudio.bna.facets.IHasSelected.SELECTED_KEY, selected);
+	}
+
+	/*package*/ boolean isRawSelected(boolean selected) {
+		return setRaw(org.archstudio.bna.facets.IHasSelected.SELECTED_KEY, selected);
 	}
 
 	public org.archstudio.bna.facets.IHasWorld getInternalWorld(org.archstudio.bna.IBNAModel model) {

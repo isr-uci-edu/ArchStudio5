@@ -1,6 +1,5 @@
 package org.archstudio.bna.ui.jogl;
 
-import java.awt.Dimension;
 import java.nio.FloatBuffer;
 
 import org.archstudio.bna.ui.IUIResources;
@@ -9,9 +8,9 @@ import com.jogamp.opengl.util.PMVMatrix;
 
 public interface IJOGLResources extends IUIResources {
 
-	public void fillShape(int mode, FloatBuffer xyzVertices, FloatBuffer rgbaColors, int n);
+	public void fillShape(int mode, FloatBuffer xyzVertices, FloatBuffer rgbaColors, int numPoints);
 
-	public void drawShape(Dimension size, int mode, FloatBuffer xyzVertices, FloatBuffer rgbaColors, int n);
+	public void drawShape(int mode, FloatBuffer xyzVertices, FloatBuffer rgbaColors, int numPoints, int stipple);
 
 	public PMVMatrix getMatrix();
 
@@ -20,5 +19,9 @@ public interface IJOGLResources extends IUIResources {
 
 	// PMVMatrix.glPopMatrix is buggy, use these methods instead
 	public void popMatrix(int matrixName);
+
+	public void pushBlendFunction();
+
+	public void popBlendFunction();
 
 }

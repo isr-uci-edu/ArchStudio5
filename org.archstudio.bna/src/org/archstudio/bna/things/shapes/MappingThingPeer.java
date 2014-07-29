@@ -30,15 +30,16 @@ public class MappingThingPeer<T extends MappingThing> extends AbstractThingPeer<
 		Point2D lp1 = cm.worldToLocal(t.getRawAnchorPoint());
 		Point2D lp2 = iView.getCoordinateMapper().worldToLocal(t.getRawInternalPoint());
 
-		Shape localShape = new Line2D.Double(lp1.getX(), lp1.getX(), lp2.getX(), lp2.getX());
+		Shape localShape = new Line2D.Double(lp1.getX(), lp1.getY(), lp2.getX(), lp2.getY());
 
 		RGB glowColor = t.getRawGlowColor();
 		if (glowColor != null) {
 			r.glowShape(localShape, glowColor, t.getRawGlowWidth(), t.getRawGlowAlpha());
 		}
-		if (r.setLineStyle(t)) {
-			r.drawShape(localShape);
-			r.resetLineStyle();
+
+		r.drawShape(localShape, t.getRawEdgeColor(), t.getRawLineWidth(), t.getRawLineStyle(), 1);
+		if (t.isRawSelected()) {
+			r.selectShape(localShape, t.getRawRotatingOffset());
 		}
 
 		return true;
@@ -51,11 +52,13 @@ public class MappingThingPeer<T extends MappingThing> extends AbstractThingPeer<
 			return false;
 		}
 
-		Point2D lp1 = view.getCoordinateMapper().worldToLocal(t.getAnchorPoint());
+		Point2D lp1 = cm.worldToLocal(t.getAnchorPoint());
 		Point2D lp2 = iView.getCoordinateMapper().worldToLocal(t.getInternalPoint());
 		Point p = location.getLocalPoint();
 
-		if (Line2D.ptSegDistSq(lp1.getX(), lp1.getY(), lp2.getX(), lp2.getY(), p.x, p.y) <= 25) {
+		if (Line2D.ptSegDistSq(lp1.getX(), lp1.getY(), lp2.getX(), lp2.getY(), p.x, p.y) <= BNAUtils.LINE_CLICK_DISTANCE
+				* BNAUtils.LINE_CLICK_DISTANCE) {
+			// leave a little room at the internal point so that we can interact with what the mapping is pointing to
 			return Point2D.distanceSq(lp2.getX(), lp2.getY(), p.x, p.y) > BNAUtils.LINE_CLICK_DISTANCE
 					* BNAUtils.LINE_CLICK_DISTANCE;
 		}

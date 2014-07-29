@@ -18,9 +18,10 @@ import org.eclipse.swt.graphics.Rectangle;
 @NonNullByDefault
 public class PolygonThing extends PolygonThingBase {
 
+	Point referencePoint = new Point(0, 0);
+
 	public PolygonThing(@Nullable Object id) {
 		super(id);
-		removeShapeModifyingKey(IHasBoundingBox.BOUNDING_BOX_KEY);
 		updateBounds();
 		addThingListener(new IThingListener() {
 
@@ -33,11 +34,17 @@ public class PolygonThing extends PolygonThingBase {
 		});
 	}
 
+	@Override
+	protected void initProperties() {
+		super.initProperties();
+		removeShapeModifyingKey(IHasBoundingBox.BOUNDING_BOX_KEY);
+	}
+
 	protected void updateBounds() {
-		double x1 = Double.MAX_VALUE;
-		double y1 = Double.MAX_VALUE;
-		double x2 = Double.MIN_VALUE;
-		double y2 = Double.MIN_VALUE;
+		double x1 = Double.POSITIVE_INFINITY;
+		double y1 = Double.POSITIVE_INFINITY;
+		double x2 = Double.NEGATIVE_INFINITY;
+		double y2 = Double.NEGATIVE_INFINITY;
 		for (Point2D p : getRawPoints()) {
 			x1 = Math.min(x1, p.getX());
 			y1 = Math.min(y1, p.getY());
@@ -47,29 +54,27 @@ public class PolygonThing extends PolygonThingBase {
 		int ix = SystemUtils.floor(x1);
 		int iy = SystemUtils.floor(y1);
 		int iw = SystemUtils.ceil(x2 - ix);
-		int ih = SystemUtils.ceil(y2 - ix);
+		int ih = SystemUtils.ceil(y2 - iy);
 		setBoundingBox(new Rectangle(ix, iy, iw, ih));
 	}
 
 	@Override
 	public Point getReferencePoint() {
-		List<? extends Point2D> points = getRawPoints();
-		if (points.size() > 0) {
-			return BNAUtils.toPoint(points.get(0));
-		}
-		return new Point(0, 0);
+		return BNAUtils.clone(referencePoint);
 	}
 
 	@Override
 	public void setReferencePoint(Point value) {
-		Point oldReferencePoint = getReferencePoint();
+		double dx = value.x - referencePoint.x;
+		double dy = value.y - referencePoint.y;
+		referencePoint.x = value.x;
+		referencePoint.y = value.y;
+
 		List<Point2D> points = getPoints();
-		Point2D point = points.get(0);
-		double dx = point.getX() - oldReferencePoint.x;
-		double dy = point.getY() - oldReferencePoint.y;
 		for (Point2D p : points) {
-			p.setLocation(point.getX() + dx, point.getY() + dy);
+			p.setLocation(p.getX() + dx, p.getY() + dy);
 		}
+
 		setRawPoints(points);
 	}
 

@@ -23,6 +23,7 @@ public abstract class AnchoredLabelThingBase extends org.archstudio.bna.things.A
 	implements org.archstudio.bna.IThing,
 			org.archstudio.bna.facets.IHasMutableAnchorPoint,
 			org.archstudio.bna.facets.IHasMutableAngle,
+			org.archstudio.bna.facets.IHasBoundingBox,
 			org.archstudio.bna.facets.IHasMutableColor,
 			org.archstudio.bna.facets.IHasMutableFontData,
 			org.archstudio.bna.facets.IHasMutableHorizontalAlignment,
@@ -48,6 +49,7 @@ public abstract class AnchoredLabelThingBase extends org.archstudio.bna.things.A
 		addShapeModifyingKey(org.archstudio.bna.facets.IHasAnchorPoint.ANCHOR_POINT_KEY);
 		initProperty(org.archstudio.bna.facets.IHasAngle.ANGLE_KEY, 0);
 		addShapeModifyingKey(org.archstudio.bna.facets.IHasAngle.ANGLE_KEY);
+		initProperty(org.archstudio.bna.facets.IHasBoundingBox.BOUNDING_BOX_KEY, new org.eclipse.swt.graphics.Rectangle(0, 0, 30, 20));
 		initProperty(org.archstudio.bna.facets.IHasColor.COLOR_KEY, new org.eclipse.swt.graphics.RGB(0, 0, 0));
 		initProperty(org.archstudio.bna.facets.IHasFontData.DONT_INCREASE_FONT_SIZE_KEY, false);
 		initProperty(org.archstudio.bna.facets.IHasEdgeColor.EDGE_COLOR_KEY, new org.eclipse.swt.graphics.RGB(0, 0, 0));
@@ -93,6 +95,22 @@ public abstract class AnchoredLabelThingBase extends org.archstudio.bna.things.A
 
 	/*package*/ int setRawAngle(int angle) {
 		return setRaw(org.archstudio.bna.facets.IHasAngle.ANGLE_KEY, angle);
+	}
+
+	public org.eclipse.swt.graphics.Rectangle getBoundingBox() {
+		return get(org.archstudio.bna.facets.IHasBoundingBox.BOUNDING_BOX_KEY);
+	}
+
+	/*package*/ org.eclipse.swt.graphics.Rectangle getRawBoundingBox() {
+		return getRaw(org.archstudio.bna.facets.IHasBoundingBox.BOUNDING_BOX_KEY);
+	}
+
+	/*package*/ void setBoundingBox(org.eclipse.swt.graphics.Rectangle boundingBox) {
+		set(org.archstudio.bna.facets.IHasBoundingBox.BOUNDING_BOX_KEY, boundingBox);
+	}
+
+	/*package*/ org.eclipse.swt.graphics.Rectangle setRawBoundingBox(org.eclipse.swt.graphics.Rectangle boundingBox) {
+		return setRaw(org.archstudio.bna.facets.IHasBoundingBox.BOUNDING_BOX_KEY, boundingBox);
 	}
 
 	public @Nullable org.eclipse.swt.graphics.RGB getColor() {

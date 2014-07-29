@@ -24,7 +24,7 @@ class ThingTree {
 	}
 
 	private final Node root = new Node(null);
-	private final FastMap<Object, Node> nodesByID = new FastMap<>(true);
+	private final FastMap<Object, Node> nodesByID = new FastMap<>(false);
 	private List<IThing> allThings = null;
 
 	public ThingTree() {

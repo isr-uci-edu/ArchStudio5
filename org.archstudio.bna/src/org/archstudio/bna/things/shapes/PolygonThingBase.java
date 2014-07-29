@@ -21,6 +21,7 @@ import org.eclipse.jdt.annotation.Nullable;
 @NonNullByDefault
 public abstract class PolygonThingBase extends org.archstudio.bna.things.AbstractThing
 	implements org.archstudio.bna.IThing,
+			org.archstudio.bna.facets.IHasMutableAlpha,
 			org.archstudio.bna.facets.IHasBoundingBox,
 			org.archstudio.bna.facets.IHasMutableGlow,
 			org.archstudio.bna.facets.IHasMutableGradientFilled,
@@ -41,6 +42,7 @@ public abstract class PolygonThingBase extends org.archstudio.bna.things.Abstrac
 
 	@Override
 	protected void initProperties() {
+		initProperty(org.archstudio.bna.facets.IHasAlpha.ALPHA_KEY, 1d);
 		initProperty(org.archstudio.bna.facets.IHasBoundingBox.BOUNDING_BOX_KEY, new org.eclipse.swt.graphics.Rectangle(0, 0, 30, 20));
 		initProperty(org.archstudio.bna.facets.IHasColor.COLOR_KEY, new org.eclipse.swt.graphics.RGB(0, 0, 0));
 		initProperty(org.archstudio.bna.facets.IHasEdgeColor.EDGE_COLOR_KEY, new org.eclipse.swt.graphics.RGB(0, 0, 0));
@@ -56,6 +58,22 @@ public abstract class PolygonThingBase extends org.archstudio.bna.things.Abstrac
 		initProperty(org.archstudio.bna.facets.IHasSecondaryColor.SECONDARY_COLOR_KEY, new org.eclipse.swt.graphics.RGB(192, 192, 192));
 		initProperty(org.archstudio.bna.facets.IHasSelected.SELECTED_KEY, false);
 		super.initProperties();
+	}
+
+	public double getAlpha() {
+		return get(org.archstudio.bna.facets.IHasAlpha.ALPHA_KEY);
+	}
+
+	/*package*/ double getRawAlpha() {
+		return getRaw(org.archstudio.bna.facets.IHasAlpha.ALPHA_KEY);
+	}
+
+	public void setAlpha(double alpha) {
+		set(org.archstudio.bna.facets.IHasAlpha.ALPHA_KEY, alpha);
+	}
+
+	/*package*/ double setRawAlpha(double alpha) {
+		return setRaw(org.archstudio.bna.facets.IHasAlpha.ALPHA_KEY, alpha);
 	}
 
 	public org.eclipse.swt.graphics.Rectangle getBoundingBox() {

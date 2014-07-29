@@ -6,17 +6,14 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.Shape;
-import java.awt.geom.Line2D;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Path2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.concurrent.atomic.AtomicLong;
 
 import javax.media.opengl.DebugGL4bc;
 import javax.media.opengl.GL;
@@ -28,22 +25,20 @@ import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThingPeer;
-import org.archstudio.bna.facets.IHasEdgeColor;
 import org.archstudio.bna.facets.IHasHidden;
-import org.archstudio.bna.facets.IHasLineData;
 import org.archstudio.bna.ui.IUIResources;
 import org.archstudio.bna.ui.jogl.utils.GL2ES2Program;
 import org.archstudio.bna.ui.jogl.utils.GL2ES2Shader;
 import org.archstudio.bna.ui.utils.AbstractUIResources;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.swtutils.constants.LineStyle;
+import org.archstudio.sysutils.ExpandableFloatBuffer;
 import org.archstudio.sysutils.Matrix;
 import org.archstudio.sysutils.SystemUtils;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.graphics.Rectangle;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.FBObject;
 import com.jogamp.opengl.FBObject.RenderAttachment;
@@ -57,22 +52,30 @@ import com.jogamp.opengl.util.texture.awt.AWTTextureIO;
 
 public class JOGLResources extends AbstractUIResources implements IJOGLResources {
 
-	private GL2ES2 gl;
-	private PMVMatrix matrix = new PMVMatrix();
-	private List<float[]> projectionMatrixStack = Lists.newArrayList();
-	private List<float[]> modelViewMatrixStack = Lists.newArrayList();
-	private List<float[]> textureMatrixStack = Lists.newArrayList();
-	private int stipple = LineStyle.SOLID.toBitPattern();
-	private RGB color = new RGB(0, 0, 0);
-	private double alpha = 1d;
+	private final GL2ES2 gl;
+	private Rectangle localBounds = new Rectangle(0, 0, 0, 0);
 
-	private GL2ES2Shader fillVP;
-	private GL2ES2Shader fillFP;
-	private GL2ES2Program fillP;
+	private final PMVMatrix matrix = new PMVMatrix();
+	private final List<float[]> projectionMatrixStack = Lists.newArrayList();
+	private final List<float[]> modelViewMatrixStack = Lists.newArrayList();
+	private final List<float[]> textureMatrixStack = Lists.newArrayList();
+	PMVMatrix textMatrix = new PMVMatrix();
 
-	private GL2ES2Shader lineVP;
-	private GL2ES2Shader lineFP;
-	private GL2ES2Program lineP;
+	private GL2ES2Shader fill2dVP;
+	private GL2ES2Shader fill2dFP;
+	private GL2ES2Program fill2dP;
+
+	private GL2ES2Shader fill3dVP;
+	private GL2ES2Shader fill3dFP;
+	private GL2ES2Program fill3dP;
+
+	private GL2ES2Shader line2dVP;
+	private GL2ES2Shader line2dFP;
+	private GL2ES2Program line2dP;
+
+	private GL2ES2Shader line3dVP;
+	private GL2ES2Shader line3dFP;
+	private GL2ES2Program line3dP;
 
 	private GL2ES2Shader textVP;
 	private GL2ES2Shader textFP;
@@ -85,20 +88,38 @@ public class JOGLResources extends AbstractUIResources implements IJOGLResources
 	public JOGLResources(GL2ES2 gl) {
 		this.gl = new DebugGL4bc((GL4bc) gl);
 
-		fillVP = GL2ES2Shader.create(gl, GL2ES2.GL_VERTEX_SHADER, JOGLResources.class.getResource("glsl/fill.vp"));
-		fillFP = GL2ES2Shader.create(gl, GL2ES2.GL_FRAGMENT_SHADER, JOGLResources.class.getResource("glsl/fill.fp"));
-		fillP = GL2ES2Program.create(gl, fillVP, fillFP);
-		fillP.bindAttribute("attribute_position", 1);
-		fillP.bindAttribute("attribute_color", 1);
-		fillP.link();
+		fill2dVP = GL2ES2Shader.create(gl, GL2ES2.GL_VERTEX_SHADER, JOGLResources.class.getResource("glsl/fill2d.vp"));
+		fill2dFP = GL2ES2Shader
+				.create(gl, GL2ES2.GL_FRAGMENT_SHADER, JOGLResources.class.getResource("glsl/fill2d.fp"));
+		fill2dP = GL2ES2Program.create(gl, fill2dVP, fill2dFP);
+		fill2dP.bindAttribute("attribute_position", 1);
+		fill2dP.bindAttribute("attribute_color", 1);
+		fill2dP.link();
 
-		lineVP = GL2ES2Shader.create(gl, GL2ES2.GL_VERTEX_SHADER, JOGLResources.class.getResource("glsl/line.vp"));
-		lineFP = GL2ES2Shader.create(gl, GL2ES2.GL_FRAGMENT_SHADER, JOGLResources.class.getResource("glsl/line.fp"));
-		lineP = GL2ES2Program.create(gl, lineVP, lineFP);
-		lineP.bindAttribute("attribute_position", 1);
-		lineP.bindAttribute("attribute_color", 1);
-		lineP.bindAttribute("attribute_stipple_offset", 1);
-		lineP.link();
+		fill3dVP = GL2ES2Shader.create(gl, GL2ES2.GL_VERTEX_SHADER, JOGLResources.class.getResource("glsl/fill3d.vp"));
+		fill3dFP = GL2ES2Shader
+				.create(gl, GL2ES2.GL_FRAGMENT_SHADER, JOGLResources.class.getResource("glsl/fill3d.fp"));
+		fill3dP = GL2ES2Program.create(gl, fill3dVP, fill3dFP);
+		fill3dP.bindAttribute("attribute_position", 1);
+		fill3dP.bindAttribute("attribute_color", 1);
+		fill3dP.link();
+
+		line2dVP = GL2ES2Shader.create(gl, GL2ES2.GL_VERTEX_SHADER, JOGLResources.class.getResource("glsl/line2d.vp"));
+		line2dFP = GL2ES2Shader
+				.create(gl, GL2ES2.GL_FRAGMENT_SHADER, JOGLResources.class.getResource("glsl/line2d.fp"));
+		line2dP = GL2ES2Program.create(gl, line2dVP, line2dFP);
+		line2dP.bindAttribute("attribute_position", 1);
+		line2dP.bindAttribute("attribute_stipple_offset", 1);
+		line2dP.link();
+
+		line3dVP = GL2ES2Shader.create(gl, GL2ES2.GL_VERTEX_SHADER, JOGLResources.class.getResource("glsl/line3d.vp"));
+		line3dFP = GL2ES2Shader
+				.create(gl, GL2ES2.GL_FRAGMENT_SHADER, JOGLResources.class.getResource("glsl/line3d.fp"));
+		line3dP = GL2ES2Program.create(gl, line3dVP, line3dFP);
+		line3dP.bindAttribute("attribute_position", 1);
+		line3dP.bindAttribute("attribute_color", 1);
+		line3dP.bindAttribute("attribute_stipple_offset", 1);
+		line3dP.link();
 
 		textVP = GL2ES2Shader.create(gl, GL2ES2.GL_VERTEX_SHADER, JOGLResources.class.getResource("glsl/text.vp"));
 		textFP = GL2ES2Shader.create(gl, GL2ES2.GL_FRAGMENT_SHADER, JOGLResources.class.getResource("glsl/text.fp"));
@@ -110,45 +131,21 @@ public class JOGLResources extends AbstractUIResources implements IJOGLResources
 
 	@Override
 	public void dispose() {
-
-		if (fillP != null) {
-			fillP.dispose();
-			fillP = null;
-		}
-		if (fillVP != null) {
-			fillVP.dispose();
-			fillVP = null;
-		}
-		if (fillFP != null) {
-			fillFP.dispose();
-			fillFP = null;
-		}
-
-		if (lineP != null) {
-			lineP.dispose();
-			lineP = null;
-		}
-		if (lineVP != null) {
-			lineVP.dispose();
-			lineVP = null;
-		}
-		if (lineFP != null) {
-			lineFP.dispose();
-			lineFP = null;
-		}
-
-		if (textP != null) {
-			textP.dispose();
-			textP = null;
-		}
-		if (textVP != null) {
-			textVP.dispose();
-			textVP = null;
-		}
-		if (textFP != null) {
-			textFP.dispose();
-			textFP = null;
-		}
+		SystemUtils.dispose(fill2dP, fill2dVP, fill2dFP);
+		fill2dP = null;
+		fill2dVP = fill2dFP = null;
+		SystemUtils.dispose(fill3dP, fill3dVP, fill3dFP);
+		fill3dP = null;
+		fill3dVP = fill3dFP = null;
+		SystemUtils.dispose(line2dP, line2dVP, line2dFP);
+		line2dP = null;
+		line2dVP = line2dFP = null;
+		SystemUtils.dispose(line3dP, line3dVP, line3dFP);
+		line3dP = null;
+		line3dVP = line3dFP = null;
+		SystemUtils.dispose(textP, textVP, textFP);
+		textP = null;
+		textVP = textFP = null;
 
 		bufferedImage = null;
 		if (textureData != null) {
@@ -161,6 +158,48 @@ public class JOGLResources extends AbstractUIResources implements IJOGLResources
 		}
 
 		super.dispose();
+	}
+
+	public void setLocalBounds(Rectangle localBounds) {
+		this.localBounds = localBounds;
+	}
+
+	Shape lastShape = null;
+	int lastPoints;
+	float lastMinY, lastMaxY;
+	ExpandableFloatBuffer lastXYFloatBuffer = new ExpandableFloatBuffer();
+	ExpandableFloatBuffer lastOffsetFloatBuffer = new ExpandableFloatBuffer();
+
+	private void updateLastShape(Shape localShape) {
+		if (lastShape != localShape) {
+			lastShape = localShape;
+
+			// determine min y, max y
+			Rectangle2D bounds = localShape.getBounds2D();
+			lastMinY = (float) bounds.getMinY();
+			lastMaxY = (float) bounds.getMaxY();
+
+			// get xy positions, resize colors and offsets
+			lastXYFloatBuffer.rewind();
+			BNAUtils.toXYFloatBuffer(localShape, lastXYFloatBuffer);
+			lastPoints = lastXYFloatBuffer.position() / 2;
+
+			// update offsets
+			float[] xy = new float[2];
+			float lastX = 0, lastY = 0;
+			float offset = 0;
+			lastXYFloatBuffer.rewind();
+			lastOffsetFloatBuffer.rewind();
+			for (int i = 0; i < lastPoints; i++) {
+				lastXYFloatBuffer.get(xy, 0, 2);
+				if (i > 0) {
+					offset += (float) Point2D.distance(xy[0], xy[1], lastX, lastY);
+				}
+				lastOffsetFloatBuffer.put(offset);
+				lastX = xy[0];
+				lastY = xy[1];
+			}
+		}
 	}
 
 	@Override
@@ -190,6 +229,12 @@ public class JOGLResources extends AbstractUIResources implements IJOGLResources
 		matrix.glLoadIdentity();
 		matrix.glOrthof(localBounds.x, localBounds.x + localBounds.width, localBounds.y + localBounds.height,
 				localBounds.y, -10000, 10000);
+		textMatrix.glMatrixMode(GLMatrixFunc.GL_MODELVIEW);
+		textMatrix.glLoadIdentity();
+		textMatrix.glMatrixMode(GLMatrixFunc.GL_PROJECTION);
+		textMatrix.glLoadIdentity();
+		textMatrix.glOrthof(localBounds.x, localBounds.x + localBounds.width, localBounds.y + localBounds.height,
+				localBounds.y, -10000, 10000);
 		gl.glDepthRange(-1000, 1000);
 	}
 
@@ -203,9 +248,7 @@ public class JOGLResources extends AbstractUIResources implements IJOGLResources
 	@Override
 	public void renderThings(IBNAView view, Rectangle localBounds) {
 		IBNAModel model = view.getBNAWorld().getBNAModel();
-		Map<Class<?>, AtomicLong[]> counts = Maps.newHashMap();
 		for (IThing thingToRender : model.getAllThings()) {
-			long time = System.nanoTime();
 			if (thingToRender.has(IHasHidden.HIDDEN_KEY, true)) {
 				continue;
 			}
@@ -218,65 +261,14 @@ public class JOGLResources extends AbstractUIResources implements IJOGLResources
 			catch (Exception e) {
 				e.printStackTrace();
 			}
-			if (DEBUG) {
-				time = System.nanoTime() - time;
-				AtomicLong[] als = counts.get(thingToRender.getClass());
-				if (als == null) {
-					counts.put(thingToRender.getClass(), als = new AtomicLong[] { new AtomicLong(), new AtomicLong() });
-				}
-				als[0].getAndIncrement();
-				als[1].getAndAdd(time);
-			}
-		}
-		if (DEBUG) {
-			for (Entry<Class<?>, AtomicLong[]> e : SystemUtils.sortedByKey(counts.entrySet())) {
-				AtomicLong[] als = e.getValue();
-				System.err.println(e.getKey() + ": " + als[0] + " total, " + als[1].longValue() / als[0].longValue());
-			}
 		}
 	}
 
 	@Override
-	public boolean setColor(RGB color, double alpha) {
-		if (color != null) {
-			this.color = new RGB(color.red, color.green, color.blue);
-			this.alpha = alpha;
-			return true;
+	public void drawText(Font font, String text, double x, double y, RGB color, double alpha) {
+		if (color == null || text.length() == 0 || alpha == 0) {
+			return;
 		}
-		return false;
-	}
-
-	@Override
-	public boolean setLineStyle(IHasLineData thing) {
-		LineStyle style = thing.getLineStyle();
-		if (style != LineStyle.NONE && setColor(thing, IHasEdgeColor.EDGE_COLOR_KEY)) {
-			return setLineStyle(thing.getLineWidth(), style.toBitPattern());
-		}
-		return false;
-	}
-
-	@Override
-	public boolean setLineStyle(int width, int stipple) {
-		gl.glLineWidth(width);
-		this.stipple = stipple;
-		return true;
-	}
-
-	@Override
-	public void resetLineStyle() {
-		gl.glLineWidth(1);
-		stipple = LineStyle.SOLID.toBitPattern();
-	}
-
-	@Override
-	public void drawText(Font font, String text, double x, double y) {
-
-		double dx = x - Math.floor(x);
-		double dy = y - Math.floor(y);
-		x = Math.floor(x);
-		y = Math.floor(y);
-
-		//TODO: determine how the text can be clipped, this needs to account for transforms
 
 		// determine what text area needs to be rendered
 		Dimension textSize = getTextSize(font, text);
@@ -284,13 +276,24 @@ public class JOGLResources extends AbstractUIResources implements IJOGLResources
 			// the empty string will have a width of 0
 			return;
 		}
-		textSize.width += 2;
-		textSize.height += 2;
+
+		// get a transform to the local screen coordinates
+		AffineTransform transform = getLocalTransform();
+
+		// determine the actual area we need to draw
+		IUIResources.FontMetrics metrics = getFontMetrics(font);
+		Path2D.Double textShape = new Path2D.Double(new Rectangle2D.Double(x, y, textSize.width, textSize.height));
+		textShape.transform(transform);
+		Rectangle textBounds = BNAUtils.toRectangle(textShape.getBounds2D());
+		textBounds.intersect(localBounds);
+		if (textBounds.width <= 0 || textBounds.height <= 0) {
+			return;
+		}
 
 		// create a buffered image to back the text
-		if (bufferedImage == null || bufferedImage.getWidth() < textSize.width
-				|| bufferedImage.getHeight() < textSize.height) {
-			bufferedImage = new BufferedImage(textSize.width, textSize.height, BufferedImage.TYPE_INT_RGB);
+		if (bufferedImage == null || bufferedImage.getWidth() < textBounds.width
+				|| bufferedImage.getHeight() < textBounds.height) {
+			bufferedImage = new BufferedImage(textBounds.width + 2, textBounds.height + 2, BufferedImage.TYPE_INT_RGB);
 		}
 
 		// create a texture to display the text
@@ -308,15 +311,10 @@ public class JOGLResources extends AbstractUIResources implements IJOGLResources
 
 		// draw text on the buffered image
 		Graphics2D g2d = bufferedImage.createGraphics();
+		Point2D xy = transform.transform(new Point2D.Double(x, y), null);
 		try {
-
-			gl.glBlendFuncSeparate(GL2ES2.GL_CONSTANT_COLOR, GL.GL_ONE_MINUS_SRC_COLOR, GL2ES2.GL_CONSTANT_ALPHA,
-					GL.GL_ONE_MINUS_SRC_ALPHA);
-			gl.glBlendEquationSeparate(GL.GL_FUNC_ADD, GL.GL_FUNC_ADD);
-			gl.glBlendColor(color.red / 255f, color.green / 255f, color.blue / 255f, (float) alpha);
-
 			g2d.setColor(Color.BLACK);
-			g2d.fillRect(0, 0, textSize.width, textSize.height);
+			g2d.fillRect(0, 0, textBounds.width, textBounds.height);
 			g2d.setColor(Color.WHITE);
 
 			if (isAntialiasText()) {
@@ -329,31 +327,21 @@ public class JOGLResources extends AbstractUIResources implements IJOGLResources
 				g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_OFF);
 				g2d.setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS, RenderingHints.VALUE_FRACTIONALMETRICS_OFF);
 			}
-			IUIResources.FontMetrics metrics = getFontMetrics(font);
 			g2d.setFont(font);
-			g2d.drawString(text, (float) dx, (float) dy + metrics.getLeading() + metrics.getAscent());
-			if (DEBUG) {
-				Dimension s = getTextSize(font, text);
-				System.err.println(font + " " + metrics + " " + s);
-				int line;
-				line = SystemUtils.round(metrics.getLeading());
-				g2d.drawLine(0, line, textSize.width, line);
-				line = SystemUtils.round(metrics.getLeading() + metrics.getAscent());
-				g2d.drawLine(0, line, textSize.width, line);
-				line = SystemUtils.round(metrics.getLeading() + metrics.getAscent() + metrics.getDescent());
-				g2d.drawLine(0, line, textSize.width, line);
-			}
+			g2d.translate(xy.getX() - textBounds.x, xy.getY() - textBounds.y);
+			g2d.rotate(-getLocalRotation());
+			g2d.drawString(text, 0, metrics.getLeading() + metrics.getAscent());
 		}
 		finally {
 			g2d.dispose();
 		}
 
 		// update the text area of the texture
-		texture.updateSubImage(gl, textureData, 0, 0, 0, 0, 0, textSize.width, textSize.height);
+		texture.updateSubImage(gl, textureData, 0, 0, 0, 0, 0, textBounds.width + 1, textBounds.height + 1);
 
 		// draw the texture
-		TextureCoords coords = texture.getSubImageTexCoords(0, bufferedImage.getHeight() - textSize.height,
-				textSize.width, bufferedImage.getHeight());
+		TextureCoords coords = texture.getSubImageTexCoords(0, bufferedImage.getHeight() - textBounds.height,
+				textBounds.width, bufferedImage.getHeight());
 		FloatBuffer texture_coords = Buffers.newDirectFloatBuffer(new float[] {//
 				//
 						coords.right(), coords.top(),//
@@ -362,22 +350,28 @@ public class JOGLResources extends AbstractUIResources implements IJOGLResources
 						coords.right(), coords.bottom() });
 		FloatBuffer vertices = Buffers.newDirectFloatBuffer(new float[] {//
 				//
-						(float) x + textSize.width, (float) y,//
-						(float) x, (float) y,//
-						(float) x, (float) y + textSize.height,//
-						(float) x + textSize.width, (float) y + textSize.height });
+						(float) textBounds.x + textBounds.width, textBounds.y,//
+						textBounds.x, textBounds.y,//
+						textBounds.x, (float) textBounds.y + textBounds.height,//
+						(float) textBounds.x + textBounds.width, (float) textBounds.y + textBounds.height });
+
+		pushBlendFunction();
+		gl.glBlendFuncSeparate(GL2ES2.GL_CONSTANT_COLOR, GL.GL_ONE_MINUS_SRC_COLOR, GL2ES2.GL_CONSTANT_ALPHA,
+				GL.GL_ONE_MINUS_SRC_ALPHA);
+		gl.glBlendEquationSeparate(GL.GL_FUNC_ADD, GL.GL_FUNC_ADD);
+		gl.glBlendColor(color.red / 255f, color.green / 255f, color.blue / 255f, (float) alpha);
 		texture.enable(gl);
 		try {
 			textP.use();
 			try {
-				gl.glUniformMatrix4fv(textP.getUniform("uniform_projection"), 1, false, matrix.glGetMatrixf());
+				gl.glUniformMatrix4fv(textP.getUniform("uniform_projection"), 1, false, textMatrix.glGetMatrixf());
 				gl.glUniform1i(textP.getUniform("uniform_texture"), 0);
 				gl.glActiveTexture(GL.GL_TEXTURE0 + 0);
 				texture.bind(gl);
 				vertices.rewind();
-				textP.bindBufferData(GL.GL_ARRAY_BUFFER, "attribute_position", vertices, GL.GL_STATIC_DRAW, 2, false);
+				textP.bindBufferData(GL.GL_ARRAY_BUFFER, "attribute_position", 4, vertices, GL.GL_STATIC_DRAW, 2, false);
 				texture_coords.rewind();
-				textP.bindBufferData(GL.GL_ARRAY_BUFFER, "attribute_texture_position", texture_coords,
+				textP.bindBufferData(GL.GL_ARRAY_BUFFER, "attribute_texture_position", 4, texture_coords,
 						GL.GL_STATIC_DRAW, 2, false);
 				gl.glDrawArrays(GL.GL_TRIANGLE_FAN, 0, 4);
 			}
@@ -386,329 +380,280 @@ public class JOGLResources extends AbstractUIResources implements IJOGLResources
 			}
 		}
 		finally {
+			popBlendFunction();
 			texture.disable(gl);
 		}
-		gl.glEnable(GL.GL_BLEND);
-		gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_ONE_MINUS_SRC_ALPHA);
-		if (DEBUG) {
-			double line;
-			IUIResources.FontMetrics metrics = getFontMetrics(font);
-			line = y;
-			drawShape(new Line2D.Double(x, line, x + textSize.width, line));
-			line = y + metrics.getLeading();
-			drawShape(new Line2D.Double(x, line, x + textSize.width, line));
-			line = y + metrics.getLeading() + metrics.getAscent();
-			drawShape(new Line2D.Double(x, line, x + textSize.width, line));
-			line = y + metrics.getLeading() + metrics.getAscent() + metrics.getDescent();
-			drawShape(new Line2D.Double(x, line, x + textSize.width, line));
+	}
+
+	@Override
+	public void drawShape(Point2D localShape, RGB color, double alpha) {
+		if (color == null || alpha == 0) {
+			return;
+		}
+
+		int stipple = 0xFFFFFFFF;
+
+		FloatBuffer lastXYFloatBuffer = Buffers.newDirectFloatBuffer(2);
+		lastXYFloatBuffer.put((float) localShape.getX());
+		lastXYFloatBuffer.put((float) localShape.getY());
+
+		FloatBuffer lastOffsetFloatBuffer = Buffers.newDirectFloatBuffer(1);
+		lastOffsetFloatBuffer.put(0f);
+
+		int lastPoints = 1;
+
+		line2dP.use();
+		try {
+			matrix.glTranslatef(0.5f, 0.5f, 0);
+			gl.glUniformMatrix4fv(line2dP.getUniform("uniform_projection"), 1, false, matrix.glGetMatrixf());
+			gl.glUniform4f(line2dP.getUniform("uniform_rgba"), color.red / 255f, color.green / 255f, color.blue / 255f,
+					(float) (getGlobalAlpha() * alpha));
+			gl.glUniform1i(line2dP.getUniform("uniform_stipple"), stipple);
+			lastXYFloatBuffer.rewind();
+			line2dP.bindBufferData(GL.GL_ARRAY_BUFFER, "attribute_position", lastPoints, lastXYFloatBuffer,
+					GL.GL_STATIC_DRAW, 2, false);
+			lastOffsetFloatBuffer.rewind();
+			line2dP.bindBufferData(GL.GL_ARRAY_BUFFER, "attribute_stipple_offset", lastPoints, lastOffsetFloatBuffer,
+					GL.GL_STATIC_DRAW, 1, false);
+			gl.glDrawArrays(GL.GL_LINE_STRIP, 0, lastPoints);
+			matrix.glTranslatef(-0.5f, -0.5f, 0);
+		}
+		finally {
+			line2dP.done();
 		}
 	}
 
 	@Override
-	public void drawShape(Shape localShape) {
-
-		float[] xy = BNAUtils.toXYFloatArray(localShape);
-		for (int i = 0; i < xy.length; i += 2) {
-			xy[i + 0] += 0.5f;
-			xy[i + 1] += 0.5f;
-		}
-		FloatBuffer vertices = Buffers.newDirectFloatBuffer(xy);
-		FloatBuffer colors = Buffers.newDirectFloatBuffer(xy.length / 2 * 4);
-		FloatBuffer offsets = Buffers.newDirectFloatBuffer(xy.length / 2);
-		float offset = 0;
-		for (int i = 0; i < xy.length; i += 2) {
-			RGB result = color;
-			colors.put(result.red / 255f);
-			colors.put(result.green / 255f);
-			colors.put(result.blue / 255f);
-			colors.put((float) alpha);
-			if (i > 0 && (stipple & 0xFFFF) != 0xFFFF) {
-				offset += Point2D.distance(xy[i - 2], xy[i - 1], xy[i + 0], xy[i + 1]);
-			}
-			offsets.put(offset);
-		}
-
-		lineP.use();
-		try {
-			gl.glUniformMatrix4fv(lineP.getUniform("uniform_projection"), 1, false, matrix.glGetMatrixf());
-			gl.glUniform1i(lineP.getUniform("uniform_stipple"), stipple);
-			vertices.rewind();
-			lineP.bindBufferData(GL.GL_ARRAY_BUFFER, "attribute_position", vertices, GL.GL_STATIC_DRAW, 2, false);
-			colors.rewind();
-			lineP.bindBufferData(GL.GL_ARRAY_BUFFER, "attribute_color", colors, GL.GL_STATIC_DRAW, 4, false);
-			offsets.rewind();
-			lineP.bindBufferData(GL.GL_ARRAY_BUFFER, "attribute_stipple_offset", offsets, GL.GL_STATIC_DRAW, 1, false);
-			gl.glDrawArrays(GL.GL_LINE_STRIP, 0, xy.length / 2);
-		}
-		finally {
-			lineP.done();
-		}
+	public void drawShape(Shape localShape, RGB color, int width, LineStyle style, double alpha) {
+		drawShape(localShape, color, width, style.toBitPattern(), alpha);
 	}
 
 	@Override
-	public void drawShape(Point2D localShape) {
+	public void drawShape(Shape localShape, RGB color, int width, int stipple, double alpha) {
+		if (color == null || stipple == 0 || alpha == 0) {
+			return;
+		}
 
-		float[] xy = new float[] { (float) localShape.getX() + 0.5f, (float) localShape.getY() + 0.5f };
-		FloatBuffer vertices = Buffers.newDirectFloatBuffer(xy);
-		FloatBuffer colors = Buffers.newDirectFloatBuffer(xy.length / 2 * 4);
-		FloatBuffer offsets = Buffers.newDirectFloatBuffer(xy.length / 2);
-		float offset = 0;
+		updateLastShape(localShape);
 
-		RGB result = color;
-		colors.put(result.red / 255f);
-		colors.put(result.green / 255f);
-		colors.put(result.blue / 255f);
-		colors.put((float) alpha);
-
-		offsets.put(offset);
-
-		lineP.use();
+		gl.glLineWidth(width);
+		line2dP.use();
 		try {
-			gl.glUniformMatrix4fv(lineP.getUniform("uniform_projection"), 1, false, matrix.glGetMatrixf());
-			gl.glUniform1i(lineP.getUniform("uniform_stipple"), 0xFFFFFFFF);
-			vertices.rewind();
-			lineP.bindBufferData(GL.GL_ARRAY_BUFFER, "attribute_position", vertices, GL.GL_STATIC_DRAW, 2, false);
-			colors.rewind();
-			lineP.bindBufferData(GL.GL_ARRAY_BUFFER, "attribute_color", colors, GL.GL_STATIC_DRAW, 4, false);
-			offsets.rewind();
-			lineP.bindBufferData(GL.GL_ARRAY_BUFFER, "attribute_stipple_offset", offsets, GL.GL_STATIC_DRAW, 1, false);
-			gl.glDrawArrays(GL.GL_POINTS, 0, xy.length / 2);
+			matrix.glTranslatef(0.5f, 0.5f, 0);
+			gl.glUniformMatrix4fv(line2dP.getUniform("uniform_projection"), 1, false, matrix.glGetMatrixf());
+			gl.glUniform4f(line2dP.getUniform("uniform_rgba"), color.red / 255f, color.green / 255f, color.blue / 255f,
+					(float) (getGlobalAlpha() * alpha));
+			gl.glUniform1i(line2dP.getUniform("uniform_stipple"), stipple);
+			lastXYFloatBuffer.rewind();
+			line2dP.bindBufferData(GL.GL_ARRAY_BUFFER, "attribute_position", lastPoints,
+					lastXYFloatBuffer.getBackingBuffer(), GL.GL_STATIC_DRAW, 2, false);
+			lastOffsetFloatBuffer.rewind();
+			line2dP.bindBufferData(GL.GL_ARRAY_BUFFER, "attribute_stipple_offset", lastPoints,
+					lastOffsetFloatBuffer.getBackingBuffer(), GL.GL_STATIC_DRAW, 1, false);
+			gl.glDrawArrays(GL.GL_LINE_STRIP, 0, lastPoints);
+			matrix.glTranslatef(-0.5f, -0.5f, 0);
 		}
 		finally {
-			lineP.done();
+			line2dP.done();
 		}
 	}
 
 	@Override
 	public void glowShape(Shape localShape, RGB color, int width, double alpha) {
-
-		List<Point2D> points = toPointsList(localShape);
-		boolean closed = false;
-		if (points.size() >= 2) {
-			closed = points.get(0).distanceSq(points.get(points.size() - 1)) < BNAUtils.TO_POINTS_ERROR
-					* BNAUtils.TO_POINTS_ERROR;
+		if (color == null || width == 0 || alpha == 0) {
+			return;
 		}
 
-		renderGlowSide(points, color, width, alpha, closed);
-		renderGlowSide(Lists.reverse(points), color, width, alpha, closed);
+		updateLastShape(localShape);
+
+		float[] xy = new float[lastPoints * 2];
+		lastXYFloatBuffer.rewind();
+		lastXYFloatBuffer.get(xy);
+
+		boolean closed = BNAUtils.realEq(xy[0], xy[xy.length - 2]) && BNAUtils.realEq(xy[1], xy[xy.length - 1]);
+
+		renderGlowSide(xy, false, color, width, alpha, closed);
+		renderGlowSide(xy, true, color, width, alpha, closed);
 	}
 
-	protected void renderGlowSide(List<Point2D> points, RGB color, int width, double alpha, boolean closed) {
+	protected void renderGlowSide(float[] xy, boolean reverse, RGB color, int width, double alpha, boolean closed) {
+		int numberOfPoints = xy.length / 2 * 4 + 2;
+		FloatBuffer vertices = Buffers.newDirectFloatBuffer(2 * numberOfPoints);
+		FloatBuffer colors = Buffers.newDirectFloatBuffer(4 * numberOfPoints);
+		float[] rgbArgb0 = new float[] { //
+		//
+				color.red / 255f, color.green / 255f, color.blue / 255f, (float) alpha, //
+				color.red / 255f, color.green / 255f, color.blue / 255f, 0 };
+		int closesI = 0;
+		float closesXe = 0;
+		float closesYe = 0;
 
-		Point2D closesP = new Point2D.Float(0, 0);
-		Point2D closesPa = new Point2D.Float(0, 0);
+		boolean first = true;
+		numberOfPoints = 0;
+		for (int i = 2; i < xy.length; i += 2) {
+			int i0 = !reverse ? i - 2 : xy.length - i;
+			int i1 = !reverse ? i - 0 : xy.length - i - 2;
 
-		int n = points.size() * 4 + 2;
-		FloatBuffer vertices = Buffers.newDirectFloatBuffer(2 * n);
-		FloatBuffer colors = Buffers.newDirectFloatBuffer(4 * n);
-		float r = color.red / 255f;
-		float g = color.green / 255f;
-		float b = color.blue / 255f;
+			double angle = -Math.atan2(xy[i1 + 1] - xy[i0 + 1], xy[i1 + 0] - xy[i0 + 0]);
+			float sinAngle = (float) Math.sin(angle);
+			float cosAngle = (float) Math.cos(angle);
+			float p0Xe = xy[i0 + 0] + width * sinAngle / 2;
+			float p0Ye = xy[i0 + 1] + width * cosAngle / 2;
+			float p1Xe = xy[i1 + 0] + width * sinAngle / 2;
+			float p1Ye = xy[i1 + 1] + width * cosAngle / 2;
 
-		n = 0;
-		for (int i = 1; i < points.size(); i++) {
-			Point2D p1 = points.get(i - 1);
-			Point2D p2 = points.get(i);
+			numberOfPoints++;
+			vertices.put(xy, i0, 2);
 
-			double angle = Math.atan2(p2.getY() - p1.getY(), p2.getX() - p1.getX());
-			Point2D p1a = new Point2D.Double(p1.getX() + width * Math.sin(-angle), p1.getY() + width * Math.cos(-angle));
-			Point2D p2a = new Point2D.Double(p2.getX() + width * Math.sin(-angle), p2.getY() + width * Math.cos(-angle));
+			numberOfPoints++;
+			vertices.put(p0Xe);
+			vertices.put(p0Ye);
 
-			n++;
-			colors.put(r);
-			colors.put(g);
-			colors.put(b);
-			colors.put((float) alpha);
-			vertices.put((float) p1.getX());
-			vertices.put((float) p1.getY());
+			colors.put(rgbArgb0);
 
-			n++;
-			colors.put(r);
-			colors.put(g);
-			colors.put(b);
-			colors.put(0);
-			vertices.put((float) p1a.getX());
-			vertices.put((float) p1a.getY());
-
-			if (i == 1) {
-				closesP = p1;
-				closesPa = p1a;
+			if (first) {
+				first = false;
+				closesI = i0;
+				closesXe = p0Xe;
+				closesYe = p0Ye;
 			}
 
-			n++;
-			colors.put(r);
-			colors.put(g);
-			colors.put(b);
-			colors.put((float) alpha);
-			vertices.put((float) p2.getX());
-			vertices.put((float) p2.getY());
+			numberOfPoints++;
+			vertices.put(xy, i1, 2);
 
-			n++;
-			colors.put(r);
-			colors.put(g);
-			colors.put(b);
-			colors.put(0);
-			vertices.put((float) p2a.getX());
-			vertices.put((float) p2a.getY());
+			numberOfPoints++;
+			vertices.put(p1Xe);
+			vertices.put(p1Ye);
+
+			colors.put(rgbArgb0);
 		}
 		if (closed) {
-			n++;
-			colors.put(r);
-			colors.put(g);
-			colors.put(b);
-			colors.put((float) alpha);
-			vertices.put((float) closesP.getX());
-			vertices.put((float) closesP.getY());
+			numberOfPoints++;
+			vertices.put(xy, closesI, 2);
 
-			n++;
-			colors.put(r);
-			colors.put(g);
-			colors.put(b);
-			colors.put(0);
-			vertices.put((float) closesPa.getX());
-			vertices.put((float) closesPa.getY());
+			numberOfPoints++;
+			vertices.put(closesXe);
+			vertices.put(closesYe);
+
+			colors.put(rgbArgb0);
 		}
 
-		fillP.use();
+		fill3dP.use();
 		try {
-			gl.glUniformMatrix4fv(fillP.getUniform("uniform_projection"), 1, false, matrix.glGetMatrixf());
+			gl.glUniformMatrix4fv(fill3dP.getUniform("uniform_projection"), 1, false, matrix.glGetMatrixf());
 			vertices.rewind();
-			fillP.bindBufferData(GL.GL_ARRAY_BUFFER, "attribute_position", vertices, GL.GL_STATIC_DRAW, 2, false);
+			fill3dP.bindBufferData(GL.GL_ARRAY_BUFFER, "attribute_position", numberOfPoints, vertices,
+					GL.GL_STATIC_DRAW, 2, false);
 			colors.rewind();
-			fillP.bindBufferData(GL.GL_ARRAY_BUFFER, "attribute_color", colors, GL.GL_STATIC_DRAW, 4, false);
-			gl.glDrawArrays(GL.GL_TRIANGLE_STRIP, 0, n);
+			fill3dP.bindBufferData(GL.GL_ARRAY_BUFFER, "attribute_color", numberOfPoints, colors, GL.GL_STATIC_DRAW, 4,
+					false);
+			gl.glDrawArrays(GL.GL_TRIANGLE_STRIP, 0, numberOfPoints);
 		}
 		finally {
-			fillP.done();
+			fill3dP.done();
 		}
 	}
 
 	@Override
 	public void selectShape(Shape localShape, int offset) {
-		RGB oldColor = color;
-		int oldStipple = stipple;
-		try {
-			color = new RGB(0, 0, 0);
-			stipple = 0xFFFFFFFF;
-			drawShape(localShape);
-			color = new RGB(255, 255, 255);
-			stipple = 0xF0F0F0F0 >> offset * 2 % 8;
-			drawShape(localShape);
-		}
-		finally {
-			color = oldColor;
-			stipple = oldStipple;
-		}
+		drawShape(localShape, new RGB(0, 0, 0), 1, 0xFFFFFFFF, 1);
+		drawShape(localShape, new RGB(255, 255, 255), 1, 0xF0F0F0F0 >> offset * 2 % 8, 1);
 	}
 
 	@Override
 	public void fillShape(Shape localShape, RGB color1, RGB color2, double alpha) {
-
-		Rectangle2D localBounds = localShape.getBounds2D();
-		boolean isGradientFilled = isDecorativeGraphics() && color1 != null && color2 != null && !color1.equals(color2);
-		double minY = isGradientFilled ? localBounds.getMinY() : 0;
-		double maxY = isGradientFilled ? localBounds.getMaxY() : 0;
-		float actualAlpha = Double.isNaN(alpha) ? (float) this.alpha : (float) (this.alpha * alpha);
-
-		float[] xy = BNAUtils.toXYFloatArray(localShape);
-		FloatBuffer vertices = Buffers.newDirectFloatBuffer(xy);
-		FloatBuffer colors = Buffers.newDirectFloatBuffer(xy.length / 2 * 4);
-		if (isGradientFilled) {
-			RGB result = new RGB(0, 0, 0);
-			for (int i = 0; i < xy.length; i += 2) {
-				//float x = xy[i];
-				float y = xy[i + 1];
-				blendColor(result, color1, color2, minY, maxY, y);
-				colors.put(result.red / 255f);
-				colors.put(result.green / 255f);
-				colors.put(result.blue / 255f);
-				colors.put(actualAlpha);
-			}
-		}
-		else {
-			for (int i = 0; i < xy.length; i += 2) {
-				RGB result = color1 != null ? color1 : color;
-				colors.put(result.red / 255f);
-				colors.put(result.green / 255f);
-				colors.put(result.blue / 255f);
-				colors.put(actualAlpha);
-			}
+		if (color1 == null || alpha == 0) {
+			return;
 		}
 
-		fillP.use();
+		color2 = color2 != null && isDecorativeGraphics() ? color2 : color1;
+
+		updateLastShape(localShape);
+
+		fill2dP.use();
 		try {
-			gl.glUniformMatrix4fv(fillP.getUniform("uniform_projection"), 1, false, matrix.glGetMatrixf());
-			vertices.rewind();
-			fillP.bindBufferData(GL.GL_ARRAY_BUFFER, "attribute_position", vertices, GL.GL_STATIC_DRAW, 2, false);
-			colors.rewind();
-			fillP.bindBufferData(GL.GL_ARRAY_BUFFER, "attribute_color", colors, GL.GL_STATIC_DRAW, 4, false);
-			gl.glDrawArrays(GL.GL_TRIANGLE_FAN, 0, xy.length / 2);
+			gl.glUniformMatrix4fv(fill2dP.getUniform("uniform_projection"), 1, false, matrix.glGetMatrixf());
+			gl.glUniform1f(fill2dP.getUniform("uniform_y1"), lastMinY);
+			gl.glUniform4f(fill2dP.getUniform("uniform_y1_rgba"), color1.red / 255f, color1.green / 255f,
+					color1.blue / 255f, (float) (getGlobalAlpha() * alpha));
+			gl.glUniform1f(fill2dP.getUniform("uniform_y2"), lastMaxY);
+			gl.glUniform4f(fill2dP.getUniform("uniform_y2_rgba"), color2.red / 255f, color2.green / 255f,
+					color2.blue / 255f, (float) (getGlobalAlpha() * alpha));
+			lastXYFloatBuffer.rewind();
+			fill2dP.bindBufferData(GL.GL_ARRAY_BUFFER, "attribute_position", lastPoints,
+					lastXYFloatBuffer.getBackingBuffer(), GL.GL_STATIC_DRAW, 2, false);
+			gl.glDrawArrays(GL.GL_TRIANGLE_FAN, 0, lastPoints);
 		}
 		finally {
-			fillP.done();
+			fill2dP.done();
 		}
 	}
 
 	@Override
-	public void fillShape(int mode, FloatBuffer xyzVertices, FloatBuffer rgbaColors, int n) {
+	public void fillShape(int mode, FloatBuffer xyzVertices, FloatBuffer rgbaColors, int numberOfPoints) {
 
-		fillP.use();
+		fill3dP.use();
 		try {
-			gl.glUniformMatrix4fv(fillP.getUniform("uniform_projection"), 1, false, matrix.glGetMatrixf());
-			xyzVertices.rewind();
-			fillP.bindBufferData(GL.GL_ARRAY_BUFFER, "attribute_position", xyzVertices, GL.GL_STATIC_DRAW, 3, false);
-			rgbaColors.rewind();
-			fillP.bindBufferData(GL.GL_ARRAY_BUFFER, "attribute_color", rgbaColors, GL.GL_STATIC_DRAW, 4, false);
-			gl.glDrawArrays(mode, 0, n);
+			gl.glUniformMatrix4fv(fill3dP.getUniform("uniform_projection"), 1, false, matrix.glGetMatrixf());
+			fill3dP.bindBufferData(GL.GL_ARRAY_BUFFER, "attribute_position", numberOfPoints, xyzVertices,
+					GL.GL_STATIC_DRAW, 3, false);
+			fill3dP.bindBufferData(GL.GL_ARRAY_BUFFER, "attribute_color", numberOfPoints, rgbaColors,
+					GL.GL_STATIC_DRAW, 4, false);
+			gl.glDrawArrays(mode, 0, numberOfPoints);
 		}
 		finally {
-			fillP.done();
+			fill3dP.done();
 		}
 	}
 
 	@Override
-	public void drawShape(Dimension size, int mode, FloatBuffer xyzVertices, FloatBuffer rgbaColors, int n) {
+	public void drawShape(int mode, FloatBuffer xyzVertices, FloatBuffer rgbaColors, int numberOfPoints, int stipple) {
 
-		FloatBuffer offsets = Buffers.newDirectFloatBuffer(n);
+		// get projection matrix
+		float[] matrixValues = new float[16];
+		matrix.glGetFloatv(GLMatrixFunc.GL_PROJECTION, matrixValues, 0);
+		Matrix projection = Matrix.newColumnMajorMatrix(4, matrixValues);
+
+		// update offsets
+		float[] xyzw = new float[4];
+		xyzw[3] = 1;
+		float lastX = 0, lastY = 0;
 		float offset = 0;
-		offsets.put(0);
-		xyzVertices.rewind();
-		float[] values = new float[16];
-		matrix.glGetFloatv(GLMatrixFunc.GL_PROJECTION, values, 0);
-		Matrix m = Matrix.newColumnMajorMatrix(4, values);
-		Matrix p1 = m.product(Matrix.newRowMajorMatrix(1, xyzVertices.get(), xyzVertices.get(), xyzVertices.get(), 1));
-		for (int i = 1; i < n; i++) {
-			Matrix p2 = m.product(Matrix.newRowMajorMatrix(1, xyzVertices.get(), xyzVertices.get(), xyzVertices.get(),
-					1));
-			double dx = size.width * (p2.get(0, 0) - p1.get(0, 0)) / 2;
-			double dy = size.height * (p2.get(0, 1) - p1.get(0, 1)) / 2;
-			offset += (float) Math.sqrt(dx * dx + dy * dy);
+		xyzVertices.mark();
+		FloatBuffer offsets = Buffers.newDirectFloatBuffer(numberOfPoints);
+		for (int i = 0; i < numberOfPoints; i++) {
+			xyzVertices.get(xyzw, 0, 3);
+			Matrix p1 = projection.product(Matrix.newRowMajorMatrix(1, xyzw));
+			float nextX = localBounds.width / 2f * (float) p1.get(0, 0);
+			float nextY = localBounds.height / 2f * (float) p1.get(0, 1);
+			if (i > 0) {
+				offset += (float) Point2D.distance(lastX, lastY, nextX, nextY);
+			}
+			if (mode == GL.GL_LINES && i % 2 == 0) {
+				offset = 0;
+			}
 			offsets.put(offset);
-			p1 = p2;
+			lastX = nextX;
+			lastY = nextY;
 		}
 
-		lineP.use();
+		line3dP.use();
 		try {
-			gl.glUniformMatrix4fv(fillP.getUniform("uniform_projection"), 1, false, matrix.glGetMatrixf());
-			gl.glUniform1i(lineP.getUniform("uniform_stipple"), stipple);
-			xyzVertices.rewind();
-			lineP.bindBufferData(GL.GL_ARRAY_BUFFER, "attribute_position", xyzVertices, GL.GL_STATIC_DRAW, 3, false);
-			rgbaColors.rewind();
-			lineP.bindBufferData(GL.GL_ARRAY_BUFFER, "attribute_color", rgbaColors, GL.GL_STATIC_DRAW, 4, false);
+			gl.glUniformMatrix4fv(line3dP.getUniform("uniform_projection"), 1, false, matrix.glGetMatrixf());
+			gl.glUniform1i(line3dP.getUniform("uniform_stipple"), stipple);
+			xyzVertices.reset();
+			line3dP.bindBufferData(GL.GL_ARRAY_BUFFER, "attribute_position", numberOfPoints, xyzVertices,
+					GL.GL_STATIC_DRAW, 3, false);
+			line3dP.bindBufferData(GL.GL_ARRAY_BUFFER, "attribute_color", numberOfPoints, rgbaColors,
+					GL.GL_STATIC_DRAW, 4, false);
 			offsets.rewind();
-			lineP.bindBufferData(GL.GL_ARRAY_BUFFER, "attribute_stipple_offset", offsets, GL.GL_STATIC_DRAW, 1, false);
-			gl.glDrawArrays(mode, 0, n);
+			line3dP.bindBufferData(GL.GL_ARRAY_BUFFER, "attribute_stipple_offset", numberOfPoints, offsets,
+					GL.GL_STATIC_DRAW, 1, false);
+			gl.glDrawArrays(mode, 0, numberOfPoints);
 		}
 		finally {
-			lineP.done();
+			line3dP.done();
 		}
-	}
-
-	protected void blendColor(RGB result, RGB color1, RGB color2, double minY, double maxY, double y) {
-		float f = (float) ((y - minY) / (maxY - minY));
-		result.red = SystemUtils.bound(0, SystemUtils.round(color1.red + (color2.red - color1.red) * f), 255);
-		result.green = SystemUtils.bound(0, SystemUtils.round(color1.green + (color2.green - color1.green) * f), 255);
-		result.blue = SystemUtils.bound(0, SystemUtils.round(color1.blue + (color2.blue - color1.blue) * f), 255);
 	}
 
 	@Override
@@ -732,8 +677,7 @@ public class JOGLResources extends AbstractUIResources implements IJOGLResources
 		matrix.glMatrixMode(oldMatrixMode);
 	}
 
-	public BufferedImage renderToImage(IBNAView view, Rectangle lbb) {
-
+	public BufferedImage renderToImage(final IBNAView view, final Rectangle lbb) {
 		FBObject fbObject = null;
 		RenderAttachment renderAttachment = null;
 		TextureAttachment texture0Attachment = null;
@@ -753,14 +697,18 @@ public class JOGLResources extends AbstractUIResources implements IJOGLResources
 			texture0Attachment = fbObject.attachTexture2D(gl, 0, true);
 			texture0Attachment.initialize(gl);
 
+			// clear the background
+			gl.glClearColor(0, 0, 0, 0);
+			gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT | GL.GL_STENCIL_BUFFER_BIT);
+
 			// ... draw things
-			renderReshape(lbb);
-			setColor(new RGB(0, 0, 0), 0);
-			fillShape(new Rectangle2D.Double(lbb.x, lbb.y, lbb.width, lbb.height));
-			renderThings(view, lbb);
-			if (DEBUG) {
-				setColor(new RGB(255, 0, 0), 1f);
-				drawShape(new Rectangle2D.Double(lbb.x + 1, lbb.y + 1, lbb.width - 3, lbb.height - 3));
+			pushMatrix(-lbb.x, -lbb.y, 0);
+			try {
+				renderReshape(new Rectangle(0, 0, lbb.width, lbb.height));
+				renderThings(view, new Rectangle(0, 0, lbb.width, lbb.height));
+			}
+			finally {
+				popMatrix();
 			}
 
 			// read texture contents
@@ -777,16 +725,9 @@ public class JOGLResources extends AbstractUIResources implements IJOGLResources
 					int g = byteBuffer.get(bufferIndex++);
 					int b = byteBuffer.get(bufferIndex++);
 					int a = byteBuffer.get(bufferIndex++);
-					int i = a << 24 | (r & 0xFF) << 16 | (g & 0xFF) << 8 | b & 0xFF;
+					int i = (a & 0xFF) << 24 | (r & 0xFF) << 16 | (g & 0xFF) << 8 | b & 0xFF;
 					image.setRGB(x, y, i);
 				}
-			}
-
-			if (DEBUG) {
-				Graphics2D g2d = image.createGraphics();
-				g2d.setColor(Color.BLACK);
-				g2d.drawRect(0, 0, lbb.width - 1, lbb.height - 1);
-				g2d.dispose();
 			}
 
 			return image;
@@ -810,6 +751,27 @@ public class JOGLResources extends AbstractUIResources implements IJOGLResources
 		return matrix;
 	}
 
+	private AffineTransform getLocalTransform() {
+		float[] values = new float[16];
+		matrix.glGetFloatv(GLMatrixFunc.GL_PROJECTION, values, 0);
+		AffineTransform transform = new AffineTransform(values[0], values[1], values[4], values[5], values[12],
+				values[13]);
+		transform.preConcatenate(AffineTransform.getScaleInstance(localBounds.width / 2, -localBounds.height / 2));
+		transform.preConcatenate(AffineTransform.getTranslateInstance(localBounds.width / 2, localBounds.height / 2));
+		return transform;
+	}
+
+	private double getLocalRotation() {
+		AffineTransform transform = getLocalTransform();
+		double[] matrix = new double[6];
+		transform.getMatrix(matrix);
+		double theta = Math.atan(matrix[2] / matrix[0]);
+		if (matrix[0] < 0) {
+			theta += Math.PI;
+		}
+		return theta;
+	}
+
 	@Override
 	public void pushMatrix(int matrixName) {
 		List<float[]> stack;
@@ -830,7 +792,6 @@ public class JOGLResources extends AbstractUIResources implements IJOGLResources
 		float[] values = new float[16];
 		matrix.glMatrixMode(matrixName);
 		matrix.glGetFloatv(matrixName, values, 0);
-		values = Arrays.copyOf(values, values.length);
 		stack.add(values);
 	}
 
@@ -856,4 +817,37 @@ public class JOGLResources extends AbstractUIResources implements IJOGLResources
 		matrix.glLoadMatrixf(values, 0);
 	}
 
+	private final List<List<Object>> blendStack = Lists.newArrayList();
+
+	@Override
+	public void pushBlendFunction() {
+		boolean isEnabled = gl.glIsEnabled(GL.GL_BLEND);
+		int[] settings = new int[6];
+		float[] color = new float[4];
+		gl.glGetIntegerv(GL.GL_BLEND_SRC_RGB, settings, 0);
+		gl.glGetIntegerv(GL.GL_BLEND_DST_RGB, settings, 1);
+		gl.glGetIntegerv(GL.GL_BLEND_SRC_ALPHA, settings, 2);
+		gl.glGetIntegerv(GL.GL_BLEND_DST_ALPHA, settings, 3);
+		gl.glGetIntegerv(GL.GL_BLEND_EQUATION_RGB, settings, 4);
+		gl.glGetIntegerv(GL.GL_BLEND_EQUATION_ALPHA, settings, 5);
+		gl.glGetFloatv(GL2ES2.GL_BLEND_COLOR, color, 0);
+		blendStack.add(Lists.<Object> newArrayList(isEnabled, settings, color));
+	}
+
+	@Override
+	public void popBlendFunction() {
+		List<Object> values = blendStack.remove(blendStack.size() - 1);
+		boolean isEnabled = (Boolean) values.get(0);
+		int[] settings = (int[]) values.get(1);
+		float[] color = (float[]) values.get(2);
+		if (isEnabled) {
+			gl.glEnable(GL.GL_BLEND);
+		}
+		else {
+			gl.glDisable(GL.GL_BLEND);
+		}
+		gl.glBlendFuncSeparate(settings[0], settings[1], settings[2], settings[3]);
+		gl.glBlendEquationSeparate(settings[4], settings[5]);
+		gl.glBlendColor(color[0], color[1], color[2], color[3]);
+	}
 }

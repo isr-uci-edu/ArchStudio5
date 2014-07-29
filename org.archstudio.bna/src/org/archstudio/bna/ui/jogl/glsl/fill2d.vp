@@ -1,0 +1,31 @@
+// Many GPU drivers refuse to compile the shader if #version is different from the drivers internal GLSL version.
+// #version 130
+
+#if __VERSION__ >= 130
+	#define attribute in
+	#define varying out
+#endif
+
+#ifdef GL_ES
+	precision mediump float;
+	precision mediump int;
+#endif
+
+uniform mat4 uniform_projection;
+uniform float uniform_y1;
+uniform vec4 uniform_y1_rgba;
+uniform float uniform_y2;
+uniform vec4 uniform_y2_rgba;
+
+attribute vec4 attribute_position;
+
+varying vec4 varying_rgba;
+
+void main(void)
+{
+	gl_Position = uniform_projection * attribute_position;
+	vec4 y1 = uniform_projection * vec4(attribute_position.x, uniform_y1, attribute_position.z, 1);
+	vec4 y2 = uniform_projection * vec4(attribute_position.x, uniform_y2, attribute_position.z, 1);
+	float f = (gl_Position.y - y1.y) / (y2.y - y1.y);
+	varying_rgba = (1.0 - f) * uniform_y1_rgba + f * uniform_y2_rgba;
+}

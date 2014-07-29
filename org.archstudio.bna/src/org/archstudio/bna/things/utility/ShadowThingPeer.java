@@ -45,7 +45,7 @@ public class ShadowThingPeer<T extends ShadowThing> extends AbstractThingPeer<T>
 
 	private void updateShadowData() {
 		shadowSize = Math.min(SystemUtils.round(6 * cm.getLocalScale()), 5);
-		shadowOffset = Math.max(SystemUtils.round(6 * cm.getLocalScale()), shadowSize);
+		shadowOffset = Math.min(SystemUtils.round(6 * cm.getLocalScale()), shadowSize);
 		shadowAlpha = 0.4;
 	}
 
@@ -194,7 +194,7 @@ public class ShadowThingPeer<T extends ShadowThing> extends AbstractThingPeer<T>
 			texture1Attachment.initialize(gl);
 
 			// disable blending so that we simply blur the existing texture to the new one
-			boolean isBlendEnabled = gl.glIsEnabled(GL.GL_BLEND);
+			r.pushBlendFunction();
 			gl.glDisable(GL.GL_BLEND);
 			try {
 				// ... apply blur
@@ -209,9 +209,8 @@ public class ShadowThingPeer<T extends ShadowThing> extends AbstractThingPeer<T>
 					gl.glUniform1i(blurP.getUniform("uniform_size"), shadowSize);
 					gl.glUniform2f(blurP.getUniform("uniform_direction"), 1, 0);
 					gl.glUniform1f(blurP.getUniform("uniform_alpha"), 1);
-
 					vertices.rewind();
-					blurP.bindBufferData(GL.GL_ARRAY_BUFFER, "attribute_position", vertices, GL.GL_STATIC_DRAW, 2,
+					blurP.bindBufferData(GL.GL_ARRAY_BUFFER, "attribute_position", 4, vertices, GL.GL_STATIC_DRAW, 2,
 							false);
 
 					gl.glDrawArrays(GL.GL_TRIANGLE_FAN, 0, 4);
@@ -222,9 +221,7 @@ public class ShadowThingPeer<T extends ShadowThing> extends AbstractThingPeer<T>
 			}
 			finally {
 				// restore blending
-				if (isBlendEnabled) {
-					gl.glEnable(GL.GL_BLEND);
-				}
+				r.popBlendFunction();
 			}
 
 			// draw a blur of texture 1 on the main buffer ...
@@ -247,7 +244,7 @@ public class ShadowThingPeer<T extends ShadowThing> extends AbstractThingPeer<T>
 				gl.glUniform1f(blurP.getUniform("uniform_alpha"), (float) shadowAlpha);
 
 				vertices.rewind();
-				blurP.bindBufferData(GL.GL_ARRAY_BUFFER, "attribute_position", vertices, GL.GL_STATIC_DRAW, 2, false);
+				blurP.bindBufferData(GL.GL_ARRAY_BUFFER, "attribute_position", 4, vertices, GL.GL_STATIC_DRAW, 2, false);
 
 				gl.glDrawArrays(GL.GL_TRIANGLE_FAN, 0, 4);
 			}

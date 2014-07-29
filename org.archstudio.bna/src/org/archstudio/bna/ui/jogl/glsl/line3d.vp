@@ -24,7 +24,6 @@ varying float varying_stipple_offset;
 void main(void)
 {
 	gl_Position = uniform_projection * attribute_position;
-	
 	varying_color = attribute_color;
 	varying_stipple_offset = attribute_stipple_offset;
 }

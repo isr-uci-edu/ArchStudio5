@@ -12,14 +12,14 @@
 #endif
 
 uniform mat4 uniform_projection;
+
 attribute vec4 attribute_position;
 attribute vec4 attribute_color;
 
-// Outgoing varying data sent to the fragment shader
 varying vec4 varying_color;
 
 void main(void)
 {
-	varying_color = attribute_color;
 	gl_Position = uniform_projection * attribute_position;
+	varying_color = attribute_color;
 }

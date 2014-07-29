@@ -7,11 +7,11 @@ import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.ICoordinateMapper;
 import org.archstudio.bna.constants.GridDisplayType;
-import org.archstudio.bna.facets.IHasEdgeColor;
 import org.archstudio.bna.things.AbstractThingPeer;
 import org.archstudio.bna.ui.IUIResources;
 import org.archstudio.swtutils.constants.LineStyle;
 import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.graphics.Rectangle;
 
 public class GridThingPeer<T extends GridThing> extends AbstractThingPeer<T> {
@@ -38,7 +38,8 @@ public class GridThingPeer<T extends GridThing> extends AbstractThingPeer<T> {
 			worldGridStep *= 2;
 		}
 
-		if (r.setColor(t, IHasEdgeColor.EDGE_COLOR_KEY)) {
+		RGB color = t.getRawEdgeColor();
+		if (color != null) {
 
 			Rectangle lClip = new Rectangle(localBounds.x, localBounds.y, localBounds.width, localBounds.height);
 			Rectangle wClip = cm.localToWorld(lClip);
@@ -51,24 +52,15 @@ public class GridThingPeer<T extends GridThing> extends AbstractThingPeer<T> {
 			int dy = wy % worldGridStep;
 
 			if (gridDisplayType == GridDisplayType.SOLID_LINES || gridDisplayType == GridDisplayType.DOTTED_LINES) {
-				r.resetLineStyle();
-				if (gridDisplayType == GridDisplayType.DOTTED_LINES) {
-					r.setLineStyle(1, LineStyle.DOT.toBitPattern());
-				}
-				Line2D.Double line = new Line2D.Double();
-				line.y1 = lClip.y;
-				line.y2 = lClip.y + lClip.height;
 				for (int i = wx - dx; i <= wx2; i += worldGridStep) {
 					int gx = cm.worldToLocal(new Point(i, wy)).x;
-					line.x1 = line.x2 = gx;
-					r.drawShape(line);
+					r.drawShape(new Line2D.Double(gx, lClip.y, gx, lClip.y + lClip.height), color, 1,
+							gridDisplayType.getLineStyle(), 1);
 				}
-				line.x1 = lClip.x;
-				line.x2 = lClip.x + lClip.width;
 				for (int i = wy - dy; i <= wy2; i += worldGridStep) {
 					int gy = cm.worldToLocal(new Point(wx, i)).y;
-					line.y1 = line.y2 = gy;
-					r.drawShape(line);
+					r.drawShape(new Line2D.Double(lClip.x, gy, lClip.x + lClip.width, gy), color, 1,
+							gridDisplayType.getLineStyle(), 1);
 				}
 			}
 			else if (gridDisplayType == GridDisplayType.DOTS_AT_CORNERS) {
@@ -79,29 +71,20 @@ public class GridThingPeer<T extends GridThing> extends AbstractThingPeer<T> {
 						int gy = cm.worldToLocal(new Point(wx, j)).y;
 						point.x = gx;
 						point.y = gy;
-						r.drawShape(point);
+						r.drawShape(point, null, 1);
 					}
 				}
 			}
 			else if (gridDisplayType == GridDisplayType.CROSSES_AT_CORNERS) {
-				Line2D.Double line = new Line2D.Double();
 				for (int i = wx - dx; i <= wx2; i += worldGridStep) {
 					int gx = cm.worldToLocal(new Point(i, wy)).x;
 					for (int j = wy - dy; j <= wy2; j += worldGridStep) {
 						int gy = cm.worldToLocal(new Point(wx, j)).y;
-						line.x1 = gx - 3;
-						line.x2 = gx + 3;
-						line.y1 = line.y2 = gy;
-						r.drawShape(line);
-						line.x1 = line.x2 = gx;
-						line.y1 = gy - 3;
-						line.y2 = gy + 3;
-						r.drawShape(line);
+						r.drawShape(new Line2D.Double(gx - 3, gy, gx + 3, gy), color, 1, LineStyle.SOLID, 1);
+						r.drawShape(new Line2D.Double(gx, gy - 3, gx, gy + 3), color, 1, LineStyle.SOLID, 1);
 					}
 				}
 			}
-
-			r.resetLineStyle();
 		}
 
 		return true;

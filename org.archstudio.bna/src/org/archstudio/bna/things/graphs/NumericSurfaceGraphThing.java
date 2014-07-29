@@ -20,15 +20,15 @@ public class NumericSurfaceGraphThing extends NumericSurfaceGraphThingBase {
 		private double[] values = new double[0];
 		private RGB[] colors = new RGB[0];
 
-		synchronized public int getWidth() {
+		public int getWidth() {
 			return width;
 		}
 
-		synchronized public int getHeight() {
+		public int getHeight() {
 			return height;
 		}
 
-		synchronized public void resize(int width, int height) {
+		public void resize(int width, int height) {
 			double[] values = new double[width * height];
 			for (int i = 0; i < values.length; i++) {
 				values[i] = 0;
@@ -66,38 +66,38 @@ public class NumericSurfaceGraphThing extends NumericSurfaceGraphThingBase {
 			this.colors = colors;
 		}
 
-		synchronized public double getValue(int x, int y) {
+		public double getValue(int x, int y) {
 			checkPositionIndex(x, width - 1);
 			checkPositionIndex(y, height - 1);
 			return values[y * width + x];
 		}
 
-		synchronized public void setValue(int x, int y, double value) {
+		public void setValue(int x, int y, double value) {
 			checkPositionIndex(x, width - 1);
 			checkPositionIndex(y, height - 1);
 			values[y * width + x] = value;
 		}
 
-		synchronized public RGB getColor(int x, int y) {
+		public RGB getColor(int x, int y) {
 			checkPositionIndex(x, width - 1);
 			checkPositionIndex(y, height - 1);
 			return colors[y * width + x];
 		}
 
-		synchronized public void setColor(int x, int y, RGB color) {
+		public void setColor(int x, int y, RGB color) {
 			checkPositionIndex(x, width - 1);
 			checkPositionIndex(y, height - 1);
 			colors[y * width + x] = color;
 		}
 
 		@Override
-		synchronized public Object clone() {
+		public Object clone() {
 			try {
 				Data clone = (Data) super.clone();
 				clone.values = values.clone();
 				clone.colors = new RGB[colors.length];
 				for (int i = 0; i < colors.length; i++) {
-					clone.colors[i] = (RGB) ThingKey.any().apply(colors[i]);
+					clone.colors[i] = ThingKey.<RGB> any().apply(colors[i]);
 				}
 				return clone;
 			}
