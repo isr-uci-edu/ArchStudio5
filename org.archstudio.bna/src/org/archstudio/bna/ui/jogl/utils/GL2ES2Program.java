@@ -140,22 +140,58 @@ public final class GL2ES2Program implements Disposable {
 			boolean normalized) {
 		Preconditions.checkPositionIndex(values.position() + numberOfUnits * unitSize, values.limit());
 		int attribute = getAttribute(name);
-		gl.glBindBuffer(target, vbo[attribute - 1]);
-		gl.glBufferData(target, Buffers.SIZEOF_FLOAT * numberOfUnits * unitSize, values, usage);
-		gl.glVertexAttribPointer(attribute, unitSize, GL.GL_FLOAT, normalized, 0, 0);
-		gl.glEnableVertexAttribArray(attribute);
-		gl.glBindBuffer(target, 0);
+		boolean refereshedVBO = false;
+		while (true) {
+			try {
+				gl.glBindBuffer(target, vbo[attribute - 1]);
+				gl.glBufferData(target, Buffers.SIZEOF_FLOAT * numberOfUnits * unitSize, values, usage);
+				if (gl.glGetError() == GL.GL_INVALID_OPERATION) {
+					throw new GLException("GL-Error 0x502");
+				}
+				gl.glVertexAttribPointer(attribute, unitSize, GL.GL_FLOAT, normalized, 0, 0);
+				gl.glEnableVertexAttribArray(attribute);
+				gl.glBindBuffer(target, 0);
+				return;
+			}
+			catch (GLException e) {
+				if (!refereshedVBO) {
+					refereshedVBO = true;
+					gl.glDeleteBuffers(1, vbo, attribute - 1);
+					gl.glGenBuffers(1, vbo, attribute - 1);
+					continue;
+				}
+				throw e;
+			}
+		}
 	}
 
 	public void bindBufferData(int target, String name, int numberOfUnits, IntBuffer values, int usage, int unitSize,
 			boolean normalized) {
 		Preconditions.checkPositionIndex(values.position() + numberOfUnits * unitSize, values.limit());
 		int attribute = getAttribute(name);
-		gl.glBindBuffer(target, vbo[attribute - 1]);
-		gl.glBufferData(target, Buffers.SIZEOF_INT * numberOfUnits * unitSize, values, usage);
-		gl.glVertexAttribPointer(attribute, unitSize, GL2ES2.GL_INT, normalized, 0, 0);
-		gl.glEnableVertexAttribArray(attribute);
-		gl.glBindBuffer(target, 0);
+		boolean refereshedVBO = false;
+		while (true) {
+			try {
+				gl.glBindBuffer(target, vbo[attribute - 1]);
+				gl.glBufferData(target, Buffers.SIZEOF_INT * numberOfUnits * unitSize, values, usage);
+				if (gl.glGetError() == GL.GL_INVALID_OPERATION) {
+					throw new GLException("GL-Error 0x502");
+				}
+				gl.glVertexAttribPointer(attribute, unitSize, GL2ES2.GL_INT, normalized, 0, 0);
+				gl.glEnableVertexAttribArray(attribute);
+				gl.glBindBuffer(target, 0);
+				return;
+			}
+			catch (GLException e) {
+				if (!refereshedVBO) {
+					refereshedVBO = true;
+					gl.glDeleteBuffers(1, vbo, attribute - 1);
+					gl.glGenBuffers(1, vbo, attribute - 1);
+					continue;
+				}
+				throw e;
+			}
+		}
 	}
 
 	public void done() throws GLException {

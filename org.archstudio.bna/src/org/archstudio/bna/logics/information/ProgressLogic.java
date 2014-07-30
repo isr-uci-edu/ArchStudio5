@@ -68,7 +68,7 @@ public class ProgressLogic extends AbstractThingLogic {
 		super(world);
 	}
 
-	synchronized public void run(final String description, final IRunnableWithProgress runnable) {
+	public void run(final String description, final IRunnableWithProgress runnable) {
 		tasks.incrementAndGet();
 		if (Platform.isRunning() && PlatformUI.isWorkbenchRunning()) {
 			new ProgressLogicJob(description, runnable).schedule();
@@ -115,4 +115,5 @@ public class ProgressLogic extends AbstractThingLogic {
 			}
 		}
 	}
+	//TODO: use join to wait for thread completion
 }

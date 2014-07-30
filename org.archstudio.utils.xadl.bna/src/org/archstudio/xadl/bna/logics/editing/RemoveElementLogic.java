@@ -10,12 +10,12 @@ import org.archstudio.bna.IThing;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.logics.editing.BNAOperations;
 import org.archstudio.bna.ui.IBNAMenuListener;
+import org.archstudio.bna.utils.BNAAction;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.xadl.bna.facets.IHasObjRef;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.IXArchADTTypeMetadata;
 import org.archstudio.xarchadt.ObjRef;
-import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuManager;
 
 import com.google.common.collect.Lists;
@@ -31,7 +31,9 @@ public class RemoveElementLogic extends AbstractThingLogic implements IBNAMenuLi
 	}
 
 	@Override
-	synchronized public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager m) {
+	public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager m) {
+		BNAUtils.checkLock();
+
 		final Set<ObjRef> objRefs = Sets.newHashSet();
 		for (IThing thing : BNAUtils.getSelectedThings(view.getBNAWorld().getBNAModel())) {
 			ObjRef objRef = thing.get(IHasObjRef.OBJREF_KEY);
@@ -46,10 +48,10 @@ public class RemoveElementLogic extends AbstractThingLogic implements IBNAMenuLi
 			}
 		}
 		if (objRefs.size() > 0) {
-			m.add(new Action(objRefs.size() == 1 ? "Remove" : "Remove " + objRefs.size() + " Elements") {
+			m.add(new BNAAction(objRefs.size() == 1 ? "Remove" : "Remove " + objRefs.size() + " Elements") {
 
 				@Override
-				public void run() {
+				public void runWithLock() {
 					final List<Runnable> undo = Lists.newArrayList();
 					final List<Runnable> redo = Lists.newArrayList();
 					for (final ObjRef objRef : objRefs) {

@@ -7,6 +7,7 @@ import org.archstudio.bna.keys.IThingKey;
 import org.archstudio.bna.keys.IThingRefKey;
 import org.archstudio.bna.keys.ThingRefKey;
 import org.archstudio.bna.logics.AbstractKeyCoordinatingThingLogic;
+import org.archstudio.bna.utils.BNAUtils;
 
 public class ReparentToThingIDLogic extends AbstractKeyCoordinatingThingLogic implements IBNAModelListener {
 
@@ -17,7 +18,9 @@ public class ReparentToThingIDLogic extends AbstractKeyCoordinatingThingLogic im
 		track(REPARENT_TO_THING_KEY);
 	}
 
-	synchronized public IThingRefKey<IThing> getReparentToThingKey() {
+	public IThingRefKey<IThing> getReparentToThingKey() {
+		BNAUtils.checkLock();
+
 		return REPARENT_TO_THING_KEY;
 	}
 

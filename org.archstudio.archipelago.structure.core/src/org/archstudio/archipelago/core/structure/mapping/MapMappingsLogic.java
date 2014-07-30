@@ -10,9 +10,8 @@ import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.constants.StickyMode;
 import org.archstudio.bna.facets.IHasAnchorPoint;
 import org.archstudio.bna.facets.IHasInternalWorldPoint;
-import org.archstudio.bna.facets.IHasMutableAlpha;
 import org.archstudio.bna.facets.IHasMutableSelected;
-import org.archstudio.bna.facets.IHasMutableText;
+import org.archstudio.bna.facets.IHasMutableToolTip;
 import org.archstudio.bna.facets.IHasToolTip;
 import org.archstudio.bna.logics.coordinating.DynamicStickPointLogic;
 import org.archstudio.bna.logics.coordinating.ReparentToThingIDLogic;
@@ -21,7 +20,9 @@ import org.archstudio.bna.logics.information.HighlightLogic;
 import org.archstudio.bna.things.shapes.MappingThing;
 import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.BNAPath;
+import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.UserEditableUtils;
+import org.archstudio.sysutils.Finally;
 import org.archstudio.xadl.bna.facets.IHasXArchID;
 import org.archstudio.xadl.bna.logics.mapping.AbstractXADLToBNAPathLogic;
 import org.archstudio.xadl.bna.logics.mapping.MaintainMappingLogic;
@@ -51,7 +52,6 @@ public class MapMappingsLogic extends AbstractXADLToBNAPathLogic<MappingThing> i
 		logics.addThingLogic(WorldThingInternalEventsLogic.class);
 
 		syncValue("id", null, null, BNAPath.create(), IHasXArchID.XARCH_ID_KEY, true);
-		syncValue("name", null, "[no name]", BNAPath.create(), Assemblies.BOUNDED_TEXT_KEY, true);
 		syncValue("name", null, "[no name]", BNAPath.create(), IHasToolTip.TOOL_TIP_KEY, false);
 
 		// take the inner world objRef and interface objRef, set them on the MappingSplineThing
@@ -74,7 +74,9 @@ public class MapMappingsLogic extends AbstractXADLToBNAPathLogic<MappingThing> i
 	}
 
 	@Override
-	synchronized public void dispose() {
+	public void dispose() {
+		BNAUtils.checkLock();
+
 		Activator.getDefault().getPreferenceStore().removePropertyChangeListener(this);
 		org.archstudio.archipelago.core.Activator.getDefault().getPreferenceStore().removePropertyChangeListener(this);
 
@@ -87,11 +89,13 @@ public class MapMappingsLogic extends AbstractXADLToBNAPathLogic<MappingThing> i
 	}
 
 	@Override
-	synchronized public void propertyChange(PropertyChangeEvent event) {
+	public void propertyChange(PropertyChangeEvent event) {
 		loadPreferences();
 
-		for (MappingThing thing : getAddedThings()) {
-			thing.setLineWidth(defaultLineWidth);
+		try (Finally lock = BNAUtils.lock(); Finally bulkChange = model.beginBulkChange();) {
+			for (MappingThing thing : getAddedThings()) {
+				thing.setLineWidth(defaultLineWidth);
+			}
 		}
 	}
 
@@ -104,9 +108,8 @@ public class MapMappingsLogic extends AbstractXADLToBNAPathLogic<MappingThing> i
 		thing.setInternalPoint(new Point2D.Double(newPointSpot.x + 50, newPointSpot.y - 50));
 		thing.setLineWidth(defaultLineWidth);
 
-		UserEditableUtils.addEditableQualities(thing, IHasMutableText.USER_MAY_EDIT_TEXT,
-				IHasMutableSelected.USER_MAY_SELECT, HighlightLogic.USER_MAY_HIGHLIGHT,
-				IHasMutableAlpha.USER_MAY_CHANGE_ALPHA);
+		UserEditableUtils.addEditableQualities(thing, IHasMutableToolTip.USER_MAY_EDIT_TOOL_TIP,
+				IHasMutableSelected.USER_MAY_SELECT, HighlightLogic.USER_MAY_HIGHLIGHT);
 
 		//stack above the world thing
 		thing.set(syncLogic.syncObjRefKeyToThingIDKey(reparentLogic.getReparentToThingKey()),

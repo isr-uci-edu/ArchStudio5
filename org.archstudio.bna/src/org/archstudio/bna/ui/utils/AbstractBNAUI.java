@@ -1,7 +1,5 @@
 package org.archstudio.bna.ui.utils;
 
-import static org.archstudio.sysutils.SystemUtils.firstOrNull;
-
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -10,6 +8,7 @@ import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThingLogicManager;
+import org.archstudio.bna.IThingPeer;
 import org.archstudio.bna.constants.DNDData;
 import org.archstudio.bna.constants.DNDType;
 import org.archstudio.bna.constants.FocusType;
@@ -17,7 +16,9 @@ import org.archstudio.bna.constants.GestureType;
 import org.archstudio.bna.constants.KeyType;
 import org.archstudio.bna.constants.MouseType;
 import org.archstudio.bna.facets.IHasWorld;
+import org.archstudio.bna.facets.peers.IHasInnerViewPeer;
 import org.archstudio.bna.logics.events.WorldThingExternalEventsLogic;
+import org.archstudio.bna.things.utility.EnvironmentPropertiesThing;
 import org.archstudio.bna.ui.IBNADragAndDropListener;
 import org.archstudio.bna.ui.IBNAFocusListener;
 import org.archstudio.bna.ui.IBNAKeyListener;
@@ -35,7 +36,10 @@ import org.archstudio.bna.ui.IBNATrackGestureListener;
 import org.archstudio.bna.ui.IBNAUI;
 import org.archstudio.bna.ui.IUIResources;
 import org.archstudio.bna.utils.BNARenderingSettings;
+import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.DefaultCoordinate;
+import org.archstudio.sysutils.Finally;
+import org.archstudio.sysutils.SystemUtils;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
@@ -71,6 +75,9 @@ public abstract class AbstractBNAUI implements IBNAUI {
 	protected final IBNAWorld world;
 	protected final IThingLogicManager logics;
 	protected Control eventControl;
+	protected IBNAView eventView = null;
+	protected IBNAView focusedView = null;
+	protected IBNAView capturedView = null;
 
 	public AbstractBNAUI(IBNAView view) {
 		this.view = view;
@@ -94,365 +101,461 @@ public abstract class AbstractBNAUI implements IBNAUI {
 	}
 
 	protected void mouseEventSWT(MouseType type, MouseEvent e) {
-		if (DEBUG) {
-			if (type != MouseType.MOVE) {
-				System.err.println(type + " " + e);
+		try (Finally lock = BNAUtils.lock()) {
+			if (DEBUG) {
+				if (type != MouseType.MOVE) {
+					System.err.println(type + " " + e);
+				}
 			}
-		}
-		try {
-			ICoordinate location = DefaultCoordinate.forLocal(new Point(e.x, e.y), view.getCoordinateMapper());
-			List<IThing> things = view.getThingsAt(location);
+			try {
+				switch (type) {
+				case UP: {
+					if (capturedView == null) {
+						break;
+					}
+					try {
+						IBNAView view = capturedView;
+						ICoordinate location = DefaultCoordinate.forLocal(new Point(e.x, e.y),
+								view.getCoordinateMapper());
+						List<IThing> things = view.getThingsAt(location);
 
-			switch (type) {
-			case UP:
-				for (IBNAMouseListener logic : logics.getThingLogics(IBNAMouseListener.class)) {
-					try {
-						long time = System.nanoTime();
-						logic.mouseUp(view, type, e, things, location);
-						if (PROFILE) {
-							time = System.nanoTime() - time;
-							profileStats.get(logic).addAndGet(time);
+						for (IBNAMouseListener logic : capturedView.getBNAWorld().getThingLogicManager()
+								.getThingLogics(IBNAMouseListener.class)) {
+							try {
+								long time = System.nanoTime();
+								logic.mouseUp(view, type, e, things, location);
+								if (PROFILE) {
+									time = System.nanoTime() - time;
+									profileStats.get(logic).addAndGet(time);
+								}
+							}
+							catch (Throwable t) {
+								t.printStackTrace();
+							}
 						}
 					}
-					catch (Throwable t) {
-						t.printStackTrace();
+					finally {
+						capturedView = null;
 					}
 				}
-				break;
-			case DOWN:
-				for (IBNAMouseListener logic : logics.getThingLogics(IBNAMouseListener.class)) {
-					try {
-						long time = System.nanoTime();
-						logic.mouseDown(view, type, e, things, location);
-						if (PROFILE) {
-							time = System.nanoTime() - time;
-							profileStats.get(logic).addAndGet(time);
+					break;
+				case DOWN: {
+					focusedView = getInnerView(view,
+							DefaultCoordinate.forLocal(new Point(e.x, e.y), view.getCoordinateMapper()));
+					capturedView = focusedView;
+					IBNAView view = capturedView;
+					ICoordinate location = DefaultCoordinate.forLocal(new Point(e.x, e.y), view.getCoordinateMapper());
+					List<IThing> things = view.getThingsAt(location);
+
+					for (IBNAMouseListener logic : view.getBNAWorld().getThingLogicManager()
+							.getThingLogics(IBNAMouseListener.class)) {
+						try {
+							long time = System.nanoTime();
+							logic.mouseDown(view, type, e, things, location);
+							if (PROFILE) {
+								time = System.nanoTime() - time;
+								profileStats.get(logic).addAndGet(time);
+							}
+						}
+						catch (Throwable t) {
+							t.printStackTrace();
 						}
 					}
-					catch (Throwable t) {
-						t.printStackTrace();
-					}
 				}
-				break;
-			case CLICK:
-				for (IBNAMouseClickListener logic : logics.getThingLogics(IBNAMouseClickListener.class)) {
-					try {
-						long time = System.nanoTime();
-						logic.mouseClick(view, type, e, things, location);
-						if (PROFILE) {
-							time = System.nanoTime() - time;
-							profileStats.get(logic).addAndGet(time);
+					break;
+				case CLICK: {
+					focusedView = getInnerView(view,
+							DefaultCoordinate.forLocal(new Point(e.x, e.y), view.getCoordinateMapper()));
+					IBNAView view = focusedView;
+					ICoordinate location = DefaultCoordinate.forLocal(new Point(e.x, e.y), view.getCoordinateMapper());
+					List<IThing> things = view.getThingsAt(location);
+
+					for (IBNAMouseClickListener logic : view.getBNAWorld().getThingLogicManager()
+							.getThingLogics(IBNAMouseClickListener.class)) {
+						try {
+							long time = System.nanoTime();
+							logic.mouseClick(view, type, e, things, location);
+							if (PROFILE) {
+								time = System.nanoTime() - time;
+								profileStats.get(logic).addAndGet(time);
+							}
+						}
+						catch (Throwable t) {
+							t.printStackTrace();
 						}
 					}
-					catch (Throwable t) {
-						t.printStackTrace();
-					}
 				}
-				break;
-			case MOVE:
-				for (IBNAMouseMoveListener logic : logics.getThingLogics(IBNAMouseMoveListener.class)) {
-					try {
-						long time = System.nanoTime();
-						logic.mouseMove(view, type, e, things, location);
-						if (PROFILE) {
-							time = System.nanoTime() - time;
-							profileStats.get(logic).addAndGet(time);
+					break;
+				case MOVE: {
+					IBNAView view = capturedView != null ? capturedView : getInnerView(this.view,
+							DefaultCoordinate.forLocal(new Point(e.x, e.y), this.view.getCoordinateMapper()));
+					ICoordinate location = DefaultCoordinate.forLocal(new Point(e.x, e.y), view.getCoordinateMapper());
+					List<IThing> things = view.getThingsAt(location);
+
+					for (IBNAMouseMoveListener logic : logics.getThingLogics(IBNAMouseMoveListener.class)) {
+						try {
+							long time = System.nanoTime();
+							logic.mouseMove(view, type, e, things, location);
+							if (PROFILE) {
+								time = System.nanoTime() - time;
+								profileStats.get(logic).addAndGet(time);
+							}
+						}
+						catch (Throwable t) {
+							t.printStackTrace();
 						}
 					}
-					catch (Throwable t) {
-						t.printStackTrace();
-					}
 				}
-				break;
-			case ENTER:
-				for (IBNAMouseTrackListener logic : logics.getThingLogics(IBNAMouseTrackListener.class)) {
-					try {
-						long time = System.nanoTime();
-						logic.mouseEnter(view, type, e, things, location);
-						if (PROFILE) {
-							time = System.nanoTime() - time;
-							profileStats.get(logic).addAndGet(time);
+					break;
+				case ENTER: {
+					IBNAView view = capturedView != null ? capturedView : getInnerView(this.view,
+							DefaultCoordinate.forLocal(new Point(e.x, e.y), this.view.getCoordinateMapper()));
+					ICoordinate location = DefaultCoordinate.forLocal(new Point(e.x, e.y), view.getCoordinateMapper());
+					List<IThing> things = view.getThingsAt(location);
+
+					for (IBNAMouseTrackListener logic : logics.getThingLogics(IBNAMouseTrackListener.class)) {
+						try {
+							long time = System.nanoTime();
+							logic.mouseEnter(view, type, e, things, location);
+							if (PROFILE) {
+								time = System.nanoTime() - time;
+								profileStats.get(logic).addAndGet(time);
+							}
+						}
+						catch (Throwable t) {
+							t.printStackTrace();
 						}
 					}
-					catch (Throwable t) {
-						t.printStackTrace();
-					}
 				}
-				break;
-			case EXIT:
-				for (IBNAMouseTrackListener logic : logics.getThingLogics(IBNAMouseTrackListener.class)) {
-					try {
-						long time = System.nanoTime();
-						logic.mouseExit(view, type, e, things, location);
-						if (PROFILE) {
-							time = System.nanoTime() - time;
-							profileStats.get(logic).addAndGet(time);
+					break;
+				case EXIT: {
+					IBNAView view = capturedView != null ? capturedView : getInnerView(this.view,
+							DefaultCoordinate.forLocal(new Point(e.x, e.y), this.view.getCoordinateMapper()));
+					ICoordinate location = DefaultCoordinate.forLocal(new Point(e.x, e.y), view.getCoordinateMapper());
+					List<IThing> things = view.getThingsAt(location);
+
+					for (IBNAMouseTrackListener logic : logics.getThingLogics(IBNAMouseTrackListener.class)) {
+						try {
+							long time = System.nanoTime();
+							logic.mouseExit(view, type, e, things, location);
+							if (PROFILE) {
+								time = System.nanoTime() - time;
+								profileStats.get(logic).addAndGet(time);
+							}
+						}
+						catch (Throwable t) {
+							t.printStackTrace();
 						}
 					}
-					catch (Throwable t) {
-						t.printStackTrace();
-					}
 				}
-				break;
-			case VERTICAL_WHEEL:
-				for (IBNAMouseWheelListener logic : logics.getThingLogics(IBNAMouseWheelListener.class)) {
-					try {
-						long time = System.nanoTime();
-						logic.mouseVerticalWheel(view, type, e, things, location);
-						if (PROFILE) {
-							time = System.nanoTime() - time;
-							profileStats.get(logic).addAndGet(time);
+					break;
+				case VERTICAL_WHEEL: {
+					IBNAView view = capturedView != null ? capturedView : getInnerView(this.view,
+							DefaultCoordinate.forLocal(new Point(e.x, e.y), this.view.getCoordinateMapper()));
+					ICoordinate location = DefaultCoordinate.forLocal(new Point(e.x, e.y), view.getCoordinateMapper());
+					List<IThing> things = view.getThingsAt(location);
+
+					for (IBNAMouseWheelListener logic : logics.getThingLogics(IBNAMouseWheelListener.class)) {
+						try {
+							long time = System.nanoTime();
+							logic.mouseVerticalWheel(view, type, e, things, location);
+							if (PROFILE) {
+								time = System.nanoTime() - time;
+								profileStats.get(logic).addAndGet(time);
+							}
+						}
+						catch (Throwable t) {
+							t.printStackTrace();
 						}
 					}
-					catch (Throwable t) {
-						t.printStackTrace();
-					}
 				}
-				break;
-			case HORIZONTAL_WHEEL:
-				for (IBNAMouseWheelListener logic : logics.getThingLogics(IBNAMouseWheelListener.class)) {
-					try {
-						long time = System.nanoTime();
-						logic.mouseHorizontalWheel(view, type, e, things, location);
-						if (PROFILE) {
-							time = System.nanoTime() - time;
-							profileStats.get(logic).addAndGet(time);
+					break;
+				case HORIZONTAL_WHEEL: {
+					IBNAView view = capturedView != null ? capturedView : getInnerView(this.view,
+							DefaultCoordinate.forLocal(new Point(e.x, e.y), this.view.getCoordinateMapper()));
+					ICoordinate location = DefaultCoordinate.forLocal(new Point(e.x, e.y), view.getCoordinateMapper());
+					List<IThing> things = view.getThingsAt(location);
+
+					for (IBNAMouseWheelListener logic : logics.getThingLogics(IBNAMouseWheelListener.class)) {
+						try {
+							long time = System.nanoTime();
+							logic.mouseHorizontalWheel(view, type, e, things, location);
+							if (PROFILE) {
+								time = System.nanoTime() - time;
+								profileStats.get(logic).addAndGet(time);
+							}
+						}
+						catch (Throwable t) {
+							t.printStackTrace();
 						}
 					}
-					catch (Throwable t) {
-						t.printStackTrace();
-					}
 				}
-				break;
+					break;
+				}
 			}
-		}
-		catch (Exception ex) {
-			handleException(ex);
+			catch (Exception ex) {
+				handleException(ex);
+			}
 		}
 	}
 
-	protected void gestureEventSWT(GestureType type, GestureEvent e) {
-		if (DEBUG) {
-			System.err.println(type + " " + e);
-		}
-		try {
-			ICoordinate location = DefaultCoordinate.forLocal(new Point(e.x, e.y), view.getCoordinateMapper());
-			List<IThing> things = view.getThingsAt(location);
-
-			switch (type) {
-			case BEGIN:
-				for (IBNATrackGestureListener logic : logics.getThingLogics(IBNATrackGestureListener.class)) {
-					try {
-						long time = System.nanoTime();
-						logic.beginGesture(view, type, e, things, location);
-						if (PROFILE) {
-							time = System.nanoTime() - time;
-							profileStats.get(logic).addAndGet(time);
-						}
-					}
-					catch (Throwable t) {
-						t.printStackTrace();
+	private IBNAView getInnerView(IBNAView view, ICoordinate location) {
+		while (true) {
+			IThing thing = SystemUtils.firstOrNull(view.getThingsAt(location));
+			if (thing instanceof IHasWorld) {
+				IBNAWorld world = ((IHasWorld) thing).getWorld();
+				if (world != null) {
+					IThingPeer<?> peer = view.getThingPeer(thing);
+					if (peer instanceof IHasInnerViewPeer<?>) {
+						view = ((IHasInnerViewPeer<?>) peer).getInnerView();
+						location = DefaultCoordinate.forLocal(location.getLocalPoint(), view.getCoordinateMapper());
+						continue;
 					}
 				}
-				break;
-			case END:
-				for (IBNATrackGestureListener logic : logics.getThingLogics(IBNATrackGestureListener.class)) {
-					try {
-						long time = System.nanoTime();
-						logic.endGesture(view, type, e, things, location);
-						if (PROFILE) {
-							time = System.nanoTime() - time;
-							profileStats.get(logic).addAndGet(time);
-						}
-					}
-					catch (Throwable t) {
-						t.printStackTrace();
-					}
-				}
-				break;
-			case MAGNIFY:
-				for (IBNAMagnifyGestureListener logic : logics.getThingLogics(IBNAMagnifyGestureListener.class)) {
-					try {
-						long time = System.nanoTime();
-						logic.magnifyGesture(view, type, e, things, location);
-						if (PROFILE) {
-							time = System.nanoTime() - time;
-							profileStats.get(logic).addAndGet(time);
-						}
-					}
-					catch (Throwable t) {
-						t.printStackTrace();
-					}
-				}
-				break;
-			case PAN:
-				for (IBNAPanGestureListener logic : logics.getThingLogics(IBNAPanGestureListener.class)) {
-					try {
-						long time = System.nanoTime();
-						logic.panGesture(view, type, e, things, location);
-						if (PROFILE) {
-							time = System.nanoTime() - time;
-							profileStats.get(logic).addAndGet(time);
-						}
-					}
-					catch (Throwable t) {
-						t.printStackTrace();
-					}
-				}
-				break;
-			case ROTATE:
-				for (IBNARotateGestureListener logic : logics.getThingLogics(IBNARotateGestureListener.class)) {
-					try {
-						long time = System.nanoTime();
-						logic.rotateGesture(view, type, e, things, location);
-						if (PROFILE) {
-							time = System.nanoTime() - time;
-							profileStats.get(logic).addAndGet(time);
-						}
-					}
-					catch (Throwable t) {
-						t.printStackTrace();
-					}
-				}
-				break;
-			case SWIPE:
-				for (IBNASwipeGestureListener logic : logics.getThingLogics(IBNASwipeGestureListener.class)) {
-					try {
-						long time = System.nanoTime();
-						logic.swipeGesture(view, type, e, things, location);
-						if (PROFILE) {
-							time = System.nanoTime() - time;
-							profileStats.get(logic).addAndGet(time);
-						}
-					}
-					catch (Throwable t) {
-						t.printStackTrace();
-					}
-				}
-				break;
 			}
+			break;
 		}
-		catch (Exception ex) {
-			handleException(ex);
+		return view;
+	}
+
+	protected void gestureEventSWT(GestureType type, GestureEvent e) {
+		try (Finally lock = BNAUtils.lock()) {
+			if (DEBUG) {
+				System.err.println(type + " " + e);
+			}
+			try {
+				ICoordinate location = DefaultCoordinate.forLocal(new Point(e.x, e.y), view.getCoordinateMapper());
+				List<IThing> things = view.getThingsAt(location);
+
+				switch (type) {
+				case BEGIN:
+					for (IBNATrackGestureListener logic : logics.getThingLogics(IBNATrackGestureListener.class)) {
+						try {
+							long time = System.nanoTime();
+							logic.beginGesture(view, type, e, things, location);
+							if (PROFILE) {
+								time = System.nanoTime() - time;
+								profileStats.get(logic).addAndGet(time);
+							}
+						}
+						catch (Throwable t) {
+							t.printStackTrace();
+						}
+					}
+					break;
+				case END:
+					for (IBNATrackGestureListener logic : logics.getThingLogics(IBNATrackGestureListener.class)) {
+						try {
+							long time = System.nanoTime();
+							logic.endGesture(view, type, e, things, location);
+							if (PROFILE) {
+								time = System.nanoTime() - time;
+								profileStats.get(logic).addAndGet(time);
+							}
+						}
+						catch (Throwable t) {
+							t.printStackTrace();
+						}
+					}
+					break;
+				case MAGNIFY:
+					for (IBNAMagnifyGestureListener logic : logics.getThingLogics(IBNAMagnifyGestureListener.class)) {
+						try {
+							long time = System.nanoTime();
+							logic.magnifyGesture(view, type, e, things, location);
+							if (PROFILE) {
+								time = System.nanoTime() - time;
+								profileStats.get(logic).addAndGet(time);
+							}
+						}
+						catch (Throwable t) {
+							t.printStackTrace();
+						}
+					}
+					break;
+				case PAN:
+					for (IBNAPanGestureListener logic : logics.getThingLogics(IBNAPanGestureListener.class)) {
+						try {
+							long time = System.nanoTime();
+							logic.panGesture(view, type, e, things, location);
+							if (PROFILE) {
+								time = System.nanoTime() - time;
+								profileStats.get(logic).addAndGet(time);
+							}
+						}
+						catch (Throwable t) {
+							t.printStackTrace();
+						}
+					}
+					break;
+				case ROTATE:
+					for (IBNARotateGestureListener logic : logics.getThingLogics(IBNARotateGestureListener.class)) {
+						try {
+							long time = System.nanoTime();
+							logic.rotateGesture(view, type, e, things, location);
+							if (PROFILE) {
+								time = System.nanoTime() - time;
+								profileStats.get(logic).addAndGet(time);
+							}
+						}
+						catch (Throwable t) {
+							t.printStackTrace();
+						}
+					}
+					break;
+				case SWIPE:
+					for (IBNASwipeGestureListener logic : logics.getThingLogics(IBNASwipeGestureListener.class)) {
+						try {
+							long time = System.nanoTime();
+							logic.swipeGesture(view, type, e, things, location);
+							if (PROFILE) {
+								time = System.nanoTime() - time;
+								profileStats.get(logic).addAndGet(time);
+							}
+						}
+						catch (Throwable t) {
+							t.printStackTrace();
+						}
+					}
+					break;
+				}
+			}
+			catch (Exception ex) {
+				handleException(ex);
+			}
 		}
 	}
 
 	protected void keyEventSWT(KeyType type, KeyEvent e) {
-		if (DEBUG) {
-			System.err.println(type + " " + e);
-		}
-		try {
-			switch (type) {
-			case PRESSED:
-				for (IBNAKeyListener logic : logics.getThingLogics(IBNAKeyListener.class)) {
-					try {
-						long time = System.nanoTime();
-						logic.keyPressed(view, type, e);
-						if (PROFILE) {
-							time = System.nanoTime() - time;
-							profileStats.get(logic).addAndGet(time);
-						}
-					}
-					catch (Throwable t) {
-						t.printStackTrace();
-					}
-				}
-				break;
-			case RELEASED:
-				for (IBNAKeyListener logic : logics.getThingLogics(IBNAKeyListener.class)) {
-					try {
-						long time = System.nanoTime();
-						logic.keyReleased(view, type, e);
-						if (PROFILE) {
-							time = System.nanoTime() - time;
-							profileStats.get(logic).addAndGet(time);
-						}
-					}
-					catch (Throwable t) {
-						t.printStackTrace();
-					}
-				}
-				break;
+		try (Finally lock = BNAUtils.lock()) {
+			if (DEBUG) {
+				System.err.println(type + " " + e);
 			}
-		}
-		catch (Exception ex) {
-			handleException(ex);
+			try {
+				switch (type) {
+				case PRESSED: {
+					IBNAView view = capturedView != null ? capturedView : this.view;
+
+					for (IBNAKeyListener logic : view.getBNAWorld().getThingLogicManager()
+							.getThingLogics(IBNAKeyListener.class)) {
+						try {
+							long time = System.nanoTime();
+							logic.keyPressed(view, type, e);
+							if (PROFILE) {
+								time = System.nanoTime() - time;
+								profileStats.get(logic).addAndGet(time);
+							}
+						}
+						catch (Throwable t) {
+							t.printStackTrace();
+						}
+					}
+				}
+					break;
+				case RELEASED: {
+					IBNAView view = capturedView != null ? capturedView : this.view;
+
+					for (IBNAKeyListener logic : view.getBNAWorld().getThingLogicManager()
+							.getThingLogics(IBNAKeyListener.class)) {
+						try {
+							long time = System.nanoTime();
+							logic.keyReleased(view, type, e);
+							if (PROFILE) {
+								time = System.nanoTime() - time;
+								profileStats.get(logic).addAndGet(time);
+							}
+						}
+						catch (Throwable t) {
+							t.printStackTrace();
+						}
+					}
+				}
+					break;
+				}
+			}
+			catch (Exception ex) {
+				handleException(ex);
+			}
 		}
 	}
 
 	protected void focusEventSWT(FocusType type, FocusEvent e) {
-		if (DEBUG) {
-			System.err.println(type + " " + e);
-		}
-		try {
-			switch (type) {
-			case GAINED:
-				for (IBNAFocusListener logic : logics.getThingLogics(IBNAFocusListener.class)) {
-					try {
-						long time = System.nanoTime();
-						logic.focusGained(view, type, e);
-						if (PROFILE) {
-							time = System.nanoTime() - time;
-							profileStats.get(logic).addAndGet(time);
-						}
-					}
-					catch (Throwable t) {
-						t.printStackTrace();
-					}
-				}
-				break;
-			case LOST:
-				for (IBNAFocusListener logic : logics.getThingLogics(IBNAFocusListener.class)) {
-					try {
-						long time = System.nanoTime();
-						logic.focusLost(view, type, e);
-						if (PROFILE) {
-							time = System.nanoTime() - time;
-							profileStats.get(logic).addAndGet(time);
-						}
-					}
-					catch (Throwable t) {
-						t.printStackTrace();
-					}
-				}
-				break;
+		try (Finally lock = BNAUtils.lock()) {
+			if (DEBUG) {
+				System.err.println(type + " " + e);
 			}
-		}
-		catch (Exception ex) {
-			handleException(ex);
+			try {
+				switch (type) {
+				case GAINED:
+					for (IBNAFocusListener logic : logics.getThingLogics(IBNAFocusListener.class)) {
+						try {
+							long time = System.nanoTime();
+							logic.focusGained(view, type, e);
+							if (PROFILE) {
+								time = System.nanoTime() - time;
+								profileStats.get(logic).addAndGet(time);
+							}
+						}
+						catch (Throwable t) {
+							t.printStackTrace();
+						}
+					}
+					break;
+				case LOST:
+					for (IBNAFocusListener logic : logics.getThingLogics(IBNAFocusListener.class)) {
+						try {
+							long time = System.nanoTime();
+							logic.focusLost(view, type, e);
+							if (PROFILE) {
+								time = System.nanoTime() - time;
+								profileStats.get(logic).addAndGet(time);
+							}
+						}
+						catch (Throwable t) {
+							t.printStackTrace();
+						}
+					}
+					break;
+				}
+			}
+			catch (Exception ex) {
+				handleException(ex);
+			}
 		}
 	}
 
 	protected void menuEventSWT(MenuDetectEvent e) {
-		if (DEBUG) {
-			System.err.println(e);
-		}
-		ICoordinate location;
-		List<IThing> things;
-		Point menuLocation = new Point(e.x, e.y);
-		if (e.detail == SWT.MENU_MOUSE) {
-			Point p = eventControl.toControl(e.x, e.y);
-			location = DefaultCoordinate.forLocal(new Point(p.x, p.y), view.getCoordinateMapper());
-			things = view.getThingsAt(location);
-		}
-		else if (e.detail == SWT.MENU_KEYBOARD) {
-			menuLocation = eventControl.toDisplay(new Point(5, 5));
-			location = DefaultCoordinate.forLocal(new Point(0, 0), view.getCoordinateMapper());
-			things = Lists.newArrayList();
-		}
-		else {
-			throw new IllegalArgumentException("Unrecognized menu detail: " + e.detail);
-		}
-
-		MenuManager menuMgr = null;
-		try {
-			menuMgr = new MenuManager("BNA Popup Menu");
-			Menu menu = menuMgr.createContextMenu(eventControl);
-			if (firstOrNull(things, IHasWorld.class) != null) {
-				logics.addThingLogic(WorldThingExternalEventsLogic.class).proxy(IBNAMenuListener.class)
-						.fillMenu(view, things, location, menuMgr);
+		try (Finally lock = BNAUtils.lock()) {
+			if (DEBUG) {
+				System.err.println(e);
+			}
+			ICoordinate location;
+			List<IThing> things;
+			Point menuLocation = new Point(e.x, e.y);
+			if (e.detail == SWT.MENU_MOUSE) {
+				Point p = eventControl.toControl(e.x, e.y);
+				location = DefaultCoordinate.forLocal(new Point(p.x, p.y), view.getCoordinateMapper());
+				EnvironmentPropertiesThing.createIn(world).setNewThingSpot(location.getWorldPoint());
+				things = view.getThingsAt(location);
+			}
+			else if (e.detail == SWT.MENU_KEYBOARD) {
+				menuLocation = eventControl.toDisplay(new Point(5, 5));
+				location = DefaultCoordinate.forLocal(new Point(0, 0), view.getCoordinateMapper());
+				things = Lists.newArrayList();
 			}
 			else {
+				throw new IllegalArgumentException("Unrecognized menu detail: " + e.detail);
+			}
+
+			MenuManager menuMgr = null;
+			try {
+				menuMgr = new MenuManager("BNA Popup Menu");
+				Menu menu = menuMgr.createContextMenu(eventControl);
+				IHasWorld world = SystemUtils.firstOrNull(things, IHasWorld.class);
+				if (world != null && world.getWorld() != null) {
+					logics.addThingLogic(WorldThingExternalEventsLogic.class).proxy(IBNAMenuListener.class)
+							.fillMenu(view, things, location, menuMgr);
+				}
 				for (IBNAMenuListener logic : logics.getThingLogics(IBNAMenuListener.class)) {
 					try {
 						logic.fillMenu(view, things, location, menuMgr);
@@ -461,91 +564,93 @@ public abstract class AbstractBNAUI implements IBNAUI {
 						t.printStackTrace();
 					}
 				}
-			}
 
-			menu.setLocation(menuLocation.x, menuLocation.y);
-			menu.setVisible(true);
+				menu.setLocation(menuLocation.x, menuLocation.y);
+				menu.setVisible(true);
 
-			Display display = eventControl.getDisplay();
-			while (!menu.isDisposed() && menu.isVisible()) {
-				if (!display.readAndDispatch()) {
-					display.sleep();
+				Display display = eventControl.getDisplay();
+				while (!menu.isDisposed() && menu.isVisible()) {
+					if (!display.readAndDispatch()) {
+						display.sleep();
+					}
 				}
-			}
 
-		}
-		finally {
-			if (menuMgr != null) {
-				menuMgr.dispose();
+			}
+			finally {
+				if (menuMgr != null) {
+					menuMgr.dispose();
+				}
 			}
 		}
 	}
 
 	protected void dndEvent(DNDType type, DNDData data, List<IThing> things, ICoordinate location) {
-		if (DEBUG) {
-			System.err.println(type + " " + data);
-		}
-		switch (type) {
-		case ENTER:
-			for (IBNADragAndDropListener logic : logics.getThingLogics(IBNADragAndDropListener.class)) {
-				try {
-					long time = System.nanoTime();
-					logic.dragEnter(view, type, data, things, location);
-					if (PROFILE) {
-						time = System.nanoTime() - time;
-						profileStats.get(logic).addAndGet(time);
+		try (Finally lock = BNAUtils.lock()) {
+			if (DEBUG) {
+				System.err.println(type + " " + data);
+			}
+			switch (type) {
+			case ENTER:
+				for (IBNADragAndDropListener logic : logics.getThingLogics(IBNADragAndDropListener.class)) {
+					try {
+						long time = System.nanoTime();
+						logic.dragEnter(view, type, data, things, location);
+						if (PROFILE) {
+							time = System.nanoTime() - time;
+							profileStats.get(logic).addAndGet(time);
+						}
+					}
+					catch (Throwable x) {
+						x.printStackTrace();
 					}
 				}
-				catch (Throwable x) {
-					x.printStackTrace();
-				}
-			}
-			break;
-		case DRAG:
-			for (IBNADragAndDropListener logic : logics.getThingLogics(IBNADragAndDropListener.class)) {
-				try {
-					long time = System.nanoTime();
-					logic.drag(view, type, data, things, location);
-					if (PROFILE) {
-						time = System.nanoTime() - time;
-						profileStats.get(logic).addAndGet(time);
+				break;
+			case DRAG:
+				for (IBNADragAndDropListener logic : logics.getThingLogics(IBNADragAndDropListener.class)) {
+					try {
+						long time = System.nanoTime();
+						logic.drag(view, type, data, things, location);
+						if (PROFILE) {
+							time = System.nanoTime() - time;
+							profileStats.get(logic).addAndGet(time);
+						}
+					}
+					catch (Throwable x) {
+						x.printStackTrace();
 					}
 				}
-				catch (Throwable x) {
-					x.printStackTrace();
-				}
-			}
-			break;
-		case EXIT:
-			for (IBNADragAndDropListener logic : logics.getThingLogics(IBNADragAndDropListener.class)) {
-				try {
-					long time = System.nanoTime();
-					logic.dragExit(view, type);
-					if (PROFILE) {
-						time = System.nanoTime() - time;
-						profileStats.get(logic).addAndGet(time);
+				break;
+			case EXIT:
+				for (IBNADragAndDropListener logic : logics.getThingLogics(IBNADragAndDropListener.class)) {
+					try {
+						long time = System.nanoTime();
+						logic.dragExit(view, type);
+						if (PROFILE) {
+							time = System.nanoTime() - time;
+							profileStats.get(logic).addAndGet(time);
+						}
+					}
+					catch (Throwable x) {
+						x.printStackTrace();
 					}
 				}
-				catch (Throwable x) {
-					x.printStackTrace();
-				}
-			}
-			break;
-		case DROP:
-			for (IBNADragAndDropListener logic : logics.getThingLogics(IBNADragAndDropListener.class)) {
-				try {
-					long time = System.nanoTime();
-					logic.drop(view, type, data, things, location);
-					if (PROFILE) {
-						time = System.nanoTime() - time;
-						profileStats.get(logic).addAndGet(time);
+				break;
+			case DROP:
+				for (IBNADragAndDropListener logic : logics.getThingLogics(IBNADragAndDropListener.class)) {
+					try {
+						long time = System.nanoTime();
+						logic.drop(view, type, data, things, location);
+						if (PROFILE) {
+							time = System.nanoTime() - time;
+							profileStats.get(logic).addAndGet(time);
+						}
+					}
+					catch (Throwable x) {
+						x.printStackTrace();
 					}
 				}
-				catch (Throwable x) {
-					x.printStackTrace();
-				}
+				break;
 			}
-			break;
 		}
 	}
 

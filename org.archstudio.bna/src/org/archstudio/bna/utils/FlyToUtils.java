@@ -10,7 +10,8 @@ import org.eclipse.swt.widgets.Control;
 
 public class FlyToUtils {
 
-	public static synchronized void flyTo(IBNAView view, final Point toWorldPoint) {
+	public static void flyTo(IBNAView view, final Point toWorldPoint) {
+		BNAUtils.checkLock();
 
 		//if the given view is not the top-level view, then translate
 		//the world coordinates into world coordinates for the top view.

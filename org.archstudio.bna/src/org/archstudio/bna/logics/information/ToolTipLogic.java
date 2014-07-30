@@ -10,6 +10,7 @@ import org.archstudio.bna.constants.MouseType;
 import org.archstudio.bna.facets.IHasToolTip;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.ui.IBNAMouseMoveListener;
+import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.sysutils.SystemUtils;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.widgets.Control;
@@ -31,8 +32,9 @@ public class ToolTipLogic extends AbstractThingLogic implements IBNAMouseMoveLis
 	}
 
 	@Override
-	synchronized public void mouseMove(IBNAView view, MouseType type, MouseEvent evt, List<IThing> things,
-			ICoordinate location) {
+	public void mouseMove(IBNAView view, MouseType type, MouseEvent evt, List<IThing> things, ICoordinate location) {
+		BNAUtils.checkLock();
+
 		IThing newThing = SystemUtils.firstOrNull(things);
 		if (newThing != lastThing) {
 			lastThing = newThing;

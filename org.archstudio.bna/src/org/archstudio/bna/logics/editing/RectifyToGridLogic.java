@@ -9,8 +9,9 @@ import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.ui.IBNAMenuListener;
+import org.archstudio.bna.utils.BNAAction;
+import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.GridUtils;
-import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.Separator;
@@ -23,14 +24,16 @@ public class RectifyToGridLogic extends AbstractThingLogic implements IBNAMenuLi
 	}
 
 	@Override
-	synchronized public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager m) {
+	public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager m) {
+		BNAUtils.checkLock();
+
 		if (things.isEmpty()) {
 			final IBNAModel model = view.getBNAWorld().getBNAModel();
 			if (GridUtils.getGridSpacing(world) != 0) {
-				IAction rectifyAction = new Action("Rectify Diagram to Grid") {
+				IAction rectifyAction = new BNAAction("Rectify Diagram to Grid") {
 
 					@Override
-					public void run() {
+					public void runWithLock() {
 						Runnable undoRunnable = BNAOperations.takeSnapshotOfLocations(model, model.getAllThings());
 						GridUtils.rectifyToGrid(world);
 						BNAOperations.runnable("Rectify", undoRunnable,

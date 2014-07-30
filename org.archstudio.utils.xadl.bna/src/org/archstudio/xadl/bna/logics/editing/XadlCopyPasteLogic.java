@@ -15,6 +15,8 @@ import org.archstudio.bna.facets.IHasSelected;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.things.utility.EnvironmentPropertiesThing;
 import org.archstudio.bna.ui.IBNAMenuListener;
+import org.archstudio.bna.utils.BNAAction;
+import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.GridUtils;
 import org.archstudio.bna.utils.UserEditableUtils;
 import org.archstudio.swtutils.SWTWidgetUtils;
@@ -26,7 +28,6 @@ import org.archstudio.xarchadt.IXArchADTFeature;
 import org.archstudio.xarchadt.IXArchADTTypeMetadata;
 import org.archstudio.xarchadt.ObjRef;
 import org.eclipse.jdt.annotation.Nullable;
-import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Display;
@@ -53,35 +54,35 @@ public class XadlCopyPasteLogic extends AbstractThingLogic implements IBNAMenuLi
 		SWTWidgetUtils.async(Display.getDefault(), new Runnable() {
 			@Override
 			public void run() {
-				actionBars.setGlobalActionHandler(ActionFactory.CUT.getId(), new Action() {
+				actionBars.setGlobalActionHandler(ActionFactory.CUT.getId(), new BNAAction() {
 
 					@Override
-					public void runWithEvent(@Nullable Event event) {
+					public void runWithEventAndLock(@Nullable Event event) {
 						copy();
 						delete();
 					}
 				});
-				actionBars.setGlobalActionHandler(ActionFactory.COPY.getId(), new Action() {
+				actionBars.setGlobalActionHandler(ActionFactory.COPY.getId(), new BNAAction() {
 					@Override
-					public void runWithEvent(@Nullable Event event) {
+					public void runWithEventAndLock(@Nullable Event event) {
 						copy();
 					}
 				});
-				actionBars.setGlobalActionHandler(ActionFactory.PASTE.getId(), new Action() {
+				actionBars.setGlobalActionHandler(ActionFactory.PASTE.getId(), new BNAAction() {
 					@Override
-					public void runWithEvent(@Nullable Event event) {
+					public void runWithEventAndLock(@Nullable Event event) {
 						paste();
 					}
 				});
-				actionBars.setGlobalActionHandler(ActionFactory.DELETE.getId(), new Action() {
+				actionBars.setGlobalActionHandler(ActionFactory.DELETE.getId(), new BNAAction() {
 					@Override
-					public void runWithEvent(@Nullable Event event) {
+					public void runWithEventAndLock(@Nullable Event event) {
 						delete();
 					}
 				});
-				actionBars.setGlobalActionHandler(ActionFactory.SELECT_ALL.getId(), new Action() {
+				actionBars.setGlobalActionHandler(ActionFactory.SELECT_ALL.getId(), new BNAAction() {
 					@Override
-					public void runWithEvent(@Nullable Event event) {
+					public void runWithEventAndLock(@Nullable Event event) {
 						selectAll();
 					}
 				});
@@ -91,7 +92,9 @@ public class XadlCopyPasteLogic extends AbstractThingLogic implements IBNAMenuLi
 	}
 
 	@Override
-	synchronized public void dispose() {
+	public void dispose() {
+		BNAUtils.checkLock();
+
 		SWTWidgetUtils.async(Display.getDefault(), new Runnable() {
 			@Override
 			public void run() {
@@ -118,7 +121,9 @@ public class XadlCopyPasteLogic extends AbstractThingLogic implements IBNAMenuLi
 		return objRefs;
 	}
 
-	synchronized public void selectAll() {
+	public void selectAll() {
+		BNAUtils.checkLock();
+
 		for (IThing t : model.getAllThings()) {
 			if (UserEditableUtils.isEditableForAllQualities(t, IHasMutableSelected.USER_MAY_SELECT)) {
 				t.set(IHasSelected.SELECTED_KEY, true);
@@ -126,13 +131,16 @@ public class XadlCopyPasteLogic extends AbstractThingLogic implements IBNAMenuLi
 		}
 	}
 
-	synchronized public void copy() {
+	public void copy() {
+		BNAUtils.checkLock();
+
 		pasteOffset = 0;
 
 		copyPaste.copy(xarch, getSelectedObjRefs());
 	}
 
-	synchronized public void paste() {
+	public void paste() {
+		BNAUtils.checkLock();
 
 		EnvironmentPropertiesThing ept = EnvironmentPropertiesThing.createIn(world);
 		ObjRef rootRef = ept.get(IHasObjRef.OBJREF_KEY);
@@ -156,7 +164,9 @@ public class XadlCopyPasteLogic extends AbstractThingLogic implements IBNAMenuLi
 	}
 
 	@Override
-	synchronized public void bnaModelChanged(BNAModelEvent evt) {
+	public void bnaModelChanged(BNAModelEvent evt) {
+		BNAUtils.checkLock();
+
 		// select the new ObjRefs added by paste()
 		switch (evt.getEventType()) {
 		case THING_CHANGED:
@@ -164,7 +174,9 @@ public class XadlCopyPasteLogic extends AbstractThingLogic implements IBNAMenuLi
 			if (ct != null) {
 				if (selectAndMoveObjRefs.containsKey(ct.get(IHasObjRef.OBJREF_KEY))) {
 					int move = selectAndMoveObjRefs.remove(ct.get(IHasObjRef.OBJREF_KEY));
-					ct.set(IHasSelected.SELECTED_KEY, true);
+					if (UserEditableUtils.isEditableForAllQualities(ct, IHasMutableSelected.USER_MAY_SELECT)) {
+						ct.set(IHasSelected.SELECTED_KEY, true);
+					}
 					if (ct instanceof IHasMutableReferencePoint) {
 						Point p = ((IHasMutableReferencePoint) ct).getReferencePoint();
 						p.x += move;
@@ -179,7 +191,9 @@ public class XadlCopyPasteLogic extends AbstractThingLogic implements IBNAMenuLi
 		}
 	}
 
-	synchronized public void delete() {
+	public void delete() {
+		BNAUtils.checkLock();
+
 		XArchADTOperations xarch = new XArchADTOperations(this.xarch);
 
 		for (ObjRef objRef : getSelectedObjRefs()) {
@@ -203,26 +217,28 @@ public class XadlCopyPasteLogic extends AbstractThingLogic implements IBNAMenuLi
 	}
 
 	@Override
-	synchronized public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager menu) {
-		menu.add(new Action("Cut") {
+	public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager menu) {
+		BNAUtils.checkLock();
+
+		menu.add(new BNAAction("Cut") {
 
 			@Override
-			public void run() {
+			public void runWithLock() {
 				copy();
 				delete();
 			}
 		});
-		menu.add(new Action("Copy") {
+		menu.add(new BNAAction("Copy") {
 
 			@Override
-			public void run() {
+			public void runWithLock() {
 				copy();
 			}
 		});
-		menu.add(new Action("Paste") {
+		menu.add(new BNAAction("Paste") {
 
 			@Override
-			public void run() {
+			public void runWithLock() {
 				paste();
 			}
 		});

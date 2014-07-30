@@ -2,6 +2,7 @@ package org.archstudio.archipelago.statechart.core;
 
 import java.awt.Dimension;
 import java.awt.geom.Point2D;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,10 +26,12 @@ import org.archstudio.archipelago.statechart.core.logics.NewElementLogic;
 import org.archstudio.archipelago.statechart.core.logics.StatechartDropLogic;
 import org.archstudio.archipelago.statechart.core.logics.StatechartEditColorLogic;
 import org.archstudio.bna.BNACanvas;
+import org.archstudio.bna.CoordinateMapperEvent;
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.ICoordinateMapper;
+import org.archstudio.bna.ICoordinateMapperListener;
 import org.archstudio.bna.IMutableCoordinateMapper;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThingLogicManager;
@@ -71,6 +74,7 @@ import org.archstudio.myx.fw.IMyxBrick;
 import org.archstudio.myx.fw.MyxRegistry;
 import org.archstudio.myx.fw.Services;
 import org.archstudio.resources.IResources;
+import org.archstudio.sysutils.Finally;
 import org.archstudio.sysutils.SystemUtils;
 import org.archstudio.sysutils.UIDGenerator;
 import org.archstudio.utils.bna.dot.ExportImportDot;
@@ -421,214 +425,215 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 	}
 
 	protected void setupEditor(Services services, IXArchADT xarch, ObjRef structureRef) {
+		try (Finally lock = BNAUtils.lock()) {
 
-		// if the editor is already set up, return
-		{
-			IArchipelagoEditorPane editor = services.get(IArchipelagoEditorPane.class);
-			if (editor != null) {
-				BNACanvas bnaCanvas = ArchipelagoUtils.getBNACanvas(editor);
-				if (bnaCanvas != null) {
-					IBNAWorld world = bnaCanvas.getBNAView().getBNAWorld();
-					EnvironmentPropertiesThing ept = EnvironmentPropertiesThing.createIn(world);
-					if (ept.has(IHasObjRef.OBJREF_KEY, structureRef)) {
-						return;
+			// if the editor is already set up, return
+			{
+				IArchipelagoEditorPane editor = services.get(IArchipelagoEditorPane.class);
+				if (editor != null) {
+					BNACanvas bnaCanvas = ArchipelagoUtils.getBNACanvas(editor);
+					if (bnaCanvas != null) {
+						IBNAWorld world = bnaCanvas.getBNAView().getBNAWorld();
+						EnvironmentPropertiesThing ept = EnvironmentPropertiesThing.createIn(world);
+						if (ept.has(IHasObjRef.OBJREF_KEY, structureRef)) {
+							return;
+						}
 					}
 				}
 			}
-		}
 
-		ObjRef documentRootRef = xarch.getDocumentRootRef(structureRef);
+			ObjRef documentRootRef = xarch.getDocumentRootRef(structureRef);
 
-		// get and clear editor
-		IArchipelagoEditorPane editor = services.get(IArchipelagoEditorPane.class);
-		editor.clearEditor();
-		Composite parentComposite = editor.getParentComposite();
-		FillLayout fl = new FillLayout();
-		fl.type = SWT.HORIZONTAL;
-		parentComposite.setLayout(fl);
+			// get and clear editor
+			IArchipelagoEditorPane editor = services.get(IArchipelagoEditorPane.class);
+			editor.clearEditor();
+			Composite parentComposite = editor.getParentComposite();
+			FillLayout fl = new FillLayout();
+			fl.type = SWT.HORIZONTAL;
+			parentComposite.setLayout(fl);
 
-		// use cached world, otherwise create it
-		IBNAWorld bnaWorld = null;
-		if (services.has(IArchipelagoTreeNodeDataCache.class)) {
-			bnaWorld = (IBNAWorld) services.get(IArchipelagoTreeNodeDataCache.class).getData(documentRootRef,
-					structureRef, FOLDER_NODE_TYPE);
-		}
-		if (bnaWorld == null) {
-			bnaWorld = setupEditor(services, xarch, documentRootRef, structureRef);
+			// use cached world, otherwise create it
+			IBNAWorld bnaWorld = null;
 			if (services.has(IArchipelagoTreeNodeDataCache.class)) {
-				services.get(IArchipelagoTreeNodeDataCache.class).setData(documentRootRef, structureRef,
-						FOLDER_NODE_TYPE, bnaWorld);
+				bnaWorld = (IBNAWorld) services.get(IArchipelagoTreeNodeDataCache.class).getData(documentRootRef,
+						structureRef, FOLDER_NODE_TYPE);
 			}
+			if (bnaWorld == null) {
+				bnaWorld = setupEditor(services, xarch, documentRootRef, structureRef);
+				if (services.has(IArchipelagoTreeNodeDataCache.class)) {
+					services.get(IArchipelagoTreeNodeDataCache.class).setData(documentRootRef, structureRef,
+							FOLDER_NODE_TYPE, bnaWorld);
+				}
+			}
+			final IBNAWorld fbnaWorld = bnaWorld;
+
+			// create main canvas
+			final BNACanvas bnaCanvas = new BNACanvas(parentComposite, SWT.V_SCROLL | SWT.H_SCROLL, fbnaWorld);
+			bnaCanvas.setBackground(parentComposite.getDisplay().getSystemColor(SWT.COLOR_WHITE));
+
+			final IBNAWorld world = bnaCanvas.getBNAView().getBNAWorld();
+			final EnvironmentPropertiesThing ept = EnvironmentPropertiesThing.createIn(world);
+			ept.set(IHasObjRef.OBJREF_KEY, structureRef);
+			ept.set(IHasXArchID.XARCH_ID_KEY, (String) xarch.get(structureRef, "id"));
+
+			// persist the coordinate mapper
+			final ICoordinateMapper cm = bnaCanvas.getBNAView().getCoordinateMapper();
+			if (cm instanceof IMutableCoordinateMapper) {
+				ept.restoreCoordinateMapperData((IMutableCoordinateMapper) cm);
+			}
+			cm.addCoordinateMapperListener(new ICoordinateMapperListener() {
+				@Override
+				public void coordinateMappingsChanged(CoordinateMapperEvent evt) {
+					ept.storeCoordinateMapperData(cm);
+				}
+			});
+
+			// coordinate preferences
+			final IPreferenceStore prefs = org.archstudio.archipelago.core.Activator.getDefault().getPreferenceStore();
+			final IPropertyChangeListener pcl = new IPropertyChangeListener() {
+
+				@Override
+				public void propertyChange(PropertyChangeEvent event) {
+					try (Finally lock = BNAUtils.lock()) {
+						BNARenderingSettings.setAntialiasGraphics(bnaCanvas,
+								prefs.getBoolean(ArchipelagoConstants.PREF_ANTIALIAS_GRAPHICS));
+						BNARenderingSettings.setAntialiasText(bnaCanvas,
+								prefs.getBoolean(ArchipelagoConstants.PREF_ANTIALIAS_TEXT));
+						BNARenderingSettings.setDecorativeGraphics(bnaCanvas,
+								prefs.getBoolean(ArchipelagoConstants.PREF_DECORATIVE_GRAPHICS));
+						BNARenderingSettings.setDisplayShadows(bnaCanvas,
+								prefs.getBoolean(ArchipelagoConstants.PREF_DISPLAY_SHADOWS));
+						GridThing gridThing = (GridThing) fbnaWorld.getBNAModel().getThing(GridThing.class);
+						if (gridThing != null) {
+							gridThing.setGridSpacing(prefs.getInt(ArchipelagoConstants.PREF_GRID_SPACING));
+							gridThing.setGridDisplayType(GridDisplayType.valueOf(prefs
+									.getString(ArchipelagoConstants.PREF_GRID_DISPLAY_TYPE)));
+						}
+						AvailableUI availableUI = AvailableUI
+								.valueOf(prefs.getString(ArchipelagoConstants.PREF_BNA_UI));
+						IBNAUI bnaUI = (IBNAUI) availableUI.getBNAUIClass().getConstructors()[0].newInstance(bnaCanvas
+								.getBNAView());
+						bnaCanvas.setBNAUI(bnaUI);
+					}
+					catch (InvocationTargetException | IllegalAccessException | InstantiationException e) {
+						e.printStackTrace();
+					}
+					finally {
+						bnaCanvas.redraw();
+					}
+				}
+			};
+			prefs.addPropertyChangeListener(pcl);
+			bnaCanvas.addDisposeListener(new DisposeListener() {
+
+				@Override
+				public void widgetDisposed(DisposeEvent e) {
+					prefs.removePropertyChangeListener(pcl);
+				}
+			});
+			pcl.propertyChange(null);
+
+			// display canvas
+			bnaCanvas.pack();
+			parentComposite.layout(true);
+			ArchipelagoUtils.setBNACanvas(editor, bnaCanvas);
+			bnaCanvas.setFocus();
 		}
-		final IBNAWorld fbnaWorld = bnaWorld;
-
-		// create main canvas
-		final BNACanvas bnaCanvas = new BNACanvas(parentComposite, SWT.V_SCROLL | SWT.H_SCROLL, fbnaWorld);
-		bnaCanvas.setBackground(parentComposite.getDisplay().getSystemColor(SWT.COLOR_WHITE));
-
-		IBNAWorld world = bnaCanvas.getBNAView().getBNAWorld();
-		final EnvironmentPropertiesThing ept = EnvironmentPropertiesThing.createIn(world);
-		ept.set(IHasObjRef.OBJREF_KEY, structureRef);
-		ept.set(IHasXArchID.XARCH_ID_KEY, (String) xarch.get(structureRef, "id"));
-
-		// persist the coordinate mapper
-		final ICoordinateMapper cm = bnaCanvas.getBNAView().getCoordinateMapper();
-		BNAUtils.restoreCoordinateMapperData((IMutableCoordinateMapper) cm, ept);
-		bnaCanvas.addDisposeListener(new DisposeListener() {
-
-			@Override
-			public void widgetDisposed(DisposeEvent e) {
-				BNAUtils.saveCoordinateMapperData(cm, ept);
-			}
-		});
-
-		// coordinate preferences
-		final IPreferenceStore prefs = org.archstudio.archipelago.core.Activator.getDefault().getPreferenceStore();
-		final IPropertyChangeListener pcl = new IPropertyChangeListener() {
-
-			@Override
-			public void propertyChange(PropertyChangeEvent event) {
-				BNARenderingSettings.setAntialiasGraphics(bnaCanvas,
-						prefs.getBoolean(ArchipelagoConstants.PREF_ANTIALIAS_GRAPHICS));
-				BNARenderingSettings.setAntialiasText(bnaCanvas,
-						prefs.getBoolean(ArchipelagoConstants.PREF_ANTIALIAS_TEXT));
-				BNARenderingSettings.setDecorativeGraphics(bnaCanvas,
-						prefs.getBoolean(ArchipelagoConstants.PREF_DECORATIVE_GRAPHICS));
-				BNARenderingSettings.setDisplayShadows(bnaCanvas,
-						prefs.getBoolean(ArchipelagoConstants.PREF_DISPLAY_SHADOWS));
-				GridThing gridThing = (GridThing) fbnaWorld.getBNAModel().getThing(GridThing.class);
-				if (gridThing != null) {
-					gridThing.setGridSpacing(prefs.getInt(ArchipelagoConstants.PREF_GRID_SPACING));
-					gridThing.setGridDisplayType(GridDisplayType.valueOf(prefs
-							.getString(ArchipelagoConstants.PREF_GRID_DISPLAY_TYPE)));
-				}
-				try {
-					AvailableUI availableUI = AvailableUI.valueOf(prefs.getString(ArchipelagoConstants.PREF_BNA_UI));
-					IBNAUI bnaUI = (IBNAUI) availableUI.getBNAUIClass().getConstructors()[0].newInstance(bnaCanvas
-							.getBNAView());
-					bnaCanvas.setBNAUI(bnaUI);
-				}
-				catch (Exception e) {
-					e.printStackTrace();
-				}
-				bnaCanvas.redraw();
-			}
-		};
-		prefs.addPropertyChangeListener(pcl);
-		bnaCanvas.addDisposeListener(new DisposeListener() {
-
-			@Override
-			public void widgetDisposed(DisposeEvent e) {
-				prefs.removePropertyChangeListener(pcl);
-			}
-		});
-		pcl.propertyChange(null);
-
-		// display canvas
-		bnaCanvas.pack();
-		parentComposite.layout(true);
-		ArchipelagoUtils.setBNACanvas(editor, bnaCanvas);
-		bnaCanvas.setFocus();
-
 	}
 
 	public static IBNAWorld setupEditor(Services services, IXArchADT xarch, ObjRef documentRootRef, ObjRef structureRef) {
-
-		// this cache is important for handling recursive worlds
-		if (services.has(IArchipelagoTreeNodeDataCache.class)) {
-			IBNAWorld bnaWorld = (IBNAWorld) services.get(IArchipelagoTreeNodeDataCache.class).getData(documentRootRef,
-					structureRef, "statecharts");
-			if (bnaWorld != null) {
-				return bnaWorld;
+		try (Finally lock = BNAUtils.lock()) {
+			// this cache is important for handling recursive worlds
+			if (services.has(IArchipelagoTreeNodeDataCache.class)) {
+				IBNAWorld bnaWorld = (IBNAWorld) services.get(IArchipelagoTreeNodeDataCache.class).getData(
+						documentRootRef, structureRef, "statecharts");
+				if (bnaWorld != null) {
+					return bnaWorld;
+				}
 			}
+
+			IBNAModel model = new DefaultBNAModel();
+			IBNAWorld world = new DefaultBNAWorld("", model);
+
+			if (services.has(IArchipelagoTreeNodeDataCache.class)) {
+				services.get(IArchipelagoTreeNodeDataCache.class).setData(documentRootRef, structureRef, "statecharts",
+						world);
+			}
+
+			GridThing.createIn(world);
+			ShadowThing.createIn(world);
+
+			IThingLogicManager logics = world.getThingLogicManager();
+
+			// these logics need to be first
+
+			ProxyLogic proxyLogic = logics.addThingLogic(ProxyLogic.class);
+			logics.addThingLogic(SnapToGridLogic.class);
+			logics.addThingLogic(new SynchronizeHintsLogic(world, proxyLogic.addObject(new XadlHintRepository(xarch))));
+
+			// xADL mapping logics
+
+			String prefix = "" + XadlUtils.getName(xarch, structureRef) + ": ";
+
+			logics.addThingLogic(new MapStateLogic(world, services, xarch, structureRef, "state[@type='state']", //
+					new Dimension(6 * 24, 4 * 24), 1, prefix + "Loading States"));
+			logics.addThingLogic(new MapInitialStateLogic(world, services, xarch, structureRef,
+					"state[@type='initial']", //
+					new Dimension(4 * 24 / 3, 4 * 24 / 3), prefix + "Loading States"));
+			logics.addThingLogic(new MapFinalStateLogic(world, services, xarch, structureRef, "state[@type='final']", //
+					new Dimension(4 * 24 / 3, 4 * 24 / 3), prefix + "Loading States"));
+			logics.addThingLogic(new MapTransitionLogic(world, xarch, structureRef, "transition", prefix
+					+ "Loading Transitions"));
+
+			// generic logics -- alphabetized
+
+			logics.addThingLogic(ClickSelectionLogic.class);
+			logics.addThingLogic(new DecorateChangesLogic(world, (IXArchADTVariability) xarch));
+			logics.addThingLogic(DragMovableLogic.class);
+			logics.addThingLogic(KeyNudgerLogic.class);
+			logics.addThingLogic(LifeSapperLogic.class);
+			logics.addThingLogic(MarqueeSelectionLogic.class);
+			logics.addThingLogic(PanAndZoomLogic.class);
+			logics.addThingLogic(ReshapeRectangleLogic.class);
+			logics.addThingLogic(ReshapeSplineLogic.class).addReshapeSplineGuides(
+					new XadlReshapeSplineGuide(xarch, Statechart_1_0Package.Literals.TRANSITION,
+							Statechart_1_0Package.Literals.PSEUDO_STATE, IHasEndpoints.ENDPOINT_1_KEY,
+							IHasEndpoints.ENDPOINT_2_KEY));
+			logics.addThingLogic(RotatingOffsetLogic.class);
+			logics.addThingLogic(StandardCursorLogic.class);
+			logics.addThingLogic(new StatechartDropLogic(world, services, documentRootRef));
+			logics.addThingLogic(ToolTipLogic.class);
+			logics.addThingLogic(HighlightLogic.class);
+
+			// menu logics -- order dictates menu order
+
+			logics.addThingLogic(new NewElementLogic(world, xarch, services.get(IResources.class), structureRef));
+			logics.addThingLogic(EditTextLogic.class);
+			logics.addThingLogic(new StatechartEditColorLogic(world, xarch));
+			logics.addThingLogic(ShowHideTagsLogic.class);
+			logics.addThingLogic(new XadlCopyPasteLogic(world, xarch, services.get(IArchipelagoEditorPane.class)
+					.getActionBars()));
+			logics.addThingLogic(new RemoveElementLogic(world, xarch));
+			logics.addThingLogic(RotaterLogic.class);
+			logics.addThingLogic(AlignAndDistributeLogic.class);
+			logics.addThingLogic(RectifyToGridLogic.class);
+			logics.addThingLogic(ExportImportGexf.class);
+			logics.addThingLogic(ExportImportDot.class);
+			logics.addThingLogic(ViewAllLogic.class);
+			logics.addThingLogic(ExportImageLogic.class);
+
+			// propagate external events logics
+
+			final MyxRegistry myxRegistry = MyxRegistry.getSharedInstance();
+			final IMyxBrick brick = myxRegistry.waitForBrick(ArchipelagoMyxComponent.class);
+			myxRegistry.map(brick, proxyLogic.getProxyForInterface(IXArchADTModelListener.class));
+			myxRegistry.map(brick, proxyLogic.getProxyForInterface(IXArchADTFileListener.class));
+			myxRegistry.map(brick, proxyLogic.getProxyForInterface(IXArchADTVariabilityListener.class));
+
+			// these logics need to be last
+
+			return world;
 		}
-
-		IBNAModel model = new DefaultBNAModel();
-		IBNAWorld world = new DefaultBNAWorld("", model);
-
-		if (services.has(IArchipelagoTreeNodeDataCache.class)) {
-			services.get(IArchipelagoTreeNodeDataCache.class).setData(documentRootRef, structureRef, "statecharts",
-					world);
-		}
-
-		IThingLogicManager logics = world.getThingLogicManager();
-		ProxyLogic proxyLogic = logics.addThingLogic(ProxyLogic.class);
-
-		logics.addThingLogic(new SynchronizeHintsLogic(world, proxyLogic.addObject(new XadlHintRepository(xarch))));
-
-		GridThing.createIn(world);
-		ShadowThing.createIn(world);
-
-		// these logics need to be first
-
-		logics.addThingLogic(SnapToGridLogic.class);
-
-		// generic logics -- alphabetized
-
-		logics.addThingLogic(ClickSelectionLogic.class);
-		logics.addThingLogic(new DecorateChangesLogic(world, (IXArchADTVariability) xarch));
-		logics.addThingLogic(DragMovableLogic.class);
-		logics.addThingLogic(KeyNudgerLogic.class);
-		logics.addThingLogic(LifeSapperLogic.class);
-		logics.addThingLogic(MarqueeSelectionLogic.class);
-		logics.addThingLogic(PanAndZoomLogic.class);
-		logics.addThingLogic(ReshapeRectangleLogic.class);
-		logics.addThingLogic(ReshapeSplineLogic.class).addReshapeSplineGuides(
-				new XadlReshapeSplineGuide(xarch, Statechart_1_0Package.Literals.TRANSITION,
-						Statechart_1_0Package.Literals.PSEUDO_STATE, IHasEndpoints.ENDPOINT_1_KEY,
-						IHasEndpoints.ENDPOINT_2_KEY));
-		logics.addThingLogic(RotatingOffsetLogic.class);
-		logics.addThingLogic(StandardCursorLogic.class);
-		logics.addThingLogic(new StatechartDropLogic(world, services, documentRootRef));
-		logics.addThingLogic(ToolTipLogic.class);
-		logics.addThingLogic(HighlightLogic.class);
-
-		// menu logics -- order dictates menu order
-
-		logics.addThingLogic(new NewElementLogic(world, xarch, services.get(IResources.class), structureRef));
-		logics.addThingLogic(EditTextLogic.class);
-		//logicManager.addThingLogic(EditFlowLogic.class);
-		//logicManager.addThingLogic(StructureAssignMyxGenLogic(xarch));
-		logics.addThingLogic(new StatechartEditColorLogic(world, xarch));
-		logics.addThingLogic(ShowHideTagsLogic.class);
-		//logicManager.addThingLogic(FindDialogLogic(ArchipelagoFinder(xarch, services.get(IResources.class))));
-		logics.addThingLogic(new XadlCopyPasteLogic(world, xarch, services.get(IArchipelagoEditorPane.class)
-				.getActionBars()));
-		logics.addThingLogic(new RemoveElementLogic(world, xarch));
-		logics.addThingLogic(RotaterLogic.class);
-		logics.addThingLogic(AlignAndDistributeLogic.class);
-		logics.addThingLogic(RectifyToGridLogic.class);
-		logics.addThingLogic(ExportImportGexf.class);
-		logics.addThingLogic(ExportImportDot.class);
-		//logicManager.addThingLogic(StructureGraphLayoutLogic(xarch, services.get(IResources.class),
-		//		services.get(IGraphLayout.class), structureRef));
-		logics.addThingLogic(ViewAllLogic.class);
-		logics.addThingLogic(ExportImageLogic.class);
-
-		// xADL mapping logics
-
-		String prefix = "" + XadlUtils.getName(xarch, structureRef) + ": ";
-
-		logics.addThingLogic(new MapStateLogic(world, services, xarch, structureRef, "state[@type='state']", //
-				new Dimension(6 * 24, 4 * 24), 1, prefix + "Loading States"));
-		logics.addThingLogic(new MapInitialStateLogic(world, services, xarch, structureRef, "state[@type='initial']", //
-				new Dimension(4 * 24 / 3, 4 * 24 / 3), prefix + "Loading States"));
-		logics.addThingLogic(new MapFinalStateLogic(world, services, xarch, structureRef, "state[@type='final']", //
-				new Dimension(4 * 24 / 3, 4 * 24 / 3), prefix + "Loading States"));
-		logics.addThingLogic(new MapTransitionLogic(world, xarch, structureRef, "transition", prefix
-				+ "Loading Transitions"));
-
-		// propagate external events logics
-
-		final MyxRegistry myxRegistry = MyxRegistry.getSharedInstance();
-		final IMyxBrick brick = myxRegistry.waitForBrick(ArchipelagoMyxComponent.class);
-		myxRegistry.map(brick, proxyLogic.getProxyForInterface(IXArchADTModelListener.class));
-		myxRegistry.map(brick, proxyLogic.getProxyForInterface(IXArchADTFileListener.class));
-		myxRegistry.map(brick, proxyLogic.getProxyForInterface(IXArchADTVariabilityListener.class));
-
-		// these logics need to be last
-
-		return world;
 	}
 
 }

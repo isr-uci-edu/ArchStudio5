@@ -53,13 +53,7 @@ class ThingTree {
 	}
 
 	public void add(IThing t) {
-		Node parentNode = root;
-		Node childNode = createNode(t);
-		parentNode.children.add(childNode);
-		childNode.parent = parentNode;
-		if (allThings != null) {
-			allThings.add(t);
-		}
+		add(t, null);
 	}
 
 	public void add(IThing t, IThing parentThing) {
@@ -67,7 +61,14 @@ class ThingTree {
 		Node childNode = createNode(t);
 		parentNode.children.add(childNode);
 		childNode.parent = parentNode;
-		allThings = null;
+		if (parentNode == root) {
+			if (allThings != null) {
+				allThings.add(t);
+			}
+		}
+		else {
+			allThings = null;
+		}
 	}
 
 	public void insert(IThing t, IThing beforeThing) {
@@ -138,7 +139,7 @@ class ThingTree {
 		move(childNode, afterIndex + 1);
 	}
 
-	public void reparent(IThing t, IThing parentThing) {
+	public void reparent(IThing parentThing, IThing t) {
 		Node parentNode = getNode(parentThing);
 		Node childNode = getNode(t);
 		childNode.parent.children.remove(childNode);

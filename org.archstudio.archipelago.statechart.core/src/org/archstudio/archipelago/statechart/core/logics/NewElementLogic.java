@@ -9,16 +9,22 @@ import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.ui.IBNAMenuListener;
+import org.archstudio.bna.utils.BNAAction;
+import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.resources.IResources;
+import org.archstudio.resources.ResourceCache;
 import org.archstudio.sysutils.SystemUtils;
 import org.archstudio.sysutils.UIDGenerator;
 import org.archstudio.xadl.XadlUtils;
 import org.archstudio.xadl.bna.utils.XArchADTOperations;
+import org.archstudio.xadl3.statechart_1_0.FinalState;
+import org.archstudio.xadl3.statechart_1_0.InitialState;
+import org.archstudio.xadl3.statechart_1_0.State;
 import org.archstudio.xadl3.statechart_1_0.StateType;
 import org.archstudio.xadl3.statechart_1_0.Statechart_1_0Package;
+import org.archstudio.xadl3.statechart_1_0.Transition;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
-import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.Separator;
@@ -40,7 +46,9 @@ public class NewElementLogic extends AbstractThingLogic implements IBNAMenuListe
 	}
 
 	@Override
-	synchronized public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager m) {
+	public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager m) {
+		BNAUtils.checkLock();
+
 		if (things.size() == 0) {
 			Point world = location.getWorldPoint();
 			for (IAction action : getActions(view, SystemUtils.firstOrNull(things), world.x, world.y)) {
@@ -55,10 +63,10 @@ public class NewElementLogic extends AbstractThingLogic implements IBNAMenuListe
 		ArchipelagoUtils.setNewThingSpot(view.getBNAWorld(), worldX, worldY);
 
 		return new IAction[] {//
-		new Action("New State") {
+		new BNAAction("New State") {
 
 			@Override
-			public void run() {
+			public void runWithLock() {
 				ObjRef newRef = XadlUtils.create(xarch, Statechart_1_0Package.Literals.STATE);
 				xarch.set(newRef, "id", UIDGenerator.generateUID("state"));
 				xarch.set(newRef, "type", StateType.STATE);
@@ -68,14 +76,14 @@ public class NewElementLogic extends AbstractThingLogic implements IBNAMenuListe
 
 			@Override
 			public ImageDescriptor getImageDescriptor() {
-				return null;
+				return ImageDescriptor.createFromImage(ResourceCache.getIcon(State.class));
 			}
 		},
 
-		new Action("New Transition") {
+		new BNAAction("New Transition") {
 
 			@Override
-			public void run() {
+			public void runWithLock() {
 				ObjRef newRef = XadlUtils.create(xarch, Statechart_1_0Package.Literals.TRANSITION);
 				xarch.set(newRef, "id", UIDGenerator.generateUID("transition"));
 				XadlUtils.setName(xarch, newRef, "[New Transition]");
@@ -84,15 +92,15 @@ public class NewElementLogic extends AbstractThingLogic implements IBNAMenuListe
 
 			@Override
 			public ImageDescriptor getImageDescriptor() {
-				return null;
+				return ImageDescriptor.createFromImage(ResourceCache.getIcon(Transition.class));
 			}
 		},
 
-		new Action("New Initial State") {
+		new BNAAction("New Initial State") {
 
 			@Override
-			public void run() {
-				ObjRef newRef = XadlUtils.create(xarch, Statechart_1_0Package.Literals.STATE);
+			public void runWithLock() {
+				ObjRef newRef = XadlUtils.create(xarch, Statechart_1_0Package.Literals.INITIAL_STATE);
 				xarch.set(newRef, "id", UIDGenerator.generateUID("initialState"));
 				xarch.set(newRef, "type", StateType.INITIAL);
 				XadlUtils.setName(xarch, newRef, "[New Initial State]");
@@ -101,15 +109,15 @@ public class NewElementLogic extends AbstractThingLogic implements IBNAMenuListe
 
 			@Override
 			public ImageDescriptor getImageDescriptor() {
-				return null;
+				return ImageDescriptor.createFromImage(ResourceCache.getIcon(InitialState.class));
 			}
 		},
 
-		new Action("New Final State") {
+		new BNAAction("New Final State") {
 
 			@Override
-			public void run() {
-				ObjRef newRef = XadlUtils.create(xarch, Statechart_1_0Package.Literals.STATE);
+			public void runWithLock() {
+				ObjRef newRef = XadlUtils.create(xarch, Statechart_1_0Package.Literals.FINAL_STATE);
 				xarch.set(newRef, "id", UIDGenerator.generateUID("finalState"));
 				xarch.set(newRef, "type", StateType.FINAL);
 				XadlUtils.setName(xarch, newRef, "[New Final State]");
@@ -118,7 +126,7 @@ public class NewElementLogic extends AbstractThingLogic implements IBNAMenuListe
 
 			@Override
 			public ImageDescriptor getImageDescriptor() {
-				return null;
+				return ImageDescriptor.createFromImage(ResourceCache.getIcon(FinalState.class));
 			}
 		} };
 	}

@@ -36,6 +36,7 @@ import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.logics.coordinating.StickPointLogic;
 import org.archstudio.bna.ui.IBNAMenuListener;
 import org.archstudio.bna.utils.Assemblies;
+import org.archstudio.bna.utils.BNAAction;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.swtutils.SWTWidgetUtils;
 import org.archstudio.sysutils.SystemUtils;
@@ -44,7 +45,6 @@ import org.archstudio.xarchadt.ObjRef;
 import org.archstudio.xarchadt.XArchADTProxy;
 import org.archstudio.xarchadt.core.XArchADTImpl;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
@@ -66,10 +66,12 @@ public class ExportImportGexf extends AbstractThingLogic implements IBNAMenuList
 
 	@Override
 	synchronized public void fillMenu(final IBNAView view, List<IThing> things, ICoordinate location, IMenuManager menu) {
+		BNAUtils.checkLock();
+
 		if (things.size() == 0) {
-			menu.add(new Action("Export GEXF") {
+			menu.add(new BNAAction("Export GEXF") {
 				@Override
-				public void run() {
+				public void runWithLock() {
 					try {
 						exportGexf(view);
 					}
@@ -79,9 +81,9 @@ public class ExportImportGexf extends AbstractThingLogic implements IBNAMenuList
 					}
 				}
 			});
-			menu.add(new Action("Import GEXF") {
+			menu.add(new BNAAction("Import GEXF") {
 				@Override
-				public void run() {
+				public void runWithLock() {
 					try {
 						importGexf(view);
 					}

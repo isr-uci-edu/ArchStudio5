@@ -71,7 +71,7 @@ public class GridThingPeer<T extends GridThing> extends AbstractThingPeer<T> {
 						int gy = cm.worldToLocal(new Point(wx, j)).y;
 						point.x = gx;
 						point.y = gy;
-						r.drawShape(point, null, 1);
+						r.drawShape(point, color, 1);
 					}
 				}
 			}

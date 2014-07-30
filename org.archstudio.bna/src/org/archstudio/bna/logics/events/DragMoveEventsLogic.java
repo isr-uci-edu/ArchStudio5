@@ -15,6 +15,7 @@ import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.ui.IBNAMouseListener;
 import org.archstudio.bna.ui.IBNAMouseMoveListener;
 import org.archstudio.bna.utils.Assemblies;
+import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.DefaultCoordinate;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseEvent;
@@ -30,8 +31,9 @@ public class DragMoveEventsLogic extends AbstractThingLogic implements IBNAMouse
 	}
 
 	@Override
-	synchronized public void mouseDown(IBNAView view, MouseType type, MouseEvent evt, List<IThing> t,
-			ICoordinate location) {
+	public void mouseDown(IBNAView view, MouseType type, MouseEvent evt, List<IThing> t, ICoordinate location) {
+		BNAUtils.checkLock();
+
 		if (evt.button == 1 && (evt.stateMask & SWT.MODIFIER_MASK) == 0) {
 			IHasReferencePoint relativeMovableThing = Assemblies.getEditableThing(model, firstOrNull(t),
 					IHasReferencePoint.class, IHasMutableReferencePoint.USER_MAY_MOVE);
@@ -45,8 +47,9 @@ public class DragMoveEventsLogic extends AbstractThingLogic implements IBNAMouse
 	}
 
 	@Override
-	synchronized public void mouseMove(IBNAView view, MouseType type, MouseEvent evt, List<IThing> t,
-			ICoordinate location) {
+	public void mouseMove(IBNAView view, MouseType type, MouseEvent evt, List<IThing> t, ICoordinate location) {
+		BNAUtils.checkLock();
+
 		if (currentEvent != null) {
 			fireDragMoveEvent(currentEvent = new DragMoveEvent(currentEvent, evt, DefaultCoordinate.forLocal(new Point(
 					evt.x, evt.y), view.getCoordinateMapper())));
@@ -54,7 +57,9 @@ public class DragMoveEventsLogic extends AbstractThingLogic implements IBNAMouse
 	}
 
 	@Override
-	synchronized public void mouseUp(IBNAView view, MouseType type, MouseEvent evt, List<IThing> t, ICoordinate location) {
+	public void mouseUp(IBNAView view, MouseType type, MouseEvent evt, List<IThing> t, ICoordinate location) {
+		BNAUtils.checkLock();
+
 		if (currentEvent != null) {
 			Composite composite = view.getBNAUI().getComposite();
 			composite.setCursor(composite.getDisplay().getSystemCursor(SWT.CURSOR_ARROW));

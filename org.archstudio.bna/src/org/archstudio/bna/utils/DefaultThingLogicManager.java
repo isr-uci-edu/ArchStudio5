@@ -14,6 +14,7 @@ import org.archstudio.bna.IThingLogicManager;
 import org.archstudio.bna.IThingLogicManagerListener;
 import org.archstudio.bna.ThingLogicManagerEvent;
 import org.archstudio.bna.ThingLogicManagerEvent.EventType;
+import org.archstudio.sysutils.FastMap;
 import org.archstudio.sysutils.FilterableCopyOnWriteArrayList;
 import org.archstudio.sysutils.SystemUtils;
 
@@ -22,7 +23,6 @@ import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 
 public class DefaultThingLogicManager implements IThingLogicManager {
 
@@ -44,15 +44,15 @@ public class DefaultThingLogicManager implements IThingLogicManager {
 
 	CopyOnWriteArrayList<IThingLogicManagerListener> listeners = Lists.newCopyOnWriteArrayList();
 	FilterableCopyOnWriteArrayList<IThingLogic> logics = FilterableCopyOnWriteArrayList.create();
-	Map<Class<?>, IThingLogic> typedLogics = Maps.newHashMap();
+	Map<Class<?>, IThingLogic> typedLogics = new FastMap<>(true);
 
 	@Override
-	synchronized public void addThingLogicManagerListener(IThingLogicManagerListener l) {
+	public void addThingLogicManagerListener(IThingLogicManagerListener l) {
 		listeners.add(l);
 	}
 
 	@Override
-	synchronized public void removeThingLogicManagerListener(IThingLogicManagerListener l) {
+	public void removeThingLogicManagerListener(IThingLogicManagerListener l) {
 		listeners.remove(l);
 	}
 
@@ -67,7 +67,9 @@ public class DefaultThingLogicManager implements IThingLogicManager {
 
 	@Override
 	@SuppressWarnings("unchecked")
-	synchronized public <L extends IThingLogic> L addThingLogic(Class<L> logicClass) {
+	public <L extends IThingLogic> L addThingLogic(Class<L> logicClass) {
+		BNAUtils.checkLock();
+
 		try {
 			L logic = (L) typedLogics.get(logicClass);
 			if (logic != null) {
@@ -89,7 +91,9 @@ public class DefaultThingLogicManager implements IThingLogicManager {
 	}
 
 	@Override
-	public synchronized <L extends IThingLogic> L addThingLogic(L l) {
+	public <L extends IThingLogic> L addThingLogic(L l) {
+		BNAUtils.checkLock();
+
 		checkArgument(l.getBNAWorld() == world, "Logic is of a different world: %s", l);
 		checkArgument(!logics.contains(l), "Logic was already added: %s", l);
 		long time = System.nanoTime();
@@ -106,7 +110,9 @@ public class DefaultThingLogicManager implements IThingLogicManager {
 	}
 
 	@Override
-	public synchronized void removeThingLogic(IThingLogic tl) {
+	public void removeThingLogic(IThingLogic tl) {
+		BNAUtils.checkLock();
+
 		fireThingLogicManagerEvent(EventType.LOGIC_REMOVING, tl);
 		long time = System.nanoTime();
 		logics.remove(tl);
@@ -120,32 +126,38 @@ public class DefaultThingLogicManager implements IThingLogicManager {
 	}
 
 	@Override
-	synchronized public List<IThingLogic> getAllThingLogics() {
+	public List<IThingLogic> getAllThingLogics() {
+		BNAUtils.checkLock();
+
 		return Lists.newArrayList(logics);
 	}
 
 	@Override
-	synchronized public <T> T getThingLogic(Class<T> ofType) {
+	public <T> T getThingLogic(Class<T> ofType) {
+		BNAUtils.checkLock();
+
 		return SystemUtils.firstOrNull(Iterables.filter(logics, ofType));
 	}
 
 	@Override
-	synchronized public <T> Iterable<T> getThingLogics(Class<T> ofType) {
+	public <T> Iterable<T> getThingLogics(Class<T> ofType) {
+		BNAUtils.checkLock();
+
 		return Iterables.filter(logics, ofType);
 	}
 
 	@Override
-	synchronized public void dispose() {
+	public void dispose() {
+		BNAUtils.checkLock();
+
 		if (PROFILE) {
-			synchronized (System.err) {
-				System.err.println("Profile information for: " + this.getClass());
-				for (IThingLogic logic : logics) {
-					System.err.println(logic);
-				}
-				for (java.util.Map.Entry<Object, AtomicLong> entry : SystemUtils.sortedByValue(profileStats.asMap()
-						.entrySet())) {
-					System.err.println(entry.getValue() + "\t" + entry.getKey());
-				}
+			System.err.println("Profile information for: " + this.getClass());
+			for (IThingLogic logic : logics) {
+				System.err.println(logic);
+			}
+			for (java.util.Map.Entry<Object, AtomicLong> entry : SystemUtils.sortedByValue(profileStats.asMap()
+					.entrySet())) {
+				System.err.println(entry.getValue() + "\t" + entry.getKey());
 			}
 		}
 		// perform removals in reverse order since latter logics often depend on former logics

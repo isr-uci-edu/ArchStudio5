@@ -9,6 +9,7 @@ import org.archstudio.bna.keys.IThingRefKey;
 import org.archstudio.bna.keys.ThingRefKey;
 import org.archstudio.bna.logics.AbstractKeyCoordinatingThingLogic;
 import org.archstudio.bna.things.labels.DirectionalLabelThing;
+import org.archstudio.bna.utils.BNAUtils;
 
 public class ReorientDirectionalLabelToThingIDLogic extends AbstractKeyCoordinatingThingLogic implements
 		IBNAModelListener {
@@ -24,7 +25,9 @@ public class ReorientDirectionalLabelToThingIDLogic extends AbstractKeyCoordinat
 		track(REORIENT_TO_THING_ID_KEY);
 	}
 
-	synchronized public IThingRefKey<IHasBoundingBox> getReorientToThingKey() {
+	public IThingRefKey<IHasBoundingBox> getReorientToThingKey() {
+		BNAUtils.checkLock();
+
 		return REORIENT_TO_THING_ID_KEY;
 	}
 

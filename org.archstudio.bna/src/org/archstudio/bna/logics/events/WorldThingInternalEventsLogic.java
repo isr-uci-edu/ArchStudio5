@@ -16,6 +16,7 @@ import org.archstudio.bna.keys.ThingKey;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.logics.tracking.ThingTypeTrackingLogic;
 import org.archstudio.bna.things.utility.NoThing;
+import org.archstudio.bna.utils.BNAUtils;
 
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
@@ -33,7 +34,7 @@ public class WorldThingInternalEventsLogic extends AbstractThingLogic implements
 	private static IThingKey<Set<WorldChange>> WORLD_CHANGES_TICKER_KEY = ThingKey.create(
 			"internal-world-changes-ticker", ThingKey.<WorldChange> set(null));
 
-	synchronized private static IThing getWorldChangedThing(IBNAWorld world) {
+	private static IThing getWorldChangedThing(IBNAWorld world) {
 		IBNAModel model = world.getBNAModel();
 		IThing worldChangeThing = model.getThing(WorldThingInternalEventsLogic.class);
 		if (worldChangeThing == null) {
@@ -207,7 +208,9 @@ public class WorldThingInternalEventsLogic extends AbstractThingLogic implements
 	}
 
 	@Override
-	synchronized public void dispose() {
+	public void dispose() {
+		BNAUtils.checkLock();
+
 		worldChangeTickers.invalidateAll();
 	}
 
@@ -224,7 +227,8 @@ public class WorldThingInternalEventsLogic extends AbstractThingLogic implements
 	}
 
 	@Override
-	synchronized public void bnaModelChanged(BNAModelEvent evt) {
+	public void bnaModelChanged(BNAModelEvent evt) {
+		BNAUtils.checkLock();
 
 		// update the lists of registered world things
 		if (evt.getTargetThing() instanceof IHasWorld) {

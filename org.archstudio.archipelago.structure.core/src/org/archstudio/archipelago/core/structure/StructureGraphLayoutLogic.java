@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.archstudio.archipelago.core.ArchipelagoUtils;
+import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.ICoordinate;
@@ -18,6 +19,7 @@ import org.archstudio.bna.things.shapes.EndpointThing;
 import org.archstudio.bna.things.shapes.SplineThing;
 import org.archstudio.bna.things.utility.EnvironmentPropertiesThing;
 import org.archstudio.bna.ui.IBNAMenuListener;
+import org.archstudio.bna.utils.BNAAction;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.graphlayout.GraphLayout;
 import org.archstudio.graphlayout.GraphLayoutException;
@@ -28,6 +30,7 @@ import org.archstudio.resources.ArchStudioCommonResources;
 import org.archstudio.resources.IResources;
 import org.archstudio.swtutils.BSpline;
 import org.archstudio.swtutils.SWTWidgetUtils;
+import org.archstudio.sysutils.Finally;
 import org.archstudio.xadl.XadlUtils;
 import org.archstudio.xadl.bna.facets.IHasObjRef;
 import org.archstudio.xadl3.structure_3_0.Structure_3_0Package;
@@ -37,7 +40,6 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
-import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.Separator;
@@ -65,7 +67,9 @@ public class StructureGraphLayoutLogic extends AbstractThingLogic implements IBN
 	}
 
 	@Override
-	synchronized public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager menu) {
+	public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager menu) {
+		BNAUtils.checkLock();
+
 		if (!things.isEmpty()) {
 			return;
 		}
@@ -79,10 +83,10 @@ public class StructureGraphLayoutLogic extends AbstractThingLogic implements IBN
 		final ObjRef structureRef = ept.get(IHasObjRef.OBJREF_KEY);
 		if (structureRef != null
 				&& XadlUtils.isInstanceOf(xarch, structureRef, Structure_3_0Package.Literals.STRUCTURE)) {
-			IAction layoutAction = new Action("Automatic Layout...") {
+			IAction layoutAction = new BNAAction("Automatic Layout...") {
 
 				@Override
-				public void run() {
+				public void runWithLock() {
 					doLayout(fview, structureRef, fworldX, fworldY);
 				}
 
@@ -134,16 +138,13 @@ public class StructureGraphLayoutLogic extends AbstractThingLogic implements IBN
 
 			@Override
 			public void run() {
-				try {
-					view.getBNAWorld().getBNAModel().beginBulkChange();
+				IBNAModel model = view.getBNAWorld().getBNAModel();
+				try (Finally lock = BNAUtils.lock(); Finally bulkChange = model.beginBulkChange();) {
 					GraphLayout gl = graphLayout.layoutGraph(engineID, structureRef, glp);
 					applyGraphLayout(view, structureRef, gl, glp, worldX, worldY);
 				}
 				catch (final GraphLayoutException gle) {
 					MessageDialog.openError(view.getBNAUI().getComposite().getShell(), "Error", gle.getMessage());
-				}
-				finally {
-					view.getBNAWorld().getBNAModel().endBulkChange();
 				}
 			}
 		});

@@ -301,7 +301,7 @@ public class ArchEditOutlinePage extends AbstractArchStudioOutlinePage {
 				ObjRef objRef = ((ArchEditElementNode) element).ref;
 				if (xarch instanceof IXArchADTVariability) {
 					ChangeStatus changeStatus = ((IXArchADTVariability) xarch).getChangeStatus(objRef);
-					if (changeStatus != ChangeStatus.ATTACHED) {
+					if (changeStatus != ChangeStatus.ATTACHED && changeStatus != ChangeStatus.NOT_ENABLED) {
 						text += " (" + changeStatus + ")";
 					}
 				}
@@ -519,7 +519,7 @@ public class ArchEditOutlinePage extends AbstractArchStudioOutlinePage {
 		@Override
 		public Image getImage() {
 
-			Image image = ResourceCache.getIcon16(xarch, ref);
+			Image image = ResourceCache.getIcon(xarch, ref);
 			if (image != null) {
 				return image;
 			}

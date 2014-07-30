@@ -1,6 +1,7 @@
 package org.archstudio.bna.logics.hints;
 
 import java.io.Serializable;
+import java.util.Map;
 
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
@@ -23,6 +24,8 @@ public interface IHintRepository {
 	public boolean removeHint(Object context, String name);
 
 	public HintValue getHint(Object context, String name) throws PropertyDecodeException;
+
+	public Map<String, HintValue> getHints(Object context) throws PropertyDecodeException;
 
 	public void addHintRepositoryChangeListener(IHintRepositoryChangeListener l);
 

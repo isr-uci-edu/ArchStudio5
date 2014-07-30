@@ -17,17 +17,17 @@ public class LinearCoordinateMapper extends AbstractCoordinateMapper implements 
 	@Override
 	public Rectangle getLocalBounds() {
 		return new Rectangle(//
-				SystemUtils.round(worldBounds.x * localScale), //
-				SystemUtils.round(worldBounds.y * localScale), //
-				SystemUtils.round(worldBounds.width * localScale), //
-				SystemUtils.round(worldBounds.height * localScale));
+				SystemUtils.roundB(worldBounds.x * localScale), //
+				SystemUtils.roundB(worldBounds.y * localScale), //
+				SystemUtils.roundB(worldBounds.width * localScale), //
+				SystemUtils.roundB(worldBounds.height * localScale));
 	}
 
 	@Override
 	public Point worldToLocal(Point worldPoint) {
 		return new Point(//
-				SystemUtils.round(worldPoint.x * localScale - localOrigin.x), //
-				SystemUtils.round(worldPoint.y * localScale - localOrigin.y));
+				SystemUtils.roundB(worldPoint.x * localScale - localOrigin.x), //
+				SystemUtils.roundB(worldPoint.y * localScale - localOrigin.y));
 	}
 
 	@Override
@@ -40,8 +40,8 @@ public class LinearCoordinateMapper extends AbstractCoordinateMapper implements 
 	@Override
 	public Point localToWorld(Point localPoint) {
 		return new Point(//
-				SystemUtils.round((localPoint.x + localOrigin.x) / localScale), //
-				SystemUtils.round((localPoint.y + localOrigin.y) / localScale));
+				SystemUtils.roundB((localPoint.x + localOrigin.x) / localScale), //
+				SystemUtils.roundB((localPoint.y + localOrigin.y) / localScale));
 	}
 
 	@Override

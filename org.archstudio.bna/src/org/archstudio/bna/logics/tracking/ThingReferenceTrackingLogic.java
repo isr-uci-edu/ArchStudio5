@@ -11,6 +11,7 @@ import org.archstudio.bna.ThingEvent;
 import org.archstudio.bna.keys.IThingKey;
 import org.archstudio.bna.keys.IThingRefKey;
 import org.archstudio.bna.logics.AbstractThingLogic;
+import org.archstudio.bna.utils.BNAUtils;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Lists;
@@ -87,7 +88,9 @@ public class ThingReferenceTrackingLogic extends AbstractThingLogic implements I
 	}
 
 	@Override
-	synchronized public void dispose() {
+	public void dispose() {
+		BNAUtils.checkLock();
+
 		idToReferences.clear();
 		super.dispose();
 	}
@@ -118,11 +121,13 @@ public class ThingReferenceTrackingLogic extends AbstractThingLogic implements I
 		idToReferences.remove(toThingID, new Reference(fromThing.getID(), fromKey));
 	}
 
-	synchronized public Collection<Reference> getReferences(IThing toThing) {
+	public Collection<Reference> getReferences(IThing toThing) {
 		return getReferences(toThing.getID());
 	}
 
-	synchronized public Collection<Reference> getReferences(Object toThingID) {
+	public Collection<Reference> getReferences(Object toThingID) {
+		BNAUtils.checkLock();
+
 		if (toThingID != null) {
 			Collection<Reference> references = idToReferences.get(toThingID);
 			if (references != null) {
@@ -134,7 +139,9 @@ public class ThingReferenceTrackingLogic extends AbstractThingLogic implements I
 
 	@Override
 	@SuppressWarnings("rawtypes")
-	synchronized public void bnaModelChanged(BNAModelEvent evt) {
+	public void bnaModelChanged(BNAModelEvent evt) {
+		BNAUtils.checkLock();
+
 		switch (evt.getEventType()) {
 		case THING_ADDED:
 			addReferences(evt.getTargetThing());

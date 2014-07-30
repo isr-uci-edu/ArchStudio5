@@ -10,6 +10,8 @@ import java.util.List;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThingLogicManager;
 import org.archstudio.bna.logics.AbstractThingLogic;
+import org.archstudio.bna.utils.BNAUtils;
+import org.archstudio.sysutils.Finally;
 
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
@@ -34,13 +36,15 @@ public class ProxyLogic extends AbstractThingLogic {
 
 								@Override
 								public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-									for (Object o : logics.getThingLogics(input)) {
-										method.invoke(o, args);
+									try (Finally lock = BNAUtils.lock()) {
+										for (Object o : logics.getThingLogics(input)) {
+											method.invoke(o, args);
+										}
+										for (Object o : Iterables.filter(additionalObjects, input)) {
+											method.invoke(o, args);
+										}
+										return "equals".equals(method.getName()) ? false : null;
 									}
-									for (Object o : Iterables.filter(additionalObjects, input)) {
-										method.invoke(o, args);
-									}
-									return "equals".equals(method.getName()) ? false : null;
 								}
 							});
 				}
@@ -50,13 +54,17 @@ public class ProxyLogic extends AbstractThingLogic {
 		super(world);
 	}
 
-	synchronized public <T> T addObject(T object) {
+	public <T> T addObject(T object) {
+		BNAUtils.checkLock();
+
 		additionalObjects.add(object);
 		return object;
 	}
 
 	@SuppressWarnings("unchecked")
-	synchronized public <T> T getProxyForInterface(Class<T> interfaceClass) {
+	public <T> T getProxyForInterface(Class<T> interfaceClass) {
+		BNAUtils.checkLock();
+
 		return (T) proxiesCache.getUnchecked(interfaceClass);
 	}
 }

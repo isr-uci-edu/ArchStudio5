@@ -11,12 +11,12 @@ import org.archstudio.bna.facets.IHasColor;
 import org.archstudio.bna.facets.IHasMutableColor;
 import org.archstudio.bna.logics.editing.EditColorLogic;
 import org.archstudio.bna.utils.Assemblies;
+import org.archstudio.bna.utils.BNAAction;
 import org.archstudio.swtutils.SWTWidgetUtils;
 import org.archstudio.xadl.XadlUtils;
 import org.archstudio.xadl.bna.facets.IHasObjRef;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
-import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.preference.PreferenceConverter;
 
@@ -34,10 +34,10 @@ public class StructureEditColorLogic extends EditColorLogic {
 			final List<IHasMutableColor> editableColoredThings, List<IHasColor> coloredThings) {
 
 		if (editableColoredThings.size() > 0) {
-			menu.add(new Action("Reset to Default Color") {
+			menu.add(new BNAAction("Reset to Default Color") {
 
 				@Override
-				public void run() {
+				public void runWithLock() {
 					for (IHasMutableColor t : editableColoredThings) {
 						IThing root = Assemblies.getThingWithProperty(model, t, IHasObjRef.OBJREF_KEY);
 						if (root != null) {

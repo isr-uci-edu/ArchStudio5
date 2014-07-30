@@ -12,6 +12,7 @@ import org.archstudio.bna.keys.IThingRefKey;
 import org.archstudio.bna.keys.ThingMetakey;
 import org.archstudio.bna.keys.ThingRefMetakey;
 import org.archstudio.bna.logics.AbstractKeyCoordinatingThingLogic;
+import org.archstudio.bna.utils.BNAUtils;
 
 public class DynamicStickPointLogic extends AbstractKeyCoordinatingThingLogic {
 
@@ -25,13 +26,17 @@ public class DynamicStickPointLogic extends AbstractKeyCoordinatingThingLogic {
 		stickLogic = logics.addThingLogic(StickPointLogic.class);
 	}
 
-	synchronized public IThingKey<StickyMode> getStickyModeKey(IThingKey<Point2D> pointKey) {
+	public IThingKey<StickyMode> getStickyModeKey(IThingKey<Point2D> pointKey) {
+		BNAUtils.checkLock();
+
 		IThingKey<StickyMode> stickyModeKey = ThingMetakey.create(STICKY_MODE_KEY_NAME, pointKey);
 		track(stickyModeKey);
 		return stickyModeKey;
 	}
 
-	synchronized public IThingRefKey<IHasStickyShape> getStickyThingKey(IThingKey<Point2D> pointKey) {
+	public IThingRefKey<IHasStickyShape> getStickyThingKey(IThingKey<Point2D> pointKey) {
+		BNAUtils.checkLock();
+
 		IThingRefKey<IHasStickyShape> stickyThingKey = ThingRefMetakey.create(STICKY_THING_ID_KEY_NAME, pointKey);
 		track(stickyThingKey);
 		return stickyThingKey;

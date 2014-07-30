@@ -35,7 +35,7 @@ public class StatechartAssemblies {
 
 		mvl.mirrorValue(bkg, IHasEdgeColor.EDGE_COLOR_KEY, labelThing, IHasArrowheads.ARROWHEAD_2_EDGE_COLOR_KEY);
 		mvl.mirrorValue(bkg, IHasAnchorPoint.ANCHOR_POINT_KEY, labelThing);
-		otl.orientText(bkg, labelThing);
+		otl.orientText(bkg, labelThing, true);
 
 		return bkg;
 	}

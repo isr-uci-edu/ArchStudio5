@@ -1,6 +1,7 @@
 package org.archstudio.xadl.bna.logics.hints;
 
 import java.io.Serializable;
+import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.archstudio.bna.IBNAWorld;
@@ -27,6 +28,8 @@ import org.archstudio.xarchadt.XArchADTModelEvent;
 import org.archstudio.xarchadt.XArchADTProxy;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jdt.annotation.Nullable;
+
+import com.google.common.collect.Maps;
 
 public class XadlHintRepository implements IHintRepository, IXArchADTModelListener {
 
@@ -131,6 +134,24 @@ public class XadlHintRepository implements IHintRepository, IXArchADTModelListen
 			}
 		}
 		return new HintValueImpl(false, null);
+	}
+
+	@Override
+	public Map<String, HintValue> getHints(Object context) {
+		HintsExtension hints = XArchADTProxy.proxy(xarch, XadlUtils.getExt(xarch, (ObjRef) context,
+				Hints_3_0Package.eNS_URI, Hints_3_0Package.Literals.HINTS_EXTENSION.getName()));
+		Map<String, HintValue> hintValues = Maps.newHashMap();
+		if (hints != null) {
+			for (Hint hint : hints.getHint()) {
+				try {
+					hintValues.put(hint.getName(), new HintValueImpl(true, decode(hint)));
+				}
+				catch (PropertyDecodeException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return hintValues;
 	}
 
 	private boolean encode(Hint hint, @Nullable Serializable hintValue) {

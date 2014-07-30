@@ -22,6 +22,8 @@ public class GridUtils {
 	}
 
 	public static void rectifyToGrid(IBNAWorld world) {
+		BNAUtils.checkLock();
+		
 		int gridSpacing = GridUtils.getGridSpacing(world);
 		if (gridSpacing == 0) {
 			return;
@@ -163,6 +165,6 @@ public class GridUtils {
 	}
 
 	private static double snapToGrid(int gridSpacing, double coord) {
-		return Math.round((coord + gridSpacing / 2) / gridSpacing) * gridSpacing;
+		return Math.round((coord + gridSpacing / 2 - 1) / gridSpacing) * gridSpacing;
 	}
 }

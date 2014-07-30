@@ -4,9 +4,11 @@ import static org.archstudio.sysutils.SystemUtils.castOrNull;
 
 import org.archstudio.bna.ui.IBNAUI;
 import org.archstudio.bna.ui.utils.AutodetectBNAUI;
+import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.DefaultBNAView;
 import org.archstudio.bna.utils.LinearCoordinateMapper;
 import org.archstudio.swtutils.SWTWidgetUtils;
+import org.archstudio.sysutils.Finally;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ControlEvent;
 import org.eclipse.swt.events.ControlListener;
@@ -39,53 +41,60 @@ public class BNACanvas extends Composite implements ControlListener, SelectionLi
 
 	public BNACanvas(Composite parent, int style, final IBNAView view) {
 		super(parent, style & ~(SWT.H_SCROLL | SWT.V_SCROLL));
-		parent.setLayout(new FillLayout());
-		setLayout(new FillLayout());
-		this.bnaUIStyle = style & (SWT.H_SCROLL | SWT.V_SCROLL);
-		this.view = view;
-		setBNAUI(new AutodetectBNAUI(view));
-		updateScrollBars();
-		updateCoordinateMapper();
-		view.getCoordinateMapper().addCoordinateMapperListener(this);
-		view.getBNAWorld().getBNAModel().addBNAModelListener(this);
-		addDisposeListener(new DisposeListener() {
-			@Override
-			public void widgetDisposed(DisposeEvent e) {
-				view.getCoordinateMapper().removeCoordinateMapperListener(BNACanvas.this);
-				view.getBNAWorld().getBNAModel().removeBNAModelListener(BNACanvas.this);
-				if (bnaUI != null) {
-					bnaUI.getComposite().removeControlListener(BNACanvas.this);
-					bnaUI.getComposite().removeMouseListener(BNACanvas.this);
-					bnaUI.dispose();
-					bnaUI = null;
-					if (disposeView) {
-						view.dispose();
+		try (Finally lock = BNAUtils.lock()) {
+			parent.setLayout(new FillLayout());
+			setLayout(new FillLayout());
+			this.bnaUIStyle = style & (SWT.H_SCROLL | SWT.V_SCROLL);
+			this.view = view;
+			setBNAUI(new AutodetectBNAUI(view));
+			updateScrollBars();
+			updateCoordinateMapper();
+			view.getCoordinateMapper().addCoordinateMapperListener(this);
+			view.getBNAWorld().getBNAModel().addBNAModelListener(this);
+			addDisposeListener(new DisposeListener() {
+				@Override
+				public void widgetDisposed(DisposeEvent e) {
+					try (Finally lock = BNAUtils.lock()) {
+						view.getCoordinateMapper().removeCoordinateMapperListener(BNACanvas.this);
+						view.getBNAWorld().getBNAModel().removeBNAModelListener(BNACanvas.this);
+						if (bnaUI != null) {
+							bnaUI.getComposite().removeControlListener(BNACanvas.this);
+							bnaUI.getComposite().removeMouseListener(BNACanvas.this);
+							bnaUI.dispose();
+							bnaUI = null;
+							if (disposeView) {
+								view.dispose();
+							}
+						}
 					}
 				}
-			}
-		});
+			});
+		}
 	}
 
-	synchronized public void setBNAUI(IBNAUI bnaUI) {
-		view.disposePeers();
+	public void setBNAUI(IBNAUI bnaUI) {
 		if (hBar != null && !hBar.isDisposed()) {
 			hBar.removeSelectionListener(this);
 		}
 		if (vBar != null && !vBar.isDisposed()) {
 			vBar.removeSelectionListener(this);
 		}
-		if (this.bnaUI != null) {
-			this.bnaUI.getComposite().removeControlListener(this);
-			this.bnaUI.getComposite().removeMouseListener(this);
-			this.bnaUI.dispose();
+		try (Finally lock = BNAUtils.lock()) {
+			view.disposePeers();
+			if (this.bnaUI != null) {
+				this.bnaUI.getComposite().removeControlListener(this);
+				this.bnaUI.getComposite().removeMouseListener(this);
+				this.bnaUI.dispose();
+			}
+			this.bnaUI = bnaUI;
+			bnaUI.init(this, bnaUIStyle);
 		}
-		this.bnaUI = bnaUI;
-		bnaUI.init(this, bnaUIStyle);
 		layout(true, true);
 		bnaUI.getComposite().addControlListener(this);
 		bnaUI.getComposite().addMouseListener(this);
 		hBar = bnaUI.getComposite().getHorizontalBar();
 		vBar = bnaUI.getComposite().getVerticalBar();
+		updateScrollBars();
 		if (hBar != null) {
 			hBar.addSelectionListener(this);
 		}
@@ -95,44 +104,45 @@ public class BNACanvas extends Composite implements ControlListener, SelectionLi
 	}
 
 	@Override
-	synchronized public void controlMoved(ControlEvent e) {
+	public void controlMoved(ControlEvent e) {
 	}
 
 	@Override
-	synchronized public void controlResized(ControlEvent e) {
+	public void controlResized(ControlEvent e) {
 		updateScrollBars();
-	}
-
-	@Override
-	synchronized public void widgetDefaultSelected(SelectionEvent e) {
-		updateCoordinateMapper();
-	}
-
-	@Override
-	synchronized public void widgetSelected(SelectionEvent e) {
-		updateCoordinateMapper();
-	}
-
-	@Override
-	synchronized public void mouseDoubleClick(MouseEvent e) {
-	}
-
-	@Override
-	synchronized public void mouseUp(MouseEvent e) {
-	}
-
-	@Override
-	synchronized public void mouseDown(MouseEvent e) {
-		bnaUI.forceFocus();
-	}
-
-	@Override
-	synchronized public void bnaModelChanged(BNAModelEvent evt) {
 		bnaUI.paint();
 	}
 
 	@Override
-	synchronized public void coordinateMappingsChanged(CoordinateMapperEvent evt) {
+	public void widgetDefaultSelected(SelectionEvent e) {
+		updateCoordinateMapper();
+	}
+
+	@Override
+	public void widgetSelected(SelectionEvent e) {
+		updateCoordinateMapper();
+	}
+
+	@Override
+	public void mouseDoubleClick(MouseEvent e) {
+	}
+
+	@Override
+	public void mouseUp(MouseEvent e) {
+	}
+
+	@Override
+	public void mouseDown(MouseEvent e) {
+		bnaUI.forceFocus();
+	}
+
+	@Override
+	public void bnaModelChanged(BNAModelEvent evt) {
+		bnaUI.paint();
+	}
+
+	@Override
+	public void coordinateMappingsChanged(CoordinateMapperEvent evt) {
 		SWTWidgetUtils.async(bnaUI.getComposite(), new Runnable() {
 			@Override
 			public void run() {
@@ -150,7 +160,7 @@ public class BNACanvas extends Composite implements ControlListener, SelectionLi
 			return;
 		}
 		isUpdatingScrollBars = true;
-		try {
+		try (Finally lock = BNAUtils.lock()) {
 			ICoordinateMapper cm = view.getCoordinateMapper();
 			Rectangle client = getClientArea();
 			Rectangle localBounds = cm.getLocalBounds();
@@ -177,7 +187,7 @@ public class BNACanvas extends Composite implements ControlListener, SelectionLi
 	protected void updateCoordinateMapper() {
 		if (!isUpdatingScrollBars) {
 			isUpdatingCoordinateMapper = true;
-			try {
+			try (Finally lock = BNAUtils.lock()) {
 				IMutableCoordinateMapper mcm = castOrNull(view.getCoordinateMapper(), IMutableCoordinateMapper.class);
 				if (mcm != null) {
 					Rectangle localBounds = mcm.getLocalBounds();
@@ -193,7 +203,7 @@ public class BNACanvas extends Composite implements ControlListener, SelectionLi
 		}
 	}
 
-	synchronized public IBNAView getBNAView() {
+	public IBNAView getBNAView() {
 		return view;
 	}
 

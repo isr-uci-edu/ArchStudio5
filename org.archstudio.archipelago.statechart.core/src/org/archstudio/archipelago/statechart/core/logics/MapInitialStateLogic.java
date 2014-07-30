@@ -54,7 +54,8 @@ public class MapInitialStateLogic extends AbstractXADLToBNAPathLogic<EllipseThin
 
 		EllipseThing thing = Assemblies.createEllipse(world, null, null);
 		thing.setBoundingBox(new Rectangle(newPointSpot.x, newPointSpot.y, defaultSize.width, defaultSize.height));
-		thing.set(IHasColor.COLOR_KEY, new RGB(32, 32, 32));
+		thing.setColor(new RGB(32, 32, 32));
+		Assemblies.BOUNDED_TEXT_KEY.get(thing, model).setText("");
 
 		mirrorLogic.mirrorValue(thing, IHasColor.COLOR_KEY, thing, IHasSecondaryColor.SECONDARY_COLOR_KEY,
 				new Function<RGB, RGB>() {
@@ -62,7 +63,7 @@ public class MapInitialStateLogic extends AbstractXADLToBNAPathLogic<EllipseThin
 					@Override
 					@Nullable
 					public RGB apply(@Nullable RGB input) {
-						return BNAUtils.adjustBrightness(input, 1.5f);
+						return BNAUtils.adjustBrightness(input, 2f);
 					}
 				});
 

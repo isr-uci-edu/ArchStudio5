@@ -9,12 +9,17 @@ import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.ui.IBNAMenuListener;
-import org.archstudio.resources.ArchStudioCommonResources;
+import org.archstudio.bna.utils.BNAAction;
+import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.resources.IResources;
+import org.archstudio.resources.ResourceCache;
 import org.archstudio.sysutils.SystemUtils;
 import org.archstudio.sysutils.UIDGenerator;
 import org.archstudio.xadl.XadlUtils;
 import org.archstudio.xadl.bna.utils.XArchADTOperations;
+import org.archstudio.xadl3.structure_3_0.Component;
+import org.archstudio.xadl3.structure_3_0.Connector;
+import org.archstudio.xadl3.structure_3_0.Link;
 import org.archstudio.xadl3.structure_3_0.Structure_3_0Package;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
@@ -44,7 +49,9 @@ public class StructureNewElementLogic extends AbstractThingLogic implements IBNA
 	}
 
 	@Override
-	synchronized public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager m) {
+	public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager m) {
+		BNAUtils.checkLock();
+
 		if (matches(view, SystemUtils.firstOrNull(things))) {
 			Point world = location.getWorldPoint();
 			for (IAction action : getActions(view, SystemUtils.firstOrNull(things), world.x, world.y)) {
@@ -58,10 +65,10 @@ public class StructureNewElementLogic extends AbstractThingLogic implements IBNA
 
 		ArchipelagoUtils.setNewThingSpot(view.getBNAWorld(), worldX, worldY);
 
-		Action newComponentAction = new Action("New Component") {
+		Action newComponentAction = new BNAAction("New Component") {
 
 			@Override
-			public void run() {
+			public void runWithLock() {
 				ObjRef componentRef = XadlUtils.create(xarch, Structure_3_0Package.Literals.COMPONENT);
 				xarch.set(componentRef, "id", UIDGenerator.generateUID("component"));
 				XadlUtils.setName(xarch, componentRef, "[New Component]");
@@ -70,14 +77,14 @@ public class StructureNewElementLogic extends AbstractThingLogic implements IBNA
 
 			@Override
 			public ImageDescriptor getImageDescriptor() {
-				return resources.getImageDescriptor(ArchStudioCommonResources.ICON_COMPONENT);
+				return ImageDescriptor.createFromImage(ResourceCache.getIcon(Component.class));
 			}
 		};
 
-		Action newConnectorAction = new Action("New Connector") {
+		Action newConnectorAction = new BNAAction("New Connector") {
 
 			@Override
-			public void run() {
+			public void runWithLock() {
 				ObjRef connectorRef = XadlUtils.create(xarch, Structure_3_0Package.Literals.CONNECTOR);
 				xarch.set(connectorRef, "id", UIDGenerator.generateUID("connector"));
 				XadlUtils.setName(xarch, connectorRef, "[New Connector]");
@@ -86,14 +93,14 @@ public class StructureNewElementLogic extends AbstractThingLogic implements IBNA
 
 			@Override
 			public ImageDescriptor getImageDescriptor() {
-				return resources.getImageDescriptor(ArchStudioCommonResources.ICON_CONNECTOR);
+				return ImageDescriptor.createFromImage(ResourceCache.getIcon(Connector.class));
 			}
 		};
 
-		Action newLinkAction = new Action("New Link") {
+		Action newLinkAction = new BNAAction("New Link") {
 
 			@Override
-			public void run() {
+			public void runWithLock() {
 				ObjRef linkRef = XadlUtils.create(xarch, Structure_3_0Package.Literals.LINK);
 				xarch.set(linkRef, "id", UIDGenerator.generateUID("link"));
 				XadlUtils.setName(xarch, linkRef, "[New Link]");
@@ -102,7 +109,7 @@ public class StructureNewElementLogic extends AbstractThingLogic implements IBNA
 
 			@Override
 			public ImageDescriptor getImageDescriptor() {
-				return resources.getImageDescriptor(ArchStudioCommonResources.ICON_LINK);
+				return ImageDescriptor.createFromImage(ResourceCache.getIcon(Link.class));
 			}
 		};
 

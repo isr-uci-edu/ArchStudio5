@@ -1,13 +1,20 @@
 package org.archstudio.bna.logics.hints;
 
-import org.archstudio.bna.BNAModelEvent;
+import java.util.Collection;
+
 import org.archstudio.bna.IThing;
-import org.eclipse.jdt.annotation.Nullable;
+import org.archstudio.bna.keys.IThingKey;
+import org.archstudio.bna.logics.hints.IHintRepository.HintValue;
 
 public interface IHintSynchronizer {
 
-	public void restoreHints(IHintRepository repository, Object context, IThing thing, @Nullable String name);
+	public Collection<IThingKey<?>> getThingPropertiesOfInterest();
 
-	public void storeHints(IHintRepository repository, Object context, IThing thing, @Nullable BNAModelEvent evt);
+	public Collection<String> getRepositoryNamesOfInterest();
+
+	public void restoreHints(IHintRepository repository, Object context, IThing thing, String hintName,
+			HintValue hintValue);
+
+	public void storeHints(IHintRepository repository, Object context, IThing thing, IThingKey<?> key);
 
 }

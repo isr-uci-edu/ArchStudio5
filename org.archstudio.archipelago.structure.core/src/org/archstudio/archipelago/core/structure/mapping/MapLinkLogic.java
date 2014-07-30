@@ -14,14 +14,16 @@ import org.archstudio.bna.facets.IHasMutableEndpoints;
 import org.archstudio.bna.facets.IHasMutableMidpoints;
 import org.archstudio.bna.facets.IHasMutableReferencePoint;
 import org.archstudio.bna.facets.IHasMutableSelected;
-import org.archstudio.bna.facets.IHasMutableText;
+import org.archstudio.bna.facets.IHasMutableToolTip;
 import org.archstudio.bna.facets.IHasToolTip;
 import org.archstudio.bna.logics.coordinating.DynamicStickPointLogic;
 import org.archstudio.bna.logics.information.HighlightLogic;
 import org.archstudio.bna.things.shapes.SplineThing;
 import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.BNAPath;
+import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.UserEditableUtils;
+import org.archstudio.sysutils.Finally;
 import org.archstudio.xadl.bna.facets.IHasXArchID;
 import org.archstudio.xadl.bna.logics.mapping.AbstractXADLToBNAPathLogic;
 import org.archstudio.xadl.bna.logics.mapping.SynchronizeThingIDAndObjRefLogic;
@@ -44,8 +46,7 @@ public class MapLinkLogic extends AbstractXADLToBNAPathLogic<SplineThing> implem
 		stickLogic = logics.addThingLogic(DynamicStickPointLogic.class);
 
 		syncValue("id", null, null, BNAPath.create(), IHasXArchID.XARCH_ID_KEY, true);
-		syncValue("name", null, "[no name]", BNAPath.create(), Assemblies.BOUNDED_TEXT_KEY, true);
-		syncValue("name", null, "[no name]", BNAPath.create(), IHasToolTip.TOOL_TIP_KEY, false);
+		syncValue("name", null, "[no name]", BNAPath.create(), IHasToolTip.TOOL_TIP_KEY, true);
 
 		syncValue("point1", null, null, BNAPath.create(),
 				syncLogic.syncObjRefKeyToThingIDKey(stickLogic.getStickyThingKey(IHasEndpoints.ENDPOINT_1_KEY)), true);
@@ -61,7 +62,9 @@ public class MapLinkLogic extends AbstractXADLToBNAPathLogic<SplineThing> implem
 	}
 
 	@Override
-	synchronized public void dispose() {
+	public void dispose() {
+		BNAUtils.checkLock();
+
 		Activator.getDefault().getPreferenceStore().removePropertyChangeListener(this);
 		org.archstudio.archipelago.core.Activator.getDefault().getPreferenceStore().removePropertyChangeListener(this);
 
@@ -74,11 +77,13 @@ public class MapLinkLogic extends AbstractXADLToBNAPathLogic<SplineThing> implem
 	}
 
 	@Override
-	synchronized public void propertyChange(PropertyChangeEvent event) {
+	public void propertyChange(PropertyChangeEvent event) {
 		loadPreferences();
 
-		for (SplineThing thing : getAddedThings()) {
-			thing.setLineWidth(defaultLineWidth);
+		try (Finally lock = BNAUtils.lock(); Finally bulkChange = model.beginBulkChange();) {
+			for (SplineThing thing : getAddedThings()) {
+				thing.setLineWidth(defaultLineWidth);
+			}
 		}
 	}
 
@@ -92,7 +97,7 @@ public class MapLinkLogic extends AbstractXADLToBNAPathLogic<SplineThing> implem
 		thing.setLineWidth(defaultLineWidth);
 
 		UserEditableUtils.addEditableQualities(thing, IHasMutableSelected.USER_MAY_SELECT,
-				IHasMutableReferencePoint.USER_MAY_MOVE, IHasMutableText.USER_MAY_EDIT_TEXT,
+				IHasMutableReferencePoint.USER_MAY_MOVE, IHasMutableToolTip.USER_MAY_EDIT_TOOL_TIP,
 				IHasMutableMidpoints.USER_MAY_MOVE_MIDPOINTS, IHasMutableMidpoints.USER_MAY_ADD_MIDPOINTS,
 				IHasMutableMidpoints.USER_MAY_REMOVE_MIDPOINTS, IHasMutableEndpoints.USER_MAY_MOVE_ENDPOINT_1,
 				IHasMutableEndpoints.USER_MAY_RESTICK_ENDPOINT_1, IHasMutableEndpoints.USER_MAY_MOVE_ENDPOINT_2,

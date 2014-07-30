@@ -6,14 +6,19 @@ import static org.archstudio.sysutils.SystemUtils.castOrNull;
 import org.archstudio.bna.IBNAModelListener;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
+import org.archstudio.bna.ThingEvent;
 import org.archstudio.bna.facets.IHasBoundingBox;
+import org.archstudio.bna.facets.IHasOrientation;
 import org.archstudio.bna.logics.AbstractCoordinatingThingLogic;
+import org.archstudio.bna.logics.coordinating.OrientDirectionalLabelLogic.OrientationUpdater;
 import org.archstudio.bna.things.labels.DirectionalLabelThing;
+import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.swtutils.constants.Orientation;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 
-public class OrientDirectionalLabelLogic extends AbstractCoordinatingThingLogic implements IBNAModelListener {
+public class OrientDirectionalLabelLogic extends AbstractCoordinatingThingLogic<OrientationUpdater> implements
+		IBNAModelListener {
 
 	private static Orientation getOnEdgeOrientation(int x1, int x2, int y1, int y2, int x, int y) {
 		if (y == y1) {
@@ -49,10 +54,11 @@ public class OrientDirectionalLabelLogic extends AbstractCoordinatingThingLogic 
 		return Orientation.NONE;
 	}
 
-	private class OrientationUpdater extends Updater {
+	protected class OrientationUpdater extends AbstractCoordinatingThingLogic.Updater {
 
 		final Object rectangleThingID;
 		final Object labelThingID;
+		boolean updating;
 
 		public OrientationUpdater(IHasBoundingBox rectangleThing, DirectionalLabelThing labelThing) {
 			this.rectangleThingID = rectangleThing.getID();
@@ -60,7 +66,24 @@ public class OrientDirectionalLabelLogic extends AbstractCoordinatingThingLogic 
 		}
 
 		@Override
-		public void update() {
+		public void update(ThingEvent event) {
+			if (updating) {
+				return;
+			}
+			if (event != null) {
+				if (event.getTargetThing().getID().equals(rectangleThingID)) {
+					if (!event.getPropertyName().equals(IHasBoundingBox.BOUNDING_BOX_KEY)) {
+						return;
+					}
+				}
+				else {
+					if (!event.getPropertyName().equals(IHasBoundingBox.BOUNDING_BOX_KEY)
+							&& !event.getPropertyName().equals(IHasOrientation.ORIENTATION_KEY)) {
+						return;
+					}
+				}
+			}
+
 			IHasBoundingBox rectangleThing = castOrNull(model.getThing(rectangleThingID), IHasBoundingBox.class);
 			if (rectangleThing != null) {
 				DirectionalLabelThing labelThing = castOrNull(model.getThing(labelThingID), DirectionalLabelThing.class);
@@ -68,7 +91,13 @@ public class OrientDirectionalLabelLogic extends AbstractCoordinatingThingLogic 
 					Rectangle r = rectangleThing.getBoundingBox();
 					Point p = labelThing.getReferencePoint();
 					Orientation orientation = getOnEdgeOrientation(r.x, r.x + r.width, r.y, r.y + r.height, p.x, p.y);
-					labelThing.setOrientation(orientation);
+					updating = true;
+					try {
+						labelThing.setOrientation(orientation);
+					}
+					finally {
+						updating = false;
+					}
 				}
 			}
 		}
@@ -78,19 +107,20 @@ public class OrientDirectionalLabelLogic extends AbstractCoordinatingThingLogic 
 		super(world);
 	}
 
-	synchronized public void orient(IHasBoundingBox rectangleThing, DirectionalLabelThing labelThing) {
+	public void orient(IHasBoundingBox rectangleThing, DirectionalLabelThing labelThing) {
 		checkNotNull(rectangleThing);
 		checkNotNull(labelThing);
+		BNAUtils.checkLock();
 
 		OrientationUpdater updater = new OrientationUpdater(rectangleThing, labelThing);
 		register(updater, labelThing);
-
-		track(updater, rectangleThing, IHasBoundingBox.BOUNDING_BOX_KEY);
-		track(updater, labelThing, IHasBoundingBox.BOUNDING_BOX_KEY);
+		removeWithThing(updater, rectangleThing, labelThing);
+		track(updater, rectangleThing, labelThing);
 	}
 
-	synchronized public void unorient(IThing labelThing) {
+	public void unorient(IThing labelThing) {
 		checkNotNull(labelThing);
+		BNAUtils.checkLock();
 
 		unregister(labelThing);
 	}

@@ -5,17 +5,20 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import java.awt.Shape;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
+import java.util.Set;
 
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAModelListener;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
+import org.archstudio.bna.ThingEvent;
 import org.archstudio.bna.constants.StickyMode;
 import org.archstudio.bna.facets.IHasEndpoints;
 import org.archstudio.bna.facets.IHasMutableLoopOrientation;
 import org.archstudio.bna.facets.IHasStickyShape;
 import org.archstudio.bna.keys.IThingKey;
 import org.archstudio.bna.logics.AbstractCoordinatingThingLogic;
+import org.archstudio.bna.logics.coordinating.StickPointLogic.PointUpdater;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.swtutils.constants.Orientation;
 import org.archstudio.sysutils.SystemUtils;
@@ -24,8 +27,10 @@ import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 
+import com.google.common.collect.Sets;
+
 @NonNullByDefault
-public class StickPointLogic extends AbstractCoordinatingThingLogic implements IBNAModelListener {
+public class StickPointLogic extends AbstractCoordinatingThingLogic<PointUpdater> implements IBNAModelListener {
 
 	public boolean DEBUG = false;
 
@@ -43,14 +48,14 @@ public class StickPointLogic extends AbstractCoordinatingThingLogic implements I
 
 	}
 
-	private class PointUpdater extends Updater {
+	public class PointUpdater extends AbstractCoordinatingThingLogic.Updater {
 
 		final Object pointThingID;
 		final IThingKey<Point2D> pointKey;
 		final StickyMode stickyMode;
 		final Object stickyThingID;
-
-		Shape stickyShape = null;
+		Shape stickyShape;
+		boolean updating;
 
 		public PointUpdater(IThing pointThing, IThingKey<Point2D> pointKey, StickyMode stickyMode,
 				IHasStickyShape stickyThing) {
@@ -58,15 +63,27 @@ public class StickPointLogic extends AbstractCoordinatingThingLogic implements I
 			this.pointKey = pointKey;
 			this.stickyMode = stickyMode;
 			this.stickyThingID = stickyThing.getID();
-			stickyShape = stickyThing.getStickyShape();
-		}
-
-		private double select(int value, double negative, double zero, double positive) {
-			return value < 0 ? negative : value > 0 ? positive : zero;
+			this.stickyShape = stickyThing.getStickyShape();
 		}
 
 		@Override
-		public void update() {
+		public void update(ThingEvent event) {
+			if (updating) {
+				return;
+			}
+			if (event != null) {
+				if (event.getTargetThing().getID().equals(stickyThingID)) {
+					if (!event.getTargetThing().isShapeModifyingKey(event.getPropertyName())) {
+						return;
+					}
+				}
+				else {
+					if (!event.getTargetThing().isShapeModifyingKey(event.getPropertyName())) {
+						return;
+					}
+				}
+			}
+
 			IThing pointThing = model.getThing(pointThingID);
 			if (pointThing != null) {
 				IHasStickyShape stickyThing = SystemUtils.castOrNull(model.getThing(stickyThingID),
@@ -81,6 +98,9 @@ public class StickPointLogic extends AbstractCoordinatingThingLogic implements I
 					}
 
 					Point2D stuckPoint = pointThing.get(pointKey);
+					if (stuckPoint == null) {
+						stuckPoint = new Point2D.Double(0, 0);
+					}
 
 					// adjust the point proportionally if the 'stickyThing' has
 					// resized/moved
@@ -137,15 +157,85 @@ public class StickPointLogic extends AbstractCoordinatingThingLogic implements I
 								// determine point offsets
 								Rectangle r = BNAUtils.toRectangle(stickyShape.getBounds());
 								double preferred = 30;
-								double x, dx = Math.min(preferred, r.width / 2);
-								double y, dy = Math.min(preferred, r.height / 2);
+								double x, dx = Math.min(preferred, r.width / 3);
+								double y, dy = Math.min(preferred, r.height / 3);
+								double x1 = r.x, x2 = r.x + r.width, xm = (x1 + x2) / 2;
+								double y1 = r.y, y2 = r.y + r.height, ym = (y1 + y2) / 2;
 								if (pointKey.equals(IHasEndpoints.ENDPOINT_1_KEY)) {
-									x = select(loopOrientation.getDeltaX(), r.x, 0, r.x + r.width);
-									y = select(loopOrientation.getDeltaY(), r.y + dy, 0, r.y + r.height - dy);
+									switch (loopOrientation) {
+									case NORTHWEST:
+										x = x1;
+										y = y1 + dy;
+										break;
+									case NORTH:
+										x = xm - dx * 2 / 3;
+										y = y1;
+										break;
+									case NORTHEAST:
+										x = x2 - dx;
+										y = y1;
+										break;
+									case WEST:
+										x = x1;
+										y = ym + dy * 2 / 3;
+										break;
+									case EAST:
+										x = x2;
+										y = ym - dy * 2 / 3;
+										break;
+									case SOUTHWEST:
+										x = x1 + dx;
+										y = y2;
+										break;
+									case SOUTH:
+										x = xm + dx * 2 / 3;
+										y = y2;
+										break;
+									case SOUTHEAST:
+										x = x2;
+										y = y2 - dy;
+										break;
+									default:
+										throw new IllegalArgumentException(loopOrientation.toString());
+									}
 								}
 								else if (pointKey.equals(IHasEndpoints.ENDPOINT_2_KEY)) {
-									x = select(loopOrientation.getDeltaX(), r.x + dx, 0, r.x + r.width - dx);
-									y = select(loopOrientation.getDeltaY(), r.y, 0, r.y + r.height);
+									switch (loopOrientation) {
+									case NORTHWEST:
+										x = x1 + dx;
+										y = y1;
+										break;
+									case NORTH:
+										x = xm + dx * 2 / 3;
+										y = y1;
+										break;
+									case NORTHEAST:
+										x = x2;
+										y = y1 + dy;
+										break;
+									case WEST:
+										x = x1;
+										y = ym - dy * 2 / 3;
+										break;
+									case EAST:
+										x = x2;
+										y = ym + dy * 2 / 3;
+										break;
+									case SOUTHWEST:
+										x = x1;
+										y = y2 - dy;
+										break;
+									case SOUTH:
+										x = xm - dx * 2 / 3;
+										y = y2;
+										break;
+									case SOUTHEAST:
+										x = x2 - dx;
+										y = y2;
+										break;
+									default:
+										throw new IllegalArgumentException(loopOrientation.toString());
+									}
 								}
 								else {
 									throw new IllegalArgumentException(pointKey.toString());
@@ -179,7 +269,14 @@ public class StickPointLogic extends AbstractCoordinatingThingLogic implements I
 					}
 
 					// update the actual stuck point
-					Point2D oldStuckPoint = pointThing.set(pointKey, stuckPoint);
+					Point2D oldStuckPoint;
+					updating = true;
+					try {
+						oldStuckPoint = pointThing.set(pointKey, stuckPoint);
+					}
+					finally {
+						updating = false;
+					}
 					if (DEBUG) {
 						if (!BNAUtils.like(stuckPoint, oldStuckPoint)) {
 							System.err.println("     -- " + oldStuckPoint + " -> " + stuckPoint);
@@ -194,105 +291,116 @@ public class StickPointLogic extends AbstractCoordinatingThingLogic implements I
 		super(world);
 	}
 
-	synchronized public void stick(IThing pointThing, IThingKey<Point2D> pointKey, StickyMode stickyMode,
-			IHasStickyShape stickyThing) {
+	public void stick(IThing pointThing, IThingKey<Point2D> pointKey, StickyMode stickyMode, IHasStickyShape stickyThing) {
 		checkNotNull(pointThing);
 		checkNotNull(pointKey);
 		checkNotNull(stickyMode);
 		checkNotNull(stickyThing);
+		BNAUtils.checkLock();
 
-		PointUpdater oldUpdater = getRegistered(pointThing, pointKey);
-		if (oldUpdater != null && oldUpdater.stickyMode == stickyMode
-				&& oldUpdater.stickyThingID.equals(stickyThing.getID())) {
-			return;
+		for (PointUpdater oldUpdater : getRegisteredUpdater(pointThing, pointKey)) {
+			if (oldUpdater != null && oldUpdater.stickyMode == stickyMode
+					&& oldUpdater.stickyThingID.equals(stickyThing.getID())) {
+				return;
+			}
 		}
+		unregister(pointThing, pointKey);
 
 		if (stickyMode != null && stickyThing != null) {
 			PointUpdater updater = new PointUpdater(pointThing, pointKey, stickyMode, stickyThing);
 			register(updater, pointThing, pointKey);
-
-			track(updater, pointThing, pointThing.getShapeModifyingKeys());
-			untrack(updater, pointThing, pointKey);
-			track(updater, stickyThing, stickyThing.getShapeModifyingKeys());
+			removeWithThing(updater, pointThing, stickyThing);
+			track(updater, pointThing, stickyThing);
 		}
 		else {
 			unstick(pointThing, pointKey);
 		}
 	}
 
-	synchronized public void unstick(IThing pointThing, IThingKey<Point2D> pointKey) {
+	public void unstick(IThing pointThing, IThingKey<Point2D> pointKey) {
 		checkNotNull(pointThing);
 		checkNotNull(pointKey);
+		BNAUtils.checkLock();
 
 		unregister(pointThing, pointKey);
 	}
 
-	synchronized public @Nullable
+	public @Nullable
 	StickyMode getStickyMode(IThing pointThing, IThingKey<Point> pointKey) {
 		checkNotNull(pointThing);
 		checkNotNull(pointKey);
+		BNAUtils.checkLock();
 
-		PointUpdater updater = getRegistered(pointThing, pointKey);
-		if (updater != null) {
+		for (PointUpdater updater : getRegisteredUpdater(pointThing, pointKey)) {
 			return updater.stickyMode;
 		}
 		return null;
 	}
 
-	synchronized public @Nullable
+	public @Nullable
 	Object getStickyThingID(IThing pointThing, IThingKey<Point2D> pointKey) {
 		checkNotNull(pointThing);
 		checkNotNull(pointKey);
+		BNAUtils.checkLock();
 
-		PointUpdater updater = getRegistered(pointThing, pointKey);
-		if (updater != null) {
+		for (PointUpdater updater : getRegisteredUpdater(pointThing, pointKey)) {
 			return updater.stickyThingID;
 		}
 		return null;
 	}
 
-	synchronized public @Nullable
+	public @Nullable
 	IHasStickyShape getStickyThing(IThing pointThing, IThingKey<Point2D> pointKey) {
 		checkNotNull(pointThing);
 		checkNotNull(pointKey);
+		BNAUtils.checkLock();
 
-		PointUpdater updater = getRegistered(pointThing, pointKey);
-		if (updater != null) {
+		for (PointUpdater updater : getRegisteredUpdater(pointThing, pointKey)) {
 			return SystemUtils.castOrNull(model.getThing(updater.stickyThingID), IHasStickyShape.class);
 		}
 		return null;
 	}
 
-	synchronized public Point2D getStuckPoint(IThing pointThing, IThingKey<Point2D> pointKey) {
+	public Point2D getStuckPoint(IThing pointThing, IThingKey<Point2D> pointKey) {
 		return getStuckPoint(pointThing, pointKey, pointThing.get(pointKey));
 	}
 
-	synchronized public Point2D getStuckPoint(IThing pointThing, IThingKey<Point2D> pointKey, Point2D stuckPoint) {
+	public Point2D getStuckPoint(IThing pointThing, IThingKey<Point2D> pointKey, Point2D stuckPoint) {
+		checkNotNull(pointThing);
+		checkNotNull(pointKey);
+		checkNotNull(stuckPoint);
+		BNAUtils.checkLock();
+
 		/*
 		 * Check to see if the point is stuck to something, and if stuck to the center point of that thing, return the
 		 * center point rather than the secondary point as this will be more accurate
 		 */
-		PointUpdater updater = getRegistered(pointThing, pointKey);
-		if (updater != null) {
+		for (PointUpdater updater : getRegisteredUpdater(pointThing, pointKey)) {
 			if (updater.stickyMode.isStuckToCenterPoint()) {
 				IHasStickyShape stickyThing = SystemUtils.castOrNull(model.getThing(updater.stickyThingID),
 						IHasStickyShape.class);
 				if (stickyThing != null) {
 
 					// if so, get the center point of what it's stuck to
-					stuckPoint = BNAUtils.getCentralPoint(stickyThing);
+					return BNAUtils.getCentralPoint(stickyThing);
 				}
 			}
 		}
 		return stuckPoint;
 	}
 
-	synchronized public boolean isLoopingPoint(IThing pointThing, IThingKey<Point2D> endpoint1Key,
-			IThingKey<Point2D> endpoint2Key) {
-		PointUpdater endpoint1Updater = getRegistered(pointThing, endpoint1Key);
-		PointUpdater endpoint2Updater = getRegistered(pointThing, endpoint2Key);
-		if (endpoint1Updater != null && endpoint2Updater != null) {
-			if (endpoint1Updater.stickyThingID == endpoint2Updater.stickyThingID) {
+	public boolean isLoopingPoint(IThing pointThing, IThingKey<Point2D> endpoint1Key, IThingKey<Point2D> endpoint2Key) {
+		checkNotNull(pointThing);
+		checkNotNull(endpoint1Key);
+		checkNotNull(endpoint2Key);
+		BNAUtils.checkLock();
+
+		Set<Object> stickyThingID = Sets.newHashSet();
+		for (PointUpdater updater : getRegisteredUpdater(pointThing, endpoint1Key)) {
+			stickyThingID.add(updater.stickyThingID);
+		}
+		for (PointUpdater updater : getRegisteredUpdater(pointThing, endpoint2Key)) {
+			if (stickyThingID.contains(updater.stickyThingID)) {
 				return true;
 			}
 		}

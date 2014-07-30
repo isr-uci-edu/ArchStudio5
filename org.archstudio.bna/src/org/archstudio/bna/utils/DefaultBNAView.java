@@ -53,7 +53,9 @@ public class DefaultBNAView implements IBNAView, IBNAModelListener {
 	}
 
 	@Override
-	synchronized public void dispose() {
+	public void dispose() {
+		BNAUtils.checkLock();
+
 		world.getBNAModel().removeBNAModelListener(this);
 		disposePeers();
 		if (PROFILE) {
@@ -65,7 +67,9 @@ public class DefaultBNAView implements IBNAView, IBNAModelListener {
 	}
 
 	@Override
-	synchronized public void disposePeers() {
+	public void disposePeers() {
+		BNAUtils.checkLock();
+
 		for (Map.Entry<IThing, IThingPeer<?>> entry : peers.entrySet()) {
 			try {
 				entry.getValue().dispose();
@@ -79,16 +83,22 @@ public class DefaultBNAView implements IBNAView, IBNAModelListener {
 
 	@Override
 	public IBNAView getParentView() {
+		BNAUtils.checkLock();
+
 		return parentView;
 	}
 
 	@Override
 	public IBNAUI getBNAUI() {
+		BNAUtils.checkLock();
+
 		return bnaUI;
 	}
 
 	@Override
 	public void setBNAUI(IBNAUI bnaUI) {
+		BNAUtils.checkLock();
+
 		if (!SystemUtils.nullEquals(this.bnaUI, bnaUI)) {
 			this.bnaUI = bnaUI;
 			for (IThing t : getBNAWorld().getBNAModel().getAllThings()) {
@@ -105,16 +115,22 @@ public class DefaultBNAView implements IBNAView, IBNAModelListener {
 
 	@Override
 	public IBNAWorld getBNAWorld() {
+		BNAUtils.checkLock();
+
 		return world;
 	}
 
 	@Override
 	public ICoordinateMapper getCoordinateMapper() {
+		BNAUtils.checkLock();
+
 		return cm;
 	}
 
 	@Override
 	public List<IThing> getThingsAt(ICoordinate location) {
+		BNAUtils.checkLock();
+
 		location = DefaultCoordinate.forWorld(location.getWorldPoint(), cm);
 		List<IThing> things = Lists.newArrayList();
 		for (IThing t : Lists.reverse(getBNAWorld().getBNAModel().getAllThings())) {
@@ -141,7 +157,9 @@ public class DefaultBNAView implements IBNAView, IBNAModelListener {
 
 	@Override
 	@SuppressWarnings("unchecked")
-	synchronized public <T extends IThing> IThingPeer<T> getThingPeer(T thing) {
+	public <T extends IThing> IThingPeer<T> getThingPeer(T thing) {
+		BNAUtils.checkLock();
+
 		Map.Entry<IThing, IThingPeer<?>> peerEntry = peers.createEntry(thing);
 		if (peerEntry.getValue() == null) {
 			peerEntry.setValue(thing.createPeer(this, cm));
@@ -150,7 +168,9 @@ public class DefaultBNAView implements IBNAView, IBNAModelListener {
 	}
 
 	@Override
-	synchronized public void bnaModelChanged(BNAModelEvent evt) {
+	public void bnaModelChanged(BNAModelEvent evt) {
+		BNAUtils.checkLock();
+
 		if (evt.getEventType() == EventType.THING_REMOVED) {
 			IThingPeer<?> peer = peers.remove(evt.getTargetThing());
 			if (peer != null) {

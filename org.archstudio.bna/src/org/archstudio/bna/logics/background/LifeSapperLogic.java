@@ -9,6 +9,8 @@ import org.archstudio.bna.IThingLogicManager;
 import org.archstudio.bna.facets.IHasLife;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.logics.tracking.ThingValueTrackingLogic;
+import org.archstudio.bna.utils.BNAUtils;
+import org.archstudio.sysutils.Finally;
 
 import com.google.common.collect.Lists;
 
@@ -26,12 +28,11 @@ public final class LifeSapperLogic extends AbstractThingLogic {
 					}
 					catch (InterruptedException e) {
 					}
-					for (LifeSapperLogic instance : instances) {
-						IBNAWorld world = instance.world;
-						IBNAModel model = world.getBNAModel();
-						IThingLogicManager logics = world.getThingLogicManager();
-						model.beginBulkChange();
-						try {
+					try (Finally lock = BNAUtils.lock()) {
+						for (LifeSapperLogic instance : instances) {
+							IBNAWorld world = instance.world;
+							IBNAModel model = world.getBNAModel();
+							IThingLogicManager logics = world.getThingLogicManager();
 							ThingValueTrackingLogic valuesLogic = logics.addThingLogic(ThingValueTrackingLogic.class);
 							for (IThing t : valuesLogic.getThings(IHasLife.LIFE_KEY)) {
 								Integer life = t.get(IHasLife.LIFE_KEY);
@@ -41,9 +42,6 @@ public final class LifeSapperLogic extends AbstractThingLogic {
 								}
 								t.set(IHasLife.LIFE_KEY, life.intValue() - 125);
 							}
-						}
-						finally {
-							model.endBulkChange();
 						}
 					}
 				}
@@ -60,7 +58,9 @@ public final class LifeSapperLogic extends AbstractThingLogic {
 	}
 
 	@Override
-	synchronized public void dispose() {
+	public void dispose() {
+		BNAUtils.checkLock();
+
 		instances.remove(this);
 		super.dispose();
 	}

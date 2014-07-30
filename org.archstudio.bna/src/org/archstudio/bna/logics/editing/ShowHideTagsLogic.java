@@ -28,9 +28,9 @@ import org.archstudio.bna.logics.tracking.ThingValueTrackingLogic;
 import org.archstudio.bna.things.labels.AnchoredLabelThing;
 import org.archstudio.bna.ui.IBNAMenuListener;
 import org.archstudio.bna.utils.Assemblies;
+import org.archstudio.bna.utils.BNAAction;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.UserEditableUtils;
-import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.swt.graphics.RGB;
@@ -60,17 +60,19 @@ public class ShowHideTagsLogic extends AbstractThingLogic implements IBNAMenuLis
 	}
 
 	@Override
-	synchronized public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager menu) {
+	public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager menu) {
+		BNAUtils.checkLock();
+
 		if (!things.isEmpty()) {
 			final IHasStickyShape st = Assemblies.getEditableThing(model, firstOrNull(things), IHasStickyShape.class,
 					USER_MAY_SHOW_HIDE_TAG);
 			if (st != null) {
 				final AnchoredLabelThing tt = getTag(st);
 				// lookup tags for thing
-				IAction tagAction = new Action("Show Tag") {
+				IAction tagAction = new BNAAction("Show Tag") {
 
 					@Override
-					public void run() {
+					public void runWithLock() {
 						if (tt == null) {
 							BNAOperations.set("Tag", model, st, SHOW_TAG_KEY, true);
 						}
@@ -86,7 +88,9 @@ public class ShowHideTagsLogic extends AbstractThingLogic implements IBNAMenuLis
 	}
 
 	@Override
-	synchronized public void bnaModelChanged(BNAModelEvent evt) {
+	public void bnaModelChanged(BNAModelEvent evt) {
+		BNAUtils.checkLock();
+
 		switch (evt.getEventType()) {
 		case THING_CHANGED:
 			if (!evt.getThingEvent().getPropertyName().equals(SHOW_TAG_KEY)) {
@@ -121,7 +125,7 @@ public class ShowHideTagsLogic extends AbstractThingLogic implements IBNAMenuLis
 	protected AnchoredLabelThing showTag(IHasStickyShape forThing) {
 		AnchoredLabelThing t = getTag(forThing);
 		if (t == null) {
-			t = model.addThing(new AnchoredLabelThing(Lists.newArrayList(forThing.getID(), "tag")));
+			t = model.addThing(new AnchoredLabelThing(Lists.newArrayList(forThing.getID(), "tag")), forThing);
 			t.setAnchorPoint(BNAUtils.getCentralPoint(forThing));
 			t.setEdgeColor(new RGB(0, 0, 0));
 			UserEditableUtils.addEditableQualities(t, IHasMutableReferencePoint.USER_MAY_MOVE,

@@ -308,6 +308,10 @@ public class XArchADTVariabilityImpl extends XArchADTImpl implements IXArchADTVa
 
 	@Override
 	public ChangeStatus getChangeStatus(ObjRef objRef) {
+		VariabilityStatus vs = getVariabilityStatusCache(objRef);
+		if (vs == null || !vs.isChangeSetsEnabled) {
+			return ChangeStatus.NOT_ENABLED;
+		}
 		return getStatus(get(objRef)).status;
 	}
 

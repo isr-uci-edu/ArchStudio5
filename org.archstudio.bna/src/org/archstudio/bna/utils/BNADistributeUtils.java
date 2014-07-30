@@ -75,6 +75,7 @@ public class BNADistributeUtils {
 				Rectangle currentBounds = ((IHasMutableBoundingBox) distributableThings[i]).getBoundingBox();
 				currentBounds.x = SystemUtils.round(distributeAt);
 				((IHasMutableBoundingBox) distributableThings[i]).setBoundingBox(currentBounds);
+				distributeAt = distributeAt + getWidth(distributableThings[i]) + 10;
 			}
 			else if (distributableThings[i] instanceof IHasMutableAnchorPoint
 					&& distributableThings[i] instanceof IHasBoundingBox) {
@@ -82,13 +83,14 @@ public class BNADistributeUtils {
 				Point2D currentPoint = ((IHasAnchorPoint) distributableThings[i]).getAnchorPoint();
 				currentPoint.setLocation(distributeAt + currentPoint.getX() - currentBounds.x, currentBounds.y);
 				((IHasMutableAnchorPoint) distributableThings[i]).setAnchorPoint(currentPoint);
+				distributeAt = distributeAt + getWidth(distributableThings[i]) + 10;
 			}
 			else if (distributableThings[i] instanceof IHasMutableAnchorPoint) {
 				Point2D currentPoint = ((IHasMutableAnchorPoint) distributableThings[i]).getAnchorPoint();
 				currentPoint.setLocation(distributeAt, currentPoint.getY());
 				((IHasMutableAnchorPoint) distributableThings[i]).setAnchorPoint(currentPoint);
+				distributeAt = distributeAt + 1 + 10;
 			}
-			distributeAt = distributeAt + getWidth(distributableThings[i]) + 10;
 		}
 	}
 
@@ -100,6 +102,7 @@ public class BNADistributeUtils {
 				Rectangle currentBounds = ((IHasMutableBoundingBox) distributableThings[i]).getBoundingBox();
 				currentBounds.y = SystemUtils.round(distributeAt);
 				((IHasMutableBoundingBox) distributableThings[i]).setBoundingBox(currentBounds);
+				distributeAt = distributeAt + getHeight(distributableThings[i]) + 10;
 			}
 			else if (distributableThings[i] instanceof IHasMutableAnchorPoint
 					&& distributableThings[i] instanceof IHasBoundingBox) {
@@ -107,13 +110,14 @@ public class BNADistributeUtils {
 				Point2D currentPoint = ((IHasMutableAnchorPoint) distributableThings[i]).getAnchorPoint();
 				currentPoint.setLocation(currentPoint.getX(), distributeAt + currentPoint.getY() - currentBounds.y);
 				((IHasMutableAnchorPoint) distributableThings[i]).setAnchorPoint(currentPoint);
+				distributeAt = distributeAt + getHeight(distributableThings[i]) + 10;
 			}
 			else if (distributableThings[i] instanceof IHasMutableAnchorPoint) {
 				Point2D currentPoint = ((IHasMutableAnchorPoint) distributableThings[i]).getAnchorPoint();
 				currentPoint.setLocation(currentPoint.getX(), distributeAt);
 				((IHasMutableAnchorPoint) distributableThings[i]).setAnchorPoint(currentPoint);
+				distributeAt = distributeAt + 1 + 10;
 			}
-			distributeAt = distributeAt + getHeight(distributableThings[i]) + 10;
 		}
 	}
 
@@ -124,13 +128,22 @@ public class BNADistributeUtils {
 		double max = Double.NEGATIVE_INFINITY;
 
 		int widthSum = 0;
-		for (IThing distributableThing : distributableThings) {
-			double x = getX(distributableThing);
-			int width = getWidth(distributableThing);
+		int count = 0;
+		for (IThing t : distributableThings) {
+			if (!(t instanceof IHasMutableBoundingBox || t instanceof IHasMutableAnchorPoint)) {
+				continue;
+			}
+			count++;
+			double x = getX(t);
+			int width = getWidth(t);
 			double x2 = x + width;
 			min = Math.min(x, min);
-			max = Math.min(x2, min);
+			max = Math.max(x2, max);
 			widthSum += width;
+		}
+
+		if (count == 0) {
+			return;
 		}
 
 		double leftoverSpace = max - min - widthSum;
@@ -138,33 +151,32 @@ public class BNADistributeUtils {
 			distributeHorizontalTight(distributableThings);
 			return;
 		}
-		double delta = leftoverSpace / (distributableThings.length - 1);
+		double delta = leftoverSpace / count;
 
-		double distributeAt = getX(distributableThings[0]) + getWidth(distributableThings[0]) + delta;
-		for (int i = 1; i < distributableThings.length; i++) {
-			if (distributableThings[i] instanceof IHasMutableBoundingBox) {
-				Rectangle currentBounds = ((IHasMutableBoundingBox) distributableThings[i]).getBoundingBox();
+		double distributeAt = getX(distributableThings[0]);
+		for (IThing distributableThing : distributableThings) {
+			if (distributableThing instanceof IHasMutableBoundingBox) {
+				Rectangle currentBounds = ((IHasMutableBoundingBox) distributableThing).getBoundingBox();
 				currentBounds.x = SystemUtils.round(distributeAt);
-				((IHasMutableBoundingBox) distributableThings[i]).setBoundingBox(currentBounds);
-				distributeAt += currentBounds.width;
+				((IHasMutableBoundingBox) distributableThing).setBoundingBox(currentBounds);
+				distributeAt += currentBounds.width + delta;
 			}
-			else if (distributableThings[i] instanceof IHasMutableAnchorPoint
-					&& distributableThings[i] instanceof IHasBoundingBox) {
-				Rectangle currentBounds = ((IHasBoundingBox) distributableThings[i]).getBoundingBox();
-				Point2D currentPoint = ((IHasMutableAnchorPoint) distributableThings[i]).getAnchorPoint();
+			else if (distributableThing instanceof IHasMutableAnchorPoint
+					&& distributableThing instanceof IHasBoundingBox) {
+				Rectangle currentBounds = ((IHasBoundingBox) distributableThing).getBoundingBox();
+				Point2D currentPoint = ((IHasMutableAnchorPoint) distributableThing).getAnchorPoint();
 				currentPoint.setLocation(
 						distributeAt + currentPoint.getX() - currentBounds.x - currentBounds.width / 2,
 						currentPoint.getY());
-				((IHasMutableAnchorPoint) distributableThings[i]).setAnchorPoint(currentPoint);
-				distributeAt += currentBounds.width;
+				((IHasMutableAnchorPoint) distributableThing).setAnchorPoint(currentPoint);
+				distributeAt += currentBounds.width + delta;
 			}
-			else if (distributableThings[i] instanceof IHasMutableAnchorPoint) {
-				Point2D currentPoint = ((IHasMutableAnchorPoint) distributableThings[i]).getAnchorPoint();
+			else if (distributableThing instanceof IHasMutableAnchorPoint) {
+				Point2D currentPoint = ((IHasMutableAnchorPoint) distributableThing).getAnchorPoint();
 				currentPoint.setLocation(distributeAt, currentPoint.getY());
-				((IHasMutableAnchorPoint) distributableThings[i]).setAnchorPoint(currentPoint);
-				distributeAt += 1;
+				((IHasMutableAnchorPoint) distributableThing).setAnchorPoint(currentPoint);
+				distributeAt += 1 + delta;
 			}
-			distributeAt += delta;
 		}
 	}
 
@@ -175,13 +187,22 @@ public class BNADistributeUtils {
 		double max = Double.NEGATIVE_INFINITY;
 
 		int heightSum = 0;
-		for (IThing distributableThing : distributableThings) {
-			double y = getY(distributableThing);
-			int height = getHeight(distributableThing);
+		int count = 0;
+		for (IThing t : distributableThings) {
+			if (!(t instanceof IHasMutableBoundingBox || t instanceof IHasMutableAnchorPoint)) {
+				continue;
+			}
+			count++;
+			double y = getY(t);
+			int height = getHeight(t);
 			double y2 = y + height;
 			min = Math.min(y, min);
 			max = Math.max(y2, max);
 			heightSum += height;
+		}
+
+		if (count == 0) {
+			return;
 		}
 
 		double leftoverSpace = max - min - heightSum;
@@ -189,32 +210,30 @@ public class BNADistributeUtils {
 			distributeVerticalTight(distributableThings);
 			return;
 		}
-		double delta = leftoverSpace / (distributableThings.length - 1);
+		double delta = leftoverSpace / count;
 
-		double distributeAt = getY(distributableThings[0]) + getHeight(distributableThings[0]) + delta;
-		for (int i = 1; i < distributableThings.length; i++) {
-			if (distributableThings[i] instanceof IHasMutableBoundingBox) {
-				Rectangle currentBounds = ((IHasMutableBoundingBox) distributableThings[i]).getBoundingBox();
+		double distributeAt = getY(distributableThings[0]);
+		for (IThing distributableThing : distributableThings) {
+			if (distributableThing instanceof IHasMutableBoundingBox) {
+				Rectangle currentBounds = ((IHasMutableBoundingBox) distributableThing).getBoundingBox();
 				currentBounds.y = SystemUtils.round(distributeAt);
-				((IHasMutableBoundingBox) distributableThings[i]).setBoundingBox(currentBounds);
-				distributeAt += currentBounds.height;
+				((IHasMutableBoundingBox) distributableThing).setBoundingBox(currentBounds);
+				distributeAt += currentBounds.height + delta;
 			}
-			else if (distributableThings[i] instanceof IHasMutableAnchorPoint
-					&& distributableThings[i] instanceof IHasBoundingBox) {
-				Rectangle currentBounds = ((IHasBoundingBox) distributableThings[i]).getBoundingBox();
-				Point2D currentPoint = ((IHasMutableAnchorPoint) distributableThings[i]).getAnchorPoint();
-				currentPoint.setLocation(currentPoint.getX(), distributeAt + currentPoint.getY() - currentBounds.y
-						- currentBounds.height / 2);
-				((IHasMutableAnchorPoint) distributableThings[i]).setAnchorPoint(currentPoint);
-				distributeAt += currentBounds.height;
+			else if (distributableThing instanceof IHasMutableAnchorPoint
+					&& distributableThing instanceof IHasBoundingBox) {
+				Rectangle currentBounds = ((IHasBoundingBox) distributableThing).getBoundingBox();
+				Point2D currentPoint = ((IHasMutableAnchorPoint) distributableThing).getAnchorPoint();
+				currentPoint.setLocation(currentPoint.getX(), distributeAt - currentBounds.y + currentPoint.getY());
+				((IHasMutableAnchorPoint) distributableThing).setAnchorPoint(currentPoint);
+				distributeAt += currentBounds.height + delta;
 			}
-			else if (distributableThings[i] instanceof IHasMutableAnchorPoint) {
-				Point2D currentPoint = ((IHasMutableAnchorPoint) distributableThings[i]).getAnchorPoint();
+			else if (distributableThing instanceof IHasMutableAnchorPoint) {
+				Point2D currentPoint = ((IHasMutableAnchorPoint) distributableThing).getAnchorPoint();
 				currentPoint.setLocation(currentPoint.getX(), distributeAt);
-				((IHasMutableAnchorPoint) distributableThings[i]).setAnchorPoint(currentPoint);
-				distributeAt += 1;
+				((IHasMutableAnchorPoint) distributableThing).setAnchorPoint(currentPoint);
+				distributeAt += 1 + delta;
 			}
-			distributeAt += delta;
 		}
 	}
 

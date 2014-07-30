@@ -1,5 +1,6 @@
 package org.archstudio.bna.things;
 
+import static com.google.common.base.Preconditions.checkState;
 import static org.archstudio.sysutils.SystemUtils.simpleName;
 
 import java.util.Collections;
@@ -26,12 +27,16 @@ import com.google.common.collect.Sets;
 public abstract class AbstractThing implements IThing {
 
 	private final Object id;
+	private final int hashCode;
 	private final FastMap<IThingKey<?>, Object> properties = new FastMap<>(true);
-	private FastMap<IThingKey<?>, Object> shapeModifyingKeys = new FastMap<>(true);
+	private final FastMap<IThingKey<?>, Object> shapeModifyingKeys = new FastMap<>(true);
+	private boolean initialized;
 
 	public AbstractThing(@Nullable Object id) {
 		this.id = id != null ? id : new Object();
+		hashCode = this.id.hashCode();
 		initProperties();
+		initialized = true;
 	}
 
 	@Override
@@ -41,10 +46,7 @@ public abstract class AbstractThing implements IThing {
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + (id == null ? 0 : id.hashCode());
-		return result;
+		return hashCode;
 	}
 
 	@Override
@@ -64,7 +66,7 @@ public abstract class AbstractThing implements IThing {
 				return false;
 			}
 		}
-		else if (!id.equals(other.id)) {
+		else if (id != other.id && !id.equals(other.id)) {
 			return false;
 		}
 		return true;
@@ -74,25 +76,23 @@ public abstract class AbstractThing implements IThing {
 	}
 
 	protected final <V> void initProperty(IThingKey<V> key, @Nullable V value) {
+		checkState(!initialized, "Method may only be called from initProperties()");
 		properties.put(key, value);
 	}
 
 	protected void addShapeModifyingKey(IThingKey<?> key) {
+		checkState(!initialized, "Method may only be called from initProperties()");
 		shapeModifyingKeys.put(key, null);
 	}
 
 	protected void removeShapeModifyingKey(IThingKey<?> key) {
+		checkState(!initialized, "Method may only be called from initProperties()");
 		shapeModifyingKeys.remove(key);
 	}
 
 	@Override
 	public boolean isShapeModifyingKey(IThingKey<?> key) {
 		return shapeModifyingKeys.containsKey(key);
-	}
-
-	@Override
-	public Set<IThingKey<?>> getShapeModifyingKeys() {
-		return shapeModifyingKeys.keySet();
 	}
 
 	private final CopyOnWriteArrayList<IThingListener> thingListeners = Lists.newCopyOnWriteArrayList();
@@ -121,34 +121,46 @@ public abstract class AbstractThing implements IThing {
 	@Override
 	public final @Nullable
 	<V> V get(IThingKey<V> key) {
+		BNAUtils.checkLock();
+
 		V value = getRaw(key);
 		return value != null ? key.clone(value) : null;
 	}
 
 	@Override
 	public final <V> V get(IThingKey<V> key, V valueIfNull) {
+		BNAUtils.checkLock();
+
 		V value = getRaw(key);
 		return value != null ? key.clone(value) : valueIfNull;
 	}
 
 	@SuppressWarnings("unchecked")
-	protected final synchronized @Nullable
+	protected final @Nullable
 	<V> V getRaw(IThingKey<V> key) {
+		BNAUtils.checkLock();
+
 		return (V) properties.get(key);
 	}
 
 	protected final <V> V getRaw(IThingKey<V> key, V valueIfNull) {
+		BNAUtils.checkLock();
+
 		V value = getRaw(key);
 		return value != null ? value : valueIfNull;
 	}
 
 	@Override
-	synchronized public final boolean has(IThingKey<?> key) {
+	public final boolean has(IThingKey<?> key) {
+		BNAUtils.checkLock();
+
 		return properties.containsKey(key);
 	}
 
 	@Override
-	synchronized public final <V> boolean has(IThingKey<V> key, @Nullable V value) {
+	public final <V> boolean has(IThingKey<V> key, @Nullable V value) {
+		BNAUtils.checkLock();
+
 		Map.Entry<IThingKey<?>, Object> entry = properties.getEntry(key);
 		if (entry != null) {
 			return BNAUtils.like(entry.getValue(), value);
@@ -158,35 +170,35 @@ public abstract class AbstractThing implements IThing {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	synchronized public final <V> V set(IThingKey<V> key, @Nullable V value) {
+	public final <V> V set(IThingKey<V> key, @Nullable V value) {
+		BNAUtils.checkLock();
+
 		if (!key.isNullable() && value == null) {
 			throw new NullPointerException(key.toString());
 		}
 		V oldValue = value;
-		synchronized (this) {
-			Map.Entry<IThingKey<?>, Object> entry = properties.createEntry(key);
-			if (!BNAUtils.like(entry.getValue(), value)) {
-				oldValue = (V) entry.getValue();
-				entry.setValue(key.clone(value));
-				fireThingEvent(ThingEvent.create(ThingEvent.EventType.PROPERTY_SET, this, key, oldValue, value));
-			}
+		Map.Entry<IThingKey<?>, Object> entry = properties.createEntry(key);
+		if (!BNAUtils.like(entry.getValue(), value)) {
+			oldValue = (V) entry.getValue();
+			entry.setValue(key.clone(value));
+			fireThingEvent(ThingEvent.create(ThingEvent.EventType.PROPERTY_SET, this, key, oldValue, value));
 		}
 		return oldValue;
 	}
 
 	@SuppressWarnings("unchecked")
-	synchronized protected final <V> V setRaw(IThingKey<V> key, @Nullable V value) {
+	protected final <V> V setRaw(IThingKey<V> key, @Nullable V value) {
+		BNAUtils.checkLock();
+
 		if (!key.isNullable() && value == null) {
 			throw new NullPointerException(key.toString());
 		}
 		V oldValue = value;
-		synchronized (this) {
-			Map.Entry<IThingKey<?>, Object> entry = properties.createEntry(key);
-			if (!BNAUtils.like(entry.getValue(), value)) {
-				oldValue = (V) entry.getValue();
-				entry.setValue(key.clone(value));
-				fireThingEvent(ThingEvent.create(ThingEvent.EventType.PROPERTY_SET, this, key, oldValue, value));
-			}
+		Map.Entry<IThingKey<?>, Object> entry = properties.createEntry(key);
+		if (!BNAUtils.like(entry.getValue(), value)) {
+			oldValue = (V) entry.getValue();
+			entry.setValue(key.clone(value));
+			fireThingEvent(ThingEvent.create(ThingEvent.EventType.PROPERTY_SET, this, key, oldValue, value));
 		}
 		return oldValue;
 	}
@@ -195,20 +207,21 @@ public abstract class AbstractThing implements IThing {
 	@Override
 	public final @Nullable
 	<V> V remove(IThingKey<V> key) {
+		BNAUtils.checkLock();
+
 		V oldValue = null;
-		synchronized (this) {
-			Map.Entry<IThingKey<?>, Object> entry = properties.removeEntry(key);
-			if (entry != null) {
-				oldValue = (V) entry.getValue();
-				fireThingEvent(ThingEvent.create(ThingEvent.EventType.PROPERTY_REMOVED, this, key, entry.getValue(),
-						null));
-			}
+		Map.Entry<IThingKey<?>, Object> entry = properties.removeEntry(key);
+		if (entry != null) {
+			oldValue = (V) entry.getValue();
+			fireThingEvent(ThingEvent.create(ThingEvent.EventType.PROPERTY_REMOVED, this, key, entry.getValue(), null));
 		}
 		return oldValue;
 	}
 
 	@Override
-	synchronized public Set<Map.Entry<IThingKey<?>, ?>> entrySet() {
+	public Set<Map.Entry<IThingKey<?>, ?>> entrySet() {
+		BNAUtils.checkLock();
+
 		return Collections.unmodifiableSet(Sets.newHashSet(Iterables.transform(properties.entrySet(),
 				new Function<Map.Entry<IThingKey<?>, Object>, Map.Entry<IThingKey<?>, ?>>() {
 					@Override
@@ -234,13 +247,20 @@ public abstract class AbstractThing implements IThing {
 								throw new UnsupportedOperationException();
 							}
 
+							@Override
+							public String toString() {
+								return key + " = " + value;
+							}
+
 						};
 					}
 				})));
 	}
 
 	@Override
-	synchronized public String toString() {
+	public String toString() {
+		BNAUtils.checkLock();
+
 		StringBuffer sb = new StringBuffer();
 		sb.append(simpleName(this.getClass())).append("[id=").append(id);
 		for (Map.Entry<IThingKey<?>, ?> entry : SystemUtils.sortedByKey(properties.entrySet())) {

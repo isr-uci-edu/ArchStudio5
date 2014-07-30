@@ -24,14 +24,18 @@ import org.archstudio.bna.things.shapes.RectangleThing;
 import org.archstudio.bna.things.shapes.SplineThing;
 import org.archstudio.bna.things.utility.GridThing;
 import org.archstudio.bna.things.utility.ShadowThing;
+import org.archstudio.bna.ui.swt.SWTBNAUI;
 import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.BNARenderingSettings;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.DefaultBNAModel;
+import org.archstudio.bna.utils.DefaultBNAView;
 import org.archstudio.bna.utils.DefaultBNAWorld;
+import org.archstudio.bna.utils.LinearCoordinateMapper;
 import org.archstudio.bna.utils.UserEditableUtils;
 import org.archstudio.swtutils.constants.Flow;
 import org.archstudio.swtutils.constants.Orientation;
+import org.archstudio.sysutils.Finally;
 import org.archstudio.sysutils.SystemUtils;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Point;
@@ -44,19 +48,30 @@ import org.eclipse.swt.widgets.Shell;
 public class BNAStressTest {
 
 	public static void main(String[] args) {
-		final Display display = new Display();
-		final Shell shell = new Shell(display);
+		Display display = new Display();
+		Shell shell = new Shell(display);
 		shell.setLayout(new FillLayout());
 
-		final IBNAModel model = new DefaultBNAModel();
-		final IBNAWorld world = new DefaultBNAWorld("top view", model);
-		IThingLogicManager logics = world.getThingLogicManager();
-		final BNACanvas canvas = new BNACanvas(shell, SWT.V_SCROLL | SWT.H_SCROLL, world);
+		IBNAModel model;
+		IBNAWorld world;
+		BNACanvas canvas;
+		IBNAView view;
 
-		BNARenderingSettings.setAntialiasGraphics(canvas, true);
-		BNARenderingSettings.setAntialiasText(canvas, true);
-		BNARenderingSettings.setDecorativeGraphics(canvas, true);
-		BNARenderingSettings.setDisplayShadows(canvas, true);
+		try (Finally lock = BNAUtils.lock()) {
+			model = new DefaultBNAModel();
+			world = new DefaultBNAWorld("top view", model);
+			view = new DefaultBNAView(null, world, new LinearCoordinateMapper());
+			canvas = new BNACanvas(shell, SWT.V_SCROLL | SWT.H_SCROLL, view);
+			canvas.setBNAUI(new SWTBNAUI(view));
+
+			BNARenderingSettings.setAntialiasGraphics(canvas, true);
+			BNARenderingSettings.setAntialiasText(canvas, true);
+			BNARenderingSettings.setDecorativeGraphics(canvas, true);
+			BNARenderingSettings.setDisplayShadows(canvas, true);
+
+			populateModel(canvas.getBNAView(), 40, 40, 3, 2);
+			addUILogics(canvas.getBNAView());
+		}
 
 		canvas.setSize(500, 500);
 		canvas.setBackground(display.getSystemColor(SWT.COLOR_WHITE));
@@ -64,18 +79,17 @@ public class BNAStressTest {
 		shell.setSize(400, 400);
 		shell.open();
 
-		populateModel(canvas.getBNAView(), 40, 40, 3, 2);
-		addUILogics(canvas.getBNAView());
-
 		while (!shell.isDisposed()) {
 			if (!display.readAndDispatch()) {
 				display.sleep();
 			}
 		}
 
-		model.dispose();
-		logics.dispose();
-		world.dispose();
+		try (Finally lock = BNAUtils.lock()) {
+			view.dispose();
+			world.dispose();
+			model.dispose();
+		}
 		display.dispose();
 	}
 
@@ -86,7 +100,6 @@ public class BNAStressTest {
 		tlm.addThingLogic(MarqueeSelectionLogic.class);
 		tlm.addThingLogic(ClickSelectionLogic.class);
 		tlm.addThingLogic(DragMovableLogic.class);
-		//tlm.addThingLogic(DebugLogic.class);
 	}
 
 	private static void populateModel(IBNAView view, int cw, int ch, int itbw, int ilrh) {
@@ -109,8 +122,7 @@ public class BNAStressTest {
 		int sh = 20;
 
 		long lTime = System.nanoTime();
-		model.beginBulkChange();
-		try {
+		try (Finally lock = BNAUtils.lock(); Finally bulkChange = model.beginBulkChange()) {
 			for (int cwi = 0; cwi < cw; cwi++) {
 				for (int chi = 0; chi < ch; chi++) {
 
@@ -178,45 +190,44 @@ public class BNAStressTest {
 							id(id(cwi - 1, chi), Orientation.NORTHEAST, 0));
 				}
 			}
-		}
-		finally {
-			model.endBulkChange();
-		}
-		lTime = System.nanoTime() - lTime;
-		System.err.println("Time to add elements: " + lTime / 1000000f);
+			lTime = System.nanoTime() - lTime;
+			System.err.println("Time to add elements: " + lTime / 1000000f);
 
-		lTime = System.nanoTime();
-		for (IThing thing : model.getAllThings()) {
-			view.getThingPeer(thing);
-		}
-		lTime = System.nanoTime() - lTime;
-		System.err.println("Time to create peers: " + lTime / 1000000f);
+			lTime = System.nanoTime();
+			for (IThing thing : model.getAllThings()) {
+				view.getThingPeer(thing);
+			}
+			lTime = System.nanoTime() - lTime;
+			System.err.println("Time to create peers: " + lTime / 1000000f);
 
-		final RectangleThing b = (RectangleThing) model.getThing(id(0, 0));
-		Thread movement = new Thread(new Runnable() {
-			int degree = 0;
+			final RectangleThing b = (RectangleThing) model.getThing(id(0, 0));
+			Thread movement = new Thread(new Runnable() {
+				int degree = 0;
 
-			@Override
-			public void run() {
-				while (true) {
-					degree++;
-					double radius = 30;
-					double x = radius * Math.cos(degree * Math.PI / 180);
-					double y = radius * Math.sin(degree * Math.PI / 180);
-					Rectangle r = b.getBoundingBox();
-					r.x = SystemUtils.round(x);
-					r.y = SystemUtils.round(y);
-					b.setBoundingBox(r);
-					try {
-						Thread.sleep(1000 / 120);
-					}
-					catch (InterruptedException e) {
+				@Override
+				public void run() {
+					while (true) {
+						try (Finally lock = BNAUtils.lock()) {
+							degree += 15;
+							double radius = 30;
+							double x = radius * Math.cos(degree * Math.PI / 180);
+							double y = radius * Math.sin(degree * Math.PI / 180);
+							Rectangle r = b.getBoundingBox();
+							r.x = SystemUtils.round(x);
+							r.y = SystemUtils.round(y);
+							b.setBoundingBox(r);
+						}
+						try {
+							Thread.sleep(1000 / 120);
+						}
+						catch (InterruptedException e) {
+						}
 					}
 				}
-			}
-		});
-		movement.setDaemon(true);
-		movement.start();
+			});
+			movement.setDaemon(true);
+			movement.start();
+		}
 	}
 
 	private static Object id(int cwi, int chi) {

@@ -2,12 +2,13 @@ package org.archstudio.bna.logics.background;
 
 import java.util.List;
 
-import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThingLogicManager;
 import org.archstudio.bna.facets.IHasMutableRotatingOffset;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.logics.tracking.ThingTypeTrackingLogic;
+import org.archstudio.bna.utils.BNAUtils;
+import org.archstudio.sysutils.Finally;
 
 import com.google.common.collect.Lists;
 
@@ -21,28 +22,23 @@ public final class RotatingOffsetLogic extends AbstractThingLogic {
 			public void run() {
 				while (true) {
 					try {
-						Thread.sleep(125);
+						Thread.sleep(1000 / 6);
 					}
 					catch (InterruptedException e) {
 					}
-					for (RotatingOffsetLogic instance : instances) {
-						if (instance.DEBUG) {
-							continue;
-						}
-						IBNAWorld world = instance.world;
-						IBNAModel model = world.getBNAModel();
-						IThingLogicManager logics = world.getThingLogicManager();
-						model.beginBulkChange();
-						try {
+					try (Finally lock = BNAUtils.lock()) {
+						for (RotatingOffsetLogic instance : instances) {
+							if (instance.DEBUG) {
+								continue;
+							}
+							IBNAWorld world = instance.world;
+							IThingLogicManager logics = world.getThingLogicManager();
 							ThingTypeTrackingLogic typesLogic = logics.addThingLogic(ThingTypeTrackingLogic.class);
 							for (IHasMutableRotatingOffset t : typesLogic.getThings(IHasMutableRotatingOffset.class)) {
 								if (t.shouldIncrementRotatingOffset()) {
 									t.setRotatingOffset(t.getRotatingOffset() + 1);
 								}
 							}
-						}
-						finally {
-							model.endBulkChange();
 						}
 					}
 				}
@@ -62,7 +58,9 @@ public final class RotatingOffsetLogic extends AbstractThingLogic {
 	}
 
 	@Override
-	synchronized public void dispose() {
+	public void dispose() {
+		BNAUtils.checkLock();
+
 		instances.remove(this);
 		super.dispose();
 	}

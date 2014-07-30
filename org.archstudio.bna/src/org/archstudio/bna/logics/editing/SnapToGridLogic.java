@@ -6,6 +6,7 @@ import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.logics.events.DragMoveEvent;
 import org.archstudio.bna.logics.events.DragMoveEventsLogic;
 import org.archstudio.bna.logics.events.IDragMoveListener;
+import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.DefaultCoordinate;
 import org.archstudio.bna.utils.GridUtils;
 import org.eclipse.swt.SWT;
@@ -21,7 +22,9 @@ public class SnapToGridLogic extends AbstractThingLogic implements IDragMoveList
 	Point referencePointToInitialMousePointDelta = new Point(0, 0);
 
 	@Override
-	synchronized public void dragStarted(DragMoveEvent evt) {
+	public void dragStarted(DragMoveEvent evt) {
+		BNAUtils.checkLock();
+
 		referencePointToInitialMousePointDelta.x = referencePointToInitialMousePointDelta.y = 0;
 		if (evt.getInitialThing() instanceof IHasReferencePoint) {
 			int gridSpacing = GridUtils.getGridSpacing(world);
@@ -62,7 +65,9 @@ public class SnapToGridLogic extends AbstractThingLogic implements IDragMoveList
 	}
 
 	@Override
-	synchronized public void dragMoved(DragMoveEvent evt) {
+	public void dragMoved(DragMoveEvent evt) {
+		BNAUtils.checkLock();
+
 		Point adjustedThingWorldPoint = evt.getAdjustedThingLocation().getWorldPoint();
 		Point adjustedMouseWorldPoint = evt.getAdjustedMouseLocation().getWorldPoint();
 
@@ -89,7 +94,7 @@ public class SnapToGridLogic extends AbstractThingLogic implements IDragMoveList
 	}
 
 	@Override
-	synchronized public void dragFinished(DragMoveEvent evt) {
+	public void dragFinished(DragMoveEvent evt) {
 	}
 
 }

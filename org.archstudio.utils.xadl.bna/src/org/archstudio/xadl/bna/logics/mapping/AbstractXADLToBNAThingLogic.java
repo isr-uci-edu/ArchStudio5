@@ -1,16 +1,9 @@
 package org.archstudio.xadl.bna.logics.mapping;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
-import java.util.WeakHashMap;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.ThreadFactory;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import org.archstudio.bna.BNAModelEvent;
 import org.archstudio.bna.BNAModelEvent.EventType;
@@ -22,11 +15,11 @@ import org.archstudio.bna.keys.IThingRefKey;
 import org.archstudio.bna.keys.ThingKey;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.logics.hints.SynchronizeHintsLogic;
-import org.archstudio.bna.logics.information.ProgressLogic;
 import org.archstudio.bna.logics.tracking.ThingValueTrackingLogic;
 import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.BNAPath;
-import org.archstudio.sysutils.SystemUtils;
+import org.archstudio.bna.utils.BNAUtils;
+import org.archstudio.sysutils.Finally;
 import org.archstudio.xadl.IXArchRelativePathTrackerListener;
 import org.archstudio.xadl.XArchRelativePathTracker;
 import org.archstudio.xadl.bna.facets.IHasObjRef;
@@ -34,10 +27,7 @@ import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.IXArchADTModelListener;
 import org.archstudio.xarchadt.ObjRef;
 import org.archstudio.xarchadt.XArchADTModelEvent;
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.jdt.annotation.Nullable;
-import org.eclipse.jface.operation.IRunnableWithProgress;
 
 import com.google.common.collect.Lists;
 
@@ -57,32 +47,9 @@ public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends Abst
 			.create(AbstractXADLToBNAThingLogic.class);
 
 	protected final ThingValueTrackingLogic valueLogic;
-	protected final ProgressLogic progressLogic;
 	protected final IXArchADT xarch;
-	/**
-	 * There are two types of updates to things that can occur: (1) those that are produced as a result of a
-	 * modification to the xADL document (i.e., from this logic), and (2) those that are produced as a result of the
-	 * user's actions or another logic (i.e., not from this logic). This logic should ignore thing events that are
-	 * produced from this logic rather than go through the effort of trying to update the xADL document with values that
-	 * were just read to produce thing changes. The approach is to keep track of the threads that produce thing updates
-	 * and when thing events from those threads are received, ignore them. Thus, all updates should be performed by the
-	 * {@code executor} and the {@code executorThreads} keeps track of what threads are performing the updates.
-	 */
-	private final ThreadPoolExecutor executor = new ThreadPoolExecutor(0, 5, 5L, TimeUnit.SECONDS,
-			new LinkedBlockingQueue<Runnable>(), new ThreadFactory() {
-				@Override
-				public Thread newThread(Runnable r) {
-					Thread t = new Thread(r);
-					t.setName(AbstractXADLToBNAThingLogic.this.getClass().toString());
-					executorThreads.put(t, null);
-					return t;
-				}
-			});
-	private final WeakHashMap<Thread, Object> executorThreads = new WeakHashMap<>();
-	private SubMonitor progress;
-	private AtomicInteger progressAdds = new AtomicInteger();
+	protected final String relativePath;
 
-	private String description = SystemUtils.simpleName(this.getClass().getName());
 	/**
 	 * The {@link XArchRelativePathTracker} used to identify the set of ObjRefs that will be mapped to BNA Assemblies
 	 */
@@ -91,54 +58,36 @@ public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends Abst
 	public AbstractXADLToBNAThingLogic(IBNAWorld world, IXArchADT xarch, ObjRef rootObjRef, String relativePath) {
 		super(world);
 		valueLogic = logics.addThingLogic(ThingValueTrackingLogic.class);
-		progressLogic = logics.addThingLogic(ProgressLogic.class);
 		this.xarch = xarch;
+		this.relativePath = relativePath.replaceAll("\\[[^\\]]*\\]", "");
 		this.tracker = new XArchRelativePathTracker(xarch, rootObjRef, relativePath, false);
 		tracker.addTrackerListener(this);
 	}
 
 	protected void setProgressInfo(String description) {
-		this.description = description;
+		// TODO: implement progress bar
 	}
 
 	@Override
-	synchronized public void init() {
+	public void init() {
+		BNAUtils.checkLock();
+
 		super.init();
-		model.beginBulkChange();
-		try {
-			progressLogic.run(description, new IRunnableWithProgress() {
-				@Override
-				public void run(final IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-					tracker.startScanning();
-					synchronized (executor) {
-						// set up progress and wait for completion
-						int totalWork = tracker.getAddedObjRefs().size();
-						progress = SubMonitor.convert(monitor, description, totalWork);
-						while (progressAdds.get() < totalWork) {
-							try {
-								executor.wait();
-							}
-							catch (InterruptedException e) {
-							}
-						}
-					}
-					model.endBulkChange();
-				}
-			});
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
+		tracker.startScanning();
 	}
 
 	@Override
-	synchronized public void dispose() {
+	public void dispose() {
+		BNAUtils.checkLock();
+
 		tracker.stopScanning();
 		super.dispose();
 	}
 
 	@Override
-	synchronized public void handleXArchADTModelEvent(XArchADTModelEvent evt) {
+	public void handleXArchADTModelEvent(XArchADTModelEvent evt) {
+		// No BNAUtils.checkLock()
+
 		tracker.handleXArchADTModelEvent(evt);
 	}
 
@@ -157,47 +106,29 @@ public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends Abst
 	 */
 
 	@Override
-	synchronized public void processAdd(final List<ObjRef> relLineageRefs, final ObjRef objRef) {
-		executor.execute(new Runnable() {
-			@Override
-			public void run() {
-				model.beginBulkChange();
-				try {
-					// start by creating and updating the thing
-					T thing = addThing(relLineageRefs, objRef);
-					if (thing != null) {
-						updateThing(relLineageRefs, null, objRef, null, thing);
-						// note which ObjRef the thing represents
-						thing.set(IHasObjRef.OBJREF_KEY, objRef);
-						// mark the thing as originating from, and being synchronized by this logic
-						thing.set(MAPPING_KEY, AbstractXADLToBNAThingLogic.this);
-						// restore hints now, so as to avoid extra processing later
-						SynchronizeHintsLogic hintsLogic = logics.getThingLogic(SynchronizeHintsLogic.class);
-						if (hintsLogic != null) {
-							Queue<IThing> restoreHintsThings = new LinkedList<>();
-							restoreHintsThings.add(thing);
-							while (!restoreHintsThings.isEmpty()) {
-								IThing restoreHintsThing = restoreHintsThings.poll();
-								restoreHintsThings.addAll(Assemblies.getParts(model, restoreHintsThing).values());
-								hintsLogic.restoreHints(restoreHintsThing);
-							}
-						}
-					}
-				}
-				finally {
-					model.endBulkChange();
-					progressAdds.incrementAndGet();
-					if (progress != null) {
-						synchronized (executor) {
-							if (progress != null) {
-								progress.worked(1);
-							}
-							executor.notifyAll();
-						}
+	public void processAdd(final List<ObjRef> relLineageRefs, final ObjRef objRef) {
+		try (Finally lock = BNAUtils.lock(); Finally bulkChange = model.beginBulkChange();) {
+			// start by creating and updating the thing
+			T thing = addThing(relLineageRefs, objRef);
+			if (thing != null) {
+				updateThing(relLineageRefs, null, objRef, null, thing);
+				// note which ObjRef the thing represents
+				thing.set(IHasObjRef.OBJREF_KEY, objRef);
+				// mark the thing as originating from, and being  by this logic
+				thing.set(MAPPING_KEY, AbstractXADLToBNAThingLogic.this);
+				// restore hints now, so as to avoid extra processing later
+				SynchronizeHintsLogic hintsLogic = logics.getThingLogic(SynchronizeHintsLogic.class);
+				if (hintsLogic != null) {
+					Queue<IThing> restoreHintsThings = new LinkedList<>();
+					restoreHintsThings.add(thing);
+					while (!restoreHintsThings.isEmpty()) {
+						IThing restoreHintsThing = restoreHintsThings.poll();
+						restoreHintsThings.addAll(Assemblies.getParts(model, restoreHintsThing).values());
+						hintsLogic.restoreHints(restoreHintsThing);
 					}
 				}
 			}
-		});
+		}
 	}
 
 	/**
@@ -206,23 +137,14 @@ public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends Abst
 	 */
 	@Override
 	@SuppressWarnings("unchecked")
-	synchronized public void processUpdate(final List<ObjRef> relLineageRefs, final String relPath,
-			final ObjRef objRef, final XArchADTModelEvent evt) {
-		executor.execute(new Runnable() {
-			@Override
-			public void run() {
-				model.beginBulkChange();
-				try {
-					for (IThing t : valueLogic.getThings(IHasObjRef.OBJREF_KEY, objRef, MAPPING_KEY,
-							AbstractXADLToBNAThingLogic.this)) {
-						updateThing(relLineageRefs, relPath, objRef, evt, (T) t);
-					}
-				}
-				finally {
-					model.endBulkChange();
-				}
+	public void processUpdate(final List<ObjRef> relLineageRefs, final String relPath, final ObjRef objRef,
+			final XArchADTModelEvent evt) {
+		try (Finally lock = BNAUtils.lock(); Finally bulkChange = model.beginBulkChange();) {
+			for (IThing t : valueLogic.getThings(IHasObjRef.OBJREF_KEY, objRef, MAPPING_KEY,
+					AbstractXADLToBNAThingLogic.this)) {
+				updateThing(relLineageRefs, relPath, objRef, evt, (T) t);
 			}
-		});
+		}
 	}
 
 	/**
@@ -230,22 +152,13 @@ public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends Abst
 	 */
 
 	@Override
-	synchronized public void processRemove(final List<ObjRef> relLineageRefs, final ObjRef objRef) {
-		executor.execute(new Runnable() {
-			@Override
-			public void run() {
-				model.beginBulkChange();
-				try {
-					for (IThing t : valueLogic.getThings(IHasObjRef.OBJREF_KEY, objRef, MAPPING_KEY,
-							AbstractXADLToBNAThingLogic.this)) {
-						Assemblies.removeRootAndParts(model, t);
-					}
-				}
-				finally {
-					model.endBulkChange();
-				}
+	public void processRemove(final List<ObjRef> relLineageRefs, final ObjRef objRef) {
+		try (Finally lock = BNAUtils.lock(); Finally bulkChange = model.beginBulkChange();) {
+			for (IThing t : valueLogic.getThings(IHasObjRef.OBJREF_KEY, objRef, MAPPING_KEY,
+					AbstractXADLToBNAThingLogic.this)) {
+				Assemblies.removeRootAndParts(model, t);
 			}
-		});
+		}
 	}
 
 	/**
@@ -254,24 +167,24 @@ public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends Abst
 	 */
 	@Override
 	@SuppressWarnings("unchecked")
-	synchronized public void bnaModelChanged(final BNAModelEvent evt) {
-		if (!executorThreads.containsKey(evt.getThread())) {
-			if (evt.getEventType() == EventType.THING_CHANGED) {
-				IThing thing = evt.getTargetThing();
-				List<IThingRefKey<?>> bnaPathSegments = Lists.newArrayList();
-				while (thing != null) {
-					// look for a BNA Assembly that we've mapped from an ObjRef
-					if (thing.has(MAPPING_KEY, AbstractXADLToBNAThingLogic.this)) {
-						ObjRef objRef = thing.get(IHasObjRef.OBJREF_KEY);
-						if (objRef != null) {
-							storeThingData(objRef, (T) thing, BNAPath.create(Lists.reverse(bnaPathSegments)), evt);
-							break;
-						}
+	public void bnaModelChanged(final BNAModelEvent evt) {
+		BNAUtils.checkLock();
+
+		if (evt.getEventType() == EventType.THING_CHANGED) {
+			IThing thing = evt.getTargetThing();
+			List<IThingRefKey<?>> bnaPathSegments = Lists.newArrayList();
+			while (thing != null) {
+				// look for a BNA Assembly that we've mapped from an ObjRef
+				if (thing.has(MAPPING_KEY, AbstractXADLToBNAThingLogic.this)) {
+					ObjRef objRef = thing.get(IHasObjRef.OBJREF_KEY);
+					if (objRef != null) {
+						storeThingData(objRef, (T) thing, BNAPath.create(Lists.reverse(bnaPathSegments)), evt);
+						break;
 					}
-					// now check to see if this thing is part of an assembly
-					bnaPathSegments.add(Assemblies.getPartName(thing));
-					thing = Assemblies.getRootWithPart(model, thing);
 				}
+				// now check to see if this thing is part of an assembly
+				bnaPathSegments.add(Assemblies.getPartName(thing));
+				thing = Assemblies.getRootWithPart(model, thing);
 			}
 		}
 	}

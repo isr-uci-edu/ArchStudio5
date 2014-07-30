@@ -27,6 +27,7 @@ import org.archstudio.bna.utils.BNAPath;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.UserEditableUtils;
 import org.archstudio.swtutils.constants.Flow;
+import org.archstudio.sysutils.Finally;
 import org.archstudio.xadl.bna.facets.IHasXArchID;
 import org.archstudio.xadl.bna.logics.mapping.AbstractXADLToBNAPathLogic;
 import org.archstudio.xadl.bna.logics.mapping.SynchronizeThingIDAndObjRefLogic;
@@ -101,7 +102,9 @@ public class MapInterfaceLogic extends AbstractXADLToBNAPathLogic<EndpointThing>
 	}
 
 	@Override
-	synchronized public void dispose() {
+	public void dispose() {
+		BNAUtils.checkLock();
+
 		Activator.getDefault().getPreferenceStore().removePropertyChangeListener(this);
 		org.archstudio.archipelago.core.Activator.getDefault().getPreferenceStore().removePropertyChangeListener(this);
 
@@ -114,11 +117,13 @@ public class MapInterfaceLogic extends AbstractXADLToBNAPathLogic<EndpointThing>
 	}
 
 	@Override
-	synchronized public void propertyChange(PropertyChangeEvent event) {
+	public void propertyChange(PropertyChangeEvent event) {
 		loadPreferences();
 
-		for (EndpointThing thing : getAddedThings()) {
-			thing.setLineWidth(defaultLineWidth);
+		try (Finally lock = BNAUtils.lock(); Finally bulkChange = model.beginBulkChange();) {
+			for (EndpointThing thing : getAddedThings()) {
+				thing.setLineWidth(defaultLineWidth);
+			}
 		}
 	}
 

@@ -14,6 +14,7 @@ import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.things.borders.PulsingBorderThing;
 import org.archstudio.bna.ui.IBNADragAndDropListener;
+import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.myx.fw.Services;
 import org.archstudio.xarchadt.ObjRef;
 
@@ -41,7 +42,9 @@ public abstract class AbstractTreeDropLogic extends AbstractThingLogic implement
 	}
 
 	@Override
-	synchronized public void dragExit(IBNAView view, DNDType type) {
+	public void dragExit(IBNAView view, DNDType type) {
+		BNAUtils.checkLock();
+
 		if (pulser != null) {
 			model.removeThing(pulser);
 			pulser = null;
@@ -49,7 +52,9 @@ public abstract class AbstractTreeDropLogic extends AbstractThingLogic implement
 	}
 
 	@Override
-	synchronized public void drag(IBNAView view, DNDType type, DNDData data, List<IThing> things, ICoordinate location) {
+	public void drag(IBNAView view, DNDType type, DNDData data, List<IThing> things, ICoordinate location) {
+		BNAUtils.checkLock();
+
 		if (acceptDrop(view, type, data, things, location)) {
 			IThing t = firstOrNull(things);
 			if (pulser == null && t != null && t instanceof IHasBoundingBox) {
@@ -74,7 +79,9 @@ public abstract class AbstractTreeDropLogic extends AbstractThingLogic implement
 	}
 
 	@Override
-	synchronized public void drop(IBNAView view, DNDType type, DNDData data, List<IThing> things, ICoordinate location) {
+	public void drop(IBNAView view, DNDType type, DNDData data, List<IThing> things, ICoordinate location) {
+		BNAUtils.checkLock();
+
 		if (pulser != null) {
 			model.removeThing(pulser);
 			pulser = null;

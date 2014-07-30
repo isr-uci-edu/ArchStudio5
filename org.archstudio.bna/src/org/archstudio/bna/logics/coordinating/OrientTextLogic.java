@@ -7,6 +7,7 @@ import org.archstudio.bna.facets.IHasEndpoints;
 import org.archstudio.bna.facets.IHasHorizontalAlignment;
 import org.archstudio.bna.facets.IHasVerticalAlignment;
 import org.archstudio.bna.logics.AbstractThingLogic;
+import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.swtutils.constants.HorizontalAlignment;
 import org.archstudio.swtutils.constants.VerticalAlignment;
 
@@ -21,8 +22,9 @@ public class OrientTextLogic extends AbstractThingLogic {
 		mirrorLogic = logics.addThingLogic(MirrorValueLogic.class);
 	}
 
-	synchronized public <T extends IHasHorizontalAlignment & IHasVerticalAlignment> void orientText(
-			final IHasEndpoints pointsThing, final T orientationThing) {
+	public <T extends IHasHorizontalAlignment & IHasVerticalAlignment> void orientText(final IHasEndpoints pointsThing,
+			final T orientationThing, final boolean reverse) {
+		BNAUtils.checkLock();
 
 		Function<Object, HorizontalAlignment> horizontalFunction = new Function<Object, HorizontalAlignment>() {
 			@Override
@@ -33,10 +35,10 @@ public class OrientTextLogic extends AbstractThingLogic {
 				double dy = p2.getY() - p1.getY();
 				double angle = Math.atan2(dy, dx);
 				if (angle > Math.PI / 8 && angle < Math.PI * 7 / 8) {
-					return HorizontalAlignment.LEFT;
+					return reverse ? HorizontalAlignment.RIGHT : HorizontalAlignment.LEFT;
 				}
 				if (-angle > Math.PI / 8 && -angle < Math.PI * 7 / 8) {
-					return HorizontalAlignment.RIGHT;
+					return reverse ? HorizontalAlignment.LEFT : HorizontalAlignment.RIGHT;
 				}
 				return HorizontalAlignment.CENTER;
 			}
@@ -50,10 +52,10 @@ public class OrientTextLogic extends AbstractThingLogic {
 				double dy = p2.getY() - p1.getY();
 				double angle = Math.atan2(dx, dy);
 				if (angle > Math.PI / 8 && angle < Math.PI * 7 / 8) {
-					return VerticalAlignment.BOTTOM;
+					return reverse ? VerticalAlignment.TOP : VerticalAlignment.BOTTOM;
 				}
 				if (-angle > Math.PI / 8 && -angle < Math.PI * 7 / 8) {
-					return VerticalAlignment.TOP;
+					return reverse ? VerticalAlignment.BOTTOM : VerticalAlignment.TOP;
 				}
 				return VerticalAlignment.MIDDLE;
 			}

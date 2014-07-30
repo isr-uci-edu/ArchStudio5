@@ -14,6 +14,7 @@ import org.archstudio.bna.keys.IThingMetakey;
 import org.archstudio.bna.keys.IThingRefKey;
 import org.archstudio.bna.keys.ThingMetakey;
 import org.archstudio.bna.logics.AbstractKeyCoordinatingThingLogic;
+import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.xadl.bna.facets.IHasXArchID;
 
 import com.google.common.collect.Sets;
@@ -28,7 +29,9 @@ public class SynchronizeThingIDAndXArchIDLogic extends AbstractKeyCoordinatingTh
 		track(IHasXArchID.XARCH_ID_KEY);
 	}
 
-	synchronized public IThingKey<String> syncXArchIDKeyToThingIDKey(IThingRefKey<?> thingRefKey) {
+	public IThingKey<String> syncXArchIDKeyToThingIDKey(IThingRefKey<?> thingRefKey) {
+		BNAUtils.checkLock();
+
 		track(thingRefKey);
 		IThingMetakey<?, IThingRefKey<?>, String> xArchIDMetakey = _syncXArchIDKeyToThingIDKey(thingRefKey);
 		xArchIDMetakeys.add(xArchIDMetakey);
@@ -75,7 +78,7 @@ public class SynchronizeThingIDAndXArchIDLogic extends AbstractKeyCoordinatingTh
 	}
 
 	@Override
-	synchronized public void bnaModelChanged(BNAModelEvent evt) {
+	public void bnaModelChanged(BNAModelEvent evt) {
 		super.bnaModelChanged(evt);
 		if (evt.getEventType() == EventType.THING_REMOVED) {
 			IThing thing = evt.getTargetThing();

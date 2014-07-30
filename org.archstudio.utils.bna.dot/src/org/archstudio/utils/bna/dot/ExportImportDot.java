@@ -28,6 +28,7 @@ import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.logics.coordinating.StickPointLogic;
 import org.archstudio.bna.ui.IBNAMenuListener;
 import org.archstudio.bna.utils.Assemblies;
+import org.archstudio.bna.utils.BNAAction;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.graphlayout.GraphLayoutConstants;
 import org.archstudio.swtutils.SWTWidgetUtils;
@@ -35,7 +36,6 @@ import org.archstudio.sysutils.NativeProcess;
 import org.archstudio.sysutils.SystemUtils;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.SubMonitor;
-import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
@@ -126,10 +126,12 @@ public class ExportImportDot extends AbstractThingLogic implements IBNAMenuListe
 	}
 
 	@Override
-	synchronized public void fillMenu(final IBNAView view, List<IThing> things, ICoordinate location, IMenuManager menu) {
-		menu.add(new Action("Layout using Dot") {
+	public void fillMenu(final IBNAView view, List<IThing> things, ICoordinate location, IMenuManager menu) {
+		BNAUtils.checkLock();
+
+		menu.add(new BNAAction("Layout using Dot") {
 			@Override
-			public void run() {
+			public void runWithLock() {
 				try {
 					layout(view, Sets.newHashSet(BNAUtils.getSelectedThings(view.getBNAWorld().getBNAModel())));
 				}

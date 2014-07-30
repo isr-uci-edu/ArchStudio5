@@ -34,6 +34,7 @@ import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.UserEditableUtils;
 import org.archstudio.myx.fw.Services;
 import org.archstudio.swtutils.constants.FontStyle;
+import org.archstudio.sysutils.Finally;
 import org.archstudio.xadl.XadlUtils;
 import org.archstudio.xadl.bna.facets.IHasObjRef;
 import org.archstudio.xadl.bna.facets.IHasXArchID;
@@ -84,11 +85,10 @@ public class MapBrickLogic extends AbstractXADLToBNAPathLogic<RectangleThing> im
 		syncValue("id", null, null, BNAPath.create(), IHasXArchID.XARCH_ID_KEY, true);
 		syncValue("name", null, "[no name]", BNAPath.create(Assemblies.BOUNDED_TEXT_KEY), IHasText.TEXT_KEY, true);
 		syncValue("name", null, "[no name]", BNAPath.create(), IHasToolTip.TOOL_TIP_KEY, true);
-		addBNAUpdater(new IBNAUpdater() {
+		addBNAUpdater("subStructure", new IBNAUpdater() {
 
 			@Override
 			public void updateBNA(ObjRef objRef, String xadlPath, XArchADTModelEvent evt, RectangleThing rootThing) {
-
 				updateSubstructure(objRef, xadlPath, evt, rootThing);
 			}
 		});
@@ -102,7 +102,9 @@ public class MapBrickLogic extends AbstractXADLToBNAPathLogic<RectangleThing> im
 	}
 
 	@Override
-	synchronized public void dispose() {
+	public void dispose() {
+		BNAUtils.checkLock();
+
 		Activator.getDefault().getPreferenceStore().removePropertyChangeListener(this);
 		org.archstudio.archipelago.core.Activator.getDefault().getPreferenceStore().removePropertyChangeListener(this);
 
@@ -117,23 +119,25 @@ public class MapBrickLogic extends AbstractXADLToBNAPathLogic<RectangleThing> im
 	}
 
 	@Override
-	synchronized public void propertyChange(PropertyChangeEvent event) {
+	public void propertyChange(PropertyChangeEvent event) {
 		loadPreferences();
 
-		for (RectangleThing thing : getAddedThings()) {
-			if (event.getProperty().equals(defaultColorPref)) {
-				RGB oldColor = toRGB(event.getOldValue());
-				if (thing.getColor().equals(oldColor)) {
-					thing.setColor(defaultColor);
+		try (Finally lock = BNAUtils.lock(); Finally bulkChange = model.beginBulkChange();) {
+			for (RectangleThing thing : getAddedThings()) {
+				if (event.getProperty().equals(defaultColorPref)) {
+					RGB oldColor = toRGB(event.getOldValue());
+					if (thing.getColor().equals(oldColor)) {
+						thing.setColor(defaultColor);
+					}
 				}
+
+				BoundedLabelThing label = Assemblies.BOUNDED_TEXT_KEY.get(thing, model);
+				label.setFontName(defaultFont.getName());
+				label.setFontSize(defaultFont.getHeight());
+				label.setFontStyle(FontStyle.fromSWT(defaultFont.getStyle()));
+
+				thing.setLineWidth(defaultLineWidth);
 			}
-
-			BoundedLabelThing label = Assemblies.BOUNDED_TEXT_KEY.get(thing, model);
-			label.setFontName(defaultFont.getName());
-			label.setFontSize(defaultFont.getHeight());
-			label.setFontStyle(FontStyle.fromSWT(defaultFont.getStyle()));
-
-			thing.setLineWidth(defaultLineWidth);
 		}
 	}
 
@@ -168,7 +172,7 @@ public class MapBrickLogic extends AbstractXADLToBNAPathLogic<RectangleThing> im
 					@Override
 					@Nullable
 					public RGB apply(@Nullable RGB input) {
-						return BNAUtils.adjustBrightness(input, 1.5f);
+						return BNAUtils.adjustBrightness(input, 1.2f);
 					}
 				});
 

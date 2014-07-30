@@ -367,7 +367,7 @@ public class ArchipelagoOutlinePage extends AbstractArchStudioOutlinePage implem
 		public Image getImage(Object element) {
 
 			if (element instanceof ObjRef) {
-				Image img = ResourceCache.getIcon16(xarch, (ObjRef) element);
+				Image img = ResourceCache.getIcon(xarch, (ObjRef) element);
 				if (img != null) {
 					return img;
 				}

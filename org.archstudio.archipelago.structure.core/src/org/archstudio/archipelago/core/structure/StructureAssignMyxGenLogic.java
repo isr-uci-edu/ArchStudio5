@@ -15,6 +15,8 @@ import org.archstudio.bna.IThing;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.ui.IBNAMenuListener;
 import org.archstudio.bna.utils.Assemblies;
+import org.archstudio.bna.utils.BNAAction;
+import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.myxgen.MyxGenBrick;
 import org.archstudio.myxgen.MyxGenInterface;
 import org.archstudio.myxgen.eclipse.extension.MyxGenWorkspaceExtensions;
@@ -44,7 +46,6 @@ import org.archstudio.xadl3.structure_3_0.Structure_3_0Package;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
 import org.archstudio.xarchadt.XArchADTProxy;
-import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
@@ -64,7 +65,9 @@ public class StructureAssignMyxGenLogic extends AbstractThingLogic implements IB
 	}
 
 	@Override
-	synchronized public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager menu) {
+	public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager menu) {
+		BNAUtils.checkLock();
+
 		IThing thing = Assemblies.getThingWithProperty(model, firstOrNull(things), IHasObjRef.OBJREF_KEY);
 		if (thing != null) {
 			final ObjRef objRef = thing.get(IHasObjRef.OBJREF_KEY);
@@ -79,9 +82,9 @@ public class StructureAssignMyxGenLogic extends AbstractThingLogic implements IB
 						}
 					});
 					menu.add(myxGenMenu);
-					myxGenMenu.add(new Action("Place holder needed to show menu") {
+					myxGenMenu.add(new BNAAction("Place holder needed to show menu") {
 						@Override
-						public void run() {
+						public void runWithLock() {
 						}
 					});
 				}
@@ -105,10 +108,10 @@ public class StructureAssignMyxGenLogic extends AbstractThingLogic implements IB
 				}
 			});
 			for (final MyxGenBrick myxGenBrick : myxGenBricks) {
-				projectMenu.add(new Action(myxGenBrick.getName()) {
+				projectMenu.add(new BNAAction(myxGenBrick.getName()) {
 
 					@Override
-					public void run() {
+					public void runWithLock() {
 						assignMyxGenBrick(objRef, myxGenBrick);
 					}
 				});

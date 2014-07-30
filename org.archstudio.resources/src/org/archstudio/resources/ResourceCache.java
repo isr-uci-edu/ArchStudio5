@@ -37,7 +37,7 @@ public class ResourceCache {
 		return imageCache.getUnchecked(url);
 	}
 
-	public static final Image getIcon16(IXArchADT xarch, ObjRef objRef) {
+	public static final Image getIcon(IXArchADT xarch, ObjRef objRef) {
 		IXArchADTTypeMetadata typeMetadata = xarch.getTypeMetadata(objRef);
 		String nsURI = typeMetadata.getNsURI();
 		EPackage ePackage = EPackage.Registry.INSTANCE.getEPackage(nsURI);
@@ -47,13 +47,13 @@ public class ResourceCache {
 			if (eClassifier instanceof EClass) {
 				EClass eClass = (EClass) eClassifier;
 				Class<?> instanceClass = eClass.getInstanceClass();
-				return getIcon16(instanceClass);
+				return getIcon(instanceClass);
 			}
 		}
 		return null;
 	}
 
-	public static final Image getIcon16(Class<?> forClass) {
+	public static final Image getIcon(Class<?> forClass) {
 		URL imageURL = IconUtils.getIconForType(forClass);
 		if (imageURL != null) {
 			return ResourceCache.getImage(imageURL);

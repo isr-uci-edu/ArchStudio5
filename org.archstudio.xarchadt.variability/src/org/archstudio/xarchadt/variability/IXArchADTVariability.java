@@ -34,7 +34,9 @@ public interface IXArchADTVariability extends IXArchADT {
 		/** Indicates that the objRef can be added by an unapplied change set */
 		OVERVIEW(false),
 		/** Indicates that the objRef is added by the applied change sets */
-		ATTACHED(true);
+		ATTACHED(true),
+		/** Indicates that change sets are not enabled for this document */
+		NOT_ENABLED(true);
 
 		private final boolean attached;
 

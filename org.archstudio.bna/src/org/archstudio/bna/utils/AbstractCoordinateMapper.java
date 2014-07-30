@@ -8,7 +8,6 @@ import org.archstudio.bna.CoordinateMapperEvent;
 import org.archstudio.bna.CoordinateMapperEvent.EventType;
 import org.archstudio.bna.ICoordinateMapperListener;
 import org.archstudio.bna.IMutableCoordinateMapper;
-import org.archstudio.sysutils.SystemUtils;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 
@@ -57,24 +56,24 @@ public abstract class AbstractCoordinateMapper implements IMutableCoordinateMapp
 		listeners.remove(l);
 	}
 
-	protected synchronized void fireCoordinateMapperEvent(EventType eventtType) {
+	protected void fireCoordinateMapperEvent(EventType eventtType) {
 		fireCoordinateMapperEvent(new CoordinateMapperEvent(this, eventtType, worldBounds, getLocalOrigin(),
 				getLocalScale()));
 	}
 
-	protected synchronized void fireCoordinateMapperEvent(CoordinateMapperEvent evt) {
+	protected void fireCoordinateMapperEvent(CoordinateMapperEvent evt) {
 		for (ICoordinateMapperListener l : listeners) {
 			l.coordinateMappingsChanged(evt);
 		}
 	}
 
 	@Override
-	public synchronized Rectangle getWorldBounds() {
+	public Rectangle getWorldBounds() {
 		return BNAUtils.clone(worldBounds);
 	}
 
 	@Override
-	public synchronized void setWorldBounds(Rectangle worldBounds) {
+	public void setWorldBounds(Rectangle worldBounds) {
 		if (!this.worldBounds.equals(worldBounds)) {
 			this.worldBounds = BNAUtils.clone(worldBounds);
 			fireCoordinateMapperEvent(EventType.WORLD_BOUNDS);
@@ -101,7 +100,7 @@ public abstract class AbstractCoordinateMapper implements IMutableCoordinateMapp
 
 	@Override
 	public void setLocalScale(double localScale) {
-		localScale = SystemUtils.bound(MIN_SCALE, localScale, MAX_SCALE);
+		//localScale = SystemUtils.bound(MIN_SCALE, localScale, MAX_SCALE);
 		if (Math.abs(this.localScale - localScale) > Double.MIN_VALUE) {
 			this.localScale = localScale;
 			fireCoordinateMapperEvent(EventType.LOCAL_SCALE);
@@ -121,7 +120,7 @@ public abstract class AbstractCoordinateMapper implements IMutableCoordinateMapp
 
 	@Override
 	public void setLocalScaleAndAlign(double localScale, Point localPoint, Point worldPoint) {
-		localScale = SystemUtils.bound(MIN_SCALE, localScale, MAX_SCALE);
+		//localScale = SystemUtils.bound(MIN_SCALE, localScale, MAX_SCALE);
 		if (Math.abs(this.localScale - localScale) > Double.MIN_VALUE) {
 			this.localScale = localScale;
 			Point oldLocalPoint = worldToLocal(new Point(worldPoint.x, worldPoint.y));

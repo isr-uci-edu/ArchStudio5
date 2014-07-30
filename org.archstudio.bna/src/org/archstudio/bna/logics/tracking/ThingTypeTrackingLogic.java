@@ -11,6 +11,7 @@ import org.archstudio.bna.IBNAModelListener;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.logics.AbstractThingLogic;
+import org.archstudio.bna.utils.BNAUtils;
 
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
@@ -39,13 +40,17 @@ public class ThingTypeTrackingLogic extends AbstractThingLogic implements IBNAMo
 	}
 
 	@Override
-	synchronized public void dispose() {
+	public void dispose() {
+		BNAUtils.checkLock();
+
 		classToThingIDsCache.invalidateAll();
 		super.dispose();
 	}
 
 	@Override
-	synchronized public void bnaModelChanged(BNAModelEvent evt) {
+	public void bnaModelChanged(BNAModelEvent evt) {
+		BNAUtils.checkLock();
+
 		switch (evt.getEventType()) {
 		case THING_ADDED: {
 			IThing t = evt.getTargetThing();
@@ -71,11 +76,15 @@ public class ThingTypeTrackingLogic extends AbstractThingLogic implements IBNAMo
 		}
 	}
 
-	synchronized public List<Object> getThingIDs(Class<? extends IThing> ofType) {
+	public List<Object> getThingIDs(Class<? extends IThing> ofType) {
+		BNAUtils.checkLock();
+
 		return Lists.newArrayList(classToThingIDsCache.getUnchecked(ofType));
 	}
 
-	synchronized public <T extends IThing> List<T> getThings(Class<T> ofType) {
+	public <T extends IThing> List<T> getThings(Class<T> ofType) {
+		BNAUtils.checkLock();
+
 		return filter(model.getThingsByID(classToThingIDsCache.getUnchecked(ofType)), ofType);
 	}
 }

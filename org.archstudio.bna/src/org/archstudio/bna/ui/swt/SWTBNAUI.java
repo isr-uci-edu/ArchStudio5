@@ -4,7 +4,9 @@ import java.awt.image.BufferedImage;
 
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ui.utils.AbstractSWTUI;
+import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.swtutils.SWTWidgetUtils;
+import org.archstudio.sysutils.Finally;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
@@ -72,12 +74,15 @@ public class SWTBNAUI extends AbstractSWTUI implements PaintListener {
 
 	@Override
 	public void paintControl(PaintEvent e) {
-		if (resources == null) {
-			resources = new SWTResources();
+		try (Finally lock = BNAUtils.lock()) {
+			if (resources == null) {
+				resources = new SWTResources();
+			}
+			resources.setGc(e.gc);
+			loadPreferences(resources, parent);
+			resources.renderTopLevelThings(view, new Rectangle(e.x, e.y, e.width, e.height));
+			resources.invalidate();
 		}
-		resources.setGc(e.gc);
-		loadPreferences(resources, parent);
-		resources.renderTopLevelThings(view, new Rectangle(e.x, e.y, e.width, e.height));
 	}
 
 	@Override

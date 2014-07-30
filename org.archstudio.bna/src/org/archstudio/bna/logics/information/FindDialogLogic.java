@@ -10,9 +10,10 @@ import org.archstudio.bna.constants.KeyType;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.ui.IBNAKeyListener;
 import org.archstudio.bna.ui.IBNAMenuListener;
+import org.archstudio.bna.utils.BNAAction;
+import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.swtutils.FindDialog;
 import org.archstudio.swtutils.IFinder;
-import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.Separator;
@@ -33,8 +34,10 @@ public class FindDialogLogic extends AbstractThingLogic implements IBNAKeyListen
 	}
 
 	@Override
-	synchronized public void keyPressed(IBNAView view, KeyType type, KeyEvent e) {
-		//Only respond if we are the top-level view.
+	public void keyPressed(IBNAView view, KeyType type, KeyEvent e) {
+		BNAUtils.checkLock();
+
+		// Only respond if we are the top-level view.
 		if (view.getParentView() == null) {
 			//102 == f
 			if (e.keyCode == 102 && e.stateMask == SWT.CONTROL) {
@@ -44,17 +47,18 @@ public class FindDialogLogic extends AbstractThingLogic implements IBNAKeyListen
 	}
 
 	@Override
-	synchronized public void keyReleased(IBNAView view, KeyType type, KeyEvent e) {
+	public void keyReleased(IBNAView view, KeyType type, KeyEvent e) {
 	}
 
 	@Override
-	synchronized public void fillMenu(final IBNAView view, List<IThing> things, final ICoordinate location,
-			IMenuManager menu) {
+	public void fillMenu(final IBNAView view, List<IThing> things, final ICoordinate location, IMenuManager menu) {
+		BNAUtils.checkLock();
+
 		if (view.getParentView() == null) {
-			IAction findAction = new Action("Find...") {
+			IAction findAction = new BNAAction("Find...") {
 
 				@Override
-				public void run() {
+				public void runWithLock() {
 					Point localPoint = location.getLocalPoint();
 					showFindDialog(view, localPoint.x, localPoint.y);
 				}
@@ -64,7 +68,7 @@ public class FindDialogLogic extends AbstractThingLogic implements IBNAKeyListen
 		}
 	}
 
-	synchronized public void showFindDialog(IBNAView view, int localX, int localY) {
+	public void showFindDialog(IBNAView view, int localX, int localY) {
 		if (fd != null && fd.getShell() != null && !fd.getShell().isDisposed()) {
 			fd.getParent().setActive();
 			fd.getParent().setFocus();

@@ -41,7 +41,9 @@ public class MaintainMappingLogic extends AbstractThingLogic implements IBNAMode
 	}
 
 	@Override
-	synchronized public void bnaModelChanged(BNAModelEvent evt) {
+	public void bnaModelChanged(BNAModelEvent evt) {
+		BNAUtils.checkLock();
+
 		switch (evt.getEventType()) {
 		case THING_ADDED: {
 			IThing t = evt.getTargetThing();
@@ -67,7 +69,8 @@ public class MaintainMappingLogic extends AbstractThingLogic implements IBNAMode
 	}
 
 	@Override
-	synchronized public void internalBNAModelChanged(IHasWorld src, BNAModelEvent evt) {
+	public void internalBNAModelChanged(IHasWorld src, BNAModelEvent evt) {
+		BNAUtils.checkLock();
 
 		switch (evt.getEventType()) {
 		case THING_ADDED: {

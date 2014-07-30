@@ -11,12 +11,12 @@ import java.awt.geom.Rectangle2D;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.ICoordinateMapper;
-import org.archstudio.bna.IMutableCoordinateMapper;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThingPeer;
 import org.archstudio.bna.facets.IHasAnchorPoint;
@@ -25,14 +25,12 @@ import org.archstudio.bna.facets.IHasSelected;
 import org.archstudio.bna.facets.IHasStickyShape;
 import org.archstudio.bna.facets.IHasWorld;
 import org.archstudio.bna.facets.peers.IHasInnerViewPeer;
-import org.archstudio.bna.keys.IThingKey;
-import org.archstudio.bna.keys.ThingKey;
-import org.archstudio.bna.things.utility.EnvironmentPropertiesThing;
 import org.archstudio.swtutils.SWTWidgetUtils;
 import org.archstudio.swtutils.constants.Orientation;
 import org.archstudio.sysutils.ExpandableFloatBuffer;
 import org.archstudio.sysutils.ExpandableIntBuffer;
 import org.archstudio.sysutils.FastMap;
+import org.archstudio.sysutils.Finally;
 import org.archstudio.sysutils.SystemUtils;
 import org.archstudio.sysutils.UIDGenerator;
 import org.eclipse.jdt.annotation.Nullable;
@@ -53,11 +51,13 @@ import com.google.common.collect.Collections2;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.util.concurrent.CycleDetectingLockFactory;
+import com.google.common.util.concurrent.CycleDetectingLockFactory.Policies;
 
 public class BNAUtils {
 
-	public static final CycleDetectingLockFactory LOCK_FACTORY = CycleDetectingLockFactory
-			.newInstance(CycleDetectingLockFactory.Policies.DISABLED);
+	private static final ReentrantReadWriteLock LOCK = CycleDetectingLockFactory.newInstance(Policies.DISABLED)
+			.newReentrantReadWriteLock(BNAUtils.class.getName(), true);
+
 	public static final double TO_POINTS_ERROR = 0.5d;
 	public static final double TO_POINTS_ERROR_SQ = TO_POINTS_ERROR * TO_POINTS_ERROR;
 	public static final double REAL_EQUAL_THRESHOLD = 0.0000001d;
@@ -68,9 +68,27 @@ public class BNAUtils {
 		return thingClass.isInstance(thing) ? (T) thing : null;
 	}
 
-	public static final IThingKey<Double> SCALE_KEY = ThingKey.create("scale");
-	public static final IThingKey<Point> LOCAL_KEY = ThingKey.create("local");
-	public static final IThingKey<Point> WORLD_KEY = ThingKey.create("world");
+	private static final Finally UNLOCK = new Finally() {
+
+		@Override
+		public void close() {
+			LOCK.writeLock().unlock();
+		}
+	};
+
+	public static Finally lock() {
+		LOCK.writeLock().lock();
+		return UNLOCK;
+	}
+
+	/**
+	 * Asserts that the current thread has the lock. The lock is required for <b><i>any</i></b> BNA related method call.
+	 */
+	public static void checkLock() {
+		if (!LOCK.writeLock().isHeldByCurrentThread()) {
+			throw new IllegalStateException("Thread does not hold current lock");
+		}
+	}
 
 	public static Rectangle normalizeRectangle(Rectangle rectangleResult) {
 		if (rectangleResult.width < 0) {
@@ -773,20 +791,6 @@ public class BNAUtils {
 		return Iterables.size(getSelectedThings(m));
 	}
 
-	public static void saveCoordinateMapperData(ICoordinateMapper cm, EnvironmentPropertiesThing ept) {
-		ept.set(SCALE_KEY, cm.getLocalScale());
-		ept.set(LOCAL_KEY, cm.getLocalOrigin());
-		ept.set(WORLD_KEY, cm.localToWorld(cm.getLocalOrigin()));
-	}
-
-	public static void restoreCoordinateMapperData(IMutableCoordinateMapper cm, EnvironmentPropertiesThing ept) {
-		try {
-			cm.setLocalScaleAndAlign(ept.get(SCALE_KEY), ept.get(LOCAL_KEY), ept.get(WORLD_KEY));
-		}
-		catch (Exception e) {
-		}
-	}
-
 	public static boolean infinitelyRecurses(IBNAView view) {
 		IBNAWorld world = view.getBNAWorld();
 		if (world == null) {
@@ -1224,4 +1228,5 @@ public class BNAUtils {
 		}
 		return p;
 	}
+
 }

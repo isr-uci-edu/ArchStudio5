@@ -1,7 +1,6 @@
 package org.archstudio.bna.utils;
 
-import java.util.Deque;
-import java.util.LinkedList;
+import java.util.Collection;
 import java.util.List;
 
 import org.archstudio.bna.BNAModelEvent;
@@ -11,115 +10,94 @@ import org.archstudio.bna.IBNAModelListener;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThingListener;
 import org.archstudio.bna.ThingEvent;
+import org.archstudio.sysutils.Finally;
 import org.eclipse.jdt.annotation.Nullable;
 
 import com.google.common.collect.Lists;
 
 public class DefaultBNAModel implements IBNAModel, IThingListener {
 
-	private ThingTree thingTree = new ThingTree();
-	private List<IBNAModelListener> listeners = Lists.newCopyOnWriteArrayList();
-
-	private Deque<BNAModelEvent> eventQueue = new LinkedList<>();
-	private Thread eventThread;
+	private final ThingTree thingTree = new ThingTree();
+	private final List<IBNAModelListener> listeners = Lists.newCopyOnWriteArrayList();
 	private int bulkChangeCount = 0;
 	private boolean firedBulkChange = false;
-	{
-		eventThread = new Thread(new Runnable() {
-			@Override
-			public void run() {
-				while (true) {
-					BNAModelEvent event;
-					synchronized (DefaultBNAModel.this) {
-						while (eventQueue.isEmpty()) {
-							try {
-								DefaultBNAModel.this.wait();
-							}
-							catch (Exception e) {
-							}
-						}
-						event = eventQueue.remove();
-					}
-					if (event == null) {
-						return;
-					}
-					if (event.getEventType() == EventType.BULK_CHANGE_BEGIN) {
-						bulkChangeCount++;
-						continue;
-					}
-					if (event.getEventType() == EventType.BULK_CHANGE_END) {
-						if (--bulkChangeCount <= 0) {
-							bulkChangeCount = 0;
-							if (!firedBulkChange) {
-								continue;
-							}
-							firedBulkChange = false;
-							fire(event);
-							continue;
-						}
-					}
-					if (bulkChangeCount > 0 && !firedBulkChange) {
-						firedBulkChange = true;
-						fire(BNAModelEvent.create(DefaultBNAModel.this, EventType.BULK_CHANGE_BEGIN));
-					}
-					fire(event);
-				}
-			}
-
-			private void fire(BNAModelEvent event) {
-				for (IBNAModelListener l : listeners) {
-					try {
-						l.bnaModelChanged(event);
-					}
-					catch (Throwable t) {
-						t.printStackTrace();
-					}
-				}
-			}
-
-		});
-		eventThread.setDaemon(true);
-		eventThread.setName(DefaultBNAModel.class.getName());
-		eventThread.start();
-	}
 
 	public DefaultBNAModel() {
 	}
 
-	@Override
-	synchronized public void dispose() {
-		eventQueue.clear();
-		enqueueEvent(null);
+	private void _fire(BNAModelEvent event) {
+		for (IBNAModelListener l : listeners) {
+			try {
+				l.bnaModelChanged(event);
+			}
+			catch (Throwable t) {
+				t.printStackTrace();
+			}
+		}
 	}
 
-	private void enqueueEvent(BNAModelEvent event) {
-		eventQueue.add(event);
-		notifyAll();
+	private void fire(BNAModelEvent event) {
+		if (bulkChangeCount > 0 && !firedBulkChange) {
+			firedBulkChange = true;
+			_fire(BNAModelEvent.create(DefaultBNAModel.this, EventType.BULK_CHANGE_BEGIN));
+		}
+		_fire(event);
+	}
+
+	@Override
+	public void dispose() {
 	}
 
 	@Override
 	public void addBNAModelListener(IBNAModelListener l) {
+		BNAUtils.checkLock();
+
 		listeners.add(l);
 	}
 
 	@Override
 	public void removeBNAModelListener(IBNAModelListener l) {
+		BNAUtils.checkLock();
+
 		listeners.remove(l);
 	}
 
 	@Override
-	synchronized public void fireStreamNotificationEvent(Object streamNotificationEvent) {
-		enqueueEvent(BNAModelEvent.create(this, EventType.STREAM_NOTIFICATION_EVENT, streamNotificationEvent));
+	public void fireStreamNotificationEvent(Object streamNotificationEvent) {
+		BNAUtils.checkLock();
+
+		fire(BNAModelEvent.create(this, EventType.STREAM_NOTIFICATION_EVENT, streamNotificationEvent));
+	}
+
+	private final Finally END_BULK_CHANGE = new Finally() {
+
+		@Override
+		public void close() {
+			BNAUtils.checkLock();
+
+			if (--bulkChangeCount == 0) {
+				if (firedBulkChange) {
+					firedBulkChange = false;
+					_fire(BNAModelEvent.create(DefaultBNAModel.this, EventType.BULK_CHANGE_END));
+				}
+			}
+		}
+	};
+
+	@Override
+	public Finally beginBulkChange() {
+		BNAUtils.checkLock();
+
+		bulkChangeCount++;
+
+		return END_BULK_CHANGE;
 	}
 
 	@Override
-	synchronized public void beginBulkChange() {
-		enqueueEvent(BNAModelEvent.create(this, EventType.BULK_CHANGE_BEGIN));
-	}
+	public void thingChanged(ThingEvent thingEvent) {
+		BNAUtils.checkLock();
 
-	@Override
-	synchronized public void endBulkChange() {
-		enqueueEvent(BNAModelEvent.create(this, EventType.BULK_CHANGE_END));
+		fire(BNAModelEvent.create(this, EventType.THING_CHANGED, thingEvent));
 	}
 
 	@Override
@@ -128,35 +106,38 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 	}
 
 	@Override
-	synchronized public void thingChanged(ThingEvent thingEvent) {
-		enqueueEvent(BNAModelEvent.create(this, EventType.THING_CHANGED, thingEvent));
-	}
+	public <T extends IThing> T addThing(T thing, @Nullable IThing parentThing) {
+		BNAUtils.checkLock();
 
-	@Override
-	synchronized public <T extends IThing> T addThing(T thing, @Nullable IThing parentThing) {
 		thingTree.add(thing, parentThing);
 		thing.addThingListener(this);
-		enqueueEvent(BNAModelEvent.create(this, EventType.THING_ADDED, thing));
+		fire(BNAModelEvent.create(this, EventType.THING_ADDED, thing));
 		return thing;
 	}
 
 	@Override
-	synchronized public <T extends IThing> T insertThing(T thing, IThing beforeThing) {
+	public <T extends IThing> T insertThing(T thing, IThing beforeThing) {
+		BNAUtils.checkLock();
+
 		thingTree.insert(thing, beforeThing);
 		thing.addThingListener(this);
-		enqueueEvent(BNAModelEvent.create(this, EventType.THING_ADDED, thing));
+		fire(BNAModelEvent.create(this, EventType.THING_ADDED, thing));
 		return thing;
 	}
 
 	@Override
-	synchronized public void removeThing(IThing t) {
+	public void removeThing(IThing t) {
+		BNAUtils.checkLock();
+
 		t.removeThingListener(this);
 		thingTree.remove(t);
-		enqueueEvent(BNAModelEvent.create(this, EventType.THING_REMOVED, t));
+		fire(BNAModelEvent.create(this, EventType.THING_REMOVED, t));
 	}
 
 	@Override
 	public void removeThingAndChildren(IThing thing) {
+		BNAUtils.checkLock();
+
 		for (IThing childThing : getChildThings(thing)) {
 			removeThingAndChildren(childThing);
 		}
@@ -164,14 +145,42 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 	}
 
 	@Override
-	synchronized public @Nullable
+	public void bringToFront(IThing thing) {
+		BNAUtils.checkLock();
+
+		thingTree.bringToFront(thing);
+		fire(BNAModelEvent.create(this, EventType.THING_RESTACKED, thing));
+	}
+
+	@Override
+	public void sendToBack(IThing thing) {
+		BNAUtils.checkLock();
+
+		thingTree.sendToBack(thing);
+		fire(BNAModelEvent.create(this, EventType.THING_RESTACKED, thing));
+	}
+
+	@Override
+	public void reparent(IThing newParentThing, IThing thing) {
+		BNAUtils.checkLock();
+
+		thingTree.reparent(newParentThing, thing);
+		fire(BNAModelEvent.create(this, EventType.THING_RESTACKED, thing));
+	}
+
+	@Override
+	public @Nullable
 	IThing getThing(@Nullable Object id) {
+		BNAUtils.checkLock();
+
 		return thingTree.getThing(id);
 	}
 
 	@Override
-	synchronized public List<IThing> getThingsByID(Iterable<Object> thingIDs) {
-		List<IThing> things = Lists.newArrayList();
+	public List<IThing> getThingsByID(Collection<Object> thingIDs) {
+		BNAUtils.checkLock();
+
+		List<IThing> things = Lists.newArrayListWithExpectedSize(thingIDs.size());
 		for (Object id : thingIDs) {
 			IThing thing = getThing(id);
 			if (thing != null) {
@@ -182,51 +191,45 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 	}
 
 	@Override
-	synchronized public List<IThing> getAllThings() {
+	public List<IThing> getAllThings() {
+		BNAUtils.checkLock();
+
 		return thingTree.getAllThings();
 	}
 
 	@Override
-	synchronized public int getNumThings() {
+	public int getNumThings() {
+		BNAUtils.checkLock();
+
 		return thingTree.size();
 	}
 
 	@Override
-	synchronized public IThing getParentThing(IThing thing) {
+	public IThing getParentThing(IThing thing) {
+		BNAUtils.checkLock();
+
 		return thingTree.getParent(thing);
 	}
 
 	@Override
-	synchronized public List<IThing> getChildThings(IThing thing) {
+	public List<IThing> getChildThings(IThing thing) {
+		BNAUtils.checkLock();
+
 		return thingTree.getChildThings(thing);
 	}
 
 	@Override
-	synchronized public List<IThing> getAncestorThings(IThing thing) {
+	public List<IThing> getAncestorThings(IThing thing) {
+		BNAUtils.checkLock();
+
 		return thingTree.getAncestorThings(thing);
 	}
 
 	@Override
-	synchronized public List<IThing> getDescendantThings(IThing thing) {
+	public List<IThing> getDescendantThings(IThing thing) {
+		BNAUtils.checkLock();
+
 		return thingTree.getAllDescendantThings(thing);
-	}
-
-	@Override
-	synchronized public void bringToFront(IThing thing) {
-		thingTree.bringToFront(thing);
-		enqueueEvent(BNAModelEvent.create(this, EventType.THING_RESTACKED, thing));
-	}
-
-	@Override
-	synchronized public void sendToBack(IThing thing) {
-		thingTree.sendToBack(thing);
-		enqueueEvent(BNAModelEvent.create(this, EventType.THING_RESTACKED, thing));
-	}
-
-	@Override
-	synchronized public void reparent(IThing newParentThing, IThing thing) {
-		thingTree.reparent(newParentThing, thing);
-		enqueueEvent(BNAModelEvent.create(this, EventType.THING_RESTACKED, thing));
 	}
 
 }

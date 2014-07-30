@@ -1,5 +1,8 @@
 package org.archstudio.bna.logics.hints.synchronizers;
 
+import java.util.Collection;
+import java.util.Collections;
+
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.logics.hints.IHintSynchronizer;
@@ -11,89 +14,39 @@ public abstract class AbstractHintSynchronizer implements IHintSynchronizer {
 
 	public boolean DEBUG = false;
 
-	private static class HintReference {
-		Object context;
-		String name;
-
-		public HintReference(Object context, String name) {
-			this.context = context;
-			this.name = name;
-		}
-
-		@Override
-		public int hashCode() {
-			final int prime = 31;
-			int result = 1;
-			result = prime * result + (context == null ? 0 : context.hashCode());
-			result = prime * result + (name == null ? 0 : name.hashCode());
-			return result;
-		}
-
-		@Override
-		public boolean equals(Object obj) {
-			if (this == obj) {
-				return true;
-			}
-			if (obj == null) {
-				return false;
-			}
-			if (getClass() != obj.getClass()) {
-				return false;
-			}
-			HintReference other = (HintReference) obj;
-			if (context == null) {
-				if (other.context != null) {
-					return false;
-				}
-			}
-			else if (!context.equals(other.context)) {
-				return false;
-			}
-			if (name == null) {
-				if (other.name != null) {
-					return false;
-				}
-			}
-			else if (!name.equals(other.name)) {
-				return false;
-			}
-			return true;
-		}
-
-		@Override
-		public String toString() {
-			return "IgnoreHintUpdate [context=" + context + ", name=" + name + "]";
-		}
-
-	}
-
 	protected final IBNAWorld world;
 	protected final IBNAModel model;
-	private final Multiset<HintReference> ignoreHintUpdates = HashMultiset.create();
+	protected final String hintName;
+	private final Multiset<Object> ignoreHintUpdates = HashMultiset.create();
 
-	public AbstractHintSynchronizer(IBNAWorld world) {
+	public AbstractHintSynchronizer(IBNAWorld world, String hintName) {
 		this.world = world;
 		this.model = world.getBNAModel();
+		this.hintName = hintName;
 	}
 
-	protected void ignore(Object context, String name) {
-		HintReference hintReference = new HintReference(context, name);
+	protected void ignore(Object context) {
 		if (DEBUG) {
-			System.err.println("   Ignoring: " + hintReference);
+			System.out.println("   Ignoring: " + context);
 		}
-		ignoreHintUpdates.add(hintReference);
+		ignoreHintUpdates.add(context);
 	}
 
-	protected boolean wasIgnored(Object context, String name) {
-		HintReference hintReference = new HintReference(context, name);
+	protected boolean wasIgnored(Object context) {
 		if (DEBUG) {
-			if (ignoreHintUpdates.contains(hintReference)) {
-				System.err.println("    Ignored: " + hintReference);
+			if (ignoreHintUpdates.contains(context)) {
+				System.out.println("    Ignored: " + context);
 			}
 			else {
-				System.err.println("Not Ignored: " + hintReference);
+				System.out.println("Not Ignored: " + context);
 			}
 		}
-		return ignoreHintUpdates.remove(hintReference);
+		return ignoreHintUpdates.remove(context);
 	}
+
+	@Override
+	public final Collection<String> getRepositoryNamesOfInterest() {
+		return Collections.singleton(hintName);
+	}
+
 }

@@ -3,12 +3,8 @@ package org.archstudio.bna.logics.hints;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.ThreadFactory;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
 
 import org.archstudio.bna.BNAModelEvent;
 import org.archstudio.bna.IBNAModelListener;
@@ -27,6 +23,7 @@ import org.archstudio.bna.facets.IHasMutableAngle;
 import org.archstudio.bna.facets.IHasMutableBoundingBox;
 import org.archstudio.bna.facets.IHasMutableColor;
 import org.archstudio.bna.facets.IHasMutableEndpoints;
+import org.archstudio.bna.facets.IHasMutableGlow;
 import org.archstudio.bna.facets.IHasMutableMidpoints;
 import org.archstudio.bna.facets.IHasMutableReferencePoint;
 import org.archstudio.bna.facets.IHasMutableSize;
@@ -34,38 +31,37 @@ import org.archstudio.bna.keys.IThingKey;
 import org.archstudio.bna.keys.ThingKey;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.logics.editing.ShowHideTagsLogic;
+import org.archstudio.bna.logics.hints.IHintRepository.HintValue;
 import org.archstudio.bna.logics.hints.synchronizers.PropertyHintSynchronizer;
 import org.archstudio.bna.logics.information.HighlightLogic;
 import org.archstudio.bna.logics.tracking.ThingValueTrackingLogic;
+import org.archstudio.bna.things.labels.AnchoredLabelThing;
+import org.archstudio.bna.things.utility.EnvironmentPropertiesThing;
 import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.BNAUtils;
+import org.archstudio.sysutils.Finally;
+import org.archstudio.sysutils.SystemUtils;
 import org.eclipse.jdt.annotation.Nullable;
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.widgets.Display;
 
 import com.google.common.base.Function;
+import com.google.common.base.Predicate;
+import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Multimap;
 
 public class SynchronizeHintsLogic extends AbstractThingLogic implements IBNAModelListener,
 		IHintRepositoryChangeListener {
 
 	public boolean DEBUG = false;
 
-	private static final IThingKey<Object> HINT_CONTEXT_KEY = ThingKey.create(SynchronizeHintsLogic.class);
+	private static final IThingKey<Object> HINT_CONTEXT_KEY = ThingKey.create(Lists.newArrayList("hints-context",
+			SynchronizeHintsLogic.class));
+	private static final IThingKey<Boolean> HINTS_RESTORED_KEY = ThingKey.create(Lists.newArrayList("hints-restored",
+			SynchronizeHintsLogic.class));
 
 	protected final ThingValueTrackingLogic valueLogic;
 	protected final IHintRepository hintRepository;
-	protected final static ExecutorService asyncExecutor = new ThreadPoolExecutor(1, 5, 5L, TimeUnit.SECONDS,
-			new LinkedBlockingQueue<Runnable>(), new ThreadFactory() {
-				@Override
-				public Thread newThread(Runnable r) {
-					Thread t = new Thread(r);
-					t.setName(SynchronizeHintsLogic.class.getName());
-					t.setDaemon(true);
-					return t;
-				}
-			});
 
 	public SynchronizeHintsLogic(IBNAWorld world, IHintRepository hintRepository) {
 		super(world);
@@ -94,10 +90,28 @@ public class SynchronizeHintsLogic extends AbstractThingLogic implements IBNAMod
 			}
 		};
 
+		addHintSynchronizer(new PropertyHintSynchronizer(world, "local-scale",
+				EnvironmentPropertiesThing.LOCAL_SCALE_KEY, null, EnvironmentPropertiesThing.class));
+		addHintSynchronizer(new PropertyHintSynchronizer(world, "local-origin",
+				EnvironmentPropertiesThing.LOCAL_ORIGIN_KEY, null, EnvironmentPropertiesThing.class));
 		addHintSynchronizer(new PropertyHintSynchronizer(world, "bounds", IHasBoundingBox.BOUNDING_BOX_KEY, null,
-				IHasMutableBoundingBox.class, IHasMutableReferencePoint.USER_MAY_MOVE, IHasMutableSize.USER_MAY_RESIZE));
+				IHasMutableBoundingBox.class, IHasMutableReferencePoint.USER_MAY_MOVE));
+		addHintSynchronizer(new PropertyHintSynchronizer(world, "bounds", IHasBoundingBox.BOUNDING_BOX_KEY, null,
+				IHasMutableBoundingBox.class, IHasMutableSize.USER_MAY_RESIZE));
 		addHintSynchronizer(new PropertyHintSynchronizer(world, "location", IHasAnchorPoint.ANCHOR_POINT_KEY,
-				toPoint2D, IHasMutableAnchorPoint.class, IHasMutableReferencePoint.USER_MAY_MOVE));
+				toPoint2D, IHasMutableAnchorPoint.class, new Predicate<IThing>() {
+					@Override
+					public boolean apply(IThing input) {
+						return !(input instanceof AnchoredLabelThing);
+					}
+				}, IHasMutableReferencePoint.USER_MAY_MOVE));
+		addHintSynchronizer(new PropertyHintSynchronizer(world, "tag-location", IHasAnchorPoint.ANCHOR_POINT_KEY,
+				toPoint2D, IHasMutableAnchorPoint.class, new Predicate<IThing>() {
+					@Override
+					public boolean apply(IThing input) {
+						return input instanceof AnchoredLabelThing;
+					}
+				}, IHasMutableReferencePoint.USER_MAY_MOVE));
 		addHintSynchronizer(new PropertyHintSynchronizer(world, "tagged", ShowHideTagsLogic.SHOW_TAG_KEY, null,
 				IThing.class, ShowHideTagsLogic.USER_MAY_SHOW_HIDE_TAG));
 		addHintSynchronizer(new PropertyHintSynchronizer(world, "angle", IHasAngle.ANGLE_KEY, null,
@@ -111,63 +125,57 @@ public class SynchronizeHintsLogic extends AbstractThingLogic implements IBNAMod
 		addHintSynchronizer(new PropertyHintSynchronizer(world, "color", IHasColor.COLOR_KEY, null,
 				IHasMutableColor.class, IHasMutableColor.USER_MAY_EDIT_COLOR));
 		addHintSynchronizer(new PropertyHintSynchronizer(world, "highlight", IHasGlow.GLOW_COLOR_KEY, null,
-				IThing.class, HighlightLogic.USER_MAY_HIGHLIGHT));
+				IHasMutableGlow.class, HighlightLogic.USER_MAY_HIGHLIGHT));
 
 		hintRepository.addHintRepositoryChangeListener(this);
 		for (IThing thing : model.getAllThings()) {
+			// createHintContext automatically restores and stores hints
 			createHintContext(thing);
 		}
 	}
 
 	final protected CopyOnWriteArrayList<IHintSynchronizer> hintSynchronizers = Lists.newCopyOnWriteArrayList();
+	final protected Multimap<IThingKey<?>, IHintSynchronizer> hintSynchronizersByKey = ArrayListMultimap.create();
+	final protected Multimap<String, IHintSynchronizer> hintSynchronizersByName = ArrayListMultimap.create();
 
-	synchronized public void addHintSynchronizer(IHintSynchronizer hintSynchronizer) {
+	public void addHintSynchronizer(IHintSynchronizer hintSynchronizer) {
 		hintSynchronizers.add(hintSynchronizer);
-	}
-
-	synchronized public void removeHintSynchronizer(IHintSynchronizer hintSynchronizer) {
-		hintSynchronizers.remove(hintSynchronizer);
+		for (IThingKey<?> key : hintSynchronizer.getThingPropertiesOfInterest()) {
+			hintSynchronizersByKey.put(key, hintSynchronizer);
+		}
+		for (String name : hintSynchronizer.getRepositoryNamesOfInterest()) {
+			hintSynchronizersByName.put(name, hintSynchronizer);
+		}
 	}
 
 	@Override
-	synchronized public void dispose() {
+	public void dispose() {
+		BNAUtils.checkLock();
+
 		hintRepository.removeHintRepositoryChangeListener(this);
-		asyncExecutor.shutdown();
-		try {
-			asyncExecutor.awaitTermination(30, TimeUnit.SECONDS);
-		}
-		catch (InterruptedException e) {
-			e.printStackTrace();
-			MessageDialog.openError(Display.getDefault().getActiveShell(), "Error", "An exception ("
-					+ e.getClass().getName() + ") has occurred. Please see the platform log file for details.");
-		}
+
 		super.dispose();
 	}
 
 	@Override
-	synchronized public void bnaModelChanged(final BNAModelEvent evt) {
+	public void bnaModelChanged(final BNAModelEvent evt) {
+		BNAUtils.checkLock();
+
 		switch (evt.getEventType()) {
 		case THING_ADDED: {
 			IThing thing = evt.getTargetThing();
-			Object context = createHintContext(thing);
-			if (context != null) {
-				storeHints(thing, context, evt);
-			}
+			// createHintContext automatically restores and stores hints
+			createHintContext(thing);
 		}
 			break;
 		case THING_CHANGED: {
 			final IThing thing = evt.getTargetThing();
 			final ThingEvent thingEvent = evt.getThingEvent();
 			if (!HINT_CONTEXT_KEY.equals(thingEvent.getPropertyName())) {
-				asyncExecutor.execute(new Runnable() {
-					@Override
-					public void run() {
-						Object context = createHintContext(thing);
-						if (context != null) {
-							storeHints(thing, context, evt);
-						}
-					}
-				});
+				final Object context = createHintContext(thing);
+				if (context != null) {
+					storeHints(thing, context, thingEvent);
+				}
 			}
 		}
 			break;
@@ -184,9 +192,19 @@ public class SynchronizeHintsLogic extends AbstractThingLogic implements IBNAMod
 		if (context == null) {
 			context = hintRepository.getContextForThing(world, thing);
 			if (context != null) {
-				restoreHints(thing, context, null);
-				storeHints(thing, context, null);
 				thing.set(HINT_CONTEXT_KEY, context);
+				if (DEBUG) {
+					System.out.println("Restoring hints: " + context + " " + toString(thing));
+				}
+				restoreHints(thing, context, null);
+				if (DEBUG) {
+					System.out.println("Restored hints : " + context + " " + toString(thing));
+				}
+				thing.set(HINTS_RESTORED_KEY, true);
+				if (DEBUG) {
+					System.out.println("Storing hints  : " + context + " " + toString(thing));
+				}
+				storeHints(thing, context, null);
 				for (IThing t : Assemblies.getParts(model, thing).values()) {
 					if (t != null) {
 						createHintContext(t);
@@ -197,34 +215,78 @@ public class SynchronizeHintsLogic extends AbstractThingLogic implements IBNAMod
 		return context;
 	}
 
-	synchronized public void restoreHints(IThing thing) {
+	public void restoreHints(IThing thing) {
+		BNAUtils.checkLock();
+
 		createHintContext(thing);
 	}
 
 	protected void restoreHints(IThing thing, Object context, @Nullable String name) {
-		if (DEBUG) {
-			System.out.println("Restore hints: " + context + " " + thing.getID());
+		BNAUtils.checkLock();
+
+		try {
+			if (name == null) {
+				for (Entry<String, HintValue> hint : hintRepository.getHints(context).entrySet()) {
+					_restoreHints(thing, context, hint.getKey(), hint.getValue());
+				}
+			}
+			else {
+				HintValue hintValue = hintRepository.getHint(context, name);
+				_restoreHints(thing, context, name, hintValue);
+			}
 		}
-		for (IHintSynchronizer hintSynchronizer : hintSynchronizers) {
-			hintSynchronizer.restoreHints(hintRepository, context, thing, name);
+		catch (PropertyDecodeException e) {
+			e.printStackTrace();
 		}
 	}
 
-	protected void storeHints(IThing thing, Object context, @Nullable BNAModelEvent evt) {
-		if (DEBUG) {
-			System.out.println("Store hints  : " + context + " " + thing.getID() + " " + evt);
+	private void _restoreHints(IThing thing, Object context, String name, HintValue hintValue) {
+		for (IHintSynchronizer hintSynchronizer : hintSynchronizersByName.get(name)) {
+			if (DEBUG) {
+				System.out.println("Restoring hint : " + context + " " + toString(thing) + " " + hintSynchronizer);
+			}
+			hintSynchronizer.restoreHints(hintRepository, context, thing, name, hintValue);
 		}
-		for (IHintSynchronizer hintSynchronizer : hintSynchronizers) {
-			hintSynchronizer.storeHints(hintRepository, context, thing, evt);
+	}
+
+	protected void storeHints(IThing thing, Object context, @Nullable ThingEvent evt) {
+		BNAUtils.checkLock();
+
+		if (!thing.has(HINTS_RESTORED_KEY, true)) {
+			return;
+		}
+
+		if (evt == null) {
+			for (IHintSynchronizer hintSynchronizer : hintSynchronizers) {
+				if (DEBUG) {
+					System.out.println("Store hints    : " + context + " " + toString(thing) + " " + hintSynchronizer);
+				}
+				hintSynchronizer.storeHints(hintRepository, context, thing, null);
+			}
+		}
+		else {
+			for (IHintSynchronizer hintSynchronizer : hintSynchronizersByKey.get(evt.getPropertyName())) {
+				if (DEBUG) {
+					System.out.println("Store hints    : " + context + " " + toString(thing) + " " + hintSynchronizer
+							+ " " + evt);
+				}
+				hintSynchronizer.storeHints(hintRepository, context, thing, evt.getPropertyName());
+			}
 		}
 	}
 
 	@Override
-	synchronized public void hintRepositoryChanged(final IHintRepository repository, final Object context,
+	public void hintRepositoryChanged(final IHintRepository repository, final Object context,
 			final @Nullable String name) {
-		for (IThing t : valueLogic.getThings(HINT_CONTEXT_KEY, context)) {
-			restoreHints(t, context, name);
+		try (Finally lock = BNAUtils.lock()) {
+			for (IThing t : valueLogic.getThings(HINT_CONTEXT_KEY, context)) {
+				restoreHints(t, context, name);
+			}
 		}
+	}
+
+	private String toString(IThing thing) {
+		return SystemUtils.simpleName(thing.getClass()) + "." + thing.getID();
 	}
 
 }

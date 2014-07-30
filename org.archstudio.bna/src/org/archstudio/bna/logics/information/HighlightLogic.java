@@ -9,11 +9,13 @@ import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.facets.IHasGlow;
+import org.archstudio.bna.facets.IHasMutableGlow;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.logics.editing.BNAOperations;
 import org.archstudio.bna.ui.IBNAMenuListener;
 import org.archstudio.bna.utils.Assemblies;
-import org.eclipse.jface.action.Action;
+import org.archstudio.bna.utils.BNAAction;
+import org.archstudio.bna.utils.BNAUtils;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.swt.graphics.RGB;
@@ -28,18 +30,24 @@ public class HighlightLogic extends AbstractThingLogic implements IBNAMenuListen
 	}
 
 	@Override
-	synchronized public void fillMenu(final IBNAView view, List<IThing> things, ICoordinate location, IMenuManager menu) {
+	public void fillMenu(final IBNAView view, List<IThing> things, ICoordinate location, IMenuManager menu) {
+		BNAUtils.checkLock();
+
 		if (!things.isEmpty()) {
-			final IHasGlow t = Assemblies.getEditableThing(model, firstOrNull(things), IHasGlow.class,
+			final IHasMutableGlow t = Assemblies.getEditableThing(model, firstOrNull(things), IHasMutableGlow.class,
 					USER_MAY_HIGHLIGHT);
 			if (t != null) {
-				IAction highlightAction = new Action("Highlight") {
+				IAction highlightAction = new BNAAction("Highlight") {
 
 					@Override
-					public void run() {
+					public void runWithLock() {
 						if (t.getGlowColor() == null) {
 							ColorDialog cd = new ColorDialog(view.getBNAUI().getComposite().getShell());
 							cd.setText("Highlight Color");
+							RGB rgb = t.getGlowColor();
+							if (rgb != null) {
+								cd.setRGB(rgb);
+							}
 							RGB newColor = cd.open();
 							if (newColor != null) {
 								BNAOperations.set("Highlight", model, t, IHasGlow.GLOW_COLOR_KEY, newColor);
@@ -50,7 +58,7 @@ public class HighlightLogic extends AbstractThingLogic implements IBNAMenuListen
 						}
 					}
 				};
-				highlightAction.setChecked(t != null);
+				highlightAction.setChecked(t.getGlowColor() != null);
 				menu.add(highlightAction);
 			}
 		}

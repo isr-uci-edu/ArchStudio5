@@ -33,6 +33,7 @@ import org.archstudio.bna.things.utility.ShadowThing;
 import org.archstudio.bna.utils.AbstractCoordinateMapper;
 import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.BNARenderingSettings;
+import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.DefaultBNAModel;
 import org.archstudio.bna.utils.DefaultBNAView;
 import org.archstudio.bna.utils.DefaultBNAWorld;
@@ -40,6 +41,7 @@ import org.archstudio.bna.utils.LinearCoordinateMapper;
 import org.archstudio.bna.utils.UserEditableUtils;
 import org.archstudio.swtutils.constants.Flow;
 import org.archstudio.swtutils.constants.Orientation;
+import org.archstudio.sysutils.Finally;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.RGB;
@@ -59,23 +61,29 @@ public class BasicBNADemo {
 		final Shell shell = new Shell(display);
 		shell.setLayout(new FillLayout());
 
-		IBNAModel model = new DefaultBNAModel();
-		IBNAWorld world = new DefaultBNAWorld("bna", model);
-		IBNAView view = new DefaultBNAView(null, world, new LinearCoordinateMapper());
+		IBNAModel model;
+		IBNAWorld world;
+		IBNAView view;
 
-		GridThing.createIn(world);
-		ShadowThing.createIn(world);
+		try (Finally lock = BNAUtils.lock()) {
+			model = new DefaultBNAModel();
+			world = new DefaultBNAWorld("bna", model);
+			view = new DefaultBNAView(null, world, new LinearCoordinateMapper());
 
-		setupTopWorld(world);
-		populateModel(world);
+			GridThing.createIn(world);
+			ShadowThing.createIn(world);
 
-		IBNAModel iModel = new DefaultBNAModel();
-		IBNAWorld iWorld = new DefaultBNAWorld("subworld", iModel);
+			setupTopWorld(world);
+			populateModel(world);
 
-		setupWorld(iWorld);
-		populateModel(iWorld);
+			IBNAModel iModel = new DefaultBNAModel();
+			IBNAWorld iWorld = new DefaultBNAWorld("subworld", iModel);
 
-		populateWithViews(world, view, iWorld);
+			setupWorld(iWorld);
+			populateModel(iWorld);
+
+			populateWithViews(world, view, iWorld);
+		}
 
 		final BNACanvas bnaComposite = new BNACanvas(shell, SWT.H_SCROLL | SWT.V_SCROLL, view);
 		BNARenderingSettings.setAntialiasGraphics(bnaComposite, true);

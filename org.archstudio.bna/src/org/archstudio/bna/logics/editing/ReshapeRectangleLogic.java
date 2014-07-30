@@ -28,7 +28,7 @@ public class ReshapeRectangleLogic extends AbstractReshapeLogic<IHasMutableBound
 
 	@Override
 	protected void addHandles(IHasMutableBoundingBox reshapingThing) {
-		if (UserEditableUtils.isEditableForAnyQualities(reshapingThing, IHasMutableSize.USER_MAY_RESIZE)) {
+		if (UserEditableUtils.isEditableForAllQualities(reshapingThing, IHasMutableSize.USER_MAY_RESIZE)) {
 			for (Orientation o : Orientation.values()) {
 				if (o != Orientation.NONE) {
 					addHandle(reshapingThing, Assemblies.createHandle(world, null, null), o);

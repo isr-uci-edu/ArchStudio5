@@ -26,10 +26,10 @@ import org.archstudio.bna.things.swt.SWTTextThing;
 import org.archstudio.bna.ui.IBNAKeyListener;
 import org.archstudio.bna.ui.IBNAMenuListener;
 import org.archstudio.bna.utils.Assemblies;
+import org.archstudio.bna.utils.BNAAction;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.UserEditableUtils;
 import org.archstudio.sysutils.SystemUtils;
-import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
@@ -54,17 +54,23 @@ public class EditTextLogic extends AbstractThingLogic implements IBNAMenuListene
 	}
 
 	@Override
-	synchronized public void fillMenu(final IBNAView view, List<IThing> things, final ICoordinate location,
-			IMenuManager m) {
+	public void fillMenu(final IBNAView view, List<IThing> things, final ICoordinate location, IMenuManager m) {
+		BNAUtils.checkLock();
+
 		if (Iterables.size(BNAUtils.getSelectedThings(view.getBNAWorld().getBNAModel())) <= 1) {
-			final IThing editThing = Assemblies.getEditableThing(model, firstOrNull(things), IThing.class,
-					IHasMutableText.USER_MAY_EDIT_TEXT, IHasMutableToolTip.USER_MAY_EDIT_TOOL_TIP);
+			IThing editThing = Assemblies.getEditableThing(model, firstOrNull(things), IHasMutableText.class,
+					IHasMutableText.USER_MAY_EDIT_TEXT);
+			if (editThing == null) {
+				editThing = Assemblies.getEditableThing(model, firstOrNull(things), IThing.class,
+						IHasMutableToolTip.USER_MAY_EDIT_TOOL_TIP);
+			}
 			if (editThing != null) {
-				m.add(new Action("Edit Description...") {
+				final IThing fEditThing = editThing;
+				m.add(new BNAAction("Edit Description...") {
 
 					@Override
-					public void run() {
-						initEdit(editThing);
+					public void runWithLock() {
+						initEdit(fEditThing);
 					}
 				});
 			}
@@ -72,17 +78,23 @@ public class EditTextLogic extends AbstractThingLogic implements IBNAMenuListene
 	}
 
 	@Override
-	synchronized public void keyPressed(IBNAView view, KeyType type, KeyEvent e) {
+	public void keyPressed(IBNAView view, KeyType type, KeyEvent e) {
 	}
 
 	@Override
-	synchronized public void keyReleased(IBNAView view, KeyType type, KeyEvent e) {
+	public void keyReleased(IBNAView view, KeyType type, KeyEvent e) {
+		BNAUtils.checkLock();
+
 		if (SWT.F2 == e.keyCode) {
 			Collection<IThing> selectedThings = BNAUtils.getSelectedThings(view.getBNAWorld().getBNAModel());
 			IThing editThing = null;
 			if (selectedThings.size() == 1) {
-				editThing = Assemblies.getEditableThing(model, firstOrNull(selectedThings), IThing.class,
-						IHasMutableText.USER_MAY_EDIT_TEXT, IHasMutableToolTip.USER_MAY_EDIT_TOOL_TIP);
+				editThing = Assemblies.getEditableThing(model, firstOrNull(selectedThings), IHasMutableText.class,
+						IHasMutableText.USER_MAY_EDIT_TEXT);
+				if (editThing == null) {
+					editThing = Assemblies.getEditableThing(model, firstOrNull(selectedThings), IThing.class,
+							IHasMutableToolTip.USER_MAY_EDIT_TOOL_TIP);
+				}
 			}
 			if (editThing != null) {
 				initEdit(editThing);
@@ -109,13 +121,15 @@ public class EditTextLogic extends AbstractThingLogic implements IBNAMenuListene
 	}
 
 	@Override
-	synchronized public void bnaModelChanged(BNAModelEvent evt) {
+	public void bnaModelChanged(BNAModelEvent evt) {
+		BNAUtils.checkLock();
+
 		if (evt.getEventType() == BNAModelEvent.EventType.THING_REMOVED) {
 			EditTextLogicData data = evt.getTargetThing().get(DATA_KEY);
 			if (data != null) {
 				SWTTextThing tt = (SWTTextThing) evt.getTargetThing();
 				IThing t = evt.getSource().getThing(data.thingID);
-				if (t instanceof IHasText
+				if (t instanceof IHasMutableText
 						&& UserEditableUtils.isEditableForAnyQualities(t, IHasMutableText.USER_MAY_EDIT_TEXT)) {
 					BNAOperations.set("Text", model, t, IHasText.TEXT_KEY, tt.getText());
 				}

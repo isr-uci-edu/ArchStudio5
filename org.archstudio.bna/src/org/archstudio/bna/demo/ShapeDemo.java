@@ -28,11 +28,13 @@ import org.archstudio.bna.things.utility.ShadowThing;
 import org.archstudio.bna.utils.AbstractCoordinateMapper;
 import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.BNARenderingSettings;
+import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.DefaultBNAModel;
 import org.archstudio.bna.utils.DefaultBNAView;
 import org.archstudio.bna.utils.DefaultBNAWorld;
 import org.archstudio.bna.utils.LinearCoordinateMapper;
 import org.archstudio.bna.utils.UserEditableUtils;
+import org.archstudio.sysutils.Finally;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.RGB;
@@ -52,21 +54,29 @@ public class ShapeDemo {
 		final Shell shell = new Shell(display);
 		shell.setLayout(new FillLayout());
 
-		IBNAModel model = new DefaultBNAModel();
-		IBNAWorld world = new DefaultBNAWorld("bna", model);
-		IBNAView view = new DefaultBNAView(null, world, new LinearCoordinateMapper());
+		BNACanvas bnaComposite;
 
-		GridThing.createIn(world);
-		ShadowThing.createIn(world);
+		IBNAModel model;
+		IBNAWorld world;
+		IBNAView view;
 
-		setupTopWorld(world);
-		populateModel(world);
+		try (Finally lock = BNAUtils.lock()) {
+			model = new DefaultBNAModel();
+			world = new DefaultBNAWorld("bna", model);
+			view = new DefaultBNAView(null, world, new LinearCoordinateMapper());
 
-		final BNACanvas bnaComposite = new BNACanvas(shell, SWT.H_SCROLL | SWT.V_SCROLL, view);
-		BNARenderingSettings.setAntialiasGraphics(bnaComposite, true);
-		BNARenderingSettings.setAntialiasText(bnaComposite, true);
-		BNARenderingSettings.setDecorativeGraphics(bnaComposite, true);
-		BNARenderingSettings.setDisplayShadows(bnaComposite, true);
+			GridThing.createIn(world);
+			ShadowThing.createIn(world);
+
+			setupTopWorld(world);
+			populateModel(world);
+
+			bnaComposite = new BNACanvas(shell, SWT.H_SCROLL | SWT.V_SCROLL, view);
+			BNARenderingSettings.setAntialiasGraphics(bnaComposite, true);
+			BNARenderingSettings.setAntialiasText(bnaComposite, true);
+			BNARenderingSettings.setDecorativeGraphics(bnaComposite, true);
+			BNARenderingSettings.setDisplayShadows(bnaComposite, true);
+		}
 
 		bnaComposite.setSize(500, 500);
 		bnaComposite.setBackground(display.getSystemColor(SWT.COLOR_WHITE));

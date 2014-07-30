@@ -81,7 +81,9 @@ public class ReshapeSplineLogic extends AbstractReshapeLogic<IThing, Integer> im
 		logics.addThingLogic(StandardCursorLogic.class);
 	}
 
-	synchronized public void addReshapeSplineGuides(IReshapeSplineGuide... guides) {
+	public void addReshapeSplineGuides(IReshapeSplineGuide... guides) {
+		BNAUtils.checkLock();
+
 		reshapeSplineGuides.addAll(Arrays.asList(guides));
 	}
 
@@ -99,7 +101,9 @@ public class ReshapeSplineLogic extends AbstractReshapeLogic<IThing, Integer> im
 
 	@SuppressWarnings("unchecked")
 	@Override
-	synchronized public void bnaModelChanged(BNAModelEvent evt) {
+	public void bnaModelChanged(BNAModelEvent evt) {
+		BNAUtils.checkLock();
+
 		super.bnaModelChanged(evt);
 		ThingEvent thingEvent = evt.getThingEvent();
 		if (thingEvent != null) {
@@ -168,8 +172,6 @@ public class ReshapeSplineLogic extends AbstractReshapeLogic<IThing, Integer> im
 				IThing t = SystemUtils.castOrNull(model.getThing(reshapingThingID), IThing.class);
 				if (t != null) {
 
-					// since the dynamic stick logic updates asynchronously, we also update through the stick logic
-
 					if (stickToThingID1 != null && stickToThingMode1 != null) {
 						t.set(dynamicStickLogic.getStickyModeKey(IHasEndpoints.ENDPOINT_1_KEY), stickToThingMode1);
 						t.set(dynamicStickLogic.getStickyThingKey(IHasEndpoints.ENDPOINT_1_KEY), stickToThingID1);
@@ -177,7 +179,6 @@ public class ReshapeSplineLogic extends AbstractReshapeLogic<IThing, Integer> im
 					else {
 						t.remove(dynamicStickLogic.getStickyModeKey(IHasEndpoints.ENDPOINT_1_KEY));
 						t.remove(dynamicStickLogic.getStickyThingKey(IHasEndpoints.ENDPOINT_1_KEY));
-						stickLogic.unstick(t, IHasEndpoints.ENDPOINT_1_KEY);
 					}
 					if (endpoint1 != null) {
 						t.set(IHasEndpoints.ENDPOINT_1_KEY, endpoint1);
@@ -194,7 +195,6 @@ public class ReshapeSplineLogic extends AbstractReshapeLogic<IThing, Integer> im
 					else {
 						t.remove(dynamicStickLogic.getStickyModeKey(IHasEndpoints.ENDPOINT_2_KEY));
 						t.remove(dynamicStickLogic.getStickyThingKey(IHasEndpoints.ENDPOINT_2_KEY));
-						stickLogic.unstick(t, IHasEndpoints.ENDPOINT_2_KEY);
 					}
 					if (endpoint2 != null) {
 						t.set(IHasEndpoints.ENDPOINT_2_KEY, endpoint2);
@@ -285,8 +285,10 @@ public class ReshapeSplineLogic extends AbstractReshapeLogic<IThing, Integer> im
 						IBNAView view = evt.getView();
 						IThingPeer<?> peer = view.getThingPeer(stickyThing);
 						if (stuckPoint != null
-								&& (BNAUtils.getDistance(stuckPoint, mp) <= STICK_DIST || peer
-										.isInThing(DefaultCoordinate.forWorld(BNAUtils.toPoint(mp), cm)))) {
+								&& (BNAUtils.getDistance(stuckPoint, mp) <= STICK_DIST
+										|| peer.isInThing(DefaultCoordinate.forWorld(BNAUtils.toPoint(mp), cm))
+										|| BNAUtils.getDistance(stuckPoint, amp) <= STICK_DIST || peer
+											.isInThing(DefaultCoordinate.forWorld(BNAUtils.toPoint(mp), cm)))) {
 							stickToThingID = stickyThing.getID();
 							stickToThingMode = stickyMode;
 						}
@@ -390,8 +392,9 @@ public class ReshapeSplineLogic extends AbstractReshapeLogic<IThing, Integer> im
 	}
 
 	@Override
-	synchronized public void mouseClick(IBNAView view, MouseType type, MouseEvent evt, List<IThing> things,
-			ICoordinate location) {
+	public void mouseClick(IBNAView view, MouseType type, MouseEvent evt, List<IThing> things, ICoordinate location) {
+		BNAUtils.checkLock();
+
 		if (evt.count == 2) {
 
 			final IHasMutableMidpoints t = castOrNull(firstOrNull(things), IHasMutableMidpoints.class);

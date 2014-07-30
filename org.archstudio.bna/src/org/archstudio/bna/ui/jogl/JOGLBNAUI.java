@@ -10,6 +10,8 @@ import javax.media.opengl.GLRunnable;
 
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ui.utils.AbstractSWTUI;
+import org.archstudio.bna.utils.BNAUtils;
+import org.archstudio.sysutils.Finally;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
@@ -94,7 +96,7 @@ public class JOGLBNAUI extends AbstractSWTUI {
 
 		@Override
 		public void display(GLAutoDrawable drawable) {
-			try {
+			try (Finally lock = BNAUtils.lock()) {
 				Rectangle localBounds = new Rectangle(0, 0, drawable.getWidth(), drawable.getHeight());
 				loadPreferences(joglThreadResources, parent);
 				joglThreadResources.setLocalBounds(localBounds);

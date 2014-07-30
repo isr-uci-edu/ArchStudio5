@@ -6,6 +6,7 @@ import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThingLogic;
 import org.archstudio.bna.IThingLogicManager;
+import org.archstudio.bna.utils.BNAUtils;
 
 public abstract class AbstractThingLogic implements IThingLogic {
 
@@ -14,22 +15,28 @@ public abstract class AbstractThingLogic implements IThingLogic {
 	protected final IThingLogicManager logics;
 
 	public AbstractThingLogic(IBNAWorld world) {
+		BNAUtils.checkLock();
+
 		this.world = checkNotNull(world);
 		this.model = world.getBNAModel();
 		this.logics = world.getThingLogicManager();
 	}
 
 	@Override
-	synchronized public IBNAWorld getBNAWorld() {
+	public IBNAWorld getBNAWorld() {
+		BNAUtils.checkLock();
+
 		return world;
 	}
 
 	@Override
-	synchronized public void init() {
+	public void init() {
+		BNAUtils.checkLock();
 	}
 
 	@Override
-	synchronized public void dispose() {
+	public void dispose() {
+		BNAUtils.checkLock();
 	}
 
 }

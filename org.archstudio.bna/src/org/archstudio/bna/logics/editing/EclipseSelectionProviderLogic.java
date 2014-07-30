@@ -3,13 +3,13 @@ package org.archstudio.bna.logics.editing;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.archstudio.bna.BNAModelEvent;
 import org.archstudio.bna.IBNAModelListener;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.logics.AbstractThingLogic;
+import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.swtutils.SWTWidgetUtils;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
@@ -67,7 +67,7 @@ public abstract class EclipseSelectionProviderLogic extends AbstractThingLogic i
 			});
 		}
 
-		private final Collection<Object> selection = Collections.synchronizedCollection(new ArrayList<Object>());
+		private final Collection<Object> selection = new ArrayList<Object>();
 
 		@Override
 		public ISelection getSelection() {
@@ -112,7 +112,9 @@ public abstract class EclipseSelectionProviderLogic extends AbstractThingLogic i
 	}
 
 	@Override
-	synchronized public void dispose() {
+	public void dispose() {
+		BNAUtils.checkLock();
+
 		workbenchSiteSelectionProvider.removeEclipseSelectionProvider(this);
 		super.dispose();
 	}
@@ -125,7 +127,9 @@ public abstract class EclipseSelectionProviderLogic extends AbstractThingLogic i
 	private int ignoreSelection = 0;
 
 	@Override
-	synchronized public void bnaModelChanged(BNAModelEvent evt) {
+	public void bnaModelChanged(BNAModelEvent evt) {
+		BNAUtils.checkLock();
+
 		switch (evt.getEventType()) {
 		case BULK_CHANGE_BEGIN:
 			inBulkChange++;

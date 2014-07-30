@@ -15,6 +15,7 @@ import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.ui.IBNAMouseListener;
 import org.archstudio.bna.ui.IBNAMouseMoveListener;
 import org.archstudio.bna.utils.Assemblies;
+import org.archstudio.bna.utils.BNAUtils;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.widgets.Control;
@@ -29,21 +30,24 @@ public class StandardCursorLogic extends AbstractThingLogic implements IBNAMouse
 	}
 
 	@Override
-	synchronized public void mouseDown(IBNAView view, MouseType type, MouseEvent evt, List<IThing> things,
-			ICoordinate location) {
+	public void mouseDown(IBNAView view, MouseType type, MouseEvent evt, List<IThing> things, ICoordinate location) {
+		BNAUtils.checkLock();
+
 		isDown = true;
 	}
 
 	@Override
-	synchronized public void mouseUp(IBNAView view, MouseType type, MouseEvent evt, List<IThing> things,
-			ICoordinate location) {
+	public void mouseUp(IBNAView view, MouseType type, MouseEvent evt, List<IThing> things, ICoordinate location) {
+		BNAUtils.checkLock();
+
 		isDown = false;
 		updateCursor(view, evt, things, location);
 	}
 
 	@Override
-	synchronized public void mouseMove(IBNAView view, MouseType type, MouseEvent evt, List<IThing> things,
-			ICoordinate location) {
+	public void mouseMove(IBNAView view, MouseType type, MouseEvent evt, List<IThing> things, ICoordinate location) {
+		BNAUtils.checkLock();
+
 		if (!isDown) {
 			updateCursor(view, evt, things, location);
 		}

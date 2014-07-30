@@ -64,6 +64,9 @@ public class MapFinalStateLogic extends AbstractXADLToBNAPathLogic<FinalStateThi
 				Assemblies.getLayer(model, Assemblies.Layer.MIDDLE));
 		thing.setBoundingBox(new Rectangle(newPointSpot.x - defaultSize.width / 2, newPointSpot.y - defaultSize.height
 				/ 2, defaultSize.width, defaultSize.height));
+		thing.setColor(new RGB(32, 32, 32));
+		Assemblies.BOUNDED_TEXT_KEY.get(thing, model).setText("");
+		thing.setLineWidth(2);
 
 		Assemblies.markRoot(thing);
 
@@ -73,7 +76,7 @@ public class MapFinalStateLogic extends AbstractXADLToBNAPathLogic<FinalStateThi
 					@Override
 					@Nullable
 					public RGB apply(@Nullable RGB input) {
-						return BNAUtils.adjustBrightness(input, 1.5f);
+						return BNAUtils.adjustBrightness(input, 2f);
 					}
 				});
 

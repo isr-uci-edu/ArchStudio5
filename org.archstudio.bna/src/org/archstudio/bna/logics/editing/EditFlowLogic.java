@@ -13,8 +13,9 @@ import org.archstudio.bna.facets.IHasMutableFlow;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.ui.IBNAMenuListener;
 import org.archstudio.bna.utils.Assemblies;
+import org.archstudio.bna.utils.BNAAction;
+import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.swtutils.constants.Flow;
-import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 
@@ -25,17 +26,18 @@ public class EditFlowLogic extends AbstractThingLogic implements IBNAMenuListene
 	}
 
 	@Override
-	synchronized public void fillMenu(final IBNAView view, List<IThing> things, final ICoordinate location,
-			IMenuManager menu) {
+	public void fillMenu(final IBNAView view, List<IThing> things, final ICoordinate location, IMenuManager menu) {
+		BNAUtils.checkLock();
+
 		final IHasFlow editThing = Assemblies.getEditableThing(model, firstOrNull(things), IHasFlow.class,
 				IHasMutableFlow.USER_MAY_EDIT_FLOW);
 		if (editThing != null) {
 			MenuManager editDirectionMenu = new MenuManager("Edit Direction...");
 			for (final Flow f : Flow.values()) {
-				editDirectionMenu.add(new Action(f.toString()) {
+				editDirectionMenu.add(new BNAAction(f.toString()) {
 
 					@Override
-					public void run() {
+					public void runWithLock() {
 						BNAOperations.set("Direction", model, editThing, IHasFlow.FLOW_KEY, f);
 					}
 				});

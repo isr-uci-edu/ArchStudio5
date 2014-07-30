@@ -15,7 +15,7 @@ import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.logics.coordinating.MirrorValueLogic;
 import org.archstudio.bna.logics.tracking.ThingValueTrackingLogic;
 import org.archstudio.bna.utils.Assemblies;
-import org.archstudio.swtutils.SWTWidgetUtils;
+import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.xadl.bna.facets.IHasObjRef;
 import org.archstudio.xarchadt.ObjRef;
 import org.archstudio.xarchadt.variability.IXArchADTVariability;
@@ -25,7 +25,6 @@ import org.archstudio.xarchadt.variability.XArchADTVariabilityEvent;
 import org.archstudio.xarchadt.variability.XArchADTVariabilityEvent.Type;
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.swt.graphics.RGB;
-import org.eclipse.swt.widgets.Display;
 
 @NonNullByDefault
 public class DecorateChangesLogic extends AbstractThingLogic implements IXArchADTVariabilityListener, IBNAModelListener {
@@ -44,21 +43,20 @@ public class DecorateChangesLogic extends AbstractThingLogic implements IXArchAD
 	}
 
 	@Override
-	synchronized public void handleXArchADTVariabilityEvent(final XArchADTVariabilityEvent evt) {
+	public void handleXArchADTVariabilityEvent(final XArchADTVariabilityEvent evt) {
+		BNAUtils.checkLock();
+
 		if (evt.getType() == Type.STATUS) {
-			SWTWidgetUtils.async(Display.getDefault(), new Runnable() {
-				@Override
-				public void run() {
-					for (IThing t : valueLogic.getThings(IHasObjRef.OBJREF_KEY, evt.getChangedObjRef())) {
-						updateDecoration(t, evt.getChangeStatus());
-					}
-				}
-			});
+			for (IThing t : valueLogic.getThings(IHasObjRef.OBJREF_KEY, evt.getChangedObjRef())) {
+				updateDecoration(t, evt.getChangeStatus());
+			}
 		}
 	}
 
 	@Override
-	synchronized public void bnaModelChanged(BNAModelEvent evt) {
+	public void bnaModelChanged(BNAModelEvent evt) {
+		BNAUtils.checkLock();
+
 		switch (evt.getEventType()) {
 		case THING_ADDED: {
 			IThing t = evt.getTargetThing();
@@ -69,12 +67,14 @@ public class DecorateChangesLogic extends AbstractThingLogic implements IXArchAD
 				}
 			}
 		}
+			break;
 		case THING_REMOVED: {
 			IThing t = evt.getTargetThing();
 			if (t != null) {
 				removeDecoration(t);
 			}
 		}
+			break;
 		case THING_CHANGED: {
 			ThingEvent te = evt.getThingEvent();
 			if (te != null) {
@@ -89,6 +89,7 @@ public class DecorateChangesLogic extends AbstractThingLogic implements IXArchAD
 				}
 			}
 		}
+			break;
 		default: // do nothing
 		}
 	}
@@ -119,8 +120,11 @@ public class DecorateChangesLogic extends AbstractThingLogic implements IXArchAD
 		case OVERVIEW:
 			updateDecoration(t, null, 0.5f, false);
 			break;
-		default:
+		case NOT_ENABLED:
 			// do nothing
+			break;
+		default:
+			throw new IllegalArgumentException(changeStatus.toString());
 		}
 	}
 

@@ -25,8 +25,10 @@ import org.archstudio.bna.things.labels.AnchoredLabelThing;
 import org.archstudio.bna.things.shapes.CurvedSplineThing;
 import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.BNAPath;
+import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.UserEditableUtils;
 import org.archstudio.swtutils.constants.FontStyle;
+import org.archstudio.sysutils.Finally;
 import org.archstudio.xadl.bna.facets.IHasXArchID;
 import org.archstudio.xadl.bna.logics.mapping.AbstractXADLToBNAPathLogic;
 import org.archstudio.xadl.bna.logics.mapping.SynchronizeThingIDAndObjRefLogic;
@@ -54,7 +56,7 @@ public class MapTransitionLogic extends AbstractXADLToBNAPathLogic<CurvedSplineT
 		stickLogic = logics.addThingLogic(DynamicStickPointLogic.class);
 
 		syncValue("id", null, null, BNAPath.create(), IHasXArchID.XARCH_ID_KEY, true);
-		syncValue("name", null, "[no name]", BNAPath.create(Assemblies.BOUNDED_TEXT_KEY), IHasText.TEXT_KEY, true);
+		syncValue("name", null, "[no name]", BNAPath.create(Assemblies.ANCHORED_TEXT_KEY), IHasText.TEXT_KEY, true);
 		syncValue("name", null, "[no name]", BNAPath.create(), IHasToolTip.TOOL_TIP_KEY, false);
 
 		syncValue("from", null, null, BNAPath.create(),
@@ -71,7 +73,9 @@ public class MapTransitionLogic extends AbstractXADLToBNAPathLogic<CurvedSplineT
 	}
 
 	@Override
-	synchronized public void dispose() {
+	public void dispose() {
+		BNAUtils.checkLock();
+
 		Activator.getDefault().getPreferenceStore().removePropertyChangeListener(this);
 		org.archstudio.archipelago.core.Activator.getDefault().getPreferenceStore().removePropertyChangeListener(this);
 
@@ -86,15 +90,17 @@ public class MapTransitionLogic extends AbstractXADLToBNAPathLogic<CurvedSplineT
 	}
 
 	@Override
-	synchronized public void propertyChange(PropertyChangeEvent event) {
+	public void propertyChange(PropertyChangeEvent event) {
 		loadPreferences();
 
-		for (CurvedSplineThing thing : getAddedThings()) {
-			AnchoredLabelThing label = Assemblies.ANCHORED_TEXT_KEY.get(thing, model);
-			label.set(IHasFontData.FONT_NAME_KEY, defaultFont.getName());
-			label.set(IHasFontData.FONT_SIZE_KEY, defaultFont.getHeight());
-			label.set(IHasFontData.FONT_STYLE_KEY, FontStyle.fromSWT(defaultFont.getStyle()));
-			thing.setLineWidth(defaultLineWidth);
+		try (Finally lock = BNAUtils.lock(); Finally bulkChange = model.beginBulkChange();) {
+			for (CurvedSplineThing thing : getAddedThings()) {
+				AnchoredLabelThing label = Assemblies.ANCHORED_TEXT_KEY.get(thing, model);
+				label.set(IHasFontData.FONT_NAME_KEY, defaultFont.getName());
+				label.set(IHasFontData.FONT_SIZE_KEY, defaultFont.getHeight());
+				label.set(IHasFontData.FONT_STYLE_KEY, FontStyle.fromSWT(defaultFont.getStyle()));
+				thing.setLineWidth(defaultLineWidth);
+			}
 		}
 	}
 
@@ -107,11 +113,13 @@ public class MapTransitionLogic extends AbstractXADLToBNAPathLogic<CurvedSplineT
 		transition.setEndpoint2(new Point2D.Double(newPointSpot.x + 50, newPointSpot.y - 50));
 		transition.setArrowhead2Color(new RGB(0, 0, 0));
 		transition.setArrowhead2EdgeColor(new RGB(0, 0, 0));
+		transition.setSpacing(3);
 
 		UserEditableUtils.addEditableQualities(transition, IHasMutableSelected.USER_MAY_SELECT,
 				IHasMutableReferencePoint.USER_MAY_MOVE, IHasMutableEndpoints.USER_MAY_MOVE_ENDPOINT_1,
 				IHasMutableEndpoints.USER_MAY_RESTICK_ENDPOINT_1, IHasMutableEndpoints.USER_MAY_MOVE_ENDPOINT_2,
-				IHasMutableEndpoints.USER_MAY_RESTICK_ENDPOINT_2, IHasMutableAlpha.USER_MAY_CHANGE_ALPHA);
+				IHasMutableEndpoints.USER_MAY_RESTICK_ENDPOINT_2, IHasMutableAlpha.USER_MAY_CHANGE_ALPHA,
+				HighlightLogic.USER_MAY_HIGHLIGHT);
 
 		transition.set(stickLogic.getStickyModeKey(IHasEndpoints.ENDPOINT_1_KEY), StickyMode.EDGE_FROM_CENTER);
 		transition.set(stickLogic.getStickyModeKey(IHasEndpoints.ENDPOINT_2_KEY), StickyMode.EDGE_FROM_CENTER);
@@ -122,7 +130,6 @@ public class MapTransitionLogic extends AbstractXADLToBNAPathLogic<CurvedSplineT
 		label.set(IHasFontData.FONT_STYLE_KEY, FontStyle.fromSWT(defaultFont.getStyle()));
 		transition.setLineWidth(defaultLineWidth);
 
-		UserEditableUtils.addEditableQualities(transition, HighlightLogic.USER_MAY_HIGHLIGHT);
 		UserEditableUtils.addEditableQualities(label, IHasMutableText.USER_MAY_EDIT_TEXT);
 
 		return transition;

@@ -50,9 +50,11 @@ public class XadlUtils {
 
 	@Nullable
 	public static ObjRef getExt(IXArchADTQuery xarch, ObjRef ref, String extensionNsURI, String extensionTypeName) {
-		for (ObjRef extRef : Iterables.filter(xarch.getAll(ref, "ext"), ObjRef.class)) {
-			if (xarch.isInstanceOf(extRef, extensionNsURI, extensionTypeName)) {
-				return extRef;
+		if (xarch.getTypeMetadata(ref).getFeatures().containsKey("ext")) {
+			for (ObjRef extRef : Iterables.filter(xarch.getAll(ref, "ext"), ObjRef.class)) {
+				if (xarch.isInstanceOf(extRef, extensionNsURI, extensionTypeName)) {
+					return extRef;
+				}
 			}
 		}
 		return null;

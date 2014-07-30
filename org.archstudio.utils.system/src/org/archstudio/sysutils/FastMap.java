@@ -83,7 +83,7 @@ public final class FastMap<K, V> implements Map<K, V> {
 
 		@Override
 		public V setValue(V value) {
-			V oldValue = value;
+			V oldValue = this.value;
 			this.value = value;
 			return oldValue;
 		}

@@ -15,10 +15,8 @@ import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import java.util.List;
 
-import javax.media.opengl.DebugGL4bc;
 import javax.media.opengl.GL;
 import javax.media.opengl.GL2ES2;
-import javax.media.opengl.GL4bc;
 import javax.media.opengl.fixedfunc.GLMatrixFunc;
 
 import org.archstudio.bna.IBNAModel;
@@ -86,7 +84,7 @@ public class JOGLResources extends AbstractUIResources implements IJOGLResources
 	private Texture texture;
 
 	public JOGLResources(GL2ES2 gl) {
-		this.gl = new DebugGL4bc((GL4bc) gl);
+		this.gl = gl;
 
 		fill2dVP = GL2ES2Shader.create(gl, GL2ES2.GL_VERTEX_SHADER, JOGLResources.class.getResource("glsl/fill2d.vp"));
 		fill2dFP = GL2ES2Shader

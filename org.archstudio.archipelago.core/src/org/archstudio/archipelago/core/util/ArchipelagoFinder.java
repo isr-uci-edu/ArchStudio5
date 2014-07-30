@@ -18,13 +18,18 @@ import org.archstudio.bna.things.utility.WorldThingPeer;
 import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.FlyToUtils;
-import org.archstudio.resources.ArchStudioCommonResources;
 import org.archstudio.resources.IResources;
+import org.archstudio.resources.ResourceCache;
 import org.archstudio.swtutils.DefaultFindResult;
 import org.archstudio.swtutils.IFindResult;
 import org.archstudio.swtutils.IFinder;
 import org.archstudio.xadl.XadlUtils;
 import org.archstudio.xadl.bna.facets.IHasObjRef;
+import org.archstudio.xadl3.structure_3_0.Component;
+import org.archstudio.xadl3.structure_3_0.Connector;
+import org.archstudio.xadl3.structure_3_0.Interface;
+import org.archstudio.xadl3.structure_3_0.InterfaceMapping;
+import org.archstudio.xadl3.structure_3_0.Link;
 import org.archstudio.xadl3.structure_3_0.Structure_3_0Package;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
@@ -71,7 +76,7 @@ public class ArchipelagoFinder implements IFinder<IBNAView> {
 				String text = Assemblies.BOUNDED_TEXT_KEY.get(assembly, m).getText();
 				if (matches(search, text)) {
 					r = createFindResult(context, assembly, prefix, text,
-							resources.getImageDescriptor(ArchStudioCommonResources.ICON_COMPONENT));
+							ImageDescriptor.createFromImage(ResourceCache.getIcon(Component.class)));
 				}
 				find(context, assembly, search, text, resultList);
 			}
@@ -80,7 +85,7 @@ public class ArchipelagoFinder implements IFinder<IBNAView> {
 				String text = Assemblies.BOUNDED_TEXT_KEY.get(assembly, m).getText();
 				if (matches(search, text)) {
 					r = createFindResult(context, assembly, prefix, text,
-							resources.getImageDescriptor(ArchStudioCommonResources.ICON_CONNECTOR));
+							ImageDescriptor.createFromImage(ResourceCache.getIcon(Connector.class)));
 				}
 				find(context, assembly, search, text, resultList);
 			}
@@ -89,7 +94,7 @@ public class ArchipelagoFinder implements IFinder<IBNAView> {
 				String text = ToolTipLogic.getToolTip(assembly);
 				if (matches(search, text)) {
 					r = createFindResult(context, assembly, prefix, text,
-							resources.getImageDescriptor(ArchStudioCommonResources.ICON_INTERFACE));
+							ImageDescriptor.createFromImage(ResourceCache.getIcon(Interface.class)));
 				}
 			}
 			if (assembly != null && objRef != null
@@ -97,7 +102,7 @@ public class ArchipelagoFinder implements IFinder<IBNAView> {
 				String text = ToolTipLogic.getToolTip(assembly);
 				if (matches(search, text)) {
 					r = createFindResult(context, assembly, prefix, text,
-							resources.getImageDescriptor(ArchStudioCommonResources.ICON_LINK));
+							ImageDescriptor.createFromImage(ResourceCache.getIcon(Link.class)));
 				}
 			}
 			if (assembly != null && objRef != null
@@ -105,7 +110,7 @@ public class ArchipelagoFinder implements IFinder<IBNAView> {
 				String text = ToolTipLogic.getToolTip(assembly);
 				if (matches(search, text)) {
 					r = createFindResult(context, assembly, prefix, text,
-							resources.getImageDescriptor(ArchStudioCommonResources.ICON_LINK));
+							ImageDescriptor.createFromImage(ResourceCache.getIcon(InterfaceMapping.class)));
 				}
 			}
 			if (r != null) {

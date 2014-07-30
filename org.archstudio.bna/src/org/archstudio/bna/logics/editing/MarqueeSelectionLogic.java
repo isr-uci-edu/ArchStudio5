@@ -17,6 +17,7 @@ import org.archstudio.bna.ui.IBNAMouseListener;
 import org.archstudio.bna.ui.IBNAMouseMoveListener;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.UserEditableUtils;
+import org.archstudio.sysutils.Finally;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
@@ -35,7 +36,9 @@ public class MarqueeSelectionLogic extends AbstractThingLogic implements IBNAMou
 	}
 
 	@Override
-	synchronized public void dispose() {
+	public void dispose() {
+		BNAUtils.checkLock();
+
 		if (marqueeSelection != null) {
 			model.removeThing(marqueeSelection);
 		}
@@ -43,8 +46,9 @@ public class MarqueeSelectionLogic extends AbstractThingLogic implements IBNAMou
 	}
 
 	@Override
-	synchronized public void mouseDown(IBNAView view, MouseType type, MouseEvent evt, List<IThing> t,
-			ICoordinate location) {
+	public void mouseDown(IBNAView view, MouseType type, MouseEvent evt, List<IThing> t, ICoordinate location) {
+		BNAUtils.checkLock();
+
 		if (marqueeSelection != null) {
 			model.removeThing(marqueeSelection);
 			marqueeSelection = null;
@@ -59,8 +63,9 @@ public class MarqueeSelectionLogic extends AbstractThingLogic implements IBNAMou
 	}
 
 	@Override
-	synchronized public void mouseMove(IBNAView view, MouseType type, MouseEvent evt, List<IThing> things,
-			ICoordinate location) {
+	public void mouseMove(IBNAView view, MouseType type, MouseEvent evt, List<IThing> things, ICoordinate location) {
+		BNAUtils.checkLock();
+
 		if (marqueeSelection != null) {
 			Point worldPoint = location.getWorldPoint();
 			int x1 = Math.min(initDownWorldPoint.x, worldPoint.x);
@@ -72,15 +77,16 @@ public class MarqueeSelectionLogic extends AbstractThingLogic implements IBNAMou
 	}
 
 	@Override
-	synchronized public void mouseUp(IBNAView view, MouseType type, MouseEvent evt, List<IThing> t, ICoordinate location) {
+	public void mouseUp(IBNAView view, MouseType type, MouseEvent evt, List<IThing> t, ICoordinate location) {
+		BNAUtils.checkLock();
+
 		try {
 			if (evt.button == 1) {
 				if (marqueeSelection != null) {
 					Rectangle selectionRectangle = marqueeSelection.getBoundingBox();
 					selectionRectangle = BNAUtils.normalizeRectangle(selectionRectangle);
 
-					model.beginBulkChange();
-					try {
+					try (Finally bulkChange = model.beginBulkChange()) {
 						for (IHasMutableSelected mst : typeLogic.getThings(IHasMutableSelected.class)) {
 							if (!BNAUtils.wasControlPressed(evt)) {
 								mst.setSelected(false);
@@ -99,9 +105,6 @@ public class MarqueeSelectionLogic extends AbstractThingLogic implements IBNAMou
 								}
 							}
 						}
-					}
-					finally {
-						model.endBulkChange();
 					}
 				}
 			}

@@ -14,6 +14,7 @@ import org.archstudio.bna.keys.IThingMetakey;
 import org.archstudio.bna.keys.IThingRefKey;
 import org.archstudio.bna.keys.ThingMetakey;
 import org.archstudio.bna.logics.AbstractKeyCoordinatingThingLogic;
+import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.xadl.bna.facets.IHasObjRef;
 import org.archstudio.xarchadt.ObjRef;
 
@@ -29,7 +30,9 @@ public class SynchronizeThingIDAndObjRefLogic extends AbstractKeyCoordinatingThi
 		track(IHasObjRef.OBJREF_KEY);
 	}
 
-	synchronized public IThingMetakey<?, IThingRefKey<?>, ObjRef> syncObjRefKeyToThingIDKey(IThingRefKey<?> thingRefKey) {
+	public IThingMetakey<?, IThingRefKey<?>, ObjRef> syncObjRefKeyToThingIDKey(IThingRefKey<?> thingRefKey) {
+		BNAUtils.checkLock();
+
 		track(thingRefKey);
 		IThingMetakey<?, IThingRefKey<?>, ObjRef> objRefMetakey = _syncObjRefKeyToThingIDKey(thingRefKey);
 		objRefMetakeys.add(objRefMetakey);
@@ -81,7 +84,9 @@ public class SynchronizeThingIDAndObjRefLogic extends AbstractKeyCoordinatingThi
 	}
 
 	@Override
-	synchronized public void bnaModelChanged(BNAModelEvent evt) {
+	public void bnaModelChanged(BNAModelEvent evt) {
+		BNAUtils.checkLock();
+
 		super.bnaModelChanged(evt);
 		if (evt.getEventType() == EventType.THING_REMOVED) {
 			IThing thing = evt.getTargetThing();

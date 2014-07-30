@@ -20,9 +20,11 @@ import org.archstudio.bna.ui.IBNAMenuListener;
 import org.archstudio.bna.ui.IBNAMouseListener;
 import org.archstudio.bna.ui.IBNAMouseMoveListener;
 import org.archstudio.bna.utils.Assemblies;
+import org.archstudio.bna.utils.BNAAction;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.DefaultCoordinate;
 import org.archstudio.resources.IResources;
+import org.archstudio.resources.ResourceCache;
 import org.archstudio.sysutils.UIDGenerator;
 import org.archstudio.xadl.XadlUtils;
 import org.archstudio.xadl.bna.facets.IHasObjRef;
@@ -33,9 +35,9 @@ import org.archstudio.xadl3.structure_3_0.Structure_3_0Package;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
 import org.archstudio.xarchadt.XArchADTProxy;
-import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.RGB;
@@ -65,7 +67,9 @@ public class StructureNewInterfaceMappingLogic extends AbstractThingLogic implem
 	}
 
 	@Override
-	synchronized public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager m) {
+	public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager m) {
+		BNAUtils.checkLock();
+
 		Collection<IThing> selectedThings = BNAUtils.getSelectedThings(view.getBNAWorld().getBNAModel());
 		if (selectedThings.size() > 1) {
 			return;
@@ -94,9 +98,9 @@ public class StructureNewInterfaceMappingLogic extends AbstractThingLogic implem
 				if (subArchitectureRef != null) {
 					ObjRef archStructureRef = (ObjRef) xarch.get(subArchitectureRef, "innerStructureLink");
 					if (archStructureRef != null) {
-						return new Action("New Interface-Interface Mapping...") {
+						return new BNAAction("New Interface-Interface Mapping...") {
 							@Override
-							public void run() {
+							public void runWithLock() {
 								Point2D p1 = BNAUtils.getCentralPoint(t);
 								if (p1 == null) {
 									p1 = new Point2D.Double(worldX, worldY);
@@ -108,6 +112,11 @@ public class StructureNewInterfaceMappingLogic extends AbstractThingLogic implem
 								indicatorSpline.setLineWidth(2);
 								indicatorSpline.setEdgeColor(new RGB(0, 0, 255));
 							}
+
+							@Override
+							public ImageDescriptor getImageDescriptor() {
+								return ImageDescriptor.createFromImage(ResourceCache.getIcon(InterfaceMapping.class));
+							}
 						};
 					}
 				}
@@ -117,21 +126,22 @@ public class StructureNewInterfaceMappingLogic extends AbstractThingLogic implem
 	}
 
 	@Override
-	synchronized public void mouseUp(IBNAView view, MouseType type, MouseEvent evt, List<IThing> things,
-			ICoordinate location) {
+	public void mouseUp(IBNAView view, MouseType type, MouseEvent evt, List<IThing> things, ICoordinate location) {
 	}
 
 	@Override
-	synchronized public void mouseMove(IBNAView view, MouseType type, MouseEvent evt, List<IThing> things,
-			ICoordinate location) {
+	public void mouseMove(IBNAView view, MouseType type, MouseEvent evt, List<IThing> things, ICoordinate location) {
+		BNAUtils.checkLock();
+
 		if (indicatorSpline != null) {
 			indicatorSpline.setEndpoint2(BNAUtils.toPoint2D(location.getWorldPoint()));
 		}
 	}
 
 	@Override
-	synchronized public void mouseDown(IBNAView view, MouseType type, MouseEvent evt, List<IThing> things,
-			ICoordinate location) {
+	public void mouseDown(IBNAView view, MouseType type, MouseEvent evt, List<IThing> things, ICoordinate location) {
+		BNAUtils.checkLock();
+
 		if (indicatorSpline != null) {
 			if (evt.button == 1) {
 				List<IThing> otherThings = Lists.newArrayList(things);

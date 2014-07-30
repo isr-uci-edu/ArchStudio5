@@ -12,6 +12,7 @@ import org.archstudio.bna.IThing;
 import org.archstudio.bna.ThingEvent;
 import org.archstudio.bna.keys.IThingKey;
 import org.archstudio.bna.logics.AbstractThingLogic;
+import org.archstudio.bna.utils.BNAUtils;
 
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
@@ -45,13 +46,17 @@ public class ThingValueTrackingLogic extends AbstractThingLogic implements IBNAM
 	}
 
 	@Override
-	synchronized public void dispose() {
+	public void dispose() {
+		BNAUtils.checkLock();
+
 		keyToValueToThingIDsCache.invalidateAll();
 		super.dispose();
 	}
 
 	@Override
-	synchronized public void bnaModelChanged(BNAModelEvent evt) {
+	public void bnaModelChanged(BNAModelEvent evt) {
+		BNAUtils.checkLock();
+
 		switch (evt.getEventType()) {
 		case THING_ADDED: {
 			IThing thing = evt.getTargetThing();
@@ -92,38 +97,52 @@ public class ThingValueTrackingLogic extends AbstractThingLogic implements IBNAM
 		}
 	}
 
-	synchronized public <V> Collection<Object> getThingIDs(IThingKey<V> withKey, V ofValue) {
+	public <V> Collection<Object> getThingIDs(IThingKey<V> withKey, V ofValue) {
+		BNAUtils.checkLock();
+
 		return Lists.newArrayList(keyToValueToThingIDsCache.getUnchecked(withKey).get(ofValue));
 	}
 
-	synchronized public <V> Collection<IThing> getThings(IThingKey<V> withKey, V ofValue) {
+	public <V> Collection<IThing> getThings(IThingKey<V> withKey, V ofValue) {
+		BNAUtils.checkLock();
+
 		return model.getThingsByID(keyToValueToThingIDsCache.getUnchecked(withKey).get(ofValue));
 	}
 
-	synchronized public <V, T extends IThing> Collection<T> getThings(IThingKey<V> withKey, V ofValue, Class<T> ofType) {
+	public <V, T extends IThing> Collection<T> getThings(IThingKey<V> withKey, V ofValue, Class<T> ofType) {
+		BNAUtils.checkLock();
+
 		return filter(model.getThingsByID(keyToValueToThingIDsCache.getUnchecked(withKey).get(ofValue)), ofType);
 	}
 
-	synchronized public <V1, V2> Collection<Object> getThingIDs(IThingKey<V1> withKey1, V1 ofValue1,
-			IThingKey<V2> withKey2, V2 ofValue2) {
+	public <V1, V2> Collection<Object> getThingIDs(IThingKey<V1> withKey1, V1 ofValue1, IThingKey<V2> withKey2,
+			V2 ofValue2) {
+		BNAUtils.checkLock();
+
 		return Lists.newArrayList(Sets.intersection(keyToValueToThingIDsCache.getUnchecked(withKey1).get(ofValue1),
 				keyToValueToThingIDsCache.getUnchecked(withKey2).get(ofValue2)));
 	}
 
-	synchronized public <V1, V2> Collection<IThing> getThings(IThingKey<V1> withKey1, V1 ofValue1,
-			IThingKey<V2> withKey2, V2 ofValue2) {
+	public <V1, V2> Collection<IThing> getThings(IThingKey<V1> withKey1, V1 ofValue1, IThingKey<V2> withKey2,
+			V2 ofValue2) {
+		BNAUtils.checkLock();
+
 		return model.getThingsByID(Sets.intersection(keyToValueToThingIDsCache.getUnchecked(withKey1).get(ofValue1),
 				keyToValueToThingIDsCache.getUnchecked(withKey2).get(ofValue2)));
 	}
 
-	synchronized public <V1, V2, T extends IThing> Collection<T> getThings(IThingKey<V1> withKey1, V1 ofValue1,
+	public <V1, V2, T extends IThing> Collection<T> getThings(IThingKey<V1> withKey1, V1 ofValue1,
 			IThingKey<V2> withKey2, V2 ofValue2, Class<T> ofType) {
+		BNAUtils.checkLock();
+
 		return filter(model.getThingsByID(Sets.intersection(
 				keyToValueToThingIDsCache.getUnchecked(withKey1).get(ofValue1),
 				keyToValueToThingIDsCache.getUnchecked(withKey2).get(ofValue2))), ofType);
 	}
 
-	synchronized public Collection<IThing> getThings(IThingKey<?> withKey) {
+	public Collection<IThing> getThings(IThingKey<?> withKey) {
+		BNAUtils.checkLock();
+
 		return model.getThingsByID(keyToValueToThingIDsCache.getUnchecked(withKey).values());
 	}
 }

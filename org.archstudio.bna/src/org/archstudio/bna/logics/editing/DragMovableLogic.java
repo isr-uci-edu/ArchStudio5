@@ -16,6 +16,7 @@ import org.archstudio.bna.logics.tracking.ThingValueTrackingLogic;
 import org.archstudio.bna.things.shapes.ReshapeHandleThing;
 import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.BNAUtils;
+import org.archstudio.sysutils.Finally;
 import org.eclipse.swt.graphics.Point;
 
 import com.google.common.collect.Maps;
@@ -24,7 +25,7 @@ public class DragMovableLogic extends AbstractThingLogic implements IDragMoveLis
 
 	protected final ThingValueTrackingLogic valueLogic;
 
-	protected final Map<IHasReferencePoint, Point> movingThings = Maps.newHashMap();
+	protected final Map<IHasMutableReferencePoint, Point> movingThings = Maps.newHashMap();
 	protected Runnable initialSnapshot = null;
 	protected Point totalRelativePoint = new Point(0, 0);
 	protected Point lastAdjustedMousePoint = new Point(0, 0);
@@ -36,49 +37,48 @@ public class DragMovableLogic extends AbstractThingLogic implements IDragMoveLis
 	}
 
 	@Override
-	synchronized public void dispose() {
+	public void dispose() {
+		BNAUtils.checkLock();
+
 		movingThings.clear();
 		super.dispose();
 	}
 
 	@Override
-	synchronized public void dragStarted(DragMoveEvent evt) {
+	public void dragStarted(DragMoveEvent evt) {
+		BNAUtils.checkLock();
+
 		movingThings.clear();
 		totalRelativePoint.x = 0;
 		totalRelativePoint.y = 0;
 		lastAdjustedMousePoint = evt.getAdjustedThingLocation().getWorldPoint();
-		model.beginBulkChange();
-		try {
-			IHasReferencePoint movingThing = Assemblies.getEditableThing(model, evt.getInitialThing(),
-					IHasReferencePoint.class, IHasMutableReferencePoint.USER_MAY_MOVE);
-			if (movingThing != null) {
-				Collection<IHasReferencePoint> selectedThings = valueLogic.getThings(IHasSelected.SELECTED_KEY,
-						Boolean.TRUE, IHasReferencePoint.class);
-				if (selectedThings.contains(movingThing)) {
-					for (IHasReferencePoint rmt : selectedThings) {
-						movingThings.put(rmt, rmt.getReferencePoint());
-					}
+		IHasMutableReferencePoint movingThing = Assemblies.getEditableThing(model, evt.getInitialThing(),
+				IHasMutableReferencePoint.class, IHasMutableReferencePoint.USER_MAY_MOVE);
+		if (movingThing != null) {
+			Collection<IHasMutableReferencePoint> selectedThings = valueLogic.getThings(IHasSelected.SELECTED_KEY,
+					Boolean.TRUE, IHasMutableReferencePoint.class);
+			if (selectedThings.contains(movingThing)) {
+				for (IHasMutableReferencePoint rmt : selectedThings) {
+					movingThings.put(rmt, rmt.getReferencePoint());
+				}
+			}
+			else {
+				if (movingThing instanceof IHasReferencePoint) {
+					movingThings.put(movingThing, movingThing.getReferencePoint());
 				}
 				else {
-					if (movingThing instanceof IHasReferencePoint) {
-						movingThings.put(movingThing, movingThing.getReferencePoint());
-					}
-					else {
-						movingThings.put(movingThing, null);
-					}
+					movingThings.put(movingThing, null);
 				}
-				initialSnapshot = BNAOperations.takeSnapshotOfLocations(model, movingThings.keySet());
 			}
-		}
-		finally {
-			model.endBulkChange();
+			initialSnapshot = BNAOperations.takeSnapshotOfLocations(model, movingThings.keySet());
 		}
 	}
 
 	@Override
-	synchronized public void dragMoved(DragMoveEvent evt) {
-		model.beginBulkChange();
-		try {
+	public void dragMoved(DragMoveEvent evt) {
+		BNAUtils.checkLock();
+
+		try (Finally bulkChange = model.beginBulkChange()) {
 			Point referencePointDelta = evt.getAdjustedThingLocation().getWorldPoint();
 			Point initialLocation = evt.getInitialLocation().getWorldPoint();
 			referencePointDelta.x -= initialLocation.x;
@@ -89,8 +89,8 @@ public class DragMovableLogic extends AbstractThingLogic implements IDragMoveLis
 			totalRelativePoint.x += relativePointDelta.x;
 			totalRelativePoint.y += relativePointDelta.y;
 
-			for (Entry<IHasReferencePoint, Point> e : movingThings.entrySet()) {
-				if (e.getKey() instanceof IHasReferencePoint) {
+			for (Entry<IHasMutableReferencePoint, Point> e : movingThings.entrySet()) {
+				if (e.getKey() instanceof IHasMutableReferencePoint) {
 					Point referencePoint = BNAUtils.clone(e.getValue());
 					referencePoint.x += referencePointDelta.x;
 					referencePoint.y += referencePointDelta.y;
@@ -100,12 +100,13 @@ public class DragMovableLogic extends AbstractThingLogic implements IDragMoveLis
 		}
 		finally {
 			lastAdjustedMousePoint = evt.getAdjustedThingLocation().getWorldPoint();
-			model.endBulkChange();
 		}
 	}
 
 	@Override
-	synchronized public void dragFinished(DragMoveEvent evt) {
+	public void dragFinished(DragMoveEvent evt) {
+		BNAUtils.checkLock();
+
 		// if we moved a handle, let the reshape logic handle the undo
 		if (!(movingThings.size() == 1 && movingThings.keySet().iterator().next() instanceof ReshapeHandleThing)) {
 			if (totalRelativePoint.x != 0 || totalRelativePoint.y != 0) {

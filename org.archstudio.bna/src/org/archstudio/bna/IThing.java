@@ -49,6 +49,4 @@ public interface IThing {
 
 	public boolean isShapeModifyingKey(IThingKey<?> key);
 
-	public Set<IThingKey<?>> getShapeModifyingKeys();
-
 }

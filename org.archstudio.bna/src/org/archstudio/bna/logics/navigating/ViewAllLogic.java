@@ -10,7 +10,8 @@ import org.archstudio.bna.IThing;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.logics.tracking.ModelBoundsTrackingLogic;
 import org.archstudio.bna.ui.IBNAMenuListener;
-import org.eclipse.jface.action.Action;
+import org.archstudio.bna.utils.BNAAction;
+import org.archstudio.bna.utils.BNAUtils;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
@@ -35,13 +36,14 @@ public class ViewAllLogic extends AbstractThingLogic implements IBNAMenuListener
 	}
 
 	@Override
-	synchronized public void fillMenu(final IBNAView view, List<IThing> things, final ICoordinate location,
-			IMenuManager menu) {
+	public void fillMenu(final IBNAView view, List<IThing> things, final ICoordinate location, IMenuManager menu) {
+		BNAUtils.checkLock();
+
 		if (things.size() == 0) {
-			menu.add(new Action("View All") {
+			menu.add(new BNAAction("View All") {
 
 				@Override
-				public void run() {
+				public void runWithLock() {
 					viewAll(view);
 				}
 			});

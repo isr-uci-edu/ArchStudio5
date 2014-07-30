@@ -20,7 +20,6 @@ import org.archstudio.bna.logics.tracking.ThingTypeTrackingLogic;
 import org.archstudio.bna.things.utility.WorldThingPeer;
 import org.archstudio.bna.ui.IBNADragAndDropListener;
 import org.archstudio.bna.ui.IBNAFocusListener;
-import org.archstudio.bna.ui.IBNAKeyListener;
 import org.archstudio.bna.ui.IBNAMagnifyGestureListener;
 import org.archstudio.bna.ui.IBNAMenuListener;
 import org.archstudio.bna.ui.IBNAMouseClickListener;
@@ -31,6 +30,7 @@ import org.archstudio.bna.ui.IBNAPanGestureListener;
 import org.archstudio.bna.ui.IBNARotateGestureListener;
 import org.archstudio.bna.ui.IBNASwipeGestureListener;
 import org.archstudio.bna.ui.IBNATrackGestureListener;
+import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.DefaultCoordinate;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.swt.events.MouseEvent;
@@ -69,7 +69,7 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic {
 		}
 	}
 
-	protected class ProxyHandler implements IThingLogic, InvocationHandler, IBNAMouseListener, IBNAMouseMoveListener,
+	private class ProxyHandler implements IThingLogic, InvocationHandler, IBNAMouseListener, IBNAMouseMoveListener,
 			IBNAMenuListener {
 
 		protected Method method;
@@ -93,6 +93,8 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic {
 
 		@Override
 		public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+			BNAUtils.checkLock();
+
 			this.method = method;
 			try {
 				Method selfMethod = this.getClass().getMethod(method.getName(), method.getParameterTypes());
@@ -154,6 +156,8 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic {
 
 		@Override
 		public void mouseDown(IBNAView view, MouseType type, MouseEvent evt, List<IThing> things, ICoordinate location) {
+			BNAUtils.checkLock();
+
 			capturedWorldThing = firstOrNull(things, IHasWorld.class);
 			if (capturedWorldThing != null) {
 				propagateEvent(view, capturedWorldThing, method, new Object[] { view, type, evt, things, location });
@@ -162,6 +166,8 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic {
 
 		@Override
 		public void mouseUp(IBNAView view, MouseType type, MouseEvent evt, List<IThing> things, ICoordinate location) {
+			BNAUtils.checkLock();
+
 			if (capturedWorldThing != null) {
 				propagateEvent(view, capturedWorldThing, method, new Object[] { view, type, evt, things, location });
 				capturedWorldThing = null;
@@ -170,6 +176,8 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic {
 
 		@Override
 		public void mouseMove(IBNAView view, MouseType type, MouseEvent evt, List<IThing> things, ICoordinate location) {
+			BNAUtils.checkLock();
+
 			if (capturedWorldThing != null) {
 				propagateEvent(view, capturedWorldThing, method, new Object[] { view, type, evt, things, location });
 			}
@@ -187,6 +195,8 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic {
 
 		@Override
 		public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager menu) {
+			BNAUtils.checkLock();
+
 			IHasWorld worldThing = firstOrNull(things, IHasWorld.class);
 			if (worldThing != null) {
 				propagateEvent(view, worldThing, method, new Object[] { view, things, location, menu });
@@ -208,12 +218,12 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic {
 					new Class<?>[] { IThingLogic.class, //
 							IBNADragAndDropListener.class, //
 							IBNAFocusListener.class, //
-							IBNAKeyListener.class, //
+							//IBNAKeyListener.class, //
 							IBNAMagnifyGestureListener.class, //
 							IBNAMenuListener.class, //
 							IBNAMouseClickListener.class, //
 							IBNAMouseListener.class, //
-							IBNAMouseMoveListener.class, //
+							//IBNAMouseMoveListener.class, //
 							IBNAMouseTrackListener.class, //
 							IBNAPanGestureListener.class, //
 							IBNARotateGestureListener.class, //
@@ -230,6 +240,8 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic {
 
 	@SuppressWarnings("unchecked")
 	public <T> T proxy(Class<T> ofType) {
+		BNAUtils.checkLock();
+
 		if (ofType.isInstance(proxy)) {
 			return (T) proxy;
 		}
@@ -237,7 +249,9 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic {
 	}
 
 	@Override
-	synchronized public void dispose() {
+	public void dispose() {
+		BNAUtils.checkLock();
+
 		logics.removeThingLogic(proxy);
 		super.dispose();
 	}

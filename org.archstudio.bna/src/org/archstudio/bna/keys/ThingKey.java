@@ -74,12 +74,16 @@ public class ThingKey<V> extends AbstractThingKey<V> {
 			if (fn != null) {
 				return fn.apply(input);
 			}
-			for (Class<?> iface : inputClass.getInterfaces()) {
-				fn = (Function<Object, Object>) CLONE_FUNCTIONS.get(iface);
-				if (fn != null) {
-					CLONE_FUNCTIONS.put(iface, fn);
-					return fn.apply(input);
+			Class<?> superClass = inputClass;
+			while (superClass != null) {
+				for (Class<?> iface : superClass.getInterfaces()) {
+					fn = (Function<Object, Object>) CLONE_FUNCTIONS.get(iface);
+					if (fn != null) {
+						CLONE_FUNCTIONS.put(inputClass, fn);
+						return fn.apply(input);
+					}
 				}
+				superClass = superClass.getSuperclass();
 			}
 			CLONE_FUNCTIONS.put(inputClass, Functions.identity());
 			return input;

@@ -22,6 +22,7 @@ import org.archstudio.bna.ui.IBNAMouseMoveListener;
 import org.archstudio.bna.ui.IBNAMouseWheelListener;
 import org.archstudio.bna.ui.IBNAPanGestureListener;
 import org.archstudio.bna.ui.IBNATrackGestureListener;
+import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.DefaultCoordinate;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
@@ -62,7 +63,7 @@ public class PanAndZoomLogic extends AbstractThingLogic implements IBNAMouseWhee
 		this.boundsLogic = logics.addThingLogic(ModelBoundsTrackingLogic.class);
 	}
 
-	synchronized protected static void registerView(IBNAView view) {
+	protected static void registerView(IBNAView view) {
 		final Composite composite = view.getBNAUI().getComposite();
 		if (!registeredComposites.contains(composite)) {
 			composite.addListener(SWT.MouseVerticalWheel, preventScrollListener);
@@ -77,8 +78,9 @@ public class PanAndZoomLogic extends AbstractThingLogic implements IBNAMouseWhee
 	}
 
 	@Override
-	synchronized public void mouseDown(IBNAView view, MouseType type, MouseEvent evt, List<IThing> things,
-			ICoordinate location) {
+	public void mouseDown(IBNAView view, MouseType type, MouseEvent evt, List<IThing> things, ICoordinate location) {
+		BNAUtils.checkLock();
+
 		// only handle events for the top world
 		if (view.getParentView() != null) {
 			return;
@@ -92,8 +94,9 @@ public class PanAndZoomLogic extends AbstractThingLogic implements IBNAMouseWhee
 	}
 
 	@Override
-	synchronized public void mouseUp(IBNAView view, MouseType type, MouseEvent evt, List<IThing> things,
-			ICoordinate location) {
+	public void mouseUp(IBNAView view, MouseType type, MouseEvent evt, List<IThing> things, ICoordinate location) {
+		BNAUtils.checkLock();
+
 		// only handle events for the top world
 		if (view.getParentView() != null) {
 			return;
@@ -106,8 +109,9 @@ public class PanAndZoomLogic extends AbstractThingLogic implements IBNAMouseWhee
 	}
 
 	@Override
-	synchronized public void mouseMove(IBNAView view, MouseType type, MouseEvent evt, List<IThing> things,
-			ICoordinate location) {
+	public void mouseMove(IBNAView view, MouseType type, MouseEvent evt, List<IThing> things, ICoordinate location) {
+		BNAUtils.checkLock();
+
 		// only handle events for the top world
 		if (view.getParentView() != null) {
 			return;
@@ -129,6 +133,8 @@ public class PanAndZoomLogic extends AbstractThingLogic implements IBNAMouseWhee
 
 	@Override
 	public void mouseVerticalWheel(IBNAView view, MouseType type, MouseEvent e, List<IThing> t, ICoordinate location) {
+		BNAUtils.checkLock();
+
 		// only handle events for the top world
 		if (view.getParentView() != null) {
 			return;
@@ -148,6 +154,8 @@ public class PanAndZoomLogic extends AbstractThingLogic implements IBNAMouseWhee
 
 	@Override
 	public void magnifyGesture(IBNAView view, GestureType type, GestureEvent e, List<IThing> t, ICoordinate location) {
+		BNAUtils.checkLock();
+
 		// only handle events for the top world
 		if (view.getParentView() != null) {
 			return;
@@ -162,6 +170,8 @@ public class PanAndZoomLogic extends AbstractThingLogic implements IBNAMouseWhee
 
 	@Override
 	public void beginGesture(IBNAView view, GestureType type, GestureEvent e, List<IThing> t, ICoordinate location) {
+		BNAUtils.checkLock();
+
 		// only handle events for the top world
 		if (view.getParentView() != null) {
 			return;
@@ -173,6 +183,8 @@ public class PanAndZoomLogic extends AbstractThingLogic implements IBNAMouseWhee
 
 	@Override
 	public void endGesture(IBNAView view, GestureType type, GestureEvent e, List<IThing> t, ICoordinate location) {
+		BNAUtils.checkLock();
+
 		// only handle events for the top world
 		if (view.getParentView() != null) {
 			return;
@@ -192,6 +204,8 @@ public class PanAndZoomLogic extends AbstractThingLogic implements IBNAMouseWhee
 
 	@Override
 	public void keyReleased(IBNAView view, KeyType type, KeyEvent e) {
+		BNAUtils.checkLock();
+
 		// only handle events for the top world
 		if (view.getParentView() != null) {
 			return;

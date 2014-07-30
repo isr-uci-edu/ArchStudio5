@@ -12,14 +12,17 @@ import org.archstudio.bna.IThing;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.ui.IBNAMenuListener;
 import org.archstudio.bna.utils.Assemblies;
+import org.archstudio.bna.utils.BNAAction;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.resources.ArchStudioCommonResources;
 import org.archstudio.resources.IResources;
+import org.archstudio.resources.ResourceCache;
 import org.archstudio.sysutils.UIDGenerator;
 import org.archstudio.xadl.XadlUtils;
 import org.archstudio.xadl.bna.facets.IHasObjRef;
 import org.archstudio.xadl.bna.utils.XArchADTOperations;
 import org.archstudio.xadl3.structure_3_0.Direction;
+import org.archstudio.xadl3.structure_3_0.Interface;
 import org.archstudio.xadl3.structure_3_0.Structure_3_0Package;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
@@ -27,6 +30,7 @@ import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.Separator;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.ui.IWorkbenchActionConstants;
 
@@ -52,7 +56,9 @@ public class StructureNewInterfaceLogic extends AbstractThingLogic implements IB
 	}
 
 	@Override
-	synchronized public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager m) {
+	public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager m) {
+		BNAUtils.checkLock();
+
 		Collection<IThing> selectedThings = BNAUtils.getSelectedThings(view.getBNAWorld().getBNAModel());
 		if (selectedThings.size() > 1) {
 			return;
@@ -76,16 +82,21 @@ public class StructureNewInterfaceLogic extends AbstractThingLogic implements IB
 			return new IAction[0];
 		}
 
-		Action newInterfaceAction = new Action("New Interface",
+		Action newInterfaceAction = new BNAAction("New Interface",
 				resources.getImageDescriptor(ArchStudioCommonResources.ICON_INTERFACE)) {
 
 			@Override
-			public void run() {
+			public void runWithLock() {
 				ObjRef interfaceRef = XadlUtils.create(xarch, Structure_3_0Package.Literals.INTERFACE);
 				xarch.set(interfaceRef, "id", UIDGenerator.generateUID("interface"));
 				XadlUtils.setName(xarch, interfaceRef, "[New Interface]");
 				xarch.set(interfaceRef, "direction", Direction.NONE);
 				XArchADTOperations.add("Add Interface", xarch, eltRef, "interface", interfaceRef);
+			}
+
+			@Override
+			public ImageDescriptor getImageDescriptor() {
+				return ImageDescriptor.createFromImage(ResourceCache.getIcon(Interface.class));
 			}
 		};
 

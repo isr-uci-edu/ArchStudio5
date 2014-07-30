@@ -12,6 +12,7 @@ import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.GridUtils;
 import org.archstudio.bna.utils.UserEditableUtils;
 import org.archstudio.swtutils.constants.Orientation;
+import org.archstudio.sysutils.Finally;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.graphics.Point;
@@ -23,11 +24,12 @@ public class KeyNudgerLogic extends AbstractThingLogic implements IBNAKeyListene
 	}
 
 	@Override
-	synchronized public void keyPressed(IBNAView view, KeyType type, KeyEvent e) {
+	public void keyPressed(IBNAView view, KeyType type, KeyEvent e) {
+		BNAUtils.checkLock();
+
 		if (e.keyCode == SWT.ARROW_LEFT || e.keyCode == SWT.ARROW_UP || e.keyCode == SWT.ARROW_DOWN
 				|| e.keyCode == SWT.ARROW_RIGHT) {
-			model.beginBulkChange();
-			try {
+			try (Finally bulkChange = model.beginBulkChange()) {
 				Orientation o = orientationForKeyCode(e.keyCode);
 				int gridSpacing = GridUtils.getGridSpacing(world);
 				int distance = gridSpacing == 0 ? 5 : gridSpacing;
@@ -49,14 +51,11 @@ public class KeyNudgerLogic extends AbstractThingLogic implements IBNAKeyListene
 					BNAOperations.runnable("Nudge", undoRunnable, redoRunnable, false);
 				}
 			}
-			finally {
-				model.endBulkChange();
-			}
 		}
 	}
 
 	@Override
-	synchronized public void keyReleased(IBNAView view, KeyType type, KeyEvent e) {
+	public void keyReleased(IBNAView view, KeyType type, KeyEvent e) {
 	}
 
 	private Orientation orientationForKeyCode(int keyCode) {

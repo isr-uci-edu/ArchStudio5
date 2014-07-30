@@ -25,6 +25,8 @@ import org.archstudio.xarchadt.variability.IXArchADTVariabilityListener;
 import org.archstudio.xarchadt.variability.XArchADTVariabilityEvent;
 import org.eclipse.core.commands.operations.IUndoContext;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
@@ -143,6 +145,16 @@ public abstract class AbstractArchStudioEditor<B extends AbstractArchStudioEdito
 
 	@Override
 	public void init(IEditorSite site, IEditorInput input) throws PartInitException {
+		if (input instanceof IFileEditorInput) {
+			IFile f = ((IFileEditorInput) input).getFile();
+			try {
+				f.refreshLocal(IResource.DEPTH_ONE, null);
+			}
+			catch (CoreException e) {
+				e.printStackTrace();
+			}
+		}
+
 		if (!(input instanceof IFileEditorInput) && !(input instanceof IPathEditorInput)) {
 			throw new PartInitException("Input to " + editorName + " must be an XML file");
 		}

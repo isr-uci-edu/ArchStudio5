@@ -22,7 +22,9 @@ public class ModelBoundsTrackingLogic extends AbstractThingLogic implements IBNA
 	}
 
 	@Override
-	synchronized public void bnaModelChanged(BNAModelEvent evt) {
+	public void bnaModelChanged(BNAModelEvent evt) {
+		BNAUtils.checkLock();
+
 		switch (evt.getEventType()) {
 		case THING_ADDED: {
 			IThing thing = evt.getTargetThing();
@@ -40,10 +42,10 @@ public class ModelBoundsTrackingLogic extends AbstractThingLogic implements IBNA
 			break;
 		case THING_CHANGED: {
 			if (cachedBounds != null) {
-				ThingEvent thingEvent = evt.getThingEvent();
 				IThing thing = evt.getTargetThing();
 				if (thing instanceof IHasBoundingBox) {
-					if (thing.isShapeModifyingKey(thingEvent.getPropertyName())) {
+					ThingEvent thingEvent = evt.getThingEvent();
+					if (IHasBoundingBox.BOUNDING_BOX_KEY.equals(thingEvent.getPropertyName())) {
 						cachedBounds = null;
 					}
 				}
@@ -55,7 +57,9 @@ public class ModelBoundsTrackingLogic extends AbstractThingLogic implements IBNA
 		}
 	}
 
-	synchronized public Rectangle getModelBounds() {
+	public Rectangle getModelBounds() {
+		BNAUtils.checkLock();
+
 		if (cachedBounds == null) {
 			int x1 = Integer.MAX_VALUE;
 			int y1 = Integer.MAX_VALUE;

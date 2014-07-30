@@ -19,7 +19,9 @@ import org.archstudio.bna.logics.events.IDragMoveListener;
 import org.archstudio.bna.logics.tracking.ThingValueTrackingLogic;
 import org.archstudio.bna.things.shapes.ReshapeHandleThing;
 import org.archstudio.bna.utils.Assemblies;
+import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.UserEditableUtils;
+import org.archstudio.sysutils.Finally;
 import org.archstudio.sysutils.SystemUtils;
 import org.eclipse.swt.graphics.Point;
 
@@ -36,7 +38,7 @@ public abstract class AbstractReshapeLogic<R extends IThing, D> extends Abstract
 	private R reshapingThing = null;
 	private Runnable initialSnapshot = null;
 	private Point initialPosition = null;
-	private Collection<ReshapeHandleThing> handles = Lists.newArrayList();
+	private final Collection<ReshapeHandleThing> handles = Lists.newArrayList();
 
 	public AbstractReshapeLogic(IBNAWorld world, Class<R> reshapingThingClass) {
 		super(world);
@@ -46,14 +48,15 @@ public abstract class AbstractReshapeLogic<R extends IThing, D> extends Abstract
 	}
 
 	@Override
-	synchronized public void dispose() {
+	public void dispose() {
+		BNAUtils.checkLock();
+
 		untrack();
 		super.dispose();
 	}
 
 	private void track(R reshapingThing) {
-		model.beginBulkChange();
-		try {
+		try (Finally bulkChange = model.beginBulkChange()) {
 			if (this.reshapingThing != null) {
 				untrack();
 			}
@@ -61,21 +64,14 @@ public abstract class AbstractReshapeLogic<R extends IThing, D> extends Abstract
 			addHandles(this.reshapingThing);
 			updateHandles(this.reshapingThing);
 		}
-		finally {
-			model.endBulkChange();
-		}
 	}
 
 	private void untrack() {
-		model.beginBulkChange();
-		try {
+		try (Finally bulkChange = model.beginBulkChange()) {
 			if (reshapingThing != null) {
 				removeHandles(reshapingThing);
 				reshapingThing = null;
 			}
-		}
-		finally {
-			model.endBulkChange();
 		}
 	}
 
@@ -97,20 +93,18 @@ public abstract class AbstractReshapeLogic<R extends IThing, D> extends Abstract
 	abstract protected void updateHandle(R reshapingThing, ReshapeHandleThing handle, D data);
 
 	protected void removeHandles(R reshapingThing) {
-		model.beginBulkChange();
-		try {
+		try (Finally bulkChange = model.beginBulkChange()) {
 			for (ReshapeHandleThing handle : handles) {
 				Assemblies.removeRootAndParts(model, handle);
 			}
 			handles.clear();
 		}
-		finally {
-			model.endBulkChange();
-		}
 	}
 
 	@Override
-	synchronized public void bnaModelChanged(BNAModelEvent evt) {
+	public void bnaModelChanged(BNAModelEvent evt) {
+		BNAUtils.checkLock();
+
 		switch (evt.getEventType()) {
 		case THING_REMOVED:
 			if (SystemUtils.nullEquals(evt.getTargetThing(), reshapingThing)) {
@@ -130,8 +124,7 @@ public abstract class AbstractReshapeLogic<R extends IThing, D> extends Abstract
 	}
 
 	protected void checkHandles(R reshapingThing) {
-		model.beginBulkChange();
-		try {
+		try (Finally bulkChange = model.beginBulkChange()) {
 			R selectedThing = null;
 			Collection<IThing> selectedThings = valueLogic.getThings(IHasSelected.SELECTED_KEY, true);
 			if (selectedThings.size() == 1) {
@@ -147,13 +140,12 @@ public abstract class AbstractReshapeLogic<R extends IThing, D> extends Abstract
 				updateHandles(reshapingThing);
 			}
 		}
-		finally {
-			model.endBulkChange();
-		}
 	}
 
 	@Override
-	synchronized public void dragStarted(DragMoveEvent evt) {
+	public void dragStarted(DragMoveEvent evt) {
+		BNAUtils.checkLock();
+
 		IThing movedThing = evt.getInitialThing();
 		if (handles.contains(movedThing)) {
 			D data = movedThing.get(HANDLE_DATA_KEY);
@@ -165,7 +157,9 @@ public abstract class AbstractReshapeLogic<R extends IThing, D> extends Abstract
 	}
 
 	@Override
-	synchronized public void dragMoved(DragMoveEvent evt) {
+	public void dragMoved(DragMoveEvent evt) {
+		BNAUtils.checkLock();
+
 		IThing movedThing = evt.getInitialThing();
 		if (handles.contains(movedThing)) {
 			D data = movedThing.get(HANDLE_DATA_KEY);
@@ -175,7 +169,9 @@ public abstract class AbstractReshapeLogic<R extends IThing, D> extends Abstract
 	}
 
 	@Override
-	synchronized public void dragFinished(DragMoveEvent evt) {
+	public void dragFinished(DragMoveEvent evt) {
+		BNAUtils.checkLock();
+
 		IThing movedThing = evt.getInitialThing();
 		if (handles.contains(movedThing)) {
 			D data = movedThing.get(HANDLE_DATA_KEY);
@@ -195,14 +191,8 @@ public abstract class AbstractReshapeLogic<R extends IThing, D> extends Abstract
 
 	protected void resetHandles() {
 		if (reshapingThing != null) {
-			model.beginBulkChange();
-			try {
-				removeHandles(reshapingThing);
-				addHandles(reshapingThing);
-			}
-			finally {
-				model.endBulkChange();
-			}
+			removeHandles(reshapingThing);
+			addHandles(reshapingThing);
 		}
 	}
 

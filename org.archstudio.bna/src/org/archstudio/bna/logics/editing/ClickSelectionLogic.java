@@ -17,6 +17,7 @@ import org.archstudio.bna.ui.IBNAMenuListener;
 import org.archstudio.bna.ui.IBNAMouseListener;
 import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.BNAUtils;
+import org.archstudio.sysutils.Finally;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.swt.events.MouseEvent;
 
@@ -30,25 +31,25 @@ public class ClickSelectionLogic extends AbstractThingLogic implements IBNAMouse
 	}
 
 	private void removeAllSelections() {
-		model.beginBulkChange();
-		try {
+		BNAUtils.checkLock();
+
+		try (Finally bulkChange = model.beginBulkChange()) {
 			for (IHasMutableSelected t : valueLogic.getThings(IHasSelected.SELECTED_KEY, Boolean.TRUE,
 					IHasMutableSelected.class)) {
 				t.setSelected(false);
 			}
 		}
-		finally {
-			model.endBulkChange();
-		}
 	}
 
 	@Override
-	synchronized public void mouseUp(IBNAView view, MouseType type, MouseEvent evt, List<IThing> t, ICoordinate location) {
+	public void mouseUp(IBNAView view, MouseType type, MouseEvent evt, List<IThing> t, ICoordinate location) {
+		BNAUtils.checkLock();
 	}
 
 	@Override
-	synchronized public void mouseDown(IBNAView view, MouseType type, MouseEvent evt, List<IThing> t,
-			ICoordinate location) {
+	public void mouseDown(IBNAView view, MouseType type, MouseEvent evt, List<IThing> t, ICoordinate location) {
+		BNAUtils.checkLock();
+
 		if (evt.button == 1) {
 			IHasMutableSelected selectableThing = Assemblies.getEditableThing(model, firstOrNull(t),
 					IHasMutableSelected.class, IHasMutableSelected.USER_MAY_SELECT);
@@ -89,7 +90,9 @@ public class ClickSelectionLogic extends AbstractThingLogic implements IBNAMouse
 	}
 
 	@Override
-	synchronized public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager m) {
+	public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager m) {
+		BNAUtils.checkLock();
+
 		/*
 		 * We don't actually want to fill the menu here, but we want to change the selection before the menu really gets
 		 * filled to reflect the click. If we clicked on something already selected, we leave the selection alone. If we

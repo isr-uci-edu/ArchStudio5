@@ -37,6 +37,7 @@ import org.archstudio.bna.utils.DefaultBNAModel;
 import org.archstudio.bna.utils.DefaultBNAWorld;
 import org.archstudio.bna.utils.UserEditableUtils;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.FillLayout;
@@ -114,13 +115,10 @@ public class StickySplineDemo {
 				points.add(new Point2D.Double(r.nextInt(100) - 50, r.nextInt(100) - 50));
 			}
 			p.setPoints(points);
-			//int w = r.nextInt(100);
-			//int h = r.nextInt(100);
-			//p.setPoints(Lists.newArrayList(new Point(w / 2, 0), new Point(w, h / 2), new Point(w / 2, h), new Point(0,
-			//		h / 2), new Point(w / 2, 0)));
-			//p.getPolygonGlassThing().setBoundingBox(10 + .nextInt(430), 10 + r.nextInt(430), 10 + r.nextInt(40),
-			//		10 + r.nextInt(40));
-			//ToolTipLogic.setToolTip(p, stickyMode.name().replace("_", " "));
+			Point rp = p.getReferencePoint();
+			rp.x += 50 + stickyMode.ordinal() * 150;
+			rp.y += 100;
+			p.setReferencePoint(rp);
 			UserEditableUtils.addEditableQualities(p, IHasMutableSelected.USER_MAY_SELECT,
 					IHasMutableReferencePoint.USER_MAY_MOVE, IHasMutableSize.USER_MAY_RESIZE);
 
@@ -142,7 +140,7 @@ public class StickySplineDemo {
 		EllipseThing e = Assemblies.createEllipse(world, null, null);
 		e.setColor(new RGB(192, 0, 0));
 		e.setSecondaryColor(new RGB(128, 32, 32));
-		e.setBoundingBox(new Rectangle(0, 0, 30, 30));
+		e.setBoundingBox(new Rectangle(300, 200, 30, 30));
 		e.set(shapeStickyMode, StickyMode.CENTER);
 		shapeThings.add(e);
 		UserEditableUtils.addEditableQualities(e, IHasMutableSelected.USER_MAY_SELECT,
