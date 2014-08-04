@@ -28,11 +28,11 @@ public final class GL2ES2Program implements Disposable {
 
 	private final GL2ES2 gl;
 	private final List<GL2ES2Shader> shaders;
-	private final int program;
+	private int program;
 	private final int maxAttributes;
 	private final Map<String, Integer> attributes = Maps.newHashMap();
 	private int openAttribute = 1; // 0 is reserved
-	private boolean linked = false;
+	private boolean valid = false;
 
 	private GL2ES2Program(GL2ES2 gl, GL2ES2Shader... shaders) {
 		this.gl = gl;
@@ -42,27 +42,6 @@ public final class GL2ES2Program implements Disposable {
 			gl.glGetIntegerv(GL2ES2.GL_MAX_VERTEX_ATTRIBS, maxAttributes, 0);
 			this.maxAttributes = maxAttributes[0];
 		}
-		this.program = load();
-	}
-
-	private int load() {
-		// create program
-		int program = gl.glCreateProgram();
-		if (program == 0) {
-			throw new GLException("Cannot create program.");
-		}
-		try {
-			// attach shaders
-			for (GL2ES2Shader shader : shaders) {
-				gl.glAttachShader(program, shader.getShader());
-			}
-		}
-		catch (GLException e) {
-			dispose(program);
-			throw e;
-		}
-
-		return program;
 	}
 
 	public void bindAttribute(String name, int size) throws GLException {
@@ -77,29 +56,80 @@ public final class GL2ES2Program implements Disposable {
 	}
 
 	public void link() throws GLException {
-		this.linked = false;
+		dispose();
 
-		for (Entry<String, Integer> entry : attributes.entrySet()) {
-			gl.glBindAttribLocation(program, entry.getValue(), entry.getKey());
+		program = gl.glCreateProgram();
+		if (program == 0) {
+			throw new GLException("Cannot create program.");
 		}
+		try {
+			for (GL2ES2Shader shader : shaders) {
+				gl.glAttachShader(program, shader.getShader());
+			}
+			for (Entry<String, Integer> entry : attributes.entrySet()) {
+				gl.glBindAttribLocation(program, entry.getValue(), entry.getKey());
+			}
 
-		// link program
-		gl.glLinkProgram(program);
-		int[] linked = new int[1];
-		gl.glGetProgramiv(program, GL2ES2.GL_LINK_STATUS, linked, 0);
-		if (linked[0] != GL.GL_TRUE) {
-			int[] logLength = new int[1];
-			gl.glGetProgramiv(program, GL2ES2.GL_INFO_LOG_LENGTH, logLength, 0);
-			byte[] logBytes = new byte[logLength[0]];
-			gl.glGetProgramInfoLog(program, logLength[0], (int[]) null, 0, logBytes, 0);
-			throw new GLException("Link error:\n" + new String(logBytes));
+			gl.glLinkProgram(program);
+			int[] linked = new int[1];
+			gl.glGetProgramiv(program, GL2ES2.GL_LINK_STATUS, linked, 0);
+			if (linked[0] != GL.GL_TRUE) {
+				int[] logLength = new int[1];
+				gl.glGetProgramiv(program, GL2ES2.GL_INFO_LOG_LENGTH, logLength, 0);
+				byte[] logBytes = new byte[logLength[0]];
+				if (logLength[0] > 0) {
+					gl.glGetProgramInfoLog(program, logLength[0], (int[]) null, 0, logBytes, 0);
+				}
+				throw new GLException("Link error:\n" + new String(logBytes));
+			}
+			gl.glValidateProgram(program);
+			int[] valid = new int[1];
+			gl.glGetProgramiv(program, GL2ES2.GL_VALIDATE_STATUS, valid, 0);
+			if (valid[0] != GL.GL_TRUE) {
+				int[] logLength = new int[1];
+				gl.glGetProgramiv(program, GL2ES2.GL_INFO_LOG_LENGTH, logLength, 0);
+				byte[] logBytes = new byte[logLength[0]];
+				if (logLength[0] > 0) {
+					gl.glGetProgramInfoLog(program, logLength[0], (int[]) null, 0, logBytes, 0);
+				}
+				System.err.println(new String(logBytes));
+				throw new GLException("Validation error:\n" + new String(logBytes));
+			}
+
+			this.valid = true;
 		}
+		catch (Exception e) {
+			if (program != 0) {
+				gl.glDeleteProgram(program);
+				program = 0;
+			}
+		}
+	}
 
-		this.linked = true;
+	@Override
+	public void dispose() {
+		valid = false;
+		if (vbo != null) {
+			gl.glDeleteBuffers(vbo.length, vbo, 0);
+			vbo = null;
+		}
+		if (program != 0) {
+			int[] count = new int[1];
+			int[] shaders = new int[1];
+			while (true) {
+				gl.glGetAttachedShaders(program, 1, count, 0, shaders, 0);
+				if (count[0] == 0) {
+					break;
+				}
+				gl.glDetachShader(program, shaders[0]);
+			}
+			gl.glDeleteProgram(program);
+			program = 0;
+		}
 	}
 
 	public int getAttribute(String name) {
-		if (!linked) {
+		if (!valid) {
 			throw new GLException("Program not linked.");
 		}
 
@@ -111,7 +141,7 @@ public final class GL2ES2Program implements Disposable {
 	}
 
 	public int getUniform(String name) throws GLException {
-		if (!linked) {
+		if (!valid) {
 			throw new GLException("Program not linked.");
 		}
 
@@ -123,8 +153,14 @@ public final class GL2ES2Program implements Disposable {
 	}
 
 	public void use() throws GLException {
-		if (!linked) {
+		if (!valid) {
 			throw new GLException("Program not linked.");
+		}
+
+		int[] value = new int[1];
+		gl.glGetProgramiv(program, GL2ES2.GL_VALIDATE_STATUS, value, 0);
+		if (value[0] != GL.GL_TRUE) {
+			link();
 		}
 		gl.glUseProgram(program);
 		if (vbo == null || vbo.length < openAttribute) {
@@ -138,6 +174,10 @@ public final class GL2ES2Program implements Disposable {
 
 	public void bindBufferData(int target, String name, int numberOfUnits, FloatBuffer values, int usage, int unitSize,
 			boolean normalized) {
+		if (!valid) {
+			throw new GLException("Program not linked.");
+		}
+
 		Preconditions.checkPositionIndex(values.position() + numberOfUnits * unitSize, values.limit());
 		int attribute = getAttribute(name);
 		boolean refereshedVBO = false;
@@ -167,6 +207,10 @@ public final class GL2ES2Program implements Disposable {
 
 	public void bindBufferData(int target, String name, int numberOfUnits, IntBuffer values, int usage, int unitSize,
 			boolean normalized) {
+		if (!valid) {
+			throw new GLException("Program not linked.");
+		}
+
 		Preconditions.checkPositionIndex(values.position() + numberOfUnits * unitSize, values.limit());
 		int attribute = getAttribute(name);
 		boolean refereshedVBO = false;
@@ -195,36 +239,14 @@ public final class GL2ES2Program implements Disposable {
 	}
 
 	public void done() throws GLException {
+		if (!valid) {
+			throw new GLException("Program not linked.");
+		}
+
 		for (int attribute : attributes.values()) {
 			gl.glDisableVertexAttribArray(attribute);
 		}
 		gl.glUseProgram(0);
-	}
-
-	@Override
-	public void dispose() {
-		try {
-			dispose(program);
-		}
-		catch (Exception e) {
-		}
-	}
-
-	private void dispose(int program) {
-		if (vbo != null) {
-			gl.glDeleteBuffers(vbo.length, vbo, 0);
-			vbo = null;
-		}
-		int[] count = new int[1];
-		int[] shaders = new int[1];
-		while (true) {
-			gl.glGetAttachedShaders(program, 1, count, 0, shaders, 0);
-			if (count[0] == 0) {
-				break;
-			}
-			gl.glDetachShader(program, shaders[0]);
-		}
-		gl.glDeleteProgram(program);
 	}
 
 }

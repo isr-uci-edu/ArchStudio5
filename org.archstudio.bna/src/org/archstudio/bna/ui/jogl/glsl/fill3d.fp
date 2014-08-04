@@ -3,9 +3,10 @@
 
 #if __VERSION__ >= 130
 	#define varying in
-	out vec4 mgl_FragColor;
 	#define texture2D texture
-	#define gl_FragColor mgl_FragColor
+	out vec4 mgl_FragColor;
+#else
+	#define mgl_FragColor gl_FragColor	
 #endif
 
 #ifdef GL_ES
@@ -17,5 +18,5 @@ varying vec4 varying_color;
 
 void main (void)
 {
-	gl_FragColor = varying_color;
+	mgl_FragColor = varying_color;
 }

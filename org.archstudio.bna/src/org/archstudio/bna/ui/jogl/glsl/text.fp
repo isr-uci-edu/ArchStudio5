@@ -3,10 +3,10 @@
 
 #if __VERSION__ >= 130
 	#define varying in
+	#define texture2D texture
 	out vec4 mgl_FragColor;
-	#define texture2D texture
-	#define gl_FragColor mgl_FragColor
-	#define texture2D texture
+#else
+	#define mgl_FragColor gl_FragColor	
 #endif
 
 #ifdef GL_ES
@@ -21,6 +21,6 @@ varying vec4 varying_texture_position;
 
 void main (void)
 {
-	gl_FragColor.rgba = texture2D(uniform_texture, varying_texture_position.xy).rgba;
-	gl_FragColor.a = 1.0;
+	mgl_FragColor.rgba = texture2D(uniform_texture, varying_texture_position.xy).rgba;
+	mgl_FragColor.a = 1.0;
 }

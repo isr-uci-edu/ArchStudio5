@@ -3,6 +3,10 @@
 
 #if __VERSION__ >= 130
 	#define varying in
+	#define texture2D texture
+	out vec4 mgl_FragColor;
+#else
+	#define mgl_FragColor gl_FragColor	
 #endif
 
 #ifdef GL_ES
@@ -21,7 +25,7 @@ void main (void)
 	int bit = int(floor(varying_stipple_offset)) % 16;
 	bool on = ((uniform_stipple >> bit) & 1) != 0;
 	if (on) {
-		gl_FragColor = varying_color;
+		mgl_FragColor = varying_color;
 	} else {
 		discard;
 	}

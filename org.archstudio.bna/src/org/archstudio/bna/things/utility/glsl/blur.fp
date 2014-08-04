@@ -3,9 +3,10 @@
 
 #if __VERSION__ >= 130
 	#define varying in
-	out vec4 mgl_FragColor;
 	#define texture2D texture
-	#define gl_FragColor mgl_FragColor
+	out vec4 mgl_FragColor;
+#else
+	#define mgl_FragColor gl_FragColor	
 #endif
 
 #ifdef GL_ES
@@ -30,6 +31,6 @@ void main(void)
 		color += texture2D(uniform_texture, (location - float(offset) * uniform_direction) / uniform_resolution) * intensity;
 		color += texture2D(uniform_texture, (location + float(offset) * uniform_direction) / uniform_resolution) * intensity;
 	}
-	gl_FragColor = color / total;
-	gl_FragColor.a *= uniform_alpha;
+	mgl_FragColor = color / total;
+	mgl_FragColor.a *= uniform_alpha;
 }

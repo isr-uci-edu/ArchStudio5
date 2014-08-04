@@ -3,6 +3,8 @@ package org.archstudio.bna.ui.jogl.utils;
 import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.media.opengl.GL;
 import javax.media.opengl.GL2ES2;
@@ -25,7 +27,7 @@ public final class GL2ES2Shader implements Disposable {
 	private final GL2ES2 gl;
 	private final int type;
 	private final URL url;
-	private int shader;
+	private final int shader;
 
 	private GL2ES2Shader(GL2ES2 gl, int type, URL url) throws GLException {
 		this.gl = gl;
@@ -51,10 +53,20 @@ public final class GL2ES2Shader implements Disposable {
 			URLConnection connection = url.openConnection();
 			connection.setUseCaches(false);
 			source = new String(ByteStreams.toByteArray(connection.getInputStream())).replaceAll("\r\n?", "\n");
-			// GLSL 1.3 and later requires an explicit version.
-			if (gl.isGL3core()) {
-				source = "#version 130\n\n" + source;
+			String glVersion = gl.glGetString(GL.GL_VERSION);
+			String glslVersion = gl.glGetString(GL2ES2.GL_SHADING_LANGUAGE_VERSION);
+			String version;
+			Matcher versionMatcher = Pattern.compile("[^0-9]*([0-9\\.]+)").matcher(glslVersion);
+			if (versionMatcher.find()) {
+				version = versionMatcher.group(1).replace(".", "");
 			}
+			else {
+				throw new GLException("Unrecognized GLSL Version: " + glslVersion);
+			}
+			source = "#version " + version //
+					+ "\n// GL Version: " + glVersion //
+					+ "\n// GLSL Version: " + glslVersion //
+					+ "\n\n" + source;
 		}
 		catch (IOException e) {
 			throw new GLException(e);
@@ -75,7 +87,9 @@ public final class GL2ES2Shader implements Disposable {
 				int[] logLength = new int[1];
 				gl.glGetShaderiv(shader, GL2ES2.GL_INFO_LOG_LENGTH, logLength, 0);
 				byte[] logBytes = new byte[logLength[0]];
-				gl.glGetShaderInfoLog(shader, logBytes.length, logLength, 0, logBytes, 0);
+				if (logLength[0] > 0) {
+					gl.glGetShaderInfoLog(shader, logBytes.length, logLength, 0, logBytes, 0);
+				}
 				throw new GLException("URL:\n" + url + "\nCompiler error:\n" + new String(logBytes, 0, logLength[0])
 						+ "\nSource:\n" + source);
 			}
@@ -88,6 +102,7 @@ public final class GL2ES2Shader implements Disposable {
 		return shader;
 	}
 
+	@Override
 	public void dispose() {
 		try {
 			dispose(this);
