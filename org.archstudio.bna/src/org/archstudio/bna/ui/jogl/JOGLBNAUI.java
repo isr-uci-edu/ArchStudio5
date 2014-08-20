@@ -135,6 +135,12 @@ public class JOGLBNAUI extends AbstractSWTUI {
 	public void init(Composite parent, int style) {
 		this.parent = parent;
 
+		/*
+		 * Feature in Mac OS X: Creating a Graphics2D object for a BufferedImage somehow corrupts the OpenGL drawable
+		 * being rendered. Creating one here seems to prevent this corruption.
+		 */
+		new BufferedImage(1, 1, BufferedImage.TYPE_4BYTE_ABGR).createGraphics().dispose();
+
 		GLCapabilities caps;
 		caps = new GLCapabilities(GLProfile.getGL2ES2());
 		caps.setDoubleBuffered(true);
