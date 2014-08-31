@@ -44,7 +44,8 @@ public class BagOf extends ComplexTerm implements Executable {
 			goal = complexGoal.getTerm(1);
 		}
 
-		Multimap<Map<VariableTerm, Term>, Term> results = ArrayListMultimap.create();
+		// Strangely, while not necessary, the generic type of ArrayListMultimap.<> must be declared explicitly or the eclipse compiler crashes
+		Multimap<Map<VariableTerm, Term>, Term> results = ArrayListMultimap.<Map<VariableTerm, Term>, Term> create();
 		for (Map<VariableTerm, Term> result : PrologUtils.resolveExecutable(proofContext, goal, variables).execute(
 				proofContext, unificationEngine, goal, variables)) {
 			Map<VariableTerm, Term> binningVariables = Maps.newHashMap(result);
