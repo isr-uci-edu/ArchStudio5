@@ -709,7 +709,7 @@ public class XArchADTVariabilityImpl extends XArchADTImpl implements IXArchADTVa
 
 	@Nullable
 	private VariabilityStatus getVariabilityStatusCache(ObjRef baseObjRef) {
-		ObjRef documentRootRef = getDocumentRootRef(baseObjRef);
+		ObjRef documentRootRef = super.getDocumentRootRef(baseObjRef);
 		if (documentRootRef != null) {
 			return variabilityStatusCache.getUnchecked(documentRootRef);
 		}
