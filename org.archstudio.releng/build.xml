@@ -123,6 +123,15 @@
 		<retry retrycount="3">
 			<sequential>
 				<buckminster location="${eclipse.home}" workspace="${workspace.root}">
+					<arg value="setpreference" />
+					<arg value="org.eclipse.buckminster.jdt.complianceLevel=1.7" />
+					<syspropertyset>
+						<propertyref builtin="commandline" />
+						<propertyref prefix="buckminster.output" />
+						<propertyref prefix="buckminster.temp" />
+					</syspropertyset>
+				</buckminster>
+				<buckminster location="${eclipse.home}" workspace="${workspace.root}">
 					<arg value="clean" />
 					<syspropertyset>
 						<propertyref builtin="commandline" />
