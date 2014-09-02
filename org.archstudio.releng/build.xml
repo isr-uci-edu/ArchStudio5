@@ -224,18 +224,19 @@
 
 		<property name="workspace.root" location="${env.WORKSPACE}" />
 		<property name="eclipse.home" location="${workspace.root}/buckminster" />
-		<assert-nonempty property="emma.launch" message="Missing buckminster.component" />
+		<property name="report.timeout" value="60" />
+		<assert-nonempty property="launch.file" message="Missing launch configuration" />
 
 		<retry retrycount="3">
 			<buckminster location="${eclipse.home}" workspace="${workspace.root}">
-				<arg value="emma" />
+				<arg value="junit" />
 				<arg value="-l" />
-				<arg value="${emma.launch}" />
+				<arg value="${launch.file}" />
 				<arg value="-o" />
 				<arg value="${workspace.root}/junit_result.xml" />
-				<arg value="--xml" />
-				<arg value="${workspace.root}/coverage_report.xml" />
 				<arg value="--flatXML" />
+				<arg value="--maxTimeAwaitJunitReport" />
+				<arg value="${report.timeout}" />
 				<syspropertyset>
 					<propertyref builtin="commandline" />
 					<propertyref prefix="buckminster.output" />
