@@ -15,7 +15,7 @@ Require-Bundle: org.archstudio.xarchadt.core;visibility:=reexport,
  org.archstudio.xadl3.xadlcore,
  org.archstudio.myxgen,
  org.archstudio.myx.fw,
- org.eclipse.jdt.annotation,
+ org.eclipse.jdt.annotation;bundle-version="[1.1.0,2.0.0)",
  org.archstudio.utils.osgi,
  org.eclipse.osgi,
  org.archstudio.xadl3.hints

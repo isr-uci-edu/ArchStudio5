@@ -15,5 +15,5 @@ Require-Bundle: org.archstudio.guava,
  org.eclipse.core.runtime,
  org.archstudio.xadl3.hints,
  org.eclipse.core.runtime,
- org.eclipse.jdt.annotation
+ org.eclipse.jdt.annotation;bundle-version="[1.0.0,2.0.0)"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7

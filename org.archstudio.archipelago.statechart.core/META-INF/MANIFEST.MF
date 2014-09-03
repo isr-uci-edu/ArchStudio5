@@ -25,7 +25,7 @@ Require-Bundle: org.archstudio.archipelago,
  org.archstudio.resources,
  org.archstudio.jogl,
  org.eclipse.core.runtime,
- org.eclipse.jdt.annotation,
+ org.eclipse.jdt.annotation;bundle-version="[1.1.0,2.0.0)",
  org.archstudio.xarchadt.variability,
  org.archstudio.utils.bna.dot,
  org.archstudio.utils.bna.gexf
