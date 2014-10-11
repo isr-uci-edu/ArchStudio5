@@ -23,5 +23,5 @@ Require-Bundle: org.archstudio.aim,
  org.archstudio.utils.xadl.myx,
  org.archstudio.xadl3.implementation.lookup,
  org.archstudio.guava,
- org.eclipse.jdt.annotation;bundle-version="[1.0.0,2.0.0)"
+ org.eclipse.jdt.annotation;bundle-version="[1.1.0,2.0.0)";resolution:=optional
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7

@@ -28,6 +28,6 @@ Require-Bundle: org.eclipse.core.runtime,
  org.archstudio.utils.osgi,
  org.eclipse.ui,
  org.archstudio.myx.fw.equinox,
- org.eclipse.jdt.annotation;bundle-version="[1.0.0,2.0.0)"
+ org.eclipse.jdt.annotation;bundle-version="[1.1.0,2.0.0)";resolution:=optional
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
