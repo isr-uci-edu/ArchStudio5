@@ -2,8 +2,11 @@ package org.archstudio.bna.ui.utils;
 
 import java.awt.image.BufferedImage;
 
+import javax.media.opengl.GLProfile;
+
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ui.IBNAUI;
+import org.archstudio.bna.ui.jogl.JOGLBNAUI;
 import org.archstudio.bna.ui.swt.SWTBNAUI;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Composite;
@@ -13,8 +16,14 @@ public class AutodetectBNAUI implements IBNAUI {
 	protected IBNAUI bnaUI;
 
 	public AutodetectBNAUI(IBNAView view) {
-		// The SWT UI is the safest option, default to it
-		this.bnaUI = new SWTBNAUI(view);
+		this.bnaUI = null;
+		if (GLProfile.getGL2ES2().isHardwareRasterizer()) {
+			bnaUI = new JOGLBNAUI(view);
+		}
+		if (bnaUI == null){
+			// as a fall back, select SWT
+			bnaUI = new SWTBNAUI(view);
+		}
 	}
 
 	@Override

@@ -111,7 +111,7 @@ public class ShadowThingPeer<T extends ShadowThing> extends AbstractThingPeer<T>
 
 	@Override
 	public void draw(GL2ES2 gl, Rectangle localBounds, IJOGLResources r) {
-
+		
 		// load blur shader
 		if (blurVP == null) {
 			blurVP = GL2ES2Shader.create(gl, GL2ES2.GL_VERTEX_SHADER, //
@@ -189,10 +189,6 @@ public class ShadowThingPeer<T extends ShadowThing> extends AbstractThingPeer<T>
 				r.popMatrix();
 			}
 
-			// create and bind texture 1
-			texture1Attachment = fbObject.attachTexture2D(gl, 1, true);
-			texture1Attachment.initialize(gl);
-
 			// disable blending so that we simply blur the existing texture to the new one
 			r.pushBlendFunction();
 			gl.glDisable(GL.GL_BLEND);
@@ -218,6 +214,7 @@ public class ShadowThingPeer<T extends ShadowThing> extends AbstractThingPeer<T>
 				finally {
 					blurP.done();
 				}
+				gl.glFlush();
 			}
 			finally {
 				// restore blending

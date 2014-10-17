@@ -12,15 +12,18 @@
 #endif
 
 uniform mat4 uniform_projection;
+uniform vec4 uniform_screen_dimension;
 
 attribute vec4 attribute_position;
 attribute float attribute_stipple_offset;
 
 // Outgoing varying data sent to the fragment shader
+varying vec4 varying_screen_pixel;
 varying float varying_stipple_offset;
 
 void main(void)
 {
 	gl_Position = uniform_projection * attribute_position;
+	varying_screen_pixel = (uniform_projection * attribute_position + 1) * uniform_screen_dimension / 2;
 	varying_stipple_offset = attribute_stipple_offset;
 }

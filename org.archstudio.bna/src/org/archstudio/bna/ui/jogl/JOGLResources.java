@@ -23,6 +23,7 @@ import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThingPeer;
+import org.archstudio.bna.constants.Antialias;
 import org.archstudio.bna.facets.IHasHidden;
 import org.archstudio.bna.ui.IUIResources;
 import org.archstudio.bna.ui.jogl.utils.GL2ES2Program;
@@ -434,14 +435,20 @@ public class JOGLResources extends AbstractUIResources implements IJOGLResources
 
 		updateLastShape(localShape);
 
-		gl.glLineWidth(width);
+		pushBlendFunction();
+		gl.glBlendFuncSeparate(GL2ES2.GL_CONSTANT_COLOR, GL.GL_ONE_MINUS_SRC_COLOR, GL2ES2.GL_CONSTANT_ALPHA,
+				GL.GL_ONE_MINUS_SRC_ALPHA);
+		gl.glBlendEquationSeparate(GL.GL_FUNC_ADD, GL.GL_FUNC_ADD);
+		gl.glBlendColor(color.red / 255f, color.green / 255f, color.blue / 255f, getGlobalAlpha() * (float) alpha);
+		gl.glLineWidth(width + 2);
 		line2dP.use();
 		try {
 			matrix.glTranslatef(0.5f, 0.5f, 0);
 			gl.glUniformMatrix4fv(line2dP.getUniform("uniform_projection"), 1, false, matrix.glGetMatrixf());
-			gl.glUniform4f(line2dP.getUniform("uniform_rgba"), color.red / 255f, color.green / 255f, color.blue / 255f,
-					(float) (getGlobalAlpha() * alpha));
+			gl.glUniform2fv(line2dP.getUniform("uniform_rgb_offsets"), 1, Antialias.HRGB.getSubpixelRGBXYDeltas(), 0);
+			gl.glUniform4f(line2dP.getUniform("uniform_screen_dimension"), localBounds.width, localBounds.height, 1, 1);
 			gl.glUniform1i(line2dP.getUniform("uniform_stipple"), stipple);
+			gl.glUniform1f(line2dP.getUniform("uniform_width"), width);
 			lastXYFloatBuffer.rewind();
 			line2dP.bindBufferData(GL.GL_ARRAY_BUFFER, "attribute_position", lastPoints,
 					lastXYFloatBuffer.getBackingBuffer(), GL.GL_STATIC_DRAW, 2, false);
@@ -452,6 +459,7 @@ public class JOGLResources extends AbstractUIResources implements IJOGLResources
 			matrix.glTranslatef(-0.5f, -0.5f, 0);
 		}
 		finally {
+			popBlendFunction();
 			line2dP.done();
 		}
 	}
