@@ -24,7 +24,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <li>{@link net.gexf_1_2.gexf.impl.SpellsContentImpl#getSpell <em>Spell</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class SpellsContentImpl extends MinimalEObjectImpl.Container implements SpellsContent {

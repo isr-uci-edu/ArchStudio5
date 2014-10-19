@@ -17,7 +17,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <li>{@link org.archstudio.xadl3.implementation_3_0.impl.ImplementationImpl#getId <em>Id</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public abstract class ImplementationImpl extends MinimalEObjectImpl.Container implements Implementation {

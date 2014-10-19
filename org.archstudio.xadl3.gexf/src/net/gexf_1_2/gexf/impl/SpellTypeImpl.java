@@ -21,7 +21,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <li>{@link net.gexf_1_2.gexf.impl.SpellTypeImpl#getStartopen <em>Startopen</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class SpellTypeImpl extends MinimalEObjectImpl.Container implements SpellType {

@@ -8,7 +8,7 @@ import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc --> A representation of the model object '<em><b>Structure</b></em>'. <!-- end-user-doc -->
- * 
+ *
  * <!-- begin-model-doc -->
  * 
  * This type defines an architectural structure. A structure consists of components, connectors, and links. Components
@@ -16,7 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  * connector by reference through the use of the subStructure element on components or connectors.
  * 
  * <!-- end-model-doc -->
- * 
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -28,7 +28,7 @@ import org.eclipse.emf.ecore.EObject;
  * <li>{@link org.archstudio.xadl3.structure_3_0.Structure#getName <em>Name</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @see org.archstudio.xadl3.structure_3_0.Structure_3_0Package#getStructure()
  * @model extendedMetaData="name='Structure' kind='elementOnly'"
  * @generated

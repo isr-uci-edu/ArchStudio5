@@ -6,7 +6,7 @@ import org.eclipse.emf.common.util.EList;
 
 /**
  * <!-- begin-user-doc --> A representation of the model object '<em><b>Element Change</b></em>'. <!-- end-user-doc -->
- * 
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -14,7 +14,7 @@ import org.eclipse.emf.common.util.EList;
  * <li>{@link org.archstudio.xadl3.variability_3_0.ElementChange#getType <em>Type</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @see org.archstudio.xadl3.variability_3_0.Variability_3_0Package#getElementChange()
  * @model extendedMetaData="name='ElementChange' kind='elementOnly'"
  * @generated

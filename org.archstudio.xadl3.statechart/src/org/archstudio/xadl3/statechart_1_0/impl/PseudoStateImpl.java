@@ -27,7 +27,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <li>{@link org.archstudio.xadl3.statechart_1_0.impl.PseudoStateImpl#getName <em>Name</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class PseudoStateImpl extends MinimalEObjectImpl.Container implements PseudoState {

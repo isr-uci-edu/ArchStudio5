@@ -29,7 +29,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <li>{@link org.archstudio.xadl3.javaimplementation_3_0.impl.JavaImplementationImpl#getExt <em>Ext</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class JavaImplementationImpl extends ImplementationImpl implements JavaImplementation {

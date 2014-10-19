@@ -8,7 +8,7 @@ import org.eclipse.emf.ecore.util.FeatureMap;
 
 /**
  * <!-- begin-user-doc --> A representation of the model object '<em><b>Graph Content</b></em>'. <!-- end-user-doc -->
- * 
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -26,7 +26,7 @@ import org.eclipse.emf.ecore.util.FeatureMap;
  * <li>{@link net.gexf_1_2.gexf.GraphContent#getTimeformat <em>Timeformat</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @see net.gexf_1_2.gexf.GexfPackage#getGraphContent()
  * @model extendedMetaData="name='graph-content' kind='elementOnly'"
  * @generated

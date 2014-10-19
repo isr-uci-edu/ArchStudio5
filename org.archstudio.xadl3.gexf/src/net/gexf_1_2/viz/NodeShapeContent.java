@@ -9,7 +9,7 @@ import org.eclipse.emf.ecore.EObject;
 /**
  * <!-- begin-user-doc --> A representation of the model object '<em><b>Node Shape Content</b></em>'. <!-- end-user-doc
  * -->
- * 
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -22,7 +22,7 @@ import org.eclipse.emf.ecore.EObject;
  * <li>{@link net.gexf_1_2.viz.NodeShapeContent#getValue <em>Value</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @see net.gexf_1_2.viz.VizPackage#getNodeShapeContent()
  * @model extendedMetaData="name='node-shape-content' kind='elementOnly'"
  * @generated

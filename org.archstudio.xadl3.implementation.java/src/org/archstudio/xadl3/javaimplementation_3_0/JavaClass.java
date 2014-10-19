@@ -8,13 +8,13 @@ import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc --> A representation of the model object '<em><b>Java Class</b></em>'. <!-- end-user-doc -->
- * 
+ *
  * <!-- begin-model-doc -->
  * 
  * This type describes a Java class for an implementation.
  * 
  * <!-- end-model-doc -->
- * 
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -24,7 +24,7 @@ import org.eclipse.emf.ecore.EObject;
  * <li>{@link org.archstudio.xadl3.javaimplementation_3_0.JavaClass#getId <em>Id</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @see org.archstudio.xadl3.javaimplementation_3_0.Javaimplementation_3_0Package#getJavaClass()
  * @model extendedMetaData="name='JavaClass' kind='elementOnly'"
  * @generated

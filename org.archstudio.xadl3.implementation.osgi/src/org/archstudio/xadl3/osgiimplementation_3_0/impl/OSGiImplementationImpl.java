@@ -27,7 +27,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <li>{@link org.archstudio.xadl3.osgiimplementation_3_0.impl.OSGiImplementationImpl#getBundle <em>Bundle</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class OSGiImplementationImpl extends ImplementationImpl implements OSGiImplementation {

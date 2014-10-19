@@ -23,7 +23,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <li>{@link net.gexf_1_2.gexf.impl.AttvalueTypeImpl#getValue <em>Value</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class AttvalueTypeImpl extends MinimalEObjectImpl.Container implements AttvalueType {

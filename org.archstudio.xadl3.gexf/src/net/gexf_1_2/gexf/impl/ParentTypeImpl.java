@@ -18,7 +18,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <li>{@link net.gexf_1_2.gexf.impl.ParentTypeImpl#getFor <em>For</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class ParentTypeImpl extends MinimalEObjectImpl.Container implements ParentType {

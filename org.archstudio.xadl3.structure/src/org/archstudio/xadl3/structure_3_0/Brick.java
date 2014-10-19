@@ -8,7 +8,7 @@ import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc --> A representation of the model object '<em><b>Brick</b></em>'. <!-- end-user-doc -->
- * 
+ *
  * <!-- begin-model-doc -->
  * 
  * Brick is the abstract base type for components and connectors. A brick is a logical element that has an ID, a
@@ -18,7 +18,7 @@ import org.eclipse.emf.ecore.EObject;
  * future types of bricks.
  * 
  * <!-- end-model-doc -->
- * 
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -29,7 +29,7 @@ import org.eclipse.emf.ecore.EObject;
  * <li>{@link org.archstudio.xadl3.structure_3_0.Brick#getName <em>Name</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @see org.archstudio.xadl3.structure_3_0.Structure_3_0Package#getBrick()
  * @model abstract="true" extendedMetaData="name='Brick' kind='elementOnly'"
  * @generated

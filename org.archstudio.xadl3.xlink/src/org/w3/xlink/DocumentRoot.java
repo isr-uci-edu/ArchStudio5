@@ -8,7 +8,7 @@ import org.eclipse.emf.ecore.util.FeatureMap;
 
 /**
  * <!-- begin-user-doc --> A representation of the model object '<em><b>Document Root</b></em>'. <!-- end-user-doc -->
- * 
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -19,7 +19,7 @@ import org.eclipse.emf.ecore.util.FeatureMap;
  * <li>{@link org.w3.xlink.DocumentRoot#getType <em>Type</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @see org.w3.xlink.XlinkPackage#getDocumentRoot()
  * @model extendedMetaData="name='' kind='mixed'"
  * @generated

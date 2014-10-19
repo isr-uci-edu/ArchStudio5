@@ -26,7 +26,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <li>{@link org.archstudio.xadl3.statechart_1_0.impl.BehaviorImpl#getId <em>Id</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class BehaviorImpl extends MinimalEObjectImpl.Container implements Behavior {

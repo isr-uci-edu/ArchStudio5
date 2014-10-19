@@ -9,13 +9,13 @@ import org.eclipse.emf.common.util.EList;
 /**
  * <!-- begin-user-doc --> A representation of the model object '<em><b>OS Gi Implementation</b></em>'. <!--
  * end-user-doc -->
- * 
+ *
  * <!-- begin-model-doc -->
  * 
  * This type defines a OSGi-based implementation.
  * 
  * <!-- end-model-doc -->
- * 
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -23,7 +23,7 @@ import org.eclipse.emf.common.util.EList;
  * <li>{@link org.archstudio.xadl3.osgiimplementation_3_0.OSGiImplementation#getBundle <em>Bundle</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @see org.archstudio.xadl3.osgiimplementation_3_0.Osgiimplementation_3_0Package#getOSGiImplementation()
  * @model extendedMetaData="name='OSGiImplementation' kind='elementOnly'"
  * @generated

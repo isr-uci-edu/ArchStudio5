@@ -28,7 +28,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <li>{@link net.gexf_1_2.viz.impl.EdgeShapeContentImpl#getValue <em>Value</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class EdgeShapeContentImpl extends MinimalEObjectImpl.Container implements EdgeShapeContent {

@@ -30,7 +30,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <li>{@link net.gexf_1_2.viz.impl.DocumentRootImpl#getSpells <em>Spells</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class DocumentRootImpl extends MinimalEObjectImpl.Container implements DocumentRoot {

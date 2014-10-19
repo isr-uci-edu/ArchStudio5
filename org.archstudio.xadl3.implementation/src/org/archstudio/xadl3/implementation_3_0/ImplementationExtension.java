@@ -8,13 +8,13 @@ import org.eclipse.emf.common.util.EList;
 /**
  * <!-- begin-user-doc --> A representation of the model object '<em><b>Implementation Extension</b></em>'. <!--
  * end-user-doc -->
- * 
+ *
  * <!-- begin-model-doc -->
  * 
  * This type is an extension that can be added to elements to give them implementations.
  * 
  * <!-- end-model-doc -->
- * 
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -22,7 +22,7 @@ import org.eclipse.emf.common.util.EList;
  * </li>
  * </ul>
  * </p>
- * 
+ *
  * @see org.archstudio.xadl3.implementation_3_0.Implementation_3_0Package#getImplementationExtension()
  * @model extendedMetaData="name='ImplementationExtension' kind='elementOnly'"
  * @generated

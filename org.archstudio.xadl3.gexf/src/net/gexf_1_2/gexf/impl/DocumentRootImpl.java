@@ -71,7 +71,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <li>{@link net.gexf_1_2.gexf.impl.DocumentRootImpl#getThickness <em>Thickness</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class DocumentRootImpl extends MinimalEObjectImpl.Container implements DocumentRoot {

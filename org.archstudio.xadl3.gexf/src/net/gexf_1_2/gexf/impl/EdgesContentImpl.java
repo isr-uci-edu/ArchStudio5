@@ -28,7 +28,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <li>{@link net.gexf_1_2.gexf.impl.EdgesContentImpl#getCount <em>Count</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class EdgesContentImpl extends MinimalEObjectImpl.Container implements EdgesContent {

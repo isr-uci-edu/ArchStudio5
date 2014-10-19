@@ -9,7 +9,7 @@ import org.eclipse.emf.ecore.EObject;
 /**
  * <!-- begin-user-doc --> A representation of the model object '<em><b>Interface Mapping</b></em>'. <!-- end-user-doc
  * -->
- * 
+ *
  * <!-- begin-model-doc -->
  * 
  * Interface mappings are used in the specification of sub-structure for a Brick (Component or Connector). An interface
@@ -17,7 +17,7 @@ import org.eclipse.emf.ecore.EObject;
  * is a link to the interface on the outer brick. The innerInterfaceLink is a link to the interface on the inner brick.
  * 
  * <!-- end-model-doc -->
- * 
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -28,7 +28,7 @@ import org.eclipse.emf.ecore.EObject;
  * <li>{@link org.archstudio.xadl3.structure_3_0.InterfaceMapping#getName <em>Name</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @see org.archstudio.xadl3.structure_3_0.Structure_3_0Package#getInterfaceMapping()
  * @model extendedMetaData="name='InterfaceMapping' kind='elementOnly'"
  * @generated

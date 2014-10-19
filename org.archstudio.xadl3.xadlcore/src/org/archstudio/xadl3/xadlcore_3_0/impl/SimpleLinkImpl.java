@@ -19,7 +19,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <li>{@link org.archstudio.xadl3.xadlcore_3_0.impl.SimpleLinkImpl#getType <em>Type</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class SimpleLinkImpl extends MinimalEObjectImpl.Container implements SimpleLink {

@@ -8,7 +8,7 @@ import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc --> A representation of the model object '<em><b>Link</b></em>'. <!-- end-user-doc -->
- * 
+ *
  * <!-- begin-model-doc -->
  * 
  * A Link is an architectural construct that connects two elements. It connects two interfaces.
@@ -18,7 +18,7 @@ import org.eclipse.emf.ecore.EObject;
  * are intended to be semantically-rich elements.
  * 
  * <!-- end-model-doc -->
- * 
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -29,7 +29,7 @@ import org.eclipse.emf.ecore.EObject;
  * <li>{@link org.archstudio.xadl3.structure_3_0.Link#getName <em>Name</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @see org.archstudio.xadl3.structure_3_0.Structure_3_0Package#getLink()
  * @model extendedMetaData="name='Link' kind='elementOnly'"
  * @generated

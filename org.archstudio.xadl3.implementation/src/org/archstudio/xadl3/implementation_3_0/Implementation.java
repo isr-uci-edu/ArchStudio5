@@ -6,20 +6,20 @@ import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc --> A representation of the model object '<em><b>Implementation</b></em>'. <!-- end-user-doc -->
- * 
+ *
  * <!-- begin-model-doc -->
  * 
  * This type defines an abstract base type for implementations.
  * 
  * <!-- end-model-doc -->
- * 
+ *
  * <p>
  * The following features are supported:
  * <ul>
  * <li>{@link org.archstudio.xadl3.implementation_3_0.Implementation#getId <em>Id</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @see org.archstudio.xadl3.implementation_3_0.Implementation_3_0Package#getImplementation()
  * @model abstract="true" extendedMetaData="name='Implementation' kind='empty'"
  * @generated

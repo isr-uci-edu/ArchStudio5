@@ -25,7 +25,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <li>{@link org.archstudio.xadl3.variability_3_0.impl.ElementChangeImpl#getType <em>Type</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class ElementChangeImpl extends ChangeImpl implements ElementChange {

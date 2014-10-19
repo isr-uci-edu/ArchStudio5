@@ -22,7 +22,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <li>{@link org.archstudio.xadl3.hints_3_0.impl.HintImpl#getName <em>Name</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class HintImpl extends MinimalEObjectImpl.Container implements Hint {

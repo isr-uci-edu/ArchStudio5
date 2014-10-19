@@ -27,7 +27,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <li>{@link org.archstudio.xadl3.variability_3_0.impl.ChangeSetImpl#getName <em>Name</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public abstract class ChangeSetImpl extends MinimalEObjectImpl.Container implements ChangeSet {

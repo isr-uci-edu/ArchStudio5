@@ -24,7 +24,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <li>{@link org.archstudio.xadl3.prolog_3_0.impl.PrologExtensionImpl#getStatement <em>Statement</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class PrologExtensionImpl extends ExtensionImpl implements PrologExtension {

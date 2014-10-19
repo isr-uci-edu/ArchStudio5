@@ -4,14 +4,14 @@ package org.archstudio.xadl3.statechart_1_0;
 
 /**
  * <!-- begin-user-doc --> A representation of the model object '<em><b>Initial State</b></em>'. <!-- end-user-doc -->
- * 
+ *
  * <p>
  * The following features are supported:
  * <ul>
  * <li>{@link org.archstudio.xadl3.statechart_1_0.InitialState#getType <em>Type</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @see org.archstudio.xadl3.statechart_1_0.Statechart_1_0Package#getInitialState()
  * @model extendedMetaData="name='InitialState' kind='elementOnly'"
  * @generated

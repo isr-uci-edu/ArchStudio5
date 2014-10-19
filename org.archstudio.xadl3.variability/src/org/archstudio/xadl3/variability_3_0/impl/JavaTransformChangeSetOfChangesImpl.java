@@ -18,7 +18,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <li>{@link org.archstudio.xadl3.variability_3_0.impl.JavaTransformChangeSetOfChangesImpl#getClass_ <em>Class</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class JavaTransformChangeSetOfChangesImpl extends TransformChangeSetOfChangesImpl implements

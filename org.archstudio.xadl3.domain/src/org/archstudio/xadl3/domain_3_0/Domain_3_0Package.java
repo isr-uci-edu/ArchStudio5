@@ -44,7 +44,7 @@ import org.eclipse.emf.ecore.EReference;
  * 
  * @see org.archstudio.xadl3.domain_3_0.Domain_3_0Factory
  * @model kind="package" annotation=
- *        "http://www.archstudio.org/xadl3/schemas/extensionHint appinfo='\r\n\t\t\t<hint extensionSchema=\"http://www.archstudio.org/xadl3/schemas/domain-3.0.xsd\" extensionType=\"DomainExtension\" targetSchema=\"http://www.archstudio.org/xadl3/schemas/structure-3.0.xsd\" targetType=\"Interface\" xmlns=\"http://www.archstudio.org/xadl3/schemas/domain-3.0.xsd\"/>\r\n\t\t'"
+ *        "http://www.archstudio.org/xadl3/schemas/extensionHint appinfo='\n\t\t\t<hint extensionSchema=\"http://www.archstudio.org/xadl3/schemas/domain-3.0.xsd\" extensionType=\"DomainExtension\" targetSchema=\"http://www.archstudio.org/xadl3/schemas/structure-3.0.xsd\" targetType=\"Interface\" xmlns=\"http://www.archstudio.org/xadl3/schemas/domain-3.0.xsd\"/>\n\t\t'"
  * @generated
  */
 public interface Domain_3_0Package extends EPackage {

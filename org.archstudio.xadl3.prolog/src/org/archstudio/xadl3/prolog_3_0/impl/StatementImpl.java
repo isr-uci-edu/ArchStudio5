@@ -17,7 +17,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <li>{@link org.archstudio.xadl3.prolog_3_0.impl.StatementImpl#getValue <em>Value</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class StatementImpl extends MinimalEObjectImpl.Container implements Statement {

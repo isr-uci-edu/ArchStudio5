@@ -6,14 +6,14 @@ import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc --> A representation of the model object '<em><b>Change</b></em>'. <!-- end-user-doc -->
- * 
+ *
  * <p>
  * The following features are supported:
  * <ul>
  * <li>{@link org.archstudio.xadl3.variability_3_0.Change#getName <em>Name</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @see org.archstudio.xadl3.variability_3_0.Variability_3_0Package#getChange()
  * @model extendedMetaData="name='Change' kind='empty'"
  * @generated

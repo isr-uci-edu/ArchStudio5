@@ -33,7 +33,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <li>{@link org.archstudio.xadl3.structure_3_0.impl.StructureImpl#getName <em>Name</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class StructureImpl extends MinimalEObjectImpl.Container implements Structure {

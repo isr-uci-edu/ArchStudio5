@@ -26,7 +26,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <li>{@link net.gexf_1_2.viz.impl.SizeContentImpl#getValue <em>Value</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class SizeContentImpl extends MinimalEObjectImpl.Container implements SizeContent {

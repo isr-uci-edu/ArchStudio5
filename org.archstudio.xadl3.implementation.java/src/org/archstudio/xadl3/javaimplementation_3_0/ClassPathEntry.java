@@ -9,13 +9,13 @@ import org.eclipse.emf.ecore.EObject;
 /**
  * <!-- begin-user-doc --> A representation of the model object '<em><b>Class Path Entry</b></em>'. <!-- end-user-doc
  * -->
- * 
+ *
  * <!-- begin-model-doc -->
  * 
  * This type describes an entry on a classpath.
  * 
  * <!-- end-model-doc -->
- * 
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -24,7 +24,7 @@ import org.eclipse.emf.ecore.EObject;
  * <li>{@link org.archstudio.xadl3.javaimplementation_3_0.ClassPathEntry#getId <em>Id</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @see org.archstudio.xadl3.javaimplementation_3_0.Javaimplementation_3_0Package#getClassPathEntry()
  * @model extendedMetaData="name='ClassPathEntry' kind='elementOnly'"
  * @generated

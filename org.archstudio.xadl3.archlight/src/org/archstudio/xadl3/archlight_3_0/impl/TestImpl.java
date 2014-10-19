@@ -28,7 +28,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <li>{@link org.archstudio.xadl3.archlight_3_0.impl.TestImpl#getName <em>Name</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class TestImpl extends MinimalEObjectImpl.Container implements Test {

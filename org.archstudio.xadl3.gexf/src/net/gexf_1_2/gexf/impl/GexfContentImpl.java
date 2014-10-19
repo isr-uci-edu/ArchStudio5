@@ -26,7 +26,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <li>{@link net.gexf_1_2.gexf.impl.GexfContentImpl#getVersion <em>Version</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class GexfContentImpl extends MinimalEObjectImpl.Container implements GexfContent {

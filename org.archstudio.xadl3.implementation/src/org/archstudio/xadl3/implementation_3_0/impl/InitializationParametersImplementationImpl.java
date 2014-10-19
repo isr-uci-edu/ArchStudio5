@@ -25,7 +25,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <em>Initialization Parameter</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class InitializationParametersImplementationImpl extends ImplementationImpl implements

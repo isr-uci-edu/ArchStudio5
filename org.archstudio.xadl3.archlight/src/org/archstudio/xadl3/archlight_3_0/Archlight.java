@@ -8,13 +8,13 @@ import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc --> A representation of the model object '<em><b>Archlight</b></em>'. <!-- end-user-doc -->
- * 
+ *
  * <!-- begin-model-doc -->
  * 
  * TODO: @@
  * 
  * <!-- end-model-doc -->
- * 
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -22,7 +22,7 @@ import org.eclipse.emf.ecore.EObject;
  * <li>{@link org.archstudio.xadl3.archlight_3_0.Archlight#getExt <em>Ext</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @see org.archstudio.xadl3.archlight_3_0.Archlight_3_0Package#getArchlight()
  * @model extendedMetaData="name='Archlight' kind='elementOnly'"
  * @generated

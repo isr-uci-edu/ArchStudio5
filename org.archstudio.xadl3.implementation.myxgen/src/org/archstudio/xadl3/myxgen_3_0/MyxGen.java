@@ -6,20 +6,20 @@ import org.archstudio.xadl3.implementation_3_0.Implementation;
 
 /**
  * <!-- begin-user-doc --> A representation of the model object '<em><b>Myx Gen</b></em>'. <!-- end-user-doc -->
- * 
+ *
  * <!-- begin-model-doc -->
  * 
  * This type defines a reference to a MyxGen brick.
  * 
  * <!-- end-model-doc -->
- * 
+ *
  * <p>
  * The following features are supported:
  * <ul>
  * <li>{@link org.archstudio.xadl3.myxgen_3_0.MyxGen#getBrickID <em>Brick ID</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @see org.archstudio.xadl3.myxgen_3_0.Myxgen_3_0Package#getMyxGen()
  * @model extendedMetaData="name='MyxGen' kind='elementOnly'"
  * @generated

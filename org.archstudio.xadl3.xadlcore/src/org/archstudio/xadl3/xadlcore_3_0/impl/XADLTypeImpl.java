@@ -23,7 +23,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <li>{@link org.archstudio.xadl3.xadlcore_3_0.impl.XADLTypeImpl#getTopLevelElement <em>Top Level Element</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class XADLTypeImpl extends MinimalEObjectImpl.Container implements XADLType {

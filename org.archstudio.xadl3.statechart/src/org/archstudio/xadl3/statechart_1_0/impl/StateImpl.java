@@ -29,7 +29,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <li>{@link org.archstudio.xadl3.statechart_1_0.impl.StateImpl#getType <em>Type</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class StateImpl extends PseudoStateImpl implements State {

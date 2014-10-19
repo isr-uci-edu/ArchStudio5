@@ -13,7 +13,7 @@ import org.eclipse.emf.ecore.util.FeatureMap;
 
 /**
  * <!-- begin-user-doc --> A representation of the model object '<em><b>Node Content</b></em>'. <!-- end-user-doc -->
- * 
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -36,7 +36,7 @@ import org.eclipse.emf.ecore.util.FeatureMap;
  * <li>{@link net.gexf_1_2.gexf.NodeContent#getStartopen <em>Startopen</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @see net.gexf_1_2.gexf.GexfPackage#getNodeContent()
  * @model extendedMetaData="name='node-content' kind='elementOnly'"
  * @generated

@@ -44,7 +44,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <li>{@link net.gexf_1_2.gexf.impl.GraphContentImpl#getTimeformat <em>Timeformat</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class GraphContentImpl extends MinimalEObjectImpl.Container implements GraphContent {

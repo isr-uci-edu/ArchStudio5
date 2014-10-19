@@ -8,7 +8,7 @@ import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc --> A representation of the model object '<em><b>Sub Structure</b></em>'. <!-- end-user-doc -->
- * 
+ *
  * <!-- begin-model-doc -->
  * 
  * This type allows the specification of sub-structure for a brick (component or connector); that is, the internal
@@ -20,7 +20,7 @@ import org.eclipse.emf.ecore.EObject;
  * and connectors.
  * 
  * <!-- end-model-doc -->
- * 
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -30,7 +30,7 @@ import org.eclipse.emf.ecore.EObject;
  * <li>{@link org.archstudio.xadl3.structure_3_0.SubStructure#getId <em>Id</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @see org.archstudio.xadl3.structure_3_0.Structure_3_0Package#getSubStructure()
  * @model extendedMetaData="name='SubStructure' kind='elementOnly'"
  * @generated

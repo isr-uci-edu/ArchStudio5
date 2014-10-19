@@ -6,7 +6,7 @@ import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc --> A representation of the model object '<em><b>Sub Statechart</b></em>'. <!-- end-user-doc -->
- * 
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -14,7 +14,7 @@ import org.eclipse.emf.ecore.EObject;
  * <li>{@link org.archstudio.xadl3.statechart_1_0.SubStatechart#getId <em>Id</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @see org.archstudio.xadl3.statechart_1_0.Statechart_1_0Package#getSubStatechart()
  * @model extendedMetaData="name='SubStatechart' kind='elementOnly'"
  * @generated

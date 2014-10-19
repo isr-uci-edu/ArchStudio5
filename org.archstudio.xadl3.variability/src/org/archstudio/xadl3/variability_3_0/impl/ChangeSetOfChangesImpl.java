@@ -21,7 +21,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * </li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class ChangeSetOfChangesImpl extends ChangeSetImpl implements ChangeSetOfChanges {

@@ -6,20 +6,20 @@ import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc --> A representation of the model object '<em><b>Domain</b></em>'. <!-- end-user-doc -->
- * 
+ *
  * <!-- begin-model-doc -->
  * 
  * This type defines an element that can be added to another element to indicate its domain.
  * 
  * <!-- end-model-doc -->
- * 
+ *
  * <p>
  * The following features are supported:
  * <ul>
  * <li>{@link org.archstudio.xadl3.domain_3_0.Domain#getType <em>Type</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @see org.archstudio.xadl3.domain_3_0.Domain_3_0Package#getDomain()
  * @model extendedMetaData="name='Domain' kind='empty'"
  * @generated

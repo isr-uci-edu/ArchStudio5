@@ -6,7 +6,7 @@ import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc --> A representation of the model object '<em><b>Simple Link</b></em>'. <!-- end-user-doc -->
- * 
+ *
  * <!-- begin-model-doc -->
  * 
  * This type is meant to describe elements that are simple outbound links outside the current document (internal links
@@ -14,7 +14,7 @@ import org.eclipse.emf.ecore.EObject;
  * XPointer to refer to an element within a document.
  * 
  * <!-- end-model-doc -->
- * 
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -23,7 +23,7 @@ import org.eclipse.emf.ecore.EObject;
  * <li>{@link org.archstudio.xadl3.xadlcore_3_0.SimpleLink#getType <em>Type</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @see org.archstudio.xadl3.xadlcore_3_0.Xadlcore_3_0Package#getSimpleLink()
  * @model extendedMetaData="name='SimpleLink' kind='empty'"
  * @generated

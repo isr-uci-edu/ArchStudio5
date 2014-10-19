@@ -17,7 +17,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <li>{@link org.archstudio.xadl3.myxgen_3_0.impl.MyxGenImpl#getBrickID <em>Brick ID</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class MyxGenImpl extends ImplementationImpl implements MyxGen {

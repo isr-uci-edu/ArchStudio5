@@ -25,7 +25,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <li>{@link net.gexf_1_2.gexf.impl.AttvaluesContentImpl#getAttvalue <em>Attvalue</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class AttvaluesContentImpl extends MinimalEObjectImpl.Container implements AttvaluesContent {

@@ -31,7 +31,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <li>{@link net.gexf_1_2.viz.impl.ColorContentImpl#getStartopen <em>Startopen</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class ColorContentImpl extends MinimalEObjectImpl.Container implements ColorContent {

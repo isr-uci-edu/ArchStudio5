@@ -23,7 +23,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <li>{@link org.archstudio.xadl3.variability_3_0.impl.ElementManyChangeImpl#getChange <em>Change</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class ElementManyChangeImpl extends ChangeImpl implements ElementManyChange {

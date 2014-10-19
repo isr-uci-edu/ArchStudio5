@@ -4,14 +4,14 @@ package org.archstudio.xadl3.statechart_1_0;
 
 /**
  * <!-- begin-user-doc --> A representation of the model object '<em><b>Final State</b></em>'. <!-- end-user-doc -->
- * 
+ *
  * <p>
  * The following features are supported:
  * <ul>
  * <li>{@link org.archstudio.xadl3.statechart_1_0.FinalState#getType <em>Type</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @see org.archstudio.xadl3.statechart_1_0.Statechart_1_0Package#getFinalState()
  * @model extendedMetaData="name='FinalState' kind='elementOnly'"
  * @generated

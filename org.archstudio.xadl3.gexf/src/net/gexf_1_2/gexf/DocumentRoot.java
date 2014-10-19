@@ -13,7 +13,7 @@ import org.eclipse.emf.ecore.util.FeatureMap;
 
 /**
  * <!-- begin-user-doc --> A representation of the model object '<em><b>Document Root</b></em>'. <!-- end-user-doc -->
- * 
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -46,7 +46,7 @@ import org.eclipse.emf.ecore.util.FeatureMap;
  * <li>{@link net.gexf_1_2.gexf.DocumentRoot#getThickness <em>Thickness</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @see net.gexf_1_2.gexf.GexfPackage#getDocumentRoot()
  * @model extendedMetaData="name='' kind='mixed'"
  * @generated

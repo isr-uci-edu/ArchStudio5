@@ -8,7 +8,7 @@ import org.eclipse.emf.common.util.EList;
 /**
  * <!-- begin-user-doc --> A representation of the model object '<em><b>Statechart Specification</b></em>'. <!--
  * end-user-doc -->
- * 
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -17,7 +17,7 @@ import org.eclipse.emf.common.util.EList;
  * <li>{@link org.archstudio.xadl3.statechart_1_0.StatechartSpecification#getId <em>Id</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @see org.archstudio.xadl3.statechart_1_0.Statechart_1_0Package#getStatechartSpecification()
  * @model extendedMetaData="name='StatechartSpecification' kind='elementOnly'"
  * @generated

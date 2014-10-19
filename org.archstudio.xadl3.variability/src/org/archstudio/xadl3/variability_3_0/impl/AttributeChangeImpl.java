@@ -17,7 +17,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <li>{@link org.archstudio.xadl3.variability_3_0.impl.AttributeChangeImpl#getValue <em>Value</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class AttributeChangeImpl extends ChangeImpl implements AttributeChange {

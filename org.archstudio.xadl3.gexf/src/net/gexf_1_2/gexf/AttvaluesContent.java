@@ -8,14 +8,14 @@ import org.eclipse.emf.ecore.EObject;
 /**
  * <!-- begin-user-doc --> A representation of the model object '<em><b>Attvalues Content</b></em>'. <!-- end-user-doc
  * -->
- * 
+ *
  * <p>
  * The following features are supported:
  * <ul>
  * <li>{@link net.gexf_1_2.gexf.AttvaluesContent#getAttvalue <em>Attvalue</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @see net.gexf_1_2.gexf.GexfPackage#getAttvaluesContent()
  * @model extendedMetaData="name='attvalues-content' kind='elementOnly'"
  * @generated

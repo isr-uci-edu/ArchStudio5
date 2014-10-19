@@ -9,7 +9,7 @@ import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc --> A representation of the model object '<em><b>Edges Content</b></em>'. <!-- end-user-doc -->
- * 
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -17,7 +17,7 @@ import org.eclipse.emf.ecore.EObject;
  * <li>{@link net.gexf_1_2.gexf.EdgesContent#getCount <em>Count</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @see net.gexf_1_2.gexf.GexfPackage#getEdgesContent()
  * @model extendedMetaData="name='edges-content' kind='elementOnly'"
  * @generated

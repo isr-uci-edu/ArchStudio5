@@ -26,7 +26,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <li>{@link org.archstudio.xadl3.hints_3_0.impl.ValueImpl#getType <em>Type</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class ValueImpl extends MinimalEObjectImpl.Container implements Value {

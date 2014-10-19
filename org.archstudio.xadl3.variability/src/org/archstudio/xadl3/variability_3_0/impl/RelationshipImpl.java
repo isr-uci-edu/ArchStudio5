@@ -27,7 +27,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <li>{@link org.archstudio.xadl3.variability_3_0.impl.RelationshipImpl#getName <em>Name</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public abstract class RelationshipImpl extends MinimalEObjectImpl.Container implements Relationship {

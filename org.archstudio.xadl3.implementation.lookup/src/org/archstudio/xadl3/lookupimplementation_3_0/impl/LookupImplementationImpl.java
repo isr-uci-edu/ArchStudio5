@@ -27,7 +27,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <li>{@link org.archstudio.xadl3.lookupimplementation_3_0.impl.LookupImplementationImpl#getLookup <em>Lookup</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class LookupImplementationImpl extends ImplementationImpl implements LookupImplementation {

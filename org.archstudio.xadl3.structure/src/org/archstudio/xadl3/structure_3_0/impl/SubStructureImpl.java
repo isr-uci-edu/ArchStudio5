@@ -31,7 +31,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <li>{@link org.archstudio.xadl3.structure_3_0.impl.SubStructureImpl#getId <em>Id</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class SubStructureImpl extends MinimalEObjectImpl.Container implements SubStructure {

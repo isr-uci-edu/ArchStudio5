@@ -17,7 +17,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <li>{@link org.archstudio.xadl3.statechart_1_0.impl.InitialStateImpl#getType <em>Type</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class InitialStateImpl extends PseudoStateImpl implements InitialState {

@@ -32,7 +32,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <li>{@link net.gexf_1_2.gexf.impl.MetaContentImpl#getLastmodifieddate <em>Lastmodifieddate</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class MetaContentImpl extends MinimalEObjectImpl.Container implements MetaContent {

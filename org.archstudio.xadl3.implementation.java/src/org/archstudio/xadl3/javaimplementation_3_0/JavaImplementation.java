@@ -9,13 +9,13 @@ import org.eclipse.emf.common.util.EList;
 /**
  * <!-- begin-user-doc --> A representation of the model object '<em><b>Java Implementation</b></em>'. <!-- end-user-doc
  * -->
- * 
+ *
  * <!-- begin-model-doc -->
  * 
  * This type defines a Java implementation.
  * 
  * <!-- end-model-doc -->
- * 
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -24,7 +24,7 @@ import org.eclipse.emf.common.util.EList;
  * <li>{@link org.archstudio.xadl3.javaimplementation_3_0.JavaImplementation#getExt <em>Ext</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @see org.archstudio.xadl3.javaimplementation_3_0.Javaimplementation_3_0Package#getJavaImplementation()
  * @model extendedMetaData="name='JavaImplementation' kind='elementOnly'"
  * @generated

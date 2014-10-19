@@ -10,7 +10,7 @@ import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc --> A representation of the model object '<em><b>Color Content</b></em>'. <!-- end-user-doc -->
- * 
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -25,7 +25,7 @@ import org.eclipse.emf.ecore.EObject;
  * <li>{@link net.gexf_1_2.viz.ColorContent#getStartopen <em>Startopen</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @see net.gexf_1_2.viz.VizPackage#getColorContent()
  * @model extendedMetaData="name='color-content' kind='elementOnly'"
  * @generated

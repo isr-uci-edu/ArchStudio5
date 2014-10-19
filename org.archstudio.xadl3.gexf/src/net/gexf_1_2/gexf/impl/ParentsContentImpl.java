@@ -25,7 +25,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <li>{@link net.gexf_1_2.gexf.impl.ParentsContentImpl#getParent <em>Parent</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class ParentsContentImpl extends MinimalEObjectImpl.Container implements ParentsContent {

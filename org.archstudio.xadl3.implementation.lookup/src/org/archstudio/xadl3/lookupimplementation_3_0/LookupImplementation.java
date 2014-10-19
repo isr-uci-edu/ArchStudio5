@@ -9,13 +9,13 @@ import org.eclipse.emf.common.util.EList;
 /**
  * <!-- begin-user-doc --> A representation of the model object '<em><b>Lookup Implementation</b></em>'. <!--
  * end-user-doc -->
- * 
+ *
  * <!-- begin-model-doc -->
  * 
  * This type defines a Lookup-based implementation.
  * 
  * <!-- end-model-doc -->
- * 
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -23,7 +23,7 @@ import org.eclipse.emf.common.util.EList;
  * <li>{@link org.archstudio.xadl3.lookupimplementation_3_0.LookupImplementation#getLookup <em>Lookup</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @see org.archstudio.xadl3.lookupimplementation_3_0.Lookupimplementation_3_0Package#getLookupImplementation()
  * @model extendedMetaData="name='LookupImplementation' kind='elementOnly'"
  * @generated

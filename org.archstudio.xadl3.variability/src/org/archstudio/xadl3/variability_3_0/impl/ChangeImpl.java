@@ -17,7 +17,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <li>{@link org.archstudio.xadl3.variability_3_0.impl.ChangeImpl#getName <em>Name</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class ChangeImpl extends MinimalEObjectImpl.Container implements Change {

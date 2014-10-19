@@ -29,7 +29,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <li>{@link net.gexf_1_2.viz.impl.NodeShapeContentImpl#getValue <em>Value</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class NodeShapeContentImpl extends MinimalEObjectImpl.Container implements NodeShapeContent {

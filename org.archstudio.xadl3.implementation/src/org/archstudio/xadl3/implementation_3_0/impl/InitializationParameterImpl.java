@@ -28,7 +28,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <li>{@link org.archstudio.xadl3.implementation_3_0.impl.InitializationParameterImpl#getValue <em>Value</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class InitializationParameterImpl extends MinimalEObjectImpl.Container implements InitializationParameter {

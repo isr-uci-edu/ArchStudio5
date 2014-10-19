@@ -51,7 +51,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <li>{@link net.gexf_1_2.gexf.impl.NodeContentImpl#getStartopen <em>Startopen</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class NodeContentImpl extends MinimalEObjectImpl.Container implements NodeContent {

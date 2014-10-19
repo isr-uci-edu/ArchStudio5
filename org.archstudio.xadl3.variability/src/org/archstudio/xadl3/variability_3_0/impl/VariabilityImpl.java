@@ -32,7 +32,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <li>{@link org.archstudio.xadl3.variability_3_0.impl.VariabilityImpl#isOverview <em>Overview</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class VariabilityImpl extends MinimalEObjectImpl.Container implements Variability {

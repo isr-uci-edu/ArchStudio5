@@ -9,13 +9,13 @@ import org.eclipse.emf.ecore.EObject;
 /**
  * <!-- begin-user-doc --> A representation of the model object '<em><b>Initialization Parameter</b></em>'. <!--
  * end-user-doc -->
- * 
+ *
  * <!-- begin-model-doc -->
  * 
  * This type describes an initialization parameter.
  * 
  * <!-- end-model-doc -->
- * 
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -24,7 +24,7 @@ import org.eclipse.emf.ecore.EObject;
  * <li>{@link org.archstudio.xadl3.implementation_3_0.InitializationParameter#getValue <em>Value</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @see org.archstudio.xadl3.implementation_3_0.Implementation_3_0Package#getInitializationParameter()
  * @model extendedMetaData="name='InitializationParameter' kind='elementOnly'"
  * @generated

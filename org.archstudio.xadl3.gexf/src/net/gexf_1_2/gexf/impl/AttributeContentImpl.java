@@ -33,7 +33,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <li>{@link net.gexf_1_2.gexf.impl.AttributeContentImpl#getType <em>Type</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class AttributeContentImpl extends MinimalEObjectImpl.Container implements AttributeContent {

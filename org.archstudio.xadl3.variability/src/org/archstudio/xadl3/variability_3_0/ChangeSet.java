@@ -8,7 +8,7 @@ import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc --> A representation of the model object '<em><b>Change Set</b></em>'. <!-- end-user-doc -->
- * 
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -17,7 +17,7 @@ import org.eclipse.emf.ecore.EObject;
  * <li>{@link org.archstudio.xadl3.variability_3_0.ChangeSet#getName <em>Name</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @see org.archstudio.xadl3.variability_3_0.Variability_3_0Package#getChangeSet()
  * @model abstract="true" extendedMetaData="name='ChangeSet' kind='elementOnly'"
  * @generated

@@ -6,7 +6,7 @@ import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc --> A representation of the model object '<em><b>Spell Type</b></em>'. <!-- end-user-doc -->
- * 
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -16,7 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  * <li>{@link net.gexf_1_2.gexf.SpellType#getStartopen <em>Startopen</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @see net.gexf_1_2.gexf.GexfPackage#getSpellType()
  * @model extendedMetaData="name='spell_._type' kind='empty'"
  * @generated

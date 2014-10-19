@@ -7,14 +7,14 @@ import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc --> A representation of the model object '<em><b>Parents Content</b></em>'. <!-- end-user-doc -->
- * 
+ *
  * <p>
  * The following features are supported:
  * <ul>
  * <li>{@link net.gexf_1_2.gexf.ParentsContent#getParent <em>Parent</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @see net.gexf_1_2.gexf.GexfPackage#getParentsContent()
  * @model extendedMetaData="name='parents-content' kind='elementOnly'"
  * @generated

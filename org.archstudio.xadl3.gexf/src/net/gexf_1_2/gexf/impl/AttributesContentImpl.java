@@ -35,7 +35,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <li>{@link net.gexf_1_2.gexf.impl.AttributesContentImpl#getStartopen <em>Startopen</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class AttributesContentImpl extends MinimalEObjectImpl.Container implements AttributesContent {

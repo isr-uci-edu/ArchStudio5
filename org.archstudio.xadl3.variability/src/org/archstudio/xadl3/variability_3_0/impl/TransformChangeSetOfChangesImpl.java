@@ -11,7 +11,7 @@ import org.eclipse.emf.ecore.EClass;
  * end-user-doc -->
  * <p>
  * </p>
- * 
+ *
  * @generated
  */
 public class TransformChangeSetOfChangesImpl extends ChangeSetOfChangesImpl implements TransformChangeSetOfChanges {

@@ -32,7 +32,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <li>{@link org.archstudio.xadl3.statechart_1_0.impl.TransitionImpl#getName <em>Name</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class TransitionImpl extends MinimalEObjectImpl.Container implements Transition {

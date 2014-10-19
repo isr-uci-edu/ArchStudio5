@@ -31,7 +31,7 @@ import org.w3.xlink.XlinkPackage;
  * <li>{@link org.w3.xlink.impl.DocumentRootImpl#getType <em>Type</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class DocumentRootImpl extends MinimalEObjectImpl.Container implements DocumentRoot {

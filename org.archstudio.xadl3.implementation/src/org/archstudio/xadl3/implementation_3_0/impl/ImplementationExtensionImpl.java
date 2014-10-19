@@ -25,7 +25,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * Implementation</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class ImplementationExtensionImpl extends ExtensionImpl implements ImplementationExtension {

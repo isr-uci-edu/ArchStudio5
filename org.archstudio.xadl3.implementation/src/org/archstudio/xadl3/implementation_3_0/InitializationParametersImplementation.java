@@ -7,13 +7,13 @@ import org.eclipse.emf.common.util.EList;
 /**
  * <!-- begin-user-doc --> A representation of the model object '
  * <em><b>Initialization Parameters Implementation</b></em>'. <!-- end-user-doc -->
- * 
+ *
  * <!-- begin-model-doc -->
  * 
  * This type describes initialization parameters used during initialization.
  * 
  * <!-- end-model-doc -->
- * 
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -21,7 +21,7 @@ import org.eclipse.emf.common.util.EList;
  * <em>Initialization Parameter</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @see org.archstudio.xadl3.implementation_3_0.Implementation_3_0Package#getInitializationParametersImplementation()
  * @model extendedMetaData="name='InitializationParametersImplementation' kind='elementOnly'"
  * @generated

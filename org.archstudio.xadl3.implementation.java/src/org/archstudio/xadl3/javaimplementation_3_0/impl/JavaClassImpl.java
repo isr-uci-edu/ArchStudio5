@@ -30,7 +30,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <li>{@link org.archstudio.xadl3.javaimplementation_3_0.impl.JavaClassImpl#getId <em>Id</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class JavaClassImpl extends MinimalEObjectImpl.Container implements JavaClass {

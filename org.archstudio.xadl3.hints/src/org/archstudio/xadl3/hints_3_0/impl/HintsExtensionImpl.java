@@ -24,7 +24,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <li>{@link org.archstudio.xadl3.hints_3_0.impl.HintsExtensionImpl#getHint <em>Hint</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class HintsExtensionImpl extends ExtensionImpl implements HintsExtension {

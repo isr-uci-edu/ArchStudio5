@@ -6,9 +6,9 @@ import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc --> A representation of the model object '<em><b>Content</b></em>'. <!-- end-user-doc -->
- * 
+ *
  * <!-- begin-model-doc --> Tree <!-- end-model-doc -->
- * 
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -18,7 +18,7 @@ import org.eclipse.emf.ecore.EObject;
  * <li>{@link net.gexf_1_2.gexf.GexfContent#getVersion <em>Version</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @see net.gexf_1_2.gexf.GexfPackage#getGexfContent()
  * @model extendedMetaData="name='gexf-content' kind='elementOnly'"
  * @generated

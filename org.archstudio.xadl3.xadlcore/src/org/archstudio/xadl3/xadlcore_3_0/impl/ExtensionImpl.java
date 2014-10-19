@@ -11,7 +11,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Extension</b></em>'. <!-- end-user-doc -->
  * <p>
  * </p>
- * 
+ *
  * @generated
  */
 public abstract class ExtensionImpl extends MinimalEObjectImpl.Container implements Extension {

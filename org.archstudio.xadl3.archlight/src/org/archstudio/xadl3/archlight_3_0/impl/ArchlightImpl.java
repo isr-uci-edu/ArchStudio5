@@ -25,7 +25,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <li>{@link org.archstudio.xadl3.archlight_3_0.impl.ArchlightImpl#getExt <em>Ext</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class ArchlightImpl extends MinimalEObjectImpl.Container implements Archlight {

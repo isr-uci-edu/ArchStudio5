@@ -29,7 +29,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <li>{@link net.gexf_1_2.viz.impl.PositionContentImpl#getZ <em>Z</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class PositionContentImpl extends MinimalEObjectImpl.Container implements PositionContent {

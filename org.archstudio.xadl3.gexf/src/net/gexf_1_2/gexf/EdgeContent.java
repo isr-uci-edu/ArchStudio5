@@ -12,7 +12,7 @@ import org.eclipse.emf.ecore.util.FeatureMap;
 
 /**
  * <!-- begin-user-doc --> A representation of the model object '<em><b>Edge Content</b></em>'. <!-- end-user-doc -->
- * 
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -34,7 +34,7 @@ import org.eclipse.emf.ecore.util.FeatureMap;
  * <li>{@link net.gexf_1_2.gexf.EdgeContent#getWeight <em>Weight</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @see net.gexf_1_2.gexf.GexfPackage#getEdgeContent()
  * @model extendedMetaData="name='edge-content' kind='elementOnly'"
  * @generated

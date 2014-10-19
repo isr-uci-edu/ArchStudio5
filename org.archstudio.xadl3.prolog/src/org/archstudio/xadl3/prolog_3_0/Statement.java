@@ -6,14 +6,14 @@ import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc --> A representation of the model object '<em><b>Statement</b></em>'. <!-- end-user-doc -->
- * 
+ *
  * <p>
  * The following features are supported:
  * <ul>
  * <li>{@link org.archstudio.xadl3.prolog_3_0.Statement#getValue <em>Value</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @see org.archstudio.xadl3.prolog_3_0.Prolog_3_0Package#getStatement()
  * @model extendedMetaData="name='Statement' kind='empty'"
  * @generated

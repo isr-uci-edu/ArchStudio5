@@ -9,7 +9,7 @@ import org.eclipse.emf.ecore.EObject;
 /**
  * <!-- begin-user-doc --> A representation of the model object '<em><b>Edge Shape Content</b></em>'. <!-- end-user-doc
  * -->
- * 
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -21,7 +21,7 @@ import org.eclipse.emf.ecore.EObject;
  * <li>{@link net.gexf_1_2.viz.EdgeShapeContent#getValue <em>Value</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @see net.gexf_1_2.viz.VizPackage#getEdgeShapeContent()
  * @model extendedMetaData="name='edge-shape-content' kind='elementOnly'"
  * @generated

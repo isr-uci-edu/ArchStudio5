@@ -27,7 +27,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <li>{@link net.gexf_1_2.viz.impl.ThicknessContentImpl#getValue <em>Value</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class ThicknessContentImpl extends MinimalEObjectImpl.Container implements ThicknessContent {

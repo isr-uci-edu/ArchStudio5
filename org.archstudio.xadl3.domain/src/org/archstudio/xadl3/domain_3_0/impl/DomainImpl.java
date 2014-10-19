@@ -18,7 +18,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <li>{@link org.archstudio.xadl3.domain_3_0.impl.DomainImpl#getType <em>Type</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class DomainImpl extends MinimalEObjectImpl.Container implements Domain {

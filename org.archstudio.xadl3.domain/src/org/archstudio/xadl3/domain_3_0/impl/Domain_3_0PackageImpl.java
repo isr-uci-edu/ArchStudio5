@@ -308,7 +308,7 @@ public class Domain_3_0PackageImpl extends EPackageImpl implements Domain_3_0Pac
 				source,
 				new String[] {
 						"appinfo",
-						"\r\n\t\t\t<hint extensionSchema=\"http://www.archstudio.org/xadl3/schemas/domain-3.0.xsd\" extensionType=\"DomainExtension\" targetSchema=\"http://www.archstudio.org/xadl3/schemas/structure-3.0.xsd\" targetType=\"Interface\" xmlns=\"http://www.archstudio.org/xadl3/schemas/domain-3.0.xsd\"/>\r\n\t\t" });
+						"\n\t\t\t<hint extensionSchema=\"http://www.archstudio.org/xadl3/schemas/domain-3.0.xsd\" extensionType=\"DomainExtension\" targetSchema=\"http://www.archstudio.org/xadl3/schemas/structure-3.0.xsd\" targetType=\"Interface\" xmlns=\"http://www.archstudio.org/xadl3/schemas/domain-3.0.xsd\"/>\n\t\t" });
 	}
 
 	/**

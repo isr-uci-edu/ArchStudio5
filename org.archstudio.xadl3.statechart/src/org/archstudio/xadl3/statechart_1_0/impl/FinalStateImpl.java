@@ -17,7 +17,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <li>{@link org.archstudio.xadl3.statechart_1_0.impl.FinalStateImpl#getType <em>Type</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class FinalStateImpl extends PseudoStateImpl implements FinalState {

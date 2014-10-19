@@ -47,7 +47,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <li>{@link net.gexf_1_2.gexf.impl.EdgeContentImpl#getWeight <em>Weight</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class EdgeContentImpl extends MinimalEObjectImpl.Container implements EdgeContent {

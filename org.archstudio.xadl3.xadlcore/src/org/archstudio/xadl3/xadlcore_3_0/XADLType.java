@@ -7,14 +7,14 @@ import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc --> A representation of the model object '<em><b>XADL Type</b></em>'. <!-- end-user-doc -->
- * 
+ *
  * <p>
  * The following features are supported:
  * <ul>
  * <li>{@link org.archstudio.xadl3.xadlcore_3_0.XADLType#getTopLevelElement <em>Top Level Element</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @see org.archstudio.xadl3.xadlcore_3_0.Xadlcore_3_0Package#getXADLType()
  * @model extendedMetaData="name='xADL_._type' kind='elementOnly'"
  * @generated
