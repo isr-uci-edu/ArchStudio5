@@ -3,9 +3,7 @@
   <rm:property key="git.clone.dir" value="${user.home}/git"/>
   
   <rm:locator pattern="^org\.archstudio(\..*)?$" searchPathRef="org.archstudio" failOnError="false"/>
-  <rm:locator pattern=".*" searchPathRef="src:org.eclipse" failOnError="false"/>
   <rm:locator pattern=".*" searchPathRef="org.eclipse" failOnError="false"/>
-  <rm:redirect pattern=".*" href="http://git.eclipse.org/c/buckminster/buckminster.git/plain/org.eclipse.buckminster.releng/build.rmap" />
   
   <rm:searchPath name="org.archstudio">
     <rm:provider componentTypes="eclipse.feature,osgi.bundle,buckminster" readerType="git" resolutionFilter="">
@@ -13,18 +11,7 @@
         <bc:propertyRef key="git.clone.dir"/>
         <bc:propertyRef key="buckminster.component"/>
       </rm:uri>
-      <rm:property key="git.remote.uri" value="git://github.com/isr-uci-edu/ArchStudio5.git"/>
-      <rm:property key="git.auto.fetch" value="true"/>
-    </rm:provider>
-  </rm:searchPath>
-  
-  <rm:searchPath name="src:org.eclipse">
-    <rm:provider componentTypes="eclipse.feature,osgi.bundle,buckminster" readerType="git" resolutionFilter="">
-      <rm:uri format="{0}/buckminster,{1}">
-        <bc:propertyRef key="git.clone.dir"/>
-        <bc:propertyRef key="buckminster.component"/>
-      </rm:uri>
-      <rm:property key="git.remote.uri" value="git://git.eclipse.org/gitroot/buckminster/buckminster.git"/>
+      <rm:property key="git.remote.uri" value="https://github.com/isr-uci-edu/ArchStudio5.git"/>
       <rm:property key="git.auto.fetch" value="true"/>
     </rm:provider>
   </rm:searchPath>

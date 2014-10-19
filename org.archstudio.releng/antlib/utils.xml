@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<project name="edu.uci.isr.infrastructure.bad.buckminster.antlib.utils">
+<project name="org.archstudio.releng.antlib.utils">
 
 	<property name="default.xslt.processor" value="trax" />
 
@@ -307,16 +307,6 @@
 					<matches string="@{path}" pattern="^\." />
 				</and>
 			</condition>
-		</sequential>
-	</macrodef>
-
-	<macrodef name="taskdef-ant-contrib">
-		<sequential>
-			<taskdef resource="net/sf/antcontrib/antcontrib.properties">
-				<classpath>
-					<pathelement location="${ant.file.edu.uci.isr.infrastructure.bad.buckminster.antlib.utils}/ant-contrib-0.3.jar" />
-				</classpath>
-			</taskdef>
 		</sequential>
 	</macrodef>
 

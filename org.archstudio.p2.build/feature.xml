@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="org.archstudio.p2.build"
-      label="ArchStudio P2 Update Site with Dependencies"
+      label="ArchStudio P2 Update Site with Build Dependencies"
       version="5.0.1.qualifier"
       provider-name="archstudio.org"
       license-feature="org.archstudio.license.feature"
@@ -45,6 +45,10 @@
 
    <includes
          id="org.eclipse.rcp"
+         version="0.0.0"/>
+
+   <includes
+         id="org.eclipse.xtext.sdk"
          version="0.0.0"/>
 
    <requires>

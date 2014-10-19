@@ -2,6 +2,7 @@
 /.metadata/
 /External\ Plug-in\ Libraries/
 /*/bin/
+/*/xtend-gen/
 /*/.settings/
 /*/target/classes/
 /*.xadl3.*/*.genmodel
@@ -13,6 +14,4 @@ hs_err_pid*.log
 /*.p2/build.xml
 /*.p2.build/build.xml
 /*/javaCompilere...args
-org.archstudio.myxgen.builder/xtend-gen/org/archstudio/myxgen/jet/codegen/.gitignore
-org.archstudio.prolog.xtext/xtend-gen/org/archstudio/prolog/xtext/generator/.gitignore
 javaCompiler...args

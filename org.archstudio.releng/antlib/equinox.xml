@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<project name="edu.uci.isr.infrastructure.bad.buckminster.antlib.equinox">
+<project name="org.archstudio.releng.antlib.equinox">
 
 	<import file="utils.xml" />
 

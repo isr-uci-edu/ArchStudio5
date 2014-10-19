@@ -109,10 +109,7 @@ public class MyxCompUtils {
             final StringBuffer args = new StringBuffer();
             final StringBuffer superArgs = new StringBuffer();
             int i = 0;
-            int _numberOfParameters = m.getNumberOfParameters();
-            boolean _lessThan = (i < _numberOfParameters);
-            boolean _while = _lessThan;
-            while (_while) {
+            while ((i < m.getNumberOfParameters())) {
               {
                 String[] _parameterNames = m.getParameterNames();
                 final String name = _parameterNames[i];
@@ -127,9 +124,6 @@ public class MyxCompUtils {
                 superArgs.append(name);
                 i = (i + 1);
               }
-              int _numberOfParameters_1 = m.getNumberOfParameters();
-              boolean _lessThan_1 = (i < _numberOfParameters_1);
-              _while = _lessThan_1;
             }
             sb.append((((("(" + args) + ") { super(") + superArgs) + "); }"));
           }
@@ -175,11 +169,7 @@ public class MyxCompUtils {
               final StringBuffer args_1 = new StringBuffer();
               final StringBuffer superArgs_1 = new StringBuffer();
               int i_1 = 0;
-              Class<?>[] _parameterTypes = c.getParameterTypes();
-              int _size = ((List<Class<?>>)Conversions.doWrapArray(_parameterTypes)).size();
-              boolean _lessThan_1 = (i_1 < _size);
-              boolean _while_1 = _lessThan_1;
-              while (_while_1) {
+              while ((i_1 < ((List<Class<?>>)Conversions.doWrapArray(c.getParameterTypes())).size())) {
                 {
                   final String name = ("arg" + Integer.valueOf(i_1));
                   final String type = MyxCompUtils.toType(c, i_1);
@@ -193,10 +183,6 @@ public class MyxCompUtils {
                   superArgs_1.append(name);
                   i_1 = (i_1 + 1);
                 }
-                Class<?>[] _parameterTypes_1 = c.getParameterTypes();
-                int _size_1 = ((List<Class<?>>)Conversions.doWrapArray(_parameterTypes_1)).size();
-                boolean _lessThan_2 = (i_1 < _size_1);
-                _while_1 = _lessThan_2;
               }
               sb.append((((("(" + args_1) + ") { super(") + superArgs_1) + "); }"));
             }

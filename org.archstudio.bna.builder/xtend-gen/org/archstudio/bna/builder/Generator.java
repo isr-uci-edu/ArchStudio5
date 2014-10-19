@@ -32,26 +32,8 @@ public class Generator {
       StringBuffer result = new StringBuffer();
       final int length = name.length();
       int index = 0;
-      boolean _and = false;
-      if (!(index < length)) {
-        _and = false;
-      } else {
-        char _charAt = name.charAt(index);
-        boolean _isUpperCase = Character.isUpperCase(_charAt);
-        _and = _isUpperCase;
-      }
-      boolean _while = _and;
-      while (_while) {
+      while (((index < length) && Character.isUpperCase(name.charAt(index)))) {
         index = (index + 1);
-        boolean _and_1 = false;
-        if (!(index < length)) {
-          _and_1 = false;
-        } else {
-          char _charAt_1 = name.charAt(index);
-          boolean _isUpperCase_1 = Character.isUpperCase(_charAt_1);
-          _and_1 = _isUpperCase_1;
-        }
-        _while = _and_1;
       }
       if ((index > 1)) {
         String _substring = name.substring(0, (index - 1));
@@ -75,31 +57,10 @@ public class Generator {
       final int length = name.length();
       int start = 0;
       int index = 0;
-      boolean _while = (start < length);
-      while (_while) {
+      while ((start < length)) {
         {
-          boolean _and = false;
-          if (!(index < length)) {
-            _and = false;
-          } else {
-            char _charAt = name.charAt(index);
-            boolean _isLowerCase = Character.isLowerCase(_charAt);
-            boolean _not = (!_isLowerCase);
-            _and = _not;
-          }
-          boolean _while_1 = _and;
-          while (_while_1) {
+          while (((index < length) && (!Character.isLowerCase(name.charAt(index))))) {
             index = (index + 1);
-            boolean _and_1 = false;
-            if (!(index < length)) {
-              _and_1 = false;
-            } else {
-              char _charAt_1 = name.charAt(index);
-              boolean _isLowerCase_1 = Character.isLowerCase(_charAt_1);
-              boolean _not_1 = (!_isLowerCase_1);
-              _and_1 = _not_1;
-            }
-            _while_1 = _and_1;
           }
           if (((index - start) > 1)) {
             String _substring = name.substring(start, (index - 1));
@@ -108,26 +69,8 @@ public class Generator {
             _append.append("_");
             start = (index - 1);
           }
-          boolean _and_1 = false;
-          if (!(index < length)) {
-            _and_1 = false;
-          } else {
-            char _charAt_1 = name.charAt(index);
-            boolean _isLowerCase_1 = Character.isLowerCase(_charAt_1);
-            _and_1 = _isLowerCase_1;
-          }
-          boolean _while_2 = _and_1;
-          while (_while_2) {
+          while (((index < length) && Character.isLowerCase(name.charAt(index)))) {
             index = (index + 1);
-            boolean _and_2 = false;
-            if (!(index < length)) {
-              _and_2 = false;
-            } else {
-              char _charAt_2 = name.charAt(index);
-              boolean _isLowerCase_2 = Character.isLowerCase(_charAt_2);
-              _and_2 = _isLowerCase_2;
-            }
-            _while_2 = _and_2;
           }
           String _substring_1 = name.substring(start, index);
           String _upperCase_1 = _substring_1.toUpperCase();
@@ -135,7 +78,6 @@ public class Generator {
           _append_1.append("_");
           start = index;
         }
-        _while = (start < length);
       }
       String _string = result.toString();
       String _replaceAll = _string.replaceAll("__", "_");
@@ -197,11 +139,8 @@ public class Generator {
       boolean _greaterThan = (_size > 0);
       if (_greaterThan) {
         StringConcatenation _builder = new StringConcatenation();
-        IConfigurationElement _get = javaDocs.get(0);
-        String _value = _get.getValue();
-        String _trim = _value.trim();
-        _builder.append(_trim, "");
-        _builder.newLineIfNotEmpty();
+        _builder.append("�javaDocs.get(0).value.trim�");
+        _builder.newLine();
         return _builder.toString();
       }
       _xblockexpression = "";
@@ -211,18 +150,7 @@ public class Generator {
   
   private static String elementPackageName(final IConfigurationElement element) {
     IConfigurationElement c = element;
-    boolean _and = false;
-    boolean _notEquals = (!Objects.equal(c, null));
-    if (!_notEquals) {
-      _and = false;
-    } else {
-      String _name = c.getName();
-      boolean _equals = "Package".equals(_name);
-      boolean _not = (!_equals);
-      _and = _not;
-    }
-    boolean _while = _and;
-    while (_while) {
+    while (((!Objects.equal(c, null)) && (!"Package".equals(c.getName())))) {
       {
         final Object parent = c.getParent();
         c = null;
@@ -230,20 +158,9 @@ public class Generator {
           c = ((IConfigurationElement) parent);
         }
       }
-      boolean _and_1 = false;
-      boolean _notEquals_1 = (!Objects.equal(c, null));
-      if (!_notEquals_1) {
-        _and_1 = false;
-      } else {
-        String _name_1 = c.getName();
-        boolean _equals_1 = "Package".equals(_name_1);
-        boolean _not_1 = (!_equals_1);
-        _and_1 = _not_1;
-      }
-      _while = _and_1;
     }
-    boolean _notEquals_1 = (!Objects.equal(c, null));
-    if (_notEquals_1) {
+    boolean _notEquals = (!Objects.equal(c, null));
+    if (_notEquals) {
       return Generator.elementName(c);
     }
     Object _elementPath = Generator.elementPath(element);
@@ -633,10 +550,7 @@ public class Generator {
       final Set<String> allFacetNames = Sets.<String>newHashSet();
       IConfigurationElement[] _children = thing.getChildren("ImplementsFacet");
       final List<IConfigurationElement> toProcess = Lists.<IConfigurationElement>newArrayList(_children);
-      boolean _isEmpty = toProcess.isEmpty();
-      boolean _not = (!_isEmpty);
-      boolean _while = _not;
-      while (_while) {
+      while ((!toProcess.isEmpty())) {
         {
           int _size = toProcess.size();
           int _minus = (_size - 1);
@@ -650,9 +564,6 @@ public class Generator {
             CollectionExtensions.<IConfigurationElement>addAll(toProcess, _children_1);
           }
         }
-        boolean _isEmpty_1 = toProcess.isEmpty();
-        boolean _not_1 = (!_isEmpty_1);
-        _while = _not_1;
       }
       ArrayList<IConfigurationElement> _newArrayList = Lists.<IConfigurationElement>newArrayList(allFacets);
       _xblockexpression = Generator.elementSortByName(_newArrayList);
@@ -703,9 +614,7 @@ public class Generator {
   public static void generatePackage(final IProject project, final Mappings mappings, final IConfigurationElement packageElement) {
     try {
       StringConcatenation _builder = new StringConcatenation();
-      _builder.append("src/");
-      String _packageFileName = Generator.packageFileName(packageElement);
-      _builder.append(_packageFileName, "");
+      _builder.append("src/�packageElement.packageFileName�");
       final IFolder folder = project.getFolder(_builder.toString());
       boolean _exists = folder.exists();
       boolean _not = (!_exists);
@@ -731,11 +640,8 @@ public class Generator {
             file.create(null, true, null);
           }
           StringConcatenation _builder = new StringConcatenation();
-          _builder.append("package ");
-          String _packageName = Generator.packageName(packageElement);
-          _builder.append(_packageName, "");
-          _builder.append(";");
-          _builder.newLineIfNotEmpty();
+          _builder.append("package �packageElement.packageName�;");
+          _builder.newLine();
           _builder.newLine();
           _builder.append("import org.archstudio.bna.keys.IThingKey;");
           _builder.newLine();
@@ -762,162 +668,92 @@ public class Generator {
           _builder.append("* To modify, update the thingdefinition extension at");
           _builder.newLine();
           _builder.append(" ");
-          _builder.append("* ");
-          Object _elementPath = Generator.elementPath(facet);
-          _builder.append(_elementPath, " ");
-          _builder.append(".");
-          _builder.newLineIfNotEmpty();
+          _builder.append("* �facet.elementPath�.");
+          _builder.newLine();
           _builder.append(" ");
           _builder.append("*/");
           _builder.newLine();
           _builder.newLine();
-          String _elementJavaDoc = Generator.elementJavaDoc(facet);
-          _builder.append(_elementJavaDoc, "");
-          _builder.newLineIfNotEmpty();
+          _builder.append("�facet.elementJavaDoc�");
+          _builder.newLine();
           _builder.append("@SuppressWarnings(\"all\")");
           _builder.newLine();
           _builder.append("@NonNullByDefault");
           _builder.newLine();
-          _builder.append("public interface ");
-          String _facetClassName = Generator.facetClassName(facet);
-          _builder.append(_facetClassName, "");
-          _builder.append(" extends org.archstudio.bna.IThing");
-          {
-            IConfigurationElement[] _children_1 = facet.getChildren("ExtendsFacet");
-            List<IConfigurationElement> _facetSort = Generator.facetSort(((List<IConfigurationElement>)Conversions.doWrapArray(_children_1)), mappings);
-            boolean _hasElements = false;
-            for(final IConfigurationElement i : _facetSort) {
-              if (!_hasElements) {
-                _hasElements = true;
-                _builder.append(",\n\t\t", "");
-              } else {
-                _builder.appendImmediate(",\n\t\t", "");
-              }
-              IConfigurationElement _facetRefToFacet = Generator.facetRefToFacet(i, mappings);
-              String _facetFQClassName = Generator.facetFQClassName(_facetRefToFacet);
-              _builder.append(_facetFQClassName, "");
-            }
-          }
-          _builder.append(" {");
-          _builder.newLineIfNotEmpty();
+          _builder.append("public interface �facet.facetClassName� extends org.archstudio.bna.IThing�FOR i : facet.getChildren(\"ExtendsFacet\").");
           _builder.newLine();
-          {
-            IConfigurationElement[] _children_2 = facet.getChildren("Method");
-            for(final IConfigurationElement method : _children_2) {
-              _builder.newLine();
-              String _elementJavaDoc_1 = Generator.elementJavaDoc(method);
-              _builder.append(_elementJavaDoc_1, "");
-              _builder.newLineIfNotEmpty();
-              _builder.append("\t\t");
-              String _attribute = method.getAttribute("signature");
-              _builder.append(_attribute, "\t\t");
-              _builder.append(";");
-              _builder.newLineIfNotEmpty();
-              _builder.newLine();
-            }
-          }
-          {
-            IConfigurationElement[] _children_3 = facet.getChildren("Key");
-            List<IConfigurationElement> _elementSortByName = Generator.elementSortByName(((List<IConfigurationElement>)Conversions.doWrapArray(_children_3)));
-            for(final IConfigurationElement key : _elementSortByName) {
-              _builder.append("\t");
-              _builder.append("public static final IThingKey<");
-              String _keyType = Generator.keyType(key);
-              _builder.append(_keyType, "\t");
-              _builder.append("> ");
-              String _keyConstantName = Generator.keyConstantName(key);
-              _builder.append(_keyConstantName, "\t");
-              _builder.append(" = ThingKey.create(com.google.common.collect.Lists.newArrayList(\"");
-              String _elementName = Generator.elementName(key);
-              String _firstKeywordLower = Generator.toFirstKeywordLower(_elementName);
-              _builder.append(_firstKeywordLower, "\t");
-              _builder.append("\", ");
-              String _facetClassName_1 = Generator.facetClassName(facet);
-              _builder.append(_facetClassName_1, "\t");
-              _builder.append(".class)");
-              String _keyCloneParameter = Generator.keyCloneParameter(key);
-              _builder.append(_keyCloneParameter, "\t");
-              {
-                boolean _keyIsNullable = Generator.keyIsNullable(key);
-                if (_keyIsNullable) {
-                  _builder.append(", true");
-                }
-              }
-              _builder.append(");");
-              _builder.newLineIfNotEmpty();
-              _builder.newLine();
-            }
-          }
-          {
-            IConfigurationElement[] _children_4 = facet.getChildren("RefKey");
-            List<IConfigurationElement> _elementSortByName_1 = Generator.elementSortByName(((List<IConfigurationElement>)Conversions.doWrapArray(_children_4)));
-            for(final IConfigurationElement key_1 : _elementSortByName_1) {
-              _builder.append("\t");
-              _builder.append("public static final IThingRefKey<");
-              String _refKeyType = Generator.refKeyType(key_1);
-              _builder.append(_refKeyType, "\t");
-              _builder.append("> ");
-              String _refKeyConstantName = Generator.refKeyConstantName(key_1);
-              _builder.append(_refKeyConstantName, "\t");
-              _builder.append(" = ThingRefKey.create(com.google.common.collect.Lists.newArrayList(\"");
-              String _elementName_1 = Generator.elementName(key_1);
-              String _firstKeywordLower_1 = Generator.toFirstKeywordLower(_elementName_1);
-              _builder.append(_firstKeywordLower_1, "\t");
-              _builder.append("\", ");
-              String _facetClassName_2 = Generator.facetClassName(facet);
-              _builder.append(_facetClassName_2, "\t");
-              _builder.append(".class));");
-              _builder.newLineIfNotEmpty();
-              _builder.newLine();
-            }
-          }
-          {
-            IConfigurationElement[] _children_5 = facet.getChildren("Key");
-            List<IConfigurationElement> _elementSortByName_2 = Generator.elementSortByName(((List<IConfigurationElement>)Conversions.doWrapArray(_children_5)));
-            for(final IConfigurationElement key_2 : _elementSortByName_2) {
-              _builder.append("\t");
-              _builder.append("public ");
-              {
-                boolean _keyIsNullable_1 = Generator.keyIsNullable(key_2);
-                if (_keyIsNullable_1) {
-                  _builder.append("@Nullable ");
-                }
-              }
-              String _keySimpleType = Generator.keySimpleType(key_2);
-              _builder.append(_keySimpleType, "\t");
-              _builder.append(" ");
-              {
-                String _keySimpleType_1 = Generator.keySimpleType(key_2);
-                boolean _equals = "boolean".equals(_keySimpleType_1);
-                if (_equals) {
-                  _builder.append("is");
-                } else {
-                  _builder.append("get");
-                }
-              }
-              String _keyFunctionName = Generator.keyFunctionName(key_2);
-              _builder.append(_keyFunctionName, "\t");
-              _builder.append("();");
-              _builder.newLineIfNotEmpty();
-              _builder.newLine();
-            }
-          }
-          {
-            IConfigurationElement[] _children_6 = facet.getChildren("RefKey");
-            List<IConfigurationElement> _elementSortByName_3 = Generator.elementSortByName(((List<IConfigurationElement>)Conversions.doWrapArray(_children_6)));
-            for(final IConfigurationElement key_3 : _elementSortByName_3) {
-              _builder.append("\t");
-              _builder.append("public @Nullable ");
-              String _refKeyType_1 = Generator.refKeyType(key_3);
-              _builder.append(_refKeyType_1, "\t");
-              _builder.append(" get");
-              String _refKeyFunctionName = Generator.refKeyFunctionName(key_3);
-              _builder.append(_refKeyFunctionName, "\t");
-              _builder.append("(org.archstudio.bna.IBNAModel model);");
-              _builder.newLineIfNotEmpty();
-              _builder.newLine();
-            }
-          }
+          _builder.append("\t\t\t\t\t\t\t");
+          _builder.append("facetSort(mappings) BEFORE \',");
+          _builder.newLine();
+          _builder.append("\t\t");
+          _builder.append("\' SEPARATOR \',");
+          _builder.newLine();
+          _builder.append("\t\t");
+          _builder.append("\'��i.facetRefToFacet(mappings).facetFQClassName��ENDFOR� {");
+          _builder.newLine();
+          _builder.newLine();
+          _builder.append("\t");
+          _builder.append("�FOR method : facet.getChildren(\"Method\")�");
+          _builder.newLine();
+          _builder.newLine();
+          _builder.append("�method.elementJavaDoc�");
+          _builder.newLine();
+          _builder.append("\t\t");
+          _builder.append("�method.getAttribute(\"signature\")�;");
+          _builder.newLine();
+          _builder.newLine();
+          _builder.append("\t");
+          _builder.append("�ENDFOR�");
+          _builder.newLine();
+          _builder.append("\t");
+          _builder.append("�FOR key : facet.getChildren(\"Key\").elementSortByName�");
+          _builder.newLine();
+          _builder.append("\t\t");
+          _builder.append("public static final IThingKey<�key.keyType�> �key.keyConstantName� = ThingKey.create(com.google.common.collect.Lists.newArrayList(\"�key.elementName.");
+          _builder.newLine();
+          _builder.append("\t\t\t\t\t\t\t");
+          _builder.append("toFirstKeywordLower�\", �facet.facetClassName�.class)�key.keyCloneParameter��IF key.keyIsNullable�, true�ENDIF�);");
+          _builder.newLine();
+          _builder.newLine();
+          _builder.append("\t");
+          _builder.append("�ENDFOR�");
+          _builder.newLine();
+          _builder.append("\t");
+          _builder.append("�FOR key : facet.getChildren(\"RefKey\").elementSortByName�");
+          _builder.newLine();
+          _builder.append("\t\t");
+          _builder.append("public static final IThingRefKey<�key.refKeyType�> �key.refKeyConstantName� = ThingRefKey.create(com.google.common.collect.Lists.newArrayList(\"�key.elementName.");
+          _builder.newLine();
+          _builder.append("\t\t\t\t\t\t\t");
+          _builder.append("toFirstKeywordLower�\", �facet.facetClassName�.class));");
+          _builder.newLine();
+          _builder.newLine();
+          _builder.append("\t");
+          _builder.append("�ENDFOR�");
+          _builder.newLine();
+          _builder.append("\t");
+          _builder.append("�FOR key : facet.getChildren(\"Key\").elementSortByName�");
+          _builder.newLine();
+          _builder.append("\t\t");
+          _builder.append("public �IF key.keyIsNullable�@Nullable �ENDIF��key.keySimpleType� �IF \"boolean\".equals(key.keySimpleType)�is�ELSE�get�ENDIF��key.");
+          _builder.newLine();
+          _builder.append("\t\t\t\t\t\t\t");
+          _builder.append("keyFunctionName�();");
+          _builder.newLine();
+          _builder.newLine();
+          _builder.append("\t");
+          _builder.append("�ENDFOR�");
+          _builder.newLine();
+          _builder.append("\t");
+          _builder.append("�FOR key : facet.getChildren(\"RefKey\").elementSortByName�");
+          _builder.newLine();
+          _builder.append("\t\t");
+          _builder.append("public @Nullable �key.refKeyType� get�key.refKeyFunctionName�(org.archstudio.bna.IBNAModel model);");
+          _builder.newLine();
+          _builder.newLine();
+          _builder.append("\t");
+          _builder.append("�ENDFOR�");
+          _builder.newLine();
           _builder.append("}");
           _builder.newLine();
           String _string = new String(_builder.toString());
@@ -932,11 +768,8 @@ public class Generator {
             mutableFile.create(null, true, null);
           }
           StringConcatenation _builder_1 = new StringConcatenation();
-          _builder_1.append("package ");
-          String _packageName_1 = Generator.packageName(packageElement);
-          _builder_1.append(_packageName_1, "");
-          _builder_1.append(";");
-          _builder_1.newLineIfNotEmpty();
+          _builder_1.append("package �packageElement.packageName�;");
+          _builder_1.newLine();
           _builder_1.newLine();
           _builder_1.append("import org.archstudio.bna.keys.IThingKey;");
           _builder_1.newLine();
@@ -959,108 +792,60 @@ public class Generator {
           _builder_1.append("* To modify, update the thingdefinition extension at");
           _builder_1.newLine();
           _builder_1.append(" ");
-          _builder_1.append("* ");
-          Object _elementPath_1 = Generator.elementPath(facet);
-          _builder_1.append(_elementPath_1, " ");
-          _builder_1.append(".");
-          _builder_1.newLineIfNotEmpty();
+          _builder_1.append("* �facet.elementPath�.");
+          _builder_1.newLine();
           _builder_1.append(" ");
           _builder_1.append("*/");
           _builder_1.newLine();
           _builder_1.newLine();
-          String _elementJavaDoc_2 = Generator.elementJavaDoc(facet);
-          _builder_1.append(_elementJavaDoc_2, "");
-          _builder_1.newLineIfNotEmpty();
+          _builder_1.append("�facet.elementJavaDoc�");
+          _builder_1.newLine();
           _builder_1.append("@SuppressWarnings(\"all\")");
           _builder_1.newLine();
           _builder_1.append("@NonNullByDefault");
           _builder_1.newLine();
-          _builder_1.append("public interface ");
-          String _facetMutableClassName = Generator.facetMutableClassName(facet);
-          _builder_1.append(_facetMutableClassName, "");
-          _builder_1.append(" extends ");
-          String _facetClassName_3 = Generator.facetClassName(facet);
-          _builder_1.append(_facetClassName_3, "");
-          {
-            IConfigurationElement[] _children_7 = facet.getChildren("ExtendsFacet");
-            List<IConfigurationElement> _facetSort_1 = Generator.facetSort(((List<IConfigurationElement>)Conversions.doWrapArray(_children_7)), mappings);
-            boolean _hasElements_1 = false;
-            for(final IConfigurationElement i_1 : _facetSort_1) {
-              if (!_hasElements_1) {
-                _hasElements_1 = true;
-                _builder_1.append(",\n\t\t", "");
-              } else {
-                _builder_1.appendImmediate(",\n\t\t", "");
-              }
-              IConfigurationElement _facetRefToFacet_1 = Generator.facetRefToFacet(i_1, mappings);
-              String _facetFQMutableClassName = Generator.facetFQMutableClassName(_facetRefToFacet_1);
-              _builder_1.append(_facetFQMutableClassName, "");
-            }
-          }
-          _builder_1.append(" {");
-          _builder_1.newLineIfNotEmpty();
+          _builder_1.append("public interface �facet.facetMutableClassName� extends �facet.facetClassName��FOR i : facet.getChildren(\"ExtendsFacet\").");
           _builder_1.newLine();
-          {
-            IConfigurationElement[] _children_8 = facet.getChildren("EditableQuality");
-            List<IConfigurationElement> _elementSortByName_4 = Generator.elementSortByName(((List<IConfigurationElement>)Conversions.doWrapArray(_children_8)));
-            for(final IConfigurationElement quality : _elementSortByName_4) {
-              _builder_1.append("\t");
-              _builder_1.append("public static final String ");
-              String _elementName_2 = Generator.elementName(quality);
-              String _constantName = Generator.toConstantName(_elementName_2);
-              _builder_1.append(_constantName, "\t");
-              _builder_1.append(" = \"");
-              String _elementName_3 = Generator.elementName(quality);
-              _builder_1.append(_elementName_3, "\t");
-              _builder_1.append("\";");
-              _builder_1.newLineIfNotEmpty();
-              _builder_1.newLine();
-            }
-          }
-          {
-            IConfigurationElement[] _children_9 = facet.getChildren("Key");
-            List<IConfigurationElement> _elementSortByName_5 = Generator.elementSortByName(((List<IConfigurationElement>)Conversions.doWrapArray(_children_9)));
-            for(final IConfigurationElement key_4 : _elementSortByName_5) {
-              _builder_1.append("\t");
-              _builder_1.append("public void set");
-              String _keyFunctionName_1 = Generator.keyFunctionName(key_4);
-              _builder_1.append(_keyFunctionName_1, "\t");
-              _builder_1.append("(");
-              {
-                boolean _keyIsNullable_2 = Generator.keyIsNullable(key_4);
-                if (_keyIsNullable_2) {
-                  _builder_1.append("@Nullable ");
-                }
-              }
-              String _keySimpleType_2 = Generator.keySimpleType(key_4);
-              _builder_1.append(_keySimpleType_2, "\t");
-              _builder_1.append(" ");
-              String _keyVariableName = Generator.keyVariableName(key_4);
-              _builder_1.append(_keyVariableName, "\t");
-              _builder_1.append(");");
-              _builder_1.newLineIfNotEmpty();
-              _builder_1.newLine();
-            }
-          }
-          {
-            IConfigurationElement[] _children_10 = facet.getChildren("RefKey");
-            List<IConfigurationElement> _elementSortByName_6 = Generator.elementSortByName(((List<IConfigurationElement>)Conversions.doWrapArray(_children_10)));
-            for(final IConfigurationElement key_5 : _elementSortByName_6) {
-              _builder_1.append("\t");
-              _builder_1.append("public void set");
-              String _refKeyFunctionName_1 = Generator.refKeyFunctionName(key_5);
-              _builder_1.append(_refKeyFunctionName_1, "\t");
-              _builder_1.append("(@Nullable ");
-              String _refKeyType_2 = Generator.refKeyType(key_5);
-              _builder_1.append(_refKeyType_2, "\t");
-              _builder_1.append(" ");
-              String _refKeyVariableName = Generator.refKeyVariableName(key_5);
-              _builder_1.append(_refKeyVariableName, "\t");
-              _builder_1.append(");");
-              _builder_1.newLineIfNotEmpty();
-              _builder_1.newLine();
-            }
-          }
+          _builder_1.append("\t\t\t\t\t\t\t");
+          _builder_1.append("facetSort(mappings) BEFORE \',");
+          _builder_1.newLine();
+          _builder_1.append("\t\t");
+          _builder_1.append("\' SEPARATOR \',");
+          _builder_1.newLine();
+          _builder_1.append("\t\t");
+          _builder_1.append("\'��i.facetRefToFacet(mappings).facetFQMutableClassName��ENDFOR� {");
+          _builder_1.newLine();
+          _builder_1.newLine();
+          _builder_1.append("\t");
+          _builder_1.append("�FOR quality : facet.getChildren(\"EditableQuality\").elementSortByName�");
+          _builder_1.newLine();
+          _builder_1.append("\t\t");
+          _builder_1.append("public static final String �quality.elementName.toConstantName� = \"�quality.elementName�\";");
+          _builder_1.newLine();
+          _builder_1.newLine();
+          _builder_1.append("\t");
+          _builder_1.append("�ENDFOR�");
+          _builder_1.newLine();
+          _builder_1.append("\t");
+          _builder_1.append("�FOR key : facet.getChildren(\"Key\").elementSortByName�");
+          _builder_1.newLine();
+          _builder_1.append("\t\t");
+          _builder_1.append("public void set�key.keyFunctionName�(�IF key.keyIsNullable�@Nullable �ENDIF��key.keySimpleType� �key.keyVariableName�);");
+          _builder_1.newLine();
+          _builder_1.newLine();
+          _builder_1.append("\t");
+          _builder_1.append("�ENDFOR�");
+          _builder_1.newLine();
+          _builder_1.append("\t");
+          _builder_1.append("�FOR key : facet.getChildren(\"RefKey\").elementSortByName�");
+          _builder_1.newLine();
+          _builder_1.append("\t\t");
+          _builder_1.append("public void set�key.refKeyFunctionName�(@Nullable �key.refKeyType� �key.refKeyVariableName�);");
+          _builder_1.newLine();
+          _builder_1.newLine();
+          _builder_1.append("\t");
+          _builder_1.append("�ENDFOR�");
+          _builder_1.newLine();
           _builder_1.append("}");
           _builder_1.newLine();
           String _string_1 = new String(_builder_1.toString());
@@ -1080,11 +865,8 @@ public class Generator {
             file.create(null, true, null);
           }
           StringConcatenation _builder = new StringConcatenation();
-          _builder.append("package ");
-          String _packageName = Generator.packageName(packageElement);
-          _builder.append(_packageName, "");
-          _builder.append(";");
-          _builder.newLineIfNotEmpty();
+          _builder.append("package �packageElement.packageName�;");
+          _builder.newLine();
           _builder.newLine();
           _builder.append("import org.archstudio.bna.IBNAView;");
           _builder.newLine();
@@ -1117,129 +899,69 @@ public class Generator {
           _builder.append("* To modify, update the thingdefinition extension at");
           _builder.newLine();
           _builder.append(" ");
-          _builder.append("* ");
-          Object _elementPath = Generator.elementPath(thing);
-          _builder.append(_elementPath, " ");
-          _builder.append(".");
-          _builder.newLineIfNotEmpty();
+          _builder.append("* �thing.elementPath�.");
+          _builder.newLine();
           _builder.append(" ");
           _builder.append("*/");
           _builder.newLine();
           _builder.append(" ");
           _builder.newLine();
-          String _elementJavaDoc = Generator.elementJavaDoc(thing);
-          _builder.append(_elementJavaDoc, "");
-          _builder.newLineIfNotEmpty();
+          _builder.append("�thing.elementJavaDoc�");
+          _builder.newLine();
           _builder.append("@SuppressWarnings(\"all\")");
           _builder.newLine();
           _builder.append("@NonNullByDefault");
           _builder.newLine();
-          _builder.append("public abstract class ");
-          String _thingAbstractClassName = Generator.thingAbstractClassName(thing);
-          _builder.append(_thingAbstractClassName, "");
-          _builder.append(" extends ");
-          String _thingExtendsClassName = Generator.thingExtendsClassName(thing, mappings);
-          _builder.append(_thingExtendsClassName, "");
-          _builder.newLineIfNotEmpty();
-          _builder.append("\t");
-          _builder.append("implements org.archstudio.bna.IThing");
-          {
-            IConfigurationElement[] _children_2 = thing.getChildren("ImplementsFacet");
-            List<IConfigurationElement> _facetSort = Generator.facetSort(((List<IConfigurationElement>)Conversions.doWrapArray(_children_2)), mappings);
-            boolean _hasElements = false;
-            for(final IConfigurationElement i : _facetSort) {
-              if (!_hasElements) {
-                _hasElements = true;
-                _builder.append(",\n\t\t", "\t");
-              } else {
-                _builder.appendImmediate(",\n\t\t", "\t");
-              }
-              {
-                boolean _implementsFacetIsReadOnly = Generator.implementsFacetIsReadOnly(i);
-                if (_implementsFacetIsReadOnly) {
-                  IConfigurationElement _facetRefToFacet = Generator.facetRefToFacet(i, mappings);
-                  String _facetFQClassName = Generator.facetFQClassName(_facetRefToFacet);
-                  _builder.append(_facetFQClassName, "\t");
-                } else {
-                  IConfigurationElement _facetRefToFacet_1 = Generator.facetRefToFacet(i, mappings);
-                  String _facetFQMutableClassName = Generator.facetFQMutableClassName(_facetRefToFacet_1);
-                  _builder.append(_facetFQMutableClassName, "\t");
-                }
-              }
-            }
-          }
-          {
-            IConfigurationElement[] _children_3 = thing.getChildren("ImplementsInterface");
-            boolean _hasElements_1 = false;
-            for(final IConfigurationElement i_1 : _children_3) {
-              if (!_hasElements_1) {
-                _hasElements_1 = true;
-                _builder.append(",\n\t\t", "\t");
-              } else {
-                _builder.appendImmediate(",\n\t\t", "\t");
-              }
-              String _interfaceFQClassName = Generator.interfaceFQClassName(i_1);
-              _builder.append(_interfaceFQClassName, "\t");
-            }
-          }
-          _builder.append(" {");
-          _builder.newLineIfNotEmpty();
+          _builder.append("public abstract class �thing.thingAbstractClassName� extends �thing.thingExtendsClassName(mappings)�");
           _builder.newLine();
-          {
-            IConfigurationElement[] _children_4 = thing.getChildren("Key");
-            List<IConfigurationElement> _elementSortByName = Generator.elementSortByName(((List<IConfigurationElement>)Conversions.doWrapArray(_children_4)));
-            for(final IConfigurationElement key : _elementSortByName) {
-              _builder.append("\t");
-              _builder.append("public static final IThingKey<");
-              String _keyType = Generator.keyType(key);
-              _builder.append(_keyType, "\t");
-              _builder.append("> ");
-              String _keyConstantName = Generator.keyConstantName(key);
-              _builder.append(_keyConstantName, "\t");
-              _builder.append(" = ThingKey.create(com.google.common.collect.Lists.newArrayList(\"");
-              String _elementName = Generator.elementName(key);
-              String _firstKeywordLower = Generator.toFirstKeywordLower(_elementName);
-              _builder.append(_firstKeywordLower, "\t");
-              _builder.append("\", ");
-              String _thingAbstractClassName_1 = Generator.thingAbstractClassName(thing);
-              _builder.append(_thingAbstractClassName_1, "\t");
-              _builder.append(".class)");
-              String _keyCloneParameter = Generator.keyCloneParameter(key);
-              _builder.append(_keyCloneParameter, "\t");
-              _builder.append(");");
-              _builder.newLineIfNotEmpty();
-              _builder.newLine();
-            }
-          }
-          {
-            IConfigurationElement[] _children_5 = thing.getChildren("RefKey");
-            List<IConfigurationElement> _elementSortByName_1 = Generator.elementSortByName(((List<IConfigurationElement>)Conversions.doWrapArray(_children_5)));
-            for(final IConfigurationElement key_1 : _elementSortByName_1) {
-              _builder.append("\t");
-              _builder.append("public static final IThingRefKey<");
-              String _keyType_1 = Generator.keyType(key_1);
-              _builder.append(_keyType_1, "\t");
-              _builder.append("> ");
-              String _keyConstantName_1 = Generator.keyConstantName(key_1);
-              _builder.append(_keyConstantName_1, "\t");
-              _builder.append(" = ThingRefKey.create(com.google.common.collect.Lists.newArrayList(\"");
-              String _elementName_1 = Generator.elementName(key_1);
-              String _firstKeywordLower_1 = Generator.toFirstKeywordLower(_elementName_1);
-              _builder.append(_firstKeywordLower_1, "\t");
-              _builder.append("\", ");
-              String _thingAbstractClassName_2 = Generator.thingAbstractClassName(thing);
-              _builder.append(_thingAbstractClassName_2, "\t");
-              _builder.append(".class));");
-              _builder.newLineIfNotEmpty();
-              _builder.newLine();
-            }
-          }
           _builder.append("\t");
-          _builder.append("public ");
-          String _thingAbstractClassName_3 = Generator.thingAbstractClassName(thing);
-          _builder.append(_thingAbstractClassName_3, "\t");
-          _builder.append("(@Nullable Object id) {");
-          _builder.newLineIfNotEmpty();
+          _builder.append("implements org.archstudio.bna.IThing�FOR i : thing.getChildren(\"ImplementsFacet\").facetSort(mappings) BEFORE \',");
+          _builder.newLine();
+          _builder.append("\t\t");
+          _builder.append("\' SEPARATOR \',");
+          _builder.newLine();
+          _builder.append("\t\t");
+          _builder.append("\'��IF i.implementsFacetIsReadOnly��i.facetRefToFacet(mappings).facetFQClassName��ELSE��i.facetRefToFacet(mappings).");
+          _builder.newLine();
+          _builder.append("\t\t\t\t\t\t\t");
+          _builder.append("facetFQMutableClassName��ENDIF��ENDFOR��FOR i : thing.getChildren(\"ImplementsInterface\") BEFORE \',");
+          _builder.newLine();
+          _builder.append("\t\t");
+          _builder.append("\' SEPARATOR \',");
+          _builder.newLine();
+          _builder.append("\t\t");
+          _builder.append("\'��i.interfaceFQClassName��ENDFOR� {");
+          _builder.newLine();
+          _builder.newLine();
+          _builder.append("\t");
+          _builder.append("�FOR key : thing.getChildren(\"Key\").elementSortByName�");
+          _builder.newLine();
+          _builder.append("\t\t");
+          _builder.append("public static final IThingKey<�key.keyType�> �key.keyConstantName� = ThingKey.create(com.google.common.collect.Lists.newArrayList(\"�key.elementName.");
+          _builder.newLine();
+          _builder.append("\t\t\t\t\t\t\t");
+          _builder.append("toFirstKeywordLower�\", �thing.thingAbstractClassName�.class)�key.keyCloneParameter�);");
+          _builder.newLine();
+          _builder.newLine();
+          _builder.append("\t");
+          _builder.append("�ENDFOR�");
+          _builder.newLine();
+          _builder.append("\t");
+          _builder.append("�FOR key : thing.getChildren(\"RefKey\").elementSortByName�");
+          _builder.newLine();
+          _builder.append("\t\t");
+          _builder.append("public static final IThingRefKey<�key.keyType�> �key.keyConstantName� = ThingRefKey.create(com.google.common.collect.Lists.newArrayList(\"�key.elementName.");
+          _builder.newLine();
+          _builder.append("\t\t\t\t\t\t\t");
+          _builder.append("toFirstKeywordLower�\", �thing.thingAbstractClassName�.class));");
+          _builder.newLine();
+          _builder.newLine();
+          _builder.append("\t");
+          _builder.append("�ENDFOR�");
+          _builder.newLine();
+          _builder.append("\t");
+          _builder.append("public �thing.thingAbstractClassName�(@Nullable Object id) {");
+          _builder.newLine();
           _builder.append("\t\t");
           _builder.append("super(id);");
           _builder.newLine();
@@ -1247,94 +969,55 @@ public class Generator {
           _builder.append("}");
           _builder.newLine();
           _builder.newLine();
-          {
-            boolean _thingIsAbstract = Generator.thingIsAbstract(thing);
-            boolean _not_1 = (!_thingIsAbstract);
-            if (_not_1) {
-              _builder.append("\t");
-              _builder.append("@Override");
-              _builder.newLine();
-              _builder.append("\t");
-              _builder.append("public IThingPeer<? extends ");
-              String _thingClassName = Generator.thingClassName(thing);
-              _builder.append(_thingClassName, "\t");
-              _builder.append("> createPeer(IBNAView view, ICoordinateMapper cm) {");
-              _builder.newLineIfNotEmpty();
-              _builder.append("\t");
-              _builder.append("\t");
-              _builder.append("return new ");
-              String _thingPeerClassName = Generator.thingPeerClassName(thing);
-              _builder.append(_thingPeerClassName, "\t\t");
-              _builder.append("<>((");
-              String _thingClassName_1 = Generator.thingClassName(thing);
-              _builder.append(_thingClassName_1, "\t\t");
-              _builder.append(")this, view, cm);");
-              _builder.newLineIfNotEmpty();
-              _builder.append("\t");
-              _builder.append("}");
-              _builder.newLine();
-              _builder.newLine();
-            }
-          }
+          _builder.append("\t");
+          _builder.append("�IF !thing.thingIsAbstract�");
+          _builder.newLine();
+          _builder.append("\t");
+          _builder.append("@Override");
+          _builder.newLine();
+          _builder.append("\t");
+          _builder.append("public IThingPeer<? extends �thing.thingClassName�> createPeer(IBNAView view, ICoordinateMapper cm) {");
+          _builder.newLine();
+          _builder.append("\t\t");
+          _builder.append("return new �thing.thingPeerClassName�<>((�thing.thingClassName�)this, view, cm);");
+          _builder.newLine();
+          _builder.append("\t");
+          _builder.append("}");
+          _builder.newLine();
+          _builder.newLine();
+          _builder.append("\t");
+          _builder.append("�ENDIF�");
+          _builder.newLine();
           _builder.append("\t");
           _builder.append("@Override");
           _builder.newLine();
           _builder.append("\t");
           _builder.append("protected void initProperties() {");
           _builder.newLine();
-          {
-            Map<IConfigurationElement, IConfigurationElement> _thingAllKeysToFacet = Generator.thingAllKeysToFacet(thing, mappings);
-            Set<Map.Entry<IConfigurationElement, IConfigurationElement>> _entrySet = _thingAllKeysToFacet.entrySet();
-            List<Map.Entry<IConfigurationElement, IConfigurationElement>> _sortByKeyElementName = Generator.sortByKeyElementName(_entrySet);
-            for(final Map.Entry<IConfigurationElement, IConfigurationElement> keyToFacet : _sortByKeyElementName) {
-              _builder.append("\t\t");
-              _builder.append("initProperty(");
-              IConfigurationElement _key = keyToFacet.getKey();
-              String _keyFQConstantName = Generator.keyFQConstantName(_key);
-              _builder.append(_keyFQConstantName, "\t\t");
-              _builder.append(", ");
-              IConfigurationElement _key_1 = keyToFacet.getKey();
-              String _keyDefaultValue = Generator.keyDefaultValue(_key_1);
-              _builder.append(_keyDefaultValue, "\t\t");
-              _builder.append(");");
-              {
-                boolean _and = false;
-                IConfigurationElement _value = keyToFacet.getValue();
-                IConfigurationElement[] _children_6 = thing.getChildren("ImplementsFacet");
-                boolean _facetIsReadOnly = Generator.facetIsReadOnly(_value, _children_6);
-                boolean _not_2 = (!_facetIsReadOnly);
-                if (!_not_2) {
-                  _and = false;
-                } else {
-                  IConfigurationElement _key_2 = keyToFacet.getKey();
-                  boolean _keyIsShapeModifying = Generator.keyIsShapeModifying(_key_2);
-                  _and = _keyIsShapeModifying;
-                }
-                if (_and) {
-                  _builder.newLineIfNotEmpty();
-                  _builder.append("\t\t");
-                  _builder.append("addShapeModifyingKey(");
-                  IConfigurationElement _key_3 = keyToFacet.getKey();
-                  String _keyFQConstantName_1 = Generator.keyFQConstantName(_key_3);
-                  _builder.append(_keyFQConstantName_1, "\t\t");
-                  _builder.append(");");
-                }
-              }
-              _builder.newLineIfNotEmpty();
-            }
-          }
-          {
-            List<IConfigurationElement> _thingAllRefKeys = Generator.thingAllRefKeys(thing, mappings);
-            List<IConfigurationElement> _elementSortByName_2 = Generator.elementSortByName(_thingAllRefKeys);
-            for(final IConfigurationElement key_2 : _elementSortByName_2) {
-              _builder.append("\t\t");
-              _builder.append("initProperty(");
-              String _refKeyFQConstantName = Generator.refKeyFQConstantName(key_2);
-              _builder.append(_refKeyFQConstantName, "\t\t");
-              _builder.append(", null);");
-              _builder.newLineIfNotEmpty();
-            }
-          }
+          _builder.append("\t\t");
+          _builder.append("�FOR keyToFacet : thing.thingAllKeysToFacet(mappings).entrySet.sortByKeyElementName�");
+          _builder.newLine();
+          _builder.append("\t\t\t\t");
+          _builder.append("initProperty(�keyToFacet.key.keyFQConstantName�, �keyToFacet.key.keyDefaultValue�);�IF !keyToFacet.value.");
+          _builder.newLine();
+          _builder.append("\t\t\t\t\t\t\t");
+          _builder.append("facetIsReadOnly(thing.getChildren(\"ImplementsFacet\")) && keyToFacet.key.keyIsShapeModifying�");
+          _builder.newLine();
+          _builder.append("\t\t\t\t");
+          _builder.append("addShapeModifyingKey(�keyToFacet.key.keyFQConstantName�);�ENDIF�");
+          _builder.newLine();
+          _builder.append("\t\t");
+          _builder.append("�ENDFOR�");
+          _builder.newLine();
+          _builder.append("\t\t");
+          _builder.append("�FOR key : thing.thingAllRefKeys(mappings).elementSortByName�");
+          _builder.newLine();
+          _builder.append("\t\t\t\t");
+          _builder.append("initProperty(�key.refKeyFQConstantName�, null);");
+          _builder.newLine();
+          _builder.append("\t\t");
+          _builder.append("�ENDFOR�");
+          _builder.newLine();
           _builder.append("\t\t");
           _builder.append("super.initProperties();");
           _builder.newLine();
@@ -1342,274 +1025,110 @@ public class Generator {
           _builder.append("}");
           _builder.newLine();
           _builder.newLine();
-          {
-            Map<IConfigurationElement, IConfigurationElement> _thingAllKeysToFacet_1 = Generator.thingAllKeysToFacet(thing, mappings);
-            Set<Map.Entry<IConfigurationElement, IConfigurationElement>> _entrySet_1 = _thingAllKeysToFacet_1.entrySet();
-            List<Map.Entry<IConfigurationElement, IConfigurationElement>> _sortByKeyElementName_1 = Generator.sortByKeyElementName(_entrySet_1);
-            for(final Map.Entry<IConfigurationElement, IConfigurationElement> keyToFacet_1 : _sortByKeyElementName_1) {
-              _builder.append("\t");
-              _builder.append("public ");
-              {
-                IConfigurationElement _key_4 = keyToFacet_1.getKey();
-                boolean _keyIsNullable = Generator.keyIsNullable(_key_4);
-                if (_keyIsNullable) {
-                  _builder.append("@Nullable ");
-                }
-              }
-              IConfigurationElement _key_5 = keyToFacet_1.getKey();
-              String _keySimpleType = Generator.keySimpleType(_key_5);
-              _builder.append(_keySimpleType, "\t");
-              _builder.append(" ");
-              {
-                IConfigurationElement _key_6 = keyToFacet_1.getKey();
-                String _keySimpleType_1 = Generator.keySimpleType(_key_6);
-                boolean _equals = "boolean".equals(_keySimpleType_1);
-                if (_equals) {
-                  _builder.append("is");
-                } else {
-                  _builder.append("get");
-                }
-              }
-              IConfigurationElement _key_7 = keyToFacet_1.getKey();
-              String _keyFunctionName = Generator.keyFunctionName(_key_7);
-              _builder.append(_keyFunctionName, "\t");
-              _builder.append("() {");
-              _builder.newLineIfNotEmpty();
-              _builder.append("\t");
-              _builder.append("\t");
-              _builder.append("return get(");
-              IConfigurationElement _key_8 = keyToFacet_1.getKey();
-              String _keyFQConstantName_2 = Generator.keyFQConstantName(_key_8);
-              _builder.append(_keyFQConstantName_2, "\t\t");
-              _builder.append(");");
-              _builder.newLineIfNotEmpty();
-              _builder.append("\t");
-              _builder.append("}");
-              _builder.newLine();
-              _builder.newLine();
-              _builder.append("\t");
-              _builder.append("/*package*/ ");
-              {
-                IConfigurationElement _key_9 = keyToFacet_1.getKey();
-                boolean _keyIsNullable_1 = Generator.keyIsNullable(_key_9);
-                if (_keyIsNullable_1) {
-                  _builder.append("@Nullable ");
-                }
-              }
-              IConfigurationElement _key_10 = keyToFacet_1.getKey();
-              String _keySimpleType_2 = Generator.keySimpleType(_key_10);
-              _builder.append(_keySimpleType_2, "\t");
-              _builder.append(" ");
-              {
-                IConfigurationElement _key_11 = keyToFacet_1.getKey();
-                String _keySimpleType_3 = Generator.keySimpleType(_key_11);
-                boolean _equals_1 = "boolean".equals(_keySimpleType_3);
-                if (_equals_1) {
-                  _builder.append("is");
-                } else {
-                  _builder.append("get");
-                }
-              }
-              _builder.append("Raw");
-              IConfigurationElement _key_12 = keyToFacet_1.getKey();
-              String _keyFunctionName_1 = Generator.keyFunctionName(_key_12);
-              _builder.append(_keyFunctionName_1, "\t");
-              _builder.append("() {");
-              _builder.newLineIfNotEmpty();
-              _builder.append("\t");
-              _builder.append("\t");
-              _builder.append("return getRaw(");
-              IConfigurationElement _key_13 = keyToFacet_1.getKey();
-              String _keyFQConstantName_3 = Generator.keyFQConstantName(_key_13);
-              _builder.append(_keyFQConstantName_3, "\t\t");
-              _builder.append(");");
-              _builder.newLineIfNotEmpty();
-              _builder.append("\t");
-              _builder.append("}");
-              _builder.newLine();
-              _builder.newLine();
-              _builder.append("\t");
-              {
-                IConfigurationElement _value_1 = keyToFacet_1.getValue();
-                IConfigurationElement[] _children_7 = thing.getChildren("ImplementsFacet");
-                boolean _facetIsReadOnly_1 = Generator.facetIsReadOnly(_value_1, _children_7);
-                if (_facetIsReadOnly_1) {
-                  _builder.append("/*package*/ ");
-                } else {
-                  _builder.append("public ");
-                }
-              }
-              _builder.append("void set");
-              IConfigurationElement _key_14 = keyToFacet_1.getKey();
-              String _keyFunctionName_2 = Generator.keyFunctionName(_key_14);
-              _builder.append(_keyFunctionName_2, "\t");
-              _builder.append("(");
-              {
-                IConfigurationElement _key_15 = keyToFacet_1.getKey();
-                boolean _keyIsNullable_2 = Generator.keyIsNullable(_key_15);
-                if (_keyIsNullable_2) {
-                  _builder.append("@Nullable ");
-                }
-              }
-              IConfigurationElement _key_16 = keyToFacet_1.getKey();
-              String _keySimpleType_4 = Generator.keySimpleType(_key_16);
-              _builder.append(_keySimpleType_4, "\t");
-              _builder.append(" ");
-              IConfigurationElement _key_17 = keyToFacet_1.getKey();
-              String _keyVariableName = Generator.keyVariableName(_key_17);
-              _builder.append(_keyVariableName, "\t");
-              _builder.append(") {");
-              _builder.newLineIfNotEmpty();
-              _builder.append("\t");
-              _builder.append("\t");
-              _builder.append("set(");
-              IConfigurationElement _key_18 = keyToFacet_1.getKey();
-              String _keyFQConstantName_4 = Generator.keyFQConstantName(_key_18);
-              _builder.append(_keyFQConstantName_4, "\t\t");
-              _builder.append(", ");
-              IConfigurationElement _key_19 = keyToFacet_1.getKey();
-              String _keyVariableName_1 = Generator.keyVariableName(_key_19);
-              _builder.append(_keyVariableName_1, "\t\t");
-              _builder.append(");");
-              _builder.newLineIfNotEmpty();
-              _builder.append("\t");
-              _builder.append("}");
-              _builder.newLine();
-              _builder.newLine();
-              _builder.append("\t");
-              _builder.append("/*package*/ ");
-              {
-                IConfigurationElement _key_20 = keyToFacet_1.getKey();
-                boolean _keyIsNullable_3 = Generator.keyIsNullable(_key_20);
-                if (_keyIsNullable_3) {
-                  _builder.append("@Nullable ");
-                }
-              }
-              IConfigurationElement _key_21 = keyToFacet_1.getKey();
-              String _keySimpleType_5 = Generator.keySimpleType(_key_21);
-              _builder.append(_keySimpleType_5, "\t");
-              _builder.append(" ");
-              {
-                IConfigurationElement _key_22 = keyToFacet_1.getKey();
-                String _keySimpleType_6 = Generator.keySimpleType(_key_22);
-                boolean _equals_2 = "boolean".equals(_keySimpleType_6);
-                if (_equals_2) {
-                  _builder.append("is");
-                } else {
-                  _builder.append("set");
-                }
-              }
-              _builder.append("Raw");
-              IConfigurationElement _key_23 = keyToFacet_1.getKey();
-              String _keyFunctionName_3 = Generator.keyFunctionName(_key_23);
-              _builder.append(_keyFunctionName_3, "\t");
-              _builder.append("(");
-              {
-                IConfigurationElement _key_24 = keyToFacet_1.getKey();
-                boolean _keyIsNullable_4 = Generator.keyIsNullable(_key_24);
-                if (_keyIsNullable_4) {
-                  _builder.append("@Nullable ");
-                }
-              }
-              IConfigurationElement _key_25 = keyToFacet_1.getKey();
-              String _keySimpleType_7 = Generator.keySimpleType(_key_25);
-              _builder.append(_keySimpleType_7, "\t");
-              _builder.append(" ");
-              IConfigurationElement _key_26 = keyToFacet_1.getKey();
-              String _keyVariableName_2 = Generator.keyVariableName(_key_26);
-              _builder.append(_keyVariableName_2, "\t");
-              _builder.append(") {");
-              _builder.newLineIfNotEmpty();
-              _builder.append("\t");
-              _builder.append("\t");
-              _builder.append("return setRaw(");
-              IConfigurationElement _key_27 = keyToFacet_1.getKey();
-              String _keyFQConstantName_5 = Generator.keyFQConstantName(_key_27);
-              _builder.append(_keyFQConstantName_5, "\t\t");
-              _builder.append(", ");
-              IConfigurationElement _key_28 = keyToFacet_1.getKey();
-              String _keyVariableName_3 = Generator.keyVariableName(_key_28);
-              _builder.append(_keyVariableName_3, "\t\t");
-              _builder.append(");");
-              _builder.newLineIfNotEmpty();
-              _builder.append("\t");
-              _builder.append("}");
-              _builder.newLine();
-              _builder.newLine();
-            }
-          }
-          {
-            List<IConfigurationElement> _thingAllRefKeys_1 = Generator.thingAllRefKeys(thing, mappings);
-            for(final IConfigurationElement key_3 : _thingAllRefKeys_1) {
-              _builder.append("\t");
-              _builder.append("public ");
-              String _refKeyType = Generator.refKeyType(key_3);
-              _builder.append(_refKeyType, "\t");
-              _builder.append(" get");
-              String _refKeyFunctionName = Generator.refKeyFunctionName(key_3);
-              _builder.append(_refKeyFunctionName, "\t");
-              _builder.append("(org.archstudio.bna.IBNAModel model) {");
-              _builder.newLineIfNotEmpty();
-              _builder.append("\t");
-              _builder.append("\t");
-              _builder.append("org.archstudio.bna.IThing thing = model.getThing(getRaw(");
-              String _keyFQConstantName_6 = Generator.keyFQConstantName(key_3);
-              _builder.append(_keyFQConstantName_6, "\t\t");
-              _builder.append("));");
-              _builder.newLineIfNotEmpty();
-              _builder.append("\t");
-              _builder.append("\t");
-              _builder.append("if (thing instanceof ");
-              String _refKeyType_1 = Generator.refKeyType(key_3);
-              _builder.append(_refKeyType_1, "\t\t");
-              _builder.append(") {");
-              _builder.newLineIfNotEmpty();
-              _builder.append("\t");
-              _builder.append("\t\t");
-              _builder.append("return (");
-              String _refKeyType_2 = Generator.refKeyType(key_3);
-              _builder.append(_refKeyType_2, "\t\t\t");
-              _builder.append(") thing;");
-              _builder.newLineIfNotEmpty();
-              _builder.append("\t");
-              _builder.append("\t");
-              _builder.append("}");
-              _builder.newLine();
-              _builder.append("\t");
-              _builder.append("\t");
-              _builder.append("return null;");
-              _builder.newLine();
-              _builder.append("\t");
-              _builder.append("}");
-              _builder.newLine();
-              _builder.newLine();
-              _builder.append("\t");
-              _builder.append("public void set");
-              String _refKeyFunctionName_1 = Generator.refKeyFunctionName(key_3);
-              _builder.append(_refKeyFunctionName_1, "\t");
-              _builder.append("(");
-              String _refKeyType_3 = Generator.refKeyType(key_3);
-              _builder.append(_refKeyType_3, "\t");
-              _builder.append(" ");
-              String _refKeyVariableName = Generator.refKeyVariableName(key_3);
-              _builder.append(_refKeyVariableName, "\t");
-              _builder.append(") {");
-              _builder.newLineIfNotEmpty();
-              _builder.append("\t");
-              _builder.append("\t");
-              _builder.append("setRaw(");
-              String _keyFQConstantName_7 = Generator.keyFQConstantName(key_3);
-              _builder.append(_keyFQConstantName_7, "\t\t");
-              _builder.append(", ");
-              String _refKeyVariableName_1 = Generator.refKeyVariableName(key_3);
-              _builder.append(_refKeyVariableName_1, "\t\t");
-              _builder.append(".getID());");
-              _builder.newLineIfNotEmpty();
-              _builder.append("\t");
-              _builder.append("}");
-              _builder.newLine();
-            }
-          }
+          _builder.append("\t");
+          _builder.append("�FOR keyToFacet : thing.thingAllKeysToFacet(mappings).entrySet.sortByKeyElementName�");
+          _builder.newLine();
+          _builder.append("\t\t");
+          _builder.append("public �IF keyToFacet.key.keyIsNullable�@Nullable �ENDIF��keyToFacet.key.keySimpleType� �IF \"boolean\".equals(");
+          _builder.newLine();
+          _builder.append("\t\t\t\t\t\t");
+          _builder.append("keyToFacet.key.keySimpleType)�is�ELSE�get�ENDIF��keyToFacet.key.keyFunctionName�() {");
+          _builder.newLine();
+          _builder.append("\t\t\t");
+          _builder.append("return get(�keyToFacet.key.keyFQConstantName�);");
+          _builder.newLine();
+          _builder.append("\t\t");
+          _builder.append("}");
+          _builder.newLine();
+          _builder.newLine();
+          _builder.append("\t\t");
+          _builder.append("/*package*/ �IF keyToFacet.key.keyIsNullable�@Nullable �ENDIF��keyToFacet.key.keySimpleType� �IF \"boolean\".equals(");
+          _builder.newLine();
+          _builder.append("\t\t\t\t\t\t");
+          _builder.append("keyToFacet.key.keySimpleType)�is�ELSE�get�ENDIF�Raw�keyToFacet.key.keyFunctionName�() {");
+          _builder.newLine();
+          _builder.append("\t\t\t");
+          _builder.append("return getRaw(�keyToFacet.key.keyFQConstantName�);");
+          _builder.newLine();
+          _builder.append("\t\t");
+          _builder.append("}");
+          _builder.newLine();
+          _builder.newLine();
+          _builder.append("\t\t");
+          _builder.append("�IF keyToFacet.value.facetIsReadOnly(thing.getChildren(\"ImplementsFacet\"))�/*package*/ �ELSE�public �ENDIF�void set�keyToFacet.");
+          _builder.newLine();
+          _builder.append("\t\t\t\t\t\t");
+          _builder.append("key.keyFunctionName�(�IF keyToFacet.key.keyIsNullable�@Nullable �ENDIF��keyToFacet.key.");
+          _builder.newLine();
+          _builder.append("\t\t\t\t\t\t");
+          _builder.append("keySimpleType� �keyToFacet.key.keyVariableName�) {");
+          _builder.newLine();
+          _builder.append("\t\t\t");
+          _builder.append("set(�keyToFacet.key.keyFQConstantName�, �keyToFacet.key.keyVariableName�);");
+          _builder.newLine();
+          _builder.append("\t\t");
+          _builder.append("}");
+          _builder.newLine();
+          _builder.newLine();
+          _builder.append("\t\t");
+          _builder.append("/*package*/ �IF keyToFacet.key.keyIsNullable�@Nullable �ENDIF��keyToFacet.key.keySimpleType� �IF \"boolean\".equals(");
+          _builder.newLine();
+          _builder.append("\t\t\t\t\t\t");
+          _builder.append("keyToFacet.key.keySimpleType)�is�ELSE�set�ENDIF�Raw�keyToFacet.key.keyFunctionName�(�IF keyToFacet.");
+          _builder.newLine();
+          _builder.append("\t\t\t\t\t\t");
+          _builder.append("key.keyIsNullable�@Nullable �ENDIF��keyToFacet.key.keySimpleType� �keyToFacet.key.");
+          _builder.newLine();
+          _builder.append("\t\t\t\t\t\t");
+          _builder.append("keyVariableName�) {");
+          _builder.newLine();
+          _builder.append("\t\t\t");
+          _builder.append("return setRaw(�keyToFacet.key.keyFQConstantName�, �keyToFacet.key.keyVariableName�);");
+          _builder.newLine();
+          _builder.append("\t\t");
+          _builder.append("}");
+          _builder.newLine();
+          _builder.newLine();
+          _builder.append("\t");
+          _builder.append("�ENDFOR�");
+          _builder.newLine();
+          _builder.append("\t");
+          _builder.append("�FOR key : thing.thingAllRefKeys(mappings)�");
+          _builder.newLine();
+          _builder.append("\t\t\t");
+          _builder.append("public �key.refKeyType� get�key.refKeyFunctionName�(org.archstudio.bna.IBNAModel model) {");
+          _builder.newLine();
+          _builder.append("\t\t\t\t");
+          _builder.append("org.archstudio.bna.IThing thing = model.getThing(getRaw(�key.keyFQConstantName�));");
+          _builder.newLine();
+          _builder.append("\t\t\t\t");
+          _builder.append("if (thing instanceof �key.refKeyType�) {");
+          _builder.newLine();
+          _builder.append("\t\t\t\t\t");
+          _builder.append("return (�key.refKeyType�) thing;");
+          _builder.newLine();
+          _builder.append("\t\t\t\t");
+          _builder.append("}");
+          _builder.newLine();
+          _builder.append("\t\t\t\t");
+          _builder.append("return null;");
+          _builder.newLine();
+          _builder.append("\t\t\t");
+          _builder.append("}");
+          _builder.newLine();
+          _builder.newLine();
+          _builder.append("\t\t\t");
+          _builder.append("public void set�key.refKeyFunctionName�(�key.refKeyType� �key.refKeyVariableName�) {");
+          _builder.newLine();
+          _builder.append("\t\t\t\t");
+          _builder.append("setRaw(�key.keyFQConstantName�, �key.refKeyVariableName�.getID());");
+          _builder.newLine();
+          _builder.append("\t\t\t");
+          _builder.append("}");
+          _builder.newLine();
+          _builder.append("\t");
+          _builder.append("�ENDFOR�");
+          _builder.newLine();
           _builder.append("}");
           _builder.newLine();
           String _string = new String(_builder.toString());
@@ -1620,15 +1139,12 @@ public class Generator {
           IFile _file = folder.getFile(_thingFileName);
           file = _file;
           boolean _exists_1 = file.exists();
-          boolean _not_3 = (!_exists_1);
-          if (_not_3) {
+          boolean _not_1 = (!_exists_1);
+          if (_not_1) {
             file.create(null, true, null);
             StringConcatenation _builder_1 = new StringConcatenation();
-            _builder_1.append("package ");
-            String _packageName_1 = Generator.packageName(packageElement);
-            _builder_1.append(_packageName_1, "");
-            _builder_1.append(";");
-            _builder_1.newLineIfNotEmpty();
+            _builder_1.append("package �packageElement.packageName�;");
+            _builder_1.newLine();
             _builder_1.newLine();
             _builder_1.append("import org.archstudio.bna.keys.IThingKey;");
             _builder_1.newLine();
@@ -1641,29 +1157,14 @@ public class Generator {
             _builder_1.newLine();
             _builder_1.append("@NonNullByDefault");
             _builder_1.newLine();
-            _builder_1.append("public ");
-            {
-              boolean _thingIsAbstract_1 = Generator.thingIsAbstract(thing);
-              if (_thingIsAbstract_1) {
-                _builder_1.append("abstract ");
-              }
-            }
-            _builder_1.append(" class ");
-            String _thingClassName_2 = Generator.thingClassName(thing);
-            _builder_1.append(_thingClassName_2, "");
-            _builder_1.append(" extends ");
-            String _thingAbstractClassName_4 = Generator.thingAbstractClassName(thing);
-            _builder_1.append(_thingAbstractClassName_4, "");
-            _builder_1.newLineIfNotEmpty();
+            _builder_1.append("public �IF thing.thingIsAbstract�abstract �ENDIF� class �thing.thingClassName� extends �thing.thingAbstractClassName�");
+            _builder_1.newLine();
             _builder_1.append("{");
             _builder_1.newLine();
             _builder_1.newLine();
             _builder_1.append("\t");
-            _builder_1.append("public ");
-            String _thingClassName_3 = Generator.thingClassName(thing);
-            _builder_1.append(_thingClassName_3, "\t");
-            _builder_1.append("(@Nullable Object id) {");
-            _builder_1.newLineIfNotEmpty();
+            _builder_1.append("public �thing.thingClassName�(@Nullable Object id) {");
+            _builder_1.newLine();
             _builder_1.append("\t\t");
             _builder_1.append("super(id);");
             _builder_1.newLine();
@@ -1682,15 +1183,12 @@ public class Generator {
           IFile _file_1 = folder.getFile(_thingPeerFileName);
           file = _file_1;
           boolean _exists_2 = file.exists();
-          boolean _not_4 = (!_exists_2);
-          if (_not_4) {
+          boolean _not_2 = (!_exists_2);
+          if (_not_2) {
             file.create(null, true, null);
             StringConcatenation _builder_2 = new StringConcatenation();
-            _builder_2.append("package ");
-            String _packageName_2 = Generator.packageName(packageElement);
-            _builder_2.append(_packageName_2, "");
-            _builder_2.append(";");
-            _builder_2.newLineIfNotEmpty();
+            _builder_2.append("package �packageElement.packageName�;");
+            _builder_2.newLine();
             _builder_2.newLine();
             _builder_2.append("import org.archstudio.bna.IBNAView;");
             _builder_2.newLine();
@@ -1709,30 +1207,14 @@ public class Generator {
             _builder_2.newLine();
             _builder_2.append("@NonNullByDefault");
             _builder_2.newLine();
-            _builder_2.append("public ");
-            {
-              boolean _thingIsAbstract_2 = Generator.thingIsAbstract(thing);
-              if (_thingIsAbstract_2) {
-                _builder_2.append("abstract ");
-              }
-            }
-            _builder_2.append("class ");
-            String _thingPeerClassName_1 = Generator.thingPeerClassName(thing);
-            _builder_2.append(_thingPeerClassName_1, "");
-            _builder_2.append("<T extends ");
-            String _thingClassName_4 = Generator.thingClassName(thing);
-            _builder_2.append(_thingClassName_4, "");
-            _builder_2.append("> extends AbstractThingPeer<T>");
-            _builder_2.newLineIfNotEmpty();
+            _builder_2.append("public �IF thing.thingIsAbstract�abstract �ENDIF�class �thing.thingPeerClassName�<T extends �thing.thingClassName�> extends AbstractThingPeer<T>");
+            _builder_2.newLine();
             _builder_2.append("{");
             _builder_2.newLine();
             _builder_2.newLine();
             _builder_2.append("\t");
-            _builder_2.append("public ");
-            String _thingPeerClassName_2 = Generator.thingPeerClassName(thing);
-            _builder_2.append(_thingPeerClassName_2, "\t");
-            _builder_2.append("(T thing, IBNAView view, ICoordinateMapper cm) {");
-            _builder_2.newLineIfNotEmpty();
+            _builder_2.append("public �thing.thingPeerClassName�(T thing, IBNAView view, ICoordinateMapper cm) {");
+            _builder_2.newLine();
             _builder_2.append("\t\t");
             _builder_2.append("super(thing, view, cm);");
             _builder_2.newLine();

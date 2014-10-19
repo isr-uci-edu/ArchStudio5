@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<project name="edu.uci.isr.infrastructure.bad.buckminster.antlib.eclipse">
+<project name="org.archstudio.releng.antlib.eclipse">
 
 	<import file="equinox.xml" />
 
@@ -8,6 +8,18 @@
 	<property name="default.eclipse.failonerror" value="${default.equinox.failonerror}" />
 	<property name="default.eclipse.maxmem" value="${default.equinox.maxmem}" />
 	<property name="default.eclipse.maxperm" value="${default.equinox.maxperm}" />
+
+	<!-- http://wiki.eclipse.org/Simultaneous_Release -->
+	<property name="eclipse-update-site-3.2" value="http://download.eclipse.org/releases/callisto/" />
+	<property name="eclipse-update-site-3.3" value="http://download.eclipse.org/releases/europa/" />
+	<property name="eclipse-update-site-3.4" value="http://download.eclipse.org/releases/ganymede/" />
+	<property name="eclipse-update-site-3.5" value="http://download.eclipse.org/releases/galileo/" />
+	<property name="eclipse-update-site-3.6" value="http://download.eclipse.org/releases/helios/" />
+	<property name="eclipse-update-site-3.7" value="http://download.eclipse.org/releases/indigo/" />
+	<property name="eclipse-update-site-4.2" value="http://download.eclipse.org/releases/juno/" />
+	<property name="eclipse-update-site-4.3" value="http://download.eclipse.org/releases/kepler/" />
+	<property name="eclipse-update-site-4.4" value="http://download.eclipse.org/releases/luna/" />
+	<property name="eclipse-update-site-4.5" value="http://download.eclipse.org/releases/mars/" />
 
 	<macrodef name="eclipse">
 		<attribute name="workspace" default="${default.eclipse.workspace}" />
