@@ -18,8 +18,15 @@
 		<element name="args" optional="true" implicit="true" />
 		<sequential>
 			<!-- check the ini file for the specific jar to use -->
-			<loadresource property="_equinox_jar_@{location}" failonerror="false">
+			<tempfile property="_equinox_tmp_@{location}" />
+			<concat destfile="${_equinox_tmp_@{location}}">
+				Empty line to ensure the file exists
+			</concat>
+			<concat destfile="${_equinox_tmp_@{location}}">
 				<fileset dir="@{location}" includes="*.ini" />
+			</concat>
+			<loadresource property="_equinox_jar_@{location}" failonerror="false">
+				<fileset file="${_equinox_tmp_@{location}}" />
 				<filterchain>
 					<linecontainsregexp>
 						<regexp pattern="org\.eclipse\.equinox\.launcher_.*\.jar" />

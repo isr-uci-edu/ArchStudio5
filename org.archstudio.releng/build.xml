@@ -7,7 +7,20 @@
 
 	<property environment="env" />
 	<set-if-nonempty property="workspace" test="env.WORKSPACE" value="${env.WORKSPACE}" else="${env.HOME}/workspace" />
+	<property name="git.clone.dir" value="${user.home}/git" />
 	<property name="eclipse.version" value="4.4" />
+	<set-property name="eclipse.update.site" property="eclipse-update-site-${eclipse.version}" />
+	<property name="director.home" location="${workspace}/director" />
+	<property name="buckminster.home" location="${workspace}/buckminster" />
+	<property name="buckminster.temp" location="${workspace}/buckminster.temp" />
+	<property name="buckminster.output" location="${workspace}/buckminster.output" />
+
+	<propertyset id="buckminster.properties">
+		<propertyref name="eclipse.version" />
+		<propertyref name="git.clone.dir" />
+		<propertyref builtin="commandline" />
+		<propertyref prefix="buckminster." />
+	</propertyset>
 
 	<target name="clean">
 
@@ -24,11 +37,7 @@
 
 	<target name="install-buckminster">
 
-		<property name="workspace.root" location="${workspace}" />
-		<property name="eclipse.home" location="${workspace.root}/buckminster" />
-		<property name="director.home" location="${workspace.root}/director" />
-
-		<install-buckminster todir="${eclipse.home}" director.home="${director.home}">
+		<install-buckminster todir="${buckminster.home}" director.home="${director.home}">
 
 			<arg value="-r" />
 			<arg value="http://download.eclipse.org/tools/buckminster/headless-@{eclipse.version}" />
@@ -50,72 +59,40 @@
 			<arg value="-installIU" />
 			<arg value="org.eclipse.buckminster.subclipse.headless.feature.feature.group" />
 
+			<arg value="-r" />
+			<arg value="${eclipse.update.site}" />
+			<arg value="-r" />
+			<arg value="http://download.eclipse.org/eclipse/updates/@{eclipse.version}" />
+			<arg value="-installIU" />
+			<arg value="org.eclipse.osgi.compatibility.plugins.feature.feature.group" />
+
 		</install-buckminster>
-	</target>
-
-	<target name="import-target">
-
-		<assert-nonempty property="target.feature" message="The feature containing the target definition" />
-
-		<property name="workspace.root" location="${workspace}" />
-		<property name="eclipse.home" location="${workspace.root}/buckminster" />
-		<property name="buckminster.temp" location="${workspace.root}/buckminster.temp" />
-		<property name="buckminster.temp.root" location="${buckminster.temp}" />
-		<property name="buckminster.output.root" location="${workspace.root}/buckminster.output" />
-		<property name="target.location" location="${workspace.root}/tp" />
-
-		<echo>Importing target...</echo>
-		<buckminster location="${eclipse.home}" workspace="${workspace.root}">
-			<arg value="resolve" />
-			<arg value="-Dinstall.location=${target.location}" />
-			<arg value="-Dbuckminster.component=${target.feature}" />
-			<arg value="${basedir}/defaults/component.mspec" />
-			<syspropertyset>
-				<propertyref builtin="commandline" />
-				<propertyref prefix="buckminster." />
-			</syspropertyset>
-		</buckminster>
-		<buckminster location="${eclipse.home}" workspace="${workspace.root}">
-			<arg value="setpref" />
-			<arg value="org.eclipse.buckminster.pde.targetPlatformPath=${target.location}" />
-			<syspropertyset>
-				<propertyref builtin="commandline" />
-				<propertyref prefix="buckminster." />
-			</syspropertyset>
-		</buckminster>
 	</target>
 
 	<target name="resolve-cquery">
 
 		<assert-nonempty property="buckminster.component" message="The feature to resolve." />
 
-		<property name="workspace.root" location="${workspace}" />
-		<property name="eclipse.home" location="${workspace.root}/buckminster" />
-		<property name="buckminster.temp" location="${workspace.root}/buckminster.temp" />
-		<property name="buckminster.temp.root" location="${buckminster.temp}" />
-		<property name="buckminster.output.root" location="${workspace.root}/buckminster.output" />
-		<makeurl property="resolve.url" file="${basedir}/defaults/component.cquery" />
+		<makeurl property="resolve.url" file="${ant.dir}/defaults/component.cquery" />
 
 		<echo>Resolving the cquery...</echo>
-		<buckminster location="${eclipse.home}" workspace="${workspace.root}">
+		<buckminster location="${buckminster.home}" workspace="${workspace}">
 			<arg value="resolve" />
 			<arg value="-P" />
-			<arg value="${basedir}/defaults/buckminster.properties" />
+			<arg value="${ant.dir}/defaults/buckminster.properties" />
 			<arg value="${resolve.url}" />
 			<syspropertyset>
-				<propertyref builtin="commandline" />
-				<propertyref prefix="buckminster." />
+				<propertyset refid="buckminster.properties" />
 			</syspropertyset>
 		</buckminster>
 		<!-- A workaround for http://www.eclipse.org/forums/index.php/t/261503/ -->
-		<buckminster location="${eclipse.home}" workspace="${workspace.root}">
+		<buckminster location="${buckminster.home}" workspace="${workspace}">
 			<arg value="resolve" />
 			<arg value="-P" />
-			<arg value="${basedir}/defaults/buckminster.properties" />
+			<arg value="${ant.dir}/defaults/buckminster.properties" />
 			<arg value="${resolve.url}" />
 			<syspropertyset>
-				<propertyref builtin="commandline" />
-				<propertyref prefix="buckminster." />
+				<propertyset refid="buckminster.properties" />
 			</syspropertyset>
 		</buckminster>
 
@@ -123,155 +100,145 @@
 
 	<target name="build-update-site">
 
-		<property name="workspace.root" location="${workspace}" />
-		<property name="eclipse.home" location="${workspace.root}/buckminster" />
-		<property name="buckminster.temp" location="${workspace.root}/buckminster.temp" />
-		<property name="buckminster.temp.root" location="${buckminster.temp}" />
-		<property name="buckminster.output.root" location="${workspace.root}/buckminster.output" />
 		<assert-nonempty property="buckminster.component" message="Missing buckminster.component" />
 
 		<echo>Building the update site...: ${buckminster.component}</echo>
-		<delete dir="${buckminster.output.root}" />
-		<mkdir dir="${buckminster.output.root}" />
+		<delete dir="${buckminster.output}" />
+		<mkdir dir="${buckminster.output}" />
 		<delete dir="${buckminster.temp}" />
 		<mkdir dir="${buckminster.temp}" />
 
-		<retry retrycount="3">
-			<sequential>
-				<echo>Processing Xtend files</echo>
-				<apply executable="${ant.dir}/build-xtend.sh">
-					<srcfile />
-					<arg value="${eclipse.home}" />
-					<arg value="${workspace.root}/.buckminster/tp" />
-					<dirset dir="${workspace}">
-						<include name="**/*" />
-						<present targetdir="${workspace}" present="both">
-							<mapper type="regexp" from="(.*)" to="\1/.project" />
-						</present>
-					</dirset>
-				</apply>
-				<buckminster location="${eclipse.home}" workspace="${workspace.root}">
-					<arg value="setpreference" />
-					<arg value="org.eclipse.buckminster.jdt.complianceLevel=1.7" />
-					<syspropertyset>
-						<propertyref builtin="commandline" />
-						<propertyref prefix="buckminster.output" />
-						<propertyref prefix="buckminster.temp" />
-					</syspropertyset>
-				</buckminster>
-				<buckminster location="${eclipse.home}" workspace="${workspace.root}">
-					<arg value="clean" />
-					<syspropertyset>
-						<propertyref builtin="commandline" />
-						<propertyref prefix="buckminster.output" />
-						<propertyref prefix="buckminster.temp" />
-					</syspropertyset>
-				</buckminster>
-				<buckminster location="${eclipse.home}" workspace="${workspace.root}">
-					<arg value="build" />
-					<arg value="-c" />
-					<arg value="-t" />
-					<arg value="-P" />
-					<arg value="${basedir}/defaults/buckminster.properties" />
-					<syspropertyset>
-						<propertyref builtin="commandline" />
-						<propertyref prefix="buckminster.output" />
-						<propertyref prefix="buckminster.temp" />
-					</syspropertyset>
-				</buckminster>
-				<buckminster location="${eclipse.home}" workspace="${workspace.root}">
-					<arg value="perform" />
-					<arg value="-P" />
-					<arg value="${basedir}/defaults/buckminster.properties" />
-					<arg value="-D" />
-					<arg value="buckminster.output.root=${buckminster.output.root}" />
-					<arg value="${buckminster.component}#site.p2" />
-					<syspropertyset>
-						<propertyref builtin="commandline" />
-						<propertyref prefix="buckminster.output" />
-						<propertyref prefix="buckminster.temp" />
-					</syspropertyset>
-				</buckminster>
-			</sequential>
-		</retry>
+		<!-- Xtend depends on class files in order to create it's java files.
+				     The solution is do a partial build, generate xtend files, then do a full build. -->
+		<buckminster location="${buckminster.home}" workspace="${workspace}">
+			<arg value="setpreference" />
+			<arg value="org.eclipse.buckminster.jdt.complianceLevel=1.7" />
+			<syspropertyset>
+				<propertyset refid="buckminster.properties" />
+			</syspropertyset>
+		</buckminster>
+
+		<buckminster location="${buckminster.home}" workspace="${workspace}" failonerror="false">
+			<arg value="build" />
+			<arg value="--clean" />
+			<arg value="--continueonerror" />
+			<arg value="--thorough" />
+			<arg value="-P" />
+			<arg value="${ant.dir}/defaults/buckminster.properties" />
+			<syspropertyset>
+				<propertyset refid="buckminster.properties" />
+			</syspropertyset>
+		</buckminster>
+
+		<loadresource property="relative.workspace">
+			<string>${workspace}</string>
+			<filterchain>
+				<replaceregex pattern="^/" replace="" />
+			</filterchain>
+		</loadresource>
+		<loadresource property="relative.git.clone.dir">
+			<string>${git.clone.dir}</string>
+			<filterchain>
+				<replaceregex pattern="^/" replace="" />
+			</filterchain>
+		</loadresource>
+		<subant target="build-xtend" genericantfile="${ant.file}">
+			<dirset dir="/">
+				<include name="${relative.workspace}/**/*" />
+				<include name="${relative.git.clone.dir}/**/*" />
+				<present targetdir="/" present="both">
+					<mapper type="regexp" from="(.*)" to="\1/.project" />
+				</present>
+				<present targetdir="/" present="both">
+					<mapper type="regexp" from="(.*)" to="\1/xtend-gen" />
+				</present>
+			</dirset>
+			<propertyset>
+				<propertyset refid="buckminster.properties" />
+				<propertyref regex=".*" />
+			</propertyset>
+		</subant>
+
+		<buckminster location="${buckminster.home}" workspace="${workspace}">
+			<arg value="build" />
+			<arg value="--clean" />
+			<arg value="--thorough" />
+			<arg value="-P" />
+			<arg value="${ant.dir}/defaults/buckminster.properties" />
+			<syspropertyset>
+				<propertyset refid="buckminster.properties" />
+			</syspropertyset>
+		</buckminster>
+
+		<buckminster location="${buckminster.home}" workspace="${workspace}">
+			<arg value="perform" />
+			<arg value="-P" />
+			<arg value="${ant.dir}/defaults/buckminster.properties" />
+			<arg value="-D" />
+			<arg value="buckminster.output.root=${buckminster.output}" />
+			<arg value="${buckminster.component}#site.p2" />
+			<syspropertyset>
+				<propertyset refid="buckminster.properties" />
+			</syspropertyset>
+		</buckminster>
 
 		<echo>Moving the update site to ${buckminster.component}</echo>
-		<mkdir dir="${workspace.root}/${buckminster.component}" />
-		<move todir="${workspace.root}/${buckminster.component}">
-			<fileset dir="${buckminster.output.root}" includes="${buckminster.component}_*/site.p2/**/*" />
+		<mkdir dir="${workspace}/${buckminster.component}" />
+		<move todir="${workspace}/${buckminster.component}">
+			<fileset dir="${buckminster.output}" includes="${buckminster.component}_*/site.p2/**/*" />
 			<!-- copy src/*/*/X to dest/X -->
 			<regexpmapper from="^[^/\\]+[/\\][^/\\]+[/\\](.*)$" to="\1" />
 		</move>
 
 	</target>
 
-	<target name="update-buckminster">
+	<target name="build-xtend">
+		<!-- basedir is the folder of the project -->
 
-		<property name="workspace.root" location="${workspace}" />
-		<property name="eclipse.home" location="${workspace.root}/buckminster" />
-		<property name="director.home" location="${workspace.root}/director" />
-		<assert-nonempty property="buckminster.component" message="Missing buckminster.component" />
-		<assert-nonempty property="update.site.feature" message="Missing update.site.feature" />
+		<loadfile property="bundle.name" srcfile="${basedir}/META-INF/MANIFEST.MF">
+			<filterchain>
+				<linecontainsregexp>
+					<regexp pattern="^Bundle-SymbolicName:" />
+				</linecontainsregexp>
+				<tokenfilter>
+					<replaceregex pattern="^Bundle-SymbolicName: ([^;]+).*$$" replace="\1" />
+				</tokenfilter>
+				<striplinebreaks />
+			</filterchain>
+		</loadfile>
 
-		<echo>Updating feature "${update.site.feature}" in "${eclipse.home}" using "${director.home}" from "${buckminster.component}"</echo>
-		<!-- determine if feature is already installed -->
-		<buckminster location="${eclipse.home}">
-			<arg value="listsite" />
-			<redirector outputproperty="uninstall_feature_command">
-				<outputfilterchain>
-					<replaceregex pattern="^[\s]*" replace="" flags="g" />
-					<replaceregex pattern="[\s]+.*$" replace="" flags="g" />
-					<linecontains>
-						<contains value="${update.site.feature}" />
-					</linecontains>
-					<!-- create an uninstall command, if so -->
-					<replaceregex pattern="^(.*)$" replace="-u \1.feature.group" flags="g" />
-				</outputfilterchain>
-			</redirector>
+		<echo>Building Xtend files for ${bundle.name} at ${basedir}</echo>
+		<buckminster location="${buckminster.home}" workspace="${workspace}">
+			<arg value="launch" />
+			<arg value="-D" />
+			<arg value="PROJECT=${bundle.name}" />
+			<arg value="--launch" />
+			<arg value="/org.archstudio.releng/launch/ProcessXtendFiles.launch" />
+			<syspropertyset>
+				<propertyset refid="buckminster.properties" />
+			</syspropertyset>
 		</buckminster>
-		<!-- create an innocuous command, otherwise -->
-		<property name="uninstall_feature_command" value="" />
-
-		<makeurl property="repository.url" file="${workspace.root}/${buckminster.component}" validate="false" />
-		<director location="${director.home}">
-			<arg value="-d" />
-			<arg value="${eclipse.home}" />
-			<arg value="-p" />
-			<arg value="Buckminster" />
-			<arg value="-r" />
-			<arg value="${repository.url}" />
-			<arg value="-followReferences" />
-			<arg line="${uninstall_feature_command}" />
-			<arg value="-i" />
-			<arg value="${update.site.feature}.feature.group" />
-		</director>
 
 	</target>
 
 	<target name="perform-test">
 
-		<property name="workspace.root" location="${workspace}" />
-		<property name="eclipse.home" location="${workspace.root}/buckminster" />
-		<property name="report.timeout" value="60" />
+		<property name="report.timeout" value="600" />
 		<assert-nonempty property="launch.file" message="Missing launch configuration" />
 
-		<retry retrycount="3">
-			<buckminster location="${eclipse.home}" workspace="${workspace.root}">
-				<arg value="junit" />
-				<arg value="-l" />
-				<arg value="${launch.file}" />
-				<arg value="-o" />
-				<arg value="${workspace.root}/junit_result.xml" />
-				<arg value="--flatXML" />
-				<arg value="--maxTimeAwaitJunitReport" />
-				<arg value="${report.timeout}" />
-				<syspropertyset>
-					<propertyref builtin="commandline" />
-					<propertyref prefix="buckminster.output" />
-					<propertyref prefix="buckminster.temp" />
-				</syspropertyset>
-			</buckminster>
-		</retry>
+		<buckminster location="${buckminster.home}" workspace="${workspace}">
+			<arg value="junit" />
+			<arg value="-l" />
+			<arg value="${launch.file}" />
+			<arg value="-o" />
+			<arg value="${workspace}/junit_result.xml" />
+			<arg value="--flatXML" />
+			<arg value="--maxTimeAwaitJunitReport" />
+			<arg value="${report.timeout}" />
+			<syspropertyset>
+				<propertyset refid="buckminster.properties" />
+			</syspropertyset>
+		</buckminster>
 
 	</target>
 

@@ -1,17 +1,17 @@
-/.buckminster/
-/.metadata/
-/External\ Plug-in\ Libraries/
 /*/bin/
-/*/xtend-gen/
-/*/.settings/
-/*/target/classes/
-/*.xadl3.*/*.genmodel
-/*.xadl3.*/*.xsd2ecore
-/*.xadl3.*/*.ecore
-/repos/
-hs_err_pid*.log
+/.buckminster/
+/External\ Plug-in\ Libraries/
 /*.feature/build.xml
+hs_err_pid*.log
+javaCompiler...args
+/.metadata/
+null*
 /*.p2/build.xml
 /*.p2.build/build.xml
-/*/javaCompilere...args
-javaCompiler...args
+/repos/
+/*/.settings/
+/*/target/classes/
+/*.xadl3.*/*.ecore
+/*.xadl3.*/*.genmodel
+/*.xadl3.*/*.xsd2ecore
+/*/xtend-gen/

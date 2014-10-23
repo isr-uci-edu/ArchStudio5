@@ -23,6 +23,18 @@
 		</sequential>
 	</macrodef>
 
+	<macrodef name="set-property">
+		<attribute name="name" />
+		<attribute name="property" />
+		<sequential>
+			<condition property="@{name}" value="${@{property}}">
+				<and>
+					<isset property="@{property}" />
+				</and>
+			</condition>
+		</sequential>
+	</macrodef>
+
 	<macrodef name="assert-nonempty">
 		<attribute name="property" />
 		<attribute name="message" default="" />
