@@ -3,6 +3,5 @@
     <cq:property key="target.arch" value="*"/>
     <cq:property key="target.os" value="*"/>
     <cq:property key="target.ws" value="*"/>
-    <cq:advisorNode namePattern="org.eclipse.*" sourceLevel="REJECT"/>
-    <cq:advisorNode namePattern=".*" sourceLevel="DESIRE"/>
+    <cq:advisorNode namePattern=".*" sourceLevel="DESIRE" useMaterialization="false" useTargetPlatform="false" useWorkspace="false"/>
 </cq:componentQuery>

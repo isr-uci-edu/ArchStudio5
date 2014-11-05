@@ -1,22 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rm:rmap xmlns:bc="http://www.eclipse.org/buckminster/Common-1.0" xmlns:rm="http://www.eclipse.org/buckminster/RMap-1.0">
   <rm:property key="git.clone.dir" value="${user.home}/git"/>
-  
+  <rm:property key="update.site" value=""/>
   <rm:locator pattern="^org\.archstudio(\..*)?$" searchPathRef="org.archstudio" failOnError="false"/>
   <rm:locator pattern=".*" searchPathRef="org.eclipse" failOnError="false"/>
-  
   <rm:searchPath name="org.archstudio">
-    <rm:provider componentTypes="eclipse.feature,osgi.bundle,buckminster" readerType="git" resolutionFilter="">
+    <rm:provider componentTypes="eclipse.feature,osgi.bundle,buckminster" resolutionFilter="(!(update.site~=.+))" readerType="p2" source="false" mutable="false">
+      <rm:property key="buckminster.source" value="false"/>
+      <rm:property key="buckminster.mutable" value="false"/>
+      <rm:uri format="{0}?importType=binary">
+        <bc:propertyRef key="update.site"/>
+      </rm:uri>
+    </rm:provider>
+    <rm:provider componentTypes="eclipse.feature,osgi.bundle,buckminster" readerType="git" mutable="false">
+      <rm:property key="buckminster.mutable" value="false"/>
+      <rm:property key="buckminster.source" value="true"/>
+      <rm:property key="git.remote.uri" value="https://github.com/isr-uci-edu/ArchStudio5.git"/>
+      <rm:property key="git.auto.fetch" value="true"/>
       <rm:uri format="{0}/ArchStudio5,{1}">
         <bc:propertyRef key="git.clone.dir"/>
         <bc:propertyRef key="buckminster.component"/>
       </rm:uri>
-      <rm:property key="git.remote.uri" value="https://github.com/isr-uci-edu/ArchStudio5.git"/>
-      <rm:property key="git.auto.fetch" value="true"/>
     </rm:provider>
   </rm:searchPath>
-  
   <rm:searchPath name="org.eclipse">
+    <rm:provider componentTypes="eclipse.feature,osgi.bundle,buckminster" readerType="p2" source="false" mutable="false">
+      <rm:property key="buckminster.source" value="false"/>
+      <rm:property key="buckminster.mutable" value="false"/>
+      <rm:uri format="http://download.eclipse.org/tools/buckminster/updates-{0}?importType=binary">
+        <bc:replace>
+          <bc:propertyRef key="eclipse.version"/>
+          <bc:match pattern="^4\.5$" replacement="4.4"/>
+        </bc:replace>
+      </rm:uri>
+    </rm:provider>
     <rm:provider componentTypes="eclipse.feature,osgi.bundle,buckminster" readerType="p2" source="false" mutable="false">
       <rm:property key="buckminster.source" value="false"/>
       <rm:property key="buckminster.mutable" value="false"/>
@@ -29,7 +46,6 @@
       <rm:property key="buckminster.mutable" value="false"/>
       <rm:uri format="{0}?importType=binary">
         <bc:replace>
-          <!-- http://wiki.eclipse.org/Simultaneous_Release -->
           <bc:propertyRef key="eclipse.version"/>
           <bc:match pattern="^3\.2$" replacement="http://download.eclipse.org/releases/callisto/"/>
           <bc:match pattern="^3\.3$" replacement="http://download.eclipse.org/releases/europa/"/>
@@ -43,6 +59,7 @@
           <bc:match pattern="^4\.5$" replacement="http://download.eclipse.org/releases/mars/"/>
         </bc:replace>
       </rm:uri>
+      <rm:documentation>See: http://wiki.eclipse.org/Simultaneous_Release</rm:documentation>
     </rm:provider>
   </rm:searchPath>
 </rm:rmap>

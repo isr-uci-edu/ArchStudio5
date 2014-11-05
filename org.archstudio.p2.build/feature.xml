@@ -51,6 +51,18 @@
          id="org.eclipse.xtext.sdk"
          version="0.0.0"/>
 
+   <includes
+         id="org.archstudio.releng.target.eclipse.4.3"
+         version="0.0.0"/>
+
+   <includes
+         id="org.archstudio.releng.target.eclipse.4.4"
+         version="0.0.0"/>
+
+   <includes
+         id="org.archstudio.releng.target.eclipse.4.5"
+         version="0.0.0"/>
+
    <requires>
       <import plugin="org.junit"/>
       <import plugin="org.archstudio.xadl.tests"/>

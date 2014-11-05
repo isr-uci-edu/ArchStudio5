@@ -289,7 +289,7 @@
          unpack="false"/>
 
    <plugin
-         id="org.archstudio.releng.pde.ui"
+         id="org.archstudio.pde.ui"
          download-size="0"
          install-size="0"
          version="0.0.0"

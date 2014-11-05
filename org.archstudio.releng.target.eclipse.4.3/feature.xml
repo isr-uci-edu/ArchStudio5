@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="org.archstudio.p2"
-      label="ArchStudio P2 Update Site"
+      id="org.archstudio.releng.target.eclipse.4.3"
+      label="Eclipse 4.3 Target"
       version="5.0.1.qualifier"
-      provider-name="archstudio.org"
-      license-feature="org.archstudio.license.feature"
-      license-feature-version="5.0.1.qualifier">
+      provider-name="archstudio.org">
 
    <description url="http://www.example.com/description">
       [Enter Feature Description here.]
@@ -20,27 +18,19 @@
    </license>
 
    <includes
-         id="org.archstudio.dblgen.feature"
+         id="org.eclipse.platform"
          version="0.0.0"/>
 
    <includes
-         id="org.archstudio.myxgen.feature"
+         id="org.eclipse.rcp"
          version="0.0.0"/>
 
    <includes
-         id="org.archstudio.feature"
+         id="org.eclipse.pde"
          version="0.0.0"/>
 
    <includes
-         id="org.archstudio.xadl3.gexf.feature"
-         version="0.0.0"/>
-
-   <includes
-         id="org.archstudio.jogl.feature"
-         version="0.0.0"/>
-
-   <includes
-         id="org.archstudio.pde.feature"
+         id="org.archstudio.p2"
          version="0.0.0"/>
 
 </feature>

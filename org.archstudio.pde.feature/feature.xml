@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="org.archstudio.releng.pde.feature"
-      label="ArchStudio - Release Engineering Tools (Optional)"
+      id="org.archstudio.pde.feature"
+      label="ArchStudio - Plugin Development Tools (Optional)"
       version="5.0.1.qualifier"
       provider-name="archstudio.org"
       license-feature="org.archstudio.license.feature"
@@ -30,7 +30,7 @@
    </requires>
 
    <plugin
-         id="org.archstudio.releng.pde.ui"
+         id="org.archstudio.pde.ui"
          download-size="0"
          install-size="0"
          version="0.0.0"

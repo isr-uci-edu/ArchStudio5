@@ -36,9 +36,12 @@
 	</target>
 
 	<target name="install-buckminster">
+		<is-ok location="${buckminster.home}" />
+		<ant target="--install-buckminster" />
+	</target>
 
+	<target name="--install-buckminster" unless="_ok_${buckminster.home}">
 		<install-buckminster todir="${buckminster.home}" director.home="${director.home}">
-
 			<arg value="-r" />
 			<arg value="http://download.eclipse.org/tools/buckminster/headless-@{eclipse.version}" />
 			<arg value="-installIU" />
@@ -65,36 +68,32 @@
 			<arg value="http://download.eclipse.org/eclipse/updates/@{eclipse.version}" />
 			<arg value="-installIU" />
 			<arg value="org.eclipse.osgi.compatibility.plugins.feature.feature.group" />
-
 		</install-buckminster>
+		<set-ok location="${buckminster.home}" />
 	</target>
 
 	<target name="resolve-cquery">
 
 		<assert-nonempty property="buckminster.component" message="The feature to resolve." />
+		<set-if-nonempty property="no.import.arg" test="noimport" value="--noimport" else="" />
 
-		<makeurl property="resolve.url" file="${ant.dir}/defaults/component.cquery" />
+		<assert-nonempty property="resolve.type" message="The cquery type to resolve ('source' or 'binary')." />
+		<makeurl property="resolve.url" file="${ant.dir}/defaults/component-${resolve.type}.cquery" />
 
-		<echo>Resolving the cquery...</echo>
-		<buckminster location="${buckminster.home}" workspace="${workspace}">
-			<arg value="resolve" />
-			<arg value="-P" />
-			<arg value="${ant.dir}/defaults/buckminster.properties" />
-			<arg value="${resolve.url}" />
-			<syspropertyset>
-				<propertyset refid="buckminster.properties" />
-			</syspropertyset>
-		</buckminster>
-		<!-- A workaround for http://www.eclipse.org/forums/index.php/t/261503/ -->
-		<buckminster location="${buckminster.home}" workspace="${workspace}">
-			<arg value="resolve" />
-			<arg value="-P" />
-			<arg value="${ant.dir}/defaults/buckminster.properties" />
-			<arg value="${resolve.url}" />
-			<syspropertyset>
-				<propertyset refid="buckminster.properties" />
-			</syspropertyset>
-		</buckminster>
+		<echo>Resolving cquery ${resolve.url}</echo>
+		<!-- This fails sometimes with complaints about the target platform. -->
+		<retry retrycount="2">
+			<buckminster location="${buckminster.home}" workspace="${workspace}">
+				<arg value="resolve" />
+				<arg line="${no.import.arg}" />
+				<arg value="-P" />
+				<arg value="${ant.dir}/defaults/buckminster.properties" />
+				<arg value="${resolve.url}" />
+				<syspropertyset>
+					<propertyset refid="buckminster.properties" />
+				</syspropertyset>
+			</buckminster>
+		</retry>
 
 	</target>
 
