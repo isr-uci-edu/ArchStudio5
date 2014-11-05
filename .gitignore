@@ -1,3 +1,4 @@
+/*/.antlr-*
 /*/bin/
 /.buckminster/
 /External\ Plug-in\ Libraries/
@@ -8,6 +9,7 @@ javaCompiler...args
 null*
 /*.p2/build.xml
 /*.p2.build/build.xml
+/*/plugin.xml_gen
 /repos/
 /*/.settings/
 /*/target/classes/
