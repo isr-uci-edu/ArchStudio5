@@ -173,6 +173,8 @@ public class CodeGeneration {
 
 							cleanupContexts.clear();
 							if (cleanup.getRequirements().requiresAST()) {
+								// AST.JLS4 is deprecated in Eclipse 4.5
+								@SuppressWarnings("all")
 								ASTParser parser = ASTParser.newParser(AST.JLS4);
 								parser.setProject(javaProject);
 								parser.setKind(ASTParser.K_COMPILATION_UNIT);
