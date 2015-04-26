@@ -27,16 +27,6 @@
     <rm:provider componentTypes="eclipse.feature,osgi.bundle,buckminster" readerType="p2" source="false" mutable="false">
       <rm:property key="buckminster.source" value="false"/>
       <rm:property key="buckminster.mutable" value="false"/>
-      <rm:uri format="http://download.eclipse.org/tools/buckminster/updates-{0}?importType=binary">
-        <bc:replace>
-          <bc:propertyRef key="eclipse.version"/>
-          <bc:match pattern="^4\.5$" replacement="4.4"/>
-        </bc:replace>
-      </rm:uri>
-    </rm:provider>
-    <rm:provider componentTypes="eclipse.feature,osgi.bundle,buckminster" readerType="p2" source="false" mutable="false">
-      <rm:property key="buckminster.source" value="false"/>
-      <rm:property key="buckminster.mutable" value="false"/>
       <rm:uri format="http://download.eclipse.org/eclipse/updates/{0}?importType=binary">
         <bc:propertyRef key="eclipse.version"/>
       </rm:uri>

@@ -88,6 +88,8 @@
 				<arg line="${no.import.arg}" />
 				<arg value="-P" />
 				<arg value="${ant.dir}/defaults/buckminster.properties" />
+				<arg value="--bomfile" />
+				<arg value="${workspace}/${buckminster.component}.bom" />
 				<arg value="${resolve.url}" />
 				<syspropertyset>
 					<propertyset refid="buckminster.properties" />

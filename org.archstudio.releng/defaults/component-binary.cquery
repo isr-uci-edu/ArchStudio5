@@ -3,5 +3,10 @@
     <cq:property key="target.arch" value="*"/>
     <cq:property key="target.os" value="*"/>
     <cq:property key="target.ws" value="*"/>
+    <cq:advisorNode namePattern=".*linux\.ppc64le.*" filter="(eclipse.version~=4.5)" componentType="osgi.bundle" skipComponent="true">
+        <cq:documentation xmlns="http://www.w3.org/1999/xhtml">This is a workaround for Eclipse 4.5, which does not have 
+target.arch=ppc64le and target.os=linux in its repositories,  but
+requests it as part of the resolution process.</cq:documentation>
+    </cq:advisorNode>
     <cq:advisorNode namePattern=".*" sourceLevel="AVOID" useMaterialization="false" useTargetPlatform="false" useWorkspace="false"/>
 </cq:componentQuery>
