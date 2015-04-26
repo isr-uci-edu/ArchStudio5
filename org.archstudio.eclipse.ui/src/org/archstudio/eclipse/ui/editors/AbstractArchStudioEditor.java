@@ -368,7 +368,7 @@ public abstract class AbstractArchStudioEditor<B extends AbstractArchStudioEdito
 	}
 
 	@Override
-	@SuppressWarnings("rawtypes")
+	@SuppressWarnings("all")
 	public Object getAdapter(Class key) {
 		if (key.equals(IContentOutlinePage.class)) {
 			return outlinePage;

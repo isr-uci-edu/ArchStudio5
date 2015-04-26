@@ -81,7 +81,6 @@ class Generator {
 			return '''«javaDocs.get(0).value.trim»
 '''
 		}
-		""
 	}
 
 	def private static String elementPackageName(IConfigurationElement element) {

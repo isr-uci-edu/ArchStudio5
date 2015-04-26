@@ -82,7 +82,7 @@ public abstract class AbstractArchStudioOutlinePage extends ContentOutlinePage i
 			}
 
 			@Override
-			@SuppressWarnings("rawtypes")
+			@SuppressWarnings("all")
 			public Object getAdapter(Class adapter) {
 				throw new UnsupportedOperationException();
 			}

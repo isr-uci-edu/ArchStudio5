@@ -63,8 +63,9 @@ public class PrologConsoleFactory implements IConsoleFactory {
 
 		private StopExecutionAction stopExecutionAction;
 
+		@SuppressWarnings("all")
 		@Override
-		public Object getAdapter(@SuppressWarnings("rawtypes") Class adapter) {
+		public Object getAdapter(Class adapter) {
 			return null;
 		}
 
