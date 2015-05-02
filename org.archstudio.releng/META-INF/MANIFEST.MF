@@ -5,4 +5,5 @@ Bundle-SymbolicName: org.archstudio.releng
 Bundle-Version: 5.0.1.qualifier
 Bundle-Vendor: archstudio.org
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Require-Bundle: org.eclipse.xtend.standalone
+Require-Bundle: org.archstudio.tests,
+ org.eclipse.xtend.standalone
