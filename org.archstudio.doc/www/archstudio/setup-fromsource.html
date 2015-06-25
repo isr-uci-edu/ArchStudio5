@@ -136,11 +136,21 @@
 		Perspective | Other ... | Select "Plug-in Development" | Hit OK.</li>
 </ol>
 
-<h1>Common Problems</h1>
-
 <p>After completing the steps above, you should have the Eclipse
 	environment populated with the many plugins used to develop ArchStudio
 	and all plugins should compile without any errors.</p>
+
+<h1>Common Problems</h1>
+
+<p>Eclipse may complain that *.xtend files cannot be compiled. This is
+    typically due to the default character encoding of UTF-8. A typical sign
+    of this problem is that the editor for Xtend files displays black diamonds
+    with white question marks in them. To fix this, set the file encoding
+    to ISO-8859-1. This can be done by right clicking on the XText file in the 
+    Package Explorer view, selecting Properties, selecting the Resource group,
+    and then selecting other for the file encoding and ISO-8859-1. It may be
+    necessary to follow this with a full build, as described in the next
+    paragraph.</p>
 
 <p>At times Eclipse will report compile errors even though none
 	really exist and all projects are checked out. To remedy this go to
