@@ -29,7 +29,7 @@
 
 <p>
 	ArchStudio and related projects are stored and managed in a <a
-		target="_blank" href="https://github.com/">github</a> repository. <a
+		target="_blank" href="https://github.com/">GitHub</a> repository. <a
 		target="_blank" href="http://git-scm.com/">Git</a> is an open-source
 	configuration management system. It is increasingly supported by tools
 	on many popular platforms that make it easy to work with and contribute
@@ -48,7 +48,7 @@
 	If you are just interested in browsing the source without checking it
 	out, you can <a target="_blank"
 		href="https://github.com/isr-uci-edu/ArchStudio5">browse the raw
-		source archive</a>.
+		source on GitHub</a>.
 </p>
 
 <h1>What You'll Need</h1>
@@ -137,20 +137,25 @@
 </ol>
 
 <p>After completing the steps above, you should have the Eclipse
-	environment populated with the many plugins used to develop ArchStudio
-	and all plugins should compile without any errors.</p>
+	environment populated with the many plugins used to develop ArchStudio.
+	All plugins should compile without errors with the exception of the
+	<code>org.archstudio.releng.target.ecipse.*</code> plugins. These plugins
+	describe dependencies of different Eclipse releases and only a subset
+	of these plugins will be satisfied depending on which version of Eclipse
+	you are using. You can safely close these plugins, they are not required
+	for compiling ArchStudio.</p>
 
 <h1>Common Problems</h1>
 
-<p>Eclipse may complain that *.xtend files cannot be compiled. This is
-    typically due to the default character encoding of UTF-8. A typical sign
+<p>Eclipse may complain that Xtend files cannot be compiled. This is
+    typically due to the default character encoding of UTF-8. A sign
     of this problem is that the editor for Xtend files displays black diamonds
-    with white question marks in them. To fix this, set the file encoding
-    to ISO-8859-1. This can be done by right clicking on the XText file in the 
-    Package Explorer view, selecting Properties, selecting the Resource group,
-    and then selecting other for the file encoding and ISO-8859-1. It may be
-    necessary to follow this with a full build, as described in the next
-    paragraph.</p>
+    with white question marks in them, e.g., "&#xFFFD;". To fix this, set the
+    file encoding to ISO-8859-1. This can be done by right clicking on the Xtend
+    file in the Package Explorer view, selecting Properties, selecting the 
+    Resource group, and then selecting other for the file encoding and setting 
+    it to ISO-8859-1. It may be necessary to follow this with a full build,
+    as described in the next paragraph.</p>
 
 <p>At times Eclipse will report compile errors even though none
 	really exist and all projects are checked out. To remedy this go to
