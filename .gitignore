@@ -12,7 +12,8 @@ null*
 /*.p2.build/build.xml
 /*/plugin.xml_gen
 /repos/
-/*/.settings/
+/*/.settings/*
+!/*/.settings/org.eclipse.core.resources.prefs
 /*/target/classes/
 /*.xadl3.*/*.ecore
 /*.xadl3.*/*.genmodel

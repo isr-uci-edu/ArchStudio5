@@ -1,0 +1,4 @@
+eclipse.preferences.version=1
+encoding//src/org/archstudio/myxgen/jet/codegen/MyxCompBuilder.xtend=ISO-8859-1
+encoding//src/org/archstudio/myxgen/jet/codegen/MyxCompStubBuilder.xtend=ISO-8859-1
+encoding//src/org/archstudio/myxgen/jet/codegen/MyxCompUtils.xtend=ISO-8859-1
