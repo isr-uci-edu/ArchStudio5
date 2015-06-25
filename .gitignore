@@ -1,6 +1,7 @@
 /*/.antlr-*
 /*/bin/
 /.buckminster/
+.DS_Store
 /External\ Plug-in\ Libraries/
 /*.feature/build.xml
 hs_err_pid*.log
