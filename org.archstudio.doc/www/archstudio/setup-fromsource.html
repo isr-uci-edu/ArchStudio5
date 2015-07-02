@@ -11,106 +11,67 @@
 <h1>Overview</h1>
 
 <p>This document describes how to check out the ArchStudio (and
-	constituent) code from the ISR Subversion repository and build
-	ArchStudio from source.</p>
+	constituent) code from GitHub and build ArchStudio from source.</p>
 
-<p>
-	Casual ArchStudio users or those evaluating the technology should
+<p>Casual ArchStudio users or those evaluating the technology should
 	probably just <a href="setup-easy.html">download and install the
-		latest pre-built release</a>. However, ArchStudio developers - those who
-	are interested in developing new ArchStudio components, making changes
+		latest pre-built release</a>. However, ArchStudio developers - those
+	who are interested in developing new ArchStudio components, making changes
 	to ArchStudio itself, or those interested in having bleeding-edge
 	updates to ArchStudio before they go into official release - should
 	check out the ArchStudio source code and build the environment from
-	source.
-</p>
+	source.</p>
 
 <h1>The Source Code Environment</h1>
 
-<p>
-	ArchStudio and related projects are stored and managed in a <a
-		target="_blank" href="https://github.com/">GitHub</a> repository. <a
-		target="_blank" href="http://git-scm.com/">Git</a> is an open-source
-	configuration management system. It is increasingly supported by tools
-	on many popular platforms that make it easy to work with and contribute
-	to our source code in your favorite development environment.
-</p>
-
-<p>
-	ArchStudio is built in and for the <a target="_blank"
+<p>ArchStudio is built in and for the <a target="_blank"
 		href="http://www.eclipse.org/">Eclipse</a> development environment.
-	Although you can check out ArchStudio source code without using
-	Eclipse, we recommend doing it in Eclipse so you can actually build the
-	source.
-</p>
+	Because it uses plug-ins in Eclipse to auto generate code, it must be
+	developed in the Eclipse environment. </p>
 
-<p>
-	If you are just interested in browsing the source without checking it
+<p>If you are just interested in browsing the source without checking it
 	out, you can <a target="_blank"
 		href="https://github.com/isr-uci-edu/ArchStudio5">browse the raw
-		source on GitHub</a>.
-</p>
+		source on GitHub</a>.</p>
 
 <h1>What You'll Need</h1>
 
 <p>You will need the following installed on your machine:</p>
-
 <ul>
-	<li><b>(Required)</b> A Java 2 SE, version 7.0 Software
-		Development Kit;</li>
-	<li><b>(Required)</b> Eclipse 4.3 (or better);</li>
-	<li><b>(Required)</b> ArchStudio itself; and</li>
-	<li><b>(Highly Recommended)</b> The EGit Git client plug-in for
-		Eclipse.</li>
+	<li><a target="_blank" 
+			href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">
+	    Java SE 8 SDK</a>*, and</li>
+	<li><a target="_blank" 
+			href="http://download.eclipse.org/eclipse/downloads/">
+	    Eclipse 4.5</a>* or later.</li>
 </ul>
+<blockquote>* Currently, ArchStudio can also be developed and run using the
+	Java SE 7 SDK and Eclipse 4.3, but this is not recommended.</blockquote>
 
-<h2>A Java 2 Software Development Kit</h2>
+<p>Within Eclipse, you will need to install the following features:</p>
+<ul>
+	<li>ArchStudio (follow the instructions, <a href="setup-easy.html">
+		here</a>),</li>
+	<li>Collaboration / Eclipse Git Team Provider,</li>
+	<li>General Purpose Tools / Xtext Complete SDK*,</li>
+	<li>Modeling / EMF - Eclipse Modeling Framework - SDK*, and</li>
+	<li>Modeling / XSD - XML Schema Definition SDK*.</li>
+</ul>
+<blockquote>* These components should be installed automatically when you install 
+	ArchStudio in Eclipse. However, if you run into compile errors, try
+	installing them manually.</blockquote>
 
-<p>
-	At the current time, ArchStudio is developed on Java 2 Standard
-	Edition, version 7.0 (J2SE 7.0). You can download the runtime
-	environment or development toolkit from: <a target="_blank"
-		href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">http://www.oracle.com/technetwork/java/javase/downloads/index.html</a>
-	More detailed instructions are included on the <a
-		href="setup-easy.html">easy setup</a> page.
-</p>
-
-<h2>Eclipse 4.3 (or Better)</h2>
-
-<p>
-	You will also need to download Eclipse 4.3 (or better), and install it on
-	your machine. Downloads and installation instructions are available at
-	<a target="_blank" href="http://www.eclipse.org/">http://www.eclipse.org/</a>.
-	If you already have Eclipse, you can also download and extract a second
+<p>If you already have Eclipse, you can also download and extract a second
 	copy in a separate directory solely for ArchStudio if you so desire.
-	More detailed instructions are included on the <a
-		href="setup-easy.html">easy setup</a> page.
-</p>
+	More detailed instructions are included on the 
+	<a href="setup-easy.html">easy setup</a> page.</p>
 
-
-<h2>ArchStudio Itself</h2>
-
-<p>
-	You will also need to install ArchStudio itself in order to build
-	ArchStudio. Follow the <a href="setup-easy.html" />instructions to
-	install ArchStudio</a> and install it into your Eclipse environment. More
-	detailed instructions are included on the <a href="setup-easy.html">easy
-		setup</a> page.
-</p>
-
-<h2>EGit Client</h2>
-
-<p>
-	A Git client is required to checkout ArchStudio source code. EGit will
-	allow you to check out the ArchStudio source code directly into your
-	Eclipse workspace as a set of projects. Installation of EGit is similar
-	to the installation of ArchStudio, above. However, use the <a
-		target="_blank" href="http://www.eclipse.org/egit/download/">updatesite
-		for EGit</a>. Alternatively, you may use another Git client, but the
-	instructions here will be for EGit.
-</p>
-
-<h1>Checking Out for the First Time</h1>
+<p>Installing the above Eclipse features is similar to installing ArchStudio
+	itself, as described <a href="setup-easy.html">here</a>. However, for the
+	"Work with:" field select "--All Available Sites--". Then navigate to 
+	and select each features above.</p>
+	  
+<h1>Checking Out Source Code</h1>
 
 <p>Once you have the tools above installed and running, you can
 	check out the ArchStudio source code. ArchStudio is composed of a
@@ -118,81 +79,90 @@
 	the environment.</p>
 
 <p>To check out the code perform the following steps:</p>
-
 <ol>
-	<li>Open up the Git perspective by going to Window | Open
-		Perspective | Other ... | Select "Git Repository Exploring" | Hit OK</li>
-	<li>Select "Clone a Git Repository"</li>
-	<li>In the dialog box that pops up, enter the following for the
-		URI <a target="_blank"
-		href="https://github.com/isr-uci-edu/ArchStudio5.git">https://github.com/isr-uci-edu/ArchStudio5.git</a>
-	</li>
-	<li>Click Next</li>
-	<li>Click Next again</li>
-	<li>Select "Import all existing projects after clone finishes"</li>
-	<li>Click Finish (... wait several minutes for the checkout to
-		complete)</li>
-	<li>Return to the Plugin perspective by going to Window | Open
-		Perspective | Other ... | Select "Plug-in Development" | Hit OK.</li>
+	<li>Switch to the Git perspective by going to Window | Perspective | Open
+		Perspective | Other... | Select "Git" | Hit OK.</li>
+	<li>Select "Clone a Git Repository".</li>
+	<li>In the Source Git Repository dialog box that pops up, 
+		enter the following for the URI 
+		<a target="_blank"
+				href="https://github.com/isr-uci-edu/ArchStudio5.git">
+						https://github.com/isr-uci-edu/ArchStudio5.git</a>.</li>
+	<li>Click Next to go to Branch Selection page.</li>
+	<li>Ensure that "master" is selected.</li>
+	<li>Click Next again to go to the Local Destination page.</li>
+	<li>Select "Import all existing projects after clone finishes".</li>
+	<li>Click Finish.</li>
+</ol>
+<p>The checkout may take several minutes. After it is completed, you will
+	want to return to the Plug-in perspective. To do this:</p>
+<ol>
+	<li>Switch to the Plug-in perspective by going to Window | Perspective | 
+		Open Perspective | Other... | Select "Plug-in Development" | 
+		Hit OK.</li>
 </ol>
 
 <p>After completing the steps above, you should have the Eclipse
-	environment populated with the many plugins used to develop ArchStudio.
-	All plugins should compile without errors with the exception of the
-	<code>org.archstudio.releng.target.ecipse.*</code> plugins. These plugins
+	environment populated with the many plug-ins used to develop ArchStudio.
+	All plug-ins should compile without errors with the exception of the
+	<code>org.archstudio.releng.target.ecipse.*</code> plug-ins. These plug-ins
 	describe dependencies of different Eclipse releases and only a subset
-	of these plugins will be satisfied depending on which version of Eclipse
-	you are using. You can safely close these plugins, they are not required
+	of these plug-ins will be satisfied depending on which version of Eclipse
+	you are using. You can safely close these plug-ins; they are not required
 	for compiling ArchStudio.</p>
 
 <h1>Common Problems</h1>
 
-<p>Eclipse may complain that Xtend files cannot be compiled. This is
-    typically due to the default character encoding of UTF-8. A sign
-    of this problem is that the editor for Xtend files displays black diamonds
-    with white question marks in them, e.g., "&#xFFFD;". To fix this, set the
-    file encoding to ISO-8859-1. This can be done by right clicking on the Xtend
-    file in the Package Explorer view, selecting Properties, selecting the 
-    Resource group, and then selecting other for the file encoding and setting 
-    it to ISO-8859-1. It may be necessary to follow this with a full build,
-    as described in the next paragraph.</p>
+<h2>Running Eclipse 4.5</h2>
+<p>For the Mac, if you get an error running Eclipse having to do with the
+	Java virtual machine not being available or of an incorrect version, run 
+	eclipse using the "-vm" option to indicate the path to the java executable
+	you installed. For instance, if you installed Java 8u45 SDK, you would use 
+	the following command:</p>
+<p>
+	<code>eclipse -vm /Library/Java/JavaVirtualMachines/jdk1.8.0_45.jdk/Contents/Home/bin/java</code>
+</p>
 
+<h2>Compiling ArchStudio</h2>
 <p>At times Eclipse will report compile errors even though none
-	really exist and all projects are checked out. To remedy this go to
-	Project | Clean ... | Select "Clean all projects" | hit OK. You may
-	have to repeat this step twice.</p>
+	really exist and all projects are checked out. To remedy this, perform
+	the following:</p>
+<ol>
+	<li>Go to Project | Clean...</li>
+	<li>Select "Clean all projects".</li>
+	<li>Hit OK.</li>
+</ol>
+<p>You may have to repeat this step twice.</p>
 
 <h1>Running ArchStudio</h1>
 
 <p>From within Eclipse, you can run the version of ArchStudio that
 	you checked out using the ArchStudio launch configuration. To do so,
 	perform the following:</p>
-
 <ol>
 	<li>Go to Run | Debug Configurations...</li>
-	<li>Select Eclipse Applications / ArchStudio</li>
-	<li>Click Debug</li>
-	<li>Click OK on the Validation dialog box</li>
-	<li>Select an ArchStudio Workspace location, click OK</li>
+	<li>Select Eclipse Applications / ArchStudio.</li>
+	<li>Click Debug.</li>
+	<li>(You may get a dialog box asking if "Eclipse.app" can accept incoming 
+		network connections. If so, click "Allow" in order for the Eclipse
+		debugger to interact with ArchStudio.)</li>
 </ol>
-
-<p>
-	Now that you have a running version of ArchStudio, take a look at <a
-		href="getting-started.html">getting started with an architecture</a>.
-</p>
+<p>Now that you have a running version of ArchStudio, take a look at 
+	<a href="getting-started.html">getting started with an architecture</a>.</p>
 
 <h1>Contributing to ArchStudio</h1>
 
-<p>
-	If you are looking for a way to contribute to ArchStudio, take a look
-	at the <a target="_blank"
-		href="https://github.com/isr-uci-edu/ArchStudio5/issues?labels=&page=1&state=open">open
-		issues</a>. In particular, some issues are marked as <a target="_blank"
-		href="https://github.com/isr-uci-edu/ArchStudio5/issues?labels=helpwanted&page=1&state=open">help
-		wanted</a>, indicating that they are good candidates for others to
-	contribute solutions. Or, if you discover an issue, please file it at
-	the same location.
-</p>
+<p>If you are looking for a way to contribute to ArchStudio, take a look
+	at the 
+	<a target="_blank"
+		href="https://github.com/isr-uci-edu/ArchStudio5/issues?labels=&page=1&state=open">
+	open issues</a>. In particular, some issues are marked as 
+	<a target="_blank"
+		href="https://github.com/isr-uci-edu/ArchStudio5/issues?labels=helpwanted&page=1&state=open">
+	help wanted</a>, indicating that they are good candidates for others to
+	contribute solutions. If you discover an issue, please file a bug at
+	the same location. Finally, if you add functionality that you'd like to 
+	have incorporated back into ArchStudio, contact us.</p>
 
 <!--#include virtual="_pagebottom.html" -->
 
