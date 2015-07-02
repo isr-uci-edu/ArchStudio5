@@ -14,42 +14,42 @@ class MyxCompStubBuilder extends MyxCompUtils {
 			null;
 		}
 		return '''
-		package «toPackageName(b.stubClassName)»;
+		package Â«toPackageName(b.stubClassName)Â»;
 		
-		«IF pb == null»
+		Â«IF pb == nullÂ»
 			import org.archstudio.myx.fw.MyxRegistry;
-		«ENDIF»
-		«IF b.interfaces.size > 0»
+		Â«ENDIFÂ»
+		Â«IF b.interfaces.size > 0Â»
 			import org.archstudio.myx.fw.MyxUtils;
-		«ENDIF»
+		Â«ENDIFÂ»
 		import org.archstudio.myx.fw.IMyxName;
 
 		/*
 		 * DO NOT EDIT THIS CLASS, it is automatically generated.
 		 * ANY MODIFICATIONS WILL BE OVERWRITTEN.
 		 *
-		 * To modify, update the "«b.name»" MyxGen 
-		 * extension in the «b.contributor.name» plugin.
+		 * To modify, update the "Â«b.nameÂ»" MyxGen 
+		 * extension in the Â«b.contributor.nameÂ» plugin.
 		 */
 		
 		/**
-		 * Abstract Myx brick: «b.name»
-		 * «IF b.description != null»<p>«b.description»«ENDIF»
+		 * Abstract Myx brick: Â«b.nameÂ»
+		 * Â«IF b.description != nullÂ»<p>Â«b.descriptionÂ»Â«ENDIFÂ»
 		 * @generated
 		 */
-		public abstract class «toClassName(b.stubClassName)»
-		«IF pb == null»
+		public abstract class Â«toClassName(b.stubClassName)Â»
+		Â«IF pb == nullÂ»
 		extends org.archstudio.myx.fw.AbstractMyxSimpleBrick
-		«ELSE»
-		extends «pb.className»
-		«ENDIF»
+		Â«ELSEÂ»
+		extends Â«pb.classNameÂ»
+		Â«ENDIFÂ»
 		implements org.archstudio.myx.fw.IMyxDynamicBrick
-		«FOR i : b.interfaces.filter[i|i.serviceObjectDelegate == EServiceObjectDelegate::brick] BEFORE ', ' SEPARATOR ', '»«i.className»«ENDFOR»
+		Â«FOR i : b.interfaces.filter[i|i.serviceObjectDelegate == EServiceObjectDelegate::brick] BEFORE ', ' SEPARATOR ', 'Â»Â«i.classNameÂ»Â«ENDFORÂ»
 		{
 			
-			«IF pb != null»
-				«constructorsFor(b, pb.contributor.name, pb.className)»
-			«ELSE»
+			Â«IF pb != nullÂ»
+				Â«constructorsFor(b, pb.contributor.name, pb.className)Â»
+			Â«ELSEÂ»
 				/**
 				 * The registry of objects for this brick.
 				 * @generated
@@ -75,54 +75,54 @@ class MyxCompStubBuilder extends MyxCompUtils {
 					myxRegistry.unregister(this);
 					super.end();
 				}
-			«ENDIF»
+			Â«ENDIFÂ»
 			
-			«FOR i : b.interfaces»
+			Â«FOR i : b.interfacesÂ»
 				/**
-				 * Myx name for the <code>«i.name»</code> interface.
-				 * «IF i.description != null»<p>«i.description»«ENDIF»
+				 * Myx name for the <code>Â«i.nameÂ»</code> interface.
+				 * Â«IF i.description != nullÂ»<p>Â«i.descriptionÂ»Â«ENDIFÂ»
 				 * @generated
 				 */
-				public static final IMyxName «toConstantName(i.direction.name.toLowerCase + i.name.toFirstUpper)» = MyxUtils.createName("«i.id»");
+				public static final IMyxName Â«toConstantName(i.direction.name.toLowerCase + i.name.toFirstUpper)Â» = MyxUtils.createName("Â«i.idÂ»");
 				
-				«IF i.serviceObjectDelegate.needsVariable»
+				Â«IF i.serviceObjectDelegate.needsVariableÂ»
 					/**
-					 * Service object«IF !i.single»s«ENDIF» for the «i.name» interface.
-					 * @see #«toConstantName(i.direction.name.toLowerCase + i.name.toFirstUpper)»
+					 * Service objectÂ«IF !i.singleÂ»sÂ«ENDIFÂ» for the Â«i.nameÂ» interface.
+					 * @see #Â«toConstantName(i.direction.name.toLowerCase + i.name.toFirstUpper)Â»
 					 * @generated
 					 */
-					«IF i.single»
-						protected «i.className» «i.name» = null;
-					«ELSE»
-						protected final java.util.Collection<«i.className»> «i.name» = new java.util.concurrent.CopyOnWriteArrayList<«i.className»>();
-					«ENDIF»
-				«ENDIF»
+					Â«IF i.singleÂ»
+						protected Â«i.classNameÂ» Â«i.nameÂ» = null;
+					Â«ELSEÂ»
+						protected final java.util.Collection<Â«i.classNameÂ»> Â«i.nameÂ» = new java.util.concurrent.CopyOnWriteArrayList<Â«i.classNameÂ»>();
+					Â«ENDIFÂ»
+				Â«ENDIFÂ»
 				
-				«IF i.serviceObjectDelegate.needsProxy»
+				Â«IF i.serviceObjectDelegate.needsProxyÂ»
 					/**
-					 * Service object proxy for the «i.name» interface.
-					 * Calls to this proxy object are automatically delegated to «IF i.serviceObjectDelegate == EServiceObjectDelegate::myxRegistry»all service objects in the MyxRegistry of type «i.className».«ELSE»all connections on the interface«ENDIF»
-					* @see #«toConstantName(i.direction.name.toLowerCase + i.name.toFirstUpper)»
+					 * Service object proxy for the Â«i.nameÂ» interface.
+					 * Calls to this proxy object are automatically delegated to Â«IF i.serviceObjectDelegate == EServiceObjectDelegate::myxRegistryÂ»all service objects in the MyxRegistry of type Â«i.classNameÂ».Â«ELSEÂ»all connections on the interfaceÂ«ENDIFÂ»
+					* @see #Â«toConstantName(i.direction.name.toLowerCase + i.name.toFirstUpper)Â»
 					* @generated
 					*/
-					protected final «i.className» «i.name»Proxy =
-						(«i.className») java.lang.reflect.Proxy.newProxyInstance(
-							«i.className».class.getClassLoader(), 
-							new Class[] { «i.className».class },
+					protected final Â«i.classNameÂ» Â«i.nameÂ»Proxy =
+						(Â«i.classNameÂ») java.lang.reflect.Proxy.newProxyInstance(
+							Â«i.classNameÂ».class.getClassLoader(), 
+							new Class[] { Â«i.classNameÂ».class },
 							new java.lang.reflect.InvocationHandler() {
 								@Override
 								public Object invoke(Object proxy, java.lang.reflect.Method method, Object[] args) throws Throwable {
-									«IF i.serviceObjectDelegate == EServiceObjectDelegate::myxRegistry»
-										for («i.className» o : myxRegistry.getObjects(«toClassName(b.stubClassName)».this, «i.className».class)) {
-									«ELSEIF !i.single»
-										for («i.className» o : «i.name») {
-									«ELSE»
-										«i.className» o = «i.name»;
+									Â«IF i.serviceObjectDelegate == EServiceObjectDelegate::myxRegistryÂ»
+										for (Â«i.classNameÂ» o : myxRegistry.getObjects(Â«toClassName(b.stubClassName)Â».this, Â«i.classNameÂ».class)) {
+									Â«ELSEIF !i.singleÂ»
+										for (Â«i.classNameÂ» o : Â«i.nameÂ») {
+									Â«ELSEÂ»
+										Â«i.classNameÂ» o = Â«i.nameÂ»;
 										if (o == null) {
-											throw new NullPointerException("«i.name»");
+											throw new NullPointerException("Â«i.nameÂ»");
 										}
 										else {
-									«ENDIF»
+									Â«ENDIFÂ»
 									try {
 										method.invoke(o, args);
 									}
@@ -133,126 +133,126 @@ class MyxCompStubBuilder extends MyxCompUtils {
 								return null;
 								}
 						});
-				«ENDIF»
+				Â«ENDIFÂ»
 
-				«IF i.generateGetter»
+				Â«IF i.generateGetterÂ»
 				/**
-				* Returns the service object(s) for the «i.name» interface.
-				* @see #«toConstantName(i.direction.name.toLowerCase + i.name.toFirstUpper)»
+				* Returns the service object(s) for the Â«i.nameÂ» interface.
+				* @see #Â«toConstantName(i.direction.name.toLowerCase + i.name.toFirstUpper)Â»
 				* @generated
 				*/
-				«IF i.serviceObjectDelegate.needsProxy»
-				public «i.className» get«i.name.toFirstUpper»() {
-				«ELSE»
-				public «IF i.single»«i.className»«ELSE»java.util.Collection<«i.className»>«ENDIF» get«i.name.toFirstUpper»() {
-				«ENDIF»
-					«IF i.serviceObjectDelegate == EServiceObjectDelegate::brick»
+				Â«IF i.serviceObjectDelegate.needsProxyÂ»
+				public Â«i.classNameÂ» getÂ«i.name.toFirstUpperÂ»() {
+				Â«ELSEÂ»
+				public Â«IF i.singleÂ»Â«i.classNameÂ»Â«ELSEÂ»java.util.Collection<Â«i.classNameÂ»>Â«ENDIFÂ» getÂ«i.name.toFirstUpperÂ»() {
+				Â«ENDIFÂ»
+					Â«IF i.serviceObjectDelegate == EServiceObjectDelegate::brickÂ»
 						return this;
-					«ELSE»
-						«IF !i.serviceObjectDelegate.needsProxy && i.single»
-							if («i.name» == null) {
-								throw new NullPointerException("Uninitialized service object: «i.name»");
+					Â«ELSEÂ»
+						Â«IF !i.serviceObjectDelegate.needsProxy && i.singleÂ»
+							if (Â«i.nameÂ» == null) {
+								throw new NullPointerException("Uninitialized service object: Â«i.nameÂ»");
 							}
-						«ENDIF»
-						return «i.name»«IF i.serviceObjectDelegate.needsProxy»Proxy«ENDIF»;
-					«ENDIF»
+						Â«ENDIFÂ»
+						return Â«i.nameÂ»Â«IF i.serviceObjectDelegate.needsProxyÂ»ProxyÂ«ENDIFÂ»;
+					Â«ENDIFÂ»
 				}
-				«ENDIF»
+				Â«ENDIFÂ»
 
-			«ENDFOR»
+			Â«ENDFORÂ»
 			
 			/**
 			 * Returns service object(s) for IN interfaces.
-			«FOR i : b.interfaces.filter[i|i.direction == EMyxInterfaceDirection::IN]»
-				* @see #«toConstantName(i.direction.name.toLowerCase + i.name.toFirstUpper)»
-			«ENDFOR»
+			Â«FOR i : b.interfaces.filter[i|i.direction == EMyxInterfaceDirection::IN]Â»
+				* @see #Â«toConstantName(i.direction.name.toLowerCase + i.name.toFirstUpper)Â»
+			Â«ENDFORÂ»
 			* @generated
 			*/
 			@Override
 			public Object getServiceObject(IMyxName interfaceName) {
-			«FOR i : b.interfaces.filter[i|i.direction == EMyxInterfaceDirection::IN]»
-				if(interfaceName.equals(«toConstantName(i.direction.name.toLowerCase + i.name.toFirstUpper)»)) {
-					«IF i.serviceObjectDelegate == EServiceObjectDelegate::brick»
+			Â«FOR i : b.interfaces.filter[i|i.direction == EMyxInterfaceDirection::IN]Â»
+				if(interfaceName.equals(Â«toConstantName(i.direction.name.toLowerCase + i.name.toFirstUpper)Â»)) {
+					Â«IF i.serviceObjectDelegate == EServiceObjectDelegate::brickÂ»
 						return this;
-					«ELSE»
-						«IF !i.serviceObjectDelegate.needsProxy && i.single»
-							if («i.name» == null) {
-								throw new NullPointerException("Uninitialized service object: «i.name»");
+					Â«ELSEÂ»
+						Â«IF !i.serviceObjectDelegate.needsProxy && i.singleÂ»
+							if (Â«i.nameÂ» == null) {
+								throw new NullPointerException("Uninitialized service object: Â«i.nameÂ»");
 							}
-						«ENDIF»
-						return «i.name»«IF i.serviceObjectDelegate.needsProxy»Proxy«ENDIF»;
-					«ENDIF»
+						Â«ENDIFÂ»
+						return Â«i.nameÂ»Â«IF i.serviceObjectDelegate.needsProxyÂ»ProxyÂ«ENDIFÂ»;
+					Â«ENDIFÂ»
 				}
-			«ENDFOR»
-			«IF b.parentBrickId == null»
+			Â«ENDFORÂ»
+			Â«IF b.parentBrickId == nullÂ»
 				throw new IllegalArgumentException("Unhandled interface: "+interfaceName.getName());
-			«ELSE»
+			Â«ELSEÂ»
 				return super.getServiceObject(interfaceName);
-			«ENDIF»
+			Â«ENDIFÂ»
 			}
 
 			/**
 			* Update service objects based on connected OUT interfaces.
-			«FOR i : b.interfaces.filter[i|i.direction == EMyxInterfaceDirection::OUT]»
-				* @see #«toConstantName(i.direction.name.toLowerCase + i.name.toFirstUpper)»
-			«ENDFOR»
+			Â«FOR i : b.interfaces.filter[i|i.direction == EMyxInterfaceDirection::OUT]Â»
+				* @see #Â«toConstantName(i.direction.name.toLowerCase + i.name.toFirstUpper)Â»
+			Â«ENDFORÂ»
 			* @generated
 			*/
 			@Override
 			public void interfaceConnected(IMyxName interfaceName, Object serviceObject) {
 				if (serviceObject == null)
 					throw new NullPointerException(interfaceName.getName());
-			«FOR i : b.interfaces.filter[i|i.direction == EMyxInterfaceDirection::OUT]»
+			Â«FOR i : b.interfaces.filter[i|i.direction == EMyxInterfaceDirection::OUT]Â»
 
-				if(interfaceName.equals(«toConstantName(i.direction.name.toLowerCase + i.name.toFirstUpper)»)) {
-						«IF i.single»
-							if («i.name» != null)
-								throw new IllegalStateException("Only a single connection is supported on interface: «i.name»");
-							«i.name» = («i.className») serviceObject;
-						«ELSE»
-							«i.name».add((«i.className») serviceObject);
-						«ENDIF»
+				if(interfaceName.equals(Â«toConstantName(i.direction.name.toLowerCase + i.name.toFirstUpper)Â»)) {
+						Â«IF i.singleÂ»
+							if (Â«i.nameÂ» != null)
+								throw new IllegalStateException("Only a single connection is supported on interface: Â«i.nameÂ»");
+							Â«i.nameÂ» = (Â«i.classNameÂ») serviceObject;
+						Â«ELSEÂ»
+							Â«i.nameÂ».add((Â«i.classNameÂ») serviceObject);
+						Â«ENDIFÂ»
 						return;
 				}
-			«ENDFOR»
+			Â«ENDFORÂ»
 			
-			«IF b.parentBrickId == null»
+			Â«IF b.parentBrickId == nullÂ»
 				throw new IllegalArgumentException("Unhandled interface: "+interfaceName.getName());
-			«ELSE»
+			Â«ELSEÂ»
 				super.interfaceConnected(interfaceName, serviceObject);
-			«ENDIF»
+			Â«ENDIFÂ»
 			}
 
 			/**
 			* Update service objects based on disconnecting OUT interfaces.
-			«FOR i : b.interfaces.filter[i|i.direction == EMyxInterfaceDirection::OUT]»
-				* @see #«toConstantName(i.direction.name.toLowerCase + i.name.toFirstUpper)»
-			«ENDFOR»
+			Â«FOR i : b.interfaces.filter[i|i.direction == EMyxInterfaceDirection::OUT]Â»
+				* @see #Â«toConstantName(i.direction.name.toLowerCase + i.name.toFirstUpper)Â»
+			Â«ENDFORÂ»
 			* @generated
 			*/
 			@Override
 			public void interfaceDisconnecting(IMyxName interfaceName, Object serviceObject) {
 				if (serviceObject == null)
 					throw new NullPointerException(interfaceName.getName());
-			«FOR i : b.interfaces.filter[i|i.direction == EMyxInterfaceDirection::OUT]»
+			Â«FOR i : b.interfaces.filter[i|i.direction == EMyxInterfaceDirection::OUT]Â»
 
-				if(interfaceName.equals(«toConstantName(i.direction.name.toLowerCase + i.name.toFirstUpper)»)) {
-						«IF i.single»
-							if («i.name» == null)
-								throw new IllegalStateException("A connection was never made on interface: «i.name»");
-							«i.name» = null;
-						«ELSE»
-							«i.name».remove(serviceObject);
-						«ENDIF»
+				if(interfaceName.equals(Â«toConstantName(i.direction.name.toLowerCase + i.name.toFirstUpper)Â»)) {
+						Â«IF i.singleÂ»
+							if (Â«i.nameÂ» == null)
+								throw new IllegalStateException("A connection was never made on interface: Â«i.nameÂ»");
+							Â«i.nameÂ» = null;
+						Â«ELSEÂ»
+							Â«i.nameÂ».remove(serviceObject);
+						Â«ENDIFÂ»
 						return;
 				}
-			«ENDFOR»
+			Â«ENDFORÂ»
 			
-			«IF b.parentBrickId == null»
+			Â«IF b.parentBrickId == nullÂ»
 				throw new IllegalArgumentException("Unhandled interface: "+interfaceName.getName());
-			«ELSE»
+			Â«ELSEÂ»
 				super.interfaceDisconnecting(interfaceName, serviceObject);
-			«ENDIF»
+			Â«ENDIFÂ»
 			}
 		
 			/**
@@ -261,9 +261,9 @@ class MyxCompStubBuilder extends MyxCompUtils {
 			 */
 			@Override
 			public void interfaceDisconnected(IMyxName interfaceName, Object serviceObject) {
-			«IF b.parentBrickId != null»
+			Â«IF b.parentBrickId != nullÂ»
 				super.interfaceDisconnected(interfaceName, serviceObject);
-			«ENDIF»
+			Â«ENDIFÂ»
 			}
 		}
 	''';

@@ -6,14 +6,14 @@ class MyxCompBuilder extends MyxCompUtils {
 
 	def static String generate(MyxGenBrick b) {
 		return '''
-			package «toPackageName(b.className)»;
+			package Â«toPackageName(b.className)Â»;
 			
 			/**
-			 * Myx brick: «b.name»
-			 * «IF b.description != null»<p>«b.description»«ENDIF»
+			 * Myx brick: Â«b.nameÂ»
+			 * Â«IF b.description != nullÂ»<p>Â«b.descriptionÂ»Â«ENDIFÂ»
 			 */
-			public class «toClassName(b.className)»
-			extends «b.stubClassName»
+			public class Â«toClassName(b.className)Â»
+			extends Â«b.stubClassNameÂ»
 			{
 				
 			}
