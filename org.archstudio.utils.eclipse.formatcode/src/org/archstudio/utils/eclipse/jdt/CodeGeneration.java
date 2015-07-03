@@ -1,6 +1,6 @@
 package org.archstudio.utils.eclipse.jdt;
 
-import java.io.ByteArrayInputStream;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -42,66 +42,58 @@ import org.xml.sax.helpers.DefaultHandler;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.google.common.io.ByteStreams;
 import com.google.common.primitives.Ints;
 
 @SuppressWarnings({ "restriction", "unchecked" })
 public class CodeGeneration {
 
-	public static void formatCode(final IProject project) throws CoreException {
-		formatCode(project, null);
-	}
-
-	public static void formatCode(IFile file) throws CoreException {
-		formatCode(file.getProject(), file);
-	}
-
-	public static void formatCode(IProject project, final IFile file) throws CoreException {
-		Collection<ICompilationUnit> cus = Lists.newArrayList();
-		try {
-			project.refreshLocal(IResource.DEPTH_INFINITE, new NullProgressMonitor());
-
-			final IJavaProject javaProject = JavaCore.create(project);
-			SAXParserFactory factory = SAXParserFactory.newInstance();
-
-			// scan for java files
-			{
-				List<IFolder> folders = Lists.newArrayList(project.getFolder("src"));
-				while (folders.size() > 0) {
-					IFolder f = folders.remove(folders.size() - 1);
-					if (f.exists()) {
-						for (IResource r : f.members()) {
-							if (r instanceof IFile && "java".equalsIgnoreCase(((IFile) r).getFileExtension())) {
-
-								// do some sanity checks / corrections
-								IFile x = (IFile) r;
-								String c = new String(ByteStreams.toByteArray(x.getContents()), x.getCharset());
-								c = c.replaceAll("@Override\\s@Override", "@Override");
-								x.setContents(new ByteArrayInputStream(c.getBytes(x.getCharset())), IResource.FORCE,
-										null);
-
-								ICompilationUnit cu = JavaCore.createCompilationUnitFrom((IFile) r);
-								cu = cu.getPrimary();
-								cu = cu.getWorkingCopy(new NullProgressMonitor());
-								if (!cu.isWorkingCopy()) {
-									System.out.println(cu);
-								}
-								cus.add(cu);
-							}
-							else if (r instanceof IFolder) {
-								folders.add((IFolder) r);
-							}
-						}
+	public static void formatCode(IProject project) throws CoreException {
+		List<IFolder> folders = Lists.newArrayList(project.getFolder("src"));
+		List<IFile> files = Lists.newArrayList();
+		while (folders.size() > 0) {
+			IFolder f = folders.remove(folders.size() - 1);
+			if (f.exists()) {
+				for (IResource r : f.members()) {
+					if (r instanceof IFile && "java".equalsIgnoreCase(((IFile) r).getFileExtension())) {
+						files.add((IFile) r);
+					}
+					else if (r instanceof IFolder) {
+						folders.add((IFolder) r);
 					}
 				}
 			}
+		}
+		formatCode(project, files);
+	}
+
+	public static void formatCode(IFile file) throws CoreException {
+		formatCode(file.getProject(), Arrays.asList(file));
+	}
+
+	public static void formatCode(IProject project, List<IFile> files) throws CoreException {
+		Collection<ICompilationUnit> cus = Lists.newArrayList();
+		Collection<ICompilationUnit> cuWorkingCopies = Lists.newArrayList();
+		try {
+			project.refreshLocal(IResource.DEPTH_INFINITE, new NullProgressMonitor());
+			IJavaProject javaProject = JavaCore.create(project);
+			for (IFile file : files) {
+				ICompilationUnit cu = JavaCore.createCompilationUnitFrom(file);
+				cu = cu.getPrimary();
+				cu = cu.getWorkingCopy(new NullProgressMonitor());
+				if (cu.isWorkingCopy()) {
+					cuWorkingCopies.add(cu);
+				}
+				cus.add(cu);
+			}
+			SAXParserFactory factory = SAXParserFactory.newInstance();
 
 			// get cleanup options
 			CleanUpOptions cuOptions = new CleanUpOptions();
 			{
 				final Map<String, String> options = new HashMap<String, String>();
 				try {
-					factory.newSAXParser().parse(CodeGeneration.class.getResourceAsStream("ArchStudio Clean Up.xml"),
+					factory.newSAXParser().parse(
+							CodeGeneration.class.getResourceAsStream("ArchStudio Clean Up 4.5.xml"),
 							new DefaultHandler() {
 
 								@Override
@@ -123,9 +115,9 @@ public class CodeGeneration {
 			// get compiler options
 			final Map<String, String> compilerOptions = Maps.newHashMap(JavaCore.getOptions());
 			// put some defaults
-			compilerOptions.put(JavaCore.COMPILER_SOURCE, JavaCore.VERSION_1_6);
-			compilerOptions.put(JavaCore.COMPILER_COMPLIANCE, JavaCore.VERSION_1_6);
-			compilerOptions.put(JavaCore.COMPILER_CODEGEN_TARGET_PLATFORM, JavaCore.VERSION_1_6);
+			compilerOptions.put(JavaCore.COMPILER_SOURCE, JavaCore.VERSION_1_7);
+			compilerOptions.put(JavaCore.COMPILER_COMPLIANCE, JavaCore.VERSION_1_7);
+			compilerOptions.put(JavaCore.COMPILER_CODEGEN_TARGET_PLATFORM, JavaCore.VERSION_1_7);
 			compilerOptions.put(JavaCore.COMPILER_PB_MISSING_OVERRIDE_ANNOTATION, JavaCore.WARNING);
 			compilerOptions.put(JavaCore.COMPILER_PB_MISSING_OVERRIDE_ANNOTATION_FOR_INTERFACE_METHOD_IMPLEMENTATION,
 					JavaCore.ENABLED);
@@ -136,7 +128,7 @@ public class CodeGeneration {
 				// read settings from format file
 				try {
 					factory.newSAXParser().parse(
-							CodeGeneration.class.getResourceAsStream("ArchStudio Code Formatting.xml"),
+							CodeGeneration.class.getResourceAsStream("ArchStudio Code Formatting 4.5.xml"),
 							new DefaultHandler() {
 
 								@Override
@@ -155,23 +147,21 @@ public class CodeGeneration {
 
 			// iterate through cleanups
 			{
-				final List<ICleanUp> cleanups = Lists.newArrayList(JavaPlugin.getDefault().getCleanUpRegistry()
-						.createCleanUps());
+				final List<ICleanUp> cleanups =
+						Lists.newArrayList(JavaPlugin.getDefault().getCleanUpRegistry().createCleanUps());
 				for (Iterator<ICleanUp> i = cleanups.iterator(); i.hasNext();) {
 					if (i.next() instanceof CodeFormatCleanUp) {
 						i.remove(); // we do this later
 					}
 				}
 
-				final List<CleanUpContext> cleanupContexts = Lists.newArrayList();
 				for (final ICleanUp cleanup : cleanups) {
 					try {
+						final List<CleanUpContext> cleanupContexts = Lists.newArrayList();
 						cleanup.setOptions(cuOptions);
 						RefactoringStatus status = cleanup.checkPreConditions(javaProject,
 								cus.toArray(new ICompilationUnit[cus.size()]), new NullProgressMonitor());
 						if (status.isOK()) {
-
-							cleanupContexts.clear();
 							if (cleanup.getRequirements().requiresAST()) {
 								// AST.JLS4 is deprecated in Eclipse 4.5
 								@SuppressWarnings("all")
@@ -224,17 +214,11 @@ public class CodeGeneration {
 				}
 			}
 
-			// format file
+			// format files
 			{
-				CodeFormatter codeFormatter = ToolFactory
-						.createCodeFormatter(compilerOptions, ToolFactory.M_FORMAT_NEW);
+				CodeFormatter codeFormatter =
+						ToolFactory.createCodeFormatter(compilerOptions, ToolFactory.M_FORMAT_NEW);
 				for (ICompilationUnit cu : cus) {
-					if (file != null) {
-						if (!cu.getResource().getFullPath().equals(file.getFullPath())) {
-							continue;
-						}
-					}
-
 					String contents = cu.getBuffer().getContents();
 					for (int kind : Ints.asList(CodeFormatter.K_COMPILATION_UNIT | CodeFormatter.F_INCLUDE_COMMENTS)) {
 						TextEdit edit = codeFormatter.format(kind, contents, 0, contents.length(), 0, null);
@@ -245,20 +229,18 @@ public class CodeGeneration {
 				}
 			}
 
-			// save file
-			{
-				for (ICompilationUnit cu : cus) {
-					cu.commitWorkingCopy(true, new NullProgressMonitor());
-					cu.save(new NullProgressMonitor(), true);
-				}
+			// save files
+			for (ICompilationUnit cu : cus) {
+				cu.commitWorkingCopy(true, new NullProgressMonitor());
+				cu.save(new NullProgressMonitor(), true);
 			}
 		}
 		catch (Exception e) {
-			throw new CoreException(new Status(IStatus.ERROR, "org.archstudio.utils.eclipse.formatcode",
-					e.getMessage(), e));
+			throw new CoreException(
+					new Status(IStatus.ERROR, "org.archstudio.utils.eclipse.formatcode", e.getMessage(), e));
 		}
 		finally {
-			for (ICompilationUnit cu : cus) {
+			for (ICompilationUnit cu : cuWorkingCopies) {
 				cu.discardWorkingCopy();
 			}
 		}

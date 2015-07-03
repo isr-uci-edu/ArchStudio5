@@ -5,14 +5,18 @@ import com.google.common.collect.Lists
 import com.google.common.collect.Maps
 import com.google.common.collect.Sets
 import java.io.ByteArrayInputStream
+import java.util.ArrayList
 import java.util.Collections
 import java.util.List
 import java.util.Map
 import java.util.Set
+import org.archstudio.utils.eclipse.jdt.CodeGeneration
 import org.eclipse.core.resources.IFile
 import org.eclipse.core.resources.IFolder
 import org.eclipse.core.resources.IProject
+import org.eclipse.core.resources.IResource
 import org.eclipse.core.runtime.IConfigurationElement
+import org.eclipse.core.runtime.NullProgressMonitor
 
 class Generator {
 
@@ -341,6 +345,7 @@ class Generator {
 
 	def public static void generateFacets(IProject project, Mappings mappings, IConfigurationElement packageElement,
 		IFolder folder) {
+		val List<IFile> filesToFormat = new ArrayList();
 		for (facet : packageElement.getChildren("Facet")) {
 			val IFile file = folder.getFile(facet.facetFileName)
 			if (!file.exists) {
@@ -400,8 +405,8 @@ public interface «facet.facetClassName» extends org.archstudio.bna.IThing«FOR
 
 	«ENDFOR»
 }
-'''
-					).bytes), true, true, null);
+''').bytes), true, true, null);
+			filesToFormat.add(file);
 			val IFile mutableFile = folder.getFile(facet.facetMutableFileName)
 			if (!mutableFile.exists) {
 				mutableFile.create(null, true, null)
@@ -447,6 +452,7 @@ public interface «facet.facetMutableClassName» extends «facet.facetClassName�
 }
 '''
 					).bytes), true, true, null);
+			filesToFormat.add(mutableFile);
 		}
 		for (thing : packageElement.getChildren("Thing")) {
 			var IFile file = folder.getFile(thing.thingAbstractFileName)
@@ -560,9 +566,8 @@ public abstract class «thing.thingAbstractClassName» extends «thing.thingExte
 			}
 	«ENDFOR»
 }
-'''
-					).bytes), true, true, null);
-
+''').bytes), true, true, null);
+			filesToFormat.add(file);
 			file = folder.getFile(thing.thingFileName)
 			if (!file.exists) {
 				file.create(null, true, null)
@@ -587,6 +592,7 @@ public «IF thing.thingIsAbstract»abstract «ENDIF» class «thing.thingClassNa
 
 }
 ''').bytes), true, true, null);
+				filesToFormat.add(file);
 			}
 
 			file = folder.getFile(thing.thingPeerFileName)
@@ -616,8 +622,10 @@ public «IF thing.thingIsAbstract»abstract «ENDIF»class «thing.thingPeerClas
 
 }
 ''').bytes), true, true, null);
+				filesToFormat.add(file);
 			}
 		}
+		project.refreshLocal(IResource.DEPTH_INFINITE, new NullProgressMonitor());
+		CodeGeneration.formatCode(project, filesToFormat);
 	}
-
 }

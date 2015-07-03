@@ -51,7 +51,8 @@ public class ThingIncrementalProjectBuilder extends IncrementalProjectBuilder {
 			}
 		}
 
-		for (IConfigurationElement c : pluginRegistry.getConfigurationElementsFor("org.archstudio.bna.thingdefinition")) {
+		for (IConfigurationElement c : pluginRegistry
+				.getConfigurationElementsFor("org.archstudio.bna.thingdefinition")) {
 			if (!bundles.contains(c.getContributor().getName())) {
 				for (IConfigurationElement f : PDEUtils.getConfigurationElements(c, "Facet")) {
 					facets.put(f.getAttribute("name"), f);

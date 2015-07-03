@@ -30,11 +30,12 @@ public class MyxCodeGenerator {
 	}
 
 	private void generateCode(MyxGenBrick brick) throws CoreException {
-		IFile stubFile = javaProject.getProject()
-				.getFile("src/" + brick.getStubClassName().replace('.', '/') + ".java");
+		IFile stubFile =
+				javaProject.getProject().getFile("src/" + brick.getStubClassName().replace('.', '/') + ".java");
 		String stubSource = MyxCompStubBuilder.generate(brick);
 		if (stubFile.exists()) {
-			stubFile.setContents(new ByteArrayInputStream(stubSource.getBytes()), true, true, new NullProgressMonitor());
+			stubFile.setContents(new ByteArrayInputStream(stubSource.getBytes()), true, true,
+					new NullProgressMonitor());
 		}
 		else {
 			stubFile.create(new ByteArrayInputStream(stubSource.getBytes()), true, new NullProgressMonitor());
