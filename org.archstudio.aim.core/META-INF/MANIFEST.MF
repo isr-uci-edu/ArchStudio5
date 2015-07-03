@@ -1,27 +1,27 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: ArchStudio AIM Core
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-SymbolicName: org.archstudio.aim.core;singleton:=true
-Bundle-Version: 5.0.1.qualifier
 Bundle-Vendor: archstudio.org
+Bundle-Version: 5.0.2.qualifier
 Export-Package: org.archstudio.aim.core
 Require-Bundle: org.archstudio.aim,
+ org.archstudio.guava,
  org.archstudio.myx.fw,
- org.archstudio.myxgen,
- org.archstudio.utils.system,
- org.archstudio.utils.xadl,
- org.archstudio.xadl3.domain,
- org.archstudio.xadl3.implementation.myxgen,
- org.archstudio.xadl3.structure,
- org.archstudio.xarchadt,
- org.archstudio.myxgen.core,
  org.archstudio.myx.java,
  org.archstudio.myx.myxgen,
  org.archstudio.myx.osgi,
- org.archstudio.xadl3.implementation.java,
- org.archstudio.xadl3.implementation.osgi,
+ org.archstudio.myxgen,
+ org.archstudio.myxgen.core,
+ org.archstudio.utils.system,
+ org.archstudio.utils.xadl,
  org.archstudio.utils.xadl.myx,
+ org.archstudio.xadl3.domain,
+ org.archstudio.xadl3.implementation.java,
  org.archstudio.xadl3.implementation.lookup,
- org.archstudio.guava,
+ org.archstudio.xadl3.implementation.myxgen,
+ org.archstudio.xadl3.implementation.osgi,
+ org.archstudio.xadl3.structure,
+ org.archstudio.xarchadt,
  org.eclipse.jdt.annotation;bundle-version="[1.1.0,2.0.0)";resolution:=optional
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7

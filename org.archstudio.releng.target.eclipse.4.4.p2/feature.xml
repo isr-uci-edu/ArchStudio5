@@ -2,10 +2,10 @@
 <feature
       id="org.archstudio.releng.target.eclipse.4.4.p2"
       label="Eclipse 4.4 Target"
-      version="5.0.1.qualifier"
+      version="5.0.2.qualifier"
       provider-name="archstudio.org"
       license-feature="org.archstudio.license.feature"
-      license-feature-version="5.0.1.qualifier">
+      license-feature-version="5.0.2.qualifier">
 
    <description url="http://www.example.com/description">
       [Enter Feature Description here.]

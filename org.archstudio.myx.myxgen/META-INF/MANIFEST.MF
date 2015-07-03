@@ -1,17 +1,17 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: ArchStudio Myx Brick Descriptions: MyxGen
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-SymbolicName: org.archstudio.myx.myxgen;singleton:=true
-Bundle-Version: 5.0.1.qualifier
 Bundle-Vendor: archstudio.org
+Bundle-Version: 5.0.2.qualifier
 Export-Package: org.archstudio.myxgen,
  org.archstudio.myxgen.eclipse,
  org.archstudio.myxgen.eclipse.extension
-Require-Bundle: org.eclipse.core.runtime,
- org.archstudio.myx.osgi,
+Require-Bundle: org.archstudio.guava,
  org.archstudio.myx.fw,
+ org.archstudio.myx.fw.equinox,
  org.archstudio.myx.java,
- org.archstudio.guava,
+ org.archstudio.myx.osgi,
  org.archstudio.utils.system,
- org.archstudio.myx.fw.equinox
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+ org.eclipse.core.runtime

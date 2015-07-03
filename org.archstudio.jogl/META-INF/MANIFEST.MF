@@ -1,8 +1,4 @@
 Manifest-Version: 1.0
-Bundle-ManifestVersion: 2
-Bundle-Name: ArchStudio JOGL (Java Binding for the OpenGL)
-Bundle-SymbolicName: org.archstudio.jogl;singleton:=true
-Bundle-Version: 2.1.5.qualifier
 Bundle-ClassPath: .,
  lib/gluegen-rt-natives-linux-amd64.jar,
  lib/gluegen-rt-natives-linux-i586.jar,
@@ -17,7 +13,12 @@ Bundle-ClassPath: .,
  lib/jogl-all-natives-windows-amd64.jar,
  lib/jogl-all-natives-windows-i586.jar,
  lib/jogl-all.jar
+Bundle-ManifestVersion: 2
+Bundle-Name: ArchStudio JOGL (Java Binding for the OpenGL)
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-SymbolicName: org.archstudio.jogl;singleton:=true
 Bundle-Vendor: archstudio.org
+Bundle-Version: 2.1.5.qualifier
 Export-Package: com.jogamp.common,
  com.jogamp.common.jvm,
  com.jogamp.common.net,
@@ -155,6 +156,5 @@ Export-Package: com.jogamp.common,
  jogamp.opengl.windows.wgl.awt,
  jogamp.opengl.x11.glx,
  net.highteq.nativetaglet
-Require-Bundle: org.eclipse.osgi,
- org.eclipse.swt
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Require-Bundle: org.eclipse.osgi;visibility:=reexport,
+ org.eclipse.swt;visibility:=reexport

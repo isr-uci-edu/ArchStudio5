@@ -1,14 +1,14 @@
 Manifest-Version: 1.0
+Bundle-ActivationPolicy: lazy
+Bundle-Activator: org.archstudio.myx.fw.eclipse.Activator
 Bundle-ManifestVersion: 2
 Bundle-Name: ArchStudio Myx Framework Eclipse Functionality
-Bundle-SymbolicName: org.archstudio.myx.fw.eclipse;singleton:=true
-Bundle-Version: 5.0.1.qualifier
-Bundle-Activator: org.archstudio.myx.fw.eclipse.Activator
-Bundle-Vendor: archstudio.org
-Export-Package: org.archstudio.myx.fw.eclipse
-Require-Bundle: org.eclipse.core.runtime,
- org.archstudio.myx.fw,
- org.archstudio.eclipse,
- org.archstudio.utils.osgi
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Bundle-ActivationPolicy: lazy
+Bundle-SymbolicName: org.archstudio.myx.fw.eclipse;singleton:=true
+Bundle-Vendor: archstudio.org
+Bundle-Version: 5.0.2.qualifier
+Export-Package: org.archstudio.myx.fw.eclipse
+Require-Bundle: org.archstudio.eclipse,
+ org.archstudio.myx.fw,
+ org.archstudio.utils.osgi,
+ org.eclipse.core.runtime

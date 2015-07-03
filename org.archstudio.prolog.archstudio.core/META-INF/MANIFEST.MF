@@ -1,33 +1,33 @@
 Manifest-Version: 1.0
+Bundle-ActivationPolicy: lazy
+Bundle-Activator: org.archstudio.prolog.archstudio.Activator
 Bundle-ManifestVersion: 2
 Bundle-Name: ArchStudio Prolog for ArchStudio Core
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-SymbolicName: org.archstudio.prolog.archstudio.core;singleton:=true
-Bundle-Version: 5.0.1.qualifier
-Bundle-Activator: org.archstudio.prolog.archstudio.Activator
 Bundle-Vendor: archstudio.org
-Require-Bundle: org.eclipse.core.runtime,
- org.archstudio.archipelago,
- org.eclipse.jface,
- org.archstudio.xarchadt,
- org.archstudio.filemanager,
- org.eclipse.ui,
- org.archstudio.prolog,
- org.archstudio.myx.fw,
- org.archstudio.prolog.parser,
- org.archstudio.guava,
- org.archstudio.myxgen,
+Bundle-Version: 5.0.2.qualifier
+Require-Bundle: org.archstudio.archipelago,
  org.archstudio.archlight,
+ org.archstudio.bna,
+ org.archstudio.eclipse.ui,
+ org.archstudio.filemanager,
+ org.archstudio.guava,
+ org.archstudio.myx.fw,
+ org.archstudio.myxgen,
+ org.archstudio.prolog,
+ org.archstudio.prolog.archstudio,
+ org.archstudio.prolog.console,
+ org.archstudio.prolog.parser,
  org.archstudio.testadt,
- org.eclipse.core.resources,
  org.archstudio.utils.system,
+ org.archstudio.xadl3.hints,
  org.archstudio.xadl3.prolog,
  org.archstudio.xadl3.xadlcore,
- org.archstudio.prolog.console,
- org.eclipse.ui.console,
+ org.archstudio.xarchadt,
+ org.eclipse.core.resources,
+ org.eclipse.core.runtime,
+ org.eclipse.jface,
  org.eclipse.jface.text,
- org.archstudio.eclipse.ui,
- org.archstudio.xadl3.hints,
- org.archstudio.bna,
- org.archstudio.prolog.archstudio
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Bundle-ActivationPolicy: lazy
+ org.eclipse.ui,
+ org.eclipse.ui.console

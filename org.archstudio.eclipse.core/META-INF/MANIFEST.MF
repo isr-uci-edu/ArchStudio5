@@ -1,33 +1,33 @@
 Manifest-Version: 1.0
+Bundle-ActivationPolicy: lazy
+Bundle-Activator: org.archstudio.eclipse.core.Activator
 Bundle-ManifestVersion: 2
 Bundle-Name: ArchStudio Eclipse Core
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-SymbolicName: org.archstudio.eclipse.core;singleton:=true
-Bundle-Version: 5.0.1.qualifier
-Bundle-Activator: org.archstudio.eclipse.core.Activator
 Bundle-Vendor: archstudio.org
+Bundle-Version: 5.0.2.qualifier
 Export-Package: org.archstudio.eclipse.core,
  org.archstudio.eclipse.core.startup
-Require-Bundle: org.eclipse.core.runtime,
- org.archstudio.eclipse,
- org.archstudio.xarchadt,
- org.archstudio.xarchadt.core,
- org.archstudio.aim,
+Require-Bundle: org.archstudio.aim,
  org.archstudio.aim.core,
- org.eclipse.emf,
- org.eclipse.emf.common,
+ org.archstudio.eclipse,
  org.archstudio.myx.fw,
- org.archstudio.utils.xadl,
- org.archstudio.utils.system,
- org.archstudio.myxgen.core,
- org.archstudio.xadl3.structure,
  org.archstudio.myx.fw.eclipse,
+ org.archstudio.myx.fw.equinox,
  org.archstudio.myx.java,
  org.archstudio.myx.myxgen,
  org.archstudio.myx.osgi,
- org.eclipse.emf.ecore,
+ org.archstudio.myxgen.core,
  org.archstudio.utils.osgi,
- org.eclipse.ui,
- org.archstudio.myx.fw.equinox,
- org.eclipse.jdt.annotation;bundle-version="[1.1.0,2.0.0)";resolution:=optional
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Bundle-ActivationPolicy: lazy
+ org.archstudio.utils.system,
+ org.archstudio.utils.xadl,
+ org.archstudio.xadl3.structure,
+ org.archstudio.xarchadt,
+ org.archstudio.xarchadt.core,
+ org.eclipse.core.runtime,
+ org.eclipse.emf,
+ org.eclipse.emf.common,
+ org.eclipse.emf.ecore,
+ org.eclipse.jdt.annotation;bundle-version="[1.1.0,2.0.0)";resolution:=optional,
+ org.eclipse.ui

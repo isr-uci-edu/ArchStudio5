@@ -1,12 +1,14 @@
 Manifest-Version: 1.0
+Bundle-ActivationPolicy: lazy
+Bundle-Activator: org.archstudio.schematron.core.Activator
+Bundle-ClassPath: .,
+ lib/xalan.jar
 Bundle-ManifestVersion: 2
 Bundle-Name: ArchStudio Schematron Core
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-SymbolicName: org.archstudio.schematron.core;singleton:=true
-Bundle-Version: 5.0.1.qualifier
-Bundle-ClassPath: lib/xalan.jar,
- .
-Bundle-Activator: org.archstudio.schematron.core.Activator
 Bundle-Vendor: archstudio.org
+Bundle-Version: 5.0.2.qualifier
 Export-Package: java_cup.runtime,
  org.apache.bcel,
  org.apache.bcel.classfile,
@@ -59,15 +61,13 @@ Export-Package: java_cup.runtime,
  org.archstudio.schematron.core,
  org.w3c.dom.xpath
 Require-Bundle: org.archstudio.archlight,
- org.archstudio.myx.fw,
- org.archstudio.utils.system,
- org.archstudio.testadt,
- org.archstudio.xarchadt,
- org.eclipse.emf.codegen.ecore,
- org.eclipse.ui,
  org.archstudio.eclipse.core,
- org.eclipse.core.runtime,
+ org.archstudio.guava,
+ org.archstudio.myx.fw,
+ org.archstudio.testadt,
+ org.archstudio.utils.system,
+ org.archstudio.xarchadt,
  org.eclipse.core.resources,
- org.archstudio.guava
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Bundle-ActivationPolicy: lazy
+ org.eclipse.core.runtime,
+ org.eclipse.emf.codegen.ecore,
+ org.eclipse.ui

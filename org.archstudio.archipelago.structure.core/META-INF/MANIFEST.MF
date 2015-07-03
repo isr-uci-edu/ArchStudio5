@@ -1,46 +1,46 @@
 Manifest-Version: 1.0
+Bundle-ActivationPolicy: lazy
+Bundle-Activator: org.archstudio.archipelago.structure.core.Activator
 Bundle-ManifestVersion: 2
 Bundle-Name: ArchStudio Archipelago Structure Core
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-SymbolicName: org.archstudio.archipelago.structure.core;singleton:=true
-Bundle-Version: 5.0.1.qualifier
-Bundle-Activator: org.archstudio.archipelago.structure.core.Activator
 Bundle-Vendor: archstudio.org
+Bundle-Version: 5.0.2.qualifier
 Export-Package: org.archstudio.archipelago.core.prefs.structure,
  org.archstudio.archipelago.core.structure,
  org.archstudio.archipelago.core.structure.mapping
-Require-Bundle: org.eclipse.ui,
- org.eclipse.core.runtime,
- org.archstudio.archipelago,
- org.archstudio.utils.xadl.bna,
- org.archstudio.bna,
- org.archstudio.xarchadt,
- org.archstudio.guava,
- org.archstudio.utils.xadl,
- org.archstudio.utils.system,
- org.archstudio.xadl3.domain,
- org.archstudio.xadl3.structure,
- org.archstudio.utils.swt,
- org.archstudio.myx.fw,
- org.archstudio.filemanager,
- org.archstudio.myxgen,
- org.archstudio.myx.myxgen,
- org.archstudio.myxgen.core,
- org.archstudio.xadl3.implementation.myxgen,
- org.archstudio.xadl3.implementation.lookup,
- org.archstudio.utils.xadl.myx,
- org.archstudio.xarchadt.core,
+Require-Bundle: org.archstudio.archipelago,
  org.archstudio.archipelago.core,
- org.archstudio.resources,
- org.archstudio.graphlayout,
- org.archstudio.eclipse.ui,
- org.archstudio.launcher,
- org.archstudio.utils.xadl.swt,
+ org.archstudio.archipelago.statechart.core,
+ org.archstudio.bna,
  org.archstudio.eclipse.core,
- org.archstudio.xarchadt.variability,
- org.eclipse.jdt.annotation;bundle-version="[1.1.0,2.0.0)";resolution:=optional,
+ org.archstudio.eclipse.ui,
+ org.archstudio.filemanager,
+ org.archstudio.graphlayout,
+ org.archstudio.guava,
+ org.archstudio.launcher,
+ org.archstudio.myx.fw,
+ org.archstudio.myx.myxgen,
+ org.archstudio.myxgen,
+ org.archstudio.myxgen.core,
+ org.archstudio.resources,
  org.archstudio.utils.bna.dot,
  org.archstudio.utils.bna.gexf,
- org.archstudio.archipelago.statechart.core,
- org.archstudio.xadl3.statechart
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Bundle-ActivationPolicy: lazy
+ org.archstudio.utils.swt,
+ org.archstudio.utils.system,
+ org.archstudio.utils.xadl,
+ org.archstudio.utils.xadl.bna,
+ org.archstudio.utils.xadl.myx,
+ org.archstudio.utils.xadl.swt,
+ org.archstudio.xadl3.domain,
+ org.archstudio.xadl3.implementation.lookup,
+ org.archstudio.xadl3.implementation.myxgen,
+ org.archstudio.xadl3.statechart,
+ org.archstudio.xadl3.structure,
+ org.archstudio.xarchadt,
+ org.archstudio.xarchadt.core,
+ org.archstudio.xarchadt.variability,
+ org.eclipse.core.runtime,
+ org.eclipse.jdt.annotation;bundle-version="[1.1.0,2.0.0)";resolution:=optional,
+ org.eclipse.ui

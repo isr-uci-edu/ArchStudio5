@@ -1,10 +1,10 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: ArchStudio Editor Manager Common
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-SymbolicName: org.archstudio.editormanager;singleton:=true
-Bundle-Version: 5.0.1.qualifier
 Bundle-Vendor: archstudio.org
+Bundle-Version: 5.0.2.qualifier
 Export-Package: org.archstudio.editormanager
 Require-Bundle: org.archstudio.xarchadt,
  org.eclipse.swt
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7

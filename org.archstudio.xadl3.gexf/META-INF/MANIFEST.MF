@@ -1,11 +1,13 @@
 Manifest-Version: 1.0
+Bundle-ActivationPolicy: lazy
+Bundle-ClassPath: .
+Bundle-Localization: plugin
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-SymbolicName: org.archstudio.xadl3.gexf;singleton:=true
-Bundle-Version: 5.0.1.qualifier
-Bundle-ClassPath: .
 Bundle-Vendor: %providerName
-Bundle-Localization: plugin
+Bundle-Version: 5.0.2.qualifier
 Export-Package: net.gexf_1_2.gexf,
  net.gexf_1_2.gexf.impl,
  net.gexf_1_2.gexf.util,
@@ -16,5 +18,3 @@ Require-Bundle: org.archstudio.dblgen,
  org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport,
  org.eclipse.emf.ecore.xmi;visibility:=reexport
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Bundle-ActivationPolicy: lazy

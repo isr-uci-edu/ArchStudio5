@@ -1,12 +1,12 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: ArchStudio Myx Component Stub Generator (MyxGen)
-Bundle-SymbolicName: org.archstudio.myxgen;singleton:=true
-Bundle-Version: 5.0.1.qualifier
-Bundle-Vendor: archstudio.org
-Export-Package: org.archstudio.myxgen
-Require-Bundle: org.eclipse.core.runtime,
- org.archstudio.guava,
- org.archstudio.utils.system,
- org.archstudio.myx.fw
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-SymbolicName: org.archstudio.myxgen;singleton:=true
+Bundle-Vendor: archstudio.org
+Bundle-Version: 5.0.2.qualifier
+Export-Package: org.archstudio.myxgen
+Require-Bundle: org.archstudio.guava;visibility:=reexport,
+ org.archstudio.myx.fw;visibility:=reexport,
+ org.archstudio.utils.system;visibility:=reexport,
+ org.eclipse.core.runtime;visibility:=reexport

@@ -1,11 +1,11 @@
 Manifest-Version: 1.0
+Bundle-ClassPath: .
 Bundle-ManifestVersion: 2
 Bundle-Name: ArchStudio Myx Framework
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-SymbolicName: org.archstudio.myx.fw;singleton:=true
-Bundle-Version: 5.0.1.qualifier
-Bundle-ClassPath: .
 Bundle-Vendor: archstudio.org
+Bundle-Version: 5.0.2.qualifier
 Export-Package: org.archstudio.myx.fw
 Require-Bundle: org.archstudio.guava,
  org.archstudio.ljm
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7

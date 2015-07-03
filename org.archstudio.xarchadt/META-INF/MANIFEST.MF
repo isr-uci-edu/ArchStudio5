@@ -1,16 +1,16 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: ArchStudio xArchADT Common
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-SymbolicName: org.archstudio.xarchadt;singleton:=true
-Bundle-Version: 5.0.1.qualifier
 Bundle-Vendor: archstudio.org
+Bundle-Version: 5.0.2.qualifier
 Export-Package: org.archstudio.xarchadt,
  org.archstudio.xarchadt.internal;x-internal:=true
-Require-Bundle: org.archstudio.guava,
- org.archstudio.utils.system,
- org.eclipse.emf.common,
+Require-Bundle: org.archstudio.guava;visibility:=reexport,
+ org.archstudio.utils.system;visibility:=reexport,
+ org.archstudio.xadl3.xadlcore;visibility:=reexport,
+ org.eclipse.core.runtime;visibility:=reexport,
+ org.eclipse.emf.common;visibility:=reexport,
  org.eclipse.emf.ecore;visibility:=reexport,
- org.eclipse.core.runtime,
- org.eclipse.jdt.annotation;bundle-version="[1.1.0,2.0.0)";resolution:=optional,
- org.archstudio.xadl3.xadlcore
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+ org.eclipse.jdt.annotation;bundle-version="[1.1.0,2.0.0)";resolution:=optional

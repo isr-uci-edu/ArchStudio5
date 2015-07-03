@@ -1,14 +1,17 @@
 Manifest-Version: 1.0
+Bundle-ActivationPolicy: lazy
+Bundle-Activator: org.archstudio.core.ArchStudio5Activator
 Bundle-ManifestVersion: 2
 Bundle-Name: ArchStudio
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-SymbolicName: org.archstudio.core;singleton:=true
-Bundle-Version: 5.0.1.qualifier
-Bundle-Activator: org.archstudio.core.ArchStudio5Activator
 Bundle-Vendor: archstudio.org
+Bundle-Version: 5.0.2.qualifier
 Export-Package: org.archstudio.core
 Require-Bundle: org.archstudio.aim,
  org.archstudio.aim.core,
  org.archstudio.bootstrap.core,
+ org.archstudio.launcher.core,
  org.archstudio.myx.fw,
  org.archstudio.myxgen,
  org.archstudio.myxgen.core,
@@ -18,7 +21,4 @@ Require-Bundle: org.archstudio.aim,
  org.archstudio.xarchadt.core,
  org.eclipse.core.runtime,
  org.eclipse.emf.common,
- org.eclipse.ui,
- org.archstudio.launcher.core
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Bundle-ActivationPolicy: lazy
+ org.eclipse.ui

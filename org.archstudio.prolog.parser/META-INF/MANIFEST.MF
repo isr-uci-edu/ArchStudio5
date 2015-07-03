@@ -1,13 +1,13 @@
 Manifest-Version: 1.0
+Bundle-ActivationPolicy: lazy
+Bundle-Activator: org.archstudio.prolog.parser.Activator
 Bundle-ManifestVersion: 2
 Bundle-Name: ArchStudio Prolog Parser
-Bundle-SymbolicName: org.archstudio.prolog.parser
-Bundle-Version: 5.0.1.qualifier
-Bundle-Activator: org.archstudio.prolog.parser.Activator
-Bundle-Vendor: archstudio.org
-Export-Package: org.archstudio.prolog.parser
-Require-Bundle: org.eclipse.core.runtime,
- org.archstudio.prolog,
- org.archstudio.prolog.xtext
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Bundle-ActivationPolicy: lazy
+Bundle-SymbolicName: org.archstudio.prolog.parser
+Bundle-Vendor: archstudio.org
+Bundle-Version: 5.0.2.qualifier
+Export-Package: org.archstudio.prolog.parser
+Require-Bundle: org.archstudio.prolog,
+ org.archstudio.prolog.xtext,
+ org.eclipse.core.runtime

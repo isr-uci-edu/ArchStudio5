@@ -2,11 +2,11 @@
 <feature
       id="org.archstudio.feature"
       label="ArchStudio (Required)"
-      version="5.0.1.qualifier"
+      version="5.0.2.qualifier"
       provider-name="archstudio.org"
       plugin="org.archstudio.core"
       license-feature="org.archstudio.license.feature"
-      license-feature-version="5.0.1.qualifier">
+      license-feature-version="5.0.2.qualifier">
 
    <description>
       An environment for modeling, visualizing, analyzing and implementing software and systems architectures

@@ -1,12 +1,13 @@
 Manifest-Version: 1.0
+Bundle-ClassPath: .,
+ lib/guava-14.0-rc1.jar,
+ lib/jsr305.jar
 Bundle-ManifestVersion: 2
 Bundle-Name: ArchStudio Guava (Google Common Libraries)
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-SymbolicName: org.archstudio.guava;singleton:=true
-Bundle-Version: 14.0.1.qualifier
-Bundle-ClassPath: .,
- lib/jsr305.jar,
- lib/guava-14.0-rc1.jar
 Bundle-Vendor: archstudio.org
+Bundle-Version: 14.0.1.qualifier
 Export-Package: com.google.common.annotations,
  com.google.common.base,
  com.google.common.base.internal,
@@ -20,4 +21,3 @@ Export-Package: com.google.common.annotations,
  com.google.common.primitives,
  com.google.common.reflect,
  com.google.common.util.concurrent
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7

@@ -1,27 +1,27 @@
 Manifest-Version: 1.0
+Bundle-ActivationPolicy: lazy
+Bundle-Activator: org.archstudio.myxgen.core.Activator
 Bundle-ManifestVersion: 2
 Bundle-Name: ArchStudio Myx Component Stub Generator (MyxGen) Core
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-SymbolicName: org.archstudio.myxgen.core;singleton:=true
-Bundle-Version: 5.0.1.qualifier
-Bundle-Activator: org.archstudio.myxgen.core.Activator
 Bundle-Vendor: archstudio.org
+Bundle-Version: 5.0.2.qualifier
 Export-Package: org.archstudio.myxgen,
  org.archstudio.myxgen.core,
  org.archstudio.myxgen.eclipse.extension
-Require-Bundle: org.eclipse.core.runtime,
- org.archstudio.myxgen,
+Require-Bundle: org.archstudio.guava,
  org.archstudio.myx.fw,
- org.archstudio.utils.system,
- org.archstudio.guava,
- org.eclipse.core.resources,
- org.eclipse.jdt.core,
- org.archstudio.utils.osgi,
- org.archstudio.utils.eclipse,
- org.eclipse.pde.core,
- org.archstudio.myx.osgi,
  org.archstudio.myx.java,
+ org.archstudio.myx.myxgen,
+ org.archstudio.myx.osgi,
+ org.archstudio.myxgen,
+ org.archstudio.utils.eclipse,
+ org.archstudio.utils.osgi,
+ org.archstudio.utils.system,
+ org.eclipse.core.resources,
+ org.eclipse.core.runtime,
  org.eclipse.emf.ecore,
  org.eclipse.emf.ecore.xmi,
- org.archstudio.myx.myxgen
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Bundle-ActivationPolicy: lazy
+ org.eclipse.jdt.core,
+ org.eclipse.pde.core

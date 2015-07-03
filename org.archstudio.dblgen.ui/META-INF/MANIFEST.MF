@@ -1,20 +1,20 @@
 Manifest-Version: 1.0
+Bundle-ActivationPolicy: lazy
+Bundle-Activator: org.archstudio.dblgen.ui.Activator
 Bundle-ManifestVersion: 2
 Bundle-Name: ArchStudio Data Binding Library (DBL) Generator UI
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-SymbolicName: org.archstudio.dblgen.ui;singleton:=true
-Bundle-Version: 5.0.1.qualifier
-Bundle-Activator: org.archstudio.dblgen.ui.Activator
 Bundle-Vendor: archstudio.org
+Bundle-Version: 5.0.2.qualifier
 Export-Package: org.archstudio.dblgen.ui.actions
-Require-Bundle: org.archstudio.utils.eclipse,
+Require-Bundle: org.archstudio.dblgen,
+ org.archstudio.dblgen.core,
+ org.archstudio.utils.eclipse,
+ org.archstudio.utils.eclipse.ui,
+ org.archstudio.utils.osgi,
+ org.eclipse.core.resources,
+ org.eclipse.core.runtime,
  org.eclipse.osgi,
  org.eclipse.swt,
- org.archstudio.dblgen,
- org.eclipse.core.resources,
- org.eclipse.ui,
- org.archstudio.utils.eclipse.ui,
- org.eclipse.core.runtime,
- org.archstudio.dblgen.core,
- org.archstudio.utils.osgi
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Bundle-ActivationPolicy: lazy
+ org.eclipse.ui

@@ -1,23 +1,23 @@
 Manifest-Version: 1.0
+Bundle-ActivationPolicy: lazy
+Bundle-ClassPath: .
+Bundle-Localization: plugin
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-SymbolicName: org.archstudio.xadl3.domain;singleton:=true
-Bundle-Version: 5.0.1.qualifier
-Bundle-ClassPath: .
 Bundle-Vendor: %providerName
-Bundle-Localization: plugin
+Bundle-Version: 5.0.2.qualifier
 Export-Package: org.archstudio.xadl3.domain_3_0,
  org.archstudio.xadl3.domain_3_0.impl,
  org.archstudio.xadl3.domain_3_0.util
-Require-Bundle: org.archstudio.xadl3.xadlcore;visibility:=reexport,
+Require-Bundle: org.archstudio.dblgen,
+ org.archstudio.xadl3.xadlcore;visibility:=reexport,
+ org.archstudio.xadl3.xadlcore;visibility:=reexport,
+ org.archstudio.xadl3.xadlcore;visibility:=reexport,
  org.archstudio.xadl3.xadlcore;visibility:=reexport,
  org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport,
- org.eclipse.emf.ecore.xmi;visibility:=reexport,
- org.archstudio.xadl3.xadlcore;visibility:=reexport,
- org.archstudio.xadl3.xadlcore;visibility:=reexport,
  org.eclipse.emf.ecore,
- org.eclipse.emf.ecore.xmi,
- org.archstudio.dblgen
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Bundle-ActivationPolicy: lazy
+ org.eclipse.emf.ecore.xmi;visibility:=reexport,
+ org.eclipse.emf.ecore.xmi

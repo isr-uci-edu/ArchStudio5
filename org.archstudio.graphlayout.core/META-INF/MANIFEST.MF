@@ -1,13 +1,17 @@
 Manifest-Version: 1.0
+Bundle-ActivationPolicy: lazy
+Bundle-Activator: org.archstudio.graphlayout.core.Activator
 Bundle-ManifestVersion: 2
 Bundle-Name: ArchStudio Graph Layout Core
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-SymbolicName: org.archstudio.graphlayout.core;singleton:=true
-Bundle-Version: 5.0.1.qualifier
-Bundle-Activator: org.archstudio.graphlayout.core.Activator
 Bundle-Vendor: archstudio.org
+Bundle-Version: 5.0.2.qualifier
 Export-Package: org.archstudio.graphlayout.core,
  org.archstudio.graphlayout.core.graphviz
-Require-Bundle: org.archstudio.graphlayout,
+Require-Bundle: org.archstudio.eclipse.core,
+ org.archstudio.graphlayout,
+ org.archstudio.guava,
  org.archstudio.myx.fw,
  org.archstudio.utils.swt,
  org.archstudio.utils.system,
@@ -15,9 +19,5 @@ Require-Bundle: org.archstudio.graphlayout,
  org.archstudio.xadl3.domain,
  org.archstudio.xadl3.structure,
  org.archstudio.xarchadt,
- org.eclipse.ui,
- org.archstudio.guava,
- org.archstudio.eclipse.core,
- org.eclipse.core.runtime
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Bundle-ActivationPolicy: lazy
+ org.eclipse.core.runtime,
+ org.eclipse.ui

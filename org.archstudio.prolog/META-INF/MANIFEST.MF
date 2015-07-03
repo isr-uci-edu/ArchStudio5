@@ -1,18 +1,18 @@
 Manifest-Version: 1.0
+Bundle-ActivationPolicy: lazy
+Bundle-Activator: org.archstudio.prolog.Activator
 Bundle-ManifestVersion: 2
 Bundle-Name: ArchStudio Prolog Engine
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-SymbolicName: org.archstudio.prolog;singleton:=true
-Bundle-Version: 5.0.1.qualifier
-Bundle-Activator: org.archstudio.prolog.Activator
 Bundle-Vendor: archstudio.org
+Bundle-Version: 5.0.2.qualifier
 Export-Package: org.archstudio.prolog,
  org.archstudio.prolog.engine,
  org.archstudio.prolog.op,
  org.archstudio.prolog.op.iso,
  org.archstudio.prolog.term
-Require-Bundle: org.eclipse.ui,
- org.eclipse.core.runtime,
- org.archstudio.guava,
- org.eclipse.jdt.annotation;bundle-version="[1.1.0,2.0.0)";resolution:=optional
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Bundle-ActivationPolicy: lazy
+Require-Bundle: org.archstudio.guava;visibility:=reexport,
+ org.eclipse.core.runtime;visibility:=reexport,
+ org.eclipse.jdt.annotation;bundle-version="[1.1.0,2.0.0)";resolution:=optional,
+ org.eclipse.ui;visibility:=reexport

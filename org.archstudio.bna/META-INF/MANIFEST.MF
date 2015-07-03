@@ -1,10 +1,12 @@
 Manifest-Version: 1.0
+Bundle-ActivationPolicy: lazy
+Bundle-ClassPath: .
 Bundle-ManifestVersion: 2
 Bundle-Name: ArchStudio BNA
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-SymbolicName: org.archstudio.bna;singleton:=true
-Bundle-Version: 5.0.1.qualifier
-Bundle-ClassPath: .
 Bundle-Vendor: archstudio.org
+Bundle-Version: 5.0.2.qualifier
 Export-Package: org.archstudio.bna,
  org.archstudio.bna.constants,
  org.archstudio.bna.demo,
@@ -35,12 +37,10 @@ Export-Package: org.archstudio.bna,
  org.archstudio.bna.ui.swt,
  org.archstudio.bna.ui.utils,
  org.archstudio.bna.utils
-Require-Bundle: org.archstudio.guava,
- org.archstudio.utils.swt,
- org.archstudio.utils.system,
- org.eclipse.core.runtime,
- org.eclipse.ui,
- org.archstudio.jogl,
- org.eclipse.jdt.annotation;bundle-version="[1.1.0,2.0.0)";resolution:=optional
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Bundle-ActivationPolicy: lazy
+Require-Bundle: org.archstudio.guava;visibility:=reexport,
+ org.archstudio.jogl;visibility:=reexport,
+ org.archstudio.utils.swt;visibility:=reexport,
+ org.archstudio.utils.system;visibility:=reexport,
+ org.eclipse.core.runtime;visibility:=reexport,
+ org.eclipse.jdt.annotation;bundle-version="[1.1.0,2.0.0)";resolution:=optional,
+ org.eclipse.ui;visibility:=reexport

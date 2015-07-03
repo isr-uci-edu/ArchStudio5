@@ -1,17 +1,17 @@
 Manifest-Version: 1.0
+Bundle-ActivationPolicy: lazy
+Bundle-Activator: org.archstudio.prolog.console.Activator
 Bundle-ManifestVersion: 2
 Bundle-Name: ArchStudio Prolog Console View Plugin
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-SymbolicName: org.archstudio.prolog.console;singleton:=true
-Bundle-Version: 5.0.1.qualifier
-Bundle-Activator: org.archstudio.prolog.console.Activator
 Bundle-Vendor: archstudio.org
+Bundle-Version: 5.0.2.qualifier
 Export-Package: org.archstudio.prolog.console
-Require-Bundle: org.eclipse.ui,
- org.eclipse.core.runtime,
- org.eclipse.ui.console,
+Require-Bundle: org.archstudio.guava,
  org.archstudio.prolog,
  org.archstudio.prolog.parser,
- org.archstudio.guava,
- org.archstudio.utils.system
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Bundle-ActivationPolicy: lazy
+ org.archstudio.utils.system,
+ org.eclipse.core.runtime,
+ org.eclipse.ui,
+ org.eclipse.ui.console

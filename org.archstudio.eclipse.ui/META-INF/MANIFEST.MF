@@ -1,33 +1,33 @@
 Manifest-Version: 1.0
+Bundle-ActivationPolicy: lazy
+Bundle-Activator: org.archstudio.eclipse.ui.Activator
 Bundle-ManifestVersion: 2
 Bundle-Name: ArchStudio Eclipse UI
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-SymbolicName: org.archstudio.eclipse.ui;singleton:=true
-Bundle-Version: 5.0.1.qualifier
-Bundle-Activator: org.archstudio.eclipse.ui.Activator
 Bundle-Vendor: archstudio.org
+Bundle-Version: 5.0.2.qualifier
 Export-Package: org.archstudio.eclipse.ui,
  org.archstudio.eclipse.ui.editors,
  org.archstudio.eclipse.ui.views
-Require-Bundle: org.archstudio.myx.fw,
+Require-Bundle: org.archstudio.eclipse,
+ org.archstudio.eclipse.core,
+ org.archstudio.editormanager,
+ org.archstudio.filemanager,
+ org.archstudio.guava,
+ org.archstudio.launcher,
+ org.archstudio.myx.fw,
  org.archstudio.myxgen,
  org.archstudio.resources,
+ org.archstudio.utils.osgi,
  org.archstudio.utils.swt,
  org.archstudio.utils.system,
  org.archstudio.utils.xadl,
  org.archstudio.xarchadt,
+ org.archstudio.xarchadt.variability,
  org.eclipse.core.resources,
  org.eclipse.core.runtime,
  org.eclipse.emf.common,
  org.eclipse.ui,
  org.eclipse.ui.ide,
- org.eclipse.ui.views,
- org.archstudio.guava,
- org.archstudio.eclipse,
- org.archstudio.utils.osgi,
- org.archstudio.editormanager,
- org.archstudio.filemanager,
- org.archstudio.eclipse.core,
- org.archstudio.launcher,
- org.archstudio.xarchadt.variability
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Bundle-ActivationPolicy: lazy
+ org.eclipse.ui.views
