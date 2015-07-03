@@ -45,8 +45,13 @@
 			href="http://download.eclipse.org/eclipse/downloads/">
 	    Eclipse 4.5</a>* or later.</li>
 </ul>
-<blockquote>* Currently, ArchStudio can also be developed and run using the
-	Java SE 7 SDK and Eclipse 4.3, but this is not recommended.</blockquote>
+<blockquote>* ArchStudio can also be compiled and run using Java SE 7
+	and Eclipse 4.3 or 4.4. However, it is not, by default, configured
+	in this way. To user either of these alternatives, a few minor
+	modifications must be made to Eclipse after checkout. These are discussed
+	below, in 
+	<a href="#java_version">Using a Different Java Virtual Machine</a>.
+	</blockquote>
 
 <p>Within Eclipse, you will need to install the following features:</p>
 <ul>
@@ -61,21 +66,16 @@
 	ArchStudio in Eclipse. However, if you run into compile errors, try
 	installing them manually.</blockquote>
 
-<p>If you already have Eclipse, you can also download and extract a second
-	copy in a separate directory solely for ArchStudio if you so desire.
-	More detailed instructions are included on the 
-	<a href="setup-easy.html">easy setup</a> page.</p>
-
 <p>Installing the above Eclipse features is similar to installing ArchStudio
 	itself, as described <a href="setup-easy.html">here</a>. However, for the
 	"Work with:" field select "--All Available Sites--". Then navigate to 
-	and select each features above.</p>
+	and select each feature listed above.</p>
 	  
 <h1>Checking Out Source Code</h1>
 
 <p>Once you have the tools above installed and running, you can
 	check out the ArchStudio source code. ArchStudio is composed of a
-	number of different sub-projects, each of which contributes a part to
+	number of different plug-ins, each of which contributes a part to
 	the environment.</p>
 
 <p>To check out the code perform the following steps:</p>
@@ -84,7 +84,7 @@
 		Perspective | Other... | Select "Git" | Hit OK.</li>
 	<li>Select "Clone a Git Repository".</li>
 	<li>In the Source Git Repository dialog box that pops up, 
-		enter the following for the URI 
+		enter the following for the URI field: 
 		<a target="_blank"
 				href="https://github.com/isr-uci-edu/ArchStudio5.git">
 						https://github.com/isr-uci-edu/ArchStudio5.git</a>.</li>
@@ -104,29 +104,66 @@
 
 <p>After completing the steps above, you should have the Eclipse
 	environment populated with the many plug-ins used to develop ArchStudio.
-	All plug-ins should compile without errors with the exception of the
-	<code>org.archstudio.releng.target.ecipse.*</code> plug-ins. These plug-ins
-	describe dependencies of different Eclipse releases and only a subset
-	of these plug-ins will be satisfied depending on which version of Eclipse
-	you are using. You can safely close these plug-ins; they are not required
-	for compiling ArchStudio.</p>
+	All plug-ins should compile without errors except for the
+	<code>org.archstudio.releng(.*)</code> plug-ins. These plug-ins are
+	used for building and deploying ArchStudio headlessly. You can safely
+	close them; they are not required for developing ArchStudio.</p>
 
 <h1>Common Problems</h1>
 
 <h2>Running Eclipse 4.5</h2>
-<p>For the Mac, if you get an error running Eclipse having to do with the
-	Java virtual machine not being available or of an incorrect version, run 
-	eclipse using the "-vm" option to indicate the path to the java executable
-	you installed. For instance, if you installed Java 8u45 SDK, you would use 
-	the following command:</p>
-<p>
-	<code>eclipse -vm /Library/Java/JavaVirtualMachines/jdk1.8.0_45.jdk/Contents/Home/bin/java</code>
+<p>If you get an error running Eclipse having to do with the Java virtual 
+	machine not being available, run eclipse using the "-vm" option to 
+	indicate the path to the java executable you installed. For instance, 
+	if you installed Java 8u45 SDK on a Mac, you would use the following
+	command:</p>
+<p><code>eclipse -vm /Library/Java/JavaVirtualMachines/jdk1.8.0_45.jdk/Contents/Home/bin/java</code>
 </p>
 
-<h2>Compiling ArchStudio</h2>
+<h2><a name="java_version" id="java_version">Using a Different Java Virtual Machine</a></h2>
+<p>You may elect to use a different version of Java or Eclipse, or your system
+	may only have a specific version installed. In such situations you may 
+	encounter one or more of the following errors:
+	<ul>
+		<li>The "Debug" or "Run" buttons are disabled when trying to start
+		    ArchStudio (see below).</li>
+		<li>ArchStudio starts but immediately exits.</li>
+		<li>A <code>java.lang.UnsupportedClassVersionError</code> exception
+			is thrown when starting or running ArchStudio.</li>
+	</ul>
+	These errors indicate that the version of Java being used to compile
+	ArchStudio is different from the version of Java being used to run
+	ArchStudio. To remedy this:
+	<ol>
+		<li><b>Register your Java installation with Eclipse.</b> Go to 
+			Eclipse Preferences | Java / Installed JREs, and add it if it is
+			not already listed.</li>
+		<li><b>Set the execution environment to point to your Java 
+			installation.</b> Go to Eclipse Preferences | Java / Installed JREs 
+			/ Execution Environments, and select your Java installation
+			for the appropriate execution environment. For example, if you 
+			were to install Java 7u79 SDK, you would select the "JavaSE-1.7" 
+			execution environment and check the "Java SE 7 [1.7.0_79]" 
+			compatible JRE entry.
+		<li><b>Set the Java compiler compliance level.</b> Go to Eclipse 
+			Preferences | Java / Compiler, and set the compiler compliance 
+			level match your Java installation. For example, if you were to 
+			install Java 7u79 SDK, you would select a compiler compliance level 
+			of 1.7.</li>
+		<li><b>Set the execution environment for the ArchStudio launch 
+			configuration (used below).</b> Go to Run | Debug Configurations...
+			| Eclipse Application / ArchStudio, and on the Main tab, under 
+			Java Runtime Environment, select the execution environment that 
+			you configured above.</li>
+	</ol>
+	After configuring the Eclipse Java settings, you will need to do a clean
+	and rebuild, as described below.
+</p>
+
+<h2>Clean and Rebuild ArchStudio</h2>
 <p>At times Eclipse will report compile errors even though none
-	really exist and all projects are checked out. To remedy this, perform
-	the following:</p>
+	really exist and all projects are checked out. To remedy this, clean and
+	rebuild ArchStudion by doing the following:</p>
 <ol>
 	<li>Go to Project | Clean...</li>
 	<li>Select "Clean all projects".</li>
@@ -143,7 +180,9 @@
 	<li>Go to Run | Debug Configurations...</li>
 	<li>Select Eclipse Applications / ArchStudio.</li>
 	<li>Click Debug.</li>
-	<li>(You may get a dialog box asking if "Eclipse.app" can accept incoming 
+	<li>(If "Debug" is disable, look at 
+		<a href="#java_version">Using a Different Java Virtual Machine</a>, above.)</li>
+	<li>(You may get a dialog box asking if Eclipse may accept incoming 
 		network connections. If so, click "Allow" in order for the Eclipse
 		debugger to interact with ArchStudio.)</li>
 </ol>
@@ -159,8 +198,8 @@
 	open issues</a>. In particular, some issues are marked as 
 	<a target="_blank"
 		href="https://github.com/isr-uci-edu/ArchStudio5/issues?labels=helpwanted&page=1&state=open">
-	help wanted</a>, indicating that they are good candidates for others to
-	contribute solutions. If you discover an issue, please file a bug at
+	help wanted</a> to indicate that they are good candidates for others to
+	contribute a solution. If you discover an issue, please file a bug at
 	the same location. Finally, if you add functionality that you'd like to 
 	have incorporated back into ArchStudio, contact us.</p>
 
