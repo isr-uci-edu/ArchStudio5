@@ -4,9 +4,8 @@ import org.archstudio.myx.fw.IMyxName;
 import org.archstudio.myx.fw.MyxUtils;
 
 /*
- * DO NOT EDIT THIS CLASS, it is automatically generated. ANY MODIFICATIONS WILL BE OVERWRITTEN.
- * 
- * To modify, update the "AIM Launcher Component Impl" MyxGen extension in the org.archstudio.aimlauncher.core plugin.
+ * DO NOT EDIT THIS CLASS, it is automatically generated. ANY MODIFICATIONS WILL BE OVERWRITTEN. To modify, update the
+ * "AIM Launcher Component Impl" MyxGen extension in the org.archstudio.aimlauncher.core plugin.
  */
 
 /**
@@ -14,9 +13,9 @@ import org.archstudio.myx.fw.MyxUtils;
  * 
  * @generated
  */
-public abstract class AIMLauncherMyxComponentStub extends
-		org.archstudio.eclipse.ui.editors.AbstractArchStudioEditorMyxComponent implements
-		org.archstudio.myx.fw.IMyxDynamicBrick {
+public abstract class AIMLauncherMyxComponentStub
+		extends org.archstudio.eclipse.ui.editors.AbstractArchStudioEditorMyxComponent
+		implements org.archstudio.myx.fw.IMyxDynamicBrick {
 
 	/**
 	 * A constructor from the super class...

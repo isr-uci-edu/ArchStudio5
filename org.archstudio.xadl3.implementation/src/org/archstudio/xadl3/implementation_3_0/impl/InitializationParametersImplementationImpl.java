@@ -19,17 +19,17 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <em><b>Initialization Parameters Implementation</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  * <li>
  * {@link org.archstudio.xadl3.implementation_3_0.impl.InitializationParametersImplementationImpl#getInitializationParameter
  * <em>Initialization Parameter</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
-public class InitializationParametersImplementationImpl extends ImplementationImpl implements
-		InitializationParametersImplementation {
+public class InitializationParametersImplementationImpl extends ImplementationImpl
+		implements InitializationParametersImplementation {
 	/**
 	 * The cached value of the '{@link #getInitializationParameter() <em>Initialization Parameter</em>}' containment
 	 * reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -82,8 +82,8 @@ public class InitializationParametersImplementationImpl extends ImplementationIm
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case Implementation_3_0Package.INITIALIZATION_PARAMETERS_IMPLEMENTATION__INITIALIZATION_PARAMETER:
-			return ((InternalEList<?>) getInitializationParameter()).basicRemove(otherEnd, msgs);
+			case Implementation_3_0Package.INITIALIZATION_PARAMETERS_IMPLEMENTATION__INITIALIZATION_PARAMETER:
+				return ((InternalEList<?>) getInitializationParameter()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -96,8 +96,8 @@ public class InitializationParametersImplementationImpl extends ImplementationIm
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case Implementation_3_0Package.INITIALIZATION_PARAMETERS_IMPLEMENTATION__INITIALIZATION_PARAMETER:
-			return getInitializationParameter();
+			case Implementation_3_0Package.INITIALIZATION_PARAMETERS_IMPLEMENTATION__INITIALIZATION_PARAMETER:
+				return getInitializationParameter();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -111,10 +111,10 @@ public class InitializationParametersImplementationImpl extends ImplementationIm
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Implementation_3_0Package.INITIALIZATION_PARAMETERS_IMPLEMENTATION__INITIALIZATION_PARAMETER:
-			getInitializationParameter().clear();
-			getInitializationParameter().addAll((Collection<? extends InitializationParameter>) newValue);
-			return;
+			case Implementation_3_0Package.INITIALIZATION_PARAMETERS_IMPLEMENTATION__INITIALIZATION_PARAMETER:
+				getInitializationParameter().clear();
+				getInitializationParameter().addAll((Collection<? extends InitializationParameter>) newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -127,9 +127,9 @@ public class InitializationParametersImplementationImpl extends ImplementationIm
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Implementation_3_0Package.INITIALIZATION_PARAMETERS_IMPLEMENTATION__INITIALIZATION_PARAMETER:
-			getInitializationParameter().clear();
-			return;
+			case Implementation_3_0Package.INITIALIZATION_PARAMETERS_IMPLEMENTATION__INITIALIZATION_PARAMETER:
+				getInitializationParameter().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -142,10 +142,10 @@ public class InitializationParametersImplementationImpl extends ImplementationIm
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Implementation_3_0Package.INITIALIZATION_PARAMETERS_IMPLEMENTATION__INITIALIZATION_PARAMETER:
-			return initializationParameter != null && !initializationParameter.isEmpty();
+			case Implementation_3_0Package.INITIALIZATION_PARAMETERS_IMPLEMENTATION__INITIALIZATION_PARAMETER:
+				return initializationParameter != null && !initializationParameter.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
 
-} //InitializationParametersImplementationImpl
+} // InitializationParametersImplementationImpl

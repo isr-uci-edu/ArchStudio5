@@ -5,9 +5,8 @@ import org.archstudio.myx.fw.MyxRegistry;
 import org.archstudio.myx.fw.MyxUtils;
 
 /*
- * DO NOT EDIT THIS CLASS, it is automatically generated. ANY MODIFICATIONS WILL BE OVERWRITTEN.
- * 
- * To modify, update the "Archlight Test ADT Impl" MyxGen extension in the org.archstudio.testadt.core plugin.
+ * DO NOT EDIT THIS CLASS, it is automatically generated. ANY MODIFICATIONS WILL BE OVERWRITTEN. To modify, update the
+ * "Archlight Test ADT Impl" MyxGen extension in the org.archstudio.testadt.core plugin.
  */
 
 /**
@@ -15,8 +14,8 @@ import org.archstudio.myx.fw.MyxUtils;
  * 
  * @generated
  */
-public abstract class ArchlightTestADTMyxComponentStub extends org.archstudio.myx.fw.AbstractMyxSimpleBrick implements
-		org.archstudio.myx.fw.IMyxDynamicBrick {
+public abstract class ArchlightTestADTMyxComponentStub extends org.archstudio.myx.fw.AbstractMyxSimpleBrick
+		implements org.archstudio.myx.fw.IMyxDynamicBrick {
 
 	/**
 	 * The registry of objects for this brick.
@@ -88,7 +87,8 @@ public abstract class ArchlightTestADTMyxComponentStub extends org.archstudio.my
 	 * @see #OUT_TEST_EVENTS
 	 * @generated
 	 */
-	protected final java.util.Collection<org.archstudio.testadt.ArchlightTestADTListener> testEvents = new java.util.concurrent.CopyOnWriteArrayList<org.archstudio.testadt.ArchlightTestADTListener>();
+	protected final java.util.Collection<org.archstudio.testadt.ArchlightTestADTListener> testEvents =
+			new java.util.concurrent.CopyOnWriteArrayList<org.archstudio.testadt.ArchlightTestADTListener>();
 
 	/**
 	 * Service object proxy for the testEvents interface. Calls to this proxy object are automatically delegated to all
@@ -97,8 +97,9 @@ public abstract class ArchlightTestADTMyxComponentStub extends org.archstudio.my
 	 * @see #OUT_TEST_EVENTS
 	 * @generated
 	 */
-	protected final org.archstudio.testadt.ArchlightTestADTListener testEventsProxy = (org.archstudio.testadt.ArchlightTestADTListener) java.lang.reflect.Proxy
-			.newProxyInstance(org.archstudio.testadt.ArchlightTestADTListener.class.getClassLoader(),
+	protected final org.archstudio.testadt.ArchlightTestADTListener testEventsProxy =
+			(org.archstudio.testadt.ArchlightTestADTListener) java.lang.reflect.Proxy.newProxyInstance(
+					org.archstudio.testadt.ArchlightTestADTListener.class.getClassLoader(),
 					new Class[] { org.archstudio.testadt.ArchlightTestADTListener.class },
 					new java.lang.reflect.InvocationHandler() {
 						@Override

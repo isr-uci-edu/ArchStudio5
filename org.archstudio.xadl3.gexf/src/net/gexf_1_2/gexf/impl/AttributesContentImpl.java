@@ -4,12 +4,6 @@ package net.gexf_1_2.gexf.impl;
 
 import java.util.Collection;
 
-import net.gexf_1_2.gexf.AttributeContent;
-import net.gexf_1_2.gexf.AttributesContent;
-import net.gexf_1_2.gexf.ClassType;
-import net.gexf_1_2.gexf.GexfPackage;
-import net.gexf_1_2.gexf.ModeType;
-
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
@@ -20,11 +14,18 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import net.gexf_1_2.gexf.AttributeContent;
+import net.gexf_1_2.gexf.AttributesContent;
+import net.gexf_1_2.gexf.ClassType;
+import net.gexf_1_2.gexf.GexfPackage;
+import net.gexf_1_2.gexf.ModeType;
+
 /**
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Attributes Content</b></em>'. <!-- end-user-doc
  * -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  * <li>{@link net.gexf_1_2.gexf.impl.AttributesContentImpl#getAttribute <em>Attribute</em>}</li>
  * <li>{@link net.gexf_1_2.gexf.impl.AttributesContentImpl#getClass_ <em>Class</em>}</li>
@@ -34,7 +35,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <li>{@link net.gexf_1_2.gexf.impl.AttributesContentImpl#getStart <em>Start</em>}</li>
  * <li>{@link net.gexf_1_2.gexf.impl.AttributesContentImpl#getStartopen <em>Startopen</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -432,8 +432,8 @@ public class AttributesContentImpl extends MinimalEObjectImpl.Container implemen
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case GexfPackage.ATTRIBUTES_CONTENT__ATTRIBUTE:
-			return ((InternalEList<?>) getAttribute()).basicRemove(otherEnd, msgs);
+			case GexfPackage.ATTRIBUTES_CONTENT__ATTRIBUTE:
+				return ((InternalEList<?>) getAttribute()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -446,20 +446,20 @@ public class AttributesContentImpl extends MinimalEObjectImpl.Container implemen
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case GexfPackage.ATTRIBUTES_CONTENT__ATTRIBUTE:
-			return getAttribute();
-		case GexfPackage.ATTRIBUTES_CONTENT__CLASS:
-			return getClass_();
-		case GexfPackage.ATTRIBUTES_CONTENT__END:
-			return getEnd();
-		case GexfPackage.ATTRIBUTES_CONTENT__ENDOPEN:
-			return getEndopen();
-		case GexfPackage.ATTRIBUTES_CONTENT__MODE:
-			return getMode();
-		case GexfPackage.ATTRIBUTES_CONTENT__START:
-			return getStart();
-		case GexfPackage.ATTRIBUTES_CONTENT__STARTOPEN:
-			return getStartopen();
+			case GexfPackage.ATTRIBUTES_CONTENT__ATTRIBUTE:
+				return getAttribute();
+			case GexfPackage.ATTRIBUTES_CONTENT__CLASS:
+				return getClass_();
+			case GexfPackage.ATTRIBUTES_CONTENT__END:
+				return getEnd();
+			case GexfPackage.ATTRIBUTES_CONTENT__ENDOPEN:
+				return getEndopen();
+			case GexfPackage.ATTRIBUTES_CONTENT__MODE:
+				return getMode();
+			case GexfPackage.ATTRIBUTES_CONTENT__START:
+				return getStart();
+			case GexfPackage.ATTRIBUTES_CONTENT__STARTOPEN:
+				return getStartopen();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -473,28 +473,28 @@ public class AttributesContentImpl extends MinimalEObjectImpl.Container implemen
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case GexfPackage.ATTRIBUTES_CONTENT__ATTRIBUTE:
-			getAttribute().clear();
-			getAttribute().addAll((Collection<? extends AttributeContent>) newValue);
-			return;
-		case GexfPackage.ATTRIBUTES_CONTENT__CLASS:
-			setClass((ClassType) newValue);
-			return;
-		case GexfPackage.ATTRIBUTES_CONTENT__END:
-			setEnd(newValue);
-			return;
-		case GexfPackage.ATTRIBUTES_CONTENT__ENDOPEN:
-			setEndopen(newValue);
-			return;
-		case GexfPackage.ATTRIBUTES_CONTENT__MODE:
-			setMode((ModeType) newValue);
-			return;
-		case GexfPackage.ATTRIBUTES_CONTENT__START:
-			setStart(newValue);
-			return;
-		case GexfPackage.ATTRIBUTES_CONTENT__STARTOPEN:
-			setStartopen(newValue);
-			return;
+			case GexfPackage.ATTRIBUTES_CONTENT__ATTRIBUTE:
+				getAttribute().clear();
+				getAttribute().addAll((Collection<? extends AttributeContent>) newValue);
+				return;
+			case GexfPackage.ATTRIBUTES_CONTENT__CLASS:
+				setClass((ClassType) newValue);
+				return;
+			case GexfPackage.ATTRIBUTES_CONTENT__END:
+				setEnd(newValue);
+				return;
+			case GexfPackage.ATTRIBUTES_CONTENT__ENDOPEN:
+				setEndopen(newValue);
+				return;
+			case GexfPackage.ATTRIBUTES_CONTENT__MODE:
+				setMode((ModeType) newValue);
+				return;
+			case GexfPackage.ATTRIBUTES_CONTENT__START:
+				setStart(newValue);
+				return;
+			case GexfPackage.ATTRIBUTES_CONTENT__STARTOPEN:
+				setStartopen(newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -507,27 +507,27 @@ public class AttributesContentImpl extends MinimalEObjectImpl.Container implemen
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case GexfPackage.ATTRIBUTES_CONTENT__ATTRIBUTE:
-			getAttribute().clear();
-			return;
-		case GexfPackage.ATTRIBUTES_CONTENT__CLASS:
-			unsetClass();
-			return;
-		case GexfPackage.ATTRIBUTES_CONTENT__END:
-			setEnd(END_EDEFAULT);
-			return;
-		case GexfPackage.ATTRIBUTES_CONTENT__ENDOPEN:
-			setEndopen(ENDOPEN_EDEFAULT);
-			return;
-		case GexfPackage.ATTRIBUTES_CONTENT__MODE:
-			unsetMode();
-			return;
-		case GexfPackage.ATTRIBUTES_CONTENT__START:
-			setStart(START_EDEFAULT);
-			return;
-		case GexfPackage.ATTRIBUTES_CONTENT__STARTOPEN:
-			setStartopen(STARTOPEN_EDEFAULT);
-			return;
+			case GexfPackage.ATTRIBUTES_CONTENT__ATTRIBUTE:
+				getAttribute().clear();
+				return;
+			case GexfPackage.ATTRIBUTES_CONTENT__CLASS:
+				unsetClass();
+				return;
+			case GexfPackage.ATTRIBUTES_CONTENT__END:
+				setEnd(END_EDEFAULT);
+				return;
+			case GexfPackage.ATTRIBUTES_CONTENT__ENDOPEN:
+				setEndopen(ENDOPEN_EDEFAULT);
+				return;
+			case GexfPackage.ATTRIBUTES_CONTENT__MODE:
+				unsetMode();
+				return;
+			case GexfPackage.ATTRIBUTES_CONTENT__START:
+				setStart(START_EDEFAULT);
+				return;
+			case GexfPackage.ATTRIBUTES_CONTENT__STARTOPEN:
+				setStartopen(STARTOPEN_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -540,20 +540,20 @@ public class AttributesContentImpl extends MinimalEObjectImpl.Container implemen
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case GexfPackage.ATTRIBUTES_CONTENT__ATTRIBUTE:
-			return attribute != null && !attribute.isEmpty();
-		case GexfPackage.ATTRIBUTES_CONTENT__CLASS:
-			return isSetClass();
-		case GexfPackage.ATTRIBUTES_CONTENT__END:
-			return END_EDEFAULT == null ? end != null : !END_EDEFAULT.equals(end);
-		case GexfPackage.ATTRIBUTES_CONTENT__ENDOPEN:
-			return ENDOPEN_EDEFAULT == null ? endopen != null : !ENDOPEN_EDEFAULT.equals(endopen);
-		case GexfPackage.ATTRIBUTES_CONTENT__MODE:
-			return isSetMode();
-		case GexfPackage.ATTRIBUTES_CONTENT__START:
-			return START_EDEFAULT == null ? start != null : !START_EDEFAULT.equals(start);
-		case GexfPackage.ATTRIBUTES_CONTENT__STARTOPEN:
-			return STARTOPEN_EDEFAULT == null ? startopen != null : !STARTOPEN_EDEFAULT.equals(startopen);
+			case GexfPackage.ATTRIBUTES_CONTENT__ATTRIBUTE:
+				return attribute != null && !attribute.isEmpty();
+			case GexfPackage.ATTRIBUTES_CONTENT__CLASS:
+				return isSetClass();
+			case GexfPackage.ATTRIBUTES_CONTENT__END:
+				return END_EDEFAULT == null ? end != null : !END_EDEFAULT.equals(end);
+			case GexfPackage.ATTRIBUTES_CONTENT__ENDOPEN:
+				return ENDOPEN_EDEFAULT == null ? endopen != null : !ENDOPEN_EDEFAULT.equals(endopen);
+			case GexfPackage.ATTRIBUTES_CONTENT__MODE:
+				return isSetMode();
+			case GexfPackage.ATTRIBUTES_CONTENT__START:
+				return START_EDEFAULT == null ? start != null : !START_EDEFAULT.equals(start);
+			case GexfPackage.ATTRIBUTES_CONTENT__STARTOPEN:
+				return STARTOPEN_EDEFAULT == null ? startopen != null : !STARTOPEN_EDEFAULT.equals(startopen);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -596,4 +596,4 @@ public class AttributesContentImpl extends MinimalEObjectImpl.Container implemen
 		return result.toString();
 	}
 
-} //AttributesContentImpl
+} // AttributesContentImpl

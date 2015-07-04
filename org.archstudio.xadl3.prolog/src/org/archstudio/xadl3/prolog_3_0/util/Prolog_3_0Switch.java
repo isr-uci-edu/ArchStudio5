@@ -41,7 +41,7 @@ public class Prolog_3_0Switch<T> extends Switch<T> {
 	/**
 	 * Checks whether this is a switch for the given package. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
-	 * @parameter ePackage the package in question.
+	 * @param ePackage the package in question.
 	 * @return whether this is a switch for the given package.
 	 * @generated
 	 */
@@ -60,27 +60,27 @@ public class Prolog_3_0Switch<T> extends Switch<T> {
 	@Override
 	protected T doSwitch(int classifierID, EObject theEObject) {
 		switch (classifierID) {
-		case Prolog_3_0Package.PROLOG_EXTENSION: {
-			PrologExtension prologExtension = (PrologExtension) theEObject;
-			T result = casePrologExtension(prologExtension);
-			if (result == null) {
-				result = caseExtension(prologExtension);
+			case Prolog_3_0Package.PROLOG_EXTENSION: {
+				PrologExtension prologExtension = (PrologExtension) theEObject;
+				T result = casePrologExtension(prologExtension);
+				if (result == null) {
+					result = caseExtension(prologExtension);
+				}
+				if (result == null) {
+					result = defaultCase(theEObject);
+				}
+				return result;
 			}
-			if (result == null) {
-				result = defaultCase(theEObject);
+			case Prolog_3_0Package.STATEMENT: {
+				Statement statement = (Statement) theEObject;
+				T result = caseStatement(statement);
+				if (result == null) {
+					result = defaultCase(theEObject);
+				}
+				return result;
 			}
-			return result;
-		}
-		case Prolog_3_0Package.STATEMENT: {
-			Statement statement = (Statement) theEObject;
-			T result = caseStatement(statement);
-			if (result == null) {
-				result = defaultCase(theEObject);
-			}
-			return result;
-		}
-		default:
-			return defaultCase(theEObject);
+			default:
+				return defaultCase(theEObject);
 		}
 	}
 
@@ -89,8 +89,7 @@ public class Prolog_3_0Switch<T> extends Switch<T> {
 	 * --> This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc
 	 * -->
 	 * 
-	 * @param object
-	 *            the target of the switch.
+	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>Prolog Extension</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
@@ -103,8 +102,7 @@ public class Prolog_3_0Switch<T> extends Switch<T> {
 	 * Returns the result of interpreting the object as an instance of '<em>Statement</em>'. <!-- begin-user-doc -->
 	 * This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
 	 * 
-	 * @param object
-	 *            the target of the switch.
+	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>Statement</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
@@ -117,8 +115,7 @@ public class Prolog_3_0Switch<T> extends Switch<T> {
 	 * Returns the result of interpreting the object as an instance of '<em>Extension</em>'. <!-- begin-user-doc -->
 	 * This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
 	 * 
-	 * @param object
-	 *            the target of the switch.
+	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>Extension</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
@@ -132,8 +129,7 @@ public class Prolog_3_0Switch<T> extends Switch<T> {
 	 * implementation returns null; returning a non-null result will terminate the switch, but this is the last case
 	 * anyway. <!-- end-user-doc -->
 	 * 
-	 * @param object
-	 *            the target of the switch.
+	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>EObject</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject)
 	 * @generated
@@ -143,4 +139,4 @@ public class Prolog_3_0Switch<T> extends Switch<T> {
 		return null;
 	}
 
-} //Prolog_3_0Switch
+} // Prolog_3_0Switch

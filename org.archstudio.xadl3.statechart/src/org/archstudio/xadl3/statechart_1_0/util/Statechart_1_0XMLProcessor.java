@@ -43,4 +43,4 @@ public class Statechart_1_0XMLProcessor extends XMLProcessor {
 		return registrations;
 	}
 
-} //Statechart_1_0XMLProcessor
+} // Statechart_1_0XMLProcessor

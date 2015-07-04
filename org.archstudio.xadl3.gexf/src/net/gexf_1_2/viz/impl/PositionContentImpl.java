@@ -2,10 +2,6 @@
  */
 package net.gexf_1_2.viz.impl;
 
-import net.gexf_1_2.gexf.SpellsContent;
-import net.gexf_1_2.viz.PositionContent;
-import net.gexf_1_2.viz.VizPackage;
-
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
@@ -13,11 +9,16 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
+import net.gexf_1_2.gexf.SpellsContent;
+import net.gexf_1_2.viz.PositionContent;
+import net.gexf_1_2.viz.VizPackage;
+
 /**
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Position Content</b></em>'. <!-- end-user-doc
  * -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  * <li>{@link net.gexf_1_2.viz.impl.PositionContentImpl#getSpells <em>Spells</em>}</li>
  * <li>{@link net.gexf_1_2.viz.impl.PositionContentImpl#getEnd <em>End</em>}</li>
@@ -28,7 +29,6 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <li>{@link net.gexf_1_2.viz.impl.PositionContentImpl#getY <em>Y</em>}</li>
  * <li>{@link net.gexf_1_2.viz.impl.PositionContentImpl#getZ <em>Z</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -260,12 +260,12 @@ public class PositionContentImpl extends MinimalEObjectImpl.Container implements
 		if (newSpells != spells) {
 			NotificationChain msgs = null;
 			if (spells != null) {
-				msgs = ((InternalEObject) spells).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
-						- VizPackage.POSITION_CONTENT__SPELLS, null, msgs);
+				msgs = ((InternalEObject) spells).eInverseRemove(this,
+						EOPPOSITE_FEATURE_BASE - VizPackage.POSITION_CONTENT__SPELLS, null, msgs);
 			}
 			if (newSpells != null) {
-				msgs = ((InternalEObject) newSpells).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
-						- VizPackage.POSITION_CONTENT__SPELLS, null, msgs);
+				msgs = ((InternalEObject) newSpells).eInverseAdd(this,
+						EOPPOSITE_FEATURE_BASE - VizPackage.POSITION_CONTENT__SPELLS, null, msgs);
 			}
 			msgs = basicSetSpells(newSpells, msgs);
 			if (msgs != null) {
@@ -543,8 +543,8 @@ public class PositionContentImpl extends MinimalEObjectImpl.Container implements
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case VizPackage.POSITION_CONTENT__SPELLS:
-			return basicSetSpells(null, msgs);
+			case VizPackage.POSITION_CONTENT__SPELLS:
+				return basicSetSpells(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -557,22 +557,22 @@ public class PositionContentImpl extends MinimalEObjectImpl.Container implements
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case VizPackage.POSITION_CONTENT__SPELLS:
-			return getSpells();
-		case VizPackage.POSITION_CONTENT__END:
-			return getEnd();
-		case VizPackage.POSITION_CONTENT__ENDOPEN:
-			return getEndopen();
-		case VizPackage.POSITION_CONTENT__START:
-			return getStart();
-		case VizPackage.POSITION_CONTENT__STARTOPEN:
-			return getStartopen();
-		case VizPackage.POSITION_CONTENT__X:
-			return getX();
-		case VizPackage.POSITION_CONTENT__Y:
-			return getY();
-		case VizPackage.POSITION_CONTENT__Z:
-			return getZ();
+			case VizPackage.POSITION_CONTENT__SPELLS:
+				return getSpells();
+			case VizPackage.POSITION_CONTENT__END:
+				return getEnd();
+			case VizPackage.POSITION_CONTENT__ENDOPEN:
+				return getEndopen();
+			case VizPackage.POSITION_CONTENT__START:
+				return getStart();
+			case VizPackage.POSITION_CONTENT__STARTOPEN:
+				return getStartopen();
+			case VizPackage.POSITION_CONTENT__X:
+				return getX();
+			case VizPackage.POSITION_CONTENT__Y:
+				return getY();
+			case VizPackage.POSITION_CONTENT__Z:
+				return getZ();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -585,30 +585,30 @@ public class PositionContentImpl extends MinimalEObjectImpl.Container implements
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case VizPackage.POSITION_CONTENT__SPELLS:
-			setSpells((SpellsContent) newValue);
-			return;
-		case VizPackage.POSITION_CONTENT__END:
-			setEnd(newValue);
-			return;
-		case VizPackage.POSITION_CONTENT__ENDOPEN:
-			setEndopen(newValue);
-			return;
-		case VizPackage.POSITION_CONTENT__START:
-			setStart(newValue);
-			return;
-		case VizPackage.POSITION_CONTENT__STARTOPEN:
-			setStartopen(newValue);
-			return;
-		case VizPackage.POSITION_CONTENT__X:
-			setX((Float) newValue);
-			return;
-		case VizPackage.POSITION_CONTENT__Y:
-			setY((Float) newValue);
-			return;
-		case VizPackage.POSITION_CONTENT__Z:
-			setZ((Float) newValue);
-			return;
+			case VizPackage.POSITION_CONTENT__SPELLS:
+				setSpells((SpellsContent) newValue);
+				return;
+			case VizPackage.POSITION_CONTENT__END:
+				setEnd(newValue);
+				return;
+			case VizPackage.POSITION_CONTENT__ENDOPEN:
+				setEndopen(newValue);
+				return;
+			case VizPackage.POSITION_CONTENT__START:
+				setStart(newValue);
+				return;
+			case VizPackage.POSITION_CONTENT__STARTOPEN:
+				setStartopen(newValue);
+				return;
+			case VizPackage.POSITION_CONTENT__X:
+				setX((Float) newValue);
+				return;
+			case VizPackage.POSITION_CONTENT__Y:
+				setY((Float) newValue);
+				return;
+			case VizPackage.POSITION_CONTENT__Z:
+				setZ((Float) newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -621,30 +621,30 @@ public class PositionContentImpl extends MinimalEObjectImpl.Container implements
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case VizPackage.POSITION_CONTENT__SPELLS:
-			setSpells((SpellsContent) null);
-			return;
-		case VizPackage.POSITION_CONTENT__END:
-			setEnd(END_EDEFAULT);
-			return;
-		case VizPackage.POSITION_CONTENT__ENDOPEN:
-			setEndopen(ENDOPEN_EDEFAULT);
-			return;
-		case VizPackage.POSITION_CONTENT__START:
-			setStart(START_EDEFAULT);
-			return;
-		case VizPackage.POSITION_CONTENT__STARTOPEN:
-			setStartopen(STARTOPEN_EDEFAULT);
-			return;
-		case VizPackage.POSITION_CONTENT__X:
-			unsetX();
-			return;
-		case VizPackage.POSITION_CONTENT__Y:
-			unsetY();
-			return;
-		case VizPackage.POSITION_CONTENT__Z:
-			unsetZ();
-			return;
+			case VizPackage.POSITION_CONTENT__SPELLS:
+				setSpells((SpellsContent) null);
+				return;
+			case VizPackage.POSITION_CONTENT__END:
+				setEnd(END_EDEFAULT);
+				return;
+			case VizPackage.POSITION_CONTENT__ENDOPEN:
+				setEndopen(ENDOPEN_EDEFAULT);
+				return;
+			case VizPackage.POSITION_CONTENT__START:
+				setStart(START_EDEFAULT);
+				return;
+			case VizPackage.POSITION_CONTENT__STARTOPEN:
+				setStartopen(STARTOPEN_EDEFAULT);
+				return;
+			case VizPackage.POSITION_CONTENT__X:
+				unsetX();
+				return;
+			case VizPackage.POSITION_CONTENT__Y:
+				unsetY();
+				return;
+			case VizPackage.POSITION_CONTENT__Z:
+				unsetZ();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -657,22 +657,22 @@ public class PositionContentImpl extends MinimalEObjectImpl.Container implements
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case VizPackage.POSITION_CONTENT__SPELLS:
-			return spells != null;
-		case VizPackage.POSITION_CONTENT__END:
-			return END_EDEFAULT == null ? end != null : !END_EDEFAULT.equals(end);
-		case VizPackage.POSITION_CONTENT__ENDOPEN:
-			return ENDOPEN_EDEFAULT == null ? endopen != null : !ENDOPEN_EDEFAULT.equals(endopen);
-		case VizPackage.POSITION_CONTENT__START:
-			return START_EDEFAULT == null ? start != null : !START_EDEFAULT.equals(start);
-		case VizPackage.POSITION_CONTENT__STARTOPEN:
-			return STARTOPEN_EDEFAULT == null ? startopen != null : !STARTOPEN_EDEFAULT.equals(startopen);
-		case VizPackage.POSITION_CONTENT__X:
-			return isSetX();
-		case VizPackage.POSITION_CONTENT__Y:
-			return isSetY();
-		case VizPackage.POSITION_CONTENT__Z:
-			return isSetZ();
+			case VizPackage.POSITION_CONTENT__SPELLS:
+				return spells != null;
+			case VizPackage.POSITION_CONTENT__END:
+				return END_EDEFAULT == null ? end != null : !END_EDEFAULT.equals(end);
+			case VizPackage.POSITION_CONTENT__ENDOPEN:
+				return ENDOPEN_EDEFAULT == null ? endopen != null : !ENDOPEN_EDEFAULT.equals(endopen);
+			case VizPackage.POSITION_CONTENT__START:
+				return START_EDEFAULT == null ? start != null : !START_EDEFAULT.equals(start);
+			case VizPackage.POSITION_CONTENT__STARTOPEN:
+				return STARTOPEN_EDEFAULT == null ? startopen != null : !STARTOPEN_EDEFAULT.equals(startopen);
+			case VizPackage.POSITION_CONTENT__X:
+				return isSetX();
+			case VizPackage.POSITION_CONTENT__Y:
+				return isSetY();
+			case VizPackage.POSITION_CONTENT__Z:
+				return isSetZ();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -722,4 +722,4 @@ public class PositionContentImpl extends MinimalEObjectImpl.Container implements
 		return result.toString();
 	}
 
-} //PositionContentImpl
+} // PositionContentImpl

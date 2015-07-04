@@ -43,4 +43,4 @@ public class Myxgen_3_0XMLProcessor extends XMLProcessor {
 		return registrations;
 	}
 
-} //Myxgen_3_0XMLProcessor
+} // Myxgen_3_0XMLProcessor

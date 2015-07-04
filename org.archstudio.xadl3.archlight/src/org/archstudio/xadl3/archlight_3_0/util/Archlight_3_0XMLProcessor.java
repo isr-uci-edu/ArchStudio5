@@ -43,4 +43,4 @@ public class Archlight_3_0XMLProcessor extends XMLProcessor {
 		return registrations;
 	}
 
-} //Archlight_3_0XMLProcessor
+} // Archlight_3_0XMLProcessor

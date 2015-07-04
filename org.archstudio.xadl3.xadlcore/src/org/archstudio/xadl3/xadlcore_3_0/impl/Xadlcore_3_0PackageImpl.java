@@ -77,7 +77,6 @@ public class Xadlcore_3_0PackageImpl extends EPackageImpl implements Xadlcore_3_
 
 	/**
 	 * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
-	 * 
 	 * <p>
 	 * This method is used to initialize {@link Xadlcore_3_0Package#eINSTANCE} when that field is accessed. Clients
 	 * should not invoke it directly. Instead, they should simply access that field to obtain the package. <!--
@@ -94,9 +93,9 @@ public class Xadlcore_3_0PackageImpl extends EPackageImpl implements Xadlcore_3_
 		}
 
 		// Obtain or create and register package
-		Xadlcore_3_0PackageImpl theXadlcore_3_0Package = (Xadlcore_3_0PackageImpl) (EPackage.Registry.INSTANCE
-				.get(eNS_URI) instanceof Xadlcore_3_0PackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI)
-				: new Xadlcore_3_0PackageImpl());
+		Xadlcore_3_0PackageImpl theXadlcore_3_0Package =
+				(Xadlcore_3_0PackageImpl) (EPackage.Registry.INSTANCE.get(eNS_URI) instanceof Xadlcore_3_0PackageImpl
+						? EPackage.Registry.INSTANCE.get(eNS_URI) : new Xadlcore_3_0PackageImpl());
 
 		isInited = true;
 
@@ -105,8 +104,8 @@ public class Xadlcore_3_0PackageImpl extends EPackageImpl implements Xadlcore_3_
 
 		// Obtain or create and register interdependencies
 		XlinkPackageImpl theXlinkPackage = (XlinkPackageImpl) (EPackage.Registry.INSTANCE
-				.getEPackage(XlinkPackage.eNS_URI) instanceof XlinkPackageImpl ? EPackage.Registry.INSTANCE
-				.getEPackage(XlinkPackage.eNS_URI) : XlinkPackage.eINSTANCE);
+				.getEPackage(XlinkPackage.eNS_URI) instanceof XlinkPackageImpl
+						? EPackage.Registry.INSTANCE.getEPackage(XlinkPackage.eNS_URI) : XlinkPackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theXadlcore_3_0Package.createPackageContents();
@@ -327,8 +326,8 @@ public class Xadlcore_3_0PackageImpl extends EPackageImpl implements Xadlcore_3_
 		setNsURI(eNS_URI);
 
 		// Obtain other dependent packages
-		XMLTypePackage theXMLTypePackage = (XMLTypePackage) EPackage.Registry.INSTANCE
-				.getEPackage(XMLTypePackage.eNS_URI);
+		XMLTypePackage theXMLTypePackage =
+				(XMLTypePackage) EPackage.Registry.INSTANCE.getEPackage(XMLTypePackage.eNS_URI);
 
 		// Create type parameters
 
@@ -340,7 +339,8 @@ public class Xadlcore_3_0PackageImpl extends EPackageImpl implements Xadlcore_3_
 		initEClass(documentRootEClass, DocumentRoot.class, "DocumentRoot", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getDocumentRoot_Mixed(), ecorePackage.getEFeatureMapEntry(), "mixed", null, 0, -1, null,
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED,
+				IS_ORDERED);
 		initEReference(getDocumentRoot_XMLNSPrefixMap(), ecorePackage.getEStringToStringMapEntry(), null,
 				"xMLNSPrefixMap", null, 0, -1, null, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
 				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -361,12 +361,13 @@ public class Xadlcore_3_0PackageImpl extends EPackageImpl implements Xadlcore_3_
 				IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getSimpleLink_Href(), theXMLTypePackage.getAnyURI(), "href", null, 1, 1, SimpleLink.class,
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getSimpleLink_Id(), theXMLTypePackage.getID(), "id", null, 1, 1, SimpleLink.class,
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSimpleLink_Id(), theXMLTypePackage.getID(), "id", null, 1, 1, SimpleLink.class, !IS_TRANSIENT,
+				!IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSimpleLink_Type(), theXMLTypePackage.getString(), "type", "simple", 1, 1, SimpleLink.class,
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(xadlTypeEClass, XADLType.class, "XADLType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(xadlTypeEClass, XADLType.class, "XADLType", !IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getXADLType_TopLevelElement(), ecorePackage.getEObject(), null, "topLevelElement", null, 0, -1,
 				XADLType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -389,25 +390,25 @@ public class Xadlcore_3_0PackageImpl extends EPackageImpl implements Xadlcore_3_
 		String source = "http:///org/eclipse/emf/ecore/util/ExtendedMetaData";
 		addAnnotation(documentRootEClass, source, new String[] { "name", "", "kind", "mixed" });
 		addAnnotation(getDocumentRoot_Mixed(), source, new String[] { "kind", "elementWildcard", "name", ":mixed" });
-		addAnnotation(getDocumentRoot_XMLNSPrefixMap(), source, new String[] { "kind", "attribute", "name",
-				"xmlns:prefix" });
-		addAnnotation(getDocumentRoot_XSISchemaLocation(), source, new String[] { "kind", "attribute", "name",
-				"xsi:schemaLocation" });
-		addAnnotation(getDocumentRoot_TopLevelElement(), source, new String[] { "kind", "element", "name",
-				"topLevelElement", "namespace", "##targetNamespace" });
-		addAnnotation(getDocumentRoot_XADL(), source, new String[] { "kind", "element", "name", "xADL", "namespace",
-				"##targetNamespace" });
+		addAnnotation(getDocumentRoot_XMLNSPrefixMap(), source,
+				new String[] { "kind", "attribute", "name", "xmlns:prefix" });
+		addAnnotation(getDocumentRoot_XSISchemaLocation(), source,
+				new String[] { "kind", "attribute", "name", "xsi:schemaLocation" });
+		addAnnotation(getDocumentRoot_TopLevelElement(), source,
+				new String[] { "kind", "element", "name", "topLevelElement", "namespace", "##targetNamespace" });
+		addAnnotation(getDocumentRoot_XADL(), source,
+				new String[] { "kind", "element", "name", "xADL", "namespace", "##targetNamespace" });
 		addAnnotation(extensionEClass, source, new String[] { "name", "Extension", "kind", "empty" });
 		addAnnotation(simpleLinkEClass, source, new String[] { "name", "SimpleLink", "kind", "empty" });
-		addAnnotation(getSimpleLink_Href(), source, new String[] { "kind", "attribute", "name", "href", "namespace",
-				"http://www.w3.org/1999/xlink" });
-		addAnnotation(getSimpleLink_Id(), source, new String[] { "kind", "attribute", "name", "id", "namespace",
-				"##targetNamespace" });
-		addAnnotation(getSimpleLink_Type(), source, new String[] { "kind", "attribute", "name", "type", "namespace",
-				"http://www.w3.org/1999/xlink" });
+		addAnnotation(getSimpleLink_Href(), source,
+				new String[] { "kind", "attribute", "name", "href", "namespace", "http://www.w3.org/1999/xlink" });
+		addAnnotation(getSimpleLink_Id(), source,
+				new String[] { "kind", "attribute", "name", "id", "namespace", "##targetNamespace" });
+		addAnnotation(getSimpleLink_Type(), source,
+				new String[] { "kind", "attribute", "name", "type", "namespace", "http://www.w3.org/1999/xlink" });
 		addAnnotation(xadlTypeEClass, source, new String[] { "name", "xADL_._type", "kind", "elementOnly" });
-		addAnnotation(getXADLType_TopLevelElement(), source, new String[] { "kind", "element", "name",
-				"topLevelElement", "namespace", "##targetNamespace" });
+		addAnnotation(getXADLType_TopLevelElement(), source,
+				new String[] { "kind", "element", "name", "topLevelElement", "namespace", "##targetNamespace" });
 	}
 
-} //Xadlcore_3_0PackageImpl
+} // Xadlcore_3_0PackageImpl

@@ -17,28 +17,11 @@ import org.eclipse.emf.ecore.EReference;
  * <li>each enum,</li>
  * <li>and each data type</li>
  * </ul>
- * <!-- end-user-doc --> <!-- begin-model-doc -->
- * 
- * 
- * xADL 3 Hints Schema
- * 
- * This schema defines the concept of rendering hints that can be applied to different objects to permit them to be
- * hinted.
- * 
- * Changelog: - 3.0.1 * Deprecated value, replaced by hint attribute - 3.0.0 * Initial version
- * 
- * 
- * 
- * 
- * xADL 3 Core Schema
- * 
- * This schema defines the core elements for xADL 3 documents. The schema is intentionally small, defining only a few
- * elements that are intended to be common across xADL descriptions and extensions, regardless of domain.
- * 
- * Changelog: - 3.0.0: * Initial version
- * 
- * 
- * <!-- end-model-doc -->
+ * <!-- end-user-doc --> <!-- begin-model-doc --> xADL 3 Hints Schema This schema defines the concept of rendering hints
+ * that can be applied to different objects to permit them to be hinted. Changelog: - 3.0.1 * Deprecated value, replaced
+ * by hint attribute - 3.0.0 * Initial version xADL 3 Core Schema This schema defines the core elements for xADL 3
+ * documents. The schema is intentionally small, defining only a few elements that are intended to be common across xADL
+ * descriptions and extensions, regardless of domain. Changelog: - 3.0.0: * Initial version <!-- end-model-doc -->
  * 
  * @see org.archstudio.xadl3.hints_3_0.Hints_3_0Factory
  * @model kind="package"
@@ -219,7 +202,7 @@ public interface Hints_3_0Package extends EPackage {
 	 * @see org.archstudio.xadl3.hints_3_0.Hint
 	 * @generated
 	 */
-	EClass getHint();
+			EClass getHint();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link org.archstudio.xadl3.hints_3_0.Hint#getValue
@@ -230,7 +213,7 @@ public interface Hints_3_0Package extends EPackage {
 	 * @see #getHint()
 	 * @generated
 	 */
-	EReference getHint_Value();
+			EReference getHint_Value();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.archstudio.xadl3.hints_3_0.Hint#getHint <em>Hint</em>}'.
@@ -241,7 +224,7 @@ public interface Hints_3_0Package extends EPackage {
 	 * @see #getHint()
 	 * @generated
 	 */
-	EAttribute getHint_Hint();
+			EAttribute getHint_Hint();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.archstudio.xadl3.hints_3_0.Hint#getName <em>Name</em>}'.
@@ -252,7 +235,7 @@ public interface Hints_3_0Package extends EPackage {
 	 * @see #getHint()
 	 * @generated
 	 */
-	EAttribute getHint_Name();
+			EAttribute getHint_Name();
 
 	/**
 	 * Returns the meta object for class '{@link org.archstudio.xadl3.hints_3_0.HintsExtension <em>Hints Extension</em>}
@@ -262,7 +245,7 @@ public interface Hints_3_0Package extends EPackage {
 	 * @see org.archstudio.xadl3.hints_3_0.HintsExtension
 	 * @generated
 	 */
-	EClass getHintsExtension();
+			EClass getHintsExtension();
 
 	/**
 	 * Returns the meta object for the containment reference list '
@@ -274,7 +257,7 @@ public interface Hints_3_0Package extends EPackage {
 	 * @see #getHintsExtension()
 	 * @generated
 	 */
-	EReference getHintsExtension_Hint();
+			EReference getHintsExtension_Hint();
 
 	/**
 	 * Returns the meta object for class '{@link org.archstudio.xadl3.hints_3_0.Value <em>Value</em>}'. <!--
@@ -284,7 +267,7 @@ public interface Hints_3_0Package extends EPackage {
 	 * @see org.archstudio.xadl3.hints_3_0.Value
 	 * @generated
 	 */
-	EClass getValue();
+			EClass getValue();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link org.archstudio.xadl3.hints_3_0.Value#getValue
@@ -295,7 +278,7 @@ public interface Hints_3_0Package extends EPackage {
 	 * @see #getValue()
 	 * @generated
 	 */
-	EReference getValue_Value();
+			EReference getValue_Value();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.archstudio.xadl3.hints_3_0.Value#getData <em>Data</em>}'.
@@ -306,7 +289,7 @@ public interface Hints_3_0Package extends EPackage {
 	 * @see #getValue()
 	 * @generated
 	 */
-	EAttribute getValue_Data();
+			EAttribute getValue_Data();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.archstudio.xadl3.hints_3_0.Value#getType <em>Type</em>}'.
@@ -317,7 +300,7 @@ public interface Hints_3_0Package extends EPackage {
 	 * @see #getValue()
 	 * @generated
 	 */
-	EAttribute getValue_Type();
+			EAttribute getValue_Type();
 
 	/**
 	 * Returns the factory that creates the instances of the model. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -325,7 +308,7 @@ public interface Hints_3_0Package extends EPackage {
 	 * @return the factory that creates the instances of the model.
 	 * @generated
 	 */
-	Hints_3_0Factory getHints_3_0Factory();
+			Hints_3_0Factory getHints_3_0Factory();
 
 	/**
 	 * <!-- begin-user-doc --> Defines literals for the meta objects that represent
@@ -429,4 +412,4 @@ public interface Hints_3_0Package extends EPackage {
 
 	}
 
-} //Hints_3_0Package
+} // Hints_3_0Package

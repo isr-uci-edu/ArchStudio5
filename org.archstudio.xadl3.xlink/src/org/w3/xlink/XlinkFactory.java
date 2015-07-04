@@ -25,7 +25,7 @@ public interface XlinkFactory extends EFactory {
 	 * @return a new object of class '<em>Document Root</em>'.
 	 * @generated
 	 */
-	DocumentRoot createDocumentRoot();
+			DocumentRoot createDocumentRoot();
 
 	/**
 	 * Returns the package supported by this factory. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -33,6 +33,6 @@ public interface XlinkFactory extends EFactory {
 	 * @return the package supported by this factory.
 	 * @generated
 	 */
-	XlinkPackage getXlinkPackage();
+			XlinkPackage getXlinkPackage();
 
-} //XlinkFactory
+} // XlinkFactory

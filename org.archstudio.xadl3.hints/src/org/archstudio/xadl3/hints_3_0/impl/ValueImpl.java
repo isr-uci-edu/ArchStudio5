@@ -20,12 +20,12 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Value</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  * <li>{@link org.archstudio.xadl3.hints_3_0.impl.ValueImpl#getValue <em>Value</em>}</li>
  * <li>{@link org.archstudio.xadl3.hints_3_0.impl.ValueImpl#getData <em>Data</em>}</li>
  * <li>{@link org.archstudio.xadl3.hints_3_0.impl.ValueImpl#getType <em>Type</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -168,8 +168,8 @@ public class ValueImpl extends MinimalEObjectImpl.Container implements Value {
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case Hints_3_0Package.VALUE__VALUE:
-			return ((InternalEList<?>) getValue()).basicRemove(otherEnd, msgs);
+			case Hints_3_0Package.VALUE__VALUE:
+				return ((InternalEList<?>) getValue()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -182,12 +182,12 @@ public class ValueImpl extends MinimalEObjectImpl.Container implements Value {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case Hints_3_0Package.VALUE__VALUE:
-			return getValue();
-		case Hints_3_0Package.VALUE__DATA:
-			return getData();
-		case Hints_3_0Package.VALUE__TYPE:
-			return getType();
+			case Hints_3_0Package.VALUE__VALUE:
+				return getValue();
+			case Hints_3_0Package.VALUE__DATA:
+				return getData();
+			case Hints_3_0Package.VALUE__TYPE:
+				return getType();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -201,16 +201,16 @@ public class ValueImpl extends MinimalEObjectImpl.Container implements Value {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Hints_3_0Package.VALUE__VALUE:
-			getValue().clear();
-			getValue().addAll((Collection<? extends Value>) newValue);
-			return;
-		case Hints_3_0Package.VALUE__DATA:
-			setData((String) newValue);
-			return;
-		case Hints_3_0Package.VALUE__TYPE:
-			setType((String) newValue);
-			return;
+			case Hints_3_0Package.VALUE__VALUE:
+				getValue().clear();
+				getValue().addAll((Collection<? extends Value>) newValue);
+				return;
+			case Hints_3_0Package.VALUE__DATA:
+				setData((String) newValue);
+				return;
+			case Hints_3_0Package.VALUE__TYPE:
+				setType((String) newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -223,15 +223,15 @@ public class ValueImpl extends MinimalEObjectImpl.Container implements Value {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Hints_3_0Package.VALUE__VALUE:
-			getValue().clear();
-			return;
-		case Hints_3_0Package.VALUE__DATA:
-			setData(DATA_EDEFAULT);
-			return;
-		case Hints_3_0Package.VALUE__TYPE:
-			setType(TYPE_EDEFAULT);
-			return;
+			case Hints_3_0Package.VALUE__VALUE:
+				getValue().clear();
+				return;
+			case Hints_3_0Package.VALUE__DATA:
+				setData(DATA_EDEFAULT);
+				return;
+			case Hints_3_0Package.VALUE__TYPE:
+				setType(TYPE_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -244,12 +244,12 @@ public class ValueImpl extends MinimalEObjectImpl.Container implements Value {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Hints_3_0Package.VALUE__VALUE:
-			return value != null && !value.isEmpty();
-		case Hints_3_0Package.VALUE__DATA:
-			return DATA_EDEFAULT == null ? data != null : !DATA_EDEFAULT.equals(data);
-		case Hints_3_0Package.VALUE__TYPE:
-			return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
+			case Hints_3_0Package.VALUE__VALUE:
+				return value != null && !value.isEmpty();
+			case Hints_3_0Package.VALUE__DATA:
+				return DATA_EDEFAULT == null ? data != null : !DATA_EDEFAULT.equals(data);
+			case Hints_3_0Package.VALUE__TYPE:
+				return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -274,4 +274,4 @@ public class ValueImpl extends MinimalEObjectImpl.Container implements Value {
 		return result.toString();
 	}
 
-} //ValueImpl
+} // ValueImpl

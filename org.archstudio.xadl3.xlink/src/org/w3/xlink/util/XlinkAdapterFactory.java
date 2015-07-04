@@ -74,8 +74,7 @@ public class XlinkAdapterFactory extends AdapterFactoryImpl {
 	/**
 	 * Creates an adapter for the <code>target</code>. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
-	 * @param target
-	 *            the object to adapt.
+	 * @param target the object to adapt.
 	 * @return the adapter for the <code>target</code>.
 	 * @generated
 	 */
@@ -108,4 +107,4 @@ public class XlinkAdapterFactory extends AdapterFactoryImpl {
 		return null;
 	}
 
-} //XlinkAdapterFactory
+} // XlinkAdapterFactory

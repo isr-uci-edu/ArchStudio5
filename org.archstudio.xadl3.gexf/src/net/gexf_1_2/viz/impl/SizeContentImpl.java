@@ -2,10 +2,6 @@
  */
 package net.gexf_1_2.viz.impl;
 
-import net.gexf_1_2.gexf.SpellsContent;
-import net.gexf_1_2.viz.SizeContent;
-import net.gexf_1_2.viz.VizPackage;
-
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
@@ -13,10 +9,15 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
+import net.gexf_1_2.gexf.SpellsContent;
+import net.gexf_1_2.viz.SizeContent;
+import net.gexf_1_2.viz.VizPackage;
+
 /**
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Size Content</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  * <li>{@link net.gexf_1_2.viz.impl.SizeContentImpl#getSpells <em>Spells</em>}</li>
  * <li>{@link net.gexf_1_2.viz.impl.SizeContentImpl#getEnd <em>End</em>}</li>
@@ -25,7 +26,6 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <li>{@link net.gexf_1_2.viz.impl.SizeContentImpl#getStartopen <em>Startopen</em>}</li>
  * <li>{@link net.gexf_1_2.viz.impl.SizeContentImpl#getValue <em>Value</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -207,12 +207,12 @@ public class SizeContentImpl extends MinimalEObjectImpl.Container implements Siz
 		if (newSpells != spells) {
 			NotificationChain msgs = null;
 			if (spells != null) {
-				msgs = ((InternalEObject) spells).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
-						- VizPackage.SIZE_CONTENT__SPELLS, null, msgs);
+				msgs = ((InternalEObject) spells).eInverseRemove(this,
+						EOPPOSITE_FEATURE_BASE - VizPackage.SIZE_CONTENT__SPELLS, null, msgs);
 			}
 			if (newSpells != null) {
-				msgs = ((InternalEObject) newSpells).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
-						- VizPackage.SIZE_CONTENT__SPELLS, null, msgs);
+				msgs = ((InternalEObject) newSpells).eInverseAdd(this,
+						EOPPOSITE_FEATURE_BASE - VizPackage.SIZE_CONTENT__SPELLS, null, msgs);
 			}
 			msgs = basicSetSpells(newSpells, msgs);
 			if (msgs != null) {
@@ -220,7 +220,8 @@ public class SizeContentImpl extends MinimalEObjectImpl.Container implements Siz
 			}
 		}
 		else if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, VizPackage.SIZE_CONTENT__SPELLS, newSpells, newSpells));
+			eNotify(new ENotificationImpl(this, Notification.SET, VizPackage.SIZE_CONTENT__SPELLS, newSpells,
+					newSpells));
 		}
 	}
 
@@ -268,7 +269,8 @@ public class SizeContentImpl extends MinimalEObjectImpl.Container implements Siz
 		Object oldEndopen = endopen;
 		endopen = newEndopen;
 		if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, VizPackage.SIZE_CONTENT__ENDOPEN, oldEndopen, endopen));
+			eNotify(new ENotificationImpl(this, Notification.SET, VizPackage.SIZE_CONTENT__ENDOPEN, oldEndopen,
+					endopen));
 		}
 	}
 
@@ -383,8 +385,8 @@ public class SizeContentImpl extends MinimalEObjectImpl.Container implements Siz
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case VizPackage.SIZE_CONTENT__SPELLS:
-			return basicSetSpells(null, msgs);
+			case VizPackage.SIZE_CONTENT__SPELLS:
+				return basicSetSpells(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -397,18 +399,18 @@ public class SizeContentImpl extends MinimalEObjectImpl.Container implements Siz
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case VizPackage.SIZE_CONTENT__SPELLS:
-			return getSpells();
-		case VizPackage.SIZE_CONTENT__END:
-			return getEnd();
-		case VizPackage.SIZE_CONTENT__ENDOPEN:
-			return getEndopen();
-		case VizPackage.SIZE_CONTENT__START:
-			return getStart();
-		case VizPackage.SIZE_CONTENT__STARTOPEN:
-			return getStartopen();
-		case VizPackage.SIZE_CONTENT__VALUE:
-			return getValue();
+			case VizPackage.SIZE_CONTENT__SPELLS:
+				return getSpells();
+			case VizPackage.SIZE_CONTENT__END:
+				return getEnd();
+			case VizPackage.SIZE_CONTENT__ENDOPEN:
+				return getEndopen();
+			case VizPackage.SIZE_CONTENT__START:
+				return getStart();
+			case VizPackage.SIZE_CONTENT__STARTOPEN:
+				return getStartopen();
+			case VizPackage.SIZE_CONTENT__VALUE:
+				return getValue();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -421,24 +423,24 @@ public class SizeContentImpl extends MinimalEObjectImpl.Container implements Siz
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case VizPackage.SIZE_CONTENT__SPELLS:
-			setSpells((SpellsContent) newValue);
-			return;
-		case VizPackage.SIZE_CONTENT__END:
-			setEnd(newValue);
-			return;
-		case VizPackage.SIZE_CONTENT__ENDOPEN:
-			setEndopen(newValue);
-			return;
-		case VizPackage.SIZE_CONTENT__START:
-			setStart(newValue);
-			return;
-		case VizPackage.SIZE_CONTENT__STARTOPEN:
-			setStartopen(newValue);
-			return;
-		case VizPackage.SIZE_CONTENT__VALUE:
-			setValue((Float) newValue);
-			return;
+			case VizPackage.SIZE_CONTENT__SPELLS:
+				setSpells((SpellsContent) newValue);
+				return;
+			case VizPackage.SIZE_CONTENT__END:
+				setEnd(newValue);
+				return;
+			case VizPackage.SIZE_CONTENT__ENDOPEN:
+				setEndopen(newValue);
+				return;
+			case VizPackage.SIZE_CONTENT__START:
+				setStart(newValue);
+				return;
+			case VizPackage.SIZE_CONTENT__STARTOPEN:
+				setStartopen(newValue);
+				return;
+			case VizPackage.SIZE_CONTENT__VALUE:
+				setValue((Float) newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -451,24 +453,24 @@ public class SizeContentImpl extends MinimalEObjectImpl.Container implements Siz
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case VizPackage.SIZE_CONTENT__SPELLS:
-			setSpells((SpellsContent) null);
-			return;
-		case VizPackage.SIZE_CONTENT__END:
-			setEnd(END_EDEFAULT);
-			return;
-		case VizPackage.SIZE_CONTENT__ENDOPEN:
-			setEndopen(ENDOPEN_EDEFAULT);
-			return;
-		case VizPackage.SIZE_CONTENT__START:
-			setStart(START_EDEFAULT);
-			return;
-		case VizPackage.SIZE_CONTENT__STARTOPEN:
-			setStartopen(STARTOPEN_EDEFAULT);
-			return;
-		case VizPackage.SIZE_CONTENT__VALUE:
-			unsetValue();
-			return;
+			case VizPackage.SIZE_CONTENT__SPELLS:
+				setSpells((SpellsContent) null);
+				return;
+			case VizPackage.SIZE_CONTENT__END:
+				setEnd(END_EDEFAULT);
+				return;
+			case VizPackage.SIZE_CONTENT__ENDOPEN:
+				setEndopen(ENDOPEN_EDEFAULT);
+				return;
+			case VizPackage.SIZE_CONTENT__START:
+				setStart(START_EDEFAULT);
+				return;
+			case VizPackage.SIZE_CONTENT__STARTOPEN:
+				setStartopen(STARTOPEN_EDEFAULT);
+				return;
+			case VizPackage.SIZE_CONTENT__VALUE:
+				unsetValue();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -481,18 +483,18 @@ public class SizeContentImpl extends MinimalEObjectImpl.Container implements Siz
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case VizPackage.SIZE_CONTENT__SPELLS:
-			return spells != null;
-		case VizPackage.SIZE_CONTENT__END:
-			return END_EDEFAULT == null ? end != null : !END_EDEFAULT.equals(end);
-		case VizPackage.SIZE_CONTENT__ENDOPEN:
-			return ENDOPEN_EDEFAULT == null ? endopen != null : !ENDOPEN_EDEFAULT.equals(endopen);
-		case VizPackage.SIZE_CONTENT__START:
-			return START_EDEFAULT == null ? start != null : !START_EDEFAULT.equals(start);
-		case VizPackage.SIZE_CONTENT__STARTOPEN:
-			return STARTOPEN_EDEFAULT == null ? startopen != null : !STARTOPEN_EDEFAULT.equals(startopen);
-		case VizPackage.SIZE_CONTENT__VALUE:
-			return isSetValue();
+			case VizPackage.SIZE_CONTENT__SPELLS:
+				return spells != null;
+			case VizPackage.SIZE_CONTENT__END:
+				return END_EDEFAULT == null ? end != null : !END_EDEFAULT.equals(end);
+			case VizPackage.SIZE_CONTENT__ENDOPEN:
+				return ENDOPEN_EDEFAULT == null ? endopen != null : !ENDOPEN_EDEFAULT.equals(endopen);
+			case VizPackage.SIZE_CONTENT__START:
+				return START_EDEFAULT == null ? start != null : !START_EDEFAULT.equals(start);
+			case VizPackage.SIZE_CONTENT__STARTOPEN:
+				return STARTOPEN_EDEFAULT == null ? startopen != null : !STARTOPEN_EDEFAULT.equals(startopen);
+			case VizPackage.SIZE_CONTENT__VALUE:
+				return isSetValue();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -528,4 +530,4 @@ public class SizeContentImpl extends MinimalEObjectImpl.Container implements Siz
 		return result.toString();
 	}
 
-} //SizeContentImpl
+} // SizeContentImpl

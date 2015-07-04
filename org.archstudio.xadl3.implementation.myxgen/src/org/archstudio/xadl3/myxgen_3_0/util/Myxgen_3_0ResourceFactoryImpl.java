@@ -43,4 +43,4 @@ public class Myxgen_3_0ResourceFactoryImpl extends ResourceFactoryImpl {
 		return result;
 	}
 
-} //Myxgen_3_0ResourceFactoryImpl
+} // Myxgen_3_0ResourceFactoryImpl

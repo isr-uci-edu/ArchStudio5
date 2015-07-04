@@ -43,4 +43,4 @@ public class XlinkXMLProcessor extends XMLProcessor {
 		return registrations;
 	}
 
-} //XlinkXMLProcessor
+} // XlinkXMLProcessor

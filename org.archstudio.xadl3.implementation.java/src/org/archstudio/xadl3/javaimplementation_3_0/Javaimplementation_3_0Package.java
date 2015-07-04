@@ -17,37 +17,13 @@ import org.eclipse.emf.ecore.EReference;
  * <li>each enum,</li>
  * <li>and each data type</li>
  * </ul>
- * <!-- end-user-doc --> <!-- begin-model-doc -->
- * 
- * 
- * xADL 3 Java Implementation Schema
- * 
- * This schema defines the concrete concept of a Java implementation.
- * 
- * Changelog: - 3.0.0 * Initial version
- * 
- * 
- * 
- * 
- * xADL 3 Core Schema
- * 
- * This schema defines the core elements for xADL 3 documents. The schema is intentionally small, defining only a few
- * elements that are intended to be common across xADL descriptions and extensions, regardless of domain.
- * 
- * Changelog: - 3.0.0: * Initial version
- * 
- * 
- * 
- * 
- * xADL 3 Abstract Implementation Schema
- * 
- * This schema defines the concept of an implementation. The concept is abstract, so it is intended to be specialized by
- * various specific types of implementations. However, it exists so that implementations can be treated similarly.
- * 
- * Changelog: - 3.0.0 * Initial version
- * 
- * 
- * <!-- end-model-doc -->
+ * <!-- end-user-doc --> <!-- begin-model-doc --> xADL 3 Java Implementation Schema This schema defines the concrete
+ * concept of a Java implementation. Changelog: - 3.0.0 * Initial version xADL 3 Core Schema This schema defines the
+ * core elements for xADL 3 documents. The schema is intentionally small, defining only a few elements that are intended
+ * to be common across xADL descriptions and extensions, regardless of domain. Changelog: - 3.0.0: * Initial version
+ * xADL 3 Abstract Implementation Schema This schema defines the concept of an implementation. The concept is abstract,
+ * so it is intended to be specialized by various specific types of implementations. However, it exists so that
+ * implementations can be treated similarly. Changelog: - 3.0.0 * Initial version <!-- end-model-doc -->
  * 
  * @see org.archstudio.xadl3.javaimplementation_3_0.Javaimplementation_3_0Factory
  * @model kind="package"
@@ -80,8 +56,8 @@ public interface Javaimplementation_3_0Package extends EPackage {
 	 * 
 	 * @generated
 	 */
-	Javaimplementation_3_0Package eINSTANCE = org.archstudio.xadl3.javaimplementation_3_0.impl.Javaimplementation_3_0PackageImpl
-			.init();
+	Javaimplementation_3_0Package eINSTANCE =
+			org.archstudio.xadl3.javaimplementation_3_0.impl.Javaimplementation_3_0PackageImpl.init();
 
 	/**
 	 * The meta object id for the '{@link org.archstudio.xadl3.javaimplementation_3_0.impl.ClassPathEntryImpl
@@ -267,7 +243,7 @@ public interface Javaimplementation_3_0Package extends EPackage {
 	 * @see org.archstudio.xadl3.javaimplementation_3_0.ClassPathEntry
 	 * @generated
 	 */
-	EClass getClassPathEntry();
+			EClass getClassPathEntry();
 
 	/**
 	 * Returns the meta object for the containment reference list '
@@ -279,7 +255,7 @@ public interface Javaimplementation_3_0Package extends EPackage {
 	 * @see #getClassPathEntry()
 	 * @generated
 	 */
-	EReference getClassPathEntry_Ext();
+			EReference getClassPathEntry_Ext();
 
 	/**
 	 * Returns the meta object for the attribute '
@@ -291,7 +267,7 @@ public interface Javaimplementation_3_0Package extends EPackage {
 	 * @see #getClassPathEntry()
 	 * @generated
 	 */
-	EAttribute getClassPathEntry_Entry();
+			EAttribute getClassPathEntry_Entry();
 
 	/**
 	 * Returns the meta object for the attribute '
@@ -303,7 +279,7 @@ public interface Javaimplementation_3_0Package extends EPackage {
 	 * @see #getClassPathEntry()
 	 * @generated
 	 */
-	EAttribute getClassPathEntry_Id();
+			EAttribute getClassPathEntry_Id();
 
 	/**
 	 * Returns the meta object for class '{@link org.archstudio.xadl3.javaimplementation_3_0.JavaClass
@@ -313,7 +289,7 @@ public interface Javaimplementation_3_0Package extends EPackage {
 	 * @see org.archstudio.xadl3.javaimplementation_3_0.JavaClass
 	 * @generated
 	 */
-	EClass getJavaClass();
+			EClass getJavaClass();
 
 	/**
 	 * Returns the meta object for the containment reference list '
@@ -325,7 +301,7 @@ public interface Javaimplementation_3_0Package extends EPackage {
 	 * @see #getJavaClass()
 	 * @generated
 	 */
-	EReference getJavaClass_ClassPathEntry();
+			EReference getJavaClass_ClassPathEntry();
 
 	/**
 	 * Returns the meta object for the containment reference list '
@@ -337,7 +313,7 @@ public interface Javaimplementation_3_0Package extends EPackage {
 	 * @see #getJavaClass()
 	 * @generated
 	 */
-	EReference getJavaClass_Ext();
+			EReference getJavaClass_Ext();
 
 	/**
 	 * Returns the meta object for the attribute '
@@ -349,7 +325,7 @@ public interface Javaimplementation_3_0Package extends EPackage {
 	 * @see #getJavaClass()
 	 * @generated
 	 */
-	EAttribute getJavaClass_ClassName();
+			EAttribute getJavaClass_ClassName();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.archstudio.xadl3.javaimplementation_3_0.JavaClass#getId
@@ -360,7 +336,7 @@ public interface Javaimplementation_3_0Package extends EPackage {
 	 * @see #getJavaClass()
 	 * @generated
 	 */
-	EAttribute getJavaClass_Id();
+			EAttribute getJavaClass_Id();
 
 	/**
 	 * Returns the meta object for class '{@link org.archstudio.xadl3.javaimplementation_3_0.JavaImplementation
@@ -370,7 +346,7 @@ public interface Javaimplementation_3_0Package extends EPackage {
 	 * @see org.archstudio.xadl3.javaimplementation_3_0.JavaImplementation
 	 * @generated
 	 */
-	EClass getJavaImplementation();
+			EClass getJavaImplementation();
 
 	/**
 	 * Returns the meta object for the containment reference '
@@ -382,7 +358,7 @@ public interface Javaimplementation_3_0Package extends EPackage {
 	 * @see #getJavaImplementation()
 	 * @generated
 	 */
-	EReference getJavaImplementation_MainClass();
+			EReference getJavaImplementation_MainClass();
 
 	/**
 	 * Returns the meta object for the containment reference list '
@@ -394,7 +370,7 @@ public interface Javaimplementation_3_0Package extends EPackage {
 	 * @see #getJavaImplementation()
 	 * @generated
 	 */
-	EReference getJavaImplementation_AuxClass();
+			EReference getJavaImplementation_AuxClass();
 
 	/**
 	 * Returns the meta object for the containment reference list '
@@ -406,7 +382,7 @@ public interface Javaimplementation_3_0Package extends EPackage {
 	 * @see #getJavaImplementation()
 	 * @generated
 	 */
-	EReference getJavaImplementation_Ext();
+			EReference getJavaImplementation_Ext();
 
 	/**
 	 * Returns the factory that creates the instances of the model. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -414,7 +390,7 @@ public interface Javaimplementation_3_0Package extends EPackage {
 	 * @return the factory that creates the instances of the model.
 	 * @generated
 	 */
-	Javaimplementation_3_0Factory getJavaimplementation_3_0Factory();
+			Javaimplementation_3_0Factory getJavaimplementation_3_0Factory();
 
 	/**
 	 * <!-- begin-user-doc --> Defines literals for the meta objects that represent
@@ -543,4 +519,4 @@ public interface Javaimplementation_3_0Package extends EPackage {
 
 	}
 
-} //Javaimplementation_3_0Package
+} // Javaimplementation_3_0Package

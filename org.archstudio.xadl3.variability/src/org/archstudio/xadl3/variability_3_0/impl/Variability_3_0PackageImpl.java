@@ -135,7 +135,6 @@ public class Variability_3_0PackageImpl extends EPackageImpl implements Variabil
 
 	/**
 	 * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
-	 * 
 	 * <p>
 	 * This method is used to initialize {@link Variability_3_0Package#eINSTANCE} when that field is accessed. Clients
 	 * should not invoke it directly. Instead, they should simply access that field to obtain the package. <!--
@@ -154,7 +153,7 @@ public class Variability_3_0PackageImpl extends EPackageImpl implements Variabil
 		// Obtain or create and register package
 		Variability_3_0PackageImpl theVariability_3_0Package = (Variability_3_0PackageImpl) (EPackage.Registry.INSTANCE
 				.get(eNS_URI) instanceof Variability_3_0PackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI)
-				: new Variability_3_0PackageImpl());
+						: new Variability_3_0PackageImpl());
 
 		isInited = true;
 
@@ -163,11 +162,12 @@ public class Variability_3_0PackageImpl extends EPackageImpl implements Variabil
 
 		// Obtain or create and register interdependencies
 		Xadlcore_3_0PackageImpl theXadlcore_3_0Package = (Xadlcore_3_0PackageImpl) (EPackage.Registry.INSTANCE
-				.getEPackage(Xadlcore_3_0Package.eNS_URI) instanceof Xadlcore_3_0PackageImpl ? EPackage.Registry.INSTANCE
-				.getEPackage(Xadlcore_3_0Package.eNS_URI) : Xadlcore_3_0Package.eINSTANCE);
+				.getEPackage(Xadlcore_3_0Package.eNS_URI) instanceof Xadlcore_3_0PackageImpl
+						? EPackage.Registry.INSTANCE.getEPackage(Xadlcore_3_0Package.eNS_URI)
+						: Xadlcore_3_0Package.eINSTANCE);
 		XlinkPackageImpl theXlinkPackage = (XlinkPackageImpl) (EPackage.Registry.INSTANCE
-				.getEPackage(XlinkPackage.eNS_URI) instanceof XlinkPackageImpl ? EPackage.Registry.INSTANCE
-				.getEPackage(XlinkPackage.eNS_URI) : XlinkPackage.eINSTANCE);
+				.getEPackage(XlinkPackage.eNS_URI) instanceof XlinkPackageImpl
+						? EPackage.Registry.INSTANCE.getEPackage(XlinkPackage.eNS_URI) : XlinkPackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theVariability_3_0Package.createPackageContents();
@@ -628,10 +628,10 @@ public class Variability_3_0PackageImpl extends EPackageImpl implements Variabil
 		setNsURI(eNS_URI);
 
 		// Obtain other dependent packages
-		XMLTypePackage theXMLTypePackage = (XMLTypePackage) EPackage.Registry.INSTANCE
-				.getEPackage(XMLTypePackage.eNS_URI);
-		Xadlcore_3_0Package theXadlcore_3_0Package = (Xadlcore_3_0Package) EPackage.Registry.INSTANCE
-				.getEPackage(Xadlcore_3_0Package.eNS_URI);
+		XMLTypePackage theXMLTypePackage =
+				(XMLTypePackage) EPackage.Registry.INSTANCE.getEPackage(XMLTypePackage.eNS_URI);
+		Xadlcore_3_0Package theXadlcore_3_0Package =
+				(Xadlcore_3_0Package) EPackage.Registry.INSTANCE.getEPackage(Xadlcore_3_0Package.eNS_URI);
 
 		// Create type parameters
 
@@ -653,8 +653,8 @@ public class Variability_3_0PackageImpl extends EPackageImpl implements Variabil
 				!IS_DERIVED, IS_ORDERED);
 
 		initEClass(changeEClass, Change.class, "Change", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getChange_Name(), theXMLTypePackage.getString(), "name", null, 0, 1, Change.class,
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getChange_Name(), theXMLTypePackage.getString(), "name", null, 0, 1, Change.class, !IS_TRANSIENT,
+				!IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(changeSetEClass, ChangeSet.class, "ChangeSet", IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
@@ -675,7 +675,8 @@ public class Variability_3_0PackageImpl extends EPackageImpl implements Variabil
 		initEClass(documentRootEClass, DocumentRoot.class, "DocumentRoot", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getDocumentRoot_Mixed(), ecorePackage.getEFeatureMapEntry(), "mixed", null, 0, -1, null,
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED,
+				IS_ORDERED);
 		initEReference(getDocumentRoot_XMLNSPrefixMap(), ecorePackage.getEStringToStringMapEntry(), null,
 				"xMLNSPrefixMap", null, 0, -1, null, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
 				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -702,8 +703,8 @@ public class Variability_3_0PackageImpl extends EPackageImpl implements Variabil
 
 		initEClass(javaTransformChangeSetOfChangesEClass, JavaTransformChangeSetOfChanges.class,
 				"JavaTransformChangeSetOfChanges", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getJavaTransformChangeSetOfChanges_Bundle(), theXMLTypePackage.getString(), "bundle", null, 0,
-				1, JavaTransformChangeSetOfChanges.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE,
+		initEAttribute(getJavaTransformChangeSetOfChanges_Bundle(), theXMLTypePackage.getString(), "bundle", null, 0, 1,
+				JavaTransformChangeSetOfChanges.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE,
 				!IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getJavaTransformChangeSetOfChanges_Class(), theXMLTypePackage.getString(), "class", null, 0, 1,
 				JavaTransformChangeSetOfChanges.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE,
@@ -757,66 +758,66 @@ public class Variability_3_0PackageImpl extends EPackageImpl implements Variabil
 	protected void createExtendedMetaDataAnnotations() {
 		String source = "http:///org/eclipse/emf/ecore/util/ExtendedMetaData";
 		addAnnotation(attributeChangeEClass, source, new String[] { "name", "AttributeChange", "kind", "empty" });
-		addAnnotation(getAttributeChange_Value(), source, new String[] { "kind", "attribute", "name", "value",
-				"namespace", "##targetNamespace" });
+		addAnnotation(getAttributeChange_Value(), source,
+				new String[] { "kind", "attribute", "name", "value", "namespace", "##targetNamespace" });
 		addAnnotation(changeEClass, source, new String[] { "name", "Change", "kind", "empty" });
-		addAnnotation(getChange_Name(), source, new String[] { "kind", "attribute", "name", "name", "namespace",
-				"##targetNamespace" });
+		addAnnotation(getChange_Name(), source,
+				new String[] { "kind", "attribute", "name", "name", "namespace", "##targetNamespace" });
 		addAnnotation(changeSetEClass, source, new String[] { "name", "ChangeSet", "kind", "elementOnly" });
-		addAnnotation(getChangeSet_Ext(), source, new String[] { "kind", "element", "name", "ext", "namespace",
-				"##targetNamespace" });
-		addAnnotation(getChangeSet_Id(), source, new String[] { "kind", "attribute", "name", "id", "namespace",
-				"##targetNamespace" });
-		addAnnotation(getChangeSet_Name(), source, new String[] { "kind", "attribute", "name", "name", "namespace",
-				"##targetNamespace" });
-		addAnnotation(changeSetOfChangesEClass, source, new String[] { "name", "ChangeSetOfChanges", "kind",
-				"elementOnly" });
-		addAnnotation(getChangeSetOfChanges_ElementChange(), source, new String[] { "kind", "element", "name",
-				"elementChange", "namespace", "##targetNamespace" });
+		addAnnotation(getChangeSet_Ext(), source,
+				new String[] { "kind", "element", "name", "ext", "namespace", "##targetNamespace" });
+		addAnnotation(getChangeSet_Id(), source,
+				new String[] { "kind", "attribute", "name", "id", "namespace", "##targetNamespace" });
+		addAnnotation(getChangeSet_Name(), source,
+				new String[] { "kind", "attribute", "name", "name", "namespace", "##targetNamespace" });
+		addAnnotation(changeSetOfChangesEClass, source,
+				new String[] { "name", "ChangeSetOfChanges", "kind", "elementOnly" });
+		addAnnotation(getChangeSetOfChanges_ElementChange(), source,
+				new String[] { "kind", "element", "name", "elementChange", "namespace", "##targetNamespace" });
 		addAnnotation(documentRootEClass, source, new String[] { "name", "", "kind", "mixed" });
 		addAnnotation(getDocumentRoot_Mixed(), source, new String[] { "kind", "elementWildcard", "name", ":mixed" });
-		addAnnotation(getDocumentRoot_XMLNSPrefixMap(), source, new String[] { "kind", "attribute", "name",
-				"xmlns:prefix" });
-		addAnnotation(getDocumentRoot_XSISchemaLocation(), source, new String[] { "kind", "attribute", "name",
-				"xsi:schemaLocation" });
-		addAnnotation(getDocumentRoot_Variability(), source, new String[] { "kind", "element", "name", "variability",
-				"namespace", "##targetNamespace", "affiliation",
-				"http://www.archstudio.org/xadl3/schemas/xadlcore-3.0.xsd#topLevelElement" });
+		addAnnotation(getDocumentRoot_XMLNSPrefixMap(), source,
+				new String[] { "kind", "attribute", "name", "xmlns:prefix" });
+		addAnnotation(getDocumentRoot_XSISchemaLocation(), source,
+				new String[] { "kind", "attribute", "name", "xsi:schemaLocation" });
+		addAnnotation(getDocumentRoot_Variability(), source,
+				new String[] { "kind", "element", "name", "variability", "namespace", "##targetNamespace",
+						"affiliation", "http://www.archstudio.org/xadl3/schemas/xadlcore-3.0.xsd#topLevelElement" });
 		addAnnotation(elementChangeEClass, source, new String[] { "name", "ElementChange", "kind", "elementOnly" });
-		addAnnotation(getElementChange_Change(), source, new String[] { "kind", "element", "name", "change",
-				"namespace", "##targetNamespace" });
-		addAnnotation(getElementChange_Type(), source, new String[] { "kind", "attribute", "name", "type", "namespace",
-				"##targetNamespace" });
-		addAnnotation(elementManyChangeEClass, source, new String[] { "name", "ElementManyChange", "kind",
-				"elementOnly" });
-		addAnnotation(getElementManyChange_Change(), source, new String[] { "kind", "element", "name", "change",
-				"namespace", "##targetNamespace" });
-		addAnnotation(javaTransformChangeSetOfChangesEClass, source, new String[] { "name",
-				"JavaTransformChangeSetOfChanges", "kind", "elementOnly" });
-		addAnnotation(getJavaTransformChangeSetOfChanges_Bundle(), source, new String[] { "kind", "attribute", "name",
-				"bundle", "namespace", "##targetNamespace" });
-		addAnnotation(getJavaTransformChangeSetOfChanges_Class(), source, new String[] { "kind", "attribute", "name",
-				"class", "namespace", "##targetNamespace" });
+		addAnnotation(getElementChange_Change(), source,
+				new String[] { "kind", "element", "name", "change", "namespace", "##targetNamespace" });
+		addAnnotation(getElementChange_Type(), source,
+				new String[] { "kind", "attribute", "name", "type", "namespace", "##targetNamespace" });
+		addAnnotation(elementManyChangeEClass, source,
+				new String[] { "name", "ElementManyChange", "kind", "elementOnly" });
+		addAnnotation(getElementManyChange_Change(), source,
+				new String[] { "kind", "element", "name", "change", "namespace", "##targetNamespace" });
+		addAnnotation(javaTransformChangeSetOfChangesEClass, source,
+				new String[] { "name", "JavaTransformChangeSetOfChanges", "kind", "elementOnly" });
+		addAnnotation(getJavaTransformChangeSetOfChanges_Bundle(), source,
+				new String[] { "kind", "attribute", "name", "bundle", "namespace", "##targetNamespace" });
+		addAnnotation(getJavaTransformChangeSetOfChanges_Class(), source,
+				new String[] { "kind", "attribute", "name", "class", "namespace", "##targetNamespace" });
 		addAnnotation(relationshipEClass, source, new String[] { "name", "Relationship", "kind", "elementOnly" });
-		addAnnotation(getRelationship_Ext(), source, new String[] { "kind", "element", "name", "ext", "namespace",
-				"##targetNamespace" });
-		addAnnotation(getRelationship_Id(), source, new String[] { "kind", "attribute", "name", "id", "namespace",
-				"##targetNamespace" });
-		addAnnotation(getRelationship_Name(), source, new String[] { "kind", "attribute", "name", "name", "namespace",
-				"##targetNamespace" });
-		addAnnotation(transformChangeSetOfChangesEClass, source, new String[] { "name", "TransformChangeSetOfChanges",
-				"kind", "elementOnly" });
+		addAnnotation(getRelationship_Ext(), source,
+				new String[] { "kind", "element", "name", "ext", "namespace", "##targetNamespace" });
+		addAnnotation(getRelationship_Id(), source,
+				new String[] { "kind", "attribute", "name", "id", "namespace", "##targetNamespace" });
+		addAnnotation(getRelationship_Name(), source,
+				new String[] { "kind", "attribute", "name", "name", "namespace", "##targetNamespace" });
+		addAnnotation(transformChangeSetOfChangesEClass, source,
+				new String[] { "name", "TransformChangeSetOfChanges", "kind", "elementOnly" });
 		addAnnotation(variabilityEClass, source, new String[] { "name", "Variability", "kind", "elementOnly" });
-		addAnnotation(getVariability_ActiveChangeSet(), source, new String[] { "kind", "element", "name",
-				"activeChangeSet", "namespace", "##targetNamespace" });
-		addAnnotation(getVariability_AppliedChangeSets(), source, new String[] { "kind", "element", "name",
-				"appliedChangeSets", "namespace", "##targetNamespace" });
-		addAnnotation(getVariability_ChangeSet(), source, new String[] { "kind", "element", "name", "changeSet",
-				"namespace", "##targetNamespace" });
-		addAnnotation(getVariability_Relationship(), source, new String[] { "kind", "element", "name", "relationship",
-				"namespace", "##targetNamespace" });
-		addAnnotation(getVariability_Overview(), source, new String[] { "kind", "attribute", "name", "overview",
-				"namespace", "##targetNamespace" });
+		addAnnotation(getVariability_ActiveChangeSet(), source,
+				new String[] { "kind", "element", "name", "activeChangeSet", "namespace", "##targetNamespace" });
+		addAnnotation(getVariability_AppliedChangeSets(), source,
+				new String[] { "kind", "element", "name", "appliedChangeSets", "namespace", "##targetNamespace" });
+		addAnnotation(getVariability_ChangeSet(), source,
+				new String[] { "kind", "element", "name", "changeSet", "namespace", "##targetNamespace" });
+		addAnnotation(getVariability_Relationship(), source,
+				new String[] { "kind", "element", "name", "relationship", "namespace", "##targetNamespace" });
+		addAnnotation(getVariability_Overview(), source,
+				new String[] { "kind", "attribute", "name", "overview", "namespace", "##targetNamespace" });
 	}
 
-} //Variability_3_0PackageImpl
+} // Variability_3_0PackageImpl

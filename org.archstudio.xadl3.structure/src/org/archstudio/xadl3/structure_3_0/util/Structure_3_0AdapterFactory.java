@@ -122,8 +122,7 @@ public class Structure_3_0AdapterFactory extends AdapterFactoryImpl {
 	/**
 	 * Creates an adapter for the <code>target</code>. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
-	 * @param target
-	 *            the object to adapt.
+	 * @param target the object to adapt.
 	 * @return the adapter for the <code>target</code>.
 	 * @generated
 	 */
@@ -267,4 +266,4 @@ public class Structure_3_0AdapterFactory extends AdapterFactoryImpl {
 		return null;
 	}
 
-} //Structure_3_0AdapterFactory
+} // Structure_3_0AdapterFactory

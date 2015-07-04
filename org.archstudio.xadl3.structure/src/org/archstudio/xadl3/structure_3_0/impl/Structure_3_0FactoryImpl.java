@@ -33,8 +33,8 @@ public class Structure_3_0FactoryImpl extends EFactoryImpl implements Structure_
 	 */
 	public static Structure_3_0Factory init() {
 		try {
-			Structure_3_0Factory theStructure_3_0Factory = (Structure_3_0Factory) EPackage.Registry.INSTANCE
-					.getEFactory(Structure_3_0Package.eNS_URI);
+			Structure_3_0Factory theStructure_3_0Factory =
+					(Structure_3_0Factory) EPackage.Registry.INSTANCE.getEFactory(Structure_3_0Package.eNS_URI);
 			if (theStructure_3_0Factory != null) {
 				return theStructure_3_0Factory;
 			}
@@ -62,24 +62,24 @@ public class Structure_3_0FactoryImpl extends EFactoryImpl implements Structure_
 	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
-		case Structure_3_0Package.COMPONENT:
-			return createComponent();
-		case Structure_3_0Package.CONNECTOR:
-			return createConnector();
-		case Structure_3_0Package.DOCUMENT_ROOT:
-			return createDocumentRoot();
-		case Structure_3_0Package.INTERFACE:
-			return createInterface();
-		case Structure_3_0Package.INTERFACE_MAPPING:
-			return createInterfaceMapping();
-		case Structure_3_0Package.LINK:
-			return createLink();
-		case Structure_3_0Package.STRUCTURE:
-			return createStructure();
-		case Structure_3_0Package.SUB_STRUCTURE:
-			return createSubStructure();
-		default:
-			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+			case Structure_3_0Package.COMPONENT:
+				return createComponent();
+			case Structure_3_0Package.CONNECTOR:
+				return createConnector();
+			case Structure_3_0Package.DOCUMENT_ROOT:
+				return createDocumentRoot();
+			case Structure_3_0Package.INTERFACE:
+				return createInterface();
+			case Structure_3_0Package.INTERFACE_MAPPING:
+				return createInterfaceMapping();
+			case Structure_3_0Package.LINK:
+				return createLink();
+			case Structure_3_0Package.STRUCTURE:
+				return createStructure();
+			case Structure_3_0Package.SUB_STRUCTURE:
+				return createSubStructure();
+			default:
+				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
 	}
 
@@ -91,12 +91,13 @@ public class Structure_3_0FactoryImpl extends EFactoryImpl implements Structure_
 	@Override
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
-		case Structure_3_0Package.DIRECTION:
-			return createDirectionFromString(eDataType, initialValue);
-		case Structure_3_0Package.DIRECTION_OBJECT:
-			return createDirectionObjectFromString(eDataType, initialValue);
-		default:
-			throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
+			case Structure_3_0Package.DIRECTION:
+				return createDirectionFromString(eDataType, initialValue);
+			case Structure_3_0Package.DIRECTION_OBJECT:
+				return createDirectionObjectFromString(eDataType, initialValue);
+			default:
+				throw new IllegalArgumentException(
+						"The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
 	}
 
@@ -108,12 +109,13 @@ public class Structure_3_0FactoryImpl extends EFactoryImpl implements Structure_
 	@Override
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
-		case Structure_3_0Package.DIRECTION:
-			return convertDirectionToString(eDataType, instanceValue);
-		case Structure_3_0Package.DIRECTION_OBJECT:
-			return convertDirectionObjectToString(eDataType, instanceValue);
-		default:
-			throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
+			case Structure_3_0Package.DIRECTION:
+				return convertDirectionToString(eDataType, instanceValue);
+			case Structure_3_0Package.DIRECTION_OBJECT:
+				return convertDirectionObjectToString(eDataType, instanceValue);
+			default:
+				throw new IllegalArgumentException(
+						"The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
 	}
 
@@ -213,8 +215,8 @@ public class Structure_3_0FactoryImpl extends EFactoryImpl implements Structure_
 	public Direction createDirectionFromString(EDataType eDataType, String initialValue) {
 		Direction result = Direction.get(initialValue);
 		if (result == null) {
-			throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
-					+ eDataType.getName() + "'");
+			throw new IllegalArgumentException(
+					"The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
 		}
 		return result;
 	}
@@ -267,4 +269,4 @@ public class Structure_3_0FactoryImpl extends EFactoryImpl implements Structure_
 		return Structure_3_0Package.eINSTANCE;
 	}
 
-} //Structure_3_0FactoryImpl
+} // Structure_3_0FactoryImpl

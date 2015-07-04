@@ -5,10 +5,8 @@ import org.archstudio.myx.fw.MyxRegistry;
 import org.archstudio.myx.fw.MyxUtils;
 
 /*
- * DO NOT EDIT THIS CLASS, it is automatically generated. ANY MODIFICATIONS WILL BE OVERWRITTEN.
- * 
- * To modify, update the "XArch ADT Variability Impl" MyxGen extension in the org.archstudio.xarchadt.variability.core
- * plugin.
+ * DO NOT EDIT THIS CLASS, it is automatically generated. ANY MODIFICATIONS WILL BE OVERWRITTEN. To modify, update the
+ * "XArch ADT Variability Impl" MyxGen extension in the org.archstudio.xarchadt.variability.core plugin.
  */
 
 /**
@@ -61,7 +59,8 @@ public abstract class XArchADTVariabilityMyxComponentStub extends org.archstudio
 	 * @see #OUT_FILE_EVENTS
 	 * @generated
 	 */
-	protected final java.util.Collection<org.archstudio.xarchadt.IXArchADTFileListener> fileEvents = new java.util.concurrent.CopyOnWriteArrayList<org.archstudio.xarchadt.IXArchADTFileListener>();
+	protected final java.util.Collection<org.archstudio.xarchadt.IXArchADTFileListener> fileEvents =
+			new java.util.concurrent.CopyOnWriteArrayList<org.archstudio.xarchadt.IXArchADTFileListener>();
 
 	/**
 	 * Service object proxy for the fileEvents interface. Calls to this proxy object are automatically delegated to all
@@ -70,8 +69,9 @@ public abstract class XArchADTVariabilityMyxComponentStub extends org.archstudio
 	 * @see #OUT_FILE_EVENTS
 	 * @generated
 	 */
-	protected final org.archstudio.xarchadt.IXArchADTFileListener fileEventsProxy = (org.archstudio.xarchadt.IXArchADTFileListener) java.lang.reflect.Proxy
-			.newProxyInstance(org.archstudio.xarchadt.IXArchADTFileListener.class.getClassLoader(),
+	protected final org.archstudio.xarchadt.IXArchADTFileListener fileEventsProxy =
+			(org.archstudio.xarchadt.IXArchADTFileListener) java.lang.reflect.Proxy.newProxyInstance(
+					org.archstudio.xarchadt.IXArchADTFileListener.class.getClassLoader(),
 					new Class[] { org.archstudio.xarchadt.IXArchADTFileListener.class },
 					new java.lang.reflect.InvocationHandler() {
 						@Override
@@ -112,7 +112,8 @@ public abstract class XArchADTVariabilityMyxComponentStub extends org.archstudio
 	 * @see #OUT_MODEL_EVENTS
 	 * @generated
 	 */
-	protected final java.util.Collection<org.archstudio.xarchadt.IXArchADTModelListener> modelEvents = new java.util.concurrent.CopyOnWriteArrayList<org.archstudio.xarchadt.IXArchADTModelListener>();
+	protected final java.util.Collection<org.archstudio.xarchadt.IXArchADTModelListener> modelEvents =
+			new java.util.concurrent.CopyOnWriteArrayList<org.archstudio.xarchadt.IXArchADTModelListener>();
 
 	/**
 	 * Service object proxy for the modelEvents interface. Calls to this proxy object are automatically delegated to all
@@ -121,8 +122,9 @@ public abstract class XArchADTVariabilityMyxComponentStub extends org.archstudio
 	 * @see #OUT_MODEL_EVENTS
 	 * @generated
 	 */
-	protected final org.archstudio.xarchadt.IXArchADTModelListener modelEventsProxy = (org.archstudio.xarchadt.IXArchADTModelListener) java.lang.reflect.Proxy
-			.newProxyInstance(org.archstudio.xarchadt.IXArchADTModelListener.class.getClassLoader(),
+	protected final org.archstudio.xarchadt.IXArchADTModelListener modelEventsProxy =
+			(org.archstudio.xarchadt.IXArchADTModelListener) java.lang.reflect.Proxy.newProxyInstance(
+					org.archstudio.xarchadt.IXArchADTModelListener.class.getClassLoader(),
 					new Class[] { org.archstudio.xarchadt.IXArchADTModelListener.class },
 					new java.lang.reflect.InvocationHandler() {
 						@Override
@@ -163,7 +165,8 @@ public abstract class XArchADTVariabilityMyxComponentStub extends org.archstudio
 	 * @see #OUT_VARIABILITY_EVENTS
 	 * @generated
 	 */
-	protected final java.util.Collection<org.archstudio.xarchadt.variability.IXArchADTVariabilityListener> variabilityEvents = new java.util.concurrent.CopyOnWriteArrayList<org.archstudio.xarchadt.variability.IXArchADTVariabilityListener>();
+	protected final java.util.Collection<org.archstudio.xarchadt.variability.IXArchADTVariabilityListener> variabilityEvents =
+			new java.util.concurrent.CopyOnWriteArrayList<org.archstudio.xarchadt.variability.IXArchADTVariabilityListener>();
 
 	/**
 	 * Service object proxy for the variabilityEvents interface. Calls to this proxy object are automatically delegated
@@ -172,8 +175,9 @@ public abstract class XArchADTVariabilityMyxComponentStub extends org.archstudio
 	 * @see #OUT_VARIABILITY_EVENTS
 	 * @generated
 	 */
-	protected final org.archstudio.xarchadt.variability.IXArchADTVariabilityListener variabilityEventsProxy = (org.archstudio.xarchadt.variability.IXArchADTVariabilityListener) java.lang.reflect.Proxy
-			.newProxyInstance(org.archstudio.xarchadt.variability.IXArchADTVariabilityListener.class.getClassLoader(),
+	protected final org.archstudio.xarchadt.variability.IXArchADTVariabilityListener variabilityEventsProxy =
+			(org.archstudio.xarchadt.variability.IXArchADTVariabilityListener) java.lang.reflect.Proxy.newProxyInstance(
+					org.archstudio.xarchadt.variability.IXArchADTVariabilityListener.class.getClassLoader(),
 					new Class[] { org.archstudio.xarchadt.variability.IXArchADTVariabilityListener.class },
 					new java.lang.reflect.InvocationHandler() {
 						@Override

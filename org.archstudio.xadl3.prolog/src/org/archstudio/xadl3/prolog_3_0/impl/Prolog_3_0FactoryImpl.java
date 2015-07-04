@@ -25,8 +25,8 @@ public class Prolog_3_0FactoryImpl extends EFactoryImpl implements Prolog_3_0Fac
 	 */
 	public static Prolog_3_0Factory init() {
 		try {
-			Prolog_3_0Factory theProlog_3_0Factory = (Prolog_3_0Factory) EPackage.Registry.INSTANCE
-					.getEFactory(Prolog_3_0Package.eNS_URI);
+			Prolog_3_0Factory theProlog_3_0Factory =
+					(Prolog_3_0Factory) EPackage.Registry.INSTANCE.getEFactory(Prolog_3_0Package.eNS_URI);
 			if (theProlog_3_0Factory != null) {
 				return theProlog_3_0Factory;
 			}
@@ -54,12 +54,12 @@ public class Prolog_3_0FactoryImpl extends EFactoryImpl implements Prolog_3_0Fac
 	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
-		case Prolog_3_0Package.PROLOG_EXTENSION:
-			return createPrologExtension();
-		case Prolog_3_0Package.STATEMENT:
-			return createStatement();
-		default:
-			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+			case Prolog_3_0Package.PROLOG_EXTENSION:
+				return createPrologExtension();
+			case Prolog_3_0Package.STATEMENT:
+				return createStatement();
+			default:
+				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
 	}
 
@@ -106,4 +106,4 @@ public class Prolog_3_0FactoryImpl extends EFactoryImpl implements Prolog_3_0Fac
 		return Prolog_3_0Package.eINSTANCE;
 	}
 
-} //Prolog_3_0FactoryImpl
+} // Prolog_3_0FactoryImpl

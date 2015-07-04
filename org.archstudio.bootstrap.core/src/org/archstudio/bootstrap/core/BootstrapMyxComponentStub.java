@@ -5,9 +5,8 @@ import org.archstudio.myx.fw.MyxRegistry;
 import org.archstudio.myx.fw.MyxUtils;
 
 /*
- * DO NOT EDIT THIS CLASS, it is automatically generated. ANY MODIFICATIONS WILL BE OVERWRITTEN.
- * 
- * To modify, update the "Bootstrap Impl" MyxGen extension in the org.archstudio.bootstrap.core plugin.
+ * DO NOT EDIT THIS CLASS, it is automatically generated. ANY MODIFICATIONS WILL BE OVERWRITTEN. To modify, update the
+ * "Bootstrap Impl" MyxGen extension in the org.archstudio.bootstrap.core plugin.
  */
 
 /**
@@ -15,8 +14,8 @@ import org.archstudio.myx.fw.MyxUtils;
  * 
  * @generated
  */
-public abstract class BootstrapMyxComponentStub extends org.archstudio.myx.fw.AbstractMyxSimpleBrick implements
-		org.archstudio.myx.fw.IMyxDynamicBrick {
+public abstract class BootstrapMyxComponentStub extends org.archstudio.myx.fw.AbstractMyxSimpleBrick
+		implements org.archstudio.myx.fw.IMyxDynamicBrick {
 
 	/**
 	 * The registry of objects for this brick.

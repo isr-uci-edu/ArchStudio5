@@ -43,4 +43,4 @@ public class GexfResourceFactoryImpl extends ResourceFactoryImpl {
 		return result;
 	}
 
-} //GexfResourceFactoryImpl
+} // GexfResourceFactoryImpl

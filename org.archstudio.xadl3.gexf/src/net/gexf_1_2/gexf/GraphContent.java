@@ -8,9 +8,9 @@ import org.eclipse.emf.ecore.util.FeatureMap;
 
 /**
  * <!-- begin-user-doc --> A representation of the model object '<em><b>Graph Content</b></em>'. <!-- end-user-doc -->
- *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  * <li>{@link net.gexf_1_2.gexf.GraphContent#getGroup <em>Group</em>}</li>
  * <li>{@link net.gexf_1_2.gexf.GraphContent#getAttributes <em>Attributes</em>}</li>
@@ -25,29 +25,29 @@ import org.eclipse.emf.ecore.util.FeatureMap;
  * <li>{@link net.gexf_1_2.gexf.GraphContent#getStartopen <em>Startopen</em>}</li>
  * <li>{@link net.gexf_1_2.gexf.GraphContent#getTimeformat <em>Timeformat</em>}</li>
  * </ul>
- * </p>
  *
  * @see net.gexf_1_2.gexf.GexfPackage#getGraphContent()
  * @model extendedMetaData="name='graph-content' kind='elementOnly'"
  * @generated
  */
-public interface GraphContent extends EObject {
-	/**
-	 * Returns the value of the '<em><b>Group</b></em>' attribute list. The list contents are of type
-	 * {@link org.eclipse.emf.ecore.util.FeatureMap.Entry}. <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Group</em>' attribute list isn't clear, there really should be more of a description
-	 * here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * 
-	 * @return the value of the '<em>Group</em>' attribute list.
-	 * @see net.gexf_1_2.gexf.GexfPackage#getGraphContent_Group()
-	 * @model unique="false" dataType="org.eclipse.emf.ecore.EFeatureMapEntry" many="true"
-	 *        extendedMetaData="kind='group' name='group:0'"
-	 * @generated
-	 */
-	FeatureMap getGroup();
+public interface GraphContent extends
+		EObject {
+					/**
+					 * Returns the value of the '<em><b>Group</b></em>' attribute list. The list contents are of type
+					 * {@link org.eclipse.emf.ecore.util.FeatureMap.Entry}. <!-- begin-user-doc -->
+					 * <p>
+					 * If the meaning of the '<em>Group</em>' attribute list isn't clear, there really should be more of
+					 * a description here...
+					 * </p>
+					 * <!-- end-user-doc -->
+					 * 
+					 * @return the value of the '<em>Group</em>' attribute list.
+					 * @see net.gexf_1_2.gexf.GexfPackage#getGraphContent_Group()
+					 * @model unique="false" dataType="org.eclipse.emf.ecore.EFeatureMapEntry" many="true"
+					 *        extendedMetaData="kind='group' name='group:0'"
+					 * @generated
+					 */
+					FeatureMap getGroup();
 
 	/**
 	 * Returns the value of the '<em><b>Attributes</b></em>' containment reference list. The list contents are of type
@@ -60,11 +60,11 @@ public interface GraphContent extends EObject {
 	 * 
 	 * @return the value of the '<em>Attributes</em>' containment reference list.
 	 * @see net.gexf_1_2.gexf.GexfPackage#getGraphContent_Attributes()
-	 * @model containment="true" transient="true" volatile="true" derived="true"
-	 *        extendedMetaData="kind='element' name='attributes' namespace='##targetNamespace' group='#group:0'"
+	 * @model containment="true" transient="true" volatile="true" derived="true" extendedMetaData=
+	 *        "kind='element' name='attributes' namespace='##targetNamespace' group='#group:0'"
 	 * @generated
 	 */
-	EList<AttributesContent> getAttributes();
+			EList<AttributesContent> getAttributes();
 
 	/**
 	 * Returns the value of the '<em><b>Nodes</b></em>' containment reference list. The list contents are of type
@@ -77,11 +77,11 @@ public interface GraphContent extends EObject {
 	 * 
 	 * @return the value of the '<em>Nodes</em>' containment reference list.
 	 * @see net.gexf_1_2.gexf.GexfPackage#getGraphContent_Nodes()
-	 * @model containment="true" transient="true" volatile="true" derived="true"
-	 *        extendedMetaData="kind='element' name='nodes' namespace='##targetNamespace' group='#group:0'"
+	 * @model containment="true" transient="true" volatile="true" derived="true" extendedMetaData=
+	 *        "kind='element' name='nodes' namespace='##targetNamespace' group='#group:0'"
 	 * @generated
 	 */
-	EList<NodesContent> getNodes();
+			EList<NodesContent> getNodes();
 
 	/**
 	 * Returns the value of the '<em><b>Edges</b></em>' containment reference list. The list contents are of type
@@ -94,11 +94,11 @@ public interface GraphContent extends EObject {
 	 * 
 	 * @return the value of the '<em>Edges</em>' containment reference list.
 	 * @see net.gexf_1_2.gexf.GexfPackage#getGraphContent_Edges()
-	 * @model containment="true" transient="true" volatile="true" derived="true"
-	 *        extendedMetaData="kind='element' name='edges' namespace='##targetNamespace' group='#group:0'"
+	 * @model containment="true" transient="true" volatile="true" derived="true" extendedMetaData=
+	 *        "kind='element' name='edges' namespace='##targetNamespace' group='#group:0'"
 	 * @generated
 	 */
-	EList<EdgesContent> getEdges();
+			EList<EdgesContent> getEdges();
 
 	/**
 	 * Returns the value of the '<em><b>Defaultedgetype</b></em>' attribute. The literals are from the enumeration
@@ -118,21 +118,20 @@ public interface GraphContent extends EObject {
 	 * @model unsettable="true" extendedMetaData="kind='attribute' name='defaultedgetype'"
 	 * @generated
 	 */
-	DefaultedgetypeType getDefaultedgetype();
+			DefaultedgetypeType getDefaultedgetype();
 
 	/**
 	 * Sets the value of the '{@link net.gexf_1_2.gexf.GraphContent#getDefaultedgetype <em>Defaultedgetype</em>}'
 	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
-	 * @param value
-	 *            the new value of the '<em>Defaultedgetype</em>' attribute.
+	 * @param value the new value of the '<em>Defaultedgetype</em>' attribute.
 	 * @see net.gexf_1_2.gexf.DefaultedgetypeType
 	 * @see #isSetDefaultedgetype()
 	 * @see #unsetDefaultedgetype()
 	 * @see #getDefaultedgetype()
 	 * @generated
 	 */
-	void setDefaultedgetype(DefaultedgetypeType value);
+			void setDefaultedgetype(DefaultedgetypeType value);
 
 	/**
 	 * Unsets the value of the '{@link net.gexf_1_2.gexf.GraphContent#getDefaultedgetype <em>Defaultedgetype</em>}'
@@ -143,7 +142,7 @@ public interface GraphContent extends EObject {
 	 * @see #setDefaultedgetype(DefaultedgetypeType)
 	 * @generated
 	 */
-	void unsetDefaultedgetype();
+			void unsetDefaultedgetype();
 
 	/**
 	 * Returns whether the value of the '{@link net.gexf_1_2.gexf.GraphContent#getDefaultedgetype
@@ -155,7 +154,7 @@ public interface GraphContent extends EObject {
 	 * @see #setDefaultedgetype(DefaultedgetypeType)
 	 * @generated
 	 */
-	boolean isSetDefaultedgetype();
+			boolean isSetDefaultedgetype();
 
 	/**
 	 * Returns the value of the '<em><b>End</b></em>' attribute. <!-- begin-user-doc -->
@@ -170,18 +169,17 @@ public interface GraphContent extends EObject {
 	 * @model dataType="net.gexf_1_2.gexf.TimeType" extendedMetaData="kind='attribute' name='end'"
 	 * @generated
 	 */
-	Object getEnd();
+			Object getEnd();
 
 	/**
 	 * Sets the value of the '{@link net.gexf_1_2.gexf.GraphContent#getEnd <em>End</em>}' attribute. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
 	 * 
-	 * @param value
-	 *            the new value of the '<em>End</em>' attribute.
+	 * @param value the new value of the '<em>End</em>' attribute.
 	 * @see #getEnd()
 	 * @generated
 	 */
-	void setEnd(Object value);
+			void setEnd(Object value);
 
 	/**
 	 * Returns the value of the '<em><b>Endopen</b></em>' attribute. <!-- begin-user-doc -->
@@ -197,18 +195,17 @@ public interface GraphContent extends EObject {
 	 * @model dataType="net.gexf_1_2.gexf.TimeType" extendedMetaData="kind='attribute' name='endopen'"
 	 * @generated
 	 */
-	Object getEndopen();
+			Object getEndopen();
 
 	/**
 	 * Sets the value of the '{@link net.gexf_1_2.gexf.GraphContent#getEndopen <em>Endopen</em>}' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
-	 * @param value
-	 *            the new value of the '<em>Endopen</em>' attribute.
+	 * @param value the new value of the '<em>Endopen</em>' attribute.
 	 * @see #getEndopen()
 	 * @generated
 	 */
-	void setEndopen(Object value);
+			void setEndopen(Object value);
 
 	/**
 	 * Returns the value of the '<em><b>Idtype</b></em>' attribute. The literals are from the enumeration
@@ -228,21 +225,20 @@ public interface GraphContent extends EObject {
 	 * @model unsettable="true" extendedMetaData="kind='attribute' name='idtype'"
 	 * @generated
 	 */
-	IdtypeType getIdtype();
+			IdtypeType getIdtype();
 
 	/**
 	 * Sets the value of the '{@link net.gexf_1_2.gexf.GraphContent#getIdtype <em>Idtype</em>}' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
-	 * @param value
-	 *            the new value of the '<em>Idtype</em>' attribute.
+	 * @param value the new value of the '<em>Idtype</em>' attribute.
 	 * @see net.gexf_1_2.gexf.IdtypeType
 	 * @see #isSetIdtype()
 	 * @see #unsetIdtype()
 	 * @see #getIdtype()
 	 * @generated
 	 */
-	void setIdtype(IdtypeType value);
+			void setIdtype(IdtypeType value);
 
 	/**
 	 * Unsets the value of the '{@link net.gexf_1_2.gexf.GraphContent#getIdtype <em>Idtype</em>}' attribute. <!--
@@ -253,7 +249,7 @@ public interface GraphContent extends EObject {
 	 * @see #setIdtype(IdtypeType)
 	 * @generated
 	 */
-	void unsetIdtype();
+			void unsetIdtype();
 
 	/**
 	 * Returns whether the value of the '{@link net.gexf_1_2.gexf.GraphContent#getIdtype <em>Idtype</em>}' attribute is
@@ -265,7 +261,7 @@ public interface GraphContent extends EObject {
 	 * @see #setIdtype(IdtypeType)
 	 * @generated
 	 */
-	boolean isSetIdtype();
+			boolean isSetIdtype();
 
 	/**
 	 * Returns the value of the '<em><b>Mode</b></em>' attribute. The literals are from the enumeration
@@ -284,21 +280,20 @@ public interface GraphContent extends EObject {
 	 * @model unsettable="true" extendedMetaData="kind='attribute' name='mode'"
 	 * @generated
 	 */
-	ModeType getMode();
+			ModeType getMode();
 
 	/**
 	 * Sets the value of the '{@link net.gexf_1_2.gexf.GraphContent#getMode <em>Mode</em>}' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
-	 * @param value
-	 *            the new value of the '<em>Mode</em>' attribute.
+	 * @param value the new value of the '<em>Mode</em>' attribute.
 	 * @see net.gexf_1_2.gexf.ModeType
 	 * @see #isSetMode()
 	 * @see #unsetMode()
 	 * @see #getMode()
 	 * @generated
 	 */
-	void setMode(ModeType value);
+			void setMode(ModeType value);
 
 	/**
 	 * Unsets the value of the '{@link net.gexf_1_2.gexf.GraphContent#getMode <em>Mode</em>}' attribute. <!--
@@ -309,7 +304,7 @@ public interface GraphContent extends EObject {
 	 * @see #setMode(ModeType)
 	 * @generated
 	 */
-	void unsetMode();
+			void unsetMode();
 
 	/**
 	 * Returns whether the value of the '{@link net.gexf_1_2.gexf.GraphContent#getMode <em>Mode</em>}' attribute is set.
@@ -321,7 +316,7 @@ public interface GraphContent extends EObject {
 	 * @see #setMode(ModeType)
 	 * @generated
 	 */
-	boolean isSetMode();
+			boolean isSetMode();
 
 	/**
 	 * Returns the value of the '<em><b>Start</b></em>' attribute. <!-- begin-user-doc -->
@@ -337,18 +332,17 @@ public interface GraphContent extends EObject {
 	 * @model dataType="net.gexf_1_2.gexf.TimeType" extendedMetaData="kind='attribute' name='start'"
 	 * @generated
 	 */
-	Object getStart();
+			Object getStart();
 
 	/**
 	 * Sets the value of the '{@link net.gexf_1_2.gexf.GraphContent#getStart <em>Start</em>}' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
-	 * @param value
-	 *            the new value of the '<em>Start</em>' attribute.
+	 * @param value the new value of the '<em>Start</em>' attribute.
 	 * @see #getStart()
 	 * @generated
 	 */
-	void setStart(Object value);
+			void setStart(Object value);
 
 	/**
 	 * Returns the value of the '<em><b>Startopen</b></em>' attribute. <!-- begin-user-doc -->
@@ -364,18 +358,17 @@ public interface GraphContent extends EObject {
 	 * @model dataType="net.gexf_1_2.gexf.TimeType" extendedMetaData="kind='attribute' name='startopen'"
 	 * @generated
 	 */
-	Object getStartopen();
+			Object getStartopen();
 
 	/**
 	 * Sets the value of the '{@link net.gexf_1_2.gexf.GraphContent#getStartopen <em>Startopen</em>}' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
-	 * @param value
-	 *            the new value of the '<em>Startopen</em>' attribute.
+	 * @param value the new value of the '<em>Startopen</em>' attribute.
 	 * @see #getStartopen()
 	 * @generated
 	 */
-	void setStartopen(Object value);
+			void setStartopen(Object value);
 
 	/**
 	 * Returns the value of the '<em><b>Timeformat</b></em>' attribute. The literals are from the enumeration
@@ -395,21 +388,20 @@ public interface GraphContent extends EObject {
 	 * @model unsettable="true" extendedMetaData="kind='attribute' name='timeformat'"
 	 * @generated
 	 */
-	TimeformatType getTimeformat();
+			TimeformatType getTimeformat();
 
 	/**
 	 * Sets the value of the '{@link net.gexf_1_2.gexf.GraphContent#getTimeformat <em>Timeformat</em>}' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
-	 * @param value
-	 *            the new value of the '<em>Timeformat</em>' attribute.
+	 * @param value the new value of the '<em>Timeformat</em>' attribute.
 	 * @see net.gexf_1_2.gexf.TimeformatType
 	 * @see #isSetTimeformat()
 	 * @see #unsetTimeformat()
 	 * @see #getTimeformat()
 	 * @generated
 	 */
-	void setTimeformat(TimeformatType value);
+			void setTimeformat(TimeformatType value);
 
 	/**
 	 * Unsets the value of the '{@link net.gexf_1_2.gexf.GraphContent#getTimeformat <em>Timeformat</em>}' attribute.
@@ -420,7 +412,7 @@ public interface GraphContent extends EObject {
 	 * @see #setTimeformat(TimeformatType)
 	 * @generated
 	 */
-	void unsetTimeformat();
+			void unsetTimeformat();
 
 	/**
 	 * Returns whether the value of the '{@link net.gexf_1_2.gexf.GraphContent#getTimeformat <em>Timeformat</em>}'
@@ -432,6 +424,6 @@ public interface GraphContent extends EObject {
 	 * @see #setTimeformat(TimeformatType)
 	 * @generated
 	 */
-	boolean isSetTimeformat();
+			boolean isSetTimeformat();
 
 } // GraphContent

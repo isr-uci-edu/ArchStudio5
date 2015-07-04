@@ -43,4 +43,4 @@ public class VizResourceFactoryImpl extends ResourceFactoryImpl {
 		return result;
 	}
 
-} //VizResourceFactoryImpl
+} // VizResourceFactoryImpl

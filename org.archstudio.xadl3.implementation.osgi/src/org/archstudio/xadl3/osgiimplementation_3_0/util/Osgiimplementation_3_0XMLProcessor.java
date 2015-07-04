@@ -43,4 +43,4 @@ public class Osgiimplementation_3_0XMLProcessor extends XMLProcessor {
 		return registrations;
 	}
 
-} //Osgiimplementation_3_0XMLProcessor
+} // Osgiimplementation_3_0XMLProcessor

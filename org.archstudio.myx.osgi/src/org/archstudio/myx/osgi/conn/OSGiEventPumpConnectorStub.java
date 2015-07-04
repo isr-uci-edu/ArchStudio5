@@ -3,9 +3,8 @@ package org.archstudio.myx.osgi.conn;
 import org.archstudio.myx.fw.IMyxName;
 
 /*
- * DO NOT EDIT THIS CLASS, it is automatically generated. ANY MODIFICATIONS WILL BE OVERWRITTEN.
- * 
- * To modify, update the "OSGi Event Pump Connector" MyxGen extension in the org.archstudio.myx.osgi plugin.
+ * DO NOT EDIT THIS CLASS, it is automatically generated. ANY MODIFICATIONS WILL BE OVERWRITTEN. To modify, update the
+ * "OSGi Event Pump Connector" MyxGen extension in the org.archstudio.myx.osgi plugin.
  */
 
 /**
@@ -13,8 +12,8 @@ import org.archstudio.myx.fw.IMyxName;
  * 
  * @generated
  */
-public abstract class OSGiEventPumpConnectorStub extends org.archstudio.myx.java.conn.EventPumpConnector implements
-		org.archstudio.myx.fw.IMyxDynamicBrick {
+public abstract class OSGiEventPumpConnectorStub extends org.archstudio.myx.java.conn.EventPumpConnector
+		implements org.archstudio.myx.fw.IMyxDynamicBrick {
 
 	/**
 	 * Returns service object(s) for IN interfaces.

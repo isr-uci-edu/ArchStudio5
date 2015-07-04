@@ -15,12 +15,11 @@ public class Hints_3_0ResourceImpl extends XMLResourceImpl {
 	/**
 	 * Creates an instance of the resource. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
-	 * @param uri
-	 *            the URI of the new resource.
+	 * @param uri the URI of the new resource.
 	 * @generated
 	 */
 	public Hints_3_0ResourceImpl(URI uri) {
 		super(uri);
 	}
 
-} //Hints_3_0ResourceImpl
+} // Hints_3_0ResourceImpl

@@ -43,4 +43,4 @@ public class Domain_3_0XMLProcessor extends XMLProcessor {
 		return registrations;
 	}
 
-} //Domain_3_0XMLProcessor
+} // Domain_3_0XMLProcessor

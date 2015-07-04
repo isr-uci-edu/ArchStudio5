@@ -57,7 +57,6 @@ public class Osgiimplementation_3_0PackageImpl extends EPackageImpl implements O
 
 	/**
 	 * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
-	 * 
 	 * <p>
 	 * This method is used to initialize {@link Osgiimplementation_3_0Package#eINSTANCE} when that field is accessed.
 	 * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package. <!--
@@ -75,9 +74,10 @@ public class Osgiimplementation_3_0PackageImpl extends EPackageImpl implements O
 		}
 
 		// Obtain or create and register package
-		Osgiimplementation_3_0PackageImpl theOsgiimplementation_3_0Package = (Osgiimplementation_3_0PackageImpl) (EPackage.Registry.INSTANCE
-				.get(eNS_URI) instanceof Osgiimplementation_3_0PackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI)
-				: new Osgiimplementation_3_0PackageImpl());
+		Osgiimplementation_3_0PackageImpl theOsgiimplementation_3_0Package =
+				(Osgiimplementation_3_0PackageImpl) (EPackage.Registry.INSTANCE
+						.get(eNS_URI) instanceof Osgiimplementation_3_0PackageImpl
+								? EPackage.Registry.INSTANCE.get(eNS_URI) : new Osgiimplementation_3_0PackageImpl());
 
 		isInited = true;
 
@@ -86,14 +86,17 @@ public class Osgiimplementation_3_0PackageImpl extends EPackageImpl implements O
 
 		// Obtain or create and register interdependencies
 		Xadlcore_3_0PackageImpl theXadlcore_3_0Package = (Xadlcore_3_0PackageImpl) (EPackage.Registry.INSTANCE
-				.getEPackage(Xadlcore_3_0Package.eNS_URI) instanceof Xadlcore_3_0PackageImpl ? EPackage.Registry.INSTANCE
-				.getEPackage(Xadlcore_3_0Package.eNS_URI) : Xadlcore_3_0Package.eINSTANCE);
+				.getEPackage(Xadlcore_3_0Package.eNS_URI) instanceof Xadlcore_3_0PackageImpl
+						? EPackage.Registry.INSTANCE.getEPackage(Xadlcore_3_0Package.eNS_URI)
+						: Xadlcore_3_0Package.eINSTANCE);
 		XlinkPackageImpl theXlinkPackage = (XlinkPackageImpl) (EPackage.Registry.INSTANCE
-				.getEPackage(XlinkPackage.eNS_URI) instanceof XlinkPackageImpl ? EPackage.Registry.INSTANCE
-				.getEPackage(XlinkPackage.eNS_URI) : XlinkPackage.eINSTANCE);
-		Implementation_3_0PackageImpl theImplementation_3_0Package = (Implementation_3_0PackageImpl) (EPackage.Registry.INSTANCE
-				.getEPackage(Implementation_3_0Package.eNS_URI) instanceof Implementation_3_0PackageImpl ? EPackage.Registry.INSTANCE
-				.getEPackage(Implementation_3_0Package.eNS_URI) : Implementation_3_0Package.eINSTANCE);
+				.getEPackage(XlinkPackage.eNS_URI) instanceof XlinkPackageImpl
+						? EPackage.Registry.INSTANCE.getEPackage(XlinkPackage.eNS_URI) : XlinkPackage.eINSTANCE);
+		Implementation_3_0PackageImpl theImplementation_3_0Package =
+				(Implementation_3_0PackageImpl) (EPackage.Registry.INSTANCE
+						.getEPackage(Implementation_3_0Package.eNS_URI) instanceof Implementation_3_0PackageImpl
+								? EPackage.Registry.INSTANCE.getEPackage(Implementation_3_0Package.eNS_URI)
+								: Implementation_3_0Package.eINSTANCE);
 
 		// Create package meta-data objects
 		theOsgiimplementation_3_0Package.createPackageContents();
@@ -205,12 +208,12 @@ public class Osgiimplementation_3_0PackageImpl extends EPackageImpl implements O
 		setNsURI(eNS_URI);
 
 		// Obtain other dependent packages
-		Implementation_3_0Package theImplementation_3_0Package = (Implementation_3_0Package) EPackage.Registry.INSTANCE
-				.getEPackage(Implementation_3_0Package.eNS_URI);
-		Xadlcore_3_0Package theXadlcore_3_0Package = (Xadlcore_3_0Package) EPackage.Registry.INSTANCE
-				.getEPackage(Xadlcore_3_0Package.eNS_URI);
-		XMLTypePackage theXMLTypePackage = (XMLTypePackage) EPackage.Registry.INSTANCE
-				.getEPackage(XMLTypePackage.eNS_URI);
+		Implementation_3_0Package theImplementation_3_0Package =
+				(Implementation_3_0Package) EPackage.Registry.INSTANCE.getEPackage(Implementation_3_0Package.eNS_URI);
+		Xadlcore_3_0Package theXadlcore_3_0Package =
+				(Xadlcore_3_0Package) EPackage.Registry.INSTANCE.getEPackage(Xadlcore_3_0Package.eNS_URI);
+		XMLTypePackage theXMLTypePackage =
+				(XMLTypePackage) EPackage.Registry.INSTANCE.getEPackage(XMLTypePackage.eNS_URI);
 
 		// Create type parameters
 
@@ -223,11 +226,11 @@ public class Osgiimplementation_3_0PackageImpl extends EPackageImpl implements O
 		initEClass(osGiImplementationEClass, OSGiImplementation.class, "OSGiImplementation", !IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getOSGiImplementation_Ext(), theXadlcore_3_0Package.getExtension(), null, "ext", null, 0, -1,
-				OSGiImplementation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
-				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+				OSGiImplementation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getOSGiImplementation_Bundle(), theXMLTypePackage.getString(), "bundle", null, 0, 1,
-				OSGiImplementation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
-				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+				OSGiImplementation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+				!IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);
@@ -245,12 +248,12 @@ public class Osgiimplementation_3_0PackageImpl extends EPackageImpl implements O
 	 */
 	protected void createExtendedMetaDataAnnotations() {
 		String source = "http:///org/eclipse/emf/ecore/util/ExtendedMetaData";
-		addAnnotation(osGiImplementationEClass, source, new String[] { "name", "OSGiImplementation", "kind",
-				"elementOnly" });
-		addAnnotation(getOSGiImplementation_Ext(), source, new String[] { "kind", "element", "name", "ext",
-				"namespace", "##targetNamespace" });
-		addAnnotation(getOSGiImplementation_Bundle(), source, new String[] { "kind", "attribute", "name", "bundle",
-				"namespace", "##targetNamespace" });
+		addAnnotation(osGiImplementationEClass, source,
+				new String[] { "name", "OSGiImplementation", "kind", "elementOnly" });
+		addAnnotation(getOSGiImplementation_Ext(), source,
+				new String[] { "kind", "element", "name", "ext", "namespace", "##targetNamespace" });
+		addAnnotation(getOSGiImplementation_Bundle(), source,
+				new String[] { "kind", "attribute", "name", "bundle", "namespace", "##targetNamespace" });
 	}
 
-} //Osgiimplementation_3_0PackageImpl
+} // Osgiimplementation_3_0PackageImpl

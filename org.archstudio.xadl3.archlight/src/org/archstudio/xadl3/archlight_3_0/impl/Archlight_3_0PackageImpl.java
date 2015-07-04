@@ -71,7 +71,6 @@ public class Archlight_3_0PackageImpl extends EPackageImpl implements Archlight_
 
 	/**
 	 * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
-	 * 
 	 * <p>
 	 * This method is used to initialize {@link Archlight_3_0Package#eINSTANCE} when that field is accessed. Clients
 	 * should not invoke it directly. Instead, they should simply access that field to obtain the package. <!--
@@ -88,9 +87,9 @@ public class Archlight_3_0PackageImpl extends EPackageImpl implements Archlight_
 		}
 
 		// Obtain or create and register package
-		Archlight_3_0PackageImpl theArchlight_3_0Package = (Archlight_3_0PackageImpl) (EPackage.Registry.INSTANCE
-				.get(eNS_URI) instanceof Archlight_3_0PackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI)
-				: new Archlight_3_0PackageImpl());
+		Archlight_3_0PackageImpl theArchlight_3_0Package =
+				(Archlight_3_0PackageImpl) (EPackage.Registry.INSTANCE.get(eNS_URI) instanceof Archlight_3_0PackageImpl
+						? EPackage.Registry.INSTANCE.get(eNS_URI) : new Archlight_3_0PackageImpl());
 
 		isInited = true;
 
@@ -99,11 +98,12 @@ public class Archlight_3_0PackageImpl extends EPackageImpl implements Archlight_
 
 		// Obtain or create and register interdependencies
 		Xadlcore_3_0PackageImpl theXadlcore_3_0Package = (Xadlcore_3_0PackageImpl) (EPackage.Registry.INSTANCE
-				.getEPackage(Xadlcore_3_0Package.eNS_URI) instanceof Xadlcore_3_0PackageImpl ? EPackage.Registry.INSTANCE
-				.getEPackage(Xadlcore_3_0Package.eNS_URI) : Xadlcore_3_0Package.eINSTANCE);
+				.getEPackage(Xadlcore_3_0Package.eNS_URI) instanceof Xadlcore_3_0PackageImpl
+						? EPackage.Registry.INSTANCE.getEPackage(Xadlcore_3_0Package.eNS_URI)
+						: Xadlcore_3_0Package.eINSTANCE);
 		XlinkPackageImpl theXlinkPackage = (XlinkPackageImpl) (EPackage.Registry.INSTANCE
-				.getEPackage(XlinkPackage.eNS_URI) instanceof XlinkPackageImpl ? EPackage.Registry.INSTANCE
-				.getEPackage(XlinkPackage.eNS_URI) : XlinkPackage.eINSTANCE);
+				.getEPackage(XlinkPackage.eNS_URI) instanceof XlinkPackageImpl
+						? EPackage.Registry.INSTANCE.getEPackage(XlinkPackage.eNS_URI) : XlinkPackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theArchlight_3_0Package.createPackageContents();
@@ -325,10 +325,10 @@ public class Archlight_3_0PackageImpl extends EPackageImpl implements Archlight_
 		setNsURI(eNS_URI);
 
 		// Obtain other dependent packages
-		Xadlcore_3_0Package theXadlcore_3_0Package = (Xadlcore_3_0Package) EPackage.Registry.INSTANCE
-				.getEPackage(Xadlcore_3_0Package.eNS_URI);
-		XMLTypePackage theXMLTypePackage = (XMLTypePackage) EPackage.Registry.INSTANCE
-				.getEPackage(XMLTypePackage.eNS_URI);
+		Xadlcore_3_0Package theXadlcore_3_0Package =
+				(Xadlcore_3_0Package) EPackage.Registry.INSTANCE.getEPackage(Xadlcore_3_0Package.eNS_URI);
+		XMLTypePackage theXMLTypePackage =
+				(XMLTypePackage) EPackage.Registry.INSTANCE.getEPackage(XMLTypePackage.eNS_URI);
 
 		// Create type parameters
 
@@ -349,7 +349,8 @@ public class Archlight_3_0PackageImpl extends EPackageImpl implements Archlight_
 		initEClass(documentRootEClass, DocumentRoot.class, "DocumentRoot", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getDocumentRoot_Mixed(), ecorePackage.getEFeatureMapEntry(), "mixed", null, 0, -1, null,
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED,
+				IS_ORDERED);
 		initEReference(getDocumentRoot_XMLNSPrefixMap(), ecorePackage.getEStringToStringMapEntry(), null,
 				"xMLNSPrefixMap", null, 0, -1, null, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
 				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -388,28 +389,28 @@ public class Archlight_3_0PackageImpl extends EPackageImpl implements Archlight_
 	protected void createExtendedMetaDataAnnotations() {
 		String source = "http:///org/eclipse/emf/ecore/util/ExtendedMetaData";
 		addAnnotation(archlightEClass, source, new String[] { "name", "Archlight", "kind", "elementOnly" });
-		addAnnotation(getArchlight_Test(), source, new String[] { "kind", "element", "name", "test", "namespace",
-				"##targetNamespace" });
-		addAnnotation(getArchlight_Ext(), source, new String[] { "kind", "element", "name", "ext", "namespace",
-				"##targetNamespace" });
+		addAnnotation(getArchlight_Test(), source,
+				new String[] { "kind", "element", "name", "test", "namespace", "##targetNamespace" });
+		addAnnotation(getArchlight_Ext(), source,
+				new String[] { "kind", "element", "name", "ext", "namespace", "##targetNamespace" });
 		addAnnotation(documentRootEClass, source, new String[] { "name", "", "kind", "mixed" });
 		addAnnotation(getDocumentRoot_Mixed(), source, new String[] { "kind", "elementWildcard", "name", ":mixed" });
-		addAnnotation(getDocumentRoot_XMLNSPrefixMap(), source, new String[] { "kind", "attribute", "name",
-				"xmlns:prefix" });
-		addAnnotation(getDocumentRoot_XSISchemaLocation(), source, new String[] { "kind", "attribute", "name",
-				"xsi:schemaLocation" });
-		addAnnotation(getDocumentRoot_Archlight(), source, new String[] { "kind", "element", "name", "archlight",
-				"namespace", "##targetNamespace", "affiliation",
-				"http://www.archstudio.org/xadl3/schemas/xadlcore-3.0.xsd#topLevelElement" });
+		addAnnotation(getDocumentRoot_XMLNSPrefixMap(), source,
+				new String[] { "kind", "attribute", "name", "xmlns:prefix" });
+		addAnnotation(getDocumentRoot_XSISchemaLocation(), source,
+				new String[] { "kind", "attribute", "name", "xsi:schemaLocation" });
+		addAnnotation(getDocumentRoot_Archlight(), source,
+				new String[] { "kind", "element", "name", "archlight", "namespace", "##targetNamespace", "affiliation",
+						"http://www.archstudio.org/xadl3/schemas/xadlcore-3.0.xsd#topLevelElement" });
 		addAnnotation(testEClass, source, new String[] { "name", "Test", "kind", "elementOnly" });
-		addAnnotation(getTest_Ext(), source, new String[] { "kind", "element", "name", "ext", "namespace",
-				"##targetNamespace" });
-		addAnnotation(getTest_Enabled(), source, new String[] { "kind", "attribute", "name", "enabled", "namespace",
-				"##targetNamespace" });
-		addAnnotation(getTest_Id(), source, new String[] { "kind", "attribute", "name", "id", "namespace",
-				"##targetNamespace" });
-		addAnnotation(getTest_Name(), source, new String[] { "kind", "attribute", "name", "name", "namespace",
-				"##targetNamespace" });
+		addAnnotation(getTest_Ext(), source,
+				new String[] { "kind", "element", "name", "ext", "namespace", "##targetNamespace" });
+		addAnnotation(getTest_Enabled(), source,
+				new String[] { "kind", "attribute", "name", "enabled", "namespace", "##targetNamespace" });
+		addAnnotation(getTest_Id(), source,
+				new String[] { "kind", "attribute", "name", "id", "namespace", "##targetNamespace" });
+		addAnnotation(getTest_Name(), source,
+				new String[] { "kind", "attribute", "name", "name", "namespace", "##targetNamespace" });
 	}
 
-} //Archlight_3_0PackageImpl
+} // Archlight_3_0PackageImpl

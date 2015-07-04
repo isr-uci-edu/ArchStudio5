@@ -16,11 +16,11 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  * <li>{@link org.archstudio.xadl3.variability_3_0.impl.ChangeSetOfChangesImpl#getElementChange <em>Element Change</em>}
  * </li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -95,12 +95,14 @@ public class ChangeSetOfChangesImpl extends ChangeSetImpl implements ChangeSetOf
 		if (newElementChange != elementChange) {
 			NotificationChain msgs = null;
 			if (elementChange != null) {
-				msgs = ((InternalEObject) elementChange).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
-						- Variability_3_0Package.CHANGE_SET_OF_CHANGES__ELEMENT_CHANGE, null, msgs);
+				msgs = ((InternalEObject) elementChange).eInverseRemove(this,
+						EOPPOSITE_FEATURE_BASE - Variability_3_0Package.CHANGE_SET_OF_CHANGES__ELEMENT_CHANGE, null,
+						msgs);
 			}
 			if (newElementChange != null) {
-				msgs = ((InternalEObject) newElementChange).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
-						- Variability_3_0Package.CHANGE_SET_OF_CHANGES__ELEMENT_CHANGE, null, msgs);
+				msgs = ((InternalEObject) newElementChange).eInverseAdd(this,
+						EOPPOSITE_FEATURE_BASE - Variability_3_0Package.CHANGE_SET_OF_CHANGES__ELEMENT_CHANGE, null,
+						msgs);
 			}
 			msgs = basicSetElementChange(newElementChange, msgs);
 			if (msgs != null) {
@@ -121,8 +123,8 @@ public class ChangeSetOfChangesImpl extends ChangeSetImpl implements ChangeSetOf
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case Variability_3_0Package.CHANGE_SET_OF_CHANGES__ELEMENT_CHANGE:
-			return basicSetElementChange(null, msgs);
+			case Variability_3_0Package.CHANGE_SET_OF_CHANGES__ELEMENT_CHANGE:
+				return basicSetElementChange(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -135,8 +137,8 @@ public class ChangeSetOfChangesImpl extends ChangeSetImpl implements ChangeSetOf
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case Variability_3_0Package.CHANGE_SET_OF_CHANGES__ELEMENT_CHANGE:
-			return getElementChange();
+			case Variability_3_0Package.CHANGE_SET_OF_CHANGES__ELEMENT_CHANGE:
+				return getElementChange();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -149,9 +151,9 @@ public class ChangeSetOfChangesImpl extends ChangeSetImpl implements ChangeSetOf
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Variability_3_0Package.CHANGE_SET_OF_CHANGES__ELEMENT_CHANGE:
-			setElementChange((ElementChange) newValue);
-			return;
+			case Variability_3_0Package.CHANGE_SET_OF_CHANGES__ELEMENT_CHANGE:
+				setElementChange((ElementChange) newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -164,9 +166,9 @@ public class ChangeSetOfChangesImpl extends ChangeSetImpl implements ChangeSetOf
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Variability_3_0Package.CHANGE_SET_OF_CHANGES__ELEMENT_CHANGE:
-			setElementChange((ElementChange) null);
-			return;
+			case Variability_3_0Package.CHANGE_SET_OF_CHANGES__ELEMENT_CHANGE:
+				setElementChange((ElementChange) null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -179,10 +181,10 @@ public class ChangeSetOfChangesImpl extends ChangeSetImpl implements ChangeSetOf
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Variability_3_0Package.CHANGE_SET_OF_CHANGES__ELEMENT_CHANGE:
-			return elementChange != null;
+			case Variability_3_0Package.CHANGE_SET_OF_CHANGES__ELEMENT_CHANGE:
+				return elementChange != null;
 		}
 		return super.eIsSet(featureID);
 	}
 
-} //ChangeSetOfChangesImpl
+} // ChangeSetOfChangesImpl

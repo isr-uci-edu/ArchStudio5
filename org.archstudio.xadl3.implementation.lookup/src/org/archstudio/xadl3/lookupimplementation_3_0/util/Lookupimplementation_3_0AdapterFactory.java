@@ -80,8 +80,7 @@ public class Lookupimplementation_3_0AdapterFactory extends AdapterFactoryImpl {
 	/**
 	 * Creates an adapter for the <code>target</code>. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
-	 * @param target
-	 *            the object to adapt.
+	 * @param target the object to adapt.
 	 * @return the adapter for the <code>target</code>.
 	 * @generated
 	 */
@@ -129,4 +128,4 @@ public class Lookupimplementation_3_0AdapterFactory extends AdapterFactoryImpl {
 		return null;
 	}
 
-} //Lookupimplementation_3_0AdapterFactory
+} // Lookupimplementation_3_0AdapterFactory

@@ -17,28 +17,12 @@ import org.eclipse.emf.ecore.EReference;
  * <li>each enum,</li>
  * <li>and each data type</li>
  * </ul>
- * <!-- end-user-doc --> <!-- begin-model-doc -->
- * 
- * 
- * xADL 3 Abstract Implementation Schema
- * 
- * This schema defines the concept of an implementation. The concept is abstract, so it is intended to be specialized by
- * various specific types of implementations. However, it exists so that implementations can be treated similarly.
- * 
- * Changelog: - 3.0.0 * Initial version
- * 
- * 
- * 
- * 
- * xADL 3 Core Schema
- * 
- * This schema defines the core elements for xADL 3 documents. The schema is intentionally small, defining only a few
- * elements that are intended to be common across xADL descriptions and extensions, regardless of domain.
- * 
- * Changelog: - 3.0.0: * Initial version
- * 
- * 
- * <!-- end-model-doc -->
+ * <!-- end-user-doc --> <!-- begin-model-doc --> xADL 3 Abstract Implementation Schema This schema defines the concept
+ * of an implementation. The concept is abstract, so it is intended to be specialized by various specific types of
+ * implementations. However, it exists so that implementations can be treated similarly. Changelog: - 3.0.0 * Initial
+ * version xADL 3 Core Schema This schema defines the core elements for xADL 3 documents. The schema is intentionally
+ * small, defining only a few elements that are intended to be common across xADL descriptions and extensions,
+ * regardless of domain. Changelog: - 3.0.0: * Initial version <!-- end-model-doc -->
  * 
  * @see org.archstudio.xadl3.implementation_3_0.Implementation_3_0Factory
  * @model kind="package"
@@ -71,8 +55,8 @@ public interface Implementation_3_0Package extends EPackage {
 	 * 
 	 * @generated
 	 */
-	Implementation_3_0Package eINSTANCE = org.archstudio.xadl3.implementation_3_0.impl.Implementation_3_0PackageImpl
-			.init();
+	Implementation_3_0Package eINSTANCE =
+			org.archstudio.xadl3.implementation_3_0.impl.Implementation_3_0PackageImpl.init();
 
 	/**
 	 * The meta object id for the '{@link org.archstudio.xadl3.implementation_3_0.impl.ImplementationImpl
@@ -253,7 +237,7 @@ public interface Implementation_3_0Package extends EPackage {
 	 * @see org.archstudio.xadl3.implementation_3_0.Implementation
 	 * @generated
 	 */
-	EClass getImplementation();
+			EClass getImplementation();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.archstudio.xadl3.implementation_3_0.Implementation#getId
@@ -264,7 +248,7 @@ public interface Implementation_3_0Package extends EPackage {
 	 * @see #getImplementation()
 	 * @generated
 	 */
-	EAttribute getImplementation_Id();
+			EAttribute getImplementation_Id();
 
 	/**
 	 * Returns the meta object for class '{@link org.archstudio.xadl3.implementation_3_0.ImplementationExtension
@@ -274,7 +258,7 @@ public interface Implementation_3_0Package extends EPackage {
 	 * @see org.archstudio.xadl3.implementation_3_0.ImplementationExtension
 	 * @generated
 	 */
-	EClass getImplementationExtension();
+			EClass getImplementationExtension();
 
 	/**
 	 * Returns the meta object for the containment reference list '
@@ -286,7 +270,7 @@ public interface Implementation_3_0Package extends EPackage {
 	 * @see #getImplementationExtension()
 	 * @generated
 	 */
-	EReference getImplementationExtension_Implementation();
+			EReference getImplementationExtension_Implementation();
 
 	/**
 	 * Returns the meta object for class '{@link org.archstudio.xadl3.implementation_3_0.InitializationParameter
@@ -296,7 +280,7 @@ public interface Implementation_3_0Package extends EPackage {
 	 * @see org.archstudio.xadl3.implementation_3_0.InitializationParameter
 	 * @generated
 	 */
-	EClass getInitializationParameter();
+			EClass getInitializationParameter();
 
 	/**
 	 * Returns the meta object for the containment reference list '
@@ -308,7 +292,7 @@ public interface Implementation_3_0Package extends EPackage {
 	 * @see #getInitializationParameter()
 	 * @generated
 	 */
-	EReference getInitializationParameter_Ext();
+			EReference getInitializationParameter_Ext();
 
 	/**
 	 * Returns the meta object for the attribute '
@@ -320,7 +304,7 @@ public interface Implementation_3_0Package extends EPackage {
 	 * @see #getInitializationParameter()
 	 * @generated
 	 */
-	EAttribute getInitializationParameter_Key();
+			EAttribute getInitializationParameter_Key();
 
 	/**
 	 * Returns the meta object for the attribute '
@@ -332,7 +316,7 @@ public interface Implementation_3_0Package extends EPackage {
 	 * @see #getInitializationParameter()
 	 * @generated
 	 */
-	EAttribute getInitializationParameter_Value();
+			EAttribute getInitializationParameter_Value();
 
 	/**
 	 * Returns the meta object for class '
@@ -343,7 +327,7 @@ public interface Implementation_3_0Package extends EPackage {
 	 * @see org.archstudio.xadl3.implementation_3_0.InitializationParametersImplementation
 	 * @generated
 	 */
-	EClass getInitializationParametersImplementation();
+			EClass getInitializationParametersImplementation();
 
 	/**
 	 * Returns the meta object for the containment reference list '
@@ -355,7 +339,7 @@ public interface Implementation_3_0Package extends EPackage {
 	 * @see #getInitializationParametersImplementation()
 	 * @generated
 	 */
-	EReference getInitializationParametersImplementation_InitializationParameter();
+			EReference getInitializationParametersImplementation_InitializationParameter();
 
 	/**
 	 * Returns the factory that creates the instances of the model. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -363,7 +347,7 @@ public interface Implementation_3_0Package extends EPackage {
 	 * @return the factory that creates the instances of the model.
 	 * @generated
 	 */
-	Implementation_3_0Factory getImplementation_3_0Factory();
+			Implementation_3_0Factory getImplementation_3_0Factory();
 
 	/**
 	 * <!-- begin-user-doc --> Defines literals for the meta objects that represent
@@ -468,9 +452,9 @@ public interface Implementation_3_0Package extends EPackage {
 		 * 
 		 * @generated
 		 */
-		EReference INITIALIZATION_PARAMETERS_IMPLEMENTATION__INITIALIZATION_PARAMETER = eINSTANCE
-				.getInitializationParametersImplementation_InitializationParameter();
+		EReference INITIALIZATION_PARAMETERS_IMPLEMENTATION__INITIALIZATION_PARAMETER =
+				eINSTANCE.getInitializationParametersImplementation_InitializationParameter();
 
 	}
 
-} //Implementation_3_0Package
+} // Implementation_3_0Package

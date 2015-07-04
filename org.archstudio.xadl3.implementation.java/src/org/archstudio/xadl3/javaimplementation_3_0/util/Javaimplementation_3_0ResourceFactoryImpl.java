@@ -43,4 +43,4 @@ public class Javaimplementation_3_0ResourceFactoryImpl extends ResourceFactoryIm
 		return result;
 	}
 
-} //Javaimplementation_3_0ResourceFactoryImpl
+} // Javaimplementation_3_0ResourceFactoryImpl

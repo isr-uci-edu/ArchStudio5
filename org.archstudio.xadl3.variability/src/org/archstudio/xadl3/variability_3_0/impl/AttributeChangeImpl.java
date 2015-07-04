@@ -13,10 +13,10 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  * <li>{@link org.archstudio.xadl3.variability_3_0.impl.AttributeChangeImpl#getValue <em>Value</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -93,8 +93,8 @@ public class AttributeChangeImpl extends ChangeImpl implements AttributeChange {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case Variability_3_0Package.ATTRIBUTE_CHANGE__VALUE:
-			return getValue();
+			case Variability_3_0Package.ATTRIBUTE_CHANGE__VALUE:
+				return getValue();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -107,9 +107,9 @@ public class AttributeChangeImpl extends ChangeImpl implements AttributeChange {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Variability_3_0Package.ATTRIBUTE_CHANGE__VALUE:
-			setValue((String) newValue);
-			return;
+			case Variability_3_0Package.ATTRIBUTE_CHANGE__VALUE:
+				setValue((String) newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -122,9 +122,9 @@ public class AttributeChangeImpl extends ChangeImpl implements AttributeChange {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Variability_3_0Package.ATTRIBUTE_CHANGE__VALUE:
-			setValue(VALUE_EDEFAULT);
-			return;
+			case Variability_3_0Package.ATTRIBUTE_CHANGE__VALUE:
+				setValue(VALUE_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -137,8 +137,8 @@ public class AttributeChangeImpl extends ChangeImpl implements AttributeChange {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Variability_3_0Package.ATTRIBUTE_CHANGE__VALUE:
-			return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
+			case Variability_3_0Package.ATTRIBUTE_CHANGE__VALUE:
+				return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -161,4 +161,4 @@ public class AttributeChangeImpl extends ChangeImpl implements AttributeChange {
 		return result.toString();
 	}
 
-} //AttributeChangeImpl
+} // AttributeChangeImpl

@@ -23,15 +23,16 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Document Root</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  * <li>{@link org.archstudio.xadl3.xadlcore_3_0.impl.DocumentRootImpl#getMixed <em>Mixed</em>}</li>
  * <li>{@link org.archstudio.xadl3.xadlcore_3_0.impl.DocumentRootImpl#getXMLNSPrefixMap <em>XMLNS Prefix Map</em>}</li>
  * <li>{@link org.archstudio.xadl3.xadlcore_3_0.impl.DocumentRootImpl#getXSISchemaLocation <em>XSI Schema Location</em>}
  * </li>
- * <li>{@link org.archstudio.xadl3.xadlcore_3_0.impl.DocumentRootImpl#getTopLevelElement <em>Top Level Element</em>}</li>
+ * <li>{@link org.archstudio.xadl3.xadlcore_3_0.impl.DocumentRootImpl#getTopLevelElement <em>Top Level Element</em>}
+ * </li>
  * <li>{@link org.archstudio.xadl3.xadlcore_3_0.impl.DocumentRootImpl#getXADL <em>XADL</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -142,8 +143,8 @@ public class DocumentRootImpl extends MinimalEObjectImpl.Container implements Do
 	 * @generated
 	 */
 	public NotificationChain basicSetTopLevelElement(EObject newTopLevelElement, NotificationChain msgs) {
-		return ((FeatureMap.Internal) getMixed()).basicAdd(
-				Xadlcore_3_0Package.Literals.DOCUMENT_ROOT__TOP_LEVEL_ELEMENT, newTopLevelElement, msgs);
+		return ((FeatureMap.Internal) getMixed())
+				.basicAdd(Xadlcore_3_0Package.Literals.DOCUMENT_ROOT__TOP_LEVEL_ELEMENT, newTopLevelElement, msgs);
 	}
 
 	/**
@@ -195,16 +196,16 @@ public class DocumentRootImpl extends MinimalEObjectImpl.Container implements Do
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case Xadlcore_3_0Package.DOCUMENT_ROOT__MIXED:
-			return ((InternalEList<?>) getMixed()).basicRemove(otherEnd, msgs);
-		case Xadlcore_3_0Package.DOCUMENT_ROOT__XMLNS_PREFIX_MAP:
-			return ((InternalEList<?>) getXMLNSPrefixMap()).basicRemove(otherEnd, msgs);
-		case Xadlcore_3_0Package.DOCUMENT_ROOT__XSI_SCHEMA_LOCATION:
-			return ((InternalEList<?>) getXSISchemaLocation()).basicRemove(otherEnd, msgs);
-		case Xadlcore_3_0Package.DOCUMENT_ROOT__TOP_LEVEL_ELEMENT:
-			return basicSetTopLevelElement(null, msgs);
-		case Xadlcore_3_0Package.DOCUMENT_ROOT__XADL:
-			return basicSetXADL(null, msgs);
+			case Xadlcore_3_0Package.DOCUMENT_ROOT__MIXED:
+				return ((InternalEList<?>) getMixed()).basicRemove(otherEnd, msgs);
+			case Xadlcore_3_0Package.DOCUMENT_ROOT__XMLNS_PREFIX_MAP:
+				return ((InternalEList<?>) getXMLNSPrefixMap()).basicRemove(otherEnd, msgs);
+			case Xadlcore_3_0Package.DOCUMENT_ROOT__XSI_SCHEMA_LOCATION:
+				return ((InternalEList<?>) getXSISchemaLocation()).basicRemove(otherEnd, msgs);
+			case Xadlcore_3_0Package.DOCUMENT_ROOT__TOP_LEVEL_ELEMENT:
+				return basicSetTopLevelElement(null, msgs);
+			case Xadlcore_3_0Package.DOCUMENT_ROOT__XADL:
+				return basicSetXADL(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -217,29 +218,29 @@ public class DocumentRootImpl extends MinimalEObjectImpl.Container implements Do
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case Xadlcore_3_0Package.DOCUMENT_ROOT__MIXED:
-			if (coreType) {
-				return getMixed();
-			}
-			return ((FeatureMap.Internal) getMixed()).getWrapper();
-		case Xadlcore_3_0Package.DOCUMENT_ROOT__XMLNS_PREFIX_MAP:
-			if (coreType) {
-				return getXMLNSPrefixMap();
-			}
-			else {
-				return getXMLNSPrefixMap().map();
-			}
-		case Xadlcore_3_0Package.DOCUMENT_ROOT__XSI_SCHEMA_LOCATION:
-			if (coreType) {
-				return getXSISchemaLocation();
-			}
-			else {
-				return getXSISchemaLocation().map();
-			}
-		case Xadlcore_3_0Package.DOCUMENT_ROOT__TOP_LEVEL_ELEMENT:
-			return getTopLevelElement();
-		case Xadlcore_3_0Package.DOCUMENT_ROOT__XADL:
-			return getXADL();
+			case Xadlcore_3_0Package.DOCUMENT_ROOT__MIXED:
+				if (coreType) {
+					return getMixed();
+				}
+				return ((FeatureMap.Internal) getMixed()).getWrapper();
+			case Xadlcore_3_0Package.DOCUMENT_ROOT__XMLNS_PREFIX_MAP:
+				if (coreType) {
+					return getXMLNSPrefixMap();
+				}
+				else {
+					return getXMLNSPrefixMap().map();
+				}
+			case Xadlcore_3_0Package.DOCUMENT_ROOT__XSI_SCHEMA_LOCATION:
+				if (coreType) {
+					return getXSISchemaLocation();
+				}
+				else {
+					return getXSISchemaLocation().map();
+				}
+			case Xadlcore_3_0Package.DOCUMENT_ROOT__TOP_LEVEL_ELEMENT:
+				return getTopLevelElement();
+			case Xadlcore_3_0Package.DOCUMENT_ROOT__XADL:
+				return getXADL();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -252,21 +253,21 @@ public class DocumentRootImpl extends MinimalEObjectImpl.Container implements Do
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Xadlcore_3_0Package.DOCUMENT_ROOT__MIXED:
-			((FeatureMap.Internal) getMixed()).set(newValue);
-			return;
-		case Xadlcore_3_0Package.DOCUMENT_ROOT__XMLNS_PREFIX_MAP:
-			((EStructuralFeature.Setting) getXMLNSPrefixMap()).set(newValue);
-			return;
-		case Xadlcore_3_0Package.DOCUMENT_ROOT__XSI_SCHEMA_LOCATION:
-			((EStructuralFeature.Setting) getXSISchemaLocation()).set(newValue);
-			return;
-		case Xadlcore_3_0Package.DOCUMENT_ROOT__TOP_LEVEL_ELEMENT:
-			setTopLevelElement((EObject) newValue);
-			return;
-		case Xadlcore_3_0Package.DOCUMENT_ROOT__XADL:
-			setXADL((XADLType) newValue);
-			return;
+			case Xadlcore_3_0Package.DOCUMENT_ROOT__MIXED:
+				((FeatureMap.Internal) getMixed()).set(newValue);
+				return;
+			case Xadlcore_3_0Package.DOCUMENT_ROOT__XMLNS_PREFIX_MAP:
+				((EStructuralFeature.Setting) getXMLNSPrefixMap()).set(newValue);
+				return;
+			case Xadlcore_3_0Package.DOCUMENT_ROOT__XSI_SCHEMA_LOCATION:
+				((EStructuralFeature.Setting) getXSISchemaLocation()).set(newValue);
+				return;
+			case Xadlcore_3_0Package.DOCUMENT_ROOT__TOP_LEVEL_ELEMENT:
+				setTopLevelElement((EObject) newValue);
+				return;
+			case Xadlcore_3_0Package.DOCUMENT_ROOT__XADL:
+				setXADL((XADLType) newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -279,21 +280,21 @@ public class DocumentRootImpl extends MinimalEObjectImpl.Container implements Do
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Xadlcore_3_0Package.DOCUMENT_ROOT__MIXED:
-			getMixed().clear();
-			return;
-		case Xadlcore_3_0Package.DOCUMENT_ROOT__XMLNS_PREFIX_MAP:
-			getXMLNSPrefixMap().clear();
-			return;
-		case Xadlcore_3_0Package.DOCUMENT_ROOT__XSI_SCHEMA_LOCATION:
-			getXSISchemaLocation().clear();
-			return;
-		case Xadlcore_3_0Package.DOCUMENT_ROOT__TOP_LEVEL_ELEMENT:
-			setTopLevelElement((EObject) null);
-			return;
-		case Xadlcore_3_0Package.DOCUMENT_ROOT__XADL:
-			setXADL((XADLType) null);
-			return;
+			case Xadlcore_3_0Package.DOCUMENT_ROOT__MIXED:
+				getMixed().clear();
+				return;
+			case Xadlcore_3_0Package.DOCUMENT_ROOT__XMLNS_PREFIX_MAP:
+				getXMLNSPrefixMap().clear();
+				return;
+			case Xadlcore_3_0Package.DOCUMENT_ROOT__XSI_SCHEMA_LOCATION:
+				getXSISchemaLocation().clear();
+				return;
+			case Xadlcore_3_0Package.DOCUMENT_ROOT__TOP_LEVEL_ELEMENT:
+				setTopLevelElement((EObject) null);
+				return;
+			case Xadlcore_3_0Package.DOCUMENT_ROOT__XADL:
+				setXADL((XADLType) null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -306,16 +307,16 @@ public class DocumentRootImpl extends MinimalEObjectImpl.Container implements Do
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Xadlcore_3_0Package.DOCUMENT_ROOT__MIXED:
-			return mixed != null && !mixed.isEmpty();
-		case Xadlcore_3_0Package.DOCUMENT_ROOT__XMLNS_PREFIX_MAP:
-			return xMLNSPrefixMap != null && !xMLNSPrefixMap.isEmpty();
-		case Xadlcore_3_0Package.DOCUMENT_ROOT__XSI_SCHEMA_LOCATION:
-			return xSISchemaLocation != null && !xSISchemaLocation.isEmpty();
-		case Xadlcore_3_0Package.DOCUMENT_ROOT__TOP_LEVEL_ELEMENT:
-			return getTopLevelElement() != null;
-		case Xadlcore_3_0Package.DOCUMENT_ROOT__XADL:
-			return getXADL() != null;
+			case Xadlcore_3_0Package.DOCUMENT_ROOT__MIXED:
+				return mixed != null && !mixed.isEmpty();
+			case Xadlcore_3_0Package.DOCUMENT_ROOT__XMLNS_PREFIX_MAP:
+				return xMLNSPrefixMap != null && !xMLNSPrefixMap.isEmpty();
+			case Xadlcore_3_0Package.DOCUMENT_ROOT__XSI_SCHEMA_LOCATION:
+				return xSISchemaLocation != null && !xSISchemaLocation.isEmpty();
+			case Xadlcore_3_0Package.DOCUMENT_ROOT__TOP_LEVEL_ELEMENT:
+				return getTopLevelElement() != null;
+			case Xadlcore_3_0Package.DOCUMENT_ROOT__XADL:
+				return getXADL() != null;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -338,4 +339,4 @@ public class DocumentRootImpl extends MinimalEObjectImpl.Container implements Do
 		return result.toString();
 	}
 
-} //DocumentRootImpl
+} // DocumentRootImpl

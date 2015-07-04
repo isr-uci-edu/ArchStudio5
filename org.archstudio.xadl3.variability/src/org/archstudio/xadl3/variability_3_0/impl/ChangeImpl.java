@@ -13,10 +13,10 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Change</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  * <li>{@link org.archstudio.xadl3.variability_3_0.impl.ChangeImpl#getName <em>Name</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -92,8 +92,8 @@ public class ChangeImpl extends MinimalEObjectImpl.Container implements Change {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case Variability_3_0Package.CHANGE__NAME:
-			return getName();
+			case Variability_3_0Package.CHANGE__NAME:
+				return getName();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -106,9 +106,9 @@ public class ChangeImpl extends MinimalEObjectImpl.Container implements Change {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Variability_3_0Package.CHANGE__NAME:
-			setName((String) newValue);
-			return;
+			case Variability_3_0Package.CHANGE__NAME:
+				setName((String) newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -121,9 +121,9 @@ public class ChangeImpl extends MinimalEObjectImpl.Container implements Change {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Variability_3_0Package.CHANGE__NAME:
-			setName(NAME_EDEFAULT);
-			return;
+			case Variability_3_0Package.CHANGE__NAME:
+				setName(NAME_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -136,8 +136,8 @@ public class ChangeImpl extends MinimalEObjectImpl.Container implements Change {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Variability_3_0Package.CHANGE__NAME:
-			return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+			case Variability_3_0Package.CHANGE__NAME:
+				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -160,4 +160,4 @@ public class ChangeImpl extends MinimalEObjectImpl.Container implements Change {
 		return result.toString();
 	}
 
-} //ChangeImpl
+} // ChangeImpl

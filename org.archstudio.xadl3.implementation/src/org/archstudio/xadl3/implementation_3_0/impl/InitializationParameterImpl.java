@@ -22,12 +22,12 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  * <li>{@link org.archstudio.xadl3.implementation_3_0.impl.InitializationParameterImpl#getExt <em>Ext</em>}</li>
  * <li>{@link org.archstudio.xadl3.implementation_3_0.impl.InitializationParameterImpl#getKey <em>Key</em>}</li>
  * <li>{@link org.archstudio.xadl3.implementation_3_0.impl.InitializationParameterImpl#getValue <em>Value</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -172,8 +172,8 @@ public class InitializationParameterImpl extends MinimalEObjectImpl.Container im
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case Implementation_3_0Package.INITIALIZATION_PARAMETER__EXT:
-			return ((InternalEList<?>) getExt()).basicRemove(otherEnd, msgs);
+			case Implementation_3_0Package.INITIALIZATION_PARAMETER__EXT:
+				return ((InternalEList<?>) getExt()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -186,12 +186,12 @@ public class InitializationParameterImpl extends MinimalEObjectImpl.Container im
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case Implementation_3_0Package.INITIALIZATION_PARAMETER__EXT:
-			return getExt();
-		case Implementation_3_0Package.INITIALIZATION_PARAMETER__KEY:
-			return getKey();
-		case Implementation_3_0Package.INITIALIZATION_PARAMETER__VALUE:
-			return getValue();
+			case Implementation_3_0Package.INITIALIZATION_PARAMETER__EXT:
+				return getExt();
+			case Implementation_3_0Package.INITIALIZATION_PARAMETER__KEY:
+				return getKey();
+			case Implementation_3_0Package.INITIALIZATION_PARAMETER__VALUE:
+				return getValue();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -205,16 +205,16 @@ public class InitializationParameterImpl extends MinimalEObjectImpl.Container im
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Implementation_3_0Package.INITIALIZATION_PARAMETER__EXT:
-			getExt().clear();
-			getExt().addAll((Collection<? extends Extension>) newValue);
-			return;
-		case Implementation_3_0Package.INITIALIZATION_PARAMETER__KEY:
-			setKey((String) newValue);
-			return;
-		case Implementation_3_0Package.INITIALIZATION_PARAMETER__VALUE:
-			setValue((String) newValue);
-			return;
+			case Implementation_3_0Package.INITIALIZATION_PARAMETER__EXT:
+				getExt().clear();
+				getExt().addAll((Collection<? extends Extension>) newValue);
+				return;
+			case Implementation_3_0Package.INITIALIZATION_PARAMETER__KEY:
+				setKey((String) newValue);
+				return;
+			case Implementation_3_0Package.INITIALIZATION_PARAMETER__VALUE:
+				setValue((String) newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -227,15 +227,15 @@ public class InitializationParameterImpl extends MinimalEObjectImpl.Container im
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Implementation_3_0Package.INITIALIZATION_PARAMETER__EXT:
-			getExt().clear();
-			return;
-		case Implementation_3_0Package.INITIALIZATION_PARAMETER__KEY:
-			setKey(KEY_EDEFAULT);
-			return;
-		case Implementation_3_0Package.INITIALIZATION_PARAMETER__VALUE:
-			setValue(VALUE_EDEFAULT);
-			return;
+			case Implementation_3_0Package.INITIALIZATION_PARAMETER__EXT:
+				getExt().clear();
+				return;
+			case Implementation_3_0Package.INITIALIZATION_PARAMETER__KEY:
+				setKey(KEY_EDEFAULT);
+				return;
+			case Implementation_3_0Package.INITIALIZATION_PARAMETER__VALUE:
+				setValue(VALUE_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -248,12 +248,12 @@ public class InitializationParameterImpl extends MinimalEObjectImpl.Container im
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Implementation_3_0Package.INITIALIZATION_PARAMETER__EXT:
-			return ext != null && !ext.isEmpty();
-		case Implementation_3_0Package.INITIALIZATION_PARAMETER__KEY:
-			return KEY_EDEFAULT == null ? key != null : !KEY_EDEFAULT.equals(key);
-		case Implementation_3_0Package.INITIALIZATION_PARAMETER__VALUE:
-			return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
+			case Implementation_3_0Package.INITIALIZATION_PARAMETER__EXT:
+				return ext != null && !ext.isEmpty();
+			case Implementation_3_0Package.INITIALIZATION_PARAMETER__KEY:
+				return KEY_EDEFAULT == null ? key != null : !KEY_EDEFAULT.equals(key);
+			case Implementation_3_0Package.INITIALIZATION_PARAMETER__VALUE:
+				return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -278,4 +278,4 @@ public class InitializationParameterImpl extends MinimalEObjectImpl.Container im
 		return result.toString();
 	}
 
-} //InitializationParameterImpl
+} // InitializationParameterImpl

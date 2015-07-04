@@ -43,4 +43,4 @@ public class Hints_3_0ResourceFactoryImpl extends ResourceFactoryImpl {
 		return result;
 	}
 
-} //Hints_3_0ResourceFactoryImpl
+} // Hints_3_0ResourceFactoryImpl

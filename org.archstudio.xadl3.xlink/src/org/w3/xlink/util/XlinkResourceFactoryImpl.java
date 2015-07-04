@@ -43,4 +43,4 @@ public class XlinkResourceFactoryImpl extends ResourceFactoryImpl {
 		return result;
 	}
 
-} //XlinkResourceFactoryImpl
+} // XlinkResourceFactoryImpl

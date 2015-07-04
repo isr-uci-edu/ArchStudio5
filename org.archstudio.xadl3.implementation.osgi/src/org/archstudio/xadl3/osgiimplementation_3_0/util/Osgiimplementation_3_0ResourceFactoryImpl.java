@@ -43,4 +43,4 @@ public class Osgiimplementation_3_0ResourceFactoryImpl extends ResourceFactoryIm
 		return result;
 	}
 
-} //Osgiimplementation_3_0ResourceFactoryImpl
+} // Osgiimplementation_3_0ResourceFactoryImpl

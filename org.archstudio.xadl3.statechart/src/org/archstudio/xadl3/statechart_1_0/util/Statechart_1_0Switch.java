@@ -50,7 +50,7 @@ public class Statechart_1_0Switch<T> extends Switch<T> {
 	/**
 	 * Checks whether this is a switch for the given package. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
-	 * @parameter ePackage the package in question.
+	 * @param ePackage the package in question.
 	 * @return whether this is a switch for the given package.
 	 * @generated
 	 */
@@ -69,108 +69,108 @@ public class Statechart_1_0Switch<T> extends Switch<T> {
 	@Override
 	protected T doSwitch(int classifierID, EObject theEObject) {
 		switch (classifierID) {
-		case Statechart_1_0Package.BEHAVIOR: {
-			Behavior behavior = (Behavior) theEObject;
-			T result = caseBehavior(behavior);
-			if (result == null) {
-				result = defaultCase(theEObject);
+			case Statechart_1_0Package.BEHAVIOR: {
+				Behavior behavior = (Behavior) theEObject;
+				T result = caseBehavior(behavior);
+				if (result == null) {
+					result = defaultCase(theEObject);
+				}
+				return result;
 			}
-			return result;
-		}
-		case Statechart_1_0Package.CONSTRAINT: {
-			Constraint constraint = (Constraint) theEObject;
-			T result = caseConstraint(constraint);
-			if (result == null) {
-				result = defaultCase(theEObject);
+			case Statechart_1_0Package.CONSTRAINT: {
+				Constraint constraint = (Constraint) theEObject;
+				T result = caseConstraint(constraint);
+				if (result == null) {
+					result = defaultCase(theEObject);
+				}
+				return result;
 			}
-			return result;
-		}
-		case Statechart_1_0Package.DOCUMENT_ROOT: {
-			DocumentRoot documentRoot = (DocumentRoot) theEObject;
-			T result = caseDocumentRoot(documentRoot);
-			if (result == null) {
-				result = defaultCase(theEObject);
+			case Statechart_1_0Package.DOCUMENT_ROOT: {
+				DocumentRoot documentRoot = (DocumentRoot) theEObject;
+				T result = caseDocumentRoot(documentRoot);
+				if (result == null) {
+					result = defaultCase(theEObject);
+				}
+				return result;
 			}
-			return result;
-		}
-		case Statechart_1_0Package.FINAL_STATE: {
-			FinalState finalState = (FinalState) theEObject;
-			T result = caseFinalState(finalState);
-			if (result == null) {
-				result = casePseudoState(finalState);
+			case Statechart_1_0Package.FINAL_STATE: {
+				FinalState finalState = (FinalState) theEObject;
+				T result = caseFinalState(finalState);
+				if (result == null) {
+					result = casePseudoState(finalState);
+				}
+				if (result == null) {
+					result = defaultCase(theEObject);
+				}
+				return result;
 			}
-			if (result == null) {
-				result = defaultCase(theEObject);
+			case Statechart_1_0Package.INITIAL_STATE: {
+				InitialState initialState = (InitialState) theEObject;
+				T result = caseInitialState(initialState);
+				if (result == null) {
+					result = casePseudoState(initialState);
+				}
+				if (result == null) {
+					result = defaultCase(theEObject);
+				}
+				return result;
 			}
-			return result;
-		}
-		case Statechart_1_0Package.INITIAL_STATE: {
-			InitialState initialState = (InitialState) theEObject;
-			T result = caseInitialState(initialState);
-			if (result == null) {
-				result = casePseudoState(initialState);
+			case Statechart_1_0Package.PSEUDO_STATE: {
+				PseudoState pseudoState = (PseudoState) theEObject;
+				T result = casePseudoState(pseudoState);
+				if (result == null) {
+					result = defaultCase(theEObject);
+				}
+				return result;
 			}
-			if (result == null) {
-				result = defaultCase(theEObject);
+			case Statechart_1_0Package.STATE: {
+				State state = (State) theEObject;
+				T result = caseState(state);
+				if (result == null) {
+					result = casePseudoState(state);
+				}
+				if (result == null) {
+					result = defaultCase(theEObject);
+				}
+				return result;
 			}
-			return result;
-		}
-		case Statechart_1_0Package.PSEUDO_STATE: {
-			PseudoState pseudoState = (PseudoState) theEObject;
-			T result = casePseudoState(pseudoState);
-			if (result == null) {
-				result = defaultCase(theEObject);
+			case Statechart_1_0Package.STATECHART: {
+				Statechart statechart = (Statechart) theEObject;
+				T result = caseStatechart(statechart);
+				if (result == null) {
+					result = defaultCase(theEObject);
+				}
+				return result;
 			}
-			return result;
-		}
-		case Statechart_1_0Package.STATE: {
-			State state = (State) theEObject;
-			T result = caseState(state);
-			if (result == null) {
-				result = casePseudoState(state);
+			case Statechart_1_0Package.STATECHART_SPECIFICATION: {
+				StatechartSpecification statechartSpecification = (StatechartSpecification) theEObject;
+				T result = caseStatechartSpecification(statechartSpecification);
+				if (result == null) {
+					result = caseExtension(statechartSpecification);
+				}
+				if (result == null) {
+					result = defaultCase(theEObject);
+				}
+				return result;
 			}
-			if (result == null) {
-				result = defaultCase(theEObject);
+			case Statechart_1_0Package.SUB_STATECHART: {
+				SubStatechart subStatechart = (SubStatechart) theEObject;
+				T result = caseSubStatechart(subStatechart);
+				if (result == null) {
+					result = defaultCase(theEObject);
+				}
+				return result;
 			}
-			return result;
-		}
-		case Statechart_1_0Package.STATECHART: {
-			Statechart statechart = (Statechart) theEObject;
-			T result = caseStatechart(statechart);
-			if (result == null) {
-				result = defaultCase(theEObject);
+			case Statechart_1_0Package.TRANSITION: {
+				Transition transition = (Transition) theEObject;
+				T result = caseTransition(transition);
+				if (result == null) {
+					result = defaultCase(theEObject);
+				}
+				return result;
 			}
-			return result;
-		}
-		case Statechart_1_0Package.STATECHART_SPECIFICATION: {
-			StatechartSpecification statechartSpecification = (StatechartSpecification) theEObject;
-			T result = caseStatechartSpecification(statechartSpecification);
-			if (result == null) {
-				result = caseExtension(statechartSpecification);
-			}
-			if (result == null) {
-				result = defaultCase(theEObject);
-			}
-			return result;
-		}
-		case Statechart_1_0Package.SUB_STATECHART: {
-			SubStatechart subStatechart = (SubStatechart) theEObject;
-			T result = caseSubStatechart(subStatechart);
-			if (result == null) {
-				result = defaultCase(theEObject);
-			}
-			return result;
-		}
-		case Statechart_1_0Package.TRANSITION: {
-			Transition transition = (Transition) theEObject;
-			T result = caseTransition(transition);
-			if (result == null) {
-				result = defaultCase(theEObject);
-			}
-			return result;
-		}
-		default:
-			return defaultCase(theEObject);
+			default:
+				return defaultCase(theEObject);
 		}
 	}
 
@@ -178,8 +178,7 @@ public class Statechart_1_0Switch<T> extends Switch<T> {
 	 * Returns the result of interpreting the object as an instance of '<em>Behavior</em>'. <!-- begin-user-doc --> This
 	 * implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
 	 * 
-	 * @param object
-	 *            the target of the switch.
+	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>Behavior</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
@@ -192,8 +191,7 @@ public class Statechart_1_0Switch<T> extends Switch<T> {
 	 * Returns the result of interpreting the object as an instance of '<em>Constraint</em>'. <!-- begin-user-doc -->
 	 * This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
 	 * 
-	 * @param object
-	 *            the target of the switch.
+	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>Constraint</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
@@ -206,8 +204,7 @@ public class Statechart_1_0Switch<T> extends Switch<T> {
 	 * Returns the result of interpreting the object as an instance of '<em>Document Root</em>'. <!-- begin-user-doc -->
 	 * This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
 	 * 
-	 * @param object
-	 *            the target of the switch.
+	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>Document Root</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
@@ -220,8 +217,7 @@ public class Statechart_1_0Switch<T> extends Switch<T> {
 	 * Returns the result of interpreting the object as an instance of '<em>Final State</em>'. <!-- begin-user-doc -->
 	 * This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
 	 * 
-	 * @param object
-	 *            the target of the switch.
+	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>Final State</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
@@ -234,8 +230,7 @@ public class Statechart_1_0Switch<T> extends Switch<T> {
 	 * Returns the result of interpreting the object as an instance of '<em>Initial State</em>'. <!-- begin-user-doc -->
 	 * This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
 	 * 
-	 * @param object
-	 *            the target of the switch.
+	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>Initial State</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
@@ -248,8 +243,7 @@ public class Statechart_1_0Switch<T> extends Switch<T> {
 	 * Returns the result of interpreting the object as an instance of '<em>Pseudo State</em>'. <!-- begin-user-doc -->
 	 * This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
 	 * 
-	 * @param object
-	 *            the target of the switch.
+	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>Pseudo State</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
@@ -262,8 +256,7 @@ public class Statechart_1_0Switch<T> extends Switch<T> {
 	 * Returns the result of interpreting the object as an instance of '<em>State</em>'. <!-- begin-user-doc --> This
 	 * implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
 	 * 
-	 * @param object
-	 *            the target of the switch.
+	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>State</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
@@ -276,8 +269,7 @@ public class Statechart_1_0Switch<T> extends Switch<T> {
 	 * Returns the result of interpreting the object as an instance of '<em>Statechart</em>'. <!-- begin-user-doc -->
 	 * This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
 	 * 
-	 * @param object
-	 *            the target of the switch.
+	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>Statechart</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
@@ -291,8 +283,7 @@ public class Statechart_1_0Switch<T> extends Switch<T> {
 	 * begin-user-doc --> This implementation returns null; returning a non-null result will terminate the switch. <!--
 	 * end-user-doc -->
 	 * 
-	 * @param object
-	 *            the target of the switch.
+	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>Statechart Specification</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
@@ -306,8 +297,7 @@ public class Statechart_1_0Switch<T> extends Switch<T> {
 	 * --> This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc
 	 * -->
 	 * 
-	 * @param object
-	 *            the target of the switch.
+	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>Sub Statechart</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
@@ -320,8 +310,7 @@ public class Statechart_1_0Switch<T> extends Switch<T> {
 	 * Returns the result of interpreting the object as an instance of '<em>Transition</em>'. <!-- begin-user-doc -->
 	 * This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
 	 * 
-	 * @param object
-	 *            the target of the switch.
+	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>Transition</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
@@ -334,8 +323,7 @@ public class Statechart_1_0Switch<T> extends Switch<T> {
 	 * Returns the result of interpreting the object as an instance of '<em>Extension</em>'. <!-- begin-user-doc -->
 	 * This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
 	 * 
-	 * @param object
-	 *            the target of the switch.
+	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>Extension</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
@@ -349,8 +337,7 @@ public class Statechart_1_0Switch<T> extends Switch<T> {
 	 * implementation returns null; returning a non-null result will terminate the switch, but this is the last case
 	 * anyway. <!-- end-user-doc -->
 	 * 
-	 * @param object
-	 *            the target of the switch.
+	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>EObject</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject)
 	 * @generated
@@ -360,4 +347,4 @@ public class Statechart_1_0Switch<T> extends Switch<T> {
 		return null;
 	}
 
-} //Statechart_1_0Switch
+} // Statechart_1_0Switch

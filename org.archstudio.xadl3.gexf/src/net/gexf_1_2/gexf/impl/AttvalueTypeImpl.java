@@ -2,18 +2,19 @@
  */
 package net.gexf_1_2.gexf.impl;
 
-import net.gexf_1_2.gexf.AttvalueType;
-import net.gexf_1_2.gexf.GexfPackage;
-
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
+import net.gexf_1_2.gexf.AttvalueType;
+import net.gexf_1_2.gexf.GexfPackage;
+
 /**
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Attvalue Type</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  * <li>{@link net.gexf_1_2.gexf.impl.AttvalueTypeImpl#getEnd <em>End</em>}</li>
  * <li>{@link net.gexf_1_2.gexf.impl.AttvalueTypeImpl#getEndopen <em>Endopen</em>}</li>
@@ -22,7 +23,6 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <li>{@link net.gexf_1_2.gexf.impl.AttvalueTypeImpl#getStartopen <em>Startopen</em>}</li>
  * <li>{@link net.gexf_1_2.gexf.impl.AttvalueTypeImpl#getValue <em>Value</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -318,18 +318,18 @@ public class AttvalueTypeImpl extends MinimalEObjectImpl.Container implements At
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case GexfPackage.ATTVALUE_TYPE__END:
-			return getEnd();
-		case GexfPackage.ATTVALUE_TYPE__ENDOPEN:
-			return getEndopen();
-		case GexfPackage.ATTVALUE_TYPE__FOR:
-			return getFor();
-		case GexfPackage.ATTVALUE_TYPE__START:
-			return getStart();
-		case GexfPackage.ATTVALUE_TYPE__STARTOPEN:
-			return getStartopen();
-		case GexfPackage.ATTVALUE_TYPE__VALUE:
-			return getValue();
+			case GexfPackage.ATTVALUE_TYPE__END:
+				return getEnd();
+			case GexfPackage.ATTVALUE_TYPE__ENDOPEN:
+				return getEndopen();
+			case GexfPackage.ATTVALUE_TYPE__FOR:
+				return getFor();
+			case GexfPackage.ATTVALUE_TYPE__START:
+				return getStart();
+			case GexfPackage.ATTVALUE_TYPE__STARTOPEN:
+				return getStartopen();
+			case GexfPackage.ATTVALUE_TYPE__VALUE:
+				return getValue();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -342,24 +342,24 @@ public class AttvalueTypeImpl extends MinimalEObjectImpl.Container implements At
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case GexfPackage.ATTVALUE_TYPE__END:
-			setEnd(newValue);
-			return;
-		case GexfPackage.ATTVALUE_TYPE__ENDOPEN:
-			setEndopen(newValue);
-			return;
-		case GexfPackage.ATTVALUE_TYPE__FOR:
-			setFor(newValue);
-			return;
-		case GexfPackage.ATTVALUE_TYPE__START:
-			setStart(newValue);
-			return;
-		case GexfPackage.ATTVALUE_TYPE__STARTOPEN:
-			setStartopen(newValue);
-			return;
-		case GexfPackage.ATTVALUE_TYPE__VALUE:
-			setValue((String) newValue);
-			return;
+			case GexfPackage.ATTVALUE_TYPE__END:
+				setEnd(newValue);
+				return;
+			case GexfPackage.ATTVALUE_TYPE__ENDOPEN:
+				setEndopen(newValue);
+				return;
+			case GexfPackage.ATTVALUE_TYPE__FOR:
+				setFor(newValue);
+				return;
+			case GexfPackage.ATTVALUE_TYPE__START:
+				setStart(newValue);
+				return;
+			case GexfPackage.ATTVALUE_TYPE__STARTOPEN:
+				setStartopen(newValue);
+				return;
+			case GexfPackage.ATTVALUE_TYPE__VALUE:
+				setValue((String) newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -372,24 +372,24 @@ public class AttvalueTypeImpl extends MinimalEObjectImpl.Container implements At
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case GexfPackage.ATTVALUE_TYPE__END:
-			setEnd(END_EDEFAULT);
-			return;
-		case GexfPackage.ATTVALUE_TYPE__ENDOPEN:
-			setEndopen(ENDOPEN_EDEFAULT);
-			return;
-		case GexfPackage.ATTVALUE_TYPE__FOR:
-			setFor(FOR_EDEFAULT);
-			return;
-		case GexfPackage.ATTVALUE_TYPE__START:
-			setStart(START_EDEFAULT);
-			return;
-		case GexfPackage.ATTVALUE_TYPE__STARTOPEN:
-			setStartopen(STARTOPEN_EDEFAULT);
-			return;
-		case GexfPackage.ATTVALUE_TYPE__VALUE:
-			setValue(VALUE_EDEFAULT);
-			return;
+			case GexfPackage.ATTVALUE_TYPE__END:
+				setEnd(END_EDEFAULT);
+				return;
+			case GexfPackage.ATTVALUE_TYPE__ENDOPEN:
+				setEndopen(ENDOPEN_EDEFAULT);
+				return;
+			case GexfPackage.ATTVALUE_TYPE__FOR:
+				setFor(FOR_EDEFAULT);
+				return;
+			case GexfPackage.ATTVALUE_TYPE__START:
+				setStart(START_EDEFAULT);
+				return;
+			case GexfPackage.ATTVALUE_TYPE__STARTOPEN:
+				setStartopen(STARTOPEN_EDEFAULT);
+				return;
+			case GexfPackage.ATTVALUE_TYPE__VALUE:
+				setValue(VALUE_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -402,18 +402,18 @@ public class AttvalueTypeImpl extends MinimalEObjectImpl.Container implements At
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case GexfPackage.ATTVALUE_TYPE__END:
-			return END_EDEFAULT == null ? end != null : !END_EDEFAULT.equals(end);
-		case GexfPackage.ATTVALUE_TYPE__ENDOPEN:
-			return ENDOPEN_EDEFAULT == null ? endopen != null : !ENDOPEN_EDEFAULT.equals(endopen);
-		case GexfPackage.ATTVALUE_TYPE__FOR:
-			return FOR_EDEFAULT == null ? for_ != null : !FOR_EDEFAULT.equals(for_);
-		case GexfPackage.ATTVALUE_TYPE__START:
-			return START_EDEFAULT == null ? start != null : !START_EDEFAULT.equals(start);
-		case GexfPackage.ATTVALUE_TYPE__STARTOPEN:
-			return STARTOPEN_EDEFAULT == null ? startopen != null : !STARTOPEN_EDEFAULT.equals(startopen);
-		case GexfPackage.ATTVALUE_TYPE__VALUE:
-			return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
+			case GexfPackage.ATTVALUE_TYPE__END:
+				return END_EDEFAULT == null ? end != null : !END_EDEFAULT.equals(end);
+			case GexfPackage.ATTVALUE_TYPE__ENDOPEN:
+				return ENDOPEN_EDEFAULT == null ? endopen != null : !ENDOPEN_EDEFAULT.equals(endopen);
+			case GexfPackage.ATTVALUE_TYPE__FOR:
+				return FOR_EDEFAULT == null ? for_ != null : !FOR_EDEFAULT.equals(for_);
+			case GexfPackage.ATTVALUE_TYPE__START:
+				return START_EDEFAULT == null ? start != null : !START_EDEFAULT.equals(start);
+			case GexfPackage.ATTVALUE_TYPE__STARTOPEN:
+				return STARTOPEN_EDEFAULT == null ? startopen != null : !STARTOPEN_EDEFAULT.equals(startopen);
+			case GexfPackage.ATTVALUE_TYPE__VALUE:
+				return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -446,4 +446,4 @@ public class AttvalueTypeImpl extends MinimalEObjectImpl.Container implements At
 		return result.toString();
 	}
 
-} //AttvalueTypeImpl
+} // AttvalueTypeImpl

@@ -32,8 +32,8 @@ public class Variability_3_0FactoryImpl extends EFactoryImpl implements Variabil
 	 */
 	public static Variability_3_0Factory init() {
 		try {
-			Variability_3_0Factory theVariability_3_0Factory = (Variability_3_0Factory) EPackage.Registry.INSTANCE
-					.getEFactory(Variability_3_0Package.eNS_URI);
+			Variability_3_0Factory theVariability_3_0Factory =
+					(Variability_3_0Factory) EPackage.Registry.INSTANCE.getEFactory(Variability_3_0Package.eNS_URI);
 			if (theVariability_3_0Factory != null) {
 				return theVariability_3_0Factory;
 			}
@@ -61,26 +61,26 @@ public class Variability_3_0FactoryImpl extends EFactoryImpl implements Variabil
 	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
-		case Variability_3_0Package.ATTRIBUTE_CHANGE:
-			return createAttributeChange();
-		case Variability_3_0Package.CHANGE:
-			return createChange();
-		case Variability_3_0Package.CHANGE_SET_OF_CHANGES:
-			return createChangeSetOfChanges();
-		case Variability_3_0Package.DOCUMENT_ROOT:
-			return createDocumentRoot();
-		case Variability_3_0Package.ELEMENT_CHANGE:
-			return createElementChange();
-		case Variability_3_0Package.ELEMENT_MANY_CHANGE:
-			return createElementManyChange();
-		case Variability_3_0Package.JAVA_TRANSFORM_CHANGE_SET_OF_CHANGES:
-			return createJavaTransformChangeSetOfChanges();
-		case Variability_3_0Package.TRANSFORM_CHANGE_SET_OF_CHANGES:
-			return createTransformChangeSetOfChanges();
-		case Variability_3_0Package.VARIABILITY:
-			return createVariability();
-		default:
-			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+			case Variability_3_0Package.ATTRIBUTE_CHANGE:
+				return createAttributeChange();
+			case Variability_3_0Package.CHANGE:
+				return createChange();
+			case Variability_3_0Package.CHANGE_SET_OF_CHANGES:
+				return createChangeSetOfChanges();
+			case Variability_3_0Package.DOCUMENT_ROOT:
+				return createDocumentRoot();
+			case Variability_3_0Package.ELEMENT_CHANGE:
+				return createElementChange();
+			case Variability_3_0Package.ELEMENT_MANY_CHANGE:
+				return createElementManyChange();
+			case Variability_3_0Package.JAVA_TRANSFORM_CHANGE_SET_OF_CHANGES:
+				return createJavaTransformChangeSetOfChanges();
+			case Variability_3_0Package.TRANSFORM_CHANGE_SET_OF_CHANGES:
+				return createTransformChangeSetOfChanges();
+			case Variability_3_0Package.VARIABILITY:
+				return createVariability();
+			default:
+				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
 	}
 
@@ -204,4 +204,4 @@ public class Variability_3_0FactoryImpl extends EFactoryImpl implements Variabil
 		return Variability_3_0Package.eINSTANCE;
 	}
 
-} //Variability_3_0FactoryImpl
+} // Variability_3_0FactoryImpl

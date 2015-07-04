@@ -26,8 +26,8 @@ public class Archlight_3_0FactoryImpl extends EFactoryImpl implements Archlight_
 	 */
 	public static Archlight_3_0Factory init() {
 		try {
-			Archlight_3_0Factory theArchlight_3_0Factory = (Archlight_3_0Factory) EPackage.Registry.INSTANCE
-					.getEFactory(Archlight_3_0Package.eNS_URI);
+			Archlight_3_0Factory theArchlight_3_0Factory =
+					(Archlight_3_0Factory) EPackage.Registry.INSTANCE.getEFactory(Archlight_3_0Package.eNS_URI);
 			if (theArchlight_3_0Factory != null) {
 				return theArchlight_3_0Factory;
 			}
@@ -55,14 +55,14 @@ public class Archlight_3_0FactoryImpl extends EFactoryImpl implements Archlight_
 	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
-		case Archlight_3_0Package.ARCHLIGHT:
-			return createArchlight();
-		case Archlight_3_0Package.DOCUMENT_ROOT:
-			return createDocumentRoot();
-		case Archlight_3_0Package.TEST:
-			return createTest();
-		default:
-			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+			case Archlight_3_0Package.ARCHLIGHT:
+				return createArchlight();
+			case Archlight_3_0Package.DOCUMENT_ROOT:
+				return createDocumentRoot();
+			case Archlight_3_0Package.TEST:
+				return createTest();
+			default:
+				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
 	}
 
@@ -120,4 +120,4 @@ public class Archlight_3_0FactoryImpl extends EFactoryImpl implements Archlight_
 		return Archlight_3_0Package.eINSTANCE;
 	}
 
-} //Archlight_3_0FactoryImpl
+} // Archlight_3_0FactoryImpl

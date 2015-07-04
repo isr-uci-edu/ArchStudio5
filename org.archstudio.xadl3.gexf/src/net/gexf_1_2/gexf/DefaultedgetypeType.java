@@ -96,7 +96,8 @@ public enum DefaultedgetypeType implements Enumerator {
 	 * 
 	 * @generated
 	 */
-	private static final DefaultedgetypeType[] VALUES_ARRAY = new DefaultedgetypeType[] { DIRECTED, UNDIRECTED, MUTUAL, };
+	private static final DefaultedgetypeType[] VALUES_ARRAY =
+			new DefaultedgetypeType[] { DIRECTED, UNDIRECTED, MUTUAL, };
 
 	/**
 	 * A public read-only list of all the '<em><b>Defaultedgetype Type</b></em>' enumerators. <!-- begin-user-doc -->
@@ -110,6 +111,8 @@ public enum DefaultedgetypeType implements Enumerator {
 	 * Returns the '<em><b>Defaultedgetype Type</b></em>' literal with the specified literal value. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
 	 * 
+	 * @param literal the literal.
+	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
 	public static DefaultedgetypeType get(String literal) {
@@ -125,6 +128,8 @@ public enum DefaultedgetypeType implements Enumerator {
 	 * Returns the '<em><b>Defaultedgetype Type</b></em>' literal with the specified name. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
 	 * 
+	 * @param name the name.
+	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
 	public static DefaultedgetypeType getByName(String name) {
@@ -140,16 +145,18 @@ public enum DefaultedgetypeType implements Enumerator {
 	 * Returns the '<em><b>Defaultedgetype Type</b></em>' literal with the specified integer value. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
 	 * 
+	 * @param value the integer value.
+	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
 	public static DefaultedgetypeType get(int value) {
 		switch (value) {
-		case DIRECTED_VALUE:
-			return DIRECTED;
-		case UNDIRECTED_VALUE:
-			return UNDIRECTED;
-		case MUTUAL_VALUE:
-			return MUTUAL;
+			case DIRECTED_VALUE:
+				return DIRECTED;
+			case UNDIRECTED_VALUE:
+				return UNDIRECTED;
+			case MUTUAL_VALUE:
+				return MUTUAL;
 		}
 		return null;
 	}
@@ -227,4 +234,4 @@ public enum DefaultedgetypeType implements Enumerator {
 		return literal;
 	}
 
-} //DefaultedgetypeType
+} // DefaultedgetypeType

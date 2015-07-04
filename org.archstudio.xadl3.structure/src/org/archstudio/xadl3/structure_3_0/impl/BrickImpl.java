@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Brick</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  * <li>{@link org.archstudio.xadl3.structure_3_0.impl.BrickImpl#getInterface <em>Interface</em>}</li>
  * <li>{@link org.archstudio.xadl3.structure_3_0.impl.BrickImpl#getSubStructure <em>Sub Structure</em>}</li>
@@ -30,7 +31,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <li>{@link org.archstudio.xadl3.structure_3_0.impl.BrickImpl#getId <em>Id</em>}</li>
  * <li>{@link org.archstudio.xadl3.structure_3_0.impl.BrickImpl#getName <em>Name</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -177,12 +177,12 @@ public abstract class BrickImpl extends MinimalEObjectImpl.Container implements 
 		if (newSubStructure != subStructure) {
 			NotificationChain msgs = null;
 			if (subStructure != null) {
-				msgs = ((InternalEObject) subStructure).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
-						- Structure_3_0Package.BRICK__SUB_STRUCTURE, null, msgs);
+				msgs = ((InternalEObject) subStructure).eInverseRemove(this,
+						EOPPOSITE_FEATURE_BASE - Structure_3_0Package.BRICK__SUB_STRUCTURE, null, msgs);
 			}
 			if (newSubStructure != null) {
-				msgs = ((InternalEObject) newSubStructure).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
-						- Structure_3_0Package.BRICK__SUB_STRUCTURE, null, msgs);
+				msgs = ((InternalEObject) newSubStructure).eInverseAdd(this,
+						EOPPOSITE_FEATURE_BASE - Structure_3_0Package.BRICK__SUB_STRUCTURE, null, msgs);
 			}
 			msgs = basicSetSubStructure(newSubStructure, msgs);
 			if (msgs != null) {
@@ -264,12 +264,12 @@ public abstract class BrickImpl extends MinimalEObjectImpl.Container implements 
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case Structure_3_0Package.BRICK__INTERFACE:
-			return ((InternalEList<?>) getInterface()).basicRemove(otherEnd, msgs);
-		case Structure_3_0Package.BRICK__SUB_STRUCTURE:
-			return basicSetSubStructure(null, msgs);
-		case Structure_3_0Package.BRICK__EXT:
-			return ((InternalEList<?>) getExt()).basicRemove(otherEnd, msgs);
+			case Structure_3_0Package.BRICK__INTERFACE:
+				return ((InternalEList<?>) getInterface()).basicRemove(otherEnd, msgs);
+			case Structure_3_0Package.BRICK__SUB_STRUCTURE:
+				return basicSetSubStructure(null, msgs);
+			case Structure_3_0Package.BRICK__EXT:
+				return ((InternalEList<?>) getExt()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -282,16 +282,16 @@ public abstract class BrickImpl extends MinimalEObjectImpl.Container implements 
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case Structure_3_0Package.BRICK__INTERFACE:
-			return getInterface();
-		case Structure_3_0Package.BRICK__SUB_STRUCTURE:
-			return getSubStructure();
-		case Structure_3_0Package.BRICK__EXT:
-			return getExt();
-		case Structure_3_0Package.BRICK__ID:
-			return getId();
-		case Structure_3_0Package.BRICK__NAME:
-			return getName();
+			case Structure_3_0Package.BRICK__INTERFACE:
+				return getInterface();
+			case Structure_3_0Package.BRICK__SUB_STRUCTURE:
+				return getSubStructure();
+			case Structure_3_0Package.BRICK__EXT:
+				return getExt();
+			case Structure_3_0Package.BRICK__ID:
+				return getId();
+			case Structure_3_0Package.BRICK__NAME:
+				return getName();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -305,23 +305,23 @@ public abstract class BrickImpl extends MinimalEObjectImpl.Container implements 
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Structure_3_0Package.BRICK__INTERFACE:
-			getInterface().clear();
-			getInterface().addAll((Collection<? extends Interface>) newValue);
-			return;
-		case Structure_3_0Package.BRICK__SUB_STRUCTURE:
-			setSubStructure((SubStructure) newValue);
-			return;
-		case Structure_3_0Package.BRICK__EXT:
-			getExt().clear();
-			getExt().addAll((Collection<? extends Extension>) newValue);
-			return;
-		case Structure_3_0Package.BRICK__ID:
-			setId((String) newValue);
-			return;
-		case Structure_3_0Package.BRICK__NAME:
-			setName((String) newValue);
-			return;
+			case Structure_3_0Package.BRICK__INTERFACE:
+				getInterface().clear();
+				getInterface().addAll((Collection<? extends Interface>) newValue);
+				return;
+			case Structure_3_0Package.BRICK__SUB_STRUCTURE:
+				setSubStructure((SubStructure) newValue);
+				return;
+			case Structure_3_0Package.BRICK__EXT:
+				getExt().clear();
+				getExt().addAll((Collection<? extends Extension>) newValue);
+				return;
+			case Structure_3_0Package.BRICK__ID:
+				setId((String) newValue);
+				return;
+			case Structure_3_0Package.BRICK__NAME:
+				setName((String) newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -334,21 +334,21 @@ public abstract class BrickImpl extends MinimalEObjectImpl.Container implements 
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Structure_3_0Package.BRICK__INTERFACE:
-			getInterface().clear();
-			return;
-		case Structure_3_0Package.BRICK__SUB_STRUCTURE:
-			setSubStructure((SubStructure) null);
-			return;
-		case Structure_3_0Package.BRICK__EXT:
-			getExt().clear();
-			return;
-		case Structure_3_0Package.BRICK__ID:
-			setId(ID_EDEFAULT);
-			return;
-		case Structure_3_0Package.BRICK__NAME:
-			setName(NAME_EDEFAULT);
-			return;
+			case Structure_3_0Package.BRICK__INTERFACE:
+				getInterface().clear();
+				return;
+			case Structure_3_0Package.BRICK__SUB_STRUCTURE:
+				setSubStructure((SubStructure) null);
+				return;
+			case Structure_3_0Package.BRICK__EXT:
+				getExt().clear();
+				return;
+			case Structure_3_0Package.BRICK__ID:
+				setId(ID_EDEFAULT);
+				return;
+			case Structure_3_0Package.BRICK__NAME:
+				setName(NAME_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -361,16 +361,16 @@ public abstract class BrickImpl extends MinimalEObjectImpl.Container implements 
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Structure_3_0Package.BRICK__INTERFACE:
-			return interface_ != null && !interface_.isEmpty();
-		case Structure_3_0Package.BRICK__SUB_STRUCTURE:
-			return subStructure != null;
-		case Structure_3_0Package.BRICK__EXT:
-			return ext != null && !ext.isEmpty();
-		case Structure_3_0Package.BRICK__ID:
-			return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
-		case Structure_3_0Package.BRICK__NAME:
-			return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+			case Structure_3_0Package.BRICK__INTERFACE:
+				return interface_ != null && !interface_.isEmpty();
+			case Structure_3_0Package.BRICK__SUB_STRUCTURE:
+				return subStructure != null;
+			case Structure_3_0Package.BRICK__EXT:
+				return ext != null && !ext.isEmpty();
+			case Structure_3_0Package.BRICK__ID:
+				return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
+			case Structure_3_0Package.BRICK__NAME:
+				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -395,4 +395,4 @@ public abstract class BrickImpl extends MinimalEObjectImpl.Container implements 
 		return result.toString();
 	}
 
-} //BrickImpl
+} // BrickImpl

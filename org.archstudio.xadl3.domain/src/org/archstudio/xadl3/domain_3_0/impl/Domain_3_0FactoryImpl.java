@@ -27,8 +27,8 @@ public class Domain_3_0FactoryImpl extends EFactoryImpl implements Domain_3_0Fac
 	 */
 	public static Domain_3_0Factory init() {
 		try {
-			Domain_3_0Factory theDomain_3_0Factory = (Domain_3_0Factory) EPackage.Registry.INSTANCE
-					.getEFactory(Domain_3_0Package.eNS_URI);
+			Domain_3_0Factory theDomain_3_0Factory =
+					(Domain_3_0Factory) EPackage.Registry.INSTANCE.getEFactory(Domain_3_0Package.eNS_URI);
 			if (theDomain_3_0Factory != null) {
 				return theDomain_3_0Factory;
 			}
@@ -56,12 +56,12 @@ public class Domain_3_0FactoryImpl extends EFactoryImpl implements Domain_3_0Fac
 	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
-		case Domain_3_0Package.DOMAIN:
-			return createDomain();
-		case Domain_3_0Package.DOMAIN_EXTENSION:
-			return createDomainExtension();
-		default:
-			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+			case Domain_3_0Package.DOMAIN:
+				return createDomain();
+			case Domain_3_0Package.DOMAIN_EXTENSION:
+				return createDomainExtension();
+			default:
+				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
 	}
 
@@ -73,12 +73,13 @@ public class Domain_3_0FactoryImpl extends EFactoryImpl implements Domain_3_0Fac
 	@Override
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
-		case Domain_3_0Package.DOMAIN_TYPE:
-			return createDomainTypeFromString(eDataType, initialValue);
-		case Domain_3_0Package.DOMAIN_TYPE_OBJECT:
-			return createDomainTypeObjectFromString(eDataType, initialValue);
-		default:
-			throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
+			case Domain_3_0Package.DOMAIN_TYPE:
+				return createDomainTypeFromString(eDataType, initialValue);
+			case Domain_3_0Package.DOMAIN_TYPE_OBJECT:
+				return createDomainTypeObjectFromString(eDataType, initialValue);
+			default:
+				throw new IllegalArgumentException(
+						"The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
 	}
 
@@ -90,12 +91,13 @@ public class Domain_3_0FactoryImpl extends EFactoryImpl implements Domain_3_0Fac
 	@Override
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
-		case Domain_3_0Package.DOMAIN_TYPE:
-			return convertDomainTypeToString(eDataType, instanceValue);
-		case Domain_3_0Package.DOMAIN_TYPE_OBJECT:
-			return convertDomainTypeObjectToString(eDataType, instanceValue);
-		default:
-			throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
+			case Domain_3_0Package.DOMAIN_TYPE:
+				return convertDomainTypeToString(eDataType, instanceValue);
+			case Domain_3_0Package.DOMAIN_TYPE_OBJECT:
+				return convertDomainTypeObjectToString(eDataType, instanceValue);
+			default:
+				throw new IllegalArgumentException(
+						"The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
 	}
 
@@ -129,8 +131,8 @@ public class Domain_3_0FactoryImpl extends EFactoryImpl implements Domain_3_0Fac
 	public DomainType createDomainTypeFromString(EDataType eDataType, String initialValue) {
 		DomainType result = DomainType.get(initialValue);
 		if (result == null) {
-			throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
-					+ eDataType.getName() + "'");
+			throw new IllegalArgumentException(
+					"The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
 		}
 		return result;
 	}
@@ -183,4 +185,4 @@ public class Domain_3_0FactoryImpl extends EFactoryImpl implements Domain_3_0Fac
 		return Domain_3_0Package.eINSTANCE;
 	}
 
-} //Domain_3_0FactoryImpl
+} // Domain_3_0FactoryImpl

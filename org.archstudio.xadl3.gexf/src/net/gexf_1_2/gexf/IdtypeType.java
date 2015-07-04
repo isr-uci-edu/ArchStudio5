@@ -84,6 +84,8 @@ public enum IdtypeType implements Enumerator {
 	 * Returns the '<em><b>Idtype Type</b></em>' literal with the specified literal value. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
 	 * 
+	 * @param literal the literal.
+	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
 	public static IdtypeType get(String literal) {
@@ -99,6 +101,8 @@ public enum IdtypeType implements Enumerator {
 	 * Returns the '<em><b>Idtype Type</b></em>' literal with the specified name. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
 	 * 
+	 * @param name the name.
+	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
 	public static IdtypeType getByName(String name) {
@@ -114,14 +118,16 @@ public enum IdtypeType implements Enumerator {
 	 * Returns the '<em><b>Idtype Type</b></em>' literal with the specified integer value. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
 	 * 
+	 * @param value the integer value.
+	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
 	public static IdtypeType get(int value) {
 		switch (value) {
-		case INTEGER_VALUE:
-			return INTEGER;
-		case STRING_VALUE:
-			return STRING;
+			case INTEGER_VALUE:
+				return INTEGER;
+			case STRING_VALUE:
+				return STRING;
 		}
 		return null;
 	}
@@ -199,4 +205,4 @@ public enum IdtypeType implements Enumerator {
 		return literal;
 	}
 
-} //IdtypeType
+} // IdtypeType

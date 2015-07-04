@@ -43,4 +43,4 @@ public class Structure_3_0XMLProcessor extends XMLProcessor {
 		return registrations;
 	}
 
-} //Structure_3_0XMLProcessor
+} // Structure_3_0XMLProcessor

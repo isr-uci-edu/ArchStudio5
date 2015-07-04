@@ -47,7 +47,7 @@ public class Structure_3_0Switch<T> extends Switch<T> {
 	/**
 	 * Checks whether this is a switch for the given package. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
-	 * @parameter ePackage the package in question.
+	 * @param ePackage the package in question.
 	 * @return whether this is a switch for the given package.
 	 * @generated
 	 */
@@ -66,86 +66,86 @@ public class Structure_3_0Switch<T> extends Switch<T> {
 	@Override
 	protected T doSwitch(int classifierID, EObject theEObject) {
 		switch (classifierID) {
-		case Structure_3_0Package.BRICK: {
-			Brick brick = (Brick) theEObject;
-			T result = caseBrick(brick);
-			if (result == null) {
-				result = defaultCase(theEObject);
+			case Structure_3_0Package.BRICK: {
+				Brick brick = (Brick) theEObject;
+				T result = caseBrick(brick);
+				if (result == null) {
+					result = defaultCase(theEObject);
+				}
+				return result;
 			}
-			return result;
-		}
-		case Structure_3_0Package.COMPONENT: {
-			Component component = (Component) theEObject;
-			T result = caseComponent(component);
-			if (result == null) {
-				result = caseBrick(component);
+			case Structure_3_0Package.COMPONENT: {
+				Component component = (Component) theEObject;
+				T result = caseComponent(component);
+				if (result == null) {
+					result = caseBrick(component);
+				}
+				if (result == null) {
+					result = defaultCase(theEObject);
+				}
+				return result;
 			}
-			if (result == null) {
-				result = defaultCase(theEObject);
+			case Structure_3_0Package.CONNECTOR: {
+				Connector connector = (Connector) theEObject;
+				T result = caseConnector(connector);
+				if (result == null) {
+					result = caseBrick(connector);
+				}
+				if (result == null) {
+					result = defaultCase(theEObject);
+				}
+				return result;
 			}
-			return result;
-		}
-		case Structure_3_0Package.CONNECTOR: {
-			Connector connector = (Connector) theEObject;
-			T result = caseConnector(connector);
-			if (result == null) {
-				result = caseBrick(connector);
+			case Structure_3_0Package.DOCUMENT_ROOT: {
+				DocumentRoot documentRoot = (DocumentRoot) theEObject;
+				T result = caseDocumentRoot(documentRoot);
+				if (result == null) {
+					result = defaultCase(theEObject);
+				}
+				return result;
 			}
-			if (result == null) {
-				result = defaultCase(theEObject);
+			case Structure_3_0Package.INTERFACE: {
+				Interface interface_ = (Interface) theEObject;
+				T result = caseInterface(interface_);
+				if (result == null) {
+					result = defaultCase(theEObject);
+				}
+				return result;
 			}
-			return result;
-		}
-		case Structure_3_0Package.DOCUMENT_ROOT: {
-			DocumentRoot documentRoot = (DocumentRoot) theEObject;
-			T result = caseDocumentRoot(documentRoot);
-			if (result == null) {
-				result = defaultCase(theEObject);
+			case Structure_3_0Package.INTERFACE_MAPPING: {
+				InterfaceMapping interfaceMapping = (InterfaceMapping) theEObject;
+				T result = caseInterfaceMapping(interfaceMapping);
+				if (result == null) {
+					result = defaultCase(theEObject);
+				}
+				return result;
 			}
-			return result;
-		}
-		case Structure_3_0Package.INTERFACE: {
-			Interface interface_ = (Interface) theEObject;
-			T result = caseInterface(interface_);
-			if (result == null) {
-				result = defaultCase(theEObject);
+			case Structure_3_0Package.LINK: {
+				Link link = (Link) theEObject;
+				T result = caseLink(link);
+				if (result == null) {
+					result = defaultCase(theEObject);
+				}
+				return result;
 			}
-			return result;
-		}
-		case Structure_3_0Package.INTERFACE_MAPPING: {
-			InterfaceMapping interfaceMapping = (InterfaceMapping) theEObject;
-			T result = caseInterfaceMapping(interfaceMapping);
-			if (result == null) {
-				result = defaultCase(theEObject);
+			case Structure_3_0Package.STRUCTURE: {
+				Structure structure = (Structure) theEObject;
+				T result = caseStructure(structure);
+				if (result == null) {
+					result = defaultCase(theEObject);
+				}
+				return result;
 			}
-			return result;
-		}
-		case Structure_3_0Package.LINK: {
-			Link link = (Link) theEObject;
-			T result = caseLink(link);
-			if (result == null) {
-				result = defaultCase(theEObject);
+			case Structure_3_0Package.SUB_STRUCTURE: {
+				SubStructure subStructure = (SubStructure) theEObject;
+				T result = caseSubStructure(subStructure);
+				if (result == null) {
+					result = defaultCase(theEObject);
+				}
+				return result;
 			}
-			return result;
-		}
-		case Structure_3_0Package.STRUCTURE: {
-			Structure structure = (Structure) theEObject;
-			T result = caseStructure(structure);
-			if (result == null) {
-				result = defaultCase(theEObject);
-			}
-			return result;
-		}
-		case Structure_3_0Package.SUB_STRUCTURE: {
-			SubStructure subStructure = (SubStructure) theEObject;
-			T result = caseSubStructure(subStructure);
-			if (result == null) {
-				result = defaultCase(theEObject);
-			}
-			return result;
-		}
-		default:
-			return defaultCase(theEObject);
+			default:
+				return defaultCase(theEObject);
 		}
 	}
 
@@ -153,8 +153,7 @@ public class Structure_3_0Switch<T> extends Switch<T> {
 	 * Returns the result of interpreting the object as an instance of '<em>Brick</em>'. <!-- begin-user-doc --> This
 	 * implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
 	 * 
-	 * @param object
-	 *            the target of the switch.
+	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>Brick</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
@@ -167,8 +166,7 @@ public class Structure_3_0Switch<T> extends Switch<T> {
 	 * Returns the result of interpreting the object as an instance of '<em>Component</em>'. <!-- begin-user-doc -->
 	 * This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
 	 * 
-	 * @param object
-	 *            the target of the switch.
+	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>Component</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
@@ -181,8 +179,7 @@ public class Structure_3_0Switch<T> extends Switch<T> {
 	 * Returns the result of interpreting the object as an instance of '<em>Connector</em>'. <!-- begin-user-doc -->
 	 * This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
 	 * 
-	 * @param object
-	 *            the target of the switch.
+	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>Connector</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
@@ -195,8 +192,7 @@ public class Structure_3_0Switch<T> extends Switch<T> {
 	 * Returns the result of interpreting the object as an instance of '<em>Document Root</em>'. <!-- begin-user-doc -->
 	 * This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
 	 * 
-	 * @param object
-	 *            the target of the switch.
+	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>Document Root</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
@@ -209,8 +205,7 @@ public class Structure_3_0Switch<T> extends Switch<T> {
 	 * Returns the result of interpreting the object as an instance of '<em>Interface</em>'. <!-- begin-user-doc -->
 	 * This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
 	 * 
-	 * @param object
-	 *            the target of the switch.
+	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>Interface</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
@@ -224,8 +219,7 @@ public class Structure_3_0Switch<T> extends Switch<T> {
 	 * --> This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc
 	 * -->
 	 * 
-	 * @param object
-	 *            the target of the switch.
+	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>Interface Mapping</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
@@ -238,8 +232,7 @@ public class Structure_3_0Switch<T> extends Switch<T> {
 	 * Returns the result of interpreting the object as an instance of '<em>Link</em>'. <!-- begin-user-doc --> This
 	 * implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
 	 * 
-	 * @param object
-	 *            the target of the switch.
+	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>Link</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
@@ -252,8 +245,7 @@ public class Structure_3_0Switch<T> extends Switch<T> {
 	 * Returns the result of interpreting the object as an instance of '<em>Structure</em>'. <!-- begin-user-doc -->
 	 * This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
 	 * 
-	 * @param object
-	 *            the target of the switch.
+	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>Structure</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
@@ -266,8 +258,7 @@ public class Structure_3_0Switch<T> extends Switch<T> {
 	 * Returns the result of interpreting the object as an instance of '<em>Sub Structure</em>'. <!-- begin-user-doc -->
 	 * This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
 	 * 
-	 * @param object
-	 *            the target of the switch.
+	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>Sub Structure</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
@@ -281,8 +272,7 @@ public class Structure_3_0Switch<T> extends Switch<T> {
 	 * implementation returns null; returning a non-null result will terminate the switch, but this is the last case
 	 * anyway. <!-- end-user-doc -->
 	 * 
-	 * @param object
-	 *            the target of the switch.
+	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>EObject</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject)
 	 * @generated
@@ -292,4 +282,4 @@ public class Structure_3_0Switch<T> extends Switch<T> {
 		return null;
 	}
 
-} //Structure_3_0Switch
+} // Structure_3_0Switch

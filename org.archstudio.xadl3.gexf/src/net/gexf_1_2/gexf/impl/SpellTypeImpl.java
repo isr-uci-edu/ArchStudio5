@@ -2,25 +2,25 @@
  */
 package net.gexf_1_2.gexf.impl;
 
-import net.gexf_1_2.gexf.GexfPackage;
-import net.gexf_1_2.gexf.SpellType;
-
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
+import net.gexf_1_2.gexf.GexfPackage;
+import net.gexf_1_2.gexf.SpellType;
+
 /**
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Spell Type</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  * <li>{@link net.gexf_1_2.gexf.impl.SpellTypeImpl#getEnd <em>End</em>}</li>
  * <li>{@link net.gexf_1_2.gexf.impl.SpellTypeImpl#getEndopen <em>Endopen</em>}</li>
  * <li>{@link net.gexf_1_2.gexf.impl.SpellTypeImpl#getStart <em>Start</em>}</li>
  * <li>{@link net.gexf_1_2.gexf.impl.SpellTypeImpl#getStartopen <em>Startopen</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -167,7 +167,8 @@ public class SpellTypeImpl extends MinimalEObjectImpl.Container implements Spell
 		Object oldEndopen = endopen;
 		endopen = newEndopen;
 		if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, GexfPackage.SPELL_TYPE__ENDOPEN, oldEndopen, endopen));
+			eNotify(new ENotificationImpl(this, Notification.SET, GexfPackage.SPELL_TYPE__ENDOPEN, oldEndopen,
+					endopen));
 		}
 	}
 
@@ -228,14 +229,14 @@ public class SpellTypeImpl extends MinimalEObjectImpl.Container implements Spell
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case GexfPackage.SPELL_TYPE__END:
-			return getEnd();
-		case GexfPackage.SPELL_TYPE__ENDOPEN:
-			return getEndopen();
-		case GexfPackage.SPELL_TYPE__START:
-			return getStart();
-		case GexfPackage.SPELL_TYPE__STARTOPEN:
-			return getStartopen();
+			case GexfPackage.SPELL_TYPE__END:
+				return getEnd();
+			case GexfPackage.SPELL_TYPE__ENDOPEN:
+				return getEndopen();
+			case GexfPackage.SPELL_TYPE__START:
+				return getStart();
+			case GexfPackage.SPELL_TYPE__STARTOPEN:
+				return getStartopen();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -248,18 +249,18 @@ public class SpellTypeImpl extends MinimalEObjectImpl.Container implements Spell
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case GexfPackage.SPELL_TYPE__END:
-			setEnd(newValue);
-			return;
-		case GexfPackage.SPELL_TYPE__ENDOPEN:
-			setEndopen(newValue);
-			return;
-		case GexfPackage.SPELL_TYPE__START:
-			setStart(newValue);
-			return;
-		case GexfPackage.SPELL_TYPE__STARTOPEN:
-			setStartopen(newValue);
-			return;
+			case GexfPackage.SPELL_TYPE__END:
+				setEnd(newValue);
+				return;
+			case GexfPackage.SPELL_TYPE__ENDOPEN:
+				setEndopen(newValue);
+				return;
+			case GexfPackage.SPELL_TYPE__START:
+				setStart(newValue);
+				return;
+			case GexfPackage.SPELL_TYPE__STARTOPEN:
+				setStartopen(newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -272,18 +273,18 @@ public class SpellTypeImpl extends MinimalEObjectImpl.Container implements Spell
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case GexfPackage.SPELL_TYPE__END:
-			setEnd(END_EDEFAULT);
-			return;
-		case GexfPackage.SPELL_TYPE__ENDOPEN:
-			setEndopen(ENDOPEN_EDEFAULT);
-			return;
-		case GexfPackage.SPELL_TYPE__START:
-			setStart(START_EDEFAULT);
-			return;
-		case GexfPackage.SPELL_TYPE__STARTOPEN:
-			setStartopen(STARTOPEN_EDEFAULT);
-			return;
+			case GexfPackage.SPELL_TYPE__END:
+				setEnd(END_EDEFAULT);
+				return;
+			case GexfPackage.SPELL_TYPE__ENDOPEN:
+				setEndopen(ENDOPEN_EDEFAULT);
+				return;
+			case GexfPackage.SPELL_TYPE__START:
+				setStart(START_EDEFAULT);
+				return;
+			case GexfPackage.SPELL_TYPE__STARTOPEN:
+				setStartopen(STARTOPEN_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -296,14 +297,14 @@ public class SpellTypeImpl extends MinimalEObjectImpl.Container implements Spell
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case GexfPackage.SPELL_TYPE__END:
-			return END_EDEFAULT == null ? end != null : !END_EDEFAULT.equals(end);
-		case GexfPackage.SPELL_TYPE__ENDOPEN:
-			return ENDOPEN_EDEFAULT == null ? endopen != null : !ENDOPEN_EDEFAULT.equals(endopen);
-		case GexfPackage.SPELL_TYPE__START:
-			return START_EDEFAULT == null ? start != null : !START_EDEFAULT.equals(start);
-		case GexfPackage.SPELL_TYPE__STARTOPEN:
-			return STARTOPEN_EDEFAULT == null ? startopen != null : !STARTOPEN_EDEFAULT.equals(startopen);
+			case GexfPackage.SPELL_TYPE__END:
+				return END_EDEFAULT == null ? end != null : !END_EDEFAULT.equals(end);
+			case GexfPackage.SPELL_TYPE__ENDOPEN:
+				return ENDOPEN_EDEFAULT == null ? endopen != null : !ENDOPEN_EDEFAULT.equals(endopen);
+			case GexfPackage.SPELL_TYPE__START:
+				return START_EDEFAULT == null ? start != null : !START_EDEFAULT.equals(start);
+			case GexfPackage.SPELL_TYPE__STARTOPEN:
+				return STARTOPEN_EDEFAULT == null ? startopen != null : !STARTOPEN_EDEFAULT.equals(startopen);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -332,4 +333,4 @@ public class SpellTypeImpl extends MinimalEObjectImpl.Container implements Spell
 		return result.toString();
 	}
 
-} //SpellTypeImpl
+} // SpellTypeImpl

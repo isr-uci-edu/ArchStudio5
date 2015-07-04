@@ -5,10 +5,8 @@ import org.archstudio.myx.fw.MyxRegistry;
 import org.archstudio.myx.fw.MyxUtils;
 
 /*
- * DO NOT EDIT THIS CLASS, it is automatically generated. ANY MODIFICATIONS WILL BE OVERWRITTEN.
- * 
- * To modify, update the "Abstract ArchStudio Editor Component Impl" MyxGen extension in the org.archstudio.eclipse.ui
- * plugin.
+ * DO NOT EDIT THIS CLASS, it is automatically generated. ANY MODIFICATIONS WILL BE OVERWRITTEN. To modify, update the
+ * "Abstract ArchStudio Editor Component Impl" MyxGen extension in the org.archstudio.eclipse.ui plugin.
  */
 
 /**
@@ -118,8 +116,9 @@ public abstract class AbstractArchStudioEditorMyxComponentStub extends org.archs
 	 * @see #IN_FOCUS_EDITOR_EVENTS
 	 * @generated
 	 */
-	protected final org.archstudio.eclipse.ui.IFocusEditorListener focusEditorEventsProxy = (org.archstudio.eclipse.ui.IFocusEditorListener) java.lang.reflect.Proxy
-			.newProxyInstance(org.archstudio.eclipse.ui.IFocusEditorListener.class.getClassLoader(),
+	protected final org.archstudio.eclipse.ui.IFocusEditorListener focusEditorEventsProxy =
+			(org.archstudio.eclipse.ui.IFocusEditorListener) java.lang.reflect.Proxy.newProxyInstance(
+					org.archstudio.eclipse.ui.IFocusEditorListener.class.getClassLoader(),
 					new Class[] { org.archstudio.eclipse.ui.IFocusEditorListener.class },
 					new java.lang.reflect.InvocationHandler() {
 						@Override
@@ -191,8 +190,9 @@ public abstract class AbstractArchStudioEditorMyxComponentStub extends org.archs
 	 * @see #IN_FILE_MANAGER_EVENTS
 	 * @generated
 	 */
-	protected final org.archstudio.filemanager.IFileManagerListener fileManagerEventsProxy = (org.archstudio.filemanager.IFileManagerListener) java.lang.reflect.Proxy
-			.newProxyInstance(org.archstudio.filemanager.IFileManagerListener.class.getClassLoader(),
+	protected final org.archstudio.filemanager.IFileManagerListener fileManagerEventsProxy =
+			(org.archstudio.filemanager.IFileManagerListener) java.lang.reflect.Proxy.newProxyInstance(
+					org.archstudio.filemanager.IFileManagerListener.class.getClassLoader(),
 					new Class[] { org.archstudio.filemanager.IFileManagerListener.class },
 					new java.lang.reflect.InvocationHandler() {
 						@Override
@@ -264,8 +264,9 @@ public abstract class AbstractArchStudioEditorMyxComponentStub extends org.archs
 	 * @see #IN_FILE_EVENTS
 	 * @generated
 	 */
-	protected final org.archstudio.xarchadt.IXArchADTFileListener fileEventsProxy = (org.archstudio.xarchadt.IXArchADTFileListener) java.lang.reflect.Proxy
-			.newProxyInstance(org.archstudio.xarchadt.IXArchADTFileListener.class.getClassLoader(),
+	protected final org.archstudio.xarchadt.IXArchADTFileListener fileEventsProxy =
+			(org.archstudio.xarchadt.IXArchADTFileListener) java.lang.reflect.Proxy.newProxyInstance(
+					org.archstudio.xarchadt.IXArchADTFileListener.class.getClassLoader(),
 					new Class[] { org.archstudio.xarchadt.IXArchADTFileListener.class },
 					new java.lang.reflect.InvocationHandler() {
 						@Override
@@ -309,8 +310,9 @@ public abstract class AbstractArchStudioEditorMyxComponentStub extends org.archs
 	 * @see #IN_MODEL_EVENTS
 	 * @generated
 	 */
-	protected final org.archstudio.xarchadt.IXArchADTModelListener modelEventsProxy = (org.archstudio.xarchadt.IXArchADTModelListener) java.lang.reflect.Proxy
-			.newProxyInstance(org.archstudio.xarchadt.IXArchADTModelListener.class.getClassLoader(),
+	protected final org.archstudio.xarchadt.IXArchADTModelListener modelEventsProxy =
+			(org.archstudio.xarchadt.IXArchADTModelListener) java.lang.reflect.Proxy.newProxyInstance(
+					org.archstudio.xarchadt.IXArchADTModelListener.class.getClassLoader(),
 					new Class[] { org.archstudio.xarchadt.IXArchADTModelListener.class },
 					new java.lang.reflect.InvocationHandler() {
 						@Override
@@ -372,8 +374,9 @@ public abstract class AbstractArchStudioEditorMyxComponentStub extends org.archs
 	 * @see #IN_VARIABILITY_EVENTS
 	 * @generated
 	 */
-	protected final org.archstudio.xarchadt.variability.IXArchADTVariabilityListener variabilityEventsProxy = (org.archstudio.xarchadt.variability.IXArchADTVariabilityListener) java.lang.reflect.Proxy
-			.newProxyInstance(org.archstudio.xarchadt.variability.IXArchADTVariabilityListener.class.getClassLoader(),
+	protected final org.archstudio.xarchadt.variability.IXArchADTVariabilityListener variabilityEventsProxy =
+			(org.archstudio.xarchadt.variability.IXArchADTVariabilityListener) java.lang.reflect.Proxy.newProxyInstance(
+					org.archstudio.xarchadt.variability.IXArchADTVariabilityListener.class.getClassLoader(),
 					new Class[] { org.archstudio.xarchadt.variability.IXArchADTVariabilityListener.class },
 					new java.lang.reflect.InvocationHandler() {
 						@Override

@@ -20,11 +20,11 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * end-user-doc -->
  * <p>
  * The following features are implemented:
- * <ul>
- * <li>{@link org.archstudio.xadl3.implementation_3_0.impl.ImplementationExtensionImpl#getImplementation <em>
- * Implementation</em>}</li>
- * </ul>
  * </p>
+ * <ul>
+ * <li>{@link org.archstudio.xadl3.implementation_3_0.impl.ImplementationExtensionImpl#getImplementation
+ * <em>Implementation</em>}</li>
+ * </ul>
  *
  * @generated
  */
@@ -80,8 +80,8 @@ public class ImplementationExtensionImpl extends ExtensionImpl implements Implem
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case Implementation_3_0Package.IMPLEMENTATION_EXTENSION__IMPLEMENTATION:
-			return ((InternalEList<?>) getImplementation()).basicRemove(otherEnd, msgs);
+			case Implementation_3_0Package.IMPLEMENTATION_EXTENSION__IMPLEMENTATION:
+				return ((InternalEList<?>) getImplementation()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -94,8 +94,8 @@ public class ImplementationExtensionImpl extends ExtensionImpl implements Implem
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case Implementation_3_0Package.IMPLEMENTATION_EXTENSION__IMPLEMENTATION:
-			return getImplementation();
+			case Implementation_3_0Package.IMPLEMENTATION_EXTENSION__IMPLEMENTATION:
+				return getImplementation();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -109,10 +109,10 @@ public class ImplementationExtensionImpl extends ExtensionImpl implements Implem
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Implementation_3_0Package.IMPLEMENTATION_EXTENSION__IMPLEMENTATION:
-			getImplementation().clear();
-			getImplementation().addAll((Collection<? extends Implementation>) newValue);
-			return;
+			case Implementation_3_0Package.IMPLEMENTATION_EXTENSION__IMPLEMENTATION:
+				getImplementation().clear();
+				getImplementation().addAll((Collection<? extends Implementation>) newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -125,9 +125,9 @@ public class ImplementationExtensionImpl extends ExtensionImpl implements Implem
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Implementation_3_0Package.IMPLEMENTATION_EXTENSION__IMPLEMENTATION:
-			getImplementation().clear();
-			return;
+			case Implementation_3_0Package.IMPLEMENTATION_EXTENSION__IMPLEMENTATION:
+				getImplementation().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -140,10 +140,10 @@ public class ImplementationExtensionImpl extends ExtensionImpl implements Implem
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Implementation_3_0Package.IMPLEMENTATION_EXTENSION__IMPLEMENTATION:
-			return implementation != null && !implementation.isEmpty();
+			case Implementation_3_0Package.IMPLEMENTATION_EXTENSION__IMPLEMENTATION:
+				return implementation != null && !implementation.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
 
-} //ImplementationExtensionImpl
+} // ImplementationExtensionImpl

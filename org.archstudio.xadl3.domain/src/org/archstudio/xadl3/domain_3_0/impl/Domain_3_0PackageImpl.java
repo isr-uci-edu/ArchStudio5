@@ -79,7 +79,6 @@ public class Domain_3_0PackageImpl extends EPackageImpl implements Domain_3_0Pac
 
 	/**
 	 * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
-	 * 
 	 * <p>
 	 * This method is used to initialize {@link Domain_3_0Package#eINSTANCE} when that field is accessed. Clients should
 	 * not invoke it directly. Instead, they should simply access that field to obtain the package. <!-- begin-user-doc
@@ -96,18 +95,20 @@ public class Domain_3_0PackageImpl extends EPackageImpl implements Domain_3_0Pac
 		}
 
 		// Obtain or create and register package
-		Domain_3_0PackageImpl theDomain_3_0Package = (Domain_3_0PackageImpl) (EPackage.Registry.INSTANCE.get(eNS_URI) instanceof Domain_3_0PackageImpl ? EPackage.Registry.INSTANCE
-				.get(eNS_URI) : new Domain_3_0PackageImpl());
+		Domain_3_0PackageImpl theDomain_3_0Package =
+				(Domain_3_0PackageImpl) (EPackage.Registry.INSTANCE.get(eNS_URI) instanceof Domain_3_0PackageImpl
+						? EPackage.Registry.INSTANCE.get(eNS_URI) : new Domain_3_0PackageImpl());
 
 		isInited = true;
 
 		// Obtain or create and register interdependencies
 		Xadlcore_3_0PackageImpl theXadlcore_3_0Package = (Xadlcore_3_0PackageImpl) (EPackage.Registry.INSTANCE
-				.getEPackage(Xadlcore_3_0Package.eNS_URI) instanceof Xadlcore_3_0PackageImpl ? EPackage.Registry.INSTANCE
-				.getEPackage(Xadlcore_3_0Package.eNS_URI) : Xadlcore_3_0Package.eINSTANCE);
+				.getEPackage(Xadlcore_3_0Package.eNS_URI) instanceof Xadlcore_3_0PackageImpl
+						? EPackage.Registry.INSTANCE.getEPackage(Xadlcore_3_0Package.eNS_URI)
+						: Xadlcore_3_0Package.eINSTANCE);
 		XlinkPackageImpl theXlinkPackage = (XlinkPackageImpl) (EPackage.Registry.INSTANCE
-				.getEPackage(XlinkPackage.eNS_URI) instanceof XlinkPackageImpl ? EPackage.Registry.INSTANCE
-				.getEPackage(XlinkPackage.eNS_URI) : XlinkPackage.eINSTANCE);
+				.getEPackage(XlinkPackage.eNS_URI) instanceof XlinkPackageImpl
+						? EPackage.Registry.INSTANCE.getEPackage(XlinkPackage.eNS_URI) : XlinkPackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theDomain_3_0Package.createPackageContents();
@@ -255,8 +256,8 @@ public class Domain_3_0PackageImpl extends EPackageImpl implements Domain_3_0Pac
 		setNsURI(eNS_URI);
 
 		// Obtain other dependent packages
-		Xadlcore_3_0Package theXadlcore_3_0Package = (Xadlcore_3_0Package) EPackage.Registry.INSTANCE
-				.getEPackage(Xadlcore_3_0Package.eNS_URI);
+		Xadlcore_3_0Package theXadlcore_3_0Package =
+				(Xadlcore_3_0Package) EPackage.Registry.INSTANCE.getEPackage(Xadlcore_3_0Package.eNS_URI);
 
 		// Create type parameters
 
@@ -272,9 +273,9 @@ public class Domain_3_0PackageImpl extends EPackageImpl implements Domain_3_0Pac
 
 		initEClass(domainExtensionEClass, DomainExtension.class, "DomainExtension", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getDomainExtension_Domain(), this.getDomain(), null, "domain", null, 1, 1,
-				DomainExtension.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
-				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getDomainExtension_Domain(), this.getDomain(), null, "domain", null, 1, 1, DomainExtension.class,
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
+				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(domainTypeEEnum, DomainType.class, "DomainType");
@@ -303,12 +304,8 @@ public class Domain_3_0PackageImpl extends EPackageImpl implements Domain_3_0Pac
 	 */
 	protected void createExtensionHintAnnotations() {
 		String source = "http://www.archstudio.org/xadl3/schemas/extensionHint";
-		addAnnotation(
-				this,
-				source,
-				new String[] {
-						"appinfo",
-						"\n\t\t\t<hint extensionSchema=\"http://www.archstudio.org/xadl3/schemas/domain-3.0.xsd\" extensionType=\"DomainExtension\" targetSchema=\"http://www.archstudio.org/xadl3/schemas/structure-3.0.xsd\" targetType=\"Interface\" xmlns=\"http://www.archstudio.org/xadl3/schemas/domain-3.0.xsd\"/>\n\t\t" });
+		addAnnotation(this, source, new String[] { "appinfo",
+				"\n\t\t\t<hint extensionSchema=\"http://www.archstudio.org/xadl3/schemas/domain-3.0.xsd\" extensionType=\"DomainExtension\" targetSchema=\"http://www.archstudio.org/xadl3/schemas/structure-3.0.xsd\" targetType=\"Interface\" xmlns=\"http://www.archstudio.org/xadl3/schemas/domain-3.0.xsd\"/>\n\t\t" });
 	}
 
 	/**
@@ -320,14 +317,14 @@ public class Domain_3_0PackageImpl extends EPackageImpl implements Domain_3_0Pac
 	protected void createExtendedMetaDataAnnotations() {
 		String source = "http:///org/eclipse/emf/ecore/util/ExtendedMetaData";
 		addAnnotation(domainEClass, source, new String[] { "name", "Domain", "kind", "empty" });
-		addAnnotation(getDomain_Type(), source, new String[] { "kind", "attribute", "name", "type", "namespace",
-				"##targetNamespace" });
+		addAnnotation(getDomain_Type(), source,
+				new String[] { "kind", "attribute", "name", "type", "namespace", "##targetNamespace" });
 		addAnnotation(domainExtensionEClass, source, new String[] { "name", "DomainExtension", "kind", "elementOnly" });
-		addAnnotation(getDomainExtension_Domain(), source, new String[] { "kind", "element", "name", "domain",
-				"namespace", "##targetNamespace" });
+		addAnnotation(getDomainExtension_Domain(), source,
+				new String[] { "kind", "element", "name", "domain", "namespace", "##targetNamespace" });
 		addAnnotation(domainTypeEEnum, source, new String[] { "name", "DomainType" });
-		addAnnotation(domainTypeObjectEDataType, source, new String[] { "name", "DomainType:Object", "baseType",
-				"DomainType" });
+		addAnnotation(domainTypeObjectEDataType, source,
+				new String[] { "name", "DomainType:Object", "baseType", "DomainType" });
 	}
 
-} //Domain_3_0PackageImpl
+} // Domain_3_0PackageImpl

@@ -2,6 +2,11 @@
  */
 package net.gexf_1_2.gexf.util;
 
+import org.eclipse.emf.common.notify.Adapter;
+import org.eclipse.emf.common.notify.Notifier;
+import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
+import org.eclipse.emf.ecore.EObject;
+
 import net.gexf_1_2.gexf.AttributeContent;
 import net.gexf_1_2.gexf.AttributesContent;
 import net.gexf_1_2.gexf.AttvalueType;
@@ -19,11 +24,6 @@ import net.gexf_1_2.gexf.ParentType;
 import net.gexf_1_2.gexf.ParentsContent;
 import net.gexf_1_2.gexf.SpellType;
 import net.gexf_1_2.gexf.SpellsContent;
-
-import org.eclipse.emf.common.notify.Adapter;
-import org.eclipse.emf.common.notify.Notifier;
-import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
-import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc --> The <b>Adapter Factory</b> for the model. It provides an adapter <code>createXXX</code>
@@ -165,8 +165,7 @@ public class GexfAdapterFactory extends AdapterFactoryImpl {
 	/**
 	 * Creates an adapter for the <code>target</code>. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
-	 * @param target
-	 *            the object to adapt.
+	 * @param target the object to adapt.
 	 * @return the adapter for the <code>target</code>.
 	 * @generated
 	 */
@@ -397,4 +396,4 @@ public class GexfAdapterFactory extends AdapterFactoryImpl {
 		return null;
 	}
 
-} //GexfAdapterFactory
+} // GexfAdapterFactory

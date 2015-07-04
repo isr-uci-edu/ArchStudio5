@@ -17,37 +17,13 @@ import org.eclipse.emf.ecore.EReference;
  * <li>each enum,</li>
  * <li>and each data type</li>
  * </ul>
- * <!-- end-user-doc --> <!-- begin-model-doc -->
- * 
- * 
- * xADL 3 OSGi Implementation Schema
- * 
- * This schema defines the concrete concept of a OSGi-based implementation.
- * 
- * Changelog: - 3.0.0 * Initial version
- * 
- * 
- * 
- * 
- * xADL 3 Core Schema
- * 
- * This schema defines the core elements for xADL 3 documents. The schema is intentionally small, defining only a few
- * elements that are intended to be common across xADL descriptions and extensions, regardless of domain.
- * 
- * Changelog: - 3.0.0: * Initial version
- * 
- * 
- * 
- * 
- * xADL 3 Abstract Implementation Schema
- * 
- * This schema defines the concept of an implementation. The concept is abstract, so it is intended to be specialized by
- * various specific types of implementations. However, it exists so that implementations can be treated similarly.
- * 
- * Changelog: - 3.0.0 * Initial version
- * 
- * 
- * <!-- end-model-doc -->
+ * <!-- end-user-doc --> <!-- begin-model-doc --> xADL 3 OSGi Implementation Schema This schema defines the concrete
+ * concept of a OSGi-based implementation. Changelog: - 3.0.0 * Initial version xADL 3 Core Schema This schema defines
+ * the core elements for xADL 3 documents. The schema is intentionally small, defining only a few elements that are
+ * intended to be common across xADL descriptions and extensions, regardless of domain. Changelog: - 3.0.0: * Initial
+ * version xADL 3 Abstract Implementation Schema This schema defines the concept of an implementation. The concept is
+ * abstract, so it is intended to be specialized by various specific types of implementations. However, it exists so
+ * that implementations can be treated similarly. Changelog: - 3.0.0 * Initial version <!-- end-model-doc -->
  * 
  * @see org.archstudio.xadl3.osgiimplementation_3_0.Osgiimplementation_3_0Factory
  * @model kind="package"
@@ -80,8 +56,8 @@ public interface Osgiimplementation_3_0Package extends EPackage {
 	 * 
 	 * @generated
 	 */
-	Osgiimplementation_3_0Package eINSTANCE = org.archstudio.xadl3.osgiimplementation_3_0.impl.Osgiimplementation_3_0PackageImpl
-			.init();
+	Osgiimplementation_3_0Package eINSTANCE =
+			org.archstudio.xadl3.osgiimplementation_3_0.impl.Osgiimplementation_3_0PackageImpl.init();
 
 	/**
 	 * The meta object id for the '{@link org.archstudio.xadl3.osgiimplementation_3_0.impl.OSGiImplementationImpl
@@ -144,7 +120,7 @@ public interface Osgiimplementation_3_0Package extends EPackage {
 	 * @see org.archstudio.xadl3.osgiimplementation_3_0.OSGiImplementation
 	 * @generated
 	 */
-	EClass getOSGiImplementation();
+			EClass getOSGiImplementation();
 
 	/**
 	 * Returns the meta object for the containment reference list '
@@ -156,7 +132,7 @@ public interface Osgiimplementation_3_0Package extends EPackage {
 	 * @see #getOSGiImplementation()
 	 * @generated
 	 */
-	EReference getOSGiImplementation_Ext();
+			EReference getOSGiImplementation_Ext();
 
 	/**
 	 * Returns the meta object for the attribute '
@@ -168,7 +144,7 @@ public interface Osgiimplementation_3_0Package extends EPackage {
 	 * @see #getOSGiImplementation()
 	 * @generated
 	 */
-	EAttribute getOSGiImplementation_Bundle();
+			EAttribute getOSGiImplementation_Bundle();
 
 	/**
 	 * Returns the factory that creates the instances of the model. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -176,7 +152,7 @@ public interface Osgiimplementation_3_0Package extends EPackage {
 	 * @return the factory that creates the instances of the model.
 	 * @generated
 	 */
-	Osgiimplementation_3_0Factory getOsgiimplementation_3_0Factory();
+			Osgiimplementation_3_0Factory getOsgiimplementation_3_0Factory();
 
 	/**
 	 * <!-- begin-user-doc --> Defines literals for the meta objects that represent
@@ -221,4 +197,4 @@ public interface Osgiimplementation_3_0Package extends EPackage {
 
 	}
 
-} //Osgiimplementation_3_0Package
+} // Osgiimplementation_3_0Package

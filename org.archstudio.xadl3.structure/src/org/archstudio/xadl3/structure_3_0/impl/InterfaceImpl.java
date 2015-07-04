@@ -22,13 +22,13 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Interface</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  * <li>{@link org.archstudio.xadl3.structure_3_0.impl.InterfaceImpl#getExt <em>Ext</em>}</li>
  * <li>{@link org.archstudio.xadl3.structure_3_0.impl.InterfaceImpl#getDirection <em>Direction</em>}</li>
  * <li>{@link org.archstudio.xadl3.structure_3_0.impl.InterfaceImpl#getId <em>Id</em>}</li>
  * <li>{@link org.archstudio.xadl3.structure_3_0.impl.InterfaceImpl#getName <em>Name</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -251,8 +251,8 @@ public class InterfaceImpl extends MinimalEObjectImpl.Container implements Inter
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case Structure_3_0Package.INTERFACE__EXT:
-			return ((InternalEList<?>) getExt()).basicRemove(otherEnd, msgs);
+			case Structure_3_0Package.INTERFACE__EXT:
+				return ((InternalEList<?>) getExt()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -265,14 +265,14 @@ public class InterfaceImpl extends MinimalEObjectImpl.Container implements Inter
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case Structure_3_0Package.INTERFACE__EXT:
-			return getExt();
-		case Structure_3_0Package.INTERFACE__DIRECTION:
-			return getDirection();
-		case Structure_3_0Package.INTERFACE__ID:
-			return getId();
-		case Structure_3_0Package.INTERFACE__NAME:
-			return getName();
+			case Structure_3_0Package.INTERFACE__EXT:
+				return getExt();
+			case Structure_3_0Package.INTERFACE__DIRECTION:
+				return getDirection();
+			case Structure_3_0Package.INTERFACE__ID:
+				return getId();
+			case Structure_3_0Package.INTERFACE__NAME:
+				return getName();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -286,19 +286,19 @@ public class InterfaceImpl extends MinimalEObjectImpl.Container implements Inter
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Structure_3_0Package.INTERFACE__EXT:
-			getExt().clear();
-			getExt().addAll((Collection<? extends Extension>) newValue);
-			return;
-		case Structure_3_0Package.INTERFACE__DIRECTION:
-			setDirection((Direction) newValue);
-			return;
-		case Structure_3_0Package.INTERFACE__ID:
-			setId((String) newValue);
-			return;
-		case Structure_3_0Package.INTERFACE__NAME:
-			setName((String) newValue);
-			return;
+			case Structure_3_0Package.INTERFACE__EXT:
+				getExt().clear();
+				getExt().addAll((Collection<? extends Extension>) newValue);
+				return;
+			case Structure_3_0Package.INTERFACE__DIRECTION:
+				setDirection((Direction) newValue);
+				return;
+			case Structure_3_0Package.INTERFACE__ID:
+				setId((String) newValue);
+				return;
+			case Structure_3_0Package.INTERFACE__NAME:
+				setName((String) newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -311,18 +311,18 @@ public class InterfaceImpl extends MinimalEObjectImpl.Container implements Inter
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Structure_3_0Package.INTERFACE__EXT:
-			getExt().clear();
-			return;
-		case Structure_3_0Package.INTERFACE__DIRECTION:
-			unsetDirection();
-			return;
-		case Structure_3_0Package.INTERFACE__ID:
-			setId(ID_EDEFAULT);
-			return;
-		case Structure_3_0Package.INTERFACE__NAME:
-			setName(NAME_EDEFAULT);
-			return;
+			case Structure_3_0Package.INTERFACE__EXT:
+				getExt().clear();
+				return;
+			case Structure_3_0Package.INTERFACE__DIRECTION:
+				unsetDirection();
+				return;
+			case Structure_3_0Package.INTERFACE__ID:
+				setId(ID_EDEFAULT);
+				return;
+			case Structure_3_0Package.INTERFACE__NAME:
+				setName(NAME_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -335,14 +335,14 @@ public class InterfaceImpl extends MinimalEObjectImpl.Container implements Inter
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Structure_3_0Package.INTERFACE__EXT:
-			return ext != null && !ext.isEmpty();
-		case Structure_3_0Package.INTERFACE__DIRECTION:
-			return isSetDirection();
-		case Structure_3_0Package.INTERFACE__ID:
-			return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
-		case Structure_3_0Package.INTERFACE__NAME:
-			return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+			case Structure_3_0Package.INTERFACE__EXT:
+				return ext != null && !ext.isEmpty();
+			case Structure_3_0Package.INTERFACE__DIRECTION:
+				return isSetDirection();
+			case Structure_3_0Package.INTERFACE__ID:
+				return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
+			case Structure_3_0Package.INTERFACE__NAME:
+				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -374,4 +374,4 @@ public class InterfaceImpl extends MinimalEObjectImpl.Container implements Inter
 		return result.toString();
 	}
 
-} //InterfaceImpl
+} // InterfaceImpl

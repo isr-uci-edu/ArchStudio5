@@ -16,18 +16,9 @@ import org.eclipse.emf.ecore.EReference;
  * <li>each enum,</li>
  * <li>and each data type</li>
  * </ul>
- * <!-- end-user-doc --> <!-- begin-model-doc -->
- * 
- * 
- * xADL 3 Core Schema
- * 
- * This schema defines the core elements for xADL 3 documents. The schema is intentionally small, defining only a few
- * elements that are intended to be common across xADL descriptions and extensions, regardless of domain.
- * 
- * Changelog: - 3.0.0: * Initial version
- * 
- * 
- * <!-- end-model-doc -->
+ * <!-- end-user-doc --> <!-- begin-model-doc --> xADL 3 Core Schema This schema defines the core elements for xADL 3
+ * documents. The schema is intentionally small, defining only a few elements that are intended to be common across xADL
+ * descriptions and extensions, regardless of domain. Changelog: - 3.0.0: * Initial version <!-- end-model-doc -->
  * 
  * @see org.archstudio.xadl3.variability_3_0.Variability_3_0Factory
  * @model kind="package"
@@ -603,8 +594,8 @@ public interface Variability_3_0Package extends EPackage {
 	int RELATIONSHIP_OPERATION_COUNT = 0;
 
 	/**
-	 * The meta object id for the '{@link org.archstudio.xadl3.variability_3_0.impl.VariabilityImpl
-	 * <em>Variability</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The meta object id for the '{@link org.archstudio.xadl3.variability_3_0.impl.VariabilityImpl <em>Variability</em>
+	 * }' class. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see org.archstudio.xadl3.variability_3_0.impl.VariabilityImpl
 	 * @see org.archstudio.xadl3.variability_3_0.impl.Variability_3_0PackageImpl#getVariability()
@@ -681,7 +672,7 @@ public interface Variability_3_0Package extends EPackage {
 	 * @see org.archstudio.xadl3.variability_3_0.AttributeChange
 	 * @generated
 	 */
-	EClass getAttributeChange();
+			EClass getAttributeChange();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.archstudio.xadl3.variability_3_0.AttributeChange#getValue
@@ -692,7 +683,7 @@ public interface Variability_3_0Package extends EPackage {
 	 * @see #getAttributeChange()
 	 * @generated
 	 */
-	EAttribute getAttributeChange_Value();
+			EAttribute getAttributeChange_Value();
 
 	/**
 	 * Returns the meta object for class '{@link org.archstudio.xadl3.variability_3_0.Change <em>Change</em>}'. <!--
@@ -702,7 +693,7 @@ public interface Variability_3_0Package extends EPackage {
 	 * @see org.archstudio.xadl3.variability_3_0.Change
 	 * @generated
 	 */
-	EClass getChange();
+			EClass getChange();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.archstudio.xadl3.variability_3_0.Change#getName
@@ -713,7 +704,7 @@ public interface Variability_3_0Package extends EPackage {
 	 * @see #getChange()
 	 * @generated
 	 */
-	EAttribute getChange_Name();
+			EAttribute getChange_Name();
 
 	/**
 	 * Returns the meta object for class '{@link org.archstudio.xadl3.variability_3_0.ChangeSet <em>Change Set</em>}'.
@@ -723,7 +714,7 @@ public interface Variability_3_0Package extends EPackage {
 	 * @see org.archstudio.xadl3.variability_3_0.ChangeSet
 	 * @generated
 	 */
-	EClass getChangeSet();
+			EClass getChangeSet();
 
 	/**
 	 * Returns the meta object for the containment reference list '
@@ -735,7 +726,7 @@ public interface Variability_3_0Package extends EPackage {
 	 * @see #getChangeSet()
 	 * @generated
 	 */
-	EReference getChangeSet_Ext();
+			EReference getChangeSet_Ext();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.archstudio.xadl3.variability_3_0.ChangeSet#getId
@@ -746,7 +737,7 @@ public interface Variability_3_0Package extends EPackage {
 	 * @see #getChangeSet()
 	 * @generated
 	 */
-	EAttribute getChangeSet_Id();
+			EAttribute getChangeSet_Id();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.archstudio.xadl3.variability_3_0.ChangeSet#getName
@@ -757,7 +748,7 @@ public interface Variability_3_0Package extends EPackage {
 	 * @see #getChangeSet()
 	 * @generated
 	 */
-	EAttribute getChangeSet_Name();
+			EAttribute getChangeSet_Name();
 
 	/**
 	 * Returns the meta object for class '{@link org.archstudio.xadl3.variability_3_0.ChangeSetOfChanges
@@ -767,7 +758,7 @@ public interface Variability_3_0Package extends EPackage {
 	 * @see org.archstudio.xadl3.variability_3_0.ChangeSetOfChanges
 	 * @generated
 	 */
-	EClass getChangeSetOfChanges();
+			EClass getChangeSetOfChanges();
 
 	/**
 	 * Returns the meta object for the containment reference '
@@ -779,7 +770,7 @@ public interface Variability_3_0Package extends EPackage {
 	 * @see #getChangeSetOfChanges()
 	 * @generated
 	 */
-	EReference getChangeSetOfChanges_ElementChange();
+			EReference getChangeSetOfChanges_ElementChange();
 
 	/**
 	 * Returns the meta object for class '{@link org.archstudio.xadl3.variability_3_0.DocumentRoot
@@ -789,19 +780,18 @@ public interface Variability_3_0Package extends EPackage {
 	 * @see org.archstudio.xadl3.variability_3_0.DocumentRoot
 	 * @generated
 	 */
-	EClass getDocumentRoot();
+			EClass getDocumentRoot();
 
 	/**
-	 * Returns the meta object for the attribute list '
-	 * {@link org.archstudio.xadl3.variability_3_0.DocumentRoot#getMixed <em>Mixed</em>}'. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * Returns the meta object for the attribute list '{@link org.archstudio.xadl3.variability_3_0.DocumentRoot#getMixed
+	 * <em>Mixed</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute list '<em>Mixed</em>'.
 	 * @see org.archstudio.xadl3.variability_3_0.DocumentRoot#getMixed()
 	 * @see #getDocumentRoot()
 	 * @generated
 	 */
-	EAttribute getDocumentRoot_Mixed();
+			EAttribute getDocumentRoot_Mixed();
 
 	/**
 	 * Returns the meta object for the map '{@link org.archstudio.xadl3.variability_3_0.DocumentRoot#getXMLNSPrefixMap
@@ -812,7 +802,7 @@ public interface Variability_3_0Package extends EPackage {
 	 * @see #getDocumentRoot()
 	 * @generated
 	 */
-	EReference getDocumentRoot_XMLNSPrefixMap();
+			EReference getDocumentRoot_XMLNSPrefixMap();
 
 	/**
 	 * Returns the meta object for the map '
@@ -824,7 +814,7 @@ public interface Variability_3_0Package extends EPackage {
 	 * @see #getDocumentRoot()
 	 * @generated
 	 */
-	EReference getDocumentRoot_XSISchemaLocation();
+			EReference getDocumentRoot_XSISchemaLocation();
 
 	/**
 	 * Returns the meta object for the containment reference '
@@ -836,7 +826,7 @@ public interface Variability_3_0Package extends EPackage {
 	 * @see #getDocumentRoot()
 	 * @generated
 	 */
-	EReference getDocumentRoot_Variability();
+			EReference getDocumentRoot_Variability();
 
 	/**
 	 * Returns the meta object for class '{@link org.archstudio.xadl3.variability_3_0.ElementChange
@@ -846,7 +836,7 @@ public interface Variability_3_0Package extends EPackage {
 	 * @see org.archstudio.xadl3.variability_3_0.ElementChange
 	 * @generated
 	 */
-	EClass getElementChange();
+			EClass getElementChange();
 
 	/**
 	 * Returns the meta object for the containment reference list '
@@ -858,7 +848,7 @@ public interface Variability_3_0Package extends EPackage {
 	 * @see #getElementChange()
 	 * @generated
 	 */
-	EReference getElementChange_Change();
+			EReference getElementChange_Change();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.archstudio.xadl3.variability_3_0.ElementChange#getType
@@ -869,7 +859,7 @@ public interface Variability_3_0Package extends EPackage {
 	 * @see #getElementChange()
 	 * @generated
 	 */
-	EAttribute getElementChange_Type();
+			EAttribute getElementChange_Type();
 
 	/**
 	 * Returns the meta object for class '{@link org.archstudio.xadl3.variability_3_0.ElementManyChange
@@ -879,7 +869,7 @@ public interface Variability_3_0Package extends EPackage {
 	 * @see org.archstudio.xadl3.variability_3_0.ElementManyChange
 	 * @generated
 	 */
-	EClass getElementManyChange();
+			EClass getElementManyChange();
 
 	/**
 	 * Returns the meta object for the containment reference list '
@@ -891,7 +881,7 @@ public interface Variability_3_0Package extends EPackage {
 	 * @see #getElementManyChange()
 	 * @generated
 	 */
-	EReference getElementManyChange_Change();
+			EReference getElementManyChange_Change();
 
 	/**
 	 * Returns the meta object for class '{@link org.archstudio.xadl3.variability_3_0.JavaTransformChangeSetOfChanges
@@ -901,7 +891,7 @@ public interface Variability_3_0Package extends EPackage {
 	 * @see org.archstudio.xadl3.variability_3_0.JavaTransformChangeSetOfChanges
 	 * @generated
 	 */
-	EClass getJavaTransformChangeSetOfChanges();
+			EClass getJavaTransformChangeSetOfChanges();
 
 	/**
 	 * Returns the meta object for the attribute '
@@ -913,7 +903,7 @@ public interface Variability_3_0Package extends EPackage {
 	 * @see #getJavaTransformChangeSetOfChanges()
 	 * @generated
 	 */
-	EAttribute getJavaTransformChangeSetOfChanges_Bundle();
+			EAttribute getJavaTransformChangeSetOfChanges_Bundle();
 
 	/**
 	 * Returns the meta object for the attribute '
@@ -925,17 +915,17 @@ public interface Variability_3_0Package extends EPackage {
 	 * @see #getJavaTransformChangeSetOfChanges()
 	 * @generated
 	 */
-	EAttribute getJavaTransformChangeSetOfChanges_Class();
+			EAttribute getJavaTransformChangeSetOfChanges_Class();
 
 	/**
-	 * Returns the meta object for class '{@link org.archstudio.xadl3.variability_3_0.Relationship
-	 * <em>Relationship</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the meta object for class '{@link org.archstudio.xadl3.variability_3_0.Relationship <em>Relationship</em>
+	 * }'. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Relationship</em>'.
 	 * @see org.archstudio.xadl3.variability_3_0.Relationship
 	 * @generated
 	 */
-	EClass getRelationship();
+			EClass getRelationship();
 
 	/**
 	 * Returns the meta object for the containment reference list '
@@ -947,7 +937,7 @@ public interface Variability_3_0Package extends EPackage {
 	 * @see #getRelationship()
 	 * @generated
 	 */
-	EReference getRelationship_Ext();
+			EReference getRelationship_Ext();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.archstudio.xadl3.variability_3_0.Relationship#getId
@@ -958,7 +948,7 @@ public interface Variability_3_0Package extends EPackage {
 	 * @see #getRelationship()
 	 * @generated
 	 */
-	EAttribute getRelationship_Id();
+			EAttribute getRelationship_Id();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.archstudio.xadl3.variability_3_0.Relationship#getName
@@ -969,7 +959,7 @@ public interface Variability_3_0Package extends EPackage {
 	 * @see #getRelationship()
 	 * @generated
 	 */
-	EAttribute getRelationship_Name();
+			EAttribute getRelationship_Name();
 
 	/**
 	 * Returns the meta object for class '{@link org.archstudio.xadl3.variability_3_0.TransformChangeSetOfChanges
@@ -979,7 +969,7 @@ public interface Variability_3_0Package extends EPackage {
 	 * @see org.archstudio.xadl3.variability_3_0.TransformChangeSetOfChanges
 	 * @generated
 	 */
-	EClass getTransformChangeSetOfChanges();
+			EClass getTransformChangeSetOfChanges();
 
 	/**
 	 * Returns the meta object for class '{@link org.archstudio.xadl3.variability_3_0.Variability <em>Variability</em>}
@@ -989,7 +979,7 @@ public interface Variability_3_0Package extends EPackage {
 	 * @see org.archstudio.xadl3.variability_3_0.Variability
 	 * @generated
 	 */
-	EClass getVariability();
+			EClass getVariability();
 
 	/**
 	 * Returns the meta object for the reference '
@@ -1001,7 +991,7 @@ public interface Variability_3_0Package extends EPackage {
 	 * @see #getVariability()
 	 * @generated
 	 */
-	EReference getVariability_ActiveChangeSet();
+			EReference getVariability_ActiveChangeSet();
 
 	/**
 	 * Returns the meta object for the reference list '
@@ -1013,7 +1003,7 @@ public interface Variability_3_0Package extends EPackage {
 	 * @see #getVariability()
 	 * @generated
 	 */
-	EReference getVariability_AppliedChangeSets();
+			EReference getVariability_AppliedChangeSets();
 
 	/**
 	 * Returns the meta object for the containment reference list '
@@ -1025,7 +1015,7 @@ public interface Variability_3_0Package extends EPackage {
 	 * @see #getVariability()
 	 * @generated
 	 */
-	EReference getVariability_ChangeSet();
+			EReference getVariability_ChangeSet();
 
 	/**
 	 * Returns the meta object for the containment reference list '
@@ -1037,7 +1027,7 @@ public interface Variability_3_0Package extends EPackage {
 	 * @see #getVariability()
 	 * @generated
 	 */
-	EReference getVariability_Relationship();
+			EReference getVariability_Relationship();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.archstudio.xadl3.variability_3_0.Variability#isOverview
@@ -1048,7 +1038,7 @@ public interface Variability_3_0Package extends EPackage {
 	 * @see #getVariability()
 	 * @generated
 	 */
-	EAttribute getVariability_Overview();
+			EAttribute getVariability_Overview();
 
 	/**
 	 * Returns the factory that creates the instances of the model. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -1056,7 +1046,7 @@ public interface Variability_3_0Package extends EPackage {
 	 * @return the factory that creates the instances of the model.
 	 * @generated
 	 */
-	Variability_3_0Factory getVariability_3_0Factory();
+			Variability_3_0Factory getVariability_3_0Factory();
 
 	/**
 	 * <!-- begin-user-doc --> Defines literals for the meta objects that represent
@@ -1370,4 +1360,4 @@ public interface Variability_3_0Package extends EPackage {
 
 	}
 
-} //Variability_3_0Package
+} // Variability_3_0Package

@@ -156,6 +156,8 @@ public enum NodeShapeType implements Enumerator {
 	 * Returns the '<em><b>Node Shape Type</b></em>' literal with the specified literal value. <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
+	 * @param literal the literal.
+	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
 	public static NodeShapeType get(String literal) {
@@ -171,6 +173,8 @@ public enum NodeShapeType implements Enumerator {
 	 * Returns the '<em><b>Node Shape Type</b></em>' literal with the specified name. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
 	 * 
+	 * @param name the name.
+	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
 	public static NodeShapeType getByName(String name) {
@@ -186,20 +190,22 @@ public enum NodeShapeType implements Enumerator {
 	 * Returns the '<em><b>Node Shape Type</b></em>' literal with the specified integer value. <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
+	 * @param value the integer value.
+	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
 	public static NodeShapeType get(int value) {
 		switch (value) {
-		case DISC_VALUE:
-			return DISC;
-		case SQUARE_VALUE:
-			return SQUARE;
-		case TRIANGLE_VALUE:
-			return TRIANGLE;
-		case DIAMOND_VALUE:
-			return DIAMOND;
-		case IMAGE_VALUE:
-			return IMAGE;
+			case DISC_VALUE:
+				return DISC;
+			case SQUARE_VALUE:
+				return SQUARE;
+			case TRIANGLE_VALUE:
+				return TRIANGLE;
+			case DIAMOND_VALUE:
+				return DIAMOND;
+			case IMAGE_VALUE:
+				return IMAGE;
 		}
 		return null;
 	}
@@ -277,4 +283,4 @@ public enum NodeShapeType implements Enumerator {
 		return literal;
 	}
 
-} //NodeShapeType
+} // NodeShapeType

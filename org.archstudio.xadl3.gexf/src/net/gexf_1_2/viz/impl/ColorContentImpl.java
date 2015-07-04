@@ -4,10 +4,6 @@ package net.gexf_1_2.viz.impl;
 
 import java.math.BigInteger;
 
-import net.gexf_1_2.gexf.SpellsContent;
-import net.gexf_1_2.viz.ColorContent;
-import net.gexf_1_2.viz.VizPackage;
-
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
@@ -15,10 +11,15 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
+import net.gexf_1_2.gexf.SpellsContent;
+import net.gexf_1_2.viz.ColorContent;
+import net.gexf_1_2.viz.VizPackage;
+
 /**
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Color Content</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  * <li>{@link net.gexf_1_2.viz.impl.ColorContentImpl#getSpells <em>Spells</em>}</li>
  * <li>{@link net.gexf_1_2.viz.impl.ColorContentImpl#getA <em>A</em>}</li>
@@ -30,7 +31,6 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <li>{@link net.gexf_1_2.viz.impl.ColorContentImpl#getStart <em>Start</em>}</li>
  * <li>{@link net.gexf_1_2.viz.impl.ColorContentImpl#getStartopen <em>Startopen</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -264,12 +264,12 @@ public class ColorContentImpl extends MinimalEObjectImpl.Container implements Co
 		if (newSpells != spells) {
 			NotificationChain msgs = null;
 			if (spells != null) {
-				msgs = ((InternalEObject) spells).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
-						- VizPackage.COLOR_CONTENT__SPELLS, null, msgs);
+				msgs = ((InternalEObject) spells).eInverseRemove(this,
+						EOPPOSITE_FEATURE_BASE - VizPackage.COLOR_CONTENT__SPELLS, null, msgs);
 			}
 			if (newSpells != null) {
-				msgs = ((InternalEObject) newSpells).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
-						- VizPackage.COLOR_CONTENT__SPELLS, null, msgs);
+				msgs = ((InternalEObject) newSpells).eInverseAdd(this,
+						EOPPOSITE_FEATURE_BASE - VizPackage.COLOR_CONTENT__SPELLS, null, msgs);
 			}
 			msgs = basicSetSpells(newSpells, msgs);
 			if (msgs != null) {
@@ -513,8 +513,8 @@ public class ColorContentImpl extends MinimalEObjectImpl.Container implements Co
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case VizPackage.COLOR_CONTENT__SPELLS:
-			return basicSetSpells(null, msgs);
+			case VizPackage.COLOR_CONTENT__SPELLS:
+				return basicSetSpells(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -527,24 +527,24 @@ public class ColorContentImpl extends MinimalEObjectImpl.Container implements Co
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case VizPackage.COLOR_CONTENT__SPELLS:
-			return getSpells();
-		case VizPackage.COLOR_CONTENT__A:
-			return getA();
-		case VizPackage.COLOR_CONTENT__B:
-			return getB();
-		case VizPackage.COLOR_CONTENT__END:
-			return getEnd();
-		case VizPackage.COLOR_CONTENT__ENDOPEN:
-			return getEndopen();
-		case VizPackage.COLOR_CONTENT__G:
-			return getG();
-		case VizPackage.COLOR_CONTENT__R:
-			return getR();
-		case VizPackage.COLOR_CONTENT__START:
-			return getStart();
-		case VizPackage.COLOR_CONTENT__STARTOPEN:
-			return getStartopen();
+			case VizPackage.COLOR_CONTENT__SPELLS:
+				return getSpells();
+			case VizPackage.COLOR_CONTENT__A:
+				return getA();
+			case VizPackage.COLOR_CONTENT__B:
+				return getB();
+			case VizPackage.COLOR_CONTENT__END:
+				return getEnd();
+			case VizPackage.COLOR_CONTENT__ENDOPEN:
+				return getEndopen();
+			case VizPackage.COLOR_CONTENT__G:
+				return getG();
+			case VizPackage.COLOR_CONTENT__R:
+				return getR();
+			case VizPackage.COLOR_CONTENT__START:
+				return getStart();
+			case VizPackage.COLOR_CONTENT__STARTOPEN:
+				return getStartopen();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -557,33 +557,33 @@ public class ColorContentImpl extends MinimalEObjectImpl.Container implements Co
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case VizPackage.COLOR_CONTENT__SPELLS:
-			setSpells((SpellsContent) newValue);
-			return;
-		case VizPackage.COLOR_CONTENT__A:
-			setA((Float) newValue);
-			return;
-		case VizPackage.COLOR_CONTENT__B:
-			setB((BigInteger) newValue);
-			return;
-		case VizPackage.COLOR_CONTENT__END:
-			setEnd(newValue);
-			return;
-		case VizPackage.COLOR_CONTENT__ENDOPEN:
-			setEndopen(newValue);
-			return;
-		case VizPackage.COLOR_CONTENT__G:
-			setG((BigInteger) newValue);
-			return;
-		case VizPackage.COLOR_CONTENT__R:
-			setR((BigInteger) newValue);
-			return;
-		case VizPackage.COLOR_CONTENT__START:
-			setStart(newValue);
-			return;
-		case VizPackage.COLOR_CONTENT__STARTOPEN:
-			setStartopen(newValue);
-			return;
+			case VizPackage.COLOR_CONTENT__SPELLS:
+				setSpells((SpellsContent) newValue);
+				return;
+			case VizPackage.COLOR_CONTENT__A:
+				setA((Float) newValue);
+				return;
+			case VizPackage.COLOR_CONTENT__B:
+				setB((BigInteger) newValue);
+				return;
+			case VizPackage.COLOR_CONTENT__END:
+				setEnd(newValue);
+				return;
+			case VizPackage.COLOR_CONTENT__ENDOPEN:
+				setEndopen(newValue);
+				return;
+			case VizPackage.COLOR_CONTENT__G:
+				setG((BigInteger) newValue);
+				return;
+			case VizPackage.COLOR_CONTENT__R:
+				setR((BigInteger) newValue);
+				return;
+			case VizPackage.COLOR_CONTENT__START:
+				setStart(newValue);
+				return;
+			case VizPackage.COLOR_CONTENT__STARTOPEN:
+				setStartopen(newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -596,33 +596,33 @@ public class ColorContentImpl extends MinimalEObjectImpl.Container implements Co
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case VizPackage.COLOR_CONTENT__SPELLS:
-			setSpells((SpellsContent) null);
-			return;
-		case VizPackage.COLOR_CONTENT__A:
-			unsetA();
-			return;
-		case VizPackage.COLOR_CONTENT__B:
-			setB(B_EDEFAULT);
-			return;
-		case VizPackage.COLOR_CONTENT__END:
-			setEnd(END_EDEFAULT);
-			return;
-		case VizPackage.COLOR_CONTENT__ENDOPEN:
-			setEndopen(ENDOPEN_EDEFAULT);
-			return;
-		case VizPackage.COLOR_CONTENT__G:
-			setG(G_EDEFAULT);
-			return;
-		case VizPackage.COLOR_CONTENT__R:
-			setR(R_EDEFAULT);
-			return;
-		case VizPackage.COLOR_CONTENT__START:
-			setStart(START_EDEFAULT);
-			return;
-		case VizPackage.COLOR_CONTENT__STARTOPEN:
-			setStartopen(STARTOPEN_EDEFAULT);
-			return;
+			case VizPackage.COLOR_CONTENT__SPELLS:
+				setSpells((SpellsContent) null);
+				return;
+			case VizPackage.COLOR_CONTENT__A:
+				unsetA();
+				return;
+			case VizPackage.COLOR_CONTENT__B:
+				setB(B_EDEFAULT);
+				return;
+			case VizPackage.COLOR_CONTENT__END:
+				setEnd(END_EDEFAULT);
+				return;
+			case VizPackage.COLOR_CONTENT__ENDOPEN:
+				setEndopen(ENDOPEN_EDEFAULT);
+				return;
+			case VizPackage.COLOR_CONTENT__G:
+				setG(G_EDEFAULT);
+				return;
+			case VizPackage.COLOR_CONTENT__R:
+				setR(R_EDEFAULT);
+				return;
+			case VizPackage.COLOR_CONTENT__START:
+				setStart(START_EDEFAULT);
+				return;
+			case VizPackage.COLOR_CONTENT__STARTOPEN:
+				setStartopen(STARTOPEN_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -635,24 +635,24 @@ public class ColorContentImpl extends MinimalEObjectImpl.Container implements Co
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case VizPackage.COLOR_CONTENT__SPELLS:
-			return spells != null;
-		case VizPackage.COLOR_CONTENT__A:
-			return isSetA();
-		case VizPackage.COLOR_CONTENT__B:
-			return B_EDEFAULT == null ? b != null : !B_EDEFAULT.equals(b);
-		case VizPackage.COLOR_CONTENT__END:
-			return END_EDEFAULT == null ? end != null : !END_EDEFAULT.equals(end);
-		case VizPackage.COLOR_CONTENT__ENDOPEN:
-			return ENDOPEN_EDEFAULT == null ? endopen != null : !ENDOPEN_EDEFAULT.equals(endopen);
-		case VizPackage.COLOR_CONTENT__G:
-			return G_EDEFAULT == null ? g != null : !G_EDEFAULT.equals(g);
-		case VizPackage.COLOR_CONTENT__R:
-			return R_EDEFAULT == null ? r != null : !R_EDEFAULT.equals(r);
-		case VizPackage.COLOR_CONTENT__START:
-			return START_EDEFAULT == null ? start != null : !START_EDEFAULT.equals(start);
-		case VizPackage.COLOR_CONTENT__STARTOPEN:
-			return STARTOPEN_EDEFAULT == null ? startopen != null : !STARTOPEN_EDEFAULT.equals(startopen);
+			case VizPackage.COLOR_CONTENT__SPELLS:
+				return spells != null;
+			case VizPackage.COLOR_CONTENT__A:
+				return isSetA();
+			case VizPackage.COLOR_CONTENT__B:
+				return B_EDEFAULT == null ? b != null : !B_EDEFAULT.equals(b);
+			case VizPackage.COLOR_CONTENT__END:
+				return END_EDEFAULT == null ? end != null : !END_EDEFAULT.equals(end);
+			case VizPackage.COLOR_CONTENT__ENDOPEN:
+				return ENDOPEN_EDEFAULT == null ? endopen != null : !ENDOPEN_EDEFAULT.equals(endopen);
+			case VizPackage.COLOR_CONTENT__G:
+				return G_EDEFAULT == null ? g != null : !G_EDEFAULT.equals(g);
+			case VizPackage.COLOR_CONTENT__R:
+				return R_EDEFAULT == null ? r != null : !R_EDEFAULT.equals(r);
+			case VizPackage.COLOR_CONTENT__START:
+				return START_EDEFAULT == null ? start != null : !START_EDEFAULT.equals(start);
+			case VizPackage.COLOR_CONTENT__STARTOPEN:
+				return STARTOPEN_EDEFAULT == null ? startopen != null : !STARTOPEN_EDEFAULT.equals(startopen);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -694,4 +694,4 @@ public class ColorContentImpl extends MinimalEObjectImpl.Container implements Co
 		return result.toString();
 	}
 
-} //ColorContentImpl
+} // ColorContentImpl

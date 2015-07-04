@@ -19,28 +19,12 @@ import org.eclipse.emf.ecore.EReference;
  * <li>each enum,</li>
  * <li>and each data type</li>
  * </ul>
- * <!-- end-user-doc --> <!-- begin-model-doc -->
- * 
- * 
- * xADL 3 Domain Schema
- * 
- * This schema defines the concept of a domain, usually applied to interfaces. In some architectural styles, (Myx, C2)
- * interfaces have different domains that establish dependency relationships and topological layout.
- * 
- * Changelog: - 3.0.0 * Initial version
- * 
- * 
- * 
- * 
- * xADL 3 Core Schema
- * 
+ * <!-- end-user-doc --> <!-- begin-model-doc --> xADL 3 Domain Schema This schema defines the concept of a domain,
+ * usually applied to interfaces. In some architectural styles, (Myx, C2) interfaces have different domains that
+ * establish dependency relationships and topological layout. Changelog: - 3.0.0 * Initial version xADL 3 Core Schema
  * This schema defines the core elements for xADL 3 documents. The schema is intentionally small, defining only a few
- * elements that are intended to be common across xADL descriptions and extensions, regardless of domain.
- * 
- * Changelog: - 3.0.0: * Initial version
- * 
- * 
- * <!-- end-model-doc -->
+ * elements that are intended to be common across xADL descriptions and extensions, regardless of domain. Changelog: -
+ * 3.0.0: * Initial version <!-- end-model-doc -->
  * 
  * @see org.archstudio.xadl3.domain_3_0.Domain_3_0Factory
  * @model kind="package" annotation=
@@ -173,7 +157,7 @@ public interface Domain_3_0Package extends EPackage {
 	 * @see org.archstudio.xadl3.domain_3_0.Domain
 	 * @generated
 	 */
-	EClass getDomain();
+			EClass getDomain();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.archstudio.xadl3.domain_3_0.Domain#getType <em>Type</em>}'.
@@ -184,7 +168,7 @@ public interface Domain_3_0Package extends EPackage {
 	 * @see #getDomain()
 	 * @generated
 	 */
-	EAttribute getDomain_Type();
+			EAttribute getDomain_Type();
 
 	/**
 	 * Returns the meta object for class '{@link org.archstudio.xadl3.domain_3_0.DomainExtension
@@ -194,7 +178,7 @@ public interface Domain_3_0Package extends EPackage {
 	 * @see org.archstudio.xadl3.domain_3_0.DomainExtension
 	 * @generated
 	 */
-	EClass getDomainExtension();
+			EClass getDomainExtension();
 
 	/**
 	 * Returns the meta object for the containment reference '
@@ -206,7 +190,7 @@ public interface Domain_3_0Package extends EPackage {
 	 * @see #getDomainExtension()
 	 * @generated
 	 */
-	EReference getDomainExtension_Domain();
+			EReference getDomainExtension_Domain();
 
 	/**
 	 * Returns the meta object for enum '{@link org.archstudio.xadl3.domain_3_0.DomainType <em>Domain Type</em>}'. <!--
@@ -216,7 +200,7 @@ public interface Domain_3_0Package extends EPackage {
 	 * @see org.archstudio.xadl3.domain_3_0.DomainType
 	 * @generated
 	 */
-	EEnum getDomainType();
+			EEnum getDomainType();
 
 	/**
 	 * Returns the meta object for data type '{@link org.archstudio.xadl3.domain_3_0.DomainType
@@ -224,11 +208,11 @@ public interface Domain_3_0Package extends EPackage {
 	 * 
 	 * @return the meta object for data type '<em>Domain Type Object</em>'.
 	 * @see org.archstudio.xadl3.domain_3_0.DomainType
-	 * @model instanceClass="org.archstudio.xadl3.domain_3_0.DomainType"
-	 *        extendedMetaData="name='DomainType:Object' baseType='DomainType'"
+	 * @model instanceClass="org.archstudio.xadl3.domain_3_0.DomainType" extendedMetaData=
+	 *        "name='DomainType:Object' baseType='DomainType'"
 	 * @generated
 	 */
-	EDataType getDomainTypeObject();
+			EDataType getDomainTypeObject();
 
 	/**
 	 * Returns the factory that creates the instances of the model. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -236,7 +220,7 @@ public interface Domain_3_0Package extends EPackage {
 	 * @return the factory that creates the instances of the model.
 	 * @generated
 	 */
-	Domain_3_0Factory getDomain_3_0Factory();
+			Domain_3_0Factory getDomain_3_0Factory();
 
 	/**
 	 * <!-- begin-user-doc --> Defines literals for the meta objects that represent
@@ -310,4 +294,4 @@ public interface Domain_3_0Package extends EPackage {
 
 	}
 
-} //Domain_3_0Package
+} // Domain_3_0Package

@@ -22,6 +22,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Link</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  * <li>{@link org.archstudio.xadl3.structure_3_0.impl.LinkImpl#getPoint1 <em>Point1</em>}</li>
  * <li>{@link org.archstudio.xadl3.structure_3_0.impl.LinkImpl#getPoint2 <em>Point2</em>}</li>
@@ -29,7 +30,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <li>{@link org.archstudio.xadl3.structure_3_0.impl.LinkImpl#getId <em>Id</em>}</li>
  * <li>{@link org.archstudio.xadl3.structure_3_0.impl.LinkImpl#getName <em>Name</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -141,7 +141,8 @@ public class LinkImpl extends MinimalEObjectImpl.Container implements Link {
 		Interface oldPoint1 = point1;
 		point1 = newPoint1;
 		if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, Structure_3_0Package.LINK__POINT1, oldPoint1, point1));
+			eNotify(new ENotificationImpl(this, Notification.SET, Structure_3_0Package.LINK__POINT1, oldPoint1,
+					point1));
 		}
 	}
 
@@ -165,7 +166,8 @@ public class LinkImpl extends MinimalEObjectImpl.Container implements Link {
 		Interface oldPoint2 = point2;
 		point2 = newPoint2;
 		if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, Structure_3_0Package.LINK__POINT2, oldPoint2, point2));
+			eNotify(new ENotificationImpl(this, Notification.SET, Structure_3_0Package.LINK__POINT2, oldPoint2,
+					point2));
 		}
 	}
 
@@ -238,8 +240,8 @@ public class LinkImpl extends MinimalEObjectImpl.Container implements Link {
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case Structure_3_0Package.LINK__EXT:
-			return ((InternalEList<?>) getExt()).basicRemove(otherEnd, msgs);
+			case Structure_3_0Package.LINK__EXT:
+				return ((InternalEList<?>) getExt()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -252,16 +254,16 @@ public class LinkImpl extends MinimalEObjectImpl.Container implements Link {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case Structure_3_0Package.LINK__POINT1:
-			return getPoint1();
-		case Structure_3_0Package.LINK__POINT2:
-			return getPoint2();
-		case Structure_3_0Package.LINK__EXT:
-			return getExt();
-		case Structure_3_0Package.LINK__ID:
-			return getId();
-		case Structure_3_0Package.LINK__NAME:
-			return getName();
+			case Structure_3_0Package.LINK__POINT1:
+				return getPoint1();
+			case Structure_3_0Package.LINK__POINT2:
+				return getPoint2();
+			case Structure_3_0Package.LINK__EXT:
+				return getExt();
+			case Structure_3_0Package.LINK__ID:
+				return getId();
+			case Structure_3_0Package.LINK__NAME:
+				return getName();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -275,22 +277,22 @@ public class LinkImpl extends MinimalEObjectImpl.Container implements Link {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Structure_3_0Package.LINK__POINT1:
-			setPoint1((Interface) newValue);
-			return;
-		case Structure_3_0Package.LINK__POINT2:
-			setPoint2((Interface) newValue);
-			return;
-		case Structure_3_0Package.LINK__EXT:
-			getExt().clear();
-			getExt().addAll((Collection<? extends Extension>) newValue);
-			return;
-		case Structure_3_0Package.LINK__ID:
-			setId((String) newValue);
-			return;
-		case Structure_3_0Package.LINK__NAME:
-			setName((String) newValue);
-			return;
+			case Structure_3_0Package.LINK__POINT1:
+				setPoint1((Interface) newValue);
+				return;
+			case Structure_3_0Package.LINK__POINT2:
+				setPoint2((Interface) newValue);
+				return;
+			case Structure_3_0Package.LINK__EXT:
+				getExt().clear();
+				getExt().addAll((Collection<? extends Extension>) newValue);
+				return;
+			case Structure_3_0Package.LINK__ID:
+				setId((String) newValue);
+				return;
+			case Structure_3_0Package.LINK__NAME:
+				setName((String) newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -303,21 +305,21 @@ public class LinkImpl extends MinimalEObjectImpl.Container implements Link {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Structure_3_0Package.LINK__POINT1:
-			setPoint1((Interface) null);
-			return;
-		case Structure_3_0Package.LINK__POINT2:
-			setPoint2((Interface) null);
-			return;
-		case Structure_3_0Package.LINK__EXT:
-			getExt().clear();
-			return;
-		case Structure_3_0Package.LINK__ID:
-			setId(ID_EDEFAULT);
-			return;
-		case Structure_3_0Package.LINK__NAME:
-			setName(NAME_EDEFAULT);
-			return;
+			case Structure_3_0Package.LINK__POINT1:
+				setPoint1((Interface) null);
+				return;
+			case Structure_3_0Package.LINK__POINT2:
+				setPoint2((Interface) null);
+				return;
+			case Structure_3_0Package.LINK__EXT:
+				getExt().clear();
+				return;
+			case Structure_3_0Package.LINK__ID:
+				setId(ID_EDEFAULT);
+				return;
+			case Structure_3_0Package.LINK__NAME:
+				setName(NAME_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -330,16 +332,16 @@ public class LinkImpl extends MinimalEObjectImpl.Container implements Link {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Structure_3_0Package.LINK__POINT1:
-			return point1 != null;
-		case Structure_3_0Package.LINK__POINT2:
-			return point2 != null;
-		case Structure_3_0Package.LINK__EXT:
-			return ext != null && !ext.isEmpty();
-		case Structure_3_0Package.LINK__ID:
-			return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
-		case Structure_3_0Package.LINK__NAME:
-			return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+			case Structure_3_0Package.LINK__POINT1:
+				return point1 != null;
+			case Structure_3_0Package.LINK__POINT2:
+				return point2 != null;
+			case Structure_3_0Package.LINK__EXT:
+				return ext != null && !ext.isEmpty();
+			case Structure_3_0Package.LINK__ID:
+				return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
+			case Structure_3_0Package.LINK__NAME:
+				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -364,4 +366,4 @@ public class LinkImpl extends MinimalEObjectImpl.Container implements Link {
 		return result.toString();
 	}
 
-} //LinkImpl
+} // LinkImpl

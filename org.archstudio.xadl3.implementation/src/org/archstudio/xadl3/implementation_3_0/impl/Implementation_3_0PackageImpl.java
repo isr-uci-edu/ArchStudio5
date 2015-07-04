@@ -79,7 +79,6 @@ public class Implementation_3_0PackageImpl extends EPackageImpl implements Imple
 
 	/**
 	 * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
-	 * 
 	 * <p>
 	 * This method is used to initialize {@link Implementation_3_0Package#eINSTANCE} when that field is accessed.
 	 * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package. <!--
@@ -97,9 +96,10 @@ public class Implementation_3_0PackageImpl extends EPackageImpl implements Imple
 		}
 
 		// Obtain or create and register package
-		Implementation_3_0PackageImpl theImplementation_3_0Package = (Implementation_3_0PackageImpl) (EPackage.Registry.INSTANCE
-				.get(eNS_URI) instanceof Implementation_3_0PackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI)
-				: new Implementation_3_0PackageImpl());
+		Implementation_3_0PackageImpl theImplementation_3_0Package =
+				(Implementation_3_0PackageImpl) (EPackage.Registry.INSTANCE
+						.get(eNS_URI) instanceof Implementation_3_0PackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI)
+								: new Implementation_3_0PackageImpl());
 
 		isInited = true;
 
@@ -108,11 +108,12 @@ public class Implementation_3_0PackageImpl extends EPackageImpl implements Imple
 
 		// Obtain or create and register interdependencies
 		Xadlcore_3_0PackageImpl theXadlcore_3_0Package = (Xadlcore_3_0PackageImpl) (EPackage.Registry.INSTANCE
-				.getEPackage(Xadlcore_3_0Package.eNS_URI) instanceof Xadlcore_3_0PackageImpl ? EPackage.Registry.INSTANCE
-				.getEPackage(Xadlcore_3_0Package.eNS_URI) : Xadlcore_3_0Package.eINSTANCE);
+				.getEPackage(Xadlcore_3_0Package.eNS_URI) instanceof Xadlcore_3_0PackageImpl
+						? EPackage.Registry.INSTANCE.getEPackage(Xadlcore_3_0Package.eNS_URI)
+						: Xadlcore_3_0Package.eINSTANCE);
 		XlinkPackageImpl theXlinkPackage = (XlinkPackageImpl) (EPackage.Registry.INSTANCE
-				.getEPackage(XlinkPackage.eNS_URI) instanceof XlinkPackageImpl ? EPackage.Registry.INSTANCE
-				.getEPackage(XlinkPackage.eNS_URI) : XlinkPackage.eINSTANCE);
+				.getEPackage(XlinkPackage.eNS_URI) instanceof XlinkPackageImpl
+						? EPackage.Registry.INSTANCE.getEPackage(XlinkPackage.eNS_URI) : XlinkPackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theImplementation_3_0Package.createPackageContents();
@@ -303,10 +304,10 @@ public class Implementation_3_0PackageImpl extends EPackageImpl implements Imple
 		setNsURI(eNS_URI);
 
 		// Obtain other dependent packages
-		XMLTypePackage theXMLTypePackage = (XMLTypePackage) EPackage.Registry.INSTANCE
-				.getEPackage(XMLTypePackage.eNS_URI);
-		Xadlcore_3_0Package theXadlcore_3_0Package = (Xadlcore_3_0Package) EPackage.Registry.INSTANCE
-				.getEPackage(Xadlcore_3_0Package.eNS_URI);
+		XMLTypePackage theXMLTypePackage =
+				(XMLTypePackage) EPackage.Registry.INSTANCE.getEPackage(XMLTypePackage.eNS_URI);
+		Xadlcore_3_0Package theXadlcore_3_0Package =
+				(Xadlcore_3_0Package) EPackage.Registry.INSTANCE.getEPackage(Xadlcore_3_0Package.eNS_URI);
 
 		// Create type parameters
 
@@ -364,24 +365,24 @@ public class Implementation_3_0PackageImpl extends EPackageImpl implements Imple
 	protected void createExtendedMetaDataAnnotations() {
 		String source = "http:///org/eclipse/emf/ecore/util/ExtendedMetaData";
 		addAnnotation(implementationEClass, source, new String[] { "name", "Implementation", "kind", "empty" });
-		addAnnotation(getImplementation_Id(), source, new String[] { "kind", "attribute", "name", "id", "namespace",
-				"##targetNamespace" });
-		addAnnotation(implementationExtensionEClass, source, new String[] { "name", "ImplementationExtension", "kind",
-				"elementOnly" });
-		addAnnotation(getImplementationExtension_Implementation(), source, new String[] { "kind", "element", "name",
-				"implementation", "namespace", "##targetNamespace" });
-		addAnnotation(initializationParameterEClass, source, new String[] { "name", "InitializationParameter", "kind",
-				"elementOnly" });
-		addAnnotation(getInitializationParameter_Ext(), source, new String[] { "kind", "element", "name", "ext",
-				"namespace", "##targetNamespace" });
-		addAnnotation(getInitializationParameter_Key(), source, new String[] { "kind", "attribute", "name", "name",
-				"namespace", "##targetNamespace" });
-		addAnnotation(getInitializationParameter_Value(), source, new String[] { "kind", "attribute", "name", "value",
-				"namespace", "##targetNamespace" });
-		addAnnotation(initializationParametersImplementationEClass, source, new String[] { "name",
-				"InitializationParametersImplementation", "kind", "elementOnly" });
+		addAnnotation(getImplementation_Id(), source,
+				new String[] { "kind", "attribute", "name", "id", "namespace", "##targetNamespace" });
+		addAnnotation(implementationExtensionEClass, source,
+				new String[] { "name", "ImplementationExtension", "kind", "elementOnly" });
+		addAnnotation(getImplementationExtension_Implementation(), source,
+				new String[] { "kind", "element", "name", "implementation", "namespace", "##targetNamespace" });
+		addAnnotation(initializationParameterEClass, source,
+				new String[] { "name", "InitializationParameter", "kind", "elementOnly" });
+		addAnnotation(getInitializationParameter_Ext(), source,
+				new String[] { "kind", "element", "name", "ext", "namespace", "##targetNamespace" });
+		addAnnotation(getInitializationParameter_Key(), source,
+				new String[] { "kind", "attribute", "name", "name", "namespace", "##targetNamespace" });
+		addAnnotation(getInitializationParameter_Value(), source,
+				new String[] { "kind", "attribute", "name", "value", "namespace", "##targetNamespace" });
+		addAnnotation(initializationParametersImplementationEClass, source,
+				new String[] { "name", "InitializationParametersImplementation", "kind", "elementOnly" });
 		addAnnotation(getInitializationParametersImplementation_InitializationParameter(), source, new String[] {
 				"kind", "element", "name", "initializationParameter", "namespace", "##targetNamespace" });
 	}
 
-} //Implementation_3_0PackageImpl
+} // Implementation_3_0PackageImpl

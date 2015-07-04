@@ -13,10 +13,10 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Statement</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  * <li>{@link org.archstudio.xadl3.prolog_3_0.impl.StatementImpl#getValue <em>Value</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -92,8 +92,8 @@ public class StatementImpl extends MinimalEObjectImpl.Container implements State
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case Prolog_3_0Package.STATEMENT__VALUE:
-			return getValue();
+			case Prolog_3_0Package.STATEMENT__VALUE:
+				return getValue();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -106,9 +106,9 @@ public class StatementImpl extends MinimalEObjectImpl.Container implements State
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Prolog_3_0Package.STATEMENT__VALUE:
-			setValue((String) newValue);
-			return;
+			case Prolog_3_0Package.STATEMENT__VALUE:
+				setValue((String) newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -121,9 +121,9 @@ public class StatementImpl extends MinimalEObjectImpl.Container implements State
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Prolog_3_0Package.STATEMENT__VALUE:
-			setValue(VALUE_EDEFAULT);
-			return;
+			case Prolog_3_0Package.STATEMENT__VALUE:
+				setValue(VALUE_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -136,8 +136,8 @@ public class StatementImpl extends MinimalEObjectImpl.Container implements State
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Prolog_3_0Package.STATEMENT__VALUE:
-			return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
+			case Prolog_3_0Package.STATEMENT__VALUE:
+				return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -160,4 +160,4 @@ public class StatementImpl extends MinimalEObjectImpl.Container implements State
 		return result.toString();
 	}
 
-} //StatementImpl
+} // StatementImpl

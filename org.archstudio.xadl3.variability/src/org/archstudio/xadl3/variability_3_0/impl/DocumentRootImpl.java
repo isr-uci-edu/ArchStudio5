@@ -22,14 +22,15 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Document Root</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  * <li>{@link org.archstudio.xadl3.variability_3_0.impl.DocumentRootImpl#getMixed <em>Mixed</em>}</li>
- * <li>{@link org.archstudio.xadl3.variability_3_0.impl.DocumentRootImpl#getXMLNSPrefixMap <em>XMLNS Prefix Map</em>}</li>
- * <li>{@link org.archstudio.xadl3.variability_3_0.impl.DocumentRootImpl#getXSISchemaLocation <em>XSI Schema Location
- * </em>}</li>
+ * <li>{@link org.archstudio.xadl3.variability_3_0.impl.DocumentRootImpl#getXMLNSPrefixMap <em>XMLNS Prefix Map</em>}
+ * </li>
+ * <li>{@link org.archstudio.xadl3.variability_3_0.impl.DocumentRootImpl#getXSISchemaLocation
+ * <em>XSI Schema Location</em>}</li>
  * <li>{@link org.archstudio.xadl3.variability_3_0.impl.DocumentRootImpl#getVariability <em>Variability</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -163,14 +164,14 @@ public class DocumentRootImpl extends MinimalEObjectImpl.Container implements Do
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case Variability_3_0Package.DOCUMENT_ROOT__MIXED:
-			return ((InternalEList<?>) getMixed()).basicRemove(otherEnd, msgs);
-		case Variability_3_0Package.DOCUMENT_ROOT__XMLNS_PREFIX_MAP:
-			return ((InternalEList<?>) getXMLNSPrefixMap()).basicRemove(otherEnd, msgs);
-		case Variability_3_0Package.DOCUMENT_ROOT__XSI_SCHEMA_LOCATION:
-			return ((InternalEList<?>) getXSISchemaLocation()).basicRemove(otherEnd, msgs);
-		case Variability_3_0Package.DOCUMENT_ROOT__VARIABILITY:
-			return basicSetVariability(null, msgs);
+			case Variability_3_0Package.DOCUMENT_ROOT__MIXED:
+				return ((InternalEList<?>) getMixed()).basicRemove(otherEnd, msgs);
+			case Variability_3_0Package.DOCUMENT_ROOT__XMLNS_PREFIX_MAP:
+				return ((InternalEList<?>) getXMLNSPrefixMap()).basicRemove(otherEnd, msgs);
+			case Variability_3_0Package.DOCUMENT_ROOT__XSI_SCHEMA_LOCATION:
+				return ((InternalEList<?>) getXSISchemaLocation()).basicRemove(otherEnd, msgs);
+			case Variability_3_0Package.DOCUMENT_ROOT__VARIABILITY:
+				return basicSetVariability(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -183,27 +184,27 @@ public class DocumentRootImpl extends MinimalEObjectImpl.Container implements Do
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case Variability_3_0Package.DOCUMENT_ROOT__MIXED:
-			if (coreType) {
-				return getMixed();
-			}
-			return ((FeatureMap.Internal) getMixed()).getWrapper();
-		case Variability_3_0Package.DOCUMENT_ROOT__XMLNS_PREFIX_MAP:
-			if (coreType) {
-				return getXMLNSPrefixMap();
-			}
-			else {
-				return getXMLNSPrefixMap().map();
-			}
-		case Variability_3_0Package.DOCUMENT_ROOT__XSI_SCHEMA_LOCATION:
-			if (coreType) {
-				return getXSISchemaLocation();
-			}
-			else {
-				return getXSISchemaLocation().map();
-			}
-		case Variability_3_0Package.DOCUMENT_ROOT__VARIABILITY:
-			return getVariability();
+			case Variability_3_0Package.DOCUMENT_ROOT__MIXED:
+				if (coreType) {
+					return getMixed();
+				}
+				return ((FeatureMap.Internal) getMixed()).getWrapper();
+			case Variability_3_0Package.DOCUMENT_ROOT__XMLNS_PREFIX_MAP:
+				if (coreType) {
+					return getXMLNSPrefixMap();
+				}
+				else {
+					return getXMLNSPrefixMap().map();
+				}
+			case Variability_3_0Package.DOCUMENT_ROOT__XSI_SCHEMA_LOCATION:
+				if (coreType) {
+					return getXSISchemaLocation();
+				}
+				else {
+					return getXSISchemaLocation().map();
+				}
+			case Variability_3_0Package.DOCUMENT_ROOT__VARIABILITY:
+				return getVariability();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -216,18 +217,18 @@ public class DocumentRootImpl extends MinimalEObjectImpl.Container implements Do
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Variability_3_0Package.DOCUMENT_ROOT__MIXED:
-			((FeatureMap.Internal) getMixed()).set(newValue);
-			return;
-		case Variability_3_0Package.DOCUMENT_ROOT__XMLNS_PREFIX_MAP:
-			((EStructuralFeature.Setting) getXMLNSPrefixMap()).set(newValue);
-			return;
-		case Variability_3_0Package.DOCUMENT_ROOT__XSI_SCHEMA_LOCATION:
-			((EStructuralFeature.Setting) getXSISchemaLocation()).set(newValue);
-			return;
-		case Variability_3_0Package.DOCUMENT_ROOT__VARIABILITY:
-			setVariability((Variability) newValue);
-			return;
+			case Variability_3_0Package.DOCUMENT_ROOT__MIXED:
+				((FeatureMap.Internal) getMixed()).set(newValue);
+				return;
+			case Variability_3_0Package.DOCUMENT_ROOT__XMLNS_PREFIX_MAP:
+				((EStructuralFeature.Setting) getXMLNSPrefixMap()).set(newValue);
+				return;
+			case Variability_3_0Package.DOCUMENT_ROOT__XSI_SCHEMA_LOCATION:
+				((EStructuralFeature.Setting) getXSISchemaLocation()).set(newValue);
+				return;
+			case Variability_3_0Package.DOCUMENT_ROOT__VARIABILITY:
+				setVariability((Variability) newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -240,18 +241,18 @@ public class DocumentRootImpl extends MinimalEObjectImpl.Container implements Do
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Variability_3_0Package.DOCUMENT_ROOT__MIXED:
-			getMixed().clear();
-			return;
-		case Variability_3_0Package.DOCUMENT_ROOT__XMLNS_PREFIX_MAP:
-			getXMLNSPrefixMap().clear();
-			return;
-		case Variability_3_0Package.DOCUMENT_ROOT__XSI_SCHEMA_LOCATION:
-			getXSISchemaLocation().clear();
-			return;
-		case Variability_3_0Package.DOCUMENT_ROOT__VARIABILITY:
-			setVariability((Variability) null);
-			return;
+			case Variability_3_0Package.DOCUMENT_ROOT__MIXED:
+				getMixed().clear();
+				return;
+			case Variability_3_0Package.DOCUMENT_ROOT__XMLNS_PREFIX_MAP:
+				getXMLNSPrefixMap().clear();
+				return;
+			case Variability_3_0Package.DOCUMENT_ROOT__XSI_SCHEMA_LOCATION:
+				getXSISchemaLocation().clear();
+				return;
+			case Variability_3_0Package.DOCUMENT_ROOT__VARIABILITY:
+				setVariability((Variability) null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -264,14 +265,14 @@ public class DocumentRootImpl extends MinimalEObjectImpl.Container implements Do
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Variability_3_0Package.DOCUMENT_ROOT__MIXED:
-			return mixed != null && !mixed.isEmpty();
-		case Variability_3_0Package.DOCUMENT_ROOT__XMLNS_PREFIX_MAP:
-			return xMLNSPrefixMap != null && !xMLNSPrefixMap.isEmpty();
-		case Variability_3_0Package.DOCUMENT_ROOT__XSI_SCHEMA_LOCATION:
-			return xSISchemaLocation != null && !xSISchemaLocation.isEmpty();
-		case Variability_3_0Package.DOCUMENT_ROOT__VARIABILITY:
-			return getVariability() != null;
+			case Variability_3_0Package.DOCUMENT_ROOT__MIXED:
+				return mixed != null && !mixed.isEmpty();
+			case Variability_3_0Package.DOCUMENT_ROOT__XMLNS_PREFIX_MAP:
+				return xMLNSPrefixMap != null && !xMLNSPrefixMap.isEmpty();
+			case Variability_3_0Package.DOCUMENT_ROOT__XSI_SCHEMA_LOCATION:
+				return xSISchemaLocation != null && !xSISchemaLocation.isEmpty();
+			case Variability_3_0Package.DOCUMENT_ROOT__VARIABILITY:
+				return getVariability() != null;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -294,4 +295,4 @@ public class DocumentRootImpl extends MinimalEObjectImpl.Container implements Do
 		return result.toString();
 	}
 
-} //DocumentRootImpl
+} // DocumentRootImpl

@@ -5,9 +5,8 @@ import org.archstudio.myx.fw.MyxRegistry;
 import org.archstudio.myx.fw.MyxUtils;
 
 /*
- * DO NOT EDIT THIS CLASS, it is automatically generated. ANY MODIFICATIONS WILL BE OVERWRITTEN.
- * 
- * To modify, update the "Resources Impl" MyxGen extension in the org.archstudio.resources.core plugin.
+ * DO NOT EDIT THIS CLASS, it is automatically generated. ANY MODIFICATIONS WILL BE OVERWRITTEN. To modify, update the
+ * "Resources Impl" MyxGen extension in the org.archstudio.resources.core plugin.
  */
 
 /**
@@ -15,8 +14,8 @@ import org.archstudio.myx.fw.MyxUtils;
  * 
  * @generated
  */
-public abstract class ResourcesMyxComponentStub extends org.archstudio.myx.fw.AbstractMyxSimpleBrick implements
-		org.archstudio.myx.fw.IMyxDynamicBrick, org.archstudio.resources.IResources {
+public abstract class ResourcesMyxComponentStub extends org.archstudio.myx.fw.AbstractMyxSimpleBrick
+		implements org.archstudio.myx.fw.IMyxDynamicBrick, org.archstudio.resources.IResources {
 
 	/**
 	 * The registry of objects for this brick.

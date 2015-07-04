@@ -13,10 +13,10 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Myx Gen</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  * <li>{@link org.archstudio.xadl3.myxgen_3_0.impl.MyxGenImpl#getBrickID <em>Brick ID</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -93,8 +93,8 @@ public class MyxGenImpl extends ImplementationImpl implements MyxGen {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case Myxgen_3_0Package.MYX_GEN__BRICK_ID:
-			return getBrickID();
+			case Myxgen_3_0Package.MYX_GEN__BRICK_ID:
+				return getBrickID();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -107,9 +107,9 @@ public class MyxGenImpl extends ImplementationImpl implements MyxGen {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Myxgen_3_0Package.MYX_GEN__BRICK_ID:
-			setBrickID((String) newValue);
-			return;
+			case Myxgen_3_0Package.MYX_GEN__BRICK_ID:
+				setBrickID((String) newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -122,9 +122,9 @@ public class MyxGenImpl extends ImplementationImpl implements MyxGen {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Myxgen_3_0Package.MYX_GEN__BRICK_ID:
-			setBrickID(BRICK_ID_EDEFAULT);
-			return;
+			case Myxgen_3_0Package.MYX_GEN__BRICK_ID:
+				setBrickID(BRICK_ID_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -137,8 +137,8 @@ public class MyxGenImpl extends ImplementationImpl implements MyxGen {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Myxgen_3_0Package.MYX_GEN__BRICK_ID:
-			return BRICK_ID_EDEFAULT == null ? brickID != null : !BRICK_ID_EDEFAULT.equals(brickID);
+			case Myxgen_3_0Package.MYX_GEN__BRICK_ID:
+				return BRICK_ID_EDEFAULT == null ? brickID != null : !BRICK_ID_EDEFAULT.equals(brickID);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -161,4 +161,4 @@ public class MyxGenImpl extends ImplementationImpl implements MyxGen {
 		return result.toString();
 	}
 
-} //MyxGenImpl
+} // MyxGenImpl

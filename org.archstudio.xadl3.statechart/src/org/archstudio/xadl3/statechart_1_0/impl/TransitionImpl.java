@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Transition</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  * <li>{@link org.archstudio.xadl3.statechart_1_0.impl.TransitionImpl#getFrom <em>From</em>}</li>
  * <li>{@link org.archstudio.xadl3.statechart_1_0.impl.TransitionImpl#getTo <em>To</em>}</li>
@@ -31,7 +32,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <li>{@link org.archstudio.xadl3.statechart_1_0.impl.TransitionImpl#getId <em>Id</em>}</li>
  * <li>{@link org.archstudio.xadl3.statechart_1_0.impl.TransitionImpl#getName <em>Name</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -152,7 +152,8 @@ public class TransitionImpl extends MinimalEObjectImpl.Container implements Tran
 		PseudoState oldFrom = from;
 		from = newFrom;
 		if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, Statechart_1_0Package.TRANSITION__FROM, oldFrom, from));
+			eNotify(new ENotificationImpl(this, Notification.SET, Statechart_1_0Package.TRANSITION__FROM, oldFrom,
+					from));
 		}
 	}
 
@@ -221,12 +222,12 @@ public class TransitionImpl extends MinimalEObjectImpl.Container implements Tran
 		if (newConstraint != constraint) {
 			NotificationChain msgs = null;
 			if (constraint != null) {
-				msgs = ((InternalEObject) constraint).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
-						- Statechart_1_0Package.TRANSITION__CONSTRAINT, null, msgs);
+				msgs = ((InternalEObject) constraint).eInverseRemove(this,
+						EOPPOSITE_FEATURE_BASE - Statechart_1_0Package.TRANSITION__CONSTRAINT, null, msgs);
 			}
 			if (newConstraint != null) {
-				msgs = ((InternalEObject) newConstraint).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
-						- Statechart_1_0Package.TRANSITION__CONSTRAINT, null, msgs);
+				msgs = ((InternalEObject) newConstraint).eInverseAdd(this,
+						EOPPOSITE_FEATURE_BASE - Statechart_1_0Package.TRANSITION__CONSTRAINT, null, msgs);
 			}
 			msgs = basicSetConstraint(newConstraint, msgs);
 			if (msgs != null) {
@@ -296,7 +297,8 @@ public class TransitionImpl extends MinimalEObjectImpl.Container implements Tran
 		String oldName = name;
 		name = newName;
 		if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, Statechart_1_0Package.TRANSITION__NAME, oldName, name));
+			eNotify(new ENotificationImpl(this, Notification.SET, Statechart_1_0Package.TRANSITION__NAME, oldName,
+					name));
 		}
 	}
 
@@ -308,10 +310,10 @@ public class TransitionImpl extends MinimalEObjectImpl.Container implements Tran
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case Statechart_1_0Package.TRANSITION__CONSTRAINT:
-			return basicSetConstraint(null, msgs);
-		case Statechart_1_0Package.TRANSITION__EXT:
-			return ((InternalEList<?>) getExt()).basicRemove(otherEnd, msgs);
+			case Statechart_1_0Package.TRANSITION__CONSTRAINT:
+				return basicSetConstraint(null, msgs);
+			case Statechart_1_0Package.TRANSITION__EXT:
+				return ((InternalEList<?>) getExt()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -324,18 +326,18 @@ public class TransitionImpl extends MinimalEObjectImpl.Container implements Tran
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case Statechart_1_0Package.TRANSITION__FROM:
-			return getFrom();
-		case Statechart_1_0Package.TRANSITION__TO:
-			return getTo();
-		case Statechart_1_0Package.TRANSITION__CONSTRAINT:
-			return getConstraint();
-		case Statechart_1_0Package.TRANSITION__EXT:
-			return getExt();
-		case Statechart_1_0Package.TRANSITION__ID:
-			return getId();
-		case Statechart_1_0Package.TRANSITION__NAME:
-			return getName();
+			case Statechart_1_0Package.TRANSITION__FROM:
+				return getFrom();
+			case Statechart_1_0Package.TRANSITION__TO:
+				return getTo();
+			case Statechart_1_0Package.TRANSITION__CONSTRAINT:
+				return getConstraint();
+			case Statechart_1_0Package.TRANSITION__EXT:
+				return getExt();
+			case Statechart_1_0Package.TRANSITION__ID:
+				return getId();
+			case Statechart_1_0Package.TRANSITION__NAME:
+				return getName();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -349,25 +351,25 @@ public class TransitionImpl extends MinimalEObjectImpl.Container implements Tran
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Statechart_1_0Package.TRANSITION__FROM:
-			setFrom((PseudoState) newValue);
-			return;
-		case Statechart_1_0Package.TRANSITION__TO:
-			setTo((PseudoState) newValue);
-			return;
-		case Statechart_1_0Package.TRANSITION__CONSTRAINT:
-			setConstraint((Constraint) newValue);
-			return;
-		case Statechart_1_0Package.TRANSITION__EXT:
-			getExt().clear();
-			getExt().addAll((Collection<? extends Extension>) newValue);
-			return;
-		case Statechart_1_0Package.TRANSITION__ID:
-			setId((String) newValue);
-			return;
-		case Statechart_1_0Package.TRANSITION__NAME:
-			setName((String) newValue);
-			return;
+			case Statechart_1_0Package.TRANSITION__FROM:
+				setFrom((PseudoState) newValue);
+				return;
+			case Statechart_1_0Package.TRANSITION__TO:
+				setTo((PseudoState) newValue);
+				return;
+			case Statechart_1_0Package.TRANSITION__CONSTRAINT:
+				setConstraint((Constraint) newValue);
+				return;
+			case Statechart_1_0Package.TRANSITION__EXT:
+				getExt().clear();
+				getExt().addAll((Collection<? extends Extension>) newValue);
+				return;
+			case Statechart_1_0Package.TRANSITION__ID:
+				setId((String) newValue);
+				return;
+			case Statechart_1_0Package.TRANSITION__NAME:
+				setName((String) newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -380,24 +382,24 @@ public class TransitionImpl extends MinimalEObjectImpl.Container implements Tran
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Statechart_1_0Package.TRANSITION__FROM:
-			setFrom((PseudoState) null);
-			return;
-		case Statechart_1_0Package.TRANSITION__TO:
-			setTo((PseudoState) null);
-			return;
-		case Statechart_1_0Package.TRANSITION__CONSTRAINT:
-			setConstraint((Constraint) null);
-			return;
-		case Statechart_1_0Package.TRANSITION__EXT:
-			getExt().clear();
-			return;
-		case Statechart_1_0Package.TRANSITION__ID:
-			setId(ID_EDEFAULT);
-			return;
-		case Statechart_1_0Package.TRANSITION__NAME:
-			setName(NAME_EDEFAULT);
-			return;
+			case Statechart_1_0Package.TRANSITION__FROM:
+				setFrom((PseudoState) null);
+				return;
+			case Statechart_1_0Package.TRANSITION__TO:
+				setTo((PseudoState) null);
+				return;
+			case Statechart_1_0Package.TRANSITION__CONSTRAINT:
+				setConstraint((Constraint) null);
+				return;
+			case Statechart_1_0Package.TRANSITION__EXT:
+				getExt().clear();
+				return;
+			case Statechart_1_0Package.TRANSITION__ID:
+				setId(ID_EDEFAULT);
+				return;
+			case Statechart_1_0Package.TRANSITION__NAME:
+				setName(NAME_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -410,18 +412,18 @@ public class TransitionImpl extends MinimalEObjectImpl.Container implements Tran
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Statechart_1_0Package.TRANSITION__FROM:
-			return from != null;
-		case Statechart_1_0Package.TRANSITION__TO:
-			return to != null;
-		case Statechart_1_0Package.TRANSITION__CONSTRAINT:
-			return constraint != null;
-		case Statechart_1_0Package.TRANSITION__EXT:
-			return ext != null && !ext.isEmpty();
-		case Statechart_1_0Package.TRANSITION__ID:
-			return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
-		case Statechart_1_0Package.TRANSITION__NAME:
-			return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+			case Statechart_1_0Package.TRANSITION__FROM:
+				return from != null;
+			case Statechart_1_0Package.TRANSITION__TO:
+				return to != null;
+			case Statechart_1_0Package.TRANSITION__CONSTRAINT:
+				return constraint != null;
+			case Statechart_1_0Package.TRANSITION__EXT:
+				return ext != null && !ext.isEmpty();
+			case Statechart_1_0Package.TRANSITION__ID:
+				return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
+			case Statechart_1_0Package.TRANSITION__NAME:
+				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -446,4 +448,4 @@ public class TransitionImpl extends MinimalEObjectImpl.Container implements Tran
 		return result.toString();
 	}
 
-} //TransitionImpl
+} // TransitionImpl

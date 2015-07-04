@@ -43,4 +43,4 @@ public class Prolog_3_0XMLProcessor extends XMLProcessor {
 		return registrations;
 	}
 
-} //Prolog_3_0XMLProcessor
+} // Prolog_3_0XMLProcessor

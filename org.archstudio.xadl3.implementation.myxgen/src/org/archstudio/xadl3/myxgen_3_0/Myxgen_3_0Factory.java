@@ -25,7 +25,7 @@ public interface Myxgen_3_0Factory extends EFactory {
 	 * @return a new object of class '<em>Myx Gen</em>'.
 	 * @generated
 	 */
-	MyxGen createMyxGen();
+			MyxGen createMyxGen();
 
 	/**
 	 * Returns the package supported by this factory. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -33,6 +33,6 @@ public interface Myxgen_3_0Factory extends EFactory {
 	 * @return the package supported by this factory.
 	 * @generated
 	 */
-	Myxgen_3_0Package getMyxgen_3_0Package();
+			Myxgen_3_0Package getMyxgen_3_0Package();
 
-} //Myxgen_3_0Factory
+} // Myxgen_3_0Factory

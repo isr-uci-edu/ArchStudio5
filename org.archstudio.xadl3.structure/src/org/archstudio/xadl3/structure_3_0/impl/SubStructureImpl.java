@@ -23,14 +23,15 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Sub Structure</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
- * <li>{@link org.archstudio.xadl3.structure_3_0.impl.SubStructureImpl#getInnerStructureLink <em>Inner Structure Link
- * </em>}</li>
- * <li>{@link org.archstudio.xadl3.structure_3_0.impl.SubStructureImpl#getInterfaceMapping <em>Interface Mapping</em>}</li>
+ * <li>{@link org.archstudio.xadl3.structure_3_0.impl.SubStructureImpl#getInnerStructureLink
+ * <em>Inner Structure Link</em>}</li>
+ * <li>{@link org.archstudio.xadl3.structure_3_0.impl.SubStructureImpl#getInterfaceMapping <em>Interface Mapping</em>}
+ * </li>
  * <li>{@link org.archstudio.xadl3.structure_3_0.impl.SubStructureImpl#getExt <em>Ext</em>}</li>
  * <li>{@link org.archstudio.xadl3.structure_3_0.impl.SubStructureImpl#getId <em>Id</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -123,7 +124,8 @@ public class SubStructureImpl extends MinimalEObjectImpl.Container implements Su
 		innerStructureLink = newInnerStructureLink;
 		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET,
-					Structure_3_0Package.SUB_STRUCTURE__INNER_STRUCTURE_LINK, oldInnerStructureLink, innerStructureLink));
+					Structure_3_0Package.SUB_STRUCTURE__INNER_STRUCTURE_LINK, oldInnerStructureLink,
+					innerStructureLink));
 		}
 	}
 
@@ -149,7 +151,8 @@ public class SubStructureImpl extends MinimalEObjectImpl.Container implements Su
 	@Override
 	public EList<Extension> getExt() {
 		if (ext == null) {
-			ext = new EObjectContainmentEList<Extension>(Extension.class, this, Structure_3_0Package.SUB_STRUCTURE__EXT);
+			ext = new EObjectContainmentEList<Extension>(Extension.class, this,
+					Structure_3_0Package.SUB_STRUCTURE__EXT);
 		}
 		return ext;
 	}
@@ -186,10 +189,10 @@ public class SubStructureImpl extends MinimalEObjectImpl.Container implements Su
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case Structure_3_0Package.SUB_STRUCTURE__INTERFACE_MAPPING:
-			return ((InternalEList<?>) getInterfaceMapping()).basicRemove(otherEnd, msgs);
-		case Structure_3_0Package.SUB_STRUCTURE__EXT:
-			return ((InternalEList<?>) getExt()).basicRemove(otherEnd, msgs);
+			case Structure_3_0Package.SUB_STRUCTURE__INTERFACE_MAPPING:
+				return ((InternalEList<?>) getInterfaceMapping()).basicRemove(otherEnd, msgs);
+			case Structure_3_0Package.SUB_STRUCTURE__EXT:
+				return ((InternalEList<?>) getExt()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -202,14 +205,14 @@ public class SubStructureImpl extends MinimalEObjectImpl.Container implements Su
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case Structure_3_0Package.SUB_STRUCTURE__INNER_STRUCTURE_LINK:
-			return getInnerStructureLink();
-		case Structure_3_0Package.SUB_STRUCTURE__INTERFACE_MAPPING:
-			return getInterfaceMapping();
-		case Structure_3_0Package.SUB_STRUCTURE__EXT:
-			return getExt();
-		case Structure_3_0Package.SUB_STRUCTURE__ID:
-			return getId();
+			case Structure_3_0Package.SUB_STRUCTURE__INNER_STRUCTURE_LINK:
+				return getInnerStructureLink();
+			case Structure_3_0Package.SUB_STRUCTURE__INTERFACE_MAPPING:
+				return getInterfaceMapping();
+			case Structure_3_0Package.SUB_STRUCTURE__EXT:
+				return getExt();
+			case Structure_3_0Package.SUB_STRUCTURE__ID:
+				return getId();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -223,20 +226,20 @@ public class SubStructureImpl extends MinimalEObjectImpl.Container implements Su
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Structure_3_0Package.SUB_STRUCTURE__INNER_STRUCTURE_LINK:
-			setInnerStructureLink((Structure) newValue);
-			return;
-		case Structure_3_0Package.SUB_STRUCTURE__INTERFACE_MAPPING:
-			getInterfaceMapping().clear();
-			getInterfaceMapping().addAll((Collection<? extends InterfaceMapping>) newValue);
-			return;
-		case Structure_3_0Package.SUB_STRUCTURE__EXT:
-			getExt().clear();
-			getExt().addAll((Collection<? extends Extension>) newValue);
-			return;
-		case Structure_3_0Package.SUB_STRUCTURE__ID:
-			setId((String) newValue);
-			return;
+			case Structure_3_0Package.SUB_STRUCTURE__INNER_STRUCTURE_LINK:
+				setInnerStructureLink((Structure) newValue);
+				return;
+			case Structure_3_0Package.SUB_STRUCTURE__INTERFACE_MAPPING:
+				getInterfaceMapping().clear();
+				getInterfaceMapping().addAll((Collection<? extends InterfaceMapping>) newValue);
+				return;
+			case Structure_3_0Package.SUB_STRUCTURE__EXT:
+				getExt().clear();
+				getExt().addAll((Collection<? extends Extension>) newValue);
+				return;
+			case Structure_3_0Package.SUB_STRUCTURE__ID:
+				setId((String) newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -249,18 +252,18 @@ public class SubStructureImpl extends MinimalEObjectImpl.Container implements Su
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Structure_3_0Package.SUB_STRUCTURE__INNER_STRUCTURE_LINK:
-			setInnerStructureLink((Structure) null);
-			return;
-		case Structure_3_0Package.SUB_STRUCTURE__INTERFACE_MAPPING:
-			getInterfaceMapping().clear();
-			return;
-		case Structure_3_0Package.SUB_STRUCTURE__EXT:
-			getExt().clear();
-			return;
-		case Structure_3_0Package.SUB_STRUCTURE__ID:
-			setId(ID_EDEFAULT);
-			return;
+			case Structure_3_0Package.SUB_STRUCTURE__INNER_STRUCTURE_LINK:
+				setInnerStructureLink((Structure) null);
+				return;
+			case Structure_3_0Package.SUB_STRUCTURE__INTERFACE_MAPPING:
+				getInterfaceMapping().clear();
+				return;
+			case Structure_3_0Package.SUB_STRUCTURE__EXT:
+				getExt().clear();
+				return;
+			case Structure_3_0Package.SUB_STRUCTURE__ID:
+				setId(ID_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -273,14 +276,14 @@ public class SubStructureImpl extends MinimalEObjectImpl.Container implements Su
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Structure_3_0Package.SUB_STRUCTURE__INNER_STRUCTURE_LINK:
-			return innerStructureLink != null;
-		case Structure_3_0Package.SUB_STRUCTURE__INTERFACE_MAPPING:
-			return interfaceMapping != null && !interfaceMapping.isEmpty();
-		case Structure_3_0Package.SUB_STRUCTURE__EXT:
-			return ext != null && !ext.isEmpty();
-		case Structure_3_0Package.SUB_STRUCTURE__ID:
-			return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
+			case Structure_3_0Package.SUB_STRUCTURE__INNER_STRUCTURE_LINK:
+				return innerStructureLink != null;
+			case Structure_3_0Package.SUB_STRUCTURE__INTERFACE_MAPPING:
+				return interfaceMapping != null && !interfaceMapping.isEmpty();
+			case Structure_3_0Package.SUB_STRUCTURE__EXT:
+				return ext != null && !ext.isEmpty();
+			case Structure_3_0Package.SUB_STRUCTURE__ID:
+				return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -303,4 +306,4 @@ public class SubStructureImpl extends MinimalEObjectImpl.Container implements Su
 		return result.toString();
 	}
 
-} //SubStructureImpl
+} // SubStructureImpl

@@ -4,10 +4,6 @@ package net.gexf_1_2.gexf.impl;
 
 import java.util.Collection;
 
-import net.gexf_1_2.gexf.AttributeContent;
-import net.gexf_1_2.gexf.AttrtypeType;
-import net.gexf_1_2.gexf.GexfPackage;
-
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
@@ -19,11 +15,16 @@ import org.eclipse.emf.ecore.util.BasicFeatureMap;
 import org.eclipse.emf.ecore.util.FeatureMap;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import net.gexf_1_2.gexf.AttributeContent;
+import net.gexf_1_2.gexf.AttrtypeType;
+import net.gexf_1_2.gexf.GexfPackage;
+
 /**
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Attribute Content</b></em>'. <!-- end-user-doc
  * -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  * <li>{@link net.gexf_1_2.gexf.impl.AttributeContentImpl#getGroup <em>Group</em>}</li>
  * <li>{@link net.gexf_1_2.gexf.impl.AttributeContentImpl#getDefault <em>Default</em>}</li>
@@ -32,7 +33,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <li>{@link net.gexf_1_2.gexf.impl.AttributeContentImpl#getTitle <em>Title</em>}</li>
  * <li>{@link net.gexf_1_2.gexf.impl.AttributeContentImpl#getType <em>Type</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -209,7 +209,8 @@ public class AttributeContentImpl extends MinimalEObjectImpl.Container implement
 		String oldTitle = title;
 		title = newTitle;
 		if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, GexfPackage.ATTRIBUTE_CONTENT__TITLE, oldTitle, title));
+			eNotify(new ENotificationImpl(this, Notification.SET, GexfPackage.ATTRIBUTE_CONTENT__TITLE, oldTitle,
+					title));
 		}
 	}
 
@@ -275,8 +276,8 @@ public class AttributeContentImpl extends MinimalEObjectImpl.Container implement
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case GexfPackage.ATTRIBUTE_CONTENT__GROUP:
-			return ((InternalEList<?>) getGroup()).basicRemove(otherEnd, msgs);
+			case GexfPackage.ATTRIBUTE_CONTENT__GROUP:
+				return ((InternalEList<?>) getGroup()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -289,21 +290,21 @@ public class AttributeContentImpl extends MinimalEObjectImpl.Container implement
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case GexfPackage.ATTRIBUTE_CONTENT__GROUP:
-			if (coreType) {
-				return getGroup();
-			}
-			return ((FeatureMap.Internal) getGroup()).getWrapper();
-		case GexfPackage.ATTRIBUTE_CONTENT__DEFAULT:
-			return getDefault();
-		case GexfPackage.ATTRIBUTE_CONTENT__OPTIONS:
-			return getOptions();
-		case GexfPackage.ATTRIBUTE_CONTENT__ID:
-			return getId();
-		case GexfPackage.ATTRIBUTE_CONTENT__TITLE:
-			return getTitle();
-		case GexfPackage.ATTRIBUTE_CONTENT__TYPE:
-			return getType();
+			case GexfPackage.ATTRIBUTE_CONTENT__GROUP:
+				if (coreType) {
+					return getGroup();
+				}
+				return ((FeatureMap.Internal) getGroup()).getWrapper();
+			case GexfPackage.ATTRIBUTE_CONTENT__DEFAULT:
+				return getDefault();
+			case GexfPackage.ATTRIBUTE_CONTENT__OPTIONS:
+				return getOptions();
+			case GexfPackage.ATTRIBUTE_CONTENT__ID:
+				return getId();
+			case GexfPackage.ATTRIBUTE_CONTENT__TITLE:
+				return getTitle();
+			case GexfPackage.ATTRIBUTE_CONTENT__TYPE:
+				return getType();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -317,26 +318,26 @@ public class AttributeContentImpl extends MinimalEObjectImpl.Container implement
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case GexfPackage.ATTRIBUTE_CONTENT__GROUP:
-			((FeatureMap.Internal) getGroup()).set(newValue);
-			return;
-		case GexfPackage.ATTRIBUTE_CONTENT__DEFAULT:
-			getDefault().clear();
-			getDefault().addAll((Collection<? extends String>) newValue);
-			return;
-		case GexfPackage.ATTRIBUTE_CONTENT__OPTIONS:
-			getOptions().clear();
-			getOptions().addAll((Collection<? extends String>) newValue);
-			return;
-		case GexfPackage.ATTRIBUTE_CONTENT__ID:
-			setId(newValue);
-			return;
-		case GexfPackage.ATTRIBUTE_CONTENT__TITLE:
-			setTitle((String) newValue);
-			return;
-		case GexfPackage.ATTRIBUTE_CONTENT__TYPE:
-			setType((AttrtypeType) newValue);
-			return;
+			case GexfPackage.ATTRIBUTE_CONTENT__GROUP:
+				((FeatureMap.Internal) getGroup()).set(newValue);
+				return;
+			case GexfPackage.ATTRIBUTE_CONTENT__DEFAULT:
+				getDefault().clear();
+				getDefault().addAll((Collection<? extends String>) newValue);
+				return;
+			case GexfPackage.ATTRIBUTE_CONTENT__OPTIONS:
+				getOptions().clear();
+				getOptions().addAll((Collection<? extends String>) newValue);
+				return;
+			case GexfPackage.ATTRIBUTE_CONTENT__ID:
+				setId(newValue);
+				return;
+			case GexfPackage.ATTRIBUTE_CONTENT__TITLE:
+				setTitle((String) newValue);
+				return;
+			case GexfPackage.ATTRIBUTE_CONTENT__TYPE:
+				setType((AttrtypeType) newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -349,24 +350,24 @@ public class AttributeContentImpl extends MinimalEObjectImpl.Container implement
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case GexfPackage.ATTRIBUTE_CONTENT__GROUP:
-			getGroup().clear();
-			return;
-		case GexfPackage.ATTRIBUTE_CONTENT__DEFAULT:
-			getDefault().clear();
-			return;
-		case GexfPackage.ATTRIBUTE_CONTENT__OPTIONS:
-			getOptions().clear();
-			return;
-		case GexfPackage.ATTRIBUTE_CONTENT__ID:
-			setId(ID_EDEFAULT);
-			return;
-		case GexfPackage.ATTRIBUTE_CONTENT__TITLE:
-			setTitle(TITLE_EDEFAULT);
-			return;
-		case GexfPackage.ATTRIBUTE_CONTENT__TYPE:
-			unsetType();
-			return;
+			case GexfPackage.ATTRIBUTE_CONTENT__GROUP:
+				getGroup().clear();
+				return;
+			case GexfPackage.ATTRIBUTE_CONTENT__DEFAULT:
+				getDefault().clear();
+				return;
+			case GexfPackage.ATTRIBUTE_CONTENT__OPTIONS:
+				getOptions().clear();
+				return;
+			case GexfPackage.ATTRIBUTE_CONTENT__ID:
+				setId(ID_EDEFAULT);
+				return;
+			case GexfPackage.ATTRIBUTE_CONTENT__TITLE:
+				setTitle(TITLE_EDEFAULT);
+				return;
+			case GexfPackage.ATTRIBUTE_CONTENT__TYPE:
+				unsetType();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -379,18 +380,18 @@ public class AttributeContentImpl extends MinimalEObjectImpl.Container implement
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case GexfPackage.ATTRIBUTE_CONTENT__GROUP:
-			return group != null && !group.isEmpty();
-		case GexfPackage.ATTRIBUTE_CONTENT__DEFAULT:
-			return !getDefault().isEmpty();
-		case GexfPackage.ATTRIBUTE_CONTENT__OPTIONS:
-			return !getOptions().isEmpty();
-		case GexfPackage.ATTRIBUTE_CONTENT__ID:
-			return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
-		case GexfPackage.ATTRIBUTE_CONTENT__TITLE:
-			return TITLE_EDEFAULT == null ? title != null : !TITLE_EDEFAULT.equals(title);
-		case GexfPackage.ATTRIBUTE_CONTENT__TYPE:
-			return isSetType();
+			case GexfPackage.ATTRIBUTE_CONTENT__GROUP:
+				return group != null && !group.isEmpty();
+			case GexfPackage.ATTRIBUTE_CONTENT__DEFAULT:
+				return !getDefault().isEmpty();
+			case GexfPackage.ATTRIBUTE_CONTENT__OPTIONS:
+				return !getOptions().isEmpty();
+			case GexfPackage.ATTRIBUTE_CONTENT__ID:
+				return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
+			case GexfPackage.ATTRIBUTE_CONTENT__TITLE:
+				return TITLE_EDEFAULT == null ? title != null : !TITLE_EDEFAULT.equals(title);
+			case GexfPackage.ATTRIBUTE_CONTENT__TYPE:
+				return isSetType();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -424,4 +425,4 @@ public class AttributeContentImpl extends MinimalEObjectImpl.Container implement
 		return result.toString();
 	}
 
-} //AttributeContentImpl
+} // AttributeContentImpl

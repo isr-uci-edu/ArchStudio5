@@ -15,12 +15,11 @@ public class Statechart_1_0ResourceImpl extends XMLResourceImpl {
 	/**
 	 * Creates an instance of the resource. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
-	 * @param uri
-	 *            the URI of the new resource.
+	 * @param uri the URI of the new resource.
 	 * @generated
 	 */
 	public Statechart_1_0ResourceImpl(URI uri) {
 		super(uri);
 	}
 
-} //Statechart_1_0ResourceImpl
+} // Statechart_1_0ResourceImpl

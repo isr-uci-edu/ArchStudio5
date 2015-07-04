@@ -5,9 +5,8 @@ import org.archstudio.myx.fw.MyxRegistry;
 import org.archstudio.myx.fw.MyxUtils;
 
 /*
- * DO NOT EDIT THIS CLASS, it is automatically generated. ANY MODIFICATIONS WILL BE OVERWRITTEN.
- * 
- * To modify, update the "Synchronous Multiway Proxy Impl" MyxGen extension in the org.archstudio.myx.java plugin.
+ * DO NOT EDIT THIS CLASS, it is automatically generated. ANY MODIFICATIONS WILL BE OVERWRITTEN. To modify, update the
+ * "Synchronous Multiway Proxy Impl" MyxGen extension in the org.archstudio.myx.java plugin.
  */
 
 /**
@@ -88,7 +87,8 @@ public abstract class SynchronousMultiwayProxyConnectorStub extends org.archstud
 	 * @see #OUT_OUT
 	 * @generated
 	 */
-	protected final java.util.Collection<java.lang.Object> out = new java.util.concurrent.CopyOnWriteArrayList<java.lang.Object>();
+	protected final java.util.Collection<java.lang.Object> out =
+			new java.util.concurrent.CopyOnWriteArrayList<java.lang.Object>();
 
 	/**
 	 * Returns the service object(s) for the out interface.
@@ -141,7 +141,8 @@ public abstract class SynchronousMultiwayProxyConnectorStub extends org.archstud
 	 * @see #OUT_PROGRESS
 	 * @generated
 	 */
-	protected final java.util.Collection<org.archstudio.myx.java.conn.IMultiwayProgressListener> progress = new java.util.concurrent.CopyOnWriteArrayList<org.archstudio.myx.java.conn.IMultiwayProgressListener>();
+	protected final java.util.Collection<org.archstudio.myx.java.conn.IMultiwayProgressListener> progress =
+			new java.util.concurrent.CopyOnWriteArrayList<org.archstudio.myx.java.conn.IMultiwayProgressListener>();
 
 	/**
 	 * Returns the service object(s) for the progress interface.

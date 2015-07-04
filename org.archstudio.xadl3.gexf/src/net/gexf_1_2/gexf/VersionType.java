@@ -60,6 +60,8 @@ public enum VersionType implements Enumerator {
 	 * Returns the '<em><b>Version Type</b></em>' literal with the specified literal value. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
 	 * 
+	 * @param literal the literal.
+	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
 	public static VersionType get(String literal) {
@@ -75,6 +77,8 @@ public enum VersionType implements Enumerator {
 	 * Returns the '<em><b>Version Type</b></em>' literal with the specified name. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
 	 * 
+	 * @param name the name.
+	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
 	public static VersionType getByName(String name) {
@@ -90,12 +94,14 @@ public enum VersionType implements Enumerator {
 	 * Returns the '<em><b>Version Type</b></em>' literal with the specified integer value. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
 	 * 
+	 * @param value the integer value.
+	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
 	public static VersionType get(int value) {
 		switch (value) {
-		case _12_VALUE:
-			return _12;
+			case _12_VALUE:
+				return _12;
 		}
 		return null;
 	}
@@ -173,4 +179,4 @@ public enum VersionType implements Enumerator {
 		return literal;
 	}
 
-} //VersionType
+} // VersionType

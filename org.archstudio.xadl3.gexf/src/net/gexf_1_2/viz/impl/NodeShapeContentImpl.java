@@ -2,11 +2,6 @@
  */
 package net.gexf_1_2.viz.impl;
 
-import net.gexf_1_2.gexf.SpellsContent;
-import net.gexf_1_2.viz.NodeShapeContent;
-import net.gexf_1_2.viz.NodeShapeType;
-import net.gexf_1_2.viz.VizPackage;
-
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
@@ -14,11 +9,17 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
+import net.gexf_1_2.gexf.SpellsContent;
+import net.gexf_1_2.viz.NodeShapeContent;
+import net.gexf_1_2.viz.NodeShapeType;
+import net.gexf_1_2.viz.VizPackage;
+
 /**
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Node Shape Content</b></em>'. <!-- end-user-doc
  * -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  * <li>{@link net.gexf_1_2.viz.impl.NodeShapeContentImpl#getSpells <em>Spells</em>}</li>
  * <li>{@link net.gexf_1_2.viz.impl.NodeShapeContentImpl#getEnd <em>End</em>}</li>
@@ -28,7 +29,6 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <li>{@link net.gexf_1_2.viz.impl.NodeShapeContentImpl#getUri <em>Uri</em>}</li>
  * <li>{@link net.gexf_1_2.viz.impl.NodeShapeContentImpl#getValue <em>Value</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -229,12 +229,12 @@ public class NodeShapeContentImpl extends MinimalEObjectImpl.Container implement
 		if (newSpells != spells) {
 			NotificationChain msgs = null;
 			if (spells != null) {
-				msgs = ((InternalEObject) spells).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
-						- VizPackage.NODE_SHAPE_CONTENT__SPELLS, null, msgs);
+				msgs = ((InternalEObject) spells).eInverseRemove(this,
+						EOPPOSITE_FEATURE_BASE - VizPackage.NODE_SHAPE_CONTENT__SPELLS, null, msgs);
 			}
 			if (newSpells != null) {
-				msgs = ((InternalEObject) newSpells).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
-						- VizPackage.NODE_SHAPE_CONTENT__SPELLS, null, msgs);
+				msgs = ((InternalEObject) newSpells).eInverseAdd(this,
+						EOPPOSITE_FEATURE_BASE - VizPackage.NODE_SHAPE_CONTENT__SPELLS, null, msgs);
 			}
 			msgs = basicSetSpells(newSpells, msgs);
 			if (msgs != null) {
@@ -316,7 +316,8 @@ public class NodeShapeContentImpl extends MinimalEObjectImpl.Container implement
 		Object oldStart = start;
 		start = newStart;
 		if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, VizPackage.NODE_SHAPE_CONTENT__START, oldStart, start));
+			eNotify(new ENotificationImpl(this, Notification.SET, VizPackage.NODE_SHAPE_CONTENT__START, oldStart,
+					start));
 		}
 	}
 
@@ -391,8 +392,8 @@ public class NodeShapeContentImpl extends MinimalEObjectImpl.Container implement
 		boolean oldValueESet = valueESet;
 		valueESet = true;
 		if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, VizPackage.NODE_SHAPE_CONTENT__VALUE, oldValue,
-					value, !oldValueESet));
+			eNotify(new ENotificationImpl(this, Notification.SET, VizPackage.NODE_SHAPE_CONTENT__VALUE, oldValue, value,
+					!oldValueESet));
 		}
 	}
 
@@ -431,8 +432,8 @@ public class NodeShapeContentImpl extends MinimalEObjectImpl.Container implement
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case VizPackage.NODE_SHAPE_CONTENT__SPELLS:
-			return basicSetSpells(null, msgs);
+			case VizPackage.NODE_SHAPE_CONTENT__SPELLS:
+				return basicSetSpells(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -445,20 +446,20 @@ public class NodeShapeContentImpl extends MinimalEObjectImpl.Container implement
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case VizPackage.NODE_SHAPE_CONTENT__SPELLS:
-			return getSpells();
-		case VizPackage.NODE_SHAPE_CONTENT__END:
-			return getEnd();
-		case VizPackage.NODE_SHAPE_CONTENT__ENDOPEN:
-			return getEndopen();
-		case VizPackage.NODE_SHAPE_CONTENT__START:
-			return getStart();
-		case VizPackage.NODE_SHAPE_CONTENT__STARTOPEN:
-			return getStartopen();
-		case VizPackage.NODE_SHAPE_CONTENT__URI:
-			return getUri();
-		case VizPackage.NODE_SHAPE_CONTENT__VALUE:
-			return getValue();
+			case VizPackage.NODE_SHAPE_CONTENT__SPELLS:
+				return getSpells();
+			case VizPackage.NODE_SHAPE_CONTENT__END:
+				return getEnd();
+			case VizPackage.NODE_SHAPE_CONTENT__ENDOPEN:
+				return getEndopen();
+			case VizPackage.NODE_SHAPE_CONTENT__START:
+				return getStart();
+			case VizPackage.NODE_SHAPE_CONTENT__STARTOPEN:
+				return getStartopen();
+			case VizPackage.NODE_SHAPE_CONTENT__URI:
+				return getUri();
+			case VizPackage.NODE_SHAPE_CONTENT__VALUE:
+				return getValue();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -471,27 +472,27 @@ public class NodeShapeContentImpl extends MinimalEObjectImpl.Container implement
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case VizPackage.NODE_SHAPE_CONTENT__SPELLS:
-			setSpells((SpellsContent) newValue);
-			return;
-		case VizPackage.NODE_SHAPE_CONTENT__END:
-			setEnd(newValue);
-			return;
-		case VizPackage.NODE_SHAPE_CONTENT__ENDOPEN:
-			setEndopen(newValue);
-			return;
-		case VizPackage.NODE_SHAPE_CONTENT__START:
-			setStart(newValue);
-			return;
-		case VizPackage.NODE_SHAPE_CONTENT__STARTOPEN:
-			setStartopen(newValue);
-			return;
-		case VizPackage.NODE_SHAPE_CONTENT__URI:
-			setUri((String) newValue);
-			return;
-		case VizPackage.NODE_SHAPE_CONTENT__VALUE:
-			setValue((NodeShapeType) newValue);
-			return;
+			case VizPackage.NODE_SHAPE_CONTENT__SPELLS:
+				setSpells((SpellsContent) newValue);
+				return;
+			case VizPackage.NODE_SHAPE_CONTENT__END:
+				setEnd(newValue);
+				return;
+			case VizPackage.NODE_SHAPE_CONTENT__ENDOPEN:
+				setEndopen(newValue);
+				return;
+			case VizPackage.NODE_SHAPE_CONTENT__START:
+				setStart(newValue);
+				return;
+			case VizPackage.NODE_SHAPE_CONTENT__STARTOPEN:
+				setStartopen(newValue);
+				return;
+			case VizPackage.NODE_SHAPE_CONTENT__URI:
+				setUri((String) newValue);
+				return;
+			case VizPackage.NODE_SHAPE_CONTENT__VALUE:
+				setValue((NodeShapeType) newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -504,27 +505,27 @@ public class NodeShapeContentImpl extends MinimalEObjectImpl.Container implement
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case VizPackage.NODE_SHAPE_CONTENT__SPELLS:
-			setSpells((SpellsContent) null);
-			return;
-		case VizPackage.NODE_SHAPE_CONTENT__END:
-			setEnd(END_EDEFAULT);
-			return;
-		case VizPackage.NODE_SHAPE_CONTENT__ENDOPEN:
-			setEndopen(ENDOPEN_EDEFAULT);
-			return;
-		case VizPackage.NODE_SHAPE_CONTENT__START:
-			setStart(START_EDEFAULT);
-			return;
-		case VizPackage.NODE_SHAPE_CONTENT__STARTOPEN:
-			setStartopen(STARTOPEN_EDEFAULT);
-			return;
-		case VizPackage.NODE_SHAPE_CONTENT__URI:
-			setUri(URI_EDEFAULT);
-			return;
-		case VizPackage.NODE_SHAPE_CONTENT__VALUE:
-			unsetValue();
-			return;
+			case VizPackage.NODE_SHAPE_CONTENT__SPELLS:
+				setSpells((SpellsContent) null);
+				return;
+			case VizPackage.NODE_SHAPE_CONTENT__END:
+				setEnd(END_EDEFAULT);
+				return;
+			case VizPackage.NODE_SHAPE_CONTENT__ENDOPEN:
+				setEndopen(ENDOPEN_EDEFAULT);
+				return;
+			case VizPackage.NODE_SHAPE_CONTENT__START:
+				setStart(START_EDEFAULT);
+				return;
+			case VizPackage.NODE_SHAPE_CONTENT__STARTOPEN:
+				setStartopen(STARTOPEN_EDEFAULT);
+				return;
+			case VizPackage.NODE_SHAPE_CONTENT__URI:
+				setUri(URI_EDEFAULT);
+				return;
+			case VizPackage.NODE_SHAPE_CONTENT__VALUE:
+				unsetValue();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -537,20 +538,20 @@ public class NodeShapeContentImpl extends MinimalEObjectImpl.Container implement
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case VizPackage.NODE_SHAPE_CONTENT__SPELLS:
-			return spells != null;
-		case VizPackage.NODE_SHAPE_CONTENT__END:
-			return END_EDEFAULT == null ? end != null : !END_EDEFAULT.equals(end);
-		case VizPackage.NODE_SHAPE_CONTENT__ENDOPEN:
-			return ENDOPEN_EDEFAULT == null ? endopen != null : !ENDOPEN_EDEFAULT.equals(endopen);
-		case VizPackage.NODE_SHAPE_CONTENT__START:
-			return START_EDEFAULT == null ? start != null : !START_EDEFAULT.equals(start);
-		case VizPackage.NODE_SHAPE_CONTENT__STARTOPEN:
-			return STARTOPEN_EDEFAULT == null ? startopen != null : !STARTOPEN_EDEFAULT.equals(startopen);
-		case VizPackage.NODE_SHAPE_CONTENT__URI:
-			return URI_EDEFAULT == null ? uri != null : !URI_EDEFAULT.equals(uri);
-		case VizPackage.NODE_SHAPE_CONTENT__VALUE:
-			return isSetValue();
+			case VizPackage.NODE_SHAPE_CONTENT__SPELLS:
+				return spells != null;
+			case VizPackage.NODE_SHAPE_CONTENT__END:
+				return END_EDEFAULT == null ? end != null : !END_EDEFAULT.equals(end);
+			case VizPackage.NODE_SHAPE_CONTENT__ENDOPEN:
+				return ENDOPEN_EDEFAULT == null ? endopen != null : !ENDOPEN_EDEFAULT.equals(endopen);
+			case VizPackage.NODE_SHAPE_CONTENT__START:
+				return START_EDEFAULT == null ? start != null : !START_EDEFAULT.equals(start);
+			case VizPackage.NODE_SHAPE_CONTENT__STARTOPEN:
+				return STARTOPEN_EDEFAULT == null ? startopen != null : !STARTOPEN_EDEFAULT.equals(startopen);
+			case VizPackage.NODE_SHAPE_CONTENT__URI:
+				return URI_EDEFAULT == null ? uri != null : !URI_EDEFAULT.equals(uri);
+			case VizPackage.NODE_SHAPE_CONTENT__VALUE:
+				return isSetValue();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -588,4 +589,4 @@ public class NodeShapeContentImpl extends MinimalEObjectImpl.Container implement
 		return result.toString();
 	}
 
-} //NodeShapeContentImpl
+} // NodeShapeContentImpl

@@ -214,8 +214,8 @@ public enum AttrtypeType implements Enumerator {
 	 * 
 	 * @generated
 	 */
-	private static final AttrtypeType[] VALUES_ARRAY = new AttrtypeType[] { INTEGER, LONG, DOUBLE, FLOAT, BOOLEAN,
-			LISTSTRING, STRING, ANY_URI, };
+	private static final AttrtypeType[] VALUES_ARRAY =
+			new AttrtypeType[] { INTEGER, LONG, DOUBLE, FLOAT, BOOLEAN, LISTSTRING, STRING, ANY_URI, };
 
 	/**
 	 * A public read-only list of all the '<em><b>Attrtype Type</b></em>' enumerators. <!-- begin-user-doc --> <!--
@@ -229,6 +229,8 @@ public enum AttrtypeType implements Enumerator {
 	 * Returns the '<em><b>Attrtype Type</b></em>' literal with the specified literal value. <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
+	 * @param literal the literal.
+	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
 	public static AttrtypeType get(String literal) {
@@ -244,6 +246,8 @@ public enum AttrtypeType implements Enumerator {
 	 * Returns the '<em><b>Attrtype Type</b></em>' literal with the specified name. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
 	 * 
+	 * @param name the name.
+	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
 	public static AttrtypeType getByName(String name) {
@@ -259,26 +263,28 @@ public enum AttrtypeType implements Enumerator {
 	 * Returns the '<em><b>Attrtype Type</b></em>' literal with the specified integer value. <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
+	 * @param value the integer value.
+	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
 	public static AttrtypeType get(int value) {
 		switch (value) {
-		case INTEGER_VALUE:
-			return INTEGER;
-		case LONG_VALUE:
-			return LONG;
-		case DOUBLE_VALUE:
-			return DOUBLE;
-		case FLOAT_VALUE:
-			return FLOAT;
-		case BOOLEAN_VALUE:
-			return BOOLEAN;
-		case LISTSTRING_VALUE:
-			return LISTSTRING;
-		case STRING_VALUE:
-			return STRING;
-		case ANY_URI_VALUE:
-			return ANY_URI;
+			case INTEGER_VALUE:
+				return INTEGER;
+			case LONG_VALUE:
+				return LONG;
+			case DOUBLE_VALUE:
+				return DOUBLE;
+			case FLOAT_VALUE:
+				return FLOAT;
+			case BOOLEAN_VALUE:
+				return BOOLEAN;
+			case LISTSTRING_VALUE:
+				return LISTSTRING;
+			case STRING_VALUE:
+				return STRING;
+			case ANY_URI_VALUE:
+				return ANY_URI;
 		}
 		return null;
 	}
@@ -356,4 +362,4 @@ public enum AttrtypeType implements Enumerator {
 		return literal;
 	}
 
-} //AttrtypeType
+} // AttrtypeType

@@ -43,4 +43,4 @@ public class Archlight_3_0ResourceFactoryImpl extends ResourceFactoryImpl {
 		return result;
 	}
 
-} //Archlight_3_0ResourceFactoryImpl
+} // Archlight_3_0ResourceFactoryImpl

@@ -43,7 +43,7 @@ public class Implementation_3_0Switch<T> extends Switch<T> {
 	/**
 	 * Checks whether this is a switch for the given package. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
-	 * @parameter ePackage the package in question.
+	 * @param ePackage the package in question.
 	 * @return whether this is a switch for the given package.
 	 * @generated
 	 */
@@ -62,46 +62,47 @@ public class Implementation_3_0Switch<T> extends Switch<T> {
 	@Override
 	protected T doSwitch(int classifierID, EObject theEObject) {
 		switch (classifierID) {
-		case Implementation_3_0Package.IMPLEMENTATION: {
-			Implementation implementation = (Implementation) theEObject;
-			T result = caseImplementation(implementation);
-			if (result == null) {
-				result = defaultCase(theEObject);
+			case Implementation_3_0Package.IMPLEMENTATION: {
+				Implementation implementation = (Implementation) theEObject;
+				T result = caseImplementation(implementation);
+				if (result == null) {
+					result = defaultCase(theEObject);
+				}
+				return result;
 			}
-			return result;
-		}
-		case Implementation_3_0Package.IMPLEMENTATION_EXTENSION: {
-			ImplementationExtension implementationExtension = (ImplementationExtension) theEObject;
-			T result = caseImplementationExtension(implementationExtension);
-			if (result == null) {
-				result = caseExtension(implementationExtension);
+			case Implementation_3_0Package.IMPLEMENTATION_EXTENSION: {
+				ImplementationExtension implementationExtension = (ImplementationExtension) theEObject;
+				T result = caseImplementationExtension(implementationExtension);
+				if (result == null) {
+					result = caseExtension(implementationExtension);
+				}
+				if (result == null) {
+					result = defaultCase(theEObject);
+				}
+				return result;
 			}
-			if (result == null) {
-				result = defaultCase(theEObject);
+			case Implementation_3_0Package.INITIALIZATION_PARAMETER: {
+				InitializationParameter initializationParameter = (InitializationParameter) theEObject;
+				T result = caseInitializationParameter(initializationParameter);
+				if (result == null) {
+					result = defaultCase(theEObject);
+				}
+				return result;
 			}
-			return result;
-		}
-		case Implementation_3_0Package.INITIALIZATION_PARAMETER: {
-			InitializationParameter initializationParameter = (InitializationParameter) theEObject;
-			T result = caseInitializationParameter(initializationParameter);
-			if (result == null) {
-				result = defaultCase(theEObject);
+			case Implementation_3_0Package.INITIALIZATION_PARAMETERS_IMPLEMENTATION: {
+				InitializationParametersImplementation initializationParametersImplementation =
+						(InitializationParametersImplementation) theEObject;
+				T result = caseInitializationParametersImplementation(initializationParametersImplementation);
+				if (result == null) {
+					result = caseImplementation(initializationParametersImplementation);
+				}
+				if (result == null) {
+					result = defaultCase(theEObject);
+				}
+				return result;
 			}
-			return result;
-		}
-		case Implementation_3_0Package.INITIALIZATION_PARAMETERS_IMPLEMENTATION: {
-			InitializationParametersImplementation initializationParametersImplementation = (InitializationParametersImplementation) theEObject;
-			T result = caseInitializationParametersImplementation(initializationParametersImplementation);
-			if (result == null) {
-				result = caseImplementation(initializationParametersImplementation);
-			}
-			if (result == null) {
-				result = defaultCase(theEObject);
-			}
-			return result;
-		}
-		default:
-			return defaultCase(theEObject);
+			default:
+				return defaultCase(theEObject);
 		}
 	}
 
@@ -110,8 +111,7 @@ public class Implementation_3_0Switch<T> extends Switch<T> {
 	 * --> This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc
 	 * -->
 	 * 
-	 * @param object
-	 *            the target of the switch.
+	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>Implementation</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
@@ -125,8 +125,7 @@ public class Implementation_3_0Switch<T> extends Switch<T> {
 	 * begin-user-doc --> This implementation returns null; returning a non-null result will terminate the switch. <!--
 	 * end-user-doc -->
 	 * 
-	 * @param object
-	 *            the target of the switch.
+	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>Implementation Extension</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
@@ -140,8 +139,7 @@ public class Implementation_3_0Switch<T> extends Switch<T> {
 	 * begin-user-doc --> This implementation returns null; returning a non-null result will terminate the switch. <!--
 	 * end-user-doc -->
 	 * 
-	 * @param object
-	 *            the target of the switch.
+	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>Initialization Parameter</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
@@ -155,8 +153,7 @@ public class Implementation_3_0Switch<T> extends Switch<T> {
 	 * <em>Initialization Parameters Implementation</em>'. <!-- begin-user-doc --> This implementation returns null;
 	 * returning a non-null result will terminate the switch. <!-- end-user-doc -->
 	 * 
-	 * @param object
-	 *            the target of the switch.
+	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '
 	 *         <em>Initialization Parameters Implementation</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
@@ -170,8 +167,7 @@ public class Implementation_3_0Switch<T> extends Switch<T> {
 	 * Returns the result of interpreting the object as an instance of '<em>Extension</em>'. <!-- begin-user-doc -->
 	 * This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
 	 * 
-	 * @param object
-	 *            the target of the switch.
+	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>Extension</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
@@ -185,8 +181,7 @@ public class Implementation_3_0Switch<T> extends Switch<T> {
 	 * implementation returns null; returning a non-null result will terminate the switch, but this is the last case
 	 * anyway. <!-- end-user-doc -->
 	 * 
-	 * @param object
-	 *            the target of the switch.
+	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>EObject</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject)
 	 * @generated
@@ -196,4 +191,4 @@ public class Implementation_3_0Switch<T> extends Switch<T> {
 		return null;
 	}
 
-} //Implementation_3_0Switch
+} // Implementation_3_0Switch

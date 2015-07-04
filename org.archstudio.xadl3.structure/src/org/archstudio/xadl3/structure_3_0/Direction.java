@@ -10,15 +10,10 @@ import org.eclipse.emf.common.util.Enumerator;
 
 /**
  * <!-- begin-user-doc --> A representation of the literals of the enumeration '<em><b>Direction</b></em>', and utility
- * methods for working with them. <!-- end-user-doc --> <!-- begin-model-doc -->
- * 
- * This enumeration defines legal interface directions.
- * 
- * They are: - none: No directionality selected or implied. - in: Incoming interface. Provided services should be "in"
- * interfaces. - out: Outgoing interface. Required services should be "out" interfaces. - inout: Incoming AND outgoing
- * interface. Endpoint both provides and requires a service.
- * 
- * <!-- end-model-doc -->
+ * methods for working with them. <!-- end-user-doc --> <!-- begin-model-doc --> This enumeration defines legal
+ * interface directions. They are: - none: No directionality selected or implied. - in: Incoming interface. Provided
+ * services should be "in" interfaces. - out: Outgoing interface. Required services should be "out" interfaces. - inout:
+ * Incoming AND outgoing interface. Endpoint both provides and requires a service. <!-- end-model-doc -->
  * 
  * @see org.archstudio.xadl3.structure_3_0.Structure_3_0Package#getDirection()
  * @model extendedMetaData="name='Direction'"
@@ -140,6 +135,8 @@ public enum Direction implements Enumerator {
 	 * Returns the '<em><b>Direction</b></em>' literal with the specified literal value. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
 	 * 
+	 * @param literal the literal.
+	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
 	public static Direction get(String literal) {
@@ -155,6 +152,8 @@ public enum Direction implements Enumerator {
 	 * Returns the '<em><b>Direction</b></em>' literal with the specified name. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
 	 * 
+	 * @param name the name.
+	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
 	public static Direction getByName(String name) {
@@ -170,18 +169,20 @@ public enum Direction implements Enumerator {
 	 * Returns the '<em><b>Direction</b></em>' literal with the specified integer value. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
 	 * 
+	 * @param value the integer value.
+	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
 	public static Direction get(int value) {
 		switch (value) {
-		case NONE_VALUE:
-			return NONE;
-		case IN_VALUE:
-			return IN;
-		case OUT_VALUE:
-			return OUT;
-		case INOUT_VALUE:
-			return INOUT;
+			case NONE_VALUE:
+				return NONE;
+			case IN_VALUE:
+				return IN;
+			case OUT_VALUE:
+				return OUT;
+			case INOUT_VALUE:
+				return INOUT;
 		}
 		return null;
 	}
@@ -259,4 +260,4 @@ public enum Direction implements Enumerator {
 		return literal;
 	}
 
-} //Direction
+} // Direction

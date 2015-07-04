@@ -5,6 +5,12 @@ package net.gexf_1_2.viz.util;
 import java.math.BigInteger;
 import java.util.Map;
 
+import org.eclipse.emf.common.util.DiagnosticChain;
+import org.eclipse.emf.common.util.ResourceLocator;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.util.EObjectValidator;
+import org.eclipse.emf.ecore.xml.type.util.XMLTypeValidator;
+
 import net.gexf_1_2.viz.ColorContent;
 import net.gexf_1_2.viz.DocumentRoot;
 import net.gexf_1_2.viz.EdgeShapeContent;
@@ -15,12 +21,6 @@ import net.gexf_1_2.viz.PositionContent;
 import net.gexf_1_2.viz.SizeContent;
 import net.gexf_1_2.viz.ThicknessContent;
 import net.gexf_1_2.viz.VizPackage;
-
-import org.eclipse.emf.common.util.DiagnosticChain;
-import org.eclipse.emf.common.util.ResourceLocator;
-import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.util.EObjectValidator;
-import org.eclipse.emf.ecore.xml.type.util.XMLTypeValidator;
 
 /**
  * <!-- begin-user-doc --> The <b>Validator</b> for the model. <!-- end-user-doc -->
@@ -97,50 +97,51 @@ public class VizValidator extends EObjectValidator {
 	 * @generated
 	 */
 	@Override
-	protected boolean validate(int classifierID, Object value, DiagnosticChain diagnostics, Map<Object, Object> context) {
+	protected boolean validate(int classifierID, Object value, DiagnosticChain diagnostics,
+			Map<Object, Object> context) {
 		switch (classifierID) {
-		case VizPackage.COLOR_CONTENT:
-			return validateColorContent((ColorContent) value, diagnostics, context);
-		case VizPackage.EDGE_SHAPE_CONTENT:
-			return validateEdgeShapeContent((EdgeShapeContent) value, diagnostics, context);
-		case VizPackage.NODE_SHAPE_CONTENT:
-			return validateNodeShapeContent((NodeShapeContent) value, diagnostics, context);
-		case VizPackage.POSITION_CONTENT:
-			return validatePositionContent((PositionContent) value, diagnostics, context);
-		case VizPackage.SIZE_CONTENT:
-			return validateSizeContent((SizeContent) value, diagnostics, context);
-		case VizPackage.THICKNESS_CONTENT:
-			return validateThicknessContent((ThicknessContent) value, diagnostics, context);
-		case VizPackage.DOCUMENT_ROOT:
-			return validateDocumentRoot((DocumentRoot) value, diagnostics, context);
-		case VizPackage.EDGE_SHAPE_TYPE:
-			return validateEdgeShapeType((EdgeShapeType) value, diagnostics, context);
-		case VizPackage.NODE_SHAPE_TYPE:
-			return validateNodeShapeType((NodeShapeType) value, diagnostics, context);
-		case VizPackage.ALPHA_CHANNEL:
-			return validateAlphaChannel((Float) value, diagnostics, context);
-		case VizPackage.ALPHA_CHANNEL_OBJECT:
-			return validateAlphaChannelObject((Float) value, diagnostics, context);
-		case VizPackage.COLOR_CHANNEL:
-			return validateColorChannel((BigInteger) value, diagnostics, context);
-		case VizPackage.EDGE_SHAPE_TYPE_OBJECT:
-			return validateEdgeShapeTypeObject((EdgeShapeType) value, diagnostics, context);
-		case VizPackage.NODE_SHAPE_TYPE_OBJECT:
-			return validateNodeShapeTypeObject((NodeShapeType) value, diagnostics, context);
-		case VizPackage.SIZE_TYPE:
-			return validateSizeType((Float) value, diagnostics, context);
-		case VizPackage.SIZE_TYPE_OBJECT:
-			return validateSizeTypeObject((Float) value, diagnostics, context);
-		case VizPackage.SPACE_POINT:
-			return validateSpacePoint((Float) value, diagnostics, context);
-		case VizPackage.SPACE_POINT_OBJECT:
-			return validateSpacePointObject((Float) value, diagnostics, context);
-		case VizPackage.THICKNESS_TYPE:
-			return validateThicknessType((Float) value, diagnostics, context);
-		case VizPackage.THICKNESS_TYPE_OBJECT:
-			return validateThicknessTypeObject((Float) value, diagnostics, context);
-		default:
-			return true;
+			case VizPackage.COLOR_CONTENT:
+				return validateColorContent((ColorContent) value, diagnostics, context);
+			case VizPackage.EDGE_SHAPE_CONTENT:
+				return validateEdgeShapeContent((EdgeShapeContent) value, diagnostics, context);
+			case VizPackage.NODE_SHAPE_CONTENT:
+				return validateNodeShapeContent((NodeShapeContent) value, diagnostics, context);
+			case VizPackage.POSITION_CONTENT:
+				return validatePositionContent((PositionContent) value, diagnostics, context);
+			case VizPackage.SIZE_CONTENT:
+				return validateSizeContent((SizeContent) value, diagnostics, context);
+			case VizPackage.THICKNESS_CONTENT:
+				return validateThicknessContent((ThicknessContent) value, diagnostics, context);
+			case VizPackage.DOCUMENT_ROOT:
+				return validateDocumentRoot((DocumentRoot) value, diagnostics, context);
+			case VizPackage.EDGE_SHAPE_TYPE:
+				return validateEdgeShapeType((EdgeShapeType) value, diagnostics, context);
+			case VizPackage.NODE_SHAPE_TYPE:
+				return validateNodeShapeType((NodeShapeType) value, diagnostics, context);
+			case VizPackage.ALPHA_CHANNEL:
+				return validateAlphaChannel((Float) value, diagnostics, context);
+			case VizPackage.ALPHA_CHANNEL_OBJECT:
+				return validateAlphaChannelObject((Float) value, diagnostics, context);
+			case VizPackage.COLOR_CHANNEL:
+				return validateColorChannel((BigInteger) value, diagnostics, context);
+			case VizPackage.EDGE_SHAPE_TYPE_OBJECT:
+				return validateEdgeShapeTypeObject((EdgeShapeType) value, diagnostics, context);
+			case VizPackage.NODE_SHAPE_TYPE_OBJECT:
+				return validateNodeShapeTypeObject((NodeShapeType) value, diagnostics, context);
+			case VizPackage.SIZE_TYPE:
+				return validateSizeType((Float) value, diagnostics, context);
+			case VizPackage.SIZE_TYPE_OBJECT:
+				return validateSizeTypeObject((Float) value, diagnostics, context);
+			case VizPackage.SPACE_POINT:
+				return validateSpacePoint((Float) value, diagnostics, context);
+			case VizPackage.SPACE_POINT_OBJECT:
+				return validateSpacePointObject((Float) value, diagnostics, context);
+			case VizPackage.THICKNESS_TYPE:
+				return validateThicknessType((Float) value, diagnostics, context);
+			case VizPackage.THICKNESS_TYPE_OBJECT:
+				return validateThicknessTypeObject((Float) value, diagnostics, context);
+			default:
+				return true;
 		}
 	}
 
@@ -189,7 +190,8 @@ public class VizValidator extends EObjectValidator {
 	 * 
 	 * @generated
 	 */
-	public boolean validateSizeContent(SizeContent sizeContent, DiagnosticChain diagnostics, Map<Object, Object> context) {
+	public boolean validateSizeContent(SizeContent sizeContent, DiagnosticChain diagnostics,
+			Map<Object, Object> context) {
 		return validate_EveryDefaultConstraint(sizeContent, diagnostics, context);
 	}
 
@@ -259,7 +261,8 @@ public class VizValidator extends EObjectValidator {
 	 * 
 	 * @generated
 	 */
-	public boolean validateAlphaChannel_Min(float alphaChannel, DiagnosticChain diagnostics, Map<Object, Object> context) {
+	public boolean validateAlphaChannel_Min(float alphaChannel, DiagnosticChain diagnostics,
+			Map<Object, Object> context) {
 		boolean result = alphaChannel >= ALPHA_CHANNEL__MIN__VALUE;
 		if (!result && diagnostics != null) {
 			reportMinViolation(VizPackage.Literals.ALPHA_CHANNEL, alphaChannel, ALPHA_CHANNEL__MIN__VALUE, true,
@@ -281,7 +284,8 @@ public class VizValidator extends EObjectValidator {
 	 * 
 	 * @generated
 	 */
-	public boolean validateAlphaChannel_Max(float alphaChannel, DiagnosticChain diagnostics, Map<Object, Object> context) {
+	public boolean validateAlphaChannel_Max(float alphaChannel, DiagnosticChain diagnostics,
+			Map<Object, Object> context) {
 		boolean result = alphaChannel <= ALPHA_CHANNEL__MAX__VALUE;
 		if (!result && diagnostics != null) {
 			reportMaxViolation(VizPackage.Literals.ALPHA_CHANNEL, alphaChannel, ALPHA_CHANNEL__MAX__VALUE, true,
@@ -398,7 +402,8 @@ public class VizValidator extends EObjectValidator {
 	 * 
 	 * @generated
 	 */
-	public boolean validateSizeTypeObject(Float sizeTypeObject, DiagnosticChain diagnostics, Map<Object, Object> context) {
+	public boolean validateSizeTypeObject(Float sizeTypeObject, DiagnosticChain diagnostics,
+			Map<Object, Object> context) {
 		boolean result = validateSizeType_Min(sizeTypeObject, diagnostics, context);
 		return result;
 	}
@@ -427,7 +432,8 @@ public class VizValidator extends EObjectValidator {
 	 * 
 	 * @generated
 	 */
-	public boolean validateThicknessType(float thicknessType, DiagnosticChain diagnostics, Map<Object, Object> context) {
+	public boolean validateThicknessType(float thicknessType, DiagnosticChain diagnostics,
+			Map<Object, Object> context) {
 		boolean result = validateThicknessType_Min(thicknessType, diagnostics, context);
 		return result;
 	}
@@ -480,4 +486,4 @@ public class VizValidator extends EObjectValidator {
 		return super.getResourceLocator();
 	}
 
-} //VizValidator
+} // VizValidator

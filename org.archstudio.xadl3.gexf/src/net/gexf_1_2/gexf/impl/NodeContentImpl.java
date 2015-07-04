@@ -4,6 +4,17 @@ package net.gexf_1_2.gexf.impl;
 
 import java.util.Collection;
 
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+import org.eclipse.emf.ecore.util.BasicFeatureMap;
+import org.eclipse.emf.ecore.util.FeatureMap;
+import org.eclipse.emf.ecore.util.InternalEList;
+
 import net.gexf_1_2.gexf.AttvaluesContent;
 import net.gexf_1_2.gexf.EdgesContent;
 import net.gexf_1_2.gexf.GexfPackage;
@@ -16,21 +27,11 @@ import net.gexf_1_2.viz.NodeShapeContent;
 import net.gexf_1_2.viz.PositionContent;
 import net.gexf_1_2.viz.SizeContent;
 
-import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
-import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-import org.eclipse.emf.ecore.util.BasicFeatureMap;
-import org.eclipse.emf.ecore.util.FeatureMap;
-import org.eclipse.emf.ecore.util.InternalEList;
-
 /**
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Node Content</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  * <li>{@link net.gexf_1_2.gexf.impl.NodeContentImpl#getGroup <em>Group</em>}</li>
  * <li>{@link net.gexf_1_2.gexf.impl.NodeContentImpl#getAttvalues <em>Attvalues</em>}</li>
@@ -50,7 +51,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <li>{@link net.gexf_1_2.gexf.impl.NodeContentImpl#getStart <em>Start</em>}</li>
  * <li>{@link net.gexf_1_2.gexf.impl.NodeContentImpl#getStartopen <em>Startopen</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -501,26 +501,26 @@ public class NodeContentImpl extends MinimalEObjectImpl.Container implements Nod
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case GexfPackage.NODE_CONTENT__GROUP:
-			return ((InternalEList<?>) getGroup()).basicRemove(otherEnd, msgs);
-		case GexfPackage.NODE_CONTENT__ATTVALUES:
-			return ((InternalEList<?>) getAttvalues()).basicRemove(otherEnd, msgs);
-		case GexfPackage.NODE_CONTENT__SPELLS:
-			return ((InternalEList<?>) getSpells()).basicRemove(otherEnd, msgs);
-		case GexfPackage.NODE_CONTENT__NODES:
-			return ((InternalEList<?>) getNodes()).basicRemove(otherEnd, msgs);
-		case GexfPackage.NODE_CONTENT__EDGES:
-			return ((InternalEList<?>) getEdges()).basicRemove(otherEnd, msgs);
-		case GexfPackage.NODE_CONTENT__PARENTS:
-			return ((InternalEList<?>) getParents()).basicRemove(otherEnd, msgs);
-		case GexfPackage.NODE_CONTENT__COLOR:
-			return ((InternalEList<?>) getColor()).basicRemove(otherEnd, msgs);
-		case GexfPackage.NODE_CONTENT__POSITION:
-			return ((InternalEList<?>) getPosition()).basicRemove(otherEnd, msgs);
-		case GexfPackage.NODE_CONTENT__SIZE:
-			return ((InternalEList<?>) getSize()).basicRemove(otherEnd, msgs);
-		case GexfPackage.NODE_CONTENT__SHAPE:
-			return ((InternalEList<?>) getShape()).basicRemove(otherEnd, msgs);
+			case GexfPackage.NODE_CONTENT__GROUP:
+				return ((InternalEList<?>) getGroup()).basicRemove(otherEnd, msgs);
+			case GexfPackage.NODE_CONTENT__ATTVALUES:
+				return ((InternalEList<?>) getAttvalues()).basicRemove(otherEnd, msgs);
+			case GexfPackage.NODE_CONTENT__SPELLS:
+				return ((InternalEList<?>) getSpells()).basicRemove(otherEnd, msgs);
+			case GexfPackage.NODE_CONTENT__NODES:
+				return ((InternalEList<?>) getNodes()).basicRemove(otherEnd, msgs);
+			case GexfPackage.NODE_CONTENT__EDGES:
+				return ((InternalEList<?>) getEdges()).basicRemove(otherEnd, msgs);
+			case GexfPackage.NODE_CONTENT__PARENTS:
+				return ((InternalEList<?>) getParents()).basicRemove(otherEnd, msgs);
+			case GexfPackage.NODE_CONTENT__COLOR:
+				return ((InternalEList<?>) getColor()).basicRemove(otherEnd, msgs);
+			case GexfPackage.NODE_CONTENT__POSITION:
+				return ((InternalEList<?>) getPosition()).basicRemove(otherEnd, msgs);
+			case GexfPackage.NODE_CONTENT__SIZE:
+				return ((InternalEList<?>) getSize()).basicRemove(otherEnd, msgs);
+			case GexfPackage.NODE_CONTENT__SHAPE:
+				return ((InternalEList<?>) getShape()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -533,43 +533,43 @@ public class NodeContentImpl extends MinimalEObjectImpl.Container implements Nod
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case GexfPackage.NODE_CONTENT__GROUP:
-			if (coreType) {
-				return getGroup();
-			}
-			return ((FeatureMap.Internal) getGroup()).getWrapper();
-		case GexfPackage.NODE_CONTENT__ATTVALUES:
-			return getAttvalues();
-		case GexfPackage.NODE_CONTENT__SPELLS:
-			return getSpells();
-		case GexfPackage.NODE_CONTENT__NODES:
-			return getNodes();
-		case GexfPackage.NODE_CONTENT__EDGES:
-			return getEdges();
-		case GexfPackage.NODE_CONTENT__PARENTS:
-			return getParents();
-		case GexfPackage.NODE_CONTENT__COLOR:
-			return getColor();
-		case GexfPackage.NODE_CONTENT__POSITION:
-			return getPosition();
-		case GexfPackage.NODE_CONTENT__SIZE:
-			return getSize();
-		case GexfPackage.NODE_CONTENT__SHAPE:
-			return getShape();
-		case GexfPackage.NODE_CONTENT__END:
-			return getEnd();
-		case GexfPackage.NODE_CONTENT__ENDOPEN:
-			return getEndopen();
-		case GexfPackage.NODE_CONTENT__ID:
-			return getId();
-		case GexfPackage.NODE_CONTENT__LABEL:
-			return getLabel();
-		case GexfPackage.NODE_CONTENT__PID:
-			return getPid();
-		case GexfPackage.NODE_CONTENT__START:
-			return getStart();
-		case GexfPackage.NODE_CONTENT__STARTOPEN:
-			return getStartopen();
+			case GexfPackage.NODE_CONTENT__GROUP:
+				if (coreType) {
+					return getGroup();
+				}
+				return ((FeatureMap.Internal) getGroup()).getWrapper();
+			case GexfPackage.NODE_CONTENT__ATTVALUES:
+				return getAttvalues();
+			case GexfPackage.NODE_CONTENT__SPELLS:
+				return getSpells();
+			case GexfPackage.NODE_CONTENT__NODES:
+				return getNodes();
+			case GexfPackage.NODE_CONTENT__EDGES:
+				return getEdges();
+			case GexfPackage.NODE_CONTENT__PARENTS:
+				return getParents();
+			case GexfPackage.NODE_CONTENT__COLOR:
+				return getColor();
+			case GexfPackage.NODE_CONTENT__POSITION:
+				return getPosition();
+			case GexfPackage.NODE_CONTENT__SIZE:
+				return getSize();
+			case GexfPackage.NODE_CONTENT__SHAPE:
+				return getShape();
+			case GexfPackage.NODE_CONTENT__END:
+				return getEnd();
+			case GexfPackage.NODE_CONTENT__ENDOPEN:
+				return getEndopen();
+			case GexfPackage.NODE_CONTENT__ID:
+				return getId();
+			case GexfPackage.NODE_CONTENT__LABEL:
+				return getLabel();
+			case GexfPackage.NODE_CONTENT__PID:
+				return getPid();
+			case GexfPackage.NODE_CONTENT__START:
+				return getStart();
+			case GexfPackage.NODE_CONTENT__STARTOPEN:
+				return getStartopen();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -583,66 +583,66 @@ public class NodeContentImpl extends MinimalEObjectImpl.Container implements Nod
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case GexfPackage.NODE_CONTENT__GROUP:
-			((FeatureMap.Internal) getGroup()).set(newValue);
-			return;
-		case GexfPackage.NODE_CONTENT__ATTVALUES:
-			getAttvalues().clear();
-			getAttvalues().addAll((Collection<? extends AttvaluesContent>) newValue);
-			return;
-		case GexfPackage.NODE_CONTENT__SPELLS:
-			getSpells().clear();
-			getSpells().addAll((Collection<? extends SpellsContent>) newValue);
-			return;
-		case GexfPackage.NODE_CONTENT__NODES:
-			getNodes().clear();
-			getNodes().addAll((Collection<? extends NodesContent>) newValue);
-			return;
-		case GexfPackage.NODE_CONTENT__EDGES:
-			getEdges().clear();
-			getEdges().addAll((Collection<? extends EdgesContent>) newValue);
-			return;
-		case GexfPackage.NODE_CONTENT__PARENTS:
-			getParents().clear();
-			getParents().addAll((Collection<? extends ParentsContent>) newValue);
-			return;
-		case GexfPackage.NODE_CONTENT__COLOR:
-			getColor().clear();
-			getColor().addAll((Collection<? extends ColorContent>) newValue);
-			return;
-		case GexfPackage.NODE_CONTENT__POSITION:
-			getPosition().clear();
-			getPosition().addAll((Collection<? extends PositionContent>) newValue);
-			return;
-		case GexfPackage.NODE_CONTENT__SIZE:
-			getSize().clear();
-			getSize().addAll((Collection<? extends SizeContent>) newValue);
-			return;
-		case GexfPackage.NODE_CONTENT__SHAPE:
-			getShape().clear();
-			getShape().addAll((Collection<? extends NodeShapeContent>) newValue);
-			return;
-		case GexfPackage.NODE_CONTENT__END:
-			setEnd(newValue);
-			return;
-		case GexfPackage.NODE_CONTENT__ENDOPEN:
-			setEndopen(newValue);
-			return;
-		case GexfPackage.NODE_CONTENT__ID:
-			setId(newValue);
-			return;
-		case GexfPackage.NODE_CONTENT__LABEL:
-			setLabel((String) newValue);
-			return;
-		case GexfPackage.NODE_CONTENT__PID:
-			setPid(newValue);
-			return;
-		case GexfPackage.NODE_CONTENT__START:
-			setStart(newValue);
-			return;
-		case GexfPackage.NODE_CONTENT__STARTOPEN:
-			setStartopen(newValue);
-			return;
+			case GexfPackage.NODE_CONTENT__GROUP:
+				((FeatureMap.Internal) getGroup()).set(newValue);
+				return;
+			case GexfPackage.NODE_CONTENT__ATTVALUES:
+				getAttvalues().clear();
+				getAttvalues().addAll((Collection<? extends AttvaluesContent>) newValue);
+				return;
+			case GexfPackage.NODE_CONTENT__SPELLS:
+				getSpells().clear();
+				getSpells().addAll((Collection<? extends SpellsContent>) newValue);
+				return;
+			case GexfPackage.NODE_CONTENT__NODES:
+				getNodes().clear();
+				getNodes().addAll((Collection<? extends NodesContent>) newValue);
+				return;
+			case GexfPackage.NODE_CONTENT__EDGES:
+				getEdges().clear();
+				getEdges().addAll((Collection<? extends EdgesContent>) newValue);
+				return;
+			case GexfPackage.NODE_CONTENT__PARENTS:
+				getParents().clear();
+				getParents().addAll((Collection<? extends ParentsContent>) newValue);
+				return;
+			case GexfPackage.NODE_CONTENT__COLOR:
+				getColor().clear();
+				getColor().addAll((Collection<? extends ColorContent>) newValue);
+				return;
+			case GexfPackage.NODE_CONTENT__POSITION:
+				getPosition().clear();
+				getPosition().addAll((Collection<? extends PositionContent>) newValue);
+				return;
+			case GexfPackage.NODE_CONTENT__SIZE:
+				getSize().clear();
+				getSize().addAll((Collection<? extends SizeContent>) newValue);
+				return;
+			case GexfPackage.NODE_CONTENT__SHAPE:
+				getShape().clear();
+				getShape().addAll((Collection<? extends NodeShapeContent>) newValue);
+				return;
+			case GexfPackage.NODE_CONTENT__END:
+				setEnd(newValue);
+				return;
+			case GexfPackage.NODE_CONTENT__ENDOPEN:
+				setEndopen(newValue);
+				return;
+			case GexfPackage.NODE_CONTENT__ID:
+				setId(newValue);
+				return;
+			case GexfPackage.NODE_CONTENT__LABEL:
+				setLabel((String) newValue);
+				return;
+			case GexfPackage.NODE_CONTENT__PID:
+				setPid(newValue);
+				return;
+			case GexfPackage.NODE_CONTENT__START:
+				setStart(newValue);
+				return;
+			case GexfPackage.NODE_CONTENT__STARTOPEN:
+				setStartopen(newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -655,57 +655,57 @@ public class NodeContentImpl extends MinimalEObjectImpl.Container implements Nod
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case GexfPackage.NODE_CONTENT__GROUP:
-			getGroup().clear();
-			return;
-		case GexfPackage.NODE_CONTENT__ATTVALUES:
-			getAttvalues().clear();
-			return;
-		case GexfPackage.NODE_CONTENT__SPELLS:
-			getSpells().clear();
-			return;
-		case GexfPackage.NODE_CONTENT__NODES:
-			getNodes().clear();
-			return;
-		case GexfPackage.NODE_CONTENT__EDGES:
-			getEdges().clear();
-			return;
-		case GexfPackage.NODE_CONTENT__PARENTS:
-			getParents().clear();
-			return;
-		case GexfPackage.NODE_CONTENT__COLOR:
-			getColor().clear();
-			return;
-		case GexfPackage.NODE_CONTENT__POSITION:
-			getPosition().clear();
-			return;
-		case GexfPackage.NODE_CONTENT__SIZE:
-			getSize().clear();
-			return;
-		case GexfPackage.NODE_CONTENT__SHAPE:
-			getShape().clear();
-			return;
-		case GexfPackage.NODE_CONTENT__END:
-			setEnd(END_EDEFAULT);
-			return;
-		case GexfPackage.NODE_CONTENT__ENDOPEN:
-			setEndopen(ENDOPEN_EDEFAULT);
-			return;
-		case GexfPackage.NODE_CONTENT__ID:
-			setId(ID_EDEFAULT);
-			return;
-		case GexfPackage.NODE_CONTENT__LABEL:
-			setLabel(LABEL_EDEFAULT);
-			return;
-		case GexfPackage.NODE_CONTENT__PID:
-			setPid(PID_EDEFAULT);
-			return;
-		case GexfPackage.NODE_CONTENT__START:
-			setStart(START_EDEFAULT);
-			return;
-		case GexfPackage.NODE_CONTENT__STARTOPEN:
-			setStartopen(STARTOPEN_EDEFAULT);
-			return;
+			case GexfPackage.NODE_CONTENT__GROUP:
+				getGroup().clear();
+				return;
+			case GexfPackage.NODE_CONTENT__ATTVALUES:
+				getAttvalues().clear();
+				return;
+			case GexfPackage.NODE_CONTENT__SPELLS:
+				getSpells().clear();
+				return;
+			case GexfPackage.NODE_CONTENT__NODES:
+				getNodes().clear();
+				return;
+			case GexfPackage.NODE_CONTENT__EDGES:
+				getEdges().clear();
+				return;
+			case GexfPackage.NODE_CONTENT__PARENTS:
+				getParents().clear();
+				return;
+			case GexfPackage.NODE_CONTENT__COLOR:
+				getColor().clear();
+				return;
+			case GexfPackage.NODE_CONTENT__POSITION:
+				getPosition().clear();
+				return;
+			case GexfPackage.NODE_CONTENT__SIZE:
+				getSize().clear();
+				return;
+			case GexfPackage.NODE_CONTENT__SHAPE:
+				getShape().clear();
+				return;
+			case GexfPackage.NODE_CONTENT__END:
+				setEnd(END_EDEFAULT);
+				return;
+			case GexfPackage.NODE_CONTENT__ENDOPEN:
+				setEndopen(ENDOPEN_EDEFAULT);
+				return;
+			case GexfPackage.NODE_CONTENT__ID:
+				setId(ID_EDEFAULT);
+				return;
+			case GexfPackage.NODE_CONTENT__LABEL:
+				setLabel(LABEL_EDEFAULT);
+				return;
+			case GexfPackage.NODE_CONTENT__PID:
+				setPid(PID_EDEFAULT);
+				return;
+			case GexfPackage.NODE_CONTENT__START:
+				setStart(START_EDEFAULT);
+				return;
+			case GexfPackage.NODE_CONTENT__STARTOPEN:
+				setStartopen(STARTOPEN_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -718,40 +718,40 @@ public class NodeContentImpl extends MinimalEObjectImpl.Container implements Nod
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case GexfPackage.NODE_CONTENT__GROUP:
-			return group != null && !group.isEmpty();
-		case GexfPackage.NODE_CONTENT__ATTVALUES:
-			return !getAttvalues().isEmpty();
-		case GexfPackage.NODE_CONTENT__SPELLS:
-			return !getSpells().isEmpty();
-		case GexfPackage.NODE_CONTENT__NODES:
-			return !getNodes().isEmpty();
-		case GexfPackage.NODE_CONTENT__EDGES:
-			return !getEdges().isEmpty();
-		case GexfPackage.NODE_CONTENT__PARENTS:
-			return !getParents().isEmpty();
-		case GexfPackage.NODE_CONTENT__COLOR:
-			return !getColor().isEmpty();
-		case GexfPackage.NODE_CONTENT__POSITION:
-			return !getPosition().isEmpty();
-		case GexfPackage.NODE_CONTENT__SIZE:
-			return !getSize().isEmpty();
-		case GexfPackage.NODE_CONTENT__SHAPE:
-			return !getShape().isEmpty();
-		case GexfPackage.NODE_CONTENT__END:
-			return END_EDEFAULT == null ? end != null : !END_EDEFAULT.equals(end);
-		case GexfPackage.NODE_CONTENT__ENDOPEN:
-			return ENDOPEN_EDEFAULT == null ? endopen != null : !ENDOPEN_EDEFAULT.equals(endopen);
-		case GexfPackage.NODE_CONTENT__ID:
-			return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
-		case GexfPackage.NODE_CONTENT__LABEL:
-			return LABEL_EDEFAULT == null ? label != null : !LABEL_EDEFAULT.equals(label);
-		case GexfPackage.NODE_CONTENT__PID:
-			return PID_EDEFAULT == null ? pid != null : !PID_EDEFAULT.equals(pid);
-		case GexfPackage.NODE_CONTENT__START:
-			return START_EDEFAULT == null ? start != null : !START_EDEFAULT.equals(start);
-		case GexfPackage.NODE_CONTENT__STARTOPEN:
-			return STARTOPEN_EDEFAULT == null ? startopen != null : !STARTOPEN_EDEFAULT.equals(startopen);
+			case GexfPackage.NODE_CONTENT__GROUP:
+				return group != null && !group.isEmpty();
+			case GexfPackage.NODE_CONTENT__ATTVALUES:
+				return !getAttvalues().isEmpty();
+			case GexfPackage.NODE_CONTENT__SPELLS:
+				return !getSpells().isEmpty();
+			case GexfPackage.NODE_CONTENT__NODES:
+				return !getNodes().isEmpty();
+			case GexfPackage.NODE_CONTENT__EDGES:
+				return !getEdges().isEmpty();
+			case GexfPackage.NODE_CONTENT__PARENTS:
+				return !getParents().isEmpty();
+			case GexfPackage.NODE_CONTENT__COLOR:
+				return !getColor().isEmpty();
+			case GexfPackage.NODE_CONTENT__POSITION:
+				return !getPosition().isEmpty();
+			case GexfPackage.NODE_CONTENT__SIZE:
+				return !getSize().isEmpty();
+			case GexfPackage.NODE_CONTENT__SHAPE:
+				return !getShape().isEmpty();
+			case GexfPackage.NODE_CONTENT__END:
+				return END_EDEFAULT == null ? end != null : !END_EDEFAULT.equals(end);
+			case GexfPackage.NODE_CONTENT__ENDOPEN:
+				return ENDOPEN_EDEFAULT == null ? endopen != null : !ENDOPEN_EDEFAULT.equals(endopen);
+			case GexfPackage.NODE_CONTENT__ID:
+				return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
+			case GexfPackage.NODE_CONTENT__LABEL:
+				return LABEL_EDEFAULT == null ? label != null : !LABEL_EDEFAULT.equals(label);
+			case GexfPackage.NODE_CONTENT__PID:
+				return PID_EDEFAULT == null ? pid != null : !PID_EDEFAULT.equals(pid);
+			case GexfPackage.NODE_CONTENT__START:
+				return START_EDEFAULT == null ? start != null : !START_EDEFAULT.equals(start);
+			case GexfPackage.NODE_CONTENT__STARTOPEN:
+				return STARTOPEN_EDEFAULT == null ? startopen != null : !STARTOPEN_EDEFAULT.equals(startopen);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -788,4 +788,4 @@ public class NodeContentImpl extends MinimalEObjectImpl.Container implements Nod
 		return result.toString();
 	}
 
-} //NodeContentImpl
+} // NodeContentImpl

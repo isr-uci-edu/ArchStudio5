@@ -20,11 +20,11 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Element Change</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  * <li>{@link org.archstudio.xadl3.variability_3_0.impl.ElementChangeImpl#getChange <em>Change</em>}</li>
  * <li>{@link org.archstudio.xadl3.variability_3_0.impl.ElementChangeImpl#getType <em>Type</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -125,8 +125,8 @@ public class ElementChangeImpl extends ChangeImpl implements ElementChange {
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case Variability_3_0Package.ELEMENT_CHANGE__CHANGE:
-			return ((InternalEList<?>) getChange()).basicRemove(otherEnd, msgs);
+			case Variability_3_0Package.ELEMENT_CHANGE__CHANGE:
+				return ((InternalEList<?>) getChange()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -139,10 +139,10 @@ public class ElementChangeImpl extends ChangeImpl implements ElementChange {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case Variability_3_0Package.ELEMENT_CHANGE__CHANGE:
-			return getChange();
-		case Variability_3_0Package.ELEMENT_CHANGE__TYPE:
-			return getType();
+			case Variability_3_0Package.ELEMENT_CHANGE__CHANGE:
+				return getChange();
+			case Variability_3_0Package.ELEMENT_CHANGE__TYPE:
+				return getType();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -156,13 +156,13 @@ public class ElementChangeImpl extends ChangeImpl implements ElementChange {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Variability_3_0Package.ELEMENT_CHANGE__CHANGE:
-			getChange().clear();
-			getChange().addAll((Collection<? extends Change>) newValue);
-			return;
-		case Variability_3_0Package.ELEMENT_CHANGE__TYPE:
-			setType((String) newValue);
-			return;
+			case Variability_3_0Package.ELEMENT_CHANGE__CHANGE:
+				getChange().clear();
+				getChange().addAll((Collection<? extends Change>) newValue);
+				return;
+			case Variability_3_0Package.ELEMENT_CHANGE__TYPE:
+				setType((String) newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -175,12 +175,12 @@ public class ElementChangeImpl extends ChangeImpl implements ElementChange {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Variability_3_0Package.ELEMENT_CHANGE__CHANGE:
-			getChange().clear();
-			return;
-		case Variability_3_0Package.ELEMENT_CHANGE__TYPE:
-			setType(TYPE_EDEFAULT);
-			return;
+			case Variability_3_0Package.ELEMENT_CHANGE__CHANGE:
+				getChange().clear();
+				return;
+			case Variability_3_0Package.ELEMENT_CHANGE__TYPE:
+				setType(TYPE_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -193,10 +193,10 @@ public class ElementChangeImpl extends ChangeImpl implements ElementChange {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Variability_3_0Package.ELEMENT_CHANGE__CHANGE:
-			return change != null && !change.isEmpty();
-		case Variability_3_0Package.ELEMENT_CHANGE__TYPE:
-			return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
+			case Variability_3_0Package.ELEMENT_CHANGE__CHANGE:
+				return change != null && !change.isEmpty();
+			case Variability_3_0Package.ELEMENT_CHANGE__TYPE:
+				return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -219,4 +219,4 @@ public class ElementChangeImpl extends ChangeImpl implements ElementChange {
 		return result.toString();
 	}
 
-} //ElementChangeImpl
+} // ElementChangeImpl

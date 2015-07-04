@@ -13,16 +13,18 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
- * <ul>
- * <li>{@link org.archstudio.xadl3.variability_3_0.impl.JavaTransformChangeSetOfChangesImpl#getBundle <em>Bundle</em>}</li>
- * <li>{@link org.archstudio.xadl3.variability_3_0.impl.JavaTransformChangeSetOfChangesImpl#getClass_ <em>Class</em>}</li>
- * </ul>
  * </p>
+ * <ul>
+ * <li>{@link org.archstudio.xadl3.variability_3_0.impl.JavaTransformChangeSetOfChangesImpl#getBundle <em>Bundle</em>}
+ * </li>
+ * <li>{@link org.archstudio.xadl3.variability_3_0.impl.JavaTransformChangeSetOfChangesImpl#getClass_ <em>Class</em>}
+ * </li>
+ * </ul>
  *
  * @generated
  */
-public class JavaTransformChangeSetOfChangesImpl extends TransformChangeSetOfChangesImpl implements
-		JavaTransformChangeSetOfChanges {
+public class JavaTransformChangeSetOfChangesImpl extends TransformChangeSetOfChangesImpl
+		implements JavaTransformChangeSetOfChanges {
 	/**
 	 * The default value of the '{@link #getBundle() <em>Bundle</em>}' attribute. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
@@ -140,10 +142,10 @@ public class JavaTransformChangeSetOfChangesImpl extends TransformChangeSetOfCha
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case Variability_3_0Package.JAVA_TRANSFORM_CHANGE_SET_OF_CHANGES__BUNDLE:
-			return getBundle();
-		case Variability_3_0Package.JAVA_TRANSFORM_CHANGE_SET_OF_CHANGES__CLASS:
-			return getClass_();
+			case Variability_3_0Package.JAVA_TRANSFORM_CHANGE_SET_OF_CHANGES__BUNDLE:
+				return getBundle();
+			case Variability_3_0Package.JAVA_TRANSFORM_CHANGE_SET_OF_CHANGES__CLASS:
+				return getClass_();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -156,12 +158,12 @@ public class JavaTransformChangeSetOfChangesImpl extends TransformChangeSetOfCha
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Variability_3_0Package.JAVA_TRANSFORM_CHANGE_SET_OF_CHANGES__BUNDLE:
-			setBundle((String) newValue);
-			return;
-		case Variability_3_0Package.JAVA_TRANSFORM_CHANGE_SET_OF_CHANGES__CLASS:
-			setClass((String) newValue);
-			return;
+			case Variability_3_0Package.JAVA_TRANSFORM_CHANGE_SET_OF_CHANGES__BUNDLE:
+				setBundle((String) newValue);
+				return;
+			case Variability_3_0Package.JAVA_TRANSFORM_CHANGE_SET_OF_CHANGES__CLASS:
+				setClass((String) newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -174,12 +176,12 @@ public class JavaTransformChangeSetOfChangesImpl extends TransformChangeSetOfCha
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Variability_3_0Package.JAVA_TRANSFORM_CHANGE_SET_OF_CHANGES__BUNDLE:
-			setBundle(BUNDLE_EDEFAULT);
-			return;
-		case Variability_3_0Package.JAVA_TRANSFORM_CHANGE_SET_OF_CHANGES__CLASS:
-			setClass(CLASS_EDEFAULT);
-			return;
+			case Variability_3_0Package.JAVA_TRANSFORM_CHANGE_SET_OF_CHANGES__BUNDLE:
+				setBundle(BUNDLE_EDEFAULT);
+				return;
+			case Variability_3_0Package.JAVA_TRANSFORM_CHANGE_SET_OF_CHANGES__CLASS:
+				setClass(CLASS_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -192,10 +194,10 @@ public class JavaTransformChangeSetOfChangesImpl extends TransformChangeSetOfCha
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Variability_3_0Package.JAVA_TRANSFORM_CHANGE_SET_OF_CHANGES__BUNDLE:
-			return BUNDLE_EDEFAULT == null ? bundle != null : !BUNDLE_EDEFAULT.equals(bundle);
-		case Variability_3_0Package.JAVA_TRANSFORM_CHANGE_SET_OF_CHANGES__CLASS:
-			return CLASS_EDEFAULT == null ? class_ != null : !CLASS_EDEFAULT.equals(class_);
+			case Variability_3_0Package.JAVA_TRANSFORM_CHANGE_SET_OF_CHANGES__BUNDLE:
+				return BUNDLE_EDEFAULT == null ? bundle != null : !BUNDLE_EDEFAULT.equals(bundle);
+			case Variability_3_0Package.JAVA_TRANSFORM_CHANGE_SET_OF_CHANGES__CLASS:
+				return CLASS_EDEFAULT == null ? class_ != null : !CLASS_EDEFAULT.equals(class_);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -220,4 +222,4 @@ public class JavaTransformChangeSetOfChangesImpl extends TransformChangeSetOfCha
 		return result.toString();
 	}
 
-} //JavaTransformChangeSetOfChangesImpl
+} // JavaTransformChangeSetOfChangesImpl

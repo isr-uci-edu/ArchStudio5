@@ -2,6 +2,16 @@
  */
 package net.gexf_1_2.gexf.impl;
 
+import org.eclipse.emf.ecore.EAttribute;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
+import org.eclipse.emf.ecore.EEnum;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EValidator;
+import org.eclipse.emf.ecore.impl.EPackageImpl;
+import org.eclipse.emf.ecore.xml.type.XMLTypePackage;
+
 import net.gexf_1_2.gexf.AttributeContent;
 import net.gexf_1_2.gexf.AttributesContent;
 import net.gexf_1_2.gexf.AttrtypeType;
@@ -31,16 +41,6 @@ import net.gexf_1_2.gexf.VersionType;
 import net.gexf_1_2.gexf.util.GexfValidator;
 import net.gexf_1_2.viz.VizPackage;
 import net.gexf_1_2.viz.impl.VizPackageImpl;
-
-import org.eclipse.emf.ecore.EAttribute;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EDataType;
-import org.eclipse.emf.ecore.EEnum;
-import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.EReference;
-import org.eclipse.emf.ecore.EValidator;
-import org.eclipse.emf.ecore.impl.EPackageImpl;
-import org.eclipse.emf.ecore.xml.type.XMLTypePackage;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model <b>Package</b>. <!-- end-user-doc -->
@@ -326,7 +326,6 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 
 	/**
 	 * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
-	 * 
 	 * <p>
 	 * This method is used to initialize {@link GexfPackage#eINSTANCE} when that field is accessed. Clients should not
 	 * invoke it directly. Instead, they should simply access that field to obtain the package. <!-- begin-user-doc -->
@@ -343,8 +342,9 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 		}
 
 		// Obtain or create and register package
-		GexfPackageImpl theGexfPackage = (GexfPackageImpl) (EPackage.Registry.INSTANCE.get(eNS_URI) instanceof GexfPackageImpl ? EPackage.Registry.INSTANCE
-				.get(eNS_URI) : new GexfPackageImpl());
+		GexfPackageImpl theGexfPackage =
+				(GexfPackageImpl) (EPackage.Registry.INSTANCE.get(eNS_URI) instanceof GexfPackageImpl
+						? EPackage.Registry.INSTANCE.get(eNS_URI) : new GexfPackageImpl());
 
 		isInited = true;
 
@@ -352,8 +352,9 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 		XMLTypePackage.eINSTANCE.eClass();
 
 		// Obtain or create and register interdependencies
-		VizPackageImpl theVizPackage = (VizPackageImpl) (EPackage.Registry.INSTANCE.getEPackage(VizPackage.eNS_URI) instanceof VizPackageImpl ? EPackage.Registry.INSTANCE
-				.getEPackage(VizPackage.eNS_URI) : VizPackage.eINSTANCE);
+		VizPackageImpl theVizPackage =
+				(VizPackageImpl) (EPackage.Registry.INSTANCE.getEPackage(VizPackage.eNS_URI) instanceof VizPackageImpl
+						? EPackage.Registry.INSTANCE.getEPackage(VizPackage.eNS_URI) : VizPackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theGexfPackage.createPackageContents();
@@ -2083,8 +2084,8 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 		setNsURI(eNS_URI);
 
 		// Obtain other dependent packages
-		XMLTypePackage theXMLTypePackage = (XMLTypePackage) EPackage.Registry.INSTANCE
-				.getEPackage(XMLTypePackage.eNS_URI);
+		XMLTypePackage theXMLTypePackage =
+				(XMLTypePackage) EPackage.Registry.INSTANCE.getEPackage(XMLTypePackage.eNS_URI);
 		VizPackage theVizPackage = (VizPackage) EPackage.Registry.INSTANCE.getEPackage(VizPackage.eNS_URI);
 
 		// Create type parameters
@@ -2157,7 +2158,8 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 		initEClass(documentRootEClass, DocumentRoot.class, "DocumentRoot", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getDocumentRoot_Mixed(), ecorePackage.getEFeatureMapEntry(), "mixed", null, 0, -1, null,
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED,
+				IS_ORDERED);
 		initEReference(getDocumentRoot_XMLNSPrefixMap(), ecorePackage.getEStringToStringMapEntry(), null,
 				"xMLNSPrefixMap", null, 0, -1, null, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
 				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2167,9 +2169,9 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 		initEReference(getDocumentRoot_Attribute(), this.getAttributeContent(), null, "attribute", null, 0, -2, null,
 				IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
 				IS_DERIVED, IS_ORDERED);
-		initEReference(getDocumentRoot_Attributes(), this.getAttributesContent(), null, "attributes", null, 0, -2,
-				null, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
-				IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEReference(getDocumentRoot_Attributes(), this.getAttributesContent(), null, "attributes", null, 0, -2, null,
+				IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+				IS_DERIVED, IS_ORDERED);
 		initEReference(getDocumentRoot_Attvalue(), this.getAttvalueType(), null, "attvalue", null, 0, -2, null,
 				IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
 				IS_DERIVED, IS_ORDERED);
@@ -2228,8 +2230,8 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 		initEReference(getDocumentRoot_Spells(), this.getSpellsContent(), null, "spells", null, 0, -2, null,
 				IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
 				IS_DERIVED, IS_ORDERED);
-		initEReference(getDocumentRoot_Thickness(), theVizPackage.getThicknessContent(), null, "thickness", null, 0,
-				-2, null, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
+		initEReference(getDocumentRoot_Thickness(), theVizPackage.getThicknessContent(), null, "thickness", null, 0, -2,
+				null, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
 				IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 
 		initEClass(edgeContentEClass, EdgeContent.class, "EdgeContent", !IS_ABSTRACT, !IS_INTERFACE,
@@ -2240,9 +2242,9 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 		initEReference(getEdgeContent_Attvalues(), this.getAttvaluesContent(), null, "attvalues", null, 0, -1,
 				EdgeContent.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-		initEReference(getEdgeContent_Spells(), this.getSpellsContent(), null, "spells", null, 0, -1,
-				EdgeContent.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
-				!IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEReference(getEdgeContent_Spells(), this.getSpellsContent(), null, "spells", null, 0, -1, EdgeContent.class,
+				IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+				IS_DERIVED, IS_ORDERED);
 		initEReference(getEdgeContent_Color(), theVizPackage.getColorContent(), null, "color", null, 0, -1,
 				EdgeContent.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
@@ -2355,9 +2357,9 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 		initEReference(getNodeContent_Attvalues(), this.getAttvaluesContent(), null, "attvalues", null, 0, -1,
 				NodeContent.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-		initEReference(getNodeContent_Spells(), this.getSpellsContent(), null, "spells", null, 0, -1,
-				NodeContent.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
-				!IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEReference(getNodeContent_Spells(), this.getSpellsContent(), null, "spells", null, 0, -1, NodeContent.class,
+				IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+				IS_DERIVED, IS_ORDERED);
 		initEReference(getNodeContent_Nodes(), this.getNodesContent(), null, "nodes", null, 0, -1, NodeContent.class,
 				IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
 				IS_DERIVED, IS_ORDERED);
@@ -2522,10 +2524,10 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 		addAnnotation(getAttributeContent_Id(), source, new String[] { "kind", "attribute", "name", "id" });
 		addAnnotation(getAttributeContent_Title(), source, new String[] { "kind", "attribute", "name", "title" });
 		addAnnotation(getAttributeContent_Type(), source, new String[] { "kind", "attribute", "name", "type" });
-		addAnnotation(attributesContentEClass, source, new String[] { "name", "attributes-content", "kind",
-				"elementOnly" });
-		addAnnotation(getAttributesContent_Attribute(), source, new String[] { "kind", "element", "name", "attribute",
-				"namespace", "##targetNamespace" });
+		addAnnotation(attributesContentEClass, source,
+				new String[] { "name", "attributes-content", "kind", "elementOnly" });
+		addAnnotation(getAttributesContent_Attribute(), source,
+				new String[] { "kind", "element", "name", "attribute", "namespace", "##targetNamespace" });
 		addAnnotation(getAttributesContent_Class(), source, new String[] { "kind", "attribute", "name", "class" });
 		addAnnotation(getAttributesContent_End(), source, new String[] { "kind", "attribute", "name", "end" });
 		addAnnotation(getAttributesContent_Endopen(), source, new String[] { "kind", "attribute", "name", "endopen" });
@@ -2534,12 +2536,12 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 		addAnnotation(getAttributesContent_Startopen(), source,
 				new String[] { "kind", "attribute", "name", "startopen" });
 		addAnnotation(attrtypeTypeEEnum, source, new String[] { "name", "attrtype-type" });
-		addAnnotation(attrtypeTypeObjectEDataType, source, new String[] { "name", "attrtype-type:Object", "baseType",
-				"attrtype-type" });
+		addAnnotation(attrtypeTypeObjectEDataType, source,
+				new String[] { "name", "attrtype-type:Object", "baseType", "attrtype-type" });
 		addAnnotation(attvaluesContentEClass, source,
 				new String[] { "name", "attvalues-content", "kind", "elementOnly" });
-		addAnnotation(getAttvaluesContent_Attvalue(), source, new String[] { "kind", "element", "name", "attvalue",
-				"namespace", "##targetNamespace" });
+		addAnnotation(getAttvaluesContent_Attvalue(), source,
+				new String[] { "kind", "element", "name", "attvalue", "namespace", "##targetNamespace" });
 		addAnnotation(attvalueTypeEClass, source, new String[] { "name", "attvalue_._type", "kind", "empty" });
 		addAnnotation(getAttvalueType_End(), source, new String[] { "kind", "attribute", "name", "end" });
 		addAnnotation(getAttvalueType_Endopen(), source, new String[] { "kind", "attribute", "name", "endopen" });
@@ -2548,65 +2550,65 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 		addAnnotation(getAttvalueType_Startopen(), source, new String[] { "kind", "attribute", "name", "startopen" });
 		addAnnotation(getAttvalueType_Value(), source, new String[] { "kind", "attribute", "name", "value" });
 		addAnnotation(classTypeEEnum, source, new String[] { "name", "class-type" });
-		addAnnotation(classTypeObjectEDataType, source, new String[] { "name", "class-type:Object", "baseType",
-				"class-type" });
+		addAnnotation(classTypeObjectEDataType, source,
+				new String[] { "name", "class-type:Object", "baseType", "class-type" });
 		addAnnotation(defaultedgetypeTypeEEnum, source, new String[] { "name", "defaultedgetype-type" });
-		addAnnotation(defaultedgetypeTypeObjectEDataType, source, new String[] { "name", "defaultedgetype-type:Object",
-				"baseType", "defaultedgetype-type" });
+		addAnnotation(defaultedgetypeTypeObjectEDataType, source,
+				new String[] { "name", "defaultedgetype-type:Object", "baseType", "defaultedgetype-type" });
 		addAnnotation(documentRootEClass, source, new String[] { "name", "", "kind", "mixed" });
 		addAnnotation(getDocumentRoot_Mixed(), source, new String[] { "kind", "elementWildcard", "name", ":mixed" });
-		addAnnotation(getDocumentRoot_XMLNSPrefixMap(), source, new String[] { "kind", "attribute", "name",
-				"xmlns:prefix" });
-		addAnnotation(getDocumentRoot_XSISchemaLocation(), source, new String[] { "kind", "attribute", "name",
-				"xsi:schemaLocation" });
-		addAnnotation(getDocumentRoot_Attribute(), source, new String[] { "kind", "element", "name", "attribute",
-				"namespace", "##targetNamespace" });
-		addAnnotation(getDocumentRoot_Attributes(), source, new String[] { "kind", "element", "name", "attributes",
-				"namespace", "##targetNamespace" });
-		addAnnotation(getDocumentRoot_Attvalue(), source, new String[] { "kind", "element", "name", "attvalue",
-				"namespace", "##targetNamespace" });
-		addAnnotation(getDocumentRoot_Attvalues(), source, new String[] { "kind", "element", "name", "attvalues",
-				"namespace", "##targetNamespace" });
-		addAnnotation(getDocumentRoot_Color(), source, new String[] { "kind", "element", "name", "color", "namespace",
-				"##targetNamespace" });
-		addAnnotation(getDocumentRoot_Creator(), source, new String[] { "kind", "element", "name", "creator",
-				"namespace", "##targetNamespace" });
-		addAnnotation(getDocumentRoot_Default(), source, new String[] { "kind", "element", "name", "default",
-				"namespace", "##targetNamespace" });
-		addAnnotation(getDocumentRoot_Description(), source, new String[] { "kind", "element", "name", "description",
-				"namespace", "##targetNamespace" });
-		addAnnotation(getDocumentRoot_Edge(), source, new String[] { "kind", "element", "name", "edge", "namespace",
-				"##targetNamespace" });
-		addAnnotation(getDocumentRoot_Edges(), source, new String[] { "kind", "element", "name", "edges", "namespace",
-				"##targetNamespace" });
-		addAnnotation(getDocumentRoot_Gexf(), source, new String[] { "kind", "element", "name", "gexf", "namespace",
-				"##targetNamespace" });
-		addAnnotation(getDocumentRoot_Graph(), source, new String[] { "kind", "element", "name", "graph", "namespace",
-				"##targetNamespace" });
-		addAnnotation(getDocumentRoot_Keywords(), source, new String[] { "kind", "element", "name", "keywords",
-				"namespace", "##targetNamespace" });
-		addAnnotation(getDocumentRoot_Meta(), source, new String[] { "kind", "element", "name", "meta", "namespace",
-				"##targetNamespace" });
-		addAnnotation(getDocumentRoot_Node(), source, new String[] { "kind", "element", "name", "node", "namespace",
-				"##targetNamespace" });
-		addAnnotation(getDocumentRoot_Nodes(), source, new String[] { "kind", "element", "name", "nodes", "namespace",
-				"##targetNamespace" });
-		addAnnotation(getDocumentRoot_Options(), source, new String[] { "kind", "element", "name", "options",
-				"namespace", "##targetNamespace" });
-		addAnnotation(getDocumentRoot_Parent(), source, new String[] { "kind", "element", "name", "parent",
-				"namespace", "##targetNamespace" });
-		addAnnotation(getDocumentRoot_Parents(), source, new String[] { "kind", "element", "name", "parents",
-				"namespace", "##targetNamespace" });
-		addAnnotation(getDocumentRoot_Position(), source, new String[] { "kind", "element", "name", "position",
-				"namespace", "##targetNamespace" });
-		addAnnotation(getDocumentRoot_Size(), source, new String[] { "kind", "element", "name", "size", "namespace",
-				"##targetNamespace" });
-		addAnnotation(getDocumentRoot_Spell(), source, new String[] { "kind", "element", "name", "spell", "namespace",
-				"##targetNamespace" });
-		addAnnotation(getDocumentRoot_Spells(), source, new String[] { "kind", "element", "name", "spells",
-				"namespace", "##targetNamespace" });
-		addAnnotation(getDocumentRoot_Thickness(), source, new String[] { "kind", "element", "name", "thickness",
-				"namespace", "##targetNamespace" });
+		addAnnotation(getDocumentRoot_XMLNSPrefixMap(), source,
+				new String[] { "kind", "attribute", "name", "xmlns:prefix" });
+		addAnnotation(getDocumentRoot_XSISchemaLocation(), source,
+				new String[] { "kind", "attribute", "name", "xsi:schemaLocation" });
+		addAnnotation(getDocumentRoot_Attribute(), source,
+				new String[] { "kind", "element", "name", "attribute", "namespace", "##targetNamespace" });
+		addAnnotation(getDocumentRoot_Attributes(), source,
+				new String[] { "kind", "element", "name", "attributes", "namespace", "##targetNamespace" });
+		addAnnotation(getDocumentRoot_Attvalue(), source,
+				new String[] { "kind", "element", "name", "attvalue", "namespace", "##targetNamespace" });
+		addAnnotation(getDocumentRoot_Attvalues(), source,
+				new String[] { "kind", "element", "name", "attvalues", "namespace", "##targetNamespace" });
+		addAnnotation(getDocumentRoot_Color(), source,
+				new String[] { "kind", "element", "name", "color", "namespace", "##targetNamespace" });
+		addAnnotation(getDocumentRoot_Creator(), source,
+				new String[] { "kind", "element", "name", "creator", "namespace", "##targetNamespace" });
+		addAnnotation(getDocumentRoot_Default(), source,
+				new String[] { "kind", "element", "name", "default", "namespace", "##targetNamespace" });
+		addAnnotation(getDocumentRoot_Description(), source,
+				new String[] { "kind", "element", "name", "description", "namespace", "##targetNamespace" });
+		addAnnotation(getDocumentRoot_Edge(), source,
+				new String[] { "kind", "element", "name", "edge", "namespace", "##targetNamespace" });
+		addAnnotation(getDocumentRoot_Edges(), source,
+				new String[] { "kind", "element", "name", "edges", "namespace", "##targetNamespace" });
+		addAnnotation(getDocumentRoot_Gexf(), source,
+				new String[] { "kind", "element", "name", "gexf", "namespace", "##targetNamespace" });
+		addAnnotation(getDocumentRoot_Graph(), source,
+				new String[] { "kind", "element", "name", "graph", "namespace", "##targetNamespace" });
+		addAnnotation(getDocumentRoot_Keywords(), source,
+				new String[] { "kind", "element", "name", "keywords", "namespace", "##targetNamespace" });
+		addAnnotation(getDocumentRoot_Meta(), source,
+				new String[] { "kind", "element", "name", "meta", "namespace", "##targetNamespace" });
+		addAnnotation(getDocumentRoot_Node(), source,
+				new String[] { "kind", "element", "name", "node", "namespace", "##targetNamespace" });
+		addAnnotation(getDocumentRoot_Nodes(), source,
+				new String[] { "kind", "element", "name", "nodes", "namespace", "##targetNamespace" });
+		addAnnotation(getDocumentRoot_Options(), source,
+				new String[] { "kind", "element", "name", "options", "namespace", "##targetNamespace" });
+		addAnnotation(getDocumentRoot_Parent(), source,
+				new String[] { "kind", "element", "name", "parent", "namespace", "##targetNamespace" });
+		addAnnotation(getDocumentRoot_Parents(), source,
+				new String[] { "kind", "element", "name", "parents", "namespace", "##targetNamespace" });
+		addAnnotation(getDocumentRoot_Position(), source,
+				new String[] { "kind", "element", "name", "position", "namespace", "##targetNamespace" });
+		addAnnotation(getDocumentRoot_Size(), source,
+				new String[] { "kind", "element", "name", "size", "namespace", "##targetNamespace" });
+		addAnnotation(getDocumentRoot_Spell(), source,
+				new String[] { "kind", "element", "name", "spell", "namespace", "##targetNamespace" });
+		addAnnotation(getDocumentRoot_Spells(), source,
+				new String[] { "kind", "element", "name", "spells", "namespace", "##targetNamespace" });
+		addAnnotation(getDocumentRoot_Thickness(), source,
+				new String[] { "kind", "element", "name", "thickness", "namespace", "##targetNamespace" });
 		addAnnotation(edgeContentEClass, source, new String[] { "name", "edge-content", "kind", "elementOnly" });
 		addAnnotation(getEdgeContent_Group(), source, new String[] { "kind", "group", "name", "group:0" });
 		addAnnotation(getEdgeContent_Attvalues(), source, new String[] { "kind", "element", "name", "attvalues",
@@ -2630,17 +2632,17 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 		addAnnotation(getEdgeContent_Type(), source, new String[] { "kind", "attribute", "name", "type" });
 		addAnnotation(getEdgeContent_Weight(), source, new String[] { "kind", "attribute", "name", "weight" });
 		addAnnotation(edgesContentEClass, source, new String[] { "name", "edges-content", "kind", "elementOnly" });
-		addAnnotation(getEdgesContent_Edge(), source, new String[] { "kind", "element", "name", "edge", "namespace",
-				"##targetNamespace" });
+		addAnnotation(getEdgesContent_Edge(), source,
+				new String[] { "kind", "element", "name", "edge", "namespace", "##targetNamespace" });
 		addAnnotation(getEdgesContent_Count(), source, new String[] { "kind", "attribute", "name", "count" });
 		addAnnotation(edgetypeTypeEEnum, source, new String[] { "name", "edgetype-type" });
-		addAnnotation(edgetypeTypeObjectEDataType, source, new String[] { "name", "edgetype-type:Object", "baseType",
-				"edgetype-type" });
+		addAnnotation(edgetypeTypeObjectEDataType, source,
+				new String[] { "name", "edgetype-type:Object", "baseType", "edgetype-type" });
 		addAnnotation(gexfContentEClass, source, new String[] { "name", "gexf-content", "kind", "elementOnly" });
-		addAnnotation(getGexfContent_Meta(), source, new String[] { "kind", "element", "name", "meta", "namespace",
-				"##targetNamespace" });
-		addAnnotation(getGexfContent_Graph(), source, new String[] { "kind", "element", "name", "graph", "namespace",
-				"##targetNamespace" });
+		addAnnotation(getGexfContent_Meta(), source,
+				new String[] { "kind", "element", "name", "meta", "namespace", "##targetNamespace" });
+		addAnnotation(getGexfContent_Graph(), source,
+				new String[] { "kind", "element", "name", "graph", "namespace", "##targetNamespace" });
 		addAnnotation(getGexfContent_Variant(), source, new String[] { "kind", "attribute", "name", "variant" });
 		addAnnotation(getGexfContent_Version(), source, new String[] { "kind", "attribute", "name", "version" });
 		addAnnotation(graphContentEClass, source, new String[] { "name", "graph-content", "kind", "elementOnly" });
@@ -2651,8 +2653,8 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 				"##targetNamespace", "group", "#group:0" });
 		addAnnotation(getGraphContent_Edges(), source, new String[] { "kind", "element", "name", "edges", "namespace",
 				"##targetNamespace", "group", "#group:0" });
-		addAnnotation(getGraphContent_Defaultedgetype(), source, new String[] { "kind", "attribute", "name",
-				"defaultedgetype" });
+		addAnnotation(getGraphContent_Defaultedgetype(), source,
+				new String[] { "kind", "attribute", "name", "defaultedgetype" });
 		addAnnotation(getGraphContent_End(), source, new String[] { "kind", "attribute", "name", "end" });
 		addAnnotation(getGraphContent_Endopen(), source, new String[] { "kind", "attribute", "name", "endopen" });
 		addAnnotation(getGraphContent_Idtype(), source, new String[] { "kind", "attribute", "name", "idtype" });
@@ -2663,8 +2665,8 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 		addAnnotation(idTypeEDataType, source, new String[] { "name", "id-type", "memberTypes",
 				"http://www.eclipse.org/emf/2003/XMLType#string http://www.eclipse.org/emf/2003/XMLType#integer" });
 		addAnnotation(idtypeTypeEEnum, source, new String[] { "name", "idtype-type" });
-		addAnnotation(idtypeTypeObjectEDataType, source, new String[] { "name", "idtype-type:Object", "baseType",
-				"idtype-type" });
+		addAnnotation(idtypeTypeObjectEDataType, source,
+				new String[] { "name", "idtype-type:Object", "baseType", "idtype-type" });
 		addAnnotation(metaContentEClass, source, new String[] { "name", "meta-content", "kind", "elementOnly" });
 		addAnnotation(getMetaContent_Group(), source, new String[] { "kind", "group", "name", "group:0" });
 		addAnnotation(getMetaContent_Creator(), source, new String[] { "kind", "element", "name", "creator",
@@ -2673,11 +2675,11 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 				"namespace", "##targetNamespace", "group", "#group:0" });
 		addAnnotation(getMetaContent_Description(), source, new String[] { "kind", "element", "name", "description",
 				"namespace", "##targetNamespace", "group", "#group:0" });
-		addAnnotation(getMetaContent_Lastmodifieddate(), source, new String[] { "kind", "attribute", "name",
-				"lastmodifieddate" });
+		addAnnotation(getMetaContent_Lastmodifieddate(), source,
+				new String[] { "kind", "attribute", "name", "lastmodifieddate" });
 		addAnnotation(modeTypeEEnum, source, new String[] { "name", "mode-type" });
-		addAnnotation(modeTypeObjectEDataType, source, new String[] { "name", "mode-type:Object", "baseType",
-				"mode-type" });
+		addAnnotation(modeTypeObjectEDataType, source,
+				new String[] { "name", "mode-type:Object", "baseType", "mode-type" });
 		addAnnotation(nodeContentEClass, source, new String[] { "name", "node-content", "kind", "elementOnly" });
 		addAnnotation(getNodeContent_Group(), source, new String[] { "kind", "group", "name", "group:0" });
 		addAnnotation(getNodeContent_Attvalues(), source, new String[] { "kind", "element", "name", "attvalues",
@@ -2706,40 +2708,34 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 		addAnnotation(getNodeContent_Start(), source, new String[] { "kind", "attribute", "name", "start" });
 		addAnnotation(getNodeContent_Startopen(), source, new String[] { "kind", "attribute", "name", "startopen" });
 		addAnnotation(nodesContentEClass, source, new String[] { "name", "nodes-content", "kind", "elementOnly" });
-		addAnnotation(getNodesContent_Node(), source, new String[] { "kind", "element", "name", "node", "namespace",
-				"##targetNamespace" });
+		addAnnotation(getNodesContent_Node(), source,
+				new String[] { "kind", "element", "name", "node", "namespace", "##targetNamespace" });
 		addAnnotation(getNodesContent_Count(), source, new String[] { "kind", "attribute", "name", "count" });
 		addAnnotation(parentsContentEClass, source, new String[] { "name", "parents-content", "kind", "elementOnly" });
-		addAnnotation(getParentsContent_Parent(), source, new String[] { "kind", "element", "name", "parent",
-				"namespace", "##targetNamespace" });
+		addAnnotation(getParentsContent_Parent(), source,
+				new String[] { "kind", "element", "name", "parent", "namespace", "##targetNamespace" });
 		addAnnotation(parentTypeEClass, source, new String[] { "name", "parent_._type", "kind", "empty" });
 		addAnnotation(getParentType_For(), source, new String[] { "kind", "attribute", "name", "for" });
 		addAnnotation(spellsContentEClass, source, new String[] { "name", "spells-content", "kind", "elementOnly" });
-		addAnnotation(getSpellsContent_Spell(), source, new String[] { "kind", "element", "name", "spell", "namespace",
-				"##targetNamespace" });
+		addAnnotation(getSpellsContent_Spell(), source,
+				new String[] { "kind", "element", "name", "spell", "namespace", "##targetNamespace" });
 		addAnnotation(spellTypeEClass, source, new String[] { "name", "spell_._type", "kind", "empty" });
 		addAnnotation(getSpellType_End(), source, new String[] { "kind", "attribute", "name", "end" });
 		addAnnotation(getSpellType_Endopen(), source, new String[] { "kind", "attribute", "name", "endopen" });
 		addAnnotation(getSpellType_Start(), source, new String[] { "kind", "attribute", "name", "start" });
 		addAnnotation(getSpellType_Startopen(), source, new String[] { "kind", "attribute", "name", "startopen" });
 		addAnnotation(timeformatTypeEEnum, source, new String[] { "name", "timeformat-type" });
-		addAnnotation(timeformatTypeObjectEDataType, source, new String[] { "name", "timeformat-type:Object",
-				"baseType", "timeformat-type" });
-		addAnnotation(
-				timeTypeEDataType,
-				source,
-				new String[] {
-						"name",
-						"time-type",
-						"memberTypes",
-						"http://www.eclipse.org/emf/2003/XMLType#integer http://www.eclipse.org/emf/2003/XMLType#double http://www.eclipse.org/emf/2003/XMLType#date http://www.eclipse.org/emf/2003/XMLType#dateTime" });
+		addAnnotation(timeformatTypeObjectEDataType, source,
+				new String[] { "name", "timeformat-type:Object", "baseType", "timeformat-type" });
+		addAnnotation(timeTypeEDataType, source, new String[] { "name", "time-type", "memberTypes",
+				"http://www.eclipse.org/emf/2003/XMLType#integer http://www.eclipse.org/emf/2003/XMLType#double http://www.eclipse.org/emf/2003/XMLType#date http://www.eclipse.org/emf/2003/XMLType#dateTime" });
 		addAnnotation(versionTypeEEnum, source, new String[] { "name", "version_._type" });
-		addAnnotation(versionTypeObjectEDataType, source, new String[] { "name", "version_._type:Object", "baseType",
-				"version_._type" });
-		addAnnotation(weightTypeEDataType, source, new String[] { "name", "weight-type", "baseType",
-				"http://www.eclipse.org/emf/2003/XMLType#float" });
-		addAnnotation(weightTypeObjectEDataType, source, new String[] { "name", "weight-type:Object", "baseType",
-				"weight-type" });
+		addAnnotation(versionTypeObjectEDataType, source,
+				new String[] { "name", "version_._type:Object", "baseType", "version_._type" });
+		addAnnotation(weightTypeEDataType, source,
+				new String[] { "name", "weight-type", "baseType", "http://www.eclipse.org/emf/2003/XMLType#float" });
+		addAnnotation(weightTypeObjectEDataType, source,
+				new String[] { "name", "weight-type:Object", "baseType", "weight-type" });
 	}
 
-} //GexfPackageImpl
+} // GexfPackageImpl

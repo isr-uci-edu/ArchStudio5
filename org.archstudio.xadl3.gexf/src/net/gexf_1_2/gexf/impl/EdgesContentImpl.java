@@ -5,10 +5,6 @@ package net.gexf_1_2.gexf.impl;
 import java.math.BigInteger;
 import java.util.Collection;
 
-import net.gexf_1_2.gexf.EdgeContent;
-import net.gexf_1_2.gexf.EdgesContent;
-import net.gexf_1_2.gexf.GexfPackage;
-
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
@@ -19,15 +15,19 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import net.gexf_1_2.gexf.EdgeContent;
+import net.gexf_1_2.gexf.EdgesContent;
+import net.gexf_1_2.gexf.GexfPackage;
+
 /**
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Edges Content</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  * <li>{@link net.gexf_1_2.gexf.impl.EdgesContentImpl#getEdge <em>Edge</em>}</li>
  * <li>{@link net.gexf_1_2.gexf.impl.EdgesContentImpl#getCount <em>Count</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -126,8 +126,8 @@ public class EdgesContentImpl extends MinimalEObjectImpl.Container implements Ed
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case GexfPackage.EDGES_CONTENT__EDGE:
-			return ((InternalEList<?>) getEdge()).basicRemove(otherEnd, msgs);
+			case GexfPackage.EDGES_CONTENT__EDGE:
+				return ((InternalEList<?>) getEdge()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -140,10 +140,10 @@ public class EdgesContentImpl extends MinimalEObjectImpl.Container implements Ed
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case GexfPackage.EDGES_CONTENT__EDGE:
-			return getEdge();
-		case GexfPackage.EDGES_CONTENT__COUNT:
-			return getCount();
+			case GexfPackage.EDGES_CONTENT__EDGE:
+				return getEdge();
+			case GexfPackage.EDGES_CONTENT__COUNT:
+				return getCount();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -157,13 +157,13 @@ public class EdgesContentImpl extends MinimalEObjectImpl.Container implements Ed
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case GexfPackage.EDGES_CONTENT__EDGE:
-			getEdge().clear();
-			getEdge().addAll((Collection<? extends EdgeContent>) newValue);
-			return;
-		case GexfPackage.EDGES_CONTENT__COUNT:
-			setCount((BigInteger) newValue);
-			return;
+			case GexfPackage.EDGES_CONTENT__EDGE:
+				getEdge().clear();
+				getEdge().addAll((Collection<? extends EdgeContent>) newValue);
+				return;
+			case GexfPackage.EDGES_CONTENT__COUNT:
+				setCount((BigInteger) newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -176,12 +176,12 @@ public class EdgesContentImpl extends MinimalEObjectImpl.Container implements Ed
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case GexfPackage.EDGES_CONTENT__EDGE:
-			getEdge().clear();
-			return;
-		case GexfPackage.EDGES_CONTENT__COUNT:
-			setCount(COUNT_EDEFAULT);
-			return;
+			case GexfPackage.EDGES_CONTENT__EDGE:
+				getEdge().clear();
+				return;
+			case GexfPackage.EDGES_CONTENT__COUNT:
+				setCount(COUNT_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -194,10 +194,10 @@ public class EdgesContentImpl extends MinimalEObjectImpl.Container implements Ed
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case GexfPackage.EDGES_CONTENT__EDGE:
-			return edge != null && !edge.isEmpty();
-		case GexfPackage.EDGES_CONTENT__COUNT:
-			return COUNT_EDEFAULT == null ? count != null : !COUNT_EDEFAULT.equals(count);
+			case GexfPackage.EDGES_CONTENT__EDGE:
+				return edge != null && !edge.isEmpty();
+			case GexfPackage.EDGES_CONTENT__COUNT:
+				return COUNT_EDEFAULT == null ? count != null : !COUNT_EDEFAULT.equals(count);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -220,4 +220,4 @@ public class EdgesContentImpl extends MinimalEObjectImpl.Container implements Ed
 		return result.toString();
 	}
 
-} //EdgesContentImpl
+} // EdgesContentImpl

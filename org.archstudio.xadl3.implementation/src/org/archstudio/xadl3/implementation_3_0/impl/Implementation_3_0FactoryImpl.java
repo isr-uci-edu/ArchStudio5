@@ -26,8 +26,9 @@ public class Implementation_3_0FactoryImpl extends EFactoryImpl implements Imple
 	 */
 	public static Implementation_3_0Factory init() {
 		try {
-			Implementation_3_0Factory theImplementation_3_0Factory = (Implementation_3_0Factory) EPackage.Registry.INSTANCE
-					.getEFactory(Implementation_3_0Package.eNS_URI);
+			Implementation_3_0Factory theImplementation_3_0Factory =
+					(Implementation_3_0Factory) EPackage.Registry.INSTANCE
+							.getEFactory(Implementation_3_0Package.eNS_URI);
 			if (theImplementation_3_0Factory != null) {
 				return theImplementation_3_0Factory;
 			}
@@ -55,14 +56,14 @@ public class Implementation_3_0FactoryImpl extends EFactoryImpl implements Imple
 	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
-		case Implementation_3_0Package.IMPLEMENTATION_EXTENSION:
-			return createImplementationExtension();
-		case Implementation_3_0Package.INITIALIZATION_PARAMETER:
-			return createInitializationParameter();
-		case Implementation_3_0Package.INITIALIZATION_PARAMETERS_IMPLEMENTATION:
-			return createInitializationParametersImplementation();
-		default:
-			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+			case Implementation_3_0Package.IMPLEMENTATION_EXTENSION:
+				return createImplementationExtension();
+			case Implementation_3_0Package.INITIALIZATION_PARAMETER:
+				return createInitializationParameter();
+			case Implementation_3_0Package.INITIALIZATION_PARAMETERS_IMPLEMENTATION:
+				return createInitializationParametersImplementation();
+			default:
+				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
 	}
 
@@ -95,7 +96,8 @@ public class Implementation_3_0FactoryImpl extends EFactoryImpl implements Imple
 	 */
 	@Override
 	public InitializationParametersImplementation createInitializationParametersImplementation() {
-		InitializationParametersImplementationImpl initializationParametersImplementation = new InitializationParametersImplementationImpl();
+		InitializationParametersImplementationImpl initializationParametersImplementation =
+				new InitializationParametersImplementationImpl();
 		return initializationParametersImplementation;
 	}
 
@@ -120,4 +122,4 @@ public class Implementation_3_0FactoryImpl extends EFactoryImpl implements Imple
 		return Implementation_3_0Package.eINSTANCE;
 	}
 
-} //Implementation_3_0FactoryImpl
+} // Implementation_3_0FactoryImpl

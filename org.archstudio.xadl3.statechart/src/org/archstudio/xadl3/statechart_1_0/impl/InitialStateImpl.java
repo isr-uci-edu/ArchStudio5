@@ -13,10 +13,10 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Initial State</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  * <li>{@link org.archstudio.xadl3.statechart_1_0.impl.InitialStateImpl#getType <em>Type</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -130,8 +130,8 @@ public class InitialStateImpl extends PseudoStateImpl implements InitialState {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case Statechart_1_0Package.INITIAL_STATE__TYPE:
-			return getType();
+			case Statechart_1_0Package.INITIAL_STATE__TYPE:
+				return getType();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -144,9 +144,9 @@ public class InitialStateImpl extends PseudoStateImpl implements InitialState {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Statechart_1_0Package.INITIAL_STATE__TYPE:
-			setType((StateType) newValue);
-			return;
+			case Statechart_1_0Package.INITIAL_STATE__TYPE:
+				setType((StateType) newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -159,9 +159,9 @@ public class InitialStateImpl extends PseudoStateImpl implements InitialState {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Statechart_1_0Package.INITIAL_STATE__TYPE:
-			unsetType();
-			return;
+			case Statechart_1_0Package.INITIAL_STATE__TYPE:
+				unsetType();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -174,8 +174,8 @@ public class InitialStateImpl extends PseudoStateImpl implements InitialState {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Statechart_1_0Package.INITIAL_STATE__TYPE:
-			return isSetType();
+			case Statechart_1_0Package.INITIAL_STATE__TYPE:
+				return isSetType();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -203,4 +203,4 @@ public class InitialStateImpl extends PseudoStateImpl implements InitialState {
 		return result.toString();
 	}
 
-} //InitialStateImpl
+} // InitialStateImpl

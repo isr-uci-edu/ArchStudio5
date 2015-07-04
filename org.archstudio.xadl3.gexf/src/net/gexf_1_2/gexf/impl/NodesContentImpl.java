@@ -5,10 +5,6 @@ package net.gexf_1_2.gexf.impl;
 import java.math.BigInteger;
 import java.util.Collection;
 
-import net.gexf_1_2.gexf.GexfPackage;
-import net.gexf_1_2.gexf.NodeContent;
-import net.gexf_1_2.gexf.NodesContent;
-
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
@@ -19,15 +15,19 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import net.gexf_1_2.gexf.GexfPackage;
+import net.gexf_1_2.gexf.NodeContent;
+import net.gexf_1_2.gexf.NodesContent;
+
 /**
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Nodes Content</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  * <li>{@link net.gexf_1_2.gexf.impl.NodesContentImpl#getNode <em>Node</em>}</li>
  * <li>{@link net.gexf_1_2.gexf.impl.NodesContentImpl#getCount <em>Count</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -126,8 +126,8 @@ public class NodesContentImpl extends MinimalEObjectImpl.Container implements No
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case GexfPackage.NODES_CONTENT__NODE:
-			return ((InternalEList<?>) getNode()).basicRemove(otherEnd, msgs);
+			case GexfPackage.NODES_CONTENT__NODE:
+				return ((InternalEList<?>) getNode()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -140,10 +140,10 @@ public class NodesContentImpl extends MinimalEObjectImpl.Container implements No
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case GexfPackage.NODES_CONTENT__NODE:
-			return getNode();
-		case GexfPackage.NODES_CONTENT__COUNT:
-			return getCount();
+			case GexfPackage.NODES_CONTENT__NODE:
+				return getNode();
+			case GexfPackage.NODES_CONTENT__COUNT:
+				return getCount();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -157,13 +157,13 @@ public class NodesContentImpl extends MinimalEObjectImpl.Container implements No
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case GexfPackage.NODES_CONTENT__NODE:
-			getNode().clear();
-			getNode().addAll((Collection<? extends NodeContent>) newValue);
-			return;
-		case GexfPackage.NODES_CONTENT__COUNT:
-			setCount((BigInteger) newValue);
-			return;
+			case GexfPackage.NODES_CONTENT__NODE:
+				getNode().clear();
+				getNode().addAll((Collection<? extends NodeContent>) newValue);
+				return;
+			case GexfPackage.NODES_CONTENT__COUNT:
+				setCount((BigInteger) newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -176,12 +176,12 @@ public class NodesContentImpl extends MinimalEObjectImpl.Container implements No
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case GexfPackage.NODES_CONTENT__NODE:
-			getNode().clear();
-			return;
-		case GexfPackage.NODES_CONTENT__COUNT:
-			setCount(COUNT_EDEFAULT);
-			return;
+			case GexfPackage.NODES_CONTENT__NODE:
+				getNode().clear();
+				return;
+			case GexfPackage.NODES_CONTENT__COUNT:
+				setCount(COUNT_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -194,10 +194,10 @@ public class NodesContentImpl extends MinimalEObjectImpl.Container implements No
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case GexfPackage.NODES_CONTENT__NODE:
-			return node != null && !node.isEmpty();
-		case GexfPackage.NODES_CONTENT__COUNT:
-			return COUNT_EDEFAULT == null ? count != null : !COUNT_EDEFAULT.equals(count);
+			case GexfPackage.NODES_CONTENT__NODE:
+				return node != null && !node.isEmpty();
+			case GexfPackage.NODES_CONTENT__COUNT:
+				return COUNT_EDEFAULT == null ? count != null : !COUNT_EDEFAULT.equals(count);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -220,4 +220,4 @@ public class NodesContentImpl extends MinimalEObjectImpl.Container implements No
 		return result.toString();
 	}
 
-} //NodesContentImpl
+} // NodesContentImpl

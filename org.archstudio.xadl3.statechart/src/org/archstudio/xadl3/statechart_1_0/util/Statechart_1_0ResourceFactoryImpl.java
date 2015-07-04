@@ -43,4 +43,4 @@ public class Statechart_1_0ResourceFactoryImpl extends ResourceFactoryImpl {
 		return result;
 	}
 
-} //Statechart_1_0ResourceFactoryImpl
+} // Statechart_1_0ResourceFactoryImpl

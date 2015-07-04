@@ -19,10 +19,10 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  * <li>{@link org.archstudio.xadl3.variability_3_0.impl.ElementManyChangeImpl#getChange <em>Change</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -78,8 +78,8 @@ public class ElementManyChangeImpl extends ChangeImpl implements ElementManyChan
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case Variability_3_0Package.ELEMENT_MANY_CHANGE__CHANGE:
-			return ((InternalEList<?>) getChange()).basicRemove(otherEnd, msgs);
+			case Variability_3_0Package.ELEMENT_MANY_CHANGE__CHANGE:
+				return ((InternalEList<?>) getChange()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -92,8 +92,8 @@ public class ElementManyChangeImpl extends ChangeImpl implements ElementManyChan
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case Variability_3_0Package.ELEMENT_MANY_CHANGE__CHANGE:
-			return getChange();
+			case Variability_3_0Package.ELEMENT_MANY_CHANGE__CHANGE:
+				return getChange();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -107,10 +107,10 @@ public class ElementManyChangeImpl extends ChangeImpl implements ElementManyChan
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Variability_3_0Package.ELEMENT_MANY_CHANGE__CHANGE:
-			getChange().clear();
-			getChange().addAll((Collection<? extends ElementChange>) newValue);
-			return;
+			case Variability_3_0Package.ELEMENT_MANY_CHANGE__CHANGE:
+				getChange().clear();
+				getChange().addAll((Collection<? extends ElementChange>) newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -123,9 +123,9 @@ public class ElementManyChangeImpl extends ChangeImpl implements ElementManyChan
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Variability_3_0Package.ELEMENT_MANY_CHANGE__CHANGE:
-			getChange().clear();
-			return;
+			case Variability_3_0Package.ELEMENT_MANY_CHANGE__CHANGE:
+				getChange().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -138,10 +138,10 @@ public class ElementManyChangeImpl extends ChangeImpl implements ElementManyChan
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Variability_3_0Package.ELEMENT_MANY_CHANGE__CHANGE:
-			return change != null && !change.isEmpty();
+			case Variability_3_0Package.ELEMENT_MANY_CHANGE__CHANGE:
+				return change != null && !change.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
 
-} //ElementManyChangeImpl
+} // ElementManyChangeImpl

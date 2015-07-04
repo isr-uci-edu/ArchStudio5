@@ -5,9 +5,8 @@ import org.archstudio.myx.fw.MyxRegistry;
 import org.archstudio.myx.fw.MyxUtils;
 
 /*
- * DO NOT EDIT THIS CLASS, it is automatically generated. ANY MODIFICATIONS WILL BE OVERWRITTEN.
- * 
- * To modify, update the "Prolog Impl" MyxGen extension in the org.archstudio.prolog.archstudio.core plugin.
+ * DO NOT EDIT THIS CLASS, it is automatically generated. ANY MODIFICATIONS WILL BE OVERWRITTEN. To modify, update the
+ * "Prolog Impl" MyxGen extension in the org.archstudio.prolog.archstudio.core plugin.
  */
 
 /**
@@ -15,8 +14,8 @@ import org.archstudio.myx.fw.MyxUtils;
  * 
  * @generated
  */
-public abstract class PrologMyxComponentStub extends org.archstudio.myx.fw.AbstractMyxSimpleBrick implements
-		org.archstudio.myx.fw.IMyxDynamicBrick, org.archstudio.archlight.IArchlightTool {
+public abstract class PrologMyxComponentStub extends org.archstudio.myx.fw.AbstractMyxSimpleBrick
+		implements org.archstudio.myx.fw.IMyxDynamicBrick, org.archstudio.archlight.IArchlightTool {
 
 	/**
 	 * The registry of objects for this brick.

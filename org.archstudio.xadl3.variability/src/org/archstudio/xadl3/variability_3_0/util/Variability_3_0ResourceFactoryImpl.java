@@ -43,4 +43,4 @@ public class Variability_3_0ResourceFactoryImpl extends ResourceFactoryImpl {
 		return result;
 	}
 
-} //Variability_3_0ResourceFactoryImpl
+} // Variability_3_0ResourceFactoryImpl

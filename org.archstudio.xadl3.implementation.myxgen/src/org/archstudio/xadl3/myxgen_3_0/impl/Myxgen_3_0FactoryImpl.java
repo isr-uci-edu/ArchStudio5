@@ -24,8 +24,8 @@ public class Myxgen_3_0FactoryImpl extends EFactoryImpl implements Myxgen_3_0Fac
 	 */
 	public static Myxgen_3_0Factory init() {
 		try {
-			Myxgen_3_0Factory theMyxgen_3_0Factory = (Myxgen_3_0Factory) EPackage.Registry.INSTANCE
-					.getEFactory(Myxgen_3_0Package.eNS_URI);
+			Myxgen_3_0Factory theMyxgen_3_0Factory =
+					(Myxgen_3_0Factory) EPackage.Registry.INSTANCE.getEFactory(Myxgen_3_0Package.eNS_URI);
 			if (theMyxgen_3_0Factory != null) {
 				return theMyxgen_3_0Factory;
 			}
@@ -53,10 +53,10 @@ public class Myxgen_3_0FactoryImpl extends EFactoryImpl implements Myxgen_3_0Fac
 	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
-		case Myxgen_3_0Package.MYX_GEN:
-			return createMyxGen();
-		default:
-			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+			case Myxgen_3_0Package.MYX_GEN:
+				return createMyxGen();
+			default:
+				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
 	}
 
@@ -92,4 +92,4 @@ public class Myxgen_3_0FactoryImpl extends EFactoryImpl implements Myxgen_3_0Fac
 		return Myxgen_3_0Package.eINSTANCE;
 	}
 
-} //Myxgen_3_0FactoryImpl
+} // Myxgen_3_0FactoryImpl

@@ -21,13 +21,13 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Test</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  * <li>{@link org.archstudio.xadl3.archlight_3_0.impl.TestImpl#getExt <em>Ext</em>}</li>
  * <li>{@link org.archstudio.xadl3.archlight_3_0.impl.TestImpl#isEnabled <em>Enabled</em>}</li>
  * <li>{@link org.archstudio.xadl3.archlight_3_0.impl.TestImpl#getId <em>Id</em>}</li>
  * <li>{@link org.archstudio.xadl3.archlight_3_0.impl.TestImpl#getName <em>Name</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -250,8 +250,8 @@ public class TestImpl extends MinimalEObjectImpl.Container implements Test {
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case Archlight_3_0Package.TEST__EXT:
-			return ((InternalEList<?>) getExt()).basicRemove(otherEnd, msgs);
+			case Archlight_3_0Package.TEST__EXT:
+				return ((InternalEList<?>) getExt()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -264,14 +264,14 @@ public class TestImpl extends MinimalEObjectImpl.Container implements Test {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case Archlight_3_0Package.TEST__EXT:
-			return getExt();
-		case Archlight_3_0Package.TEST__ENABLED:
-			return isEnabled();
-		case Archlight_3_0Package.TEST__ID:
-			return getId();
-		case Archlight_3_0Package.TEST__NAME:
-			return getName();
+			case Archlight_3_0Package.TEST__EXT:
+				return getExt();
+			case Archlight_3_0Package.TEST__ENABLED:
+				return isEnabled();
+			case Archlight_3_0Package.TEST__ID:
+				return getId();
+			case Archlight_3_0Package.TEST__NAME:
+				return getName();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -285,19 +285,19 @@ public class TestImpl extends MinimalEObjectImpl.Container implements Test {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Archlight_3_0Package.TEST__EXT:
-			getExt().clear();
-			getExt().addAll((Collection<? extends Extension>) newValue);
-			return;
-		case Archlight_3_0Package.TEST__ENABLED:
-			setEnabled((Boolean) newValue);
-			return;
-		case Archlight_3_0Package.TEST__ID:
-			setId((String) newValue);
-			return;
-		case Archlight_3_0Package.TEST__NAME:
-			setName((String) newValue);
-			return;
+			case Archlight_3_0Package.TEST__EXT:
+				getExt().clear();
+				getExt().addAll((Collection<? extends Extension>) newValue);
+				return;
+			case Archlight_3_0Package.TEST__ENABLED:
+				setEnabled((Boolean) newValue);
+				return;
+			case Archlight_3_0Package.TEST__ID:
+				setId((String) newValue);
+				return;
+			case Archlight_3_0Package.TEST__NAME:
+				setName((String) newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -310,18 +310,18 @@ public class TestImpl extends MinimalEObjectImpl.Container implements Test {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Archlight_3_0Package.TEST__EXT:
-			getExt().clear();
-			return;
-		case Archlight_3_0Package.TEST__ENABLED:
-			unsetEnabled();
-			return;
-		case Archlight_3_0Package.TEST__ID:
-			setId(ID_EDEFAULT);
-			return;
-		case Archlight_3_0Package.TEST__NAME:
-			setName(NAME_EDEFAULT);
-			return;
+			case Archlight_3_0Package.TEST__EXT:
+				getExt().clear();
+				return;
+			case Archlight_3_0Package.TEST__ENABLED:
+				unsetEnabled();
+				return;
+			case Archlight_3_0Package.TEST__ID:
+				setId(ID_EDEFAULT);
+				return;
+			case Archlight_3_0Package.TEST__NAME:
+				setName(NAME_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -334,14 +334,14 @@ public class TestImpl extends MinimalEObjectImpl.Container implements Test {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Archlight_3_0Package.TEST__EXT:
-			return ext != null && !ext.isEmpty();
-		case Archlight_3_0Package.TEST__ENABLED:
-			return isSetEnabled();
-		case Archlight_3_0Package.TEST__ID:
-			return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
-		case Archlight_3_0Package.TEST__NAME:
-			return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+			case Archlight_3_0Package.TEST__EXT:
+				return ext != null && !ext.isEmpty();
+			case Archlight_3_0Package.TEST__ENABLED:
+				return isSetEnabled();
+			case Archlight_3_0Package.TEST__ID:
+				return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
+			case Archlight_3_0Package.TEST__NAME:
+				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -373,4 +373,4 @@ public class TestImpl extends MinimalEObjectImpl.Container implements Test {
 		return result.toString();
 	}
 
-} //TestImpl
+} // TestImpl

@@ -17,26 +17,10 @@ import org.eclipse.emf.ecore.EReference;
  * <li>each enum,</li>
  * <li>and each data type</li>
  * </ul>
- * <!-- end-user-doc --> <!-- begin-model-doc -->
- * 
- * 
- * xADL 3 Prolog Schema
- * 
- * This schema defines additional prolog statements to be included in generated prolog
- * 
- * Changelog: - 3.0.0 * Initial version
- * 
- * 
- * 
- * 
- * xADL 3 Core Schema
- * 
- * This schema defines the core elements for xADL 3 documents. The schema is intentionally small, defining only a few
- * elements that are intended to be common across xADL descriptions and extensions, regardless of domain.
- * 
- * Changelog: - 3.0.0: * Initial version
- * 
- * 
+ * <!-- end-user-doc --> <!-- begin-model-doc --> xADL 3 Prolog Schema This schema defines additional prolog statements
+ * to be included in generated prolog Changelog: - 3.0.0 * Initial version xADL 3 Core Schema This schema defines the
+ * core elements for xADL 3 documents. The schema is intentionally small, defining only a few elements that are intended
+ * to be common across xADL descriptions and extensions, regardless of domain. Changelog: - 3.0.0: * Initial version
  * <!-- end-model-doc -->
  * 
  * @see org.archstudio.xadl3.prolog_3_0.Prolog_3_0Factory
@@ -151,7 +135,7 @@ public interface Prolog_3_0Package extends EPackage {
 	 * @see org.archstudio.xadl3.prolog_3_0.PrologExtension
 	 * @generated
 	 */
-	EClass getPrologExtension();
+			EClass getPrologExtension();
 
 	/**
 	 * Returns the meta object for the containment reference list '
@@ -163,7 +147,7 @@ public interface Prolog_3_0Package extends EPackage {
 	 * @see #getPrologExtension()
 	 * @generated
 	 */
-	EReference getPrologExtension_Statement();
+			EReference getPrologExtension_Statement();
 
 	/**
 	 * Returns the meta object for class '{@link org.archstudio.xadl3.prolog_3_0.Statement <em>Statement</em>}'. <!--
@@ -173,7 +157,7 @@ public interface Prolog_3_0Package extends EPackage {
 	 * @see org.archstudio.xadl3.prolog_3_0.Statement
 	 * @generated
 	 */
-	EClass getStatement();
+			EClass getStatement();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.archstudio.xadl3.prolog_3_0.Statement#getValue
@@ -184,7 +168,7 @@ public interface Prolog_3_0Package extends EPackage {
 	 * @see #getStatement()
 	 * @generated
 	 */
-	EAttribute getStatement_Value();
+			EAttribute getStatement_Value();
 
 	/**
 	 * Returns the factory that creates the instances of the model. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -192,7 +176,7 @@ public interface Prolog_3_0Package extends EPackage {
 	 * @return the factory that creates the instances of the model.
 	 * @generated
 	 */
-	Prolog_3_0Factory getProlog_3_0Factory();
+			Prolog_3_0Factory getProlog_3_0Factory();
 
 	/**
 	 * <!-- begin-user-doc --> Defines literals for the meta objects that represent
@@ -227,8 +211,8 @@ public interface Prolog_3_0Package extends EPackage {
 		EReference PROLOG_EXTENSION__STATEMENT = eINSTANCE.getPrologExtension_Statement();
 
 		/**
-		 * The meta object literal for the '{@link org.archstudio.xadl3.prolog_3_0.impl.StatementImpl
-		 * <em>Statement</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * The meta object literal for the '{@link org.archstudio.xadl3.prolog_3_0.impl.StatementImpl <em>Statement</em>
+		 * }' class. <!-- begin-user-doc --> <!-- end-user-doc -->
 		 * 
 		 * @see org.archstudio.xadl3.prolog_3_0.impl.StatementImpl
 		 * @see org.archstudio.xadl3.prolog_3_0.impl.Prolog_3_0PackageImpl#getStatement()
@@ -246,4 +230,4 @@ public interface Prolog_3_0Package extends EPackage {
 
 	}
 
-} //Prolog_3_0Package
+} // Prolog_3_0Package

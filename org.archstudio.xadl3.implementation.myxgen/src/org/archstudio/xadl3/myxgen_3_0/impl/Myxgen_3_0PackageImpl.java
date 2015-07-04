@@ -56,7 +56,6 @@ public class Myxgen_3_0PackageImpl extends EPackageImpl implements Myxgen_3_0Pac
 
 	/**
 	 * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
-	 * 
 	 * <p>
 	 * This method is used to initialize {@link Myxgen_3_0Package#eINSTANCE} when that field is accessed. Clients should
 	 * not invoke it directly. Instead, they should simply access that field to obtain the package. <!-- begin-user-doc
@@ -73,8 +72,9 @@ public class Myxgen_3_0PackageImpl extends EPackageImpl implements Myxgen_3_0Pac
 		}
 
 		// Obtain or create and register package
-		Myxgen_3_0PackageImpl theMyxgen_3_0Package = (Myxgen_3_0PackageImpl) (EPackage.Registry.INSTANCE.get(eNS_URI) instanceof Myxgen_3_0PackageImpl ? EPackage.Registry.INSTANCE
-				.get(eNS_URI) : new Myxgen_3_0PackageImpl());
+		Myxgen_3_0PackageImpl theMyxgen_3_0Package =
+				(Myxgen_3_0PackageImpl) (EPackage.Registry.INSTANCE.get(eNS_URI) instanceof Myxgen_3_0PackageImpl
+						? EPackage.Registry.INSTANCE.get(eNS_URI) : new Myxgen_3_0PackageImpl());
 
 		isInited = true;
 
@@ -83,14 +83,17 @@ public class Myxgen_3_0PackageImpl extends EPackageImpl implements Myxgen_3_0Pac
 
 		// Obtain or create and register interdependencies
 		Xadlcore_3_0PackageImpl theXadlcore_3_0Package = (Xadlcore_3_0PackageImpl) (EPackage.Registry.INSTANCE
-				.getEPackage(Xadlcore_3_0Package.eNS_URI) instanceof Xadlcore_3_0PackageImpl ? EPackage.Registry.INSTANCE
-				.getEPackage(Xadlcore_3_0Package.eNS_URI) : Xadlcore_3_0Package.eINSTANCE);
+				.getEPackage(Xadlcore_3_0Package.eNS_URI) instanceof Xadlcore_3_0PackageImpl
+						? EPackage.Registry.INSTANCE.getEPackage(Xadlcore_3_0Package.eNS_URI)
+						: Xadlcore_3_0Package.eINSTANCE);
 		XlinkPackageImpl theXlinkPackage = (XlinkPackageImpl) (EPackage.Registry.INSTANCE
-				.getEPackage(XlinkPackage.eNS_URI) instanceof XlinkPackageImpl ? EPackage.Registry.INSTANCE
-				.getEPackage(XlinkPackage.eNS_URI) : XlinkPackage.eINSTANCE);
-		Implementation_3_0PackageImpl theImplementation_3_0Package = (Implementation_3_0PackageImpl) (EPackage.Registry.INSTANCE
-				.getEPackage(Implementation_3_0Package.eNS_URI) instanceof Implementation_3_0PackageImpl ? EPackage.Registry.INSTANCE
-				.getEPackage(Implementation_3_0Package.eNS_URI) : Implementation_3_0Package.eINSTANCE);
+				.getEPackage(XlinkPackage.eNS_URI) instanceof XlinkPackageImpl
+						? EPackage.Registry.INSTANCE.getEPackage(XlinkPackage.eNS_URI) : XlinkPackage.eINSTANCE);
+		Implementation_3_0PackageImpl theImplementation_3_0Package =
+				(Implementation_3_0PackageImpl) (EPackage.Registry.INSTANCE
+						.getEPackage(Implementation_3_0Package.eNS_URI) instanceof Implementation_3_0PackageImpl
+								? EPackage.Registry.INSTANCE.getEPackage(Implementation_3_0Package.eNS_URI)
+								: Implementation_3_0Package.eINSTANCE);
 
 		// Create package meta-data objects
 		theMyxgen_3_0Package.createPackageContents();
@@ -191,10 +194,10 @@ public class Myxgen_3_0PackageImpl extends EPackageImpl implements Myxgen_3_0Pac
 		setNsURI(eNS_URI);
 
 		// Obtain other dependent packages
-		Implementation_3_0Package theImplementation_3_0Package = (Implementation_3_0Package) EPackage.Registry.INSTANCE
-				.getEPackage(Implementation_3_0Package.eNS_URI);
-		XMLTypePackage theXMLTypePackage = (XMLTypePackage) EPackage.Registry.INSTANCE
-				.getEPackage(XMLTypePackage.eNS_URI);
+		Implementation_3_0Package theImplementation_3_0Package =
+				(Implementation_3_0Package) EPackage.Registry.INSTANCE.getEPackage(Implementation_3_0Package.eNS_URI);
+		XMLTypePackage theXMLTypePackage =
+				(XMLTypePackage) EPackage.Registry.INSTANCE.getEPackage(XMLTypePackage.eNS_URI);
 
 		// Create type parameters
 
@@ -225,8 +228,8 @@ public class Myxgen_3_0PackageImpl extends EPackageImpl implements Myxgen_3_0Pac
 	protected void createExtendedMetaDataAnnotations() {
 		String source = "http:///org/eclipse/emf/ecore/util/ExtendedMetaData";
 		addAnnotation(myxGenEClass, source, new String[] { "name", "MyxGen", "kind", "elementOnly" });
-		addAnnotation(getMyxGen_BrickID(), source, new String[] { "kind", "element", "name", "brickID", "namespace",
-				"##targetNamespace" });
+		addAnnotation(getMyxGen_BrickID(), source,
+				new String[] { "kind", "element", "name", "brickID", "namespace", "##targetNamespace" });
 	}
 
-} //Myxgen_3_0PackageImpl
+} // Myxgen_3_0PackageImpl

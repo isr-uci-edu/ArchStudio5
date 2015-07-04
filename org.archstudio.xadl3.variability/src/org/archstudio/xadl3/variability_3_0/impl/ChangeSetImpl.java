@@ -21,12 +21,12 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Change Set</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  * <li>{@link org.archstudio.xadl3.variability_3_0.impl.ChangeSetImpl#getExt <em>Ext</em>}</li>
  * <li>{@link org.archstudio.xadl3.variability_3_0.impl.ChangeSetImpl#getId <em>Id</em>}</li>
  * <li>{@link org.archstudio.xadl3.variability_3_0.impl.ChangeSetImpl#getName <em>Name</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -168,8 +168,8 @@ public abstract class ChangeSetImpl extends MinimalEObjectImpl.Container impleme
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case Variability_3_0Package.CHANGE_SET__EXT:
-			return ((InternalEList<?>) getExt()).basicRemove(otherEnd, msgs);
+			case Variability_3_0Package.CHANGE_SET__EXT:
+				return ((InternalEList<?>) getExt()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -182,12 +182,12 @@ public abstract class ChangeSetImpl extends MinimalEObjectImpl.Container impleme
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case Variability_3_0Package.CHANGE_SET__EXT:
-			return getExt();
-		case Variability_3_0Package.CHANGE_SET__ID:
-			return getId();
-		case Variability_3_0Package.CHANGE_SET__NAME:
-			return getName();
+			case Variability_3_0Package.CHANGE_SET__EXT:
+				return getExt();
+			case Variability_3_0Package.CHANGE_SET__ID:
+				return getId();
+			case Variability_3_0Package.CHANGE_SET__NAME:
+				return getName();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -201,16 +201,16 @@ public abstract class ChangeSetImpl extends MinimalEObjectImpl.Container impleme
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Variability_3_0Package.CHANGE_SET__EXT:
-			getExt().clear();
-			getExt().addAll((Collection<? extends Extension>) newValue);
-			return;
-		case Variability_3_0Package.CHANGE_SET__ID:
-			setId((String) newValue);
-			return;
-		case Variability_3_0Package.CHANGE_SET__NAME:
-			setName((String) newValue);
-			return;
+			case Variability_3_0Package.CHANGE_SET__EXT:
+				getExt().clear();
+				getExt().addAll((Collection<? extends Extension>) newValue);
+				return;
+			case Variability_3_0Package.CHANGE_SET__ID:
+				setId((String) newValue);
+				return;
+			case Variability_3_0Package.CHANGE_SET__NAME:
+				setName((String) newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -223,15 +223,15 @@ public abstract class ChangeSetImpl extends MinimalEObjectImpl.Container impleme
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Variability_3_0Package.CHANGE_SET__EXT:
-			getExt().clear();
-			return;
-		case Variability_3_0Package.CHANGE_SET__ID:
-			setId(ID_EDEFAULT);
-			return;
-		case Variability_3_0Package.CHANGE_SET__NAME:
-			setName(NAME_EDEFAULT);
-			return;
+			case Variability_3_0Package.CHANGE_SET__EXT:
+				getExt().clear();
+				return;
+			case Variability_3_0Package.CHANGE_SET__ID:
+				setId(ID_EDEFAULT);
+				return;
+			case Variability_3_0Package.CHANGE_SET__NAME:
+				setName(NAME_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -244,12 +244,12 @@ public abstract class ChangeSetImpl extends MinimalEObjectImpl.Container impleme
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Variability_3_0Package.CHANGE_SET__EXT:
-			return ext != null && !ext.isEmpty();
-		case Variability_3_0Package.CHANGE_SET__ID:
-			return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
-		case Variability_3_0Package.CHANGE_SET__NAME:
-			return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+			case Variability_3_0Package.CHANGE_SET__EXT:
+				return ext != null && !ext.isEmpty();
+			case Variability_3_0Package.CHANGE_SET__ID:
+				return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
+			case Variability_3_0Package.CHANGE_SET__NAME:
+				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -274,4 +274,4 @@ public abstract class ChangeSetImpl extends MinimalEObjectImpl.Container impleme
 		return result.toString();
 	}
 
-} //ChangeSetImpl
+} // ChangeSetImpl

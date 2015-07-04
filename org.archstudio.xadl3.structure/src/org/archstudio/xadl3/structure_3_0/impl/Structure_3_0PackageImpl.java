@@ -136,7 +136,6 @@ public class Structure_3_0PackageImpl extends EPackageImpl implements Structure_
 
 	/**
 	 * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
-	 * 
 	 * <p>
 	 * This method is used to initialize {@link Structure_3_0Package#eINSTANCE} when that field is accessed. Clients
 	 * should not invoke it directly. Instead, they should simply access that field to obtain the package. <!--
@@ -153,9 +152,9 @@ public class Structure_3_0PackageImpl extends EPackageImpl implements Structure_
 		}
 
 		// Obtain or create and register package
-		Structure_3_0PackageImpl theStructure_3_0Package = (Structure_3_0PackageImpl) (EPackage.Registry.INSTANCE
-				.get(eNS_URI) instanceof Structure_3_0PackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI)
-				: new Structure_3_0PackageImpl());
+		Structure_3_0PackageImpl theStructure_3_0Package =
+				(Structure_3_0PackageImpl) (EPackage.Registry.INSTANCE.get(eNS_URI) instanceof Structure_3_0PackageImpl
+						? EPackage.Registry.INSTANCE.get(eNS_URI) : new Structure_3_0PackageImpl());
 
 		isInited = true;
 
@@ -164,11 +163,12 @@ public class Structure_3_0PackageImpl extends EPackageImpl implements Structure_
 
 		// Obtain or create and register interdependencies
 		Xadlcore_3_0PackageImpl theXadlcore_3_0Package = (Xadlcore_3_0PackageImpl) (EPackage.Registry.INSTANCE
-				.getEPackage(Xadlcore_3_0Package.eNS_URI) instanceof Xadlcore_3_0PackageImpl ? EPackage.Registry.INSTANCE
-				.getEPackage(Xadlcore_3_0Package.eNS_URI) : Xadlcore_3_0Package.eINSTANCE);
+				.getEPackage(Xadlcore_3_0Package.eNS_URI) instanceof Xadlcore_3_0PackageImpl
+						? EPackage.Registry.INSTANCE.getEPackage(Xadlcore_3_0Package.eNS_URI)
+						: Xadlcore_3_0Package.eINSTANCE);
 		XlinkPackageImpl theXlinkPackage = (XlinkPackageImpl) (EPackage.Registry.INSTANCE
-				.getEPackage(XlinkPackage.eNS_URI) instanceof XlinkPackageImpl ? EPackage.Registry.INSTANCE
-				.getEPackage(XlinkPackage.eNS_URI) : XlinkPackage.eINSTANCE);
+				.getEPackage(XlinkPackage.eNS_URI) instanceof XlinkPackageImpl
+						? EPackage.Registry.INSTANCE.getEPackage(XlinkPackage.eNS_URI) : XlinkPackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theStructure_3_0Package.createPackageContents();
@@ -741,10 +741,10 @@ public class Structure_3_0PackageImpl extends EPackageImpl implements Structure_
 		setNsURI(eNS_URI);
 
 		// Obtain other dependent packages
-		Xadlcore_3_0Package theXadlcore_3_0Package = (Xadlcore_3_0Package) EPackage.Registry.INSTANCE
-				.getEPackage(Xadlcore_3_0Package.eNS_URI);
-		XMLTypePackage theXMLTypePackage = (XMLTypePackage) EPackage.Registry.INSTANCE
-				.getEPackage(XMLTypePackage.eNS_URI);
+		Xadlcore_3_0Package theXadlcore_3_0Package =
+				(Xadlcore_3_0Package) EPackage.Registry.INSTANCE.getEPackage(Xadlcore_3_0Package.eNS_URI);
+		XMLTypePackage theXMLTypePackage =
+				(XMLTypePackage) EPackage.Registry.INSTANCE.getEPackage(XMLTypePackage.eNS_URI);
 
 		// Create type parameters
 
@@ -779,7 +779,8 @@ public class Structure_3_0PackageImpl extends EPackageImpl implements Structure_
 		initEClass(documentRootEClass, DocumentRoot.class, "DocumentRoot", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getDocumentRoot_Mixed(), ecorePackage.getEFeatureMapEntry(), "mixed", null, 0, -1, null,
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED,
+				IS_ORDERED);
 		initEReference(getDocumentRoot_XMLNSPrefixMap(), ecorePackage.getEStringToStringMapEntry(), null,
 				"xMLNSPrefixMap", null, 0, -1, null, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
 				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -821,11 +822,11 @@ public class Structure_3_0PackageImpl extends EPackageImpl implements Structure_
 
 		initEClass(linkEClass, Link.class, "Link", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getLink_Point1(), this.getInterface(), null, "point1", null, 1, 1, Link.class, !IS_TRANSIENT,
-				!IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
-				!IS_DERIVED, IS_ORDERED);
+				!IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
+				IS_ORDERED);
 		initEReference(getLink_Point2(), this.getInterface(), null, "point2", null, 1, 1, Link.class, !IS_TRANSIENT,
-				!IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
-				!IS_DERIVED, IS_ORDERED);
+				!IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
+				IS_ORDERED);
 		initEReference(getLink_Ext(), theXadlcore_3_0Package.getExtension(), null, "ext", null, 0, -1, Link.class,
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
 				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -895,84 +896,84 @@ public class Structure_3_0PackageImpl extends EPackageImpl implements Structure_
 	protected void createExtendedMetaDataAnnotations() {
 		String source = "http:///org/eclipse/emf/ecore/util/ExtendedMetaData";
 		addAnnotation(brickEClass, source, new String[] { "name", "Brick", "kind", "elementOnly" });
-		addAnnotation(getBrick_Interface(), source, new String[] { "kind", "element", "name", "interface", "namespace",
-				"##targetNamespace" });
-		addAnnotation(getBrick_SubStructure(), source, new String[] { "kind", "element", "name", "subStructure",
-				"namespace", "##targetNamespace" });
-		addAnnotation(getBrick_Ext(), source, new String[] { "kind", "element", "name", "ext", "namespace",
-				"##targetNamespace" });
-		addAnnotation(getBrick_Id(), source, new String[] { "kind", "attribute", "name", "id", "namespace",
-				"##targetNamespace" });
-		addAnnotation(getBrick_Name(), source, new String[] { "kind", "attribute", "name", "name", "namespace",
-				"##targetNamespace" });
+		addAnnotation(getBrick_Interface(), source,
+				new String[] { "kind", "element", "name", "interface", "namespace", "##targetNamespace" });
+		addAnnotation(getBrick_SubStructure(), source,
+				new String[] { "kind", "element", "name", "subStructure", "namespace", "##targetNamespace" });
+		addAnnotation(getBrick_Ext(), source,
+				new String[] { "kind", "element", "name", "ext", "namespace", "##targetNamespace" });
+		addAnnotation(getBrick_Id(), source,
+				new String[] { "kind", "attribute", "name", "id", "namespace", "##targetNamespace" });
+		addAnnotation(getBrick_Name(), source,
+				new String[] { "kind", "attribute", "name", "name", "namespace", "##targetNamespace" });
 		addAnnotation(componentEClass, source, new String[] { "name", "Component", "kind", "elementOnly" });
 		addAnnotation(connectorEClass, source, new String[] { "name", "Connector", "kind", "elementOnly" });
 		addAnnotation(directionEEnum, source, new String[] { "name", "Direction" });
-		addAnnotation(directionObjectEDataType, source, new String[] { "name", "Direction:Object", "baseType",
-				"Direction" });
+		addAnnotation(directionObjectEDataType, source,
+				new String[] { "name", "Direction:Object", "baseType", "Direction" });
 		addAnnotation(documentRootEClass, source, new String[] { "name", "", "kind", "mixed" });
 		addAnnotation(getDocumentRoot_Mixed(), source, new String[] { "kind", "elementWildcard", "name", ":mixed" });
-		addAnnotation(getDocumentRoot_XMLNSPrefixMap(), source, new String[] { "kind", "attribute", "name",
-				"xmlns:prefix" });
-		addAnnotation(getDocumentRoot_XSISchemaLocation(), source, new String[] { "kind", "attribute", "name",
-				"xsi:schemaLocation" });
-		addAnnotation(getDocumentRoot_Structure(), source, new String[] { "kind", "element", "name", "structure",
-				"namespace", "##targetNamespace", "affiliation",
-				"http://www.archstudio.org/xadl3/schemas/xadlcore-3.0.xsd#topLevelElement" });
+		addAnnotation(getDocumentRoot_XMLNSPrefixMap(), source,
+				new String[] { "kind", "attribute", "name", "xmlns:prefix" });
+		addAnnotation(getDocumentRoot_XSISchemaLocation(), source,
+				new String[] { "kind", "attribute", "name", "xsi:schemaLocation" });
+		addAnnotation(getDocumentRoot_Structure(), source,
+				new String[] { "kind", "element", "name", "structure", "namespace", "##targetNamespace", "affiliation",
+						"http://www.archstudio.org/xadl3/schemas/xadlcore-3.0.xsd#topLevelElement" });
 		addAnnotation(interfaceEClass, source, new String[] { "name", "Interface", "kind", "elementOnly" });
-		addAnnotation(getInterface_Ext(), source, new String[] { "kind", "element", "name", "ext", "namespace",
-				"##targetNamespace" });
-		addAnnotation(getInterface_Direction(), source, new String[] { "kind", "attribute", "name", "direction",
-				"namespace", "##targetNamespace" });
-		addAnnotation(getInterface_Id(), source, new String[] { "kind", "attribute", "name", "id", "namespace",
-				"##targetNamespace" });
-		addAnnotation(getInterface_Name(), source, new String[] { "kind", "attribute", "name", "name", "namespace",
-				"##targetNamespace" });
+		addAnnotation(getInterface_Ext(), source,
+				new String[] { "kind", "element", "name", "ext", "namespace", "##targetNamespace" });
+		addAnnotation(getInterface_Direction(), source,
+				new String[] { "kind", "attribute", "name", "direction", "namespace", "##targetNamespace" });
+		addAnnotation(getInterface_Id(), source,
+				new String[] { "kind", "attribute", "name", "id", "namespace", "##targetNamespace" });
+		addAnnotation(getInterface_Name(), source,
+				new String[] { "kind", "attribute", "name", "name", "namespace", "##targetNamespace" });
 		addAnnotation(interfaceMappingEClass, source,
 				new String[] { "name", "InterfaceMapping", "kind", "elementOnly" });
-		addAnnotation(getInterfaceMapping_OuterInterfaceLink(), source, new String[] { "kind", "element", "name",
-				"outerInterfaceLink", "namespace", "##targetNamespace" });
-		addAnnotation(getInterfaceMapping_InnerInterfaceLink(), source, new String[] { "kind", "element", "name",
-				"innerInterfaceLink", "namespace", "##targetNamespace" });
-		addAnnotation(getInterfaceMapping_Ext(), source, new String[] { "kind", "element", "name", "ext", "namespace",
-				"##targetNamespace" });
-		addAnnotation(getInterfaceMapping_Id(), source, new String[] { "kind", "attribute", "name", "id", "namespace",
-				"##targetNamespace" });
-		addAnnotation(getInterfaceMapping_Name(), source, new String[] { "kind", "attribute", "name", "name",
-				"namespace", "##targetNamespace" });
+		addAnnotation(getInterfaceMapping_OuterInterfaceLink(), source,
+				new String[] { "kind", "element", "name", "outerInterfaceLink", "namespace", "##targetNamespace" });
+		addAnnotation(getInterfaceMapping_InnerInterfaceLink(), source,
+				new String[] { "kind", "element", "name", "innerInterfaceLink", "namespace", "##targetNamespace" });
+		addAnnotation(getInterfaceMapping_Ext(), source,
+				new String[] { "kind", "element", "name", "ext", "namespace", "##targetNamespace" });
+		addAnnotation(getInterfaceMapping_Id(), source,
+				new String[] { "kind", "attribute", "name", "id", "namespace", "##targetNamespace" });
+		addAnnotation(getInterfaceMapping_Name(), source,
+				new String[] { "kind", "attribute", "name", "name", "namespace", "##targetNamespace" });
 		addAnnotation(linkEClass, source, new String[] { "name", "Link", "kind", "elementOnly" });
-		addAnnotation(getLink_Point1(), source, new String[] { "kind", "element", "name", "point1", "namespace",
-				"##targetNamespace" });
-		addAnnotation(getLink_Point2(), source, new String[] { "kind", "element", "name", "point2", "namespace",
-				"##targetNamespace" });
-		addAnnotation(getLink_Ext(), source, new String[] { "kind", "element", "name", "ext", "namespace",
-				"##targetNamespace" });
-		addAnnotation(getLink_Id(), source, new String[] { "kind", "attribute", "name", "id", "namespace",
-				"##targetNamespace" });
-		addAnnotation(getLink_Name(), source, new String[] { "kind", "attribute", "name", "name", "namespace",
-				"##targetNamespace" });
+		addAnnotation(getLink_Point1(), source,
+				new String[] { "kind", "element", "name", "point1", "namespace", "##targetNamespace" });
+		addAnnotation(getLink_Point2(), source,
+				new String[] { "kind", "element", "name", "point2", "namespace", "##targetNamespace" });
+		addAnnotation(getLink_Ext(), source,
+				new String[] { "kind", "element", "name", "ext", "namespace", "##targetNamespace" });
+		addAnnotation(getLink_Id(), source,
+				new String[] { "kind", "attribute", "name", "id", "namespace", "##targetNamespace" });
+		addAnnotation(getLink_Name(), source,
+				new String[] { "kind", "attribute", "name", "name", "namespace", "##targetNamespace" });
 		addAnnotation(structureEClass, source, new String[] { "name", "Structure", "kind", "elementOnly" });
-		addAnnotation(getStructure_Component(), source, new String[] { "kind", "element", "name", "component",
-				"namespace", "##targetNamespace" });
-		addAnnotation(getStructure_Connector(), source, new String[] { "kind", "element", "name", "connector",
-				"namespace", "##targetNamespace" });
-		addAnnotation(getStructure_Link(), source, new String[] { "kind", "element", "name", "link", "namespace",
-				"##targetNamespace" });
-		addAnnotation(getStructure_Ext(), source, new String[] { "kind", "element", "name", "ext", "namespace",
-				"##targetNamespace" });
-		addAnnotation(getStructure_Id(), source, new String[] { "kind", "attribute", "name", "id", "namespace",
-				"##targetNamespace" });
-		addAnnotation(getStructure_Name(), source, new String[] { "kind", "attribute", "name", "name", "namespace",
-				"##targetNamespace" });
+		addAnnotation(getStructure_Component(), source,
+				new String[] { "kind", "element", "name", "component", "namespace", "##targetNamespace" });
+		addAnnotation(getStructure_Connector(), source,
+				new String[] { "kind", "element", "name", "connector", "namespace", "##targetNamespace" });
+		addAnnotation(getStructure_Link(), source,
+				new String[] { "kind", "element", "name", "link", "namespace", "##targetNamespace" });
+		addAnnotation(getStructure_Ext(), source,
+				new String[] { "kind", "element", "name", "ext", "namespace", "##targetNamespace" });
+		addAnnotation(getStructure_Id(), source,
+				new String[] { "kind", "attribute", "name", "id", "namespace", "##targetNamespace" });
+		addAnnotation(getStructure_Name(), source,
+				new String[] { "kind", "attribute", "name", "name", "namespace", "##targetNamespace" });
 		addAnnotation(subStructureEClass, source, new String[] { "name", "SubStructure", "kind", "elementOnly" });
-		addAnnotation(getSubStructure_InnerStructureLink(), source, new String[] { "kind", "element", "name",
-				"innerStructureLink", "namespace", "##targetNamespace" });
-		addAnnotation(getSubStructure_InterfaceMapping(), source, new String[] { "kind", "element", "name",
-				"interfaceMapping", "namespace", "##targetNamespace" });
-		addAnnotation(getSubStructure_Ext(), source, new String[] { "kind", "element", "name", "ext", "namespace",
-				"##targetNamespace" });
-		addAnnotation(getSubStructure_Id(), source, new String[] { "kind", "attribute", "name", "id", "namespace",
-				"##targetNamespace" });
+		addAnnotation(getSubStructure_InnerStructureLink(), source,
+				new String[] { "kind", "element", "name", "innerStructureLink", "namespace", "##targetNamespace" });
+		addAnnotation(getSubStructure_InterfaceMapping(), source,
+				new String[] { "kind", "element", "name", "interfaceMapping", "namespace", "##targetNamespace" });
+		addAnnotation(getSubStructure_Ext(), source,
+				new String[] { "kind", "element", "name", "ext", "namespace", "##targetNamespace" });
+		addAnnotation(getSubStructure_Id(), source,
+				new String[] { "kind", "attribute", "name", "id", "namespace", "##targetNamespace" });
 	}
 
-} //Structure_3_0PackageImpl
+} // Structure_3_0PackageImpl

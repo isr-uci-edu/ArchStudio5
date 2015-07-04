@@ -8,8 +8,6 @@ import org.eclipse.emf.ecore.EClass;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Connector</b></em>'. <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */
@@ -33,4 +31,4 @@ public class ConnectorImpl extends BrickImpl implements Connector {
 		return Structure_3_0Package.Literals.CONNECTOR;
 	}
 
-} //ConnectorImpl
+} // ConnectorImpl

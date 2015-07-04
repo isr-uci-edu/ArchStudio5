@@ -5,10 +5,8 @@ import org.archstudio.myx.fw.MyxRegistry;
 import org.archstudio.myx.fw.MyxUtils;
 
 /*
- * DO NOT EDIT THIS CLASS, it is automatically generated. ANY MODIFICATIONS WILL BE OVERWRITTEN.
- * 
- * To modify, update the "Editor Manager Myx Component" MyxGen extension in the org.archstudio.editormanager.core
- * plugin.
+ * DO NOT EDIT THIS CLASS, it is automatically generated. ANY MODIFICATIONS WILL BE OVERWRITTEN. To modify, update the
+ * "Editor Manager Myx Component" MyxGen extension in the org.archstudio.editormanager.core plugin.
  */
 
 /**
@@ -16,8 +14,8 @@ import org.archstudio.myx.fw.MyxUtils;
  * 
  * @generated
  */
-public abstract class EditorManagerMyxComponentStub extends org.archstudio.myx.fw.AbstractMyxSimpleBrick implements
-		org.archstudio.myx.fw.IMyxDynamicBrick {
+public abstract class EditorManagerMyxComponentStub extends org.archstudio.myx.fw.AbstractMyxSimpleBrick
+		implements org.archstudio.myx.fw.IMyxDynamicBrick {
 
 	/**
 	 * The registry of objects for this brick.
@@ -98,8 +96,9 @@ public abstract class EditorManagerMyxComponentStub extends org.archstudio.myx.f
 	 * @see #OUT_FOCUS_EDITOR_EVENTS
 	 * @generated
 	 */
-	protected final org.archstudio.eclipse.ui.IFocusEditorListener focusEditorEventsProxy = (org.archstudio.eclipse.ui.IFocusEditorListener) java.lang.reflect.Proxy
-			.newProxyInstance(org.archstudio.eclipse.ui.IFocusEditorListener.class.getClassLoader(),
+	protected final org.archstudio.eclipse.ui.IFocusEditorListener focusEditorEventsProxy =
+			(org.archstudio.eclipse.ui.IFocusEditorListener) java.lang.reflect.Proxy.newProxyInstance(
+					org.archstudio.eclipse.ui.IFocusEditorListener.class.getClassLoader(),
 					new Class[] { org.archstudio.eclipse.ui.IFocusEditorListener.class },
 					new java.lang.reflect.InvocationHandler() {
 						@Override
@@ -191,7 +190,8 @@ public abstract class EditorManagerMyxComponentStub extends org.archstudio.myx.f
 
 		if (interfaceName.equals(OUT_FOCUS_EDITOR_EVENTS)) {
 			if (focusEditorEvents != null) {
-				throw new IllegalStateException("Only a single connection is supported on interface: focusEditorEvents");
+				throw new IllegalStateException(
+						"Only a single connection is supported on interface: focusEditorEvents");
 			}
 			focusEditorEvents = (org.archstudio.eclipse.ui.IFocusEditorListener) serviceObject;
 			return;

@@ -84,6 +84,8 @@ public enum ModeType implements Enumerator {
 	 * Returns the '<em><b>Mode Type</b></em>' literal with the specified literal value. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
 	 * 
+	 * @param literal the literal.
+	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
 	public static ModeType get(String literal) {
@@ -99,6 +101,8 @@ public enum ModeType implements Enumerator {
 	 * Returns the '<em><b>Mode Type</b></em>' literal with the specified name. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
 	 * 
+	 * @param name the name.
+	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
 	public static ModeType getByName(String name) {
@@ -114,14 +118,16 @@ public enum ModeType implements Enumerator {
 	 * Returns the '<em><b>Mode Type</b></em>' literal with the specified integer value. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
 	 * 
+	 * @param value the integer value.
+	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
 	public static ModeType get(int value) {
 		switch (value) {
-		case STATIC_VALUE:
-			return STATIC;
-		case DYNAMIC_VALUE:
-			return DYNAMIC;
+			case STATIC_VALUE:
+				return STATIC;
+			case DYNAMIC_VALUE:
+				return DYNAMIC;
 		}
 		return null;
 	}
@@ -199,4 +205,4 @@ public enum ModeType implements Enumerator {
 		return literal;
 	}
 
-} //ModeType
+} // ModeType

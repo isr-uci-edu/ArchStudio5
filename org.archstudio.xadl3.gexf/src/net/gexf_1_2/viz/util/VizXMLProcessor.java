@@ -4,11 +4,11 @@ package net.gexf_1_2.viz.util;
 
 import java.util.Map;
 
-import net.gexf_1_2.viz.VizPackage;
-
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.util.XMLProcessor;
+
+import net.gexf_1_2.viz.VizPackage;
 
 /**
  * This class contains helper methods to serialize and deserialize XML documents <!-- begin-user-doc --> <!--
@@ -44,4 +44,4 @@ public class VizXMLProcessor extends XMLProcessor {
 		return registrations;
 	}
 
-} //VizXMLProcessor
+} // VizXMLProcessor

@@ -20,10 +20,10 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  * <li>{@link org.archstudio.xadl3.prolog_3_0.impl.PrologExtensionImpl#getStatement <em>Statement</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -79,8 +79,8 @@ public class PrologExtensionImpl extends ExtensionImpl implements PrologExtensio
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case Prolog_3_0Package.PROLOG_EXTENSION__STATEMENT:
-			return ((InternalEList<?>) getStatement()).basicRemove(otherEnd, msgs);
+			case Prolog_3_0Package.PROLOG_EXTENSION__STATEMENT:
+				return ((InternalEList<?>) getStatement()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -93,8 +93,8 @@ public class PrologExtensionImpl extends ExtensionImpl implements PrologExtensio
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case Prolog_3_0Package.PROLOG_EXTENSION__STATEMENT:
-			return getStatement();
+			case Prolog_3_0Package.PROLOG_EXTENSION__STATEMENT:
+				return getStatement();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -108,10 +108,10 @@ public class PrologExtensionImpl extends ExtensionImpl implements PrologExtensio
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Prolog_3_0Package.PROLOG_EXTENSION__STATEMENT:
-			getStatement().clear();
-			getStatement().addAll((Collection<? extends Statement>) newValue);
-			return;
+			case Prolog_3_0Package.PROLOG_EXTENSION__STATEMENT:
+				getStatement().clear();
+				getStatement().addAll((Collection<? extends Statement>) newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -124,9 +124,9 @@ public class PrologExtensionImpl extends ExtensionImpl implements PrologExtensio
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Prolog_3_0Package.PROLOG_EXTENSION__STATEMENT:
-			getStatement().clear();
-			return;
+			case Prolog_3_0Package.PROLOG_EXTENSION__STATEMENT:
+				getStatement().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -139,10 +139,10 @@ public class PrologExtensionImpl extends ExtensionImpl implements PrologExtensio
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Prolog_3_0Package.PROLOG_EXTENSION__STATEMENT:
-			return statement != null && !statement.isEmpty();
+			case Prolog_3_0Package.PROLOG_EXTENSION__STATEMENT:
+				return statement != null && !statement.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
 
-} //PrologExtensionImpl
+} // PrologExtensionImpl

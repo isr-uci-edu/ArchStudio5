@@ -5,9 +5,8 @@ import org.archstudio.myx.fw.MyxRegistry;
 import org.archstudio.myx.fw.MyxUtils;
 
 /*
- * DO NOT EDIT THIS CLASS, it is automatically generated. ANY MODIFICATIONS WILL BE OVERWRITTEN.
- * 
- * To modify, update the "File Manager Impl" MyxGen extension in the org.archstudio.filemanager.core plugin.
+ * DO NOT EDIT THIS CLASS, it is automatically generated. ANY MODIFICATIONS WILL BE OVERWRITTEN. To modify, update the
+ * "File Manager Impl" MyxGen extension in the org.archstudio.filemanager.core plugin.
  */
 
 /**
@@ -15,8 +14,8 @@ import org.archstudio.myx.fw.MyxUtils;
  * 
  * @generated
  */
-public abstract class FileManagerMyxComponentStub extends org.archstudio.myx.fw.AbstractMyxSimpleBrick implements
-		org.archstudio.myx.fw.IMyxDynamicBrick, org.archstudio.xarchadt.IXArchADTModelListener,
+public abstract class FileManagerMyxComponentStub extends org.archstudio.myx.fw.AbstractMyxSimpleBrick
+		implements org.archstudio.myx.fw.IMyxDynamicBrick, org.archstudio.xarchadt.IXArchADTModelListener,
 		org.archstudio.xarchadt.IXArchADTFileListener, org.archstudio.filemanager.IFileManager {
 
 	/**
@@ -140,7 +139,8 @@ public abstract class FileManagerMyxComponentStub extends org.archstudio.myx.fw.
 	 * @see #OUT_FILE_MANAGER_EVENTS
 	 * @generated
 	 */
-	protected final java.util.Collection<org.archstudio.filemanager.IFileManagerListener> fileManagerEvents = new java.util.concurrent.CopyOnWriteArrayList<org.archstudio.filemanager.IFileManagerListener>();
+	protected final java.util.Collection<org.archstudio.filemanager.IFileManagerListener> fileManagerEvents =
+			new java.util.concurrent.CopyOnWriteArrayList<org.archstudio.filemanager.IFileManagerListener>();
 
 	/**
 	 * Service object proxy for the fileManagerEvents interface. Calls to this proxy object are automatically delegated
@@ -149,8 +149,9 @@ public abstract class FileManagerMyxComponentStub extends org.archstudio.myx.fw.
 	 * @see #OUT_FILE_MANAGER_EVENTS
 	 * @generated
 	 */
-	protected final org.archstudio.filemanager.IFileManagerListener fileManagerEventsProxy = (org.archstudio.filemanager.IFileManagerListener) java.lang.reflect.Proxy
-			.newProxyInstance(org.archstudio.filemanager.IFileManagerListener.class.getClassLoader(),
+	protected final org.archstudio.filemanager.IFileManagerListener fileManagerEventsProxy =
+			(org.archstudio.filemanager.IFileManagerListener) java.lang.reflect.Proxy.newProxyInstance(
+					org.archstudio.filemanager.IFileManagerListener.class.getClassLoader(),
 					new Class[] { org.archstudio.filemanager.IFileManagerListener.class },
 					new java.lang.reflect.InvocationHandler() {
 						@Override

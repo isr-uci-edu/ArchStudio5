@@ -108,6 +108,8 @@ public enum EdgetypeType implements Enumerator {
 	 * Returns the '<em><b>Edgetype Type</b></em>' literal with the specified literal value. <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
+	 * @param literal the literal.
+	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
 	public static EdgetypeType get(String literal) {
@@ -123,6 +125,8 @@ public enum EdgetypeType implements Enumerator {
 	 * Returns the '<em><b>Edgetype Type</b></em>' literal with the specified name. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
 	 * 
+	 * @param name the name.
+	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
 	public static EdgetypeType getByName(String name) {
@@ -138,16 +142,18 @@ public enum EdgetypeType implements Enumerator {
 	 * Returns the '<em><b>Edgetype Type</b></em>' literal with the specified integer value. <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
+	 * @param value the integer value.
+	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
 	public static EdgetypeType get(int value) {
 		switch (value) {
-		case DIRECTED_VALUE:
-			return DIRECTED;
-		case UNDIRECTED_VALUE:
-			return UNDIRECTED;
-		case MUTUAL_VALUE:
-			return MUTUAL;
+			case DIRECTED_VALUE:
+				return DIRECTED;
+			case UNDIRECTED_VALUE:
+				return UNDIRECTED;
+			case MUTUAL_VALUE:
+				return MUTUAL;
 		}
 		return null;
 	}
@@ -225,4 +231,4 @@ public enum EdgetypeType implements Enumerator {
 		return literal;
 	}
 
-} //EdgetypeType
+} // EdgetypeType

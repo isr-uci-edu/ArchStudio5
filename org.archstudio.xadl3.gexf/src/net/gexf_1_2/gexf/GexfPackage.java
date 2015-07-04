@@ -1627,18 +1627,18 @@ public interface GexfPackage extends EPackage {
 	 * @see net.gexf_1_2.gexf.AttributeContent
 	 * @generated
 	 */
-	EClass getAttributeContent();
+			EClass getAttributeContent();
 
 	/**
-	 * Returns the meta object for the attribute list '{@link net.gexf_1_2.gexf.AttributeContent#getGroup
-	 * <em>Group</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the meta object for the attribute list '{@link net.gexf_1_2.gexf.AttributeContent#getGroup <em>Group</em>
+	 * }'. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute list '<em>Group</em>'.
 	 * @see net.gexf_1_2.gexf.AttributeContent#getGroup()
 	 * @see #getAttributeContent()
 	 * @generated
 	 */
-	EAttribute getAttributeContent_Group();
+			EAttribute getAttributeContent_Group();
 
 	/**
 	 * Returns the meta object for the attribute list '{@link net.gexf_1_2.gexf.AttributeContent#getDefault
@@ -1649,7 +1649,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getAttributeContent()
 	 * @generated
 	 */
-	EAttribute getAttributeContent_Default();
+			EAttribute getAttributeContent_Default();
 
 	/**
 	 * Returns the meta object for the attribute list '{@link net.gexf_1_2.gexf.AttributeContent#getOptions
@@ -1660,7 +1660,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getAttributeContent()
 	 * @generated
 	 */
-	EAttribute getAttributeContent_Options();
+			EAttribute getAttributeContent_Options();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.gexf.AttributeContent#getId <em>Id</em>}'. <!--
@@ -1671,7 +1671,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getAttributeContent()
 	 * @generated
 	 */
-	EAttribute getAttributeContent_Id();
+			EAttribute getAttributeContent_Id();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.gexf.AttributeContent#getTitle <em>Title</em>}'.
@@ -1682,7 +1682,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getAttributeContent()
 	 * @generated
 	 */
-	EAttribute getAttributeContent_Title();
+			EAttribute getAttributeContent_Title();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.gexf.AttributeContent#getType <em>Type</em>}'.
@@ -1693,7 +1693,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getAttributeContent()
 	 * @generated
 	 */
-	EAttribute getAttributeContent_Type();
+			EAttribute getAttributeContent_Type();
 
 	/**
 	 * Returns the meta object for class '{@link net.gexf_1_2.gexf.AttributesContent <em>Attributes Content</em>}'. <!--
@@ -1703,7 +1703,7 @@ public interface GexfPackage extends EPackage {
 	 * @see net.gexf_1_2.gexf.AttributesContent
 	 * @generated
 	 */
-	EClass getAttributesContent();
+			EClass getAttributesContent();
 
 	/**
 	 * Returns the meta object for the containment reference list '
@@ -1715,7 +1715,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getAttributesContent()
 	 * @generated
 	 */
-	EReference getAttributesContent_Attribute();
+			EReference getAttributesContent_Attribute();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.gexf.AttributesContent#getClass_ <em>Class</em>}'.
@@ -1726,7 +1726,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getAttributesContent()
 	 * @generated
 	 */
-	EAttribute getAttributesContent_Class();
+			EAttribute getAttributesContent_Class();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.gexf.AttributesContent#getEnd <em>End</em>}'. <!--
@@ -1737,18 +1737,18 @@ public interface GexfPackage extends EPackage {
 	 * @see #getAttributesContent()
 	 * @generated
 	 */
-	EAttribute getAttributesContent_End();
+			EAttribute getAttributesContent_End();
 
 	/**
-	 * Returns the meta object for the attribute '{@link net.gexf_1_2.gexf.AttributesContent#getEndopen
-	 * <em>Endopen</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the meta object for the attribute '{@link net.gexf_1_2.gexf.AttributesContent#getEndopen <em>Endopen</em>
+	 * }'. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Endopen</em>'.
 	 * @see net.gexf_1_2.gexf.AttributesContent#getEndopen()
 	 * @see #getAttributesContent()
 	 * @generated
 	 */
-	EAttribute getAttributesContent_Endopen();
+			EAttribute getAttributesContent_Endopen();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.gexf.AttributesContent#getMode <em>Mode</em>}'.
@@ -1759,7 +1759,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getAttributesContent()
 	 * @generated
 	 */
-	EAttribute getAttributesContent_Mode();
+			EAttribute getAttributesContent_Mode();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.gexf.AttributesContent#getStart <em>Start</em>}'.
@@ -1770,7 +1770,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getAttributesContent()
 	 * @generated
 	 */
-	EAttribute getAttributesContent_Start();
+			EAttribute getAttributesContent_Start();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.gexf.AttributesContent#getStartopen
@@ -1781,7 +1781,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getAttributesContent()
 	 * @generated
 	 */
-	EAttribute getAttributesContent_Startopen();
+			EAttribute getAttributesContent_Startopen();
 
 	/**
 	 * Returns the meta object for class '{@link net.gexf_1_2.gexf.AttvaluesContent <em>Attvalues Content</em>}'. <!--
@@ -1791,19 +1791,18 @@ public interface GexfPackage extends EPackage {
 	 * @see net.gexf_1_2.gexf.AttvaluesContent
 	 * @generated
 	 */
-	EClass getAttvaluesContent();
+			EClass getAttvaluesContent();
 
 	/**
-	 * Returns the meta object for the containment reference list '
-	 * {@link net.gexf_1_2.gexf.AttvaluesContent#getAttvalue <em>Attvalue</em>}'. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * Returns the meta object for the containment reference list '{@link net.gexf_1_2.gexf.AttvaluesContent#getAttvalue
+	 * <em>Attvalue</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the containment reference list '<em>Attvalue</em>'.
 	 * @see net.gexf_1_2.gexf.AttvaluesContent#getAttvalue()
 	 * @see #getAttvaluesContent()
 	 * @generated
 	 */
-	EReference getAttvaluesContent_Attvalue();
+			EReference getAttvaluesContent_Attvalue();
 
 	/**
 	 * Returns the meta object for class '{@link net.gexf_1_2.gexf.AttvalueType <em>Attvalue Type</em>}'. <!--
@@ -1813,7 +1812,7 @@ public interface GexfPackage extends EPackage {
 	 * @see net.gexf_1_2.gexf.AttvalueType
 	 * @generated
 	 */
-	EClass getAttvalueType();
+			EClass getAttvalueType();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.gexf.AttvalueType#getEnd <em>End</em>}'. <!--
@@ -1824,7 +1823,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getAttvalueType()
 	 * @generated
 	 */
-	EAttribute getAttvalueType_End();
+			EAttribute getAttvalueType_End();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.gexf.AttvalueType#getEndopen <em>Endopen</em>}'.
@@ -1835,7 +1834,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getAttvalueType()
 	 * @generated
 	 */
-	EAttribute getAttvalueType_Endopen();
+			EAttribute getAttvalueType_Endopen();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.gexf.AttvalueType#getFor <em>For</em>}'. <!--
@@ -1846,7 +1845,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getAttvalueType()
 	 * @generated
 	 */
-	EAttribute getAttvalueType_For();
+			EAttribute getAttvalueType_For();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.gexf.AttvalueType#getStart <em>Start</em>}'. <!--
@@ -1857,7 +1856,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getAttvalueType()
 	 * @generated
 	 */
-	EAttribute getAttvalueType_Start();
+			EAttribute getAttvalueType_Start();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.gexf.AttvalueType#getStartopen <em>Startopen</em>}
@@ -1868,7 +1867,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getAttvalueType()
 	 * @generated
 	 */
-	EAttribute getAttvalueType_Startopen();
+			EAttribute getAttvalueType_Startopen();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.gexf.AttvalueType#getValue <em>Value</em>}'. <!--
@@ -1879,7 +1878,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getAttvalueType()
 	 * @generated
 	 */
-	EAttribute getAttvalueType_Value();
+			EAttribute getAttvalueType_Value();
 
 	/**
 	 * Returns the meta object for class '{@link net.gexf_1_2.gexf.DocumentRoot <em>Document Root</em>}'. <!--
@@ -1889,7 +1888,7 @@ public interface GexfPackage extends EPackage {
 	 * @see net.gexf_1_2.gexf.DocumentRoot
 	 * @generated
 	 */
-	EClass getDocumentRoot();
+			EClass getDocumentRoot();
 
 	/**
 	 * Returns the meta object for the attribute list '{@link net.gexf_1_2.gexf.DocumentRoot#getMixed <em>Mixed</em>}'.
@@ -1900,7 +1899,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getDocumentRoot()
 	 * @generated
 	 */
-	EAttribute getDocumentRoot_Mixed();
+			EAttribute getDocumentRoot_Mixed();
 
 	/**
 	 * Returns the meta object for the map '{@link net.gexf_1_2.gexf.DocumentRoot#getXMLNSPrefixMap
@@ -1911,7 +1910,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getDocumentRoot()
 	 * @generated
 	 */
-	EReference getDocumentRoot_XMLNSPrefixMap();
+			EReference getDocumentRoot_XMLNSPrefixMap();
 
 	/**
 	 * Returns the meta object for the map '{@link net.gexf_1_2.gexf.DocumentRoot#getXSISchemaLocation
@@ -1922,7 +1921,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getDocumentRoot()
 	 * @generated
 	 */
-	EReference getDocumentRoot_XSISchemaLocation();
+			EReference getDocumentRoot_XSISchemaLocation();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link net.gexf_1_2.gexf.DocumentRoot#getAttribute
@@ -1933,7 +1932,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getDocumentRoot()
 	 * @generated
 	 */
-	EReference getDocumentRoot_Attribute();
+			EReference getDocumentRoot_Attribute();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link net.gexf_1_2.gexf.DocumentRoot#getAttributes
@@ -1944,7 +1943,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getDocumentRoot()
 	 * @generated
 	 */
-	EReference getDocumentRoot_Attributes();
+			EReference getDocumentRoot_Attributes();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link net.gexf_1_2.gexf.DocumentRoot#getAttvalue
@@ -1955,7 +1954,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getDocumentRoot()
 	 * @generated
 	 */
-	EReference getDocumentRoot_Attvalue();
+			EReference getDocumentRoot_Attvalue();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link net.gexf_1_2.gexf.DocumentRoot#getAttvalues
@@ -1966,7 +1965,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getDocumentRoot()
 	 * @generated
 	 */
-	EReference getDocumentRoot_Attvalues();
+			EReference getDocumentRoot_Attvalues();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link net.gexf_1_2.gexf.DocumentRoot#getColor
@@ -1977,7 +1976,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getDocumentRoot()
 	 * @generated
 	 */
-	EReference getDocumentRoot_Color();
+			EReference getDocumentRoot_Color();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.gexf.DocumentRoot#getCreator <em>Creator</em>}'.
@@ -1988,7 +1987,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getDocumentRoot()
 	 * @generated
 	 */
-	EAttribute getDocumentRoot_Creator();
+			EAttribute getDocumentRoot_Creator();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.gexf.DocumentRoot#getDefault <em>Default</em>}'.
@@ -1999,7 +1998,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getDocumentRoot()
 	 * @generated
 	 */
-	EAttribute getDocumentRoot_Default();
+			EAttribute getDocumentRoot_Default();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.gexf.DocumentRoot#getDescription
@@ -2010,7 +2009,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getDocumentRoot()
 	 * @generated
 	 */
-	EAttribute getDocumentRoot_Description();
+			EAttribute getDocumentRoot_Description();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link net.gexf_1_2.gexf.DocumentRoot#getEdge
@@ -2021,7 +2020,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getDocumentRoot()
 	 * @generated
 	 */
-	EReference getDocumentRoot_Edge();
+			EReference getDocumentRoot_Edge();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link net.gexf_1_2.gexf.DocumentRoot#getEdges
@@ -2032,7 +2031,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getDocumentRoot()
 	 * @generated
 	 */
-	EReference getDocumentRoot_Edges();
+			EReference getDocumentRoot_Edges();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link net.gexf_1_2.gexf.DocumentRoot#getGexf
@@ -2043,7 +2042,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getDocumentRoot()
 	 * @generated
 	 */
-	EReference getDocumentRoot_Gexf();
+			EReference getDocumentRoot_Gexf();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link net.gexf_1_2.gexf.DocumentRoot#getGraph
@@ -2054,7 +2053,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getDocumentRoot()
 	 * @generated
 	 */
-	EReference getDocumentRoot_Graph();
+			EReference getDocumentRoot_Graph();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.gexf.DocumentRoot#getKeywords <em>Keywords</em>}'.
@@ -2065,7 +2064,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getDocumentRoot()
 	 * @generated
 	 */
-	EAttribute getDocumentRoot_Keywords();
+			EAttribute getDocumentRoot_Keywords();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link net.gexf_1_2.gexf.DocumentRoot#getMeta
@@ -2076,7 +2075,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getDocumentRoot()
 	 * @generated
 	 */
-	EReference getDocumentRoot_Meta();
+			EReference getDocumentRoot_Meta();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link net.gexf_1_2.gexf.DocumentRoot#getNode
@@ -2087,7 +2086,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getDocumentRoot()
 	 * @generated
 	 */
-	EReference getDocumentRoot_Node();
+			EReference getDocumentRoot_Node();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link net.gexf_1_2.gexf.DocumentRoot#getNodes
@@ -2098,7 +2097,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getDocumentRoot()
 	 * @generated
 	 */
-	EReference getDocumentRoot_Nodes();
+			EReference getDocumentRoot_Nodes();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.gexf.DocumentRoot#getOptions <em>Options</em>}'.
@@ -2109,7 +2108,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getDocumentRoot()
 	 * @generated
 	 */
-	EAttribute getDocumentRoot_Options();
+			EAttribute getDocumentRoot_Options();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link net.gexf_1_2.gexf.DocumentRoot#getParent
@@ -2120,7 +2119,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getDocumentRoot()
 	 * @generated
 	 */
-	EReference getDocumentRoot_Parent();
+			EReference getDocumentRoot_Parent();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link net.gexf_1_2.gexf.DocumentRoot#getParents
@@ -2131,7 +2130,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getDocumentRoot()
 	 * @generated
 	 */
-	EReference getDocumentRoot_Parents();
+			EReference getDocumentRoot_Parents();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link net.gexf_1_2.gexf.DocumentRoot#getPosition
@@ -2142,7 +2141,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getDocumentRoot()
 	 * @generated
 	 */
-	EReference getDocumentRoot_Position();
+			EReference getDocumentRoot_Position();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link net.gexf_1_2.gexf.DocumentRoot#getSize
@@ -2153,7 +2152,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getDocumentRoot()
 	 * @generated
 	 */
-	EReference getDocumentRoot_Size();
+			EReference getDocumentRoot_Size();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link net.gexf_1_2.gexf.DocumentRoot#getSpell
@@ -2164,7 +2163,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getDocumentRoot()
 	 * @generated
 	 */
-	EReference getDocumentRoot_Spell();
+			EReference getDocumentRoot_Spell();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link net.gexf_1_2.gexf.DocumentRoot#getSpells
@@ -2175,7 +2174,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getDocumentRoot()
 	 * @generated
 	 */
-	EReference getDocumentRoot_Spells();
+			EReference getDocumentRoot_Spells();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link net.gexf_1_2.gexf.DocumentRoot#getThickness
@@ -2186,7 +2185,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getDocumentRoot()
 	 * @generated
 	 */
-	EReference getDocumentRoot_Thickness();
+			EReference getDocumentRoot_Thickness();
 
 	/**
 	 * Returns the meta object for class '{@link net.gexf_1_2.gexf.EdgeContent <em>Edge Content</em>}'. <!--
@@ -2196,7 +2195,7 @@ public interface GexfPackage extends EPackage {
 	 * @see net.gexf_1_2.gexf.EdgeContent
 	 * @generated
 	 */
-	EClass getEdgeContent();
+			EClass getEdgeContent();
 
 	/**
 	 * Returns the meta object for the attribute list '{@link net.gexf_1_2.gexf.EdgeContent#getGroup <em>Group</em>}'.
@@ -2207,7 +2206,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getEdgeContent()
 	 * @generated
 	 */
-	EAttribute getEdgeContent_Group();
+			EAttribute getEdgeContent_Group();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link net.gexf_1_2.gexf.EdgeContent#getAttvalues
@@ -2218,7 +2217,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getEdgeContent()
 	 * @generated
 	 */
-	EReference getEdgeContent_Attvalues();
+			EReference getEdgeContent_Attvalues();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link net.gexf_1_2.gexf.EdgeContent#getSpells
@@ -2229,7 +2228,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getEdgeContent()
 	 * @generated
 	 */
-	EReference getEdgeContent_Spells();
+			EReference getEdgeContent_Spells();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link net.gexf_1_2.gexf.EdgeContent#getColor
@@ -2240,7 +2239,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getEdgeContent()
 	 * @generated
 	 */
-	EReference getEdgeContent_Color();
+			EReference getEdgeContent_Color();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link net.gexf_1_2.gexf.EdgeContent#getThickness
@@ -2251,7 +2250,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getEdgeContent()
 	 * @generated
 	 */
-	EReference getEdgeContent_Thickness();
+			EReference getEdgeContent_Thickness();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link net.gexf_1_2.gexf.EdgeContent#getShape
@@ -2262,7 +2261,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getEdgeContent()
 	 * @generated
 	 */
-	EReference getEdgeContent_Shape();
+			EReference getEdgeContent_Shape();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.gexf.EdgeContent#getEnd <em>End</em>}'. <!--
@@ -2273,7 +2272,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getEdgeContent()
 	 * @generated
 	 */
-	EAttribute getEdgeContent_End();
+			EAttribute getEdgeContent_End();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.gexf.EdgeContent#getEndopen <em>Endopen</em>}'.
@@ -2284,7 +2283,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getEdgeContent()
 	 * @generated
 	 */
-	EAttribute getEdgeContent_Endopen();
+			EAttribute getEdgeContent_Endopen();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.gexf.EdgeContent#getId <em>Id</em>}'. <!--
@@ -2295,7 +2294,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getEdgeContent()
 	 * @generated
 	 */
-	EAttribute getEdgeContent_Id();
+			EAttribute getEdgeContent_Id();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.gexf.EdgeContent#getLabel <em>Label</em>}'. <!--
@@ -2306,7 +2305,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getEdgeContent()
 	 * @generated
 	 */
-	EAttribute getEdgeContent_Label();
+			EAttribute getEdgeContent_Label();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.gexf.EdgeContent#getSource <em>Source</em>}'. <!--
@@ -2317,7 +2316,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getEdgeContent()
 	 * @generated
 	 */
-	EAttribute getEdgeContent_Source();
+			EAttribute getEdgeContent_Source();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.gexf.EdgeContent#getStart <em>Start</em>}'. <!--
@@ -2328,7 +2327,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getEdgeContent()
 	 * @generated
 	 */
-	EAttribute getEdgeContent_Start();
+			EAttribute getEdgeContent_Start();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.gexf.EdgeContent#getStartopen <em>Startopen</em>}
@@ -2339,7 +2338,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getEdgeContent()
 	 * @generated
 	 */
-	EAttribute getEdgeContent_Startopen();
+			EAttribute getEdgeContent_Startopen();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.gexf.EdgeContent#getTarget <em>Target</em>}'. <!--
@@ -2350,7 +2349,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getEdgeContent()
 	 * @generated
 	 */
-	EAttribute getEdgeContent_Target();
+			EAttribute getEdgeContent_Target();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.gexf.EdgeContent#getType <em>Type</em>}'. <!--
@@ -2361,7 +2360,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getEdgeContent()
 	 * @generated
 	 */
-	EAttribute getEdgeContent_Type();
+			EAttribute getEdgeContent_Type();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.gexf.EdgeContent#getWeight <em>Weight</em>}'. <!--
@@ -2372,7 +2371,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getEdgeContent()
 	 * @generated
 	 */
-	EAttribute getEdgeContent_Weight();
+			EAttribute getEdgeContent_Weight();
 
 	/**
 	 * Returns the meta object for class '{@link net.gexf_1_2.gexf.EdgesContent <em>Edges Content</em>}'. <!--
@@ -2382,7 +2381,7 @@ public interface GexfPackage extends EPackage {
 	 * @see net.gexf_1_2.gexf.EdgesContent
 	 * @generated
 	 */
-	EClass getEdgesContent();
+			EClass getEdgesContent();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link net.gexf_1_2.gexf.EdgesContent#getEdge
@@ -2393,7 +2392,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getEdgesContent()
 	 * @generated
 	 */
-	EReference getEdgesContent_Edge();
+			EReference getEdgesContent_Edge();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.gexf.EdgesContent#getCount <em>Count</em>}'. <!--
@@ -2404,7 +2403,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getEdgesContent()
 	 * @generated
 	 */
-	EAttribute getEdgesContent_Count();
+			EAttribute getEdgesContent_Count();
 
 	/**
 	 * Returns the meta object for class '{@link net.gexf_1_2.gexf.GexfContent <em>Content</em>}'. <!-- begin-user-doc
@@ -2414,18 +2413,18 @@ public interface GexfPackage extends EPackage {
 	 * @see net.gexf_1_2.gexf.GexfContent
 	 * @generated
 	 */
-	EClass getGexfContent();
+			EClass getGexfContent();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link net.gexf_1_2.gexf.GexfContent#getMeta
-	 * <em>Meta</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the meta object for the containment reference '{@link net.gexf_1_2.gexf.GexfContent#getMeta <em>Meta</em>
+	 * }'. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the containment reference '<em>Meta</em>'.
 	 * @see net.gexf_1_2.gexf.GexfContent#getMeta()
 	 * @see #getGexfContent()
 	 * @generated
 	 */
-	EReference getGexfContent_Meta();
+			EReference getGexfContent_Meta();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link net.gexf_1_2.gexf.GexfContent#getGraph
@@ -2436,7 +2435,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getGexfContent()
 	 * @generated
 	 */
-	EReference getGexfContent_Graph();
+			EReference getGexfContent_Graph();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.gexf.GexfContent#getVariant <em>Variant</em>}'.
@@ -2447,7 +2446,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getGexfContent()
 	 * @generated
 	 */
-	EAttribute getGexfContent_Variant();
+			EAttribute getGexfContent_Variant();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.gexf.GexfContent#getVersion <em>Version</em>}'.
@@ -2458,7 +2457,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getGexfContent()
 	 * @generated
 	 */
-	EAttribute getGexfContent_Version();
+			EAttribute getGexfContent_Version();
 
 	/**
 	 * Returns the meta object for class '{@link net.gexf_1_2.gexf.GraphContent <em>Graph Content</em>}'. <!--
@@ -2468,7 +2467,7 @@ public interface GexfPackage extends EPackage {
 	 * @see net.gexf_1_2.gexf.GraphContent
 	 * @generated
 	 */
-	EClass getGraphContent();
+			EClass getGraphContent();
 
 	/**
 	 * Returns the meta object for the attribute list '{@link net.gexf_1_2.gexf.GraphContent#getGroup <em>Group</em>}'.
@@ -2479,7 +2478,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getGraphContent()
 	 * @generated
 	 */
-	EAttribute getGraphContent_Group();
+			EAttribute getGraphContent_Group();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link net.gexf_1_2.gexf.GraphContent#getAttributes
@@ -2490,7 +2489,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getGraphContent()
 	 * @generated
 	 */
-	EReference getGraphContent_Attributes();
+			EReference getGraphContent_Attributes();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link net.gexf_1_2.gexf.GraphContent#getNodes
@@ -2501,7 +2500,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getGraphContent()
 	 * @generated
 	 */
-	EReference getGraphContent_Nodes();
+			EReference getGraphContent_Nodes();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link net.gexf_1_2.gexf.GraphContent#getEdges
@@ -2512,7 +2511,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getGraphContent()
 	 * @generated
 	 */
-	EReference getGraphContent_Edges();
+			EReference getGraphContent_Edges();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.gexf.GraphContent#getDefaultedgetype
@@ -2523,7 +2522,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getGraphContent()
 	 * @generated
 	 */
-	EAttribute getGraphContent_Defaultedgetype();
+			EAttribute getGraphContent_Defaultedgetype();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.gexf.GraphContent#getEnd <em>End</em>}'. <!--
@@ -2534,7 +2533,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getGraphContent()
 	 * @generated
 	 */
-	EAttribute getGraphContent_End();
+			EAttribute getGraphContent_End();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.gexf.GraphContent#getEndopen <em>Endopen</em>}'.
@@ -2545,7 +2544,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getGraphContent()
 	 * @generated
 	 */
-	EAttribute getGraphContent_Endopen();
+			EAttribute getGraphContent_Endopen();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.gexf.GraphContent#getIdtype <em>Idtype</em>}'.
@@ -2556,7 +2555,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getGraphContent()
 	 * @generated
 	 */
-	EAttribute getGraphContent_Idtype();
+			EAttribute getGraphContent_Idtype();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.gexf.GraphContent#getMode <em>Mode</em>}'. <!--
@@ -2567,7 +2566,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getGraphContent()
 	 * @generated
 	 */
-	EAttribute getGraphContent_Mode();
+			EAttribute getGraphContent_Mode();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.gexf.GraphContent#getStart <em>Start</em>}'. <!--
@@ -2578,7 +2577,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getGraphContent()
 	 * @generated
 	 */
-	EAttribute getGraphContent_Start();
+			EAttribute getGraphContent_Start();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.gexf.GraphContent#getStartopen <em>Startopen</em>}
@@ -2589,7 +2588,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getGraphContent()
 	 * @generated
 	 */
-	EAttribute getGraphContent_Startopen();
+			EAttribute getGraphContent_Startopen();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.gexf.GraphContent#getTimeformat
@@ -2600,7 +2599,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getGraphContent()
 	 * @generated
 	 */
-	EAttribute getGraphContent_Timeformat();
+			EAttribute getGraphContent_Timeformat();
 
 	/**
 	 * Returns the meta object for class '{@link net.gexf_1_2.gexf.MetaContent <em>Meta Content</em>}'. <!--
@@ -2610,7 +2609,7 @@ public interface GexfPackage extends EPackage {
 	 * @see net.gexf_1_2.gexf.MetaContent
 	 * @generated
 	 */
-	EClass getMetaContent();
+			EClass getMetaContent();
 
 	/**
 	 * Returns the meta object for the attribute list '{@link net.gexf_1_2.gexf.MetaContent#getGroup <em>Group</em>}'.
@@ -2621,7 +2620,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getMetaContent()
 	 * @generated
 	 */
-	EAttribute getMetaContent_Group();
+			EAttribute getMetaContent_Group();
 
 	/**
 	 * Returns the meta object for the attribute list '{@link net.gexf_1_2.gexf.MetaContent#getCreator <em>Creator</em>}
@@ -2632,7 +2631,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getMetaContent()
 	 * @generated
 	 */
-	EAttribute getMetaContent_Creator();
+			EAttribute getMetaContent_Creator();
 
 	/**
 	 * Returns the meta object for the attribute list '{@link net.gexf_1_2.gexf.MetaContent#getKeywords
@@ -2643,7 +2642,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getMetaContent()
 	 * @generated
 	 */
-	EAttribute getMetaContent_Keywords();
+			EAttribute getMetaContent_Keywords();
 
 	/**
 	 * Returns the meta object for the attribute list '{@link net.gexf_1_2.gexf.MetaContent#getDescription
@@ -2654,7 +2653,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getMetaContent()
 	 * @generated
 	 */
-	EAttribute getMetaContent_Description();
+			EAttribute getMetaContent_Description();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.gexf.MetaContent#getLastmodifieddate
@@ -2665,7 +2664,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getMetaContent()
 	 * @generated
 	 */
-	EAttribute getMetaContent_Lastmodifieddate();
+			EAttribute getMetaContent_Lastmodifieddate();
 
 	/**
 	 * Returns the meta object for class '{@link net.gexf_1_2.gexf.NodeContent <em>Node Content</em>}'. <!--
@@ -2675,7 +2674,7 @@ public interface GexfPackage extends EPackage {
 	 * @see net.gexf_1_2.gexf.NodeContent
 	 * @generated
 	 */
-	EClass getNodeContent();
+			EClass getNodeContent();
 
 	/**
 	 * Returns the meta object for the attribute list '{@link net.gexf_1_2.gexf.NodeContent#getGroup <em>Group</em>}'.
@@ -2686,7 +2685,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getNodeContent()
 	 * @generated
 	 */
-	EAttribute getNodeContent_Group();
+			EAttribute getNodeContent_Group();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link net.gexf_1_2.gexf.NodeContent#getAttvalues
@@ -2697,7 +2696,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getNodeContent()
 	 * @generated
 	 */
-	EReference getNodeContent_Attvalues();
+			EReference getNodeContent_Attvalues();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link net.gexf_1_2.gexf.NodeContent#getSpells
@@ -2708,7 +2707,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getNodeContent()
 	 * @generated
 	 */
-	EReference getNodeContent_Spells();
+			EReference getNodeContent_Spells();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link net.gexf_1_2.gexf.NodeContent#getNodes
@@ -2719,7 +2718,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getNodeContent()
 	 * @generated
 	 */
-	EReference getNodeContent_Nodes();
+			EReference getNodeContent_Nodes();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link net.gexf_1_2.gexf.NodeContent#getEdges
@@ -2730,7 +2729,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getNodeContent()
 	 * @generated
 	 */
-	EReference getNodeContent_Edges();
+			EReference getNodeContent_Edges();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link net.gexf_1_2.gexf.NodeContent#getParents
@@ -2741,7 +2740,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getNodeContent()
 	 * @generated
 	 */
-	EReference getNodeContent_Parents();
+			EReference getNodeContent_Parents();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link net.gexf_1_2.gexf.NodeContent#getColor
@@ -2752,7 +2751,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getNodeContent()
 	 * @generated
 	 */
-	EReference getNodeContent_Color();
+			EReference getNodeContent_Color();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link net.gexf_1_2.gexf.NodeContent#getPosition
@@ -2763,7 +2762,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getNodeContent()
 	 * @generated
 	 */
-	EReference getNodeContent_Position();
+			EReference getNodeContent_Position();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link net.gexf_1_2.gexf.NodeContent#getSize
@@ -2774,7 +2773,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getNodeContent()
 	 * @generated
 	 */
-	EReference getNodeContent_Size();
+			EReference getNodeContent_Size();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link net.gexf_1_2.gexf.NodeContent#getShape
@@ -2785,7 +2784,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getNodeContent()
 	 * @generated
 	 */
-	EReference getNodeContent_Shape();
+			EReference getNodeContent_Shape();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.gexf.NodeContent#getEnd <em>End</em>}'. <!--
@@ -2796,7 +2795,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getNodeContent()
 	 * @generated
 	 */
-	EAttribute getNodeContent_End();
+			EAttribute getNodeContent_End();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.gexf.NodeContent#getEndopen <em>Endopen</em>}'.
@@ -2807,7 +2806,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getNodeContent()
 	 * @generated
 	 */
-	EAttribute getNodeContent_Endopen();
+			EAttribute getNodeContent_Endopen();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.gexf.NodeContent#getId <em>Id</em>}'. <!--
@@ -2818,7 +2817,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getNodeContent()
 	 * @generated
 	 */
-	EAttribute getNodeContent_Id();
+			EAttribute getNodeContent_Id();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.gexf.NodeContent#getLabel <em>Label</em>}'. <!--
@@ -2829,7 +2828,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getNodeContent()
 	 * @generated
 	 */
-	EAttribute getNodeContent_Label();
+			EAttribute getNodeContent_Label();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.gexf.NodeContent#getPid <em>Pid</em>}'. <!--
@@ -2840,7 +2839,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getNodeContent()
 	 * @generated
 	 */
-	EAttribute getNodeContent_Pid();
+			EAttribute getNodeContent_Pid();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.gexf.NodeContent#getStart <em>Start</em>}'. <!--
@@ -2851,7 +2850,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getNodeContent()
 	 * @generated
 	 */
-	EAttribute getNodeContent_Start();
+			EAttribute getNodeContent_Start();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.gexf.NodeContent#getStartopen <em>Startopen</em>}
@@ -2862,7 +2861,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getNodeContent()
 	 * @generated
 	 */
-	EAttribute getNodeContent_Startopen();
+			EAttribute getNodeContent_Startopen();
 
 	/**
 	 * Returns the meta object for class '{@link net.gexf_1_2.gexf.NodesContent <em>Nodes Content</em>}'. <!--
@@ -2872,7 +2871,7 @@ public interface GexfPackage extends EPackage {
 	 * @see net.gexf_1_2.gexf.NodesContent
 	 * @generated
 	 */
-	EClass getNodesContent();
+			EClass getNodesContent();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link net.gexf_1_2.gexf.NodesContent#getNode
@@ -2883,7 +2882,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getNodesContent()
 	 * @generated
 	 */
-	EReference getNodesContent_Node();
+			EReference getNodesContent_Node();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.gexf.NodesContent#getCount <em>Count</em>}'. <!--
@@ -2894,7 +2893,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getNodesContent()
 	 * @generated
 	 */
-	EAttribute getNodesContent_Count();
+			EAttribute getNodesContent_Count();
 
 	/**
 	 * Returns the meta object for class '{@link net.gexf_1_2.gexf.ParentsContent <em>Parents Content</em>}'. <!--
@@ -2904,7 +2903,7 @@ public interface GexfPackage extends EPackage {
 	 * @see net.gexf_1_2.gexf.ParentsContent
 	 * @generated
 	 */
-	EClass getParentsContent();
+			EClass getParentsContent();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link net.gexf_1_2.gexf.ParentsContent#getParent
@@ -2915,7 +2914,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getParentsContent()
 	 * @generated
 	 */
-	EReference getParentsContent_Parent();
+			EReference getParentsContent_Parent();
 
 	/**
 	 * Returns the meta object for class '{@link net.gexf_1_2.gexf.ParentType <em>Parent Type</em>}'. <!--
@@ -2925,7 +2924,7 @@ public interface GexfPackage extends EPackage {
 	 * @see net.gexf_1_2.gexf.ParentType
 	 * @generated
 	 */
-	EClass getParentType();
+			EClass getParentType();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.gexf.ParentType#getFor <em>For</em>}'. <!--
@@ -2936,7 +2935,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getParentType()
 	 * @generated
 	 */
-	EAttribute getParentType_For();
+			EAttribute getParentType_For();
 
 	/**
 	 * Returns the meta object for class '{@link net.gexf_1_2.gexf.SpellsContent <em>Spells Content</em>}'. <!--
@@ -2946,7 +2945,7 @@ public interface GexfPackage extends EPackage {
 	 * @see net.gexf_1_2.gexf.SpellsContent
 	 * @generated
 	 */
-	EClass getSpellsContent();
+			EClass getSpellsContent();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link net.gexf_1_2.gexf.SpellsContent#getSpell
@@ -2957,7 +2956,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getSpellsContent()
 	 * @generated
 	 */
-	EReference getSpellsContent_Spell();
+			EReference getSpellsContent_Spell();
 
 	/**
 	 * Returns the meta object for class '{@link net.gexf_1_2.gexf.SpellType <em>Spell Type</em>}'. <!-- begin-user-doc
@@ -2967,7 +2966,7 @@ public interface GexfPackage extends EPackage {
 	 * @see net.gexf_1_2.gexf.SpellType
 	 * @generated
 	 */
-	EClass getSpellType();
+			EClass getSpellType();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.gexf.SpellType#getEnd <em>End</em>}'. <!--
@@ -2978,7 +2977,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getSpellType()
 	 * @generated
 	 */
-	EAttribute getSpellType_End();
+			EAttribute getSpellType_End();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.gexf.SpellType#getEndopen <em>Endopen</em>}'. <!--
@@ -2989,7 +2988,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getSpellType()
 	 * @generated
 	 */
-	EAttribute getSpellType_Endopen();
+			EAttribute getSpellType_Endopen();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.gexf.SpellType#getStart <em>Start</em>}'. <!--
@@ -3000,7 +2999,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getSpellType()
 	 * @generated
 	 */
-	EAttribute getSpellType_Start();
+			EAttribute getSpellType_Start();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.gexf.SpellType#getStartopen <em>Startopen</em>}'.
@@ -3011,7 +3010,7 @@ public interface GexfPackage extends EPackage {
 	 * @see #getSpellType()
 	 * @generated
 	 */
-	EAttribute getSpellType_Startopen();
+			EAttribute getSpellType_Startopen();
 
 	/**
 	 * Returns the meta object for enum '{@link net.gexf_1_2.gexf.AttrtypeType <em>Attrtype Type</em>}'. <!--
@@ -3021,7 +3020,7 @@ public interface GexfPackage extends EPackage {
 	 * @see net.gexf_1_2.gexf.AttrtypeType
 	 * @generated
 	 */
-	EEnum getAttrtypeType();
+			EEnum getAttrtypeType();
 
 	/**
 	 * Returns the meta object for enum '{@link net.gexf_1_2.gexf.ClassType <em>Class Type</em>}'. <!-- begin-user-doc
@@ -3031,7 +3030,7 @@ public interface GexfPackage extends EPackage {
 	 * @see net.gexf_1_2.gexf.ClassType
 	 * @generated
 	 */
-	EEnum getClassType();
+			EEnum getClassType();
 
 	/**
 	 * Returns the meta object for enum '{@link net.gexf_1_2.gexf.DefaultedgetypeType <em>Defaultedgetype Type</em>}'.
@@ -3041,7 +3040,7 @@ public interface GexfPackage extends EPackage {
 	 * @see net.gexf_1_2.gexf.DefaultedgetypeType
 	 * @generated
 	 */
-	EEnum getDefaultedgetypeType();
+			EEnum getDefaultedgetypeType();
 
 	/**
 	 * Returns the meta object for enum '{@link net.gexf_1_2.gexf.EdgetypeType <em>Edgetype Type</em>}'. <!--
@@ -3051,7 +3050,7 @@ public interface GexfPackage extends EPackage {
 	 * @see net.gexf_1_2.gexf.EdgetypeType
 	 * @generated
 	 */
-	EEnum getEdgetypeType();
+			EEnum getEdgetypeType();
 
 	/**
 	 * Returns the meta object for enum '{@link net.gexf_1_2.gexf.IdtypeType <em>Idtype Type</em>}'. <!-- begin-user-doc
@@ -3061,7 +3060,7 @@ public interface GexfPackage extends EPackage {
 	 * @see net.gexf_1_2.gexf.IdtypeType
 	 * @generated
 	 */
-	EEnum getIdtypeType();
+			EEnum getIdtypeType();
 
 	/**
 	 * Returns the meta object for enum '{@link net.gexf_1_2.gexf.ModeType <em>Mode Type</em>}'. <!-- begin-user-doc -->
@@ -3071,7 +3070,7 @@ public interface GexfPackage extends EPackage {
 	 * @see net.gexf_1_2.gexf.ModeType
 	 * @generated
 	 */
-	EEnum getModeType();
+			EEnum getModeType();
 
 	/**
 	 * Returns the meta object for enum '{@link net.gexf_1_2.gexf.TimeformatType <em>Timeformat Type</em>}'. <!--
@@ -3081,7 +3080,7 @@ public interface GexfPackage extends EPackage {
 	 * @see net.gexf_1_2.gexf.TimeformatType
 	 * @generated
 	 */
-	EEnum getTimeformatType();
+			EEnum getTimeformatType();
 
 	/**
 	 * Returns the meta object for enum '{@link net.gexf_1_2.gexf.VersionType <em>Version Type</em>}'. <!--
@@ -3091,7 +3090,7 @@ public interface GexfPackage extends EPackage {
 	 * @see net.gexf_1_2.gexf.VersionType
 	 * @generated
 	 */
-	EEnum getVersionType();
+			EEnum getVersionType();
 
 	/**
 	 * Returns the meta object for data type '{@link net.gexf_1_2.gexf.AttrtypeType <em>Attrtype Type Object</em>}'.
@@ -3099,11 +3098,11 @@ public interface GexfPackage extends EPackage {
 	 * 
 	 * @return the meta object for data type '<em>Attrtype Type Object</em>'.
 	 * @see net.gexf_1_2.gexf.AttrtypeType
-	 * @model instanceClass="net.gexf_1_2.gexf.AttrtypeType"
-	 *        extendedMetaData="name='attrtype-type:Object' baseType='attrtype-type'"
+	 * @model instanceClass="net.gexf_1_2.gexf.AttrtypeType" extendedMetaData=
+	 *        "name='attrtype-type:Object' baseType='attrtype-type'"
 	 * @generated
 	 */
-	EDataType getAttrtypeTypeObject();
+			EDataType getAttrtypeTypeObject();
 
 	/**
 	 * Returns the meta object for data type '{@link net.gexf_1_2.gexf.ClassType <em>Class Type Object</em>}'. <!--
@@ -3111,11 +3110,11 @@ public interface GexfPackage extends EPackage {
 	 * 
 	 * @return the meta object for data type '<em>Class Type Object</em>'.
 	 * @see net.gexf_1_2.gexf.ClassType
-	 * @model instanceClass="net.gexf_1_2.gexf.ClassType"
-	 *        extendedMetaData="name='class-type:Object' baseType='class-type'"
+	 * @model instanceClass="net.gexf_1_2.gexf.ClassType" extendedMetaData=
+	 *        "name='class-type:Object' baseType='class-type'"
 	 * @generated
 	 */
-	EDataType getClassTypeObject();
+			EDataType getClassTypeObject();
 
 	/**
 	 * Returns the meta object for data type '{@link net.gexf_1_2.gexf.DefaultedgetypeType
@@ -3123,11 +3122,11 @@ public interface GexfPackage extends EPackage {
 	 * 
 	 * @return the meta object for data type '<em>Defaultedgetype Type Object</em>'.
 	 * @see net.gexf_1_2.gexf.DefaultedgetypeType
-	 * @model instanceClass="net.gexf_1_2.gexf.DefaultedgetypeType"
-	 *        extendedMetaData="name='defaultedgetype-type:Object' baseType='defaultedgetype-type'"
+	 * @model instanceClass="net.gexf_1_2.gexf.DefaultedgetypeType" extendedMetaData=
+	 *        "name='defaultedgetype-type:Object' baseType='defaultedgetype-type'"
 	 * @generated
 	 */
-	EDataType getDefaultedgetypeTypeObject();
+			EDataType getDefaultedgetypeTypeObject();
 
 	/**
 	 * Returns the meta object for data type '{@link net.gexf_1_2.gexf.EdgetypeType <em>Edgetype Type Object</em>}'.
@@ -3135,11 +3134,11 @@ public interface GexfPackage extends EPackage {
 	 * 
 	 * @return the meta object for data type '<em>Edgetype Type Object</em>'.
 	 * @see net.gexf_1_2.gexf.EdgetypeType
-	 * @model instanceClass="net.gexf_1_2.gexf.EdgetypeType"
-	 *        extendedMetaData="name='edgetype-type:Object' baseType='edgetype-type'"
+	 * @model instanceClass="net.gexf_1_2.gexf.EdgetypeType" extendedMetaData=
+	 *        "name='edgetype-type:Object' baseType='edgetype-type'"
 	 * @generated
 	 */
-	EDataType getEdgetypeTypeObject();
+			EDataType getEdgetypeTypeObject();
 
 	/**
 	 * Returns the meta object for data type '{@link java.lang.Object <em>Id Type</em>}'. <!-- begin-user-doc --> <!--
@@ -3151,7 +3150,7 @@ public interface GexfPackage extends EPackage {
 	 *        "name='id-type' memberTypes='http://www.eclipse.org/emf/2003/XMLType#string http://www.eclipse.org/emf/2003/XMLType#integer'"
 	 * @generated
 	 */
-	EDataType getIdType();
+			EDataType getIdType();
 
 	/**
 	 * Returns the meta object for data type '{@link net.gexf_1_2.gexf.IdtypeType <em>Idtype Type Object</em>}'. <!--
@@ -3159,11 +3158,11 @@ public interface GexfPackage extends EPackage {
 	 * 
 	 * @return the meta object for data type '<em>Idtype Type Object</em>'.
 	 * @see net.gexf_1_2.gexf.IdtypeType
-	 * @model instanceClass="net.gexf_1_2.gexf.IdtypeType"
-	 *        extendedMetaData="name='idtype-type:Object' baseType='idtype-type'"
+	 * @model instanceClass="net.gexf_1_2.gexf.IdtypeType" extendedMetaData=
+	 *        "name='idtype-type:Object' baseType='idtype-type'"
 	 * @generated
 	 */
-	EDataType getIdtypeTypeObject();
+			EDataType getIdtypeTypeObject();
 
 	/**
 	 * Returns the meta object for data type '{@link net.gexf_1_2.gexf.ModeType <em>Mode Type Object</em>}'. <!--
@@ -3174,7 +3173,7 @@ public interface GexfPackage extends EPackage {
 	 * @model instanceClass="net.gexf_1_2.gexf.ModeType" extendedMetaData="name='mode-type:Object' baseType='mode-type'"
 	 * @generated
 	 */
-	EDataType getModeTypeObject();
+			EDataType getModeTypeObject();
 
 	/**
 	 * Returns the meta object for data type '{@link net.gexf_1_2.gexf.TimeformatType <em>Timeformat Type Object</em>}'.
@@ -3182,11 +3181,11 @@ public interface GexfPackage extends EPackage {
 	 * 
 	 * @return the meta object for data type '<em>Timeformat Type Object</em>'.
 	 * @see net.gexf_1_2.gexf.TimeformatType
-	 * @model instanceClass="net.gexf_1_2.gexf.TimeformatType"
-	 *        extendedMetaData="name='timeformat-type:Object' baseType='timeformat-type'"
+	 * @model instanceClass="net.gexf_1_2.gexf.TimeformatType" extendedMetaData=
+	 *        "name='timeformat-type:Object' baseType='timeformat-type'"
 	 * @generated
 	 */
-	EDataType getTimeformatTypeObject();
+			EDataType getTimeformatTypeObject();
 
 	/**
 	 * Returns the meta object for data type '{@link java.lang.Object <em>Time Type</em>}'. <!-- begin-user-doc --> <!--
@@ -3198,7 +3197,7 @@ public interface GexfPackage extends EPackage {
 	 *        "name='time-type' memberTypes='http://www.eclipse.org/emf/2003/XMLType#integer http://www.eclipse.org/emf/2003/XMLType#double http://www.eclipse.org/emf/2003/XMLType#date http://www.eclipse.org/emf/2003/XMLType#dateTime'"
 	 * @generated
 	 */
-	EDataType getTimeType();
+			EDataType getTimeType();
 
 	/**
 	 * Returns the meta object for data type '{@link net.gexf_1_2.gexf.VersionType <em>Version Type Object</em>}'. <!--
@@ -3206,21 +3205,21 @@ public interface GexfPackage extends EPackage {
 	 * 
 	 * @return the meta object for data type '<em>Version Type Object</em>'.
 	 * @see net.gexf_1_2.gexf.VersionType
-	 * @model instanceClass="net.gexf_1_2.gexf.VersionType"
-	 *        extendedMetaData="name='version_._type:Object' baseType='version_._type'"
+	 * @model instanceClass="net.gexf_1_2.gexf.VersionType" extendedMetaData=
+	 *        "name='version_._type:Object' baseType='version_._type'"
 	 * @generated
 	 */
-	EDataType getVersionTypeObject();
+			EDataType getVersionTypeObject();
 
 	/**
 	 * Returns the meta object for data type '<em>Weight Type</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for data type '<em>Weight Type</em>'.
-	 * @model instanceClass="float"
-	 *        extendedMetaData="name='weight-type' baseType='http://www.eclipse.org/emf/2003/XMLType#float'"
+	 * @model instanceClass="float" extendedMetaData=
+	 *        "name='weight-type' baseType='http://www.eclipse.org/emf/2003/XMLType#float'"
 	 * @generated
 	 */
-	EDataType getWeightType();
+			EDataType getWeightType();
 
 	/**
 	 * Returns the meta object for data type '{@link java.lang.Float <em>Weight Type Object</em>}'. <!-- begin-user-doc
@@ -3231,7 +3230,7 @@ public interface GexfPackage extends EPackage {
 	 * @model instanceClass="java.lang.Float" extendedMetaData="name='weight-type:Object' baseType='weight-type'"
 	 * @generated
 	 */
-	EDataType getWeightTypeObject();
+			EDataType getWeightTypeObject();
 
 	/**
 	 * Returns the factory that creates the instances of the model. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -3239,7 +3238,7 @@ public interface GexfPackage extends EPackage {
 	 * @return the factory that creates the instances of the model.
 	 * @generated
 	 */
-	GexfFactory getGexfFactory();
+			GexfFactory getGexfFactory();
 
 	/**
 	 * <!-- begin-user-doc --> Defines literals for the meta objects that represent
@@ -4510,4 +4509,4 @@ public interface GexfPackage extends EPackage {
 
 	}
 
-} //GexfPackage
+} // GexfPackage

@@ -42,7 +42,7 @@ public class Xadlcore_3_0Switch<T> extends Switch<T> {
 	/**
 	 * Checks whether this is a switch for the given package. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
-	 * @parameter ePackage the package in question.
+	 * @param ePackage the package in question.
 	 * @return whether this is a switch for the given package.
 	 * @generated
 	 */
@@ -61,40 +61,40 @@ public class Xadlcore_3_0Switch<T> extends Switch<T> {
 	@Override
 	protected T doSwitch(int classifierID, EObject theEObject) {
 		switch (classifierID) {
-		case Xadlcore_3_0Package.DOCUMENT_ROOT: {
-			DocumentRoot documentRoot = (DocumentRoot) theEObject;
-			T result = caseDocumentRoot(documentRoot);
-			if (result == null) {
-				result = defaultCase(theEObject);
+			case Xadlcore_3_0Package.DOCUMENT_ROOT: {
+				DocumentRoot documentRoot = (DocumentRoot) theEObject;
+				T result = caseDocumentRoot(documentRoot);
+				if (result == null) {
+					result = defaultCase(theEObject);
+				}
+				return result;
 			}
-			return result;
-		}
-		case Xadlcore_3_0Package.EXTENSION: {
-			Extension extension = (Extension) theEObject;
-			T result = caseExtension(extension);
-			if (result == null) {
-				result = defaultCase(theEObject);
+			case Xadlcore_3_0Package.EXTENSION: {
+				Extension extension = (Extension) theEObject;
+				T result = caseExtension(extension);
+				if (result == null) {
+					result = defaultCase(theEObject);
+				}
+				return result;
 			}
-			return result;
-		}
-		case Xadlcore_3_0Package.SIMPLE_LINK: {
-			SimpleLink simpleLink = (SimpleLink) theEObject;
-			T result = caseSimpleLink(simpleLink);
-			if (result == null) {
-				result = defaultCase(theEObject);
+			case Xadlcore_3_0Package.SIMPLE_LINK: {
+				SimpleLink simpleLink = (SimpleLink) theEObject;
+				T result = caseSimpleLink(simpleLink);
+				if (result == null) {
+					result = defaultCase(theEObject);
+				}
+				return result;
 			}
-			return result;
-		}
-		case Xadlcore_3_0Package.XADL_TYPE: {
-			XADLType xadlType = (XADLType) theEObject;
-			T result = caseXADLType(xadlType);
-			if (result == null) {
-				result = defaultCase(theEObject);
+			case Xadlcore_3_0Package.XADL_TYPE: {
+				XADLType xadlType = (XADLType) theEObject;
+				T result = caseXADLType(xadlType);
+				if (result == null) {
+					result = defaultCase(theEObject);
+				}
+				return result;
 			}
-			return result;
-		}
-		default:
-			return defaultCase(theEObject);
+			default:
+				return defaultCase(theEObject);
 		}
 	}
 
@@ -102,8 +102,7 @@ public class Xadlcore_3_0Switch<T> extends Switch<T> {
 	 * Returns the result of interpreting the object as an instance of '<em>Document Root</em>'. <!-- begin-user-doc -->
 	 * This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
 	 * 
-	 * @param object
-	 *            the target of the switch.
+	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>Document Root</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
@@ -116,8 +115,7 @@ public class Xadlcore_3_0Switch<T> extends Switch<T> {
 	 * Returns the result of interpreting the object as an instance of '<em>Extension</em>'. <!-- begin-user-doc -->
 	 * This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
 	 * 
-	 * @param object
-	 *            the target of the switch.
+	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>Extension</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
@@ -130,8 +128,7 @@ public class Xadlcore_3_0Switch<T> extends Switch<T> {
 	 * Returns the result of interpreting the object as an instance of '<em>Simple Link</em>'. <!-- begin-user-doc -->
 	 * This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
 	 * 
-	 * @param object
-	 *            the target of the switch.
+	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>Simple Link</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
@@ -144,8 +141,7 @@ public class Xadlcore_3_0Switch<T> extends Switch<T> {
 	 * Returns the result of interpreting the object as an instance of '<em>XADL Type</em>'. <!-- begin-user-doc -->
 	 * This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
 	 * 
-	 * @param object
-	 *            the target of the switch.
+	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>XADL Type</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
@@ -159,8 +155,7 @@ public class Xadlcore_3_0Switch<T> extends Switch<T> {
 	 * implementation returns null; returning a non-null result will terminate the switch, but this is the last case
 	 * anyway. <!-- end-user-doc -->
 	 * 
-	 * @param object
-	 *            the target of the switch.
+	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>EObject</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject)
 	 * @generated
@@ -170,4 +165,4 @@ public class Xadlcore_3_0Switch<T> extends Switch<T> {
 		return null;
 	}
 
-} //Xadlcore_3_0Switch
+} // Xadlcore_3_0Switch

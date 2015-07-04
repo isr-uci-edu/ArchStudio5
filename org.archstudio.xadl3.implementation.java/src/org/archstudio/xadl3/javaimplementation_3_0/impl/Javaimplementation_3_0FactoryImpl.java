@@ -26,8 +26,9 @@ public class Javaimplementation_3_0FactoryImpl extends EFactoryImpl implements J
 	 */
 	public static Javaimplementation_3_0Factory init() {
 		try {
-			Javaimplementation_3_0Factory theJavaimplementation_3_0Factory = (Javaimplementation_3_0Factory) EPackage.Registry.INSTANCE
-					.getEFactory(Javaimplementation_3_0Package.eNS_URI);
+			Javaimplementation_3_0Factory theJavaimplementation_3_0Factory =
+					(Javaimplementation_3_0Factory) EPackage.Registry.INSTANCE
+							.getEFactory(Javaimplementation_3_0Package.eNS_URI);
 			if (theJavaimplementation_3_0Factory != null) {
 				return theJavaimplementation_3_0Factory;
 			}
@@ -55,14 +56,14 @@ public class Javaimplementation_3_0FactoryImpl extends EFactoryImpl implements J
 	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
-		case Javaimplementation_3_0Package.CLASS_PATH_ENTRY:
-			return createClassPathEntry();
-		case Javaimplementation_3_0Package.JAVA_CLASS:
-			return createJavaClass();
-		case Javaimplementation_3_0Package.JAVA_IMPLEMENTATION:
-			return createJavaImplementation();
-		default:
-			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+			case Javaimplementation_3_0Package.CLASS_PATH_ENTRY:
+				return createClassPathEntry();
+			case Javaimplementation_3_0Package.JAVA_CLASS:
+				return createJavaClass();
+			case Javaimplementation_3_0Package.JAVA_IMPLEMENTATION:
+				return createJavaImplementation();
+			default:
+				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
 	}
 
@@ -120,4 +121,4 @@ public class Javaimplementation_3_0FactoryImpl extends EFactoryImpl implements J
 		return Javaimplementation_3_0Package.eINSTANCE;
 	}
 
-} //Javaimplementation_3_0FactoryImpl
+} // Javaimplementation_3_0FactoryImpl

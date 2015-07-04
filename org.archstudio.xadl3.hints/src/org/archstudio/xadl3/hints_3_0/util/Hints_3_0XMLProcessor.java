@@ -43,4 +43,4 @@ public class Hints_3_0XMLProcessor extends XMLProcessor {
 		return registrations;
 	}
 
-} //Hints_3_0XMLProcessor
+} // Hints_3_0XMLProcessor

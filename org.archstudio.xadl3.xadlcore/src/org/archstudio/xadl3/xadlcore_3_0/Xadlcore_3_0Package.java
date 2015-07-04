@@ -16,18 +16,9 @@ import org.eclipse.emf.ecore.EReference;
  * <li>each enum,</li>
  * <li>and each data type</li>
  * </ul>
- * <!-- end-user-doc --> <!-- begin-model-doc -->
- * 
- * 
- * xADL 3 Core Schema
- * 
- * This schema defines the core elements for xADL 3 documents. The schema is intentionally small, defining only a few
- * elements that are intended to be common across xADL descriptions and extensions, regardless of domain.
- * 
- * Changelog: - 3.0.0: * Initial version
- * 
- * 
- * <!-- end-model-doc -->
+ * <!-- end-user-doc --> <!-- begin-model-doc --> xADL 3 Core Schema This schema defines the core elements for xADL 3
+ * documents. The schema is intentionally small, defining only a few elements that are intended to be common across xADL
+ * descriptions and extensions, regardless of domain. Changelog: - 3.0.0: * Initial version <!-- end-model-doc -->
  * 
  * @see org.archstudio.xadl3.xadlcore_3_0.Xadlcore_3_0Factory
  * @model kind="package"
@@ -63,8 +54,8 @@ public interface Xadlcore_3_0Package extends EPackage {
 	Xadlcore_3_0Package eINSTANCE = org.archstudio.xadl3.xadlcore_3_0.impl.Xadlcore_3_0PackageImpl.init();
 
 	/**
-	 * The meta object id for the '{@link org.archstudio.xadl3.xadlcore_3_0.impl.DocumentRootImpl
-	 * <em>Document Root</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The meta object id for the '{@link org.archstudio.xadl3.xadlcore_3_0.impl.DocumentRootImpl <em>Document Root</em>
+	 * }' class. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see org.archstudio.xadl3.xadlcore_3_0.impl.DocumentRootImpl
 	 * @see org.archstudio.xadl3.xadlcore_3_0.impl.Xadlcore_3_0PackageImpl#getDocumentRoot()
@@ -253,7 +244,7 @@ public interface Xadlcore_3_0Package extends EPackage {
 	 * @see org.archstudio.xadl3.xadlcore_3_0.DocumentRoot
 	 * @generated
 	 */
-	EClass getDocumentRoot();
+			EClass getDocumentRoot();
 
 	/**
 	 * Returns the meta object for the attribute list '{@link org.archstudio.xadl3.xadlcore_3_0.DocumentRoot#getMixed
@@ -264,7 +255,7 @@ public interface Xadlcore_3_0Package extends EPackage {
 	 * @see #getDocumentRoot()
 	 * @generated
 	 */
-	EAttribute getDocumentRoot_Mixed();
+			EAttribute getDocumentRoot_Mixed();
 
 	/**
 	 * Returns the meta object for the map '{@link org.archstudio.xadl3.xadlcore_3_0.DocumentRoot#getXMLNSPrefixMap
@@ -275,7 +266,7 @@ public interface Xadlcore_3_0Package extends EPackage {
 	 * @see #getDocumentRoot()
 	 * @generated
 	 */
-	EReference getDocumentRoot_XMLNSPrefixMap();
+			EReference getDocumentRoot_XMLNSPrefixMap();
 
 	/**
 	 * Returns the meta object for the map '{@link org.archstudio.xadl3.xadlcore_3_0.DocumentRoot#getXSISchemaLocation
@@ -286,7 +277,7 @@ public interface Xadlcore_3_0Package extends EPackage {
 	 * @see #getDocumentRoot()
 	 * @generated
 	 */
-	EReference getDocumentRoot_XSISchemaLocation();
+			EReference getDocumentRoot_XSISchemaLocation();
 
 	/**
 	 * Returns the meta object for the containment reference '
@@ -298,7 +289,7 @@ public interface Xadlcore_3_0Package extends EPackage {
 	 * @see #getDocumentRoot()
 	 * @generated
 	 */
-	EReference getDocumentRoot_TopLevelElement();
+			EReference getDocumentRoot_TopLevelElement();
 
 	/**
 	 * Returns the meta object for the containment reference '
@@ -310,7 +301,7 @@ public interface Xadlcore_3_0Package extends EPackage {
 	 * @see #getDocumentRoot()
 	 * @generated
 	 */
-	EReference getDocumentRoot_XADL();
+			EReference getDocumentRoot_XADL();
 
 	/**
 	 * Returns the meta object for class '{@link org.archstudio.xadl3.xadlcore_3_0.Extension <em>Extension</em>}'. <!--
@@ -320,7 +311,7 @@ public interface Xadlcore_3_0Package extends EPackage {
 	 * @see org.archstudio.xadl3.xadlcore_3_0.Extension
 	 * @generated
 	 */
-	EClass getExtension();
+			EClass getExtension();
 
 	/**
 	 * Returns the meta object for class '{@link org.archstudio.xadl3.xadlcore_3_0.SimpleLink <em>Simple Link</em>}'.
@@ -330,7 +321,7 @@ public interface Xadlcore_3_0Package extends EPackage {
 	 * @see org.archstudio.xadl3.xadlcore_3_0.SimpleLink
 	 * @generated
 	 */
-	EClass getSimpleLink();
+			EClass getSimpleLink();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.archstudio.xadl3.xadlcore_3_0.SimpleLink#getHref
@@ -341,7 +332,7 @@ public interface Xadlcore_3_0Package extends EPackage {
 	 * @see #getSimpleLink()
 	 * @generated
 	 */
-	EAttribute getSimpleLink_Href();
+			EAttribute getSimpleLink_Href();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.archstudio.xadl3.xadlcore_3_0.SimpleLink#getId <em>Id</em>}
@@ -352,7 +343,7 @@ public interface Xadlcore_3_0Package extends EPackage {
 	 * @see #getSimpleLink()
 	 * @generated
 	 */
-	EAttribute getSimpleLink_Id();
+			EAttribute getSimpleLink_Id();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.archstudio.xadl3.xadlcore_3_0.SimpleLink#getType
@@ -363,7 +354,7 @@ public interface Xadlcore_3_0Package extends EPackage {
 	 * @see #getSimpleLink()
 	 * @generated
 	 */
-	EAttribute getSimpleLink_Type();
+			EAttribute getSimpleLink_Type();
 
 	/**
 	 * Returns the meta object for class '{@link org.archstudio.xadl3.xadlcore_3_0.XADLType <em>XADL Type</em>}'. <!--
@@ -373,7 +364,7 @@ public interface Xadlcore_3_0Package extends EPackage {
 	 * @see org.archstudio.xadl3.xadlcore_3_0.XADLType
 	 * @generated
 	 */
-	EClass getXADLType();
+			EClass getXADLType();
 
 	/**
 	 * Returns the meta object for the containment reference list '
@@ -385,7 +376,7 @@ public interface Xadlcore_3_0Package extends EPackage {
 	 * @see #getXADLType()
 	 * @generated
 	 */
-	EReference getXADLType_TopLevelElement();
+			EReference getXADLType_TopLevelElement();
 
 	/**
 	 * Returns the factory that creates the instances of the model. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -393,7 +384,7 @@ public interface Xadlcore_3_0Package extends EPackage {
 	 * @return the factory that creates the instances of the model.
 	 * @generated
 	 */
-	Xadlcore_3_0Factory getXadlcore_3_0Factory();
+			Xadlcore_3_0Factory getXadlcore_3_0Factory();
 
 	/**
 	 * <!-- begin-user-doc --> Defines literals for the meta objects that represent
@@ -523,4 +514,4 @@ public interface Xadlcore_3_0Package extends EPackage {
 
 	}
 
-} //Xadlcore_3_0Package
+} // Xadlcore_3_0Package

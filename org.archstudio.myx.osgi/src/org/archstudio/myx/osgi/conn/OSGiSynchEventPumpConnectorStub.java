@@ -4,9 +4,8 @@ import org.archstudio.myx.fw.IMyxName;
 import org.archstudio.myx.fw.MyxRegistry;
 
 /*
- * DO NOT EDIT THIS CLASS, it is automatically generated. ANY MODIFICATIONS WILL BE OVERWRITTEN.
- * 
- * To modify, update the "OSGi Synch Event Pump Connector" MyxGen extension in the org.archstudio.myx.osgi plugin.
+ * DO NOT EDIT THIS CLASS, it is automatically generated. ANY MODIFICATIONS WILL BE OVERWRITTEN. To modify, update the
+ * "OSGi Synch Event Pump Connector" MyxGen extension in the org.archstudio.myx.osgi plugin.
  */
 
 /**
@@ -14,8 +13,8 @@ import org.archstudio.myx.fw.MyxRegistry;
  * 
  * @generated
  */
-public abstract class OSGiSynchEventPumpConnectorStub extends org.archstudio.myx.fw.AbstractMyxSimpleBrick implements
-		org.archstudio.myx.fw.IMyxDynamicBrick {
+public abstract class OSGiSynchEventPumpConnectorStub extends org.archstudio.myx.fw.AbstractMyxSimpleBrick
+		implements org.archstudio.myx.fw.IMyxDynamicBrick {
 
 	/**
 	 * The registry of objects for this brick.

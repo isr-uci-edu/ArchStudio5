@@ -14,11 +14,12 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Sub Statechart</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
- * <li>{@link org.archstudio.xadl3.statechart_1_0.impl.SubStatechartImpl#getInnerStatechart <em>Inner Statechart</em>}</li>
+ * <li>{@link org.archstudio.xadl3.statechart_1_0.impl.SubStatechartImpl#getInnerStatechart <em>Inner Statechart</em>}
+ * </li>
  * <li>{@link org.archstudio.xadl3.statechart_1_0.impl.SubStatechartImpl#getId <em>Id</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -127,10 +128,10 @@ public class SubStatechartImpl extends MinimalEObjectImpl.Container implements S
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case Statechart_1_0Package.SUB_STATECHART__INNER_STATECHART:
-			return getInnerStatechart();
-		case Statechart_1_0Package.SUB_STATECHART__ID:
-			return getId();
+			case Statechart_1_0Package.SUB_STATECHART__INNER_STATECHART:
+				return getInnerStatechart();
+			case Statechart_1_0Package.SUB_STATECHART__ID:
+				return getId();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -143,12 +144,12 @@ public class SubStatechartImpl extends MinimalEObjectImpl.Container implements S
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Statechart_1_0Package.SUB_STATECHART__INNER_STATECHART:
-			setInnerStatechart((Statechart) newValue);
-			return;
-		case Statechart_1_0Package.SUB_STATECHART__ID:
-			setId((String) newValue);
-			return;
+			case Statechart_1_0Package.SUB_STATECHART__INNER_STATECHART:
+				setInnerStatechart((Statechart) newValue);
+				return;
+			case Statechart_1_0Package.SUB_STATECHART__ID:
+				setId((String) newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -161,12 +162,12 @@ public class SubStatechartImpl extends MinimalEObjectImpl.Container implements S
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Statechart_1_0Package.SUB_STATECHART__INNER_STATECHART:
-			setInnerStatechart((Statechart) null);
-			return;
-		case Statechart_1_0Package.SUB_STATECHART__ID:
-			setId(ID_EDEFAULT);
-			return;
+			case Statechart_1_0Package.SUB_STATECHART__INNER_STATECHART:
+				setInnerStatechart((Statechart) null);
+				return;
+			case Statechart_1_0Package.SUB_STATECHART__ID:
+				setId(ID_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -179,10 +180,10 @@ public class SubStatechartImpl extends MinimalEObjectImpl.Container implements S
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Statechart_1_0Package.SUB_STATECHART__INNER_STATECHART:
-			return innerStatechart != null;
-		case Statechart_1_0Package.SUB_STATECHART__ID:
-			return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
+			case Statechart_1_0Package.SUB_STATECHART__INNER_STATECHART:
+				return innerStatechart != null;
+			case Statechart_1_0Package.SUB_STATECHART__ID:
+				return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -205,4 +206,4 @@ public class SubStatechartImpl extends MinimalEObjectImpl.Container implements S
 		return result.toString();
 	}
 
-} //SubStatechartImpl
+} // SubStatechartImpl

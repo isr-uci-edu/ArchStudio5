@@ -13,12 +13,12 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Simple Link</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  * <li>{@link org.archstudio.xadl3.xadlcore_3_0.impl.SimpleLinkImpl#getHref <em>Href</em>}</li>
  * <li>{@link org.archstudio.xadl3.xadlcore_3_0.impl.SimpleLinkImpl#getId <em>Id</em>}</li>
  * <li>{@link org.archstudio.xadl3.xadlcore_3_0.impl.SimpleLinkImpl#getType <em>Type</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -128,7 +128,8 @@ public class SimpleLinkImpl extends MinimalEObjectImpl.Container implements Simp
 		String oldHref = href;
 		href = newHref;
 		if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, Xadlcore_3_0Package.SIMPLE_LINK__HREF, oldHref, href));
+			eNotify(new ENotificationImpl(this, Notification.SET, Xadlcore_3_0Package.SIMPLE_LINK__HREF, oldHref,
+					href));
 		}
 	}
 
@@ -218,12 +219,12 @@ public class SimpleLinkImpl extends MinimalEObjectImpl.Container implements Simp
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case Xadlcore_3_0Package.SIMPLE_LINK__HREF:
-			return getHref();
-		case Xadlcore_3_0Package.SIMPLE_LINK__ID:
-			return getId();
-		case Xadlcore_3_0Package.SIMPLE_LINK__TYPE:
-			return getType();
+			case Xadlcore_3_0Package.SIMPLE_LINK__HREF:
+				return getHref();
+			case Xadlcore_3_0Package.SIMPLE_LINK__ID:
+				return getId();
+			case Xadlcore_3_0Package.SIMPLE_LINK__TYPE:
+				return getType();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -236,15 +237,15 @@ public class SimpleLinkImpl extends MinimalEObjectImpl.Container implements Simp
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Xadlcore_3_0Package.SIMPLE_LINK__HREF:
-			setHref((String) newValue);
-			return;
-		case Xadlcore_3_0Package.SIMPLE_LINK__ID:
-			setId((String) newValue);
-			return;
-		case Xadlcore_3_0Package.SIMPLE_LINK__TYPE:
-			setType((String) newValue);
-			return;
+			case Xadlcore_3_0Package.SIMPLE_LINK__HREF:
+				setHref((String) newValue);
+				return;
+			case Xadlcore_3_0Package.SIMPLE_LINK__ID:
+				setId((String) newValue);
+				return;
+			case Xadlcore_3_0Package.SIMPLE_LINK__TYPE:
+				setType((String) newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -257,15 +258,15 @@ public class SimpleLinkImpl extends MinimalEObjectImpl.Container implements Simp
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Xadlcore_3_0Package.SIMPLE_LINK__HREF:
-			setHref(HREF_EDEFAULT);
-			return;
-		case Xadlcore_3_0Package.SIMPLE_LINK__ID:
-			setId(ID_EDEFAULT);
-			return;
-		case Xadlcore_3_0Package.SIMPLE_LINK__TYPE:
-			unsetType();
-			return;
+			case Xadlcore_3_0Package.SIMPLE_LINK__HREF:
+				setHref(HREF_EDEFAULT);
+				return;
+			case Xadlcore_3_0Package.SIMPLE_LINK__ID:
+				setId(ID_EDEFAULT);
+				return;
+			case Xadlcore_3_0Package.SIMPLE_LINK__TYPE:
+				unsetType();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -278,12 +279,12 @@ public class SimpleLinkImpl extends MinimalEObjectImpl.Container implements Simp
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Xadlcore_3_0Package.SIMPLE_LINK__HREF:
-			return HREF_EDEFAULT == null ? href != null : !HREF_EDEFAULT.equals(href);
-		case Xadlcore_3_0Package.SIMPLE_LINK__ID:
-			return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
-		case Xadlcore_3_0Package.SIMPLE_LINK__TYPE:
-			return isSetType();
+			case Xadlcore_3_0Package.SIMPLE_LINK__HREF:
+				return HREF_EDEFAULT == null ? href != null : !HREF_EDEFAULT.equals(href);
+			case Xadlcore_3_0Package.SIMPLE_LINK__ID:
+				return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
+			case Xadlcore_3_0Package.SIMPLE_LINK__TYPE:
+				return isSetType();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -315,4 +316,4 @@ public class SimpleLinkImpl extends MinimalEObjectImpl.Container implements Simp
 		return result.toString();
 	}
 
-} //SimpleLinkImpl
+} // SimpleLinkImpl

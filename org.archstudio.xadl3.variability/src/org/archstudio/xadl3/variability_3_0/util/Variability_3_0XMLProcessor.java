@@ -43,4 +43,4 @@ public class Variability_3_0XMLProcessor extends XMLProcessor {
 		return registrations;
 	}
 
-} //Variability_3_0XMLProcessor
+} // Variability_3_0XMLProcessor

@@ -2,6 +2,19 @@
  */
 package net.gexf_1_2.gexf.impl;
 
+import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.EMap;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.EcorePackage;
+import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.impl.EStringToStringMapEntryImpl;
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+import org.eclipse.emf.ecore.util.BasicFeatureMap;
+import org.eclipse.emf.ecore.util.EcoreEMap;
+import org.eclipse.emf.ecore.util.FeatureMap;
+import org.eclipse.emf.ecore.util.InternalEList;
+
 import net.gexf_1_2.gexf.AttributeContent;
 import net.gexf_1_2.gexf.AttributesContent;
 import net.gexf_1_2.gexf.AttvalueType;
@@ -24,23 +37,11 @@ import net.gexf_1_2.viz.PositionContent;
 import net.gexf_1_2.viz.SizeContent;
 import net.gexf_1_2.viz.ThicknessContent;
 
-import org.eclipse.emf.common.notify.NotificationChain;
-import org.eclipse.emf.common.util.EMap;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.EcorePackage;
-import org.eclipse.emf.ecore.InternalEObject;
-import org.eclipse.emf.ecore.impl.EStringToStringMapEntryImpl;
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-import org.eclipse.emf.ecore.util.BasicFeatureMap;
-import org.eclipse.emf.ecore.util.EcoreEMap;
-import org.eclipse.emf.ecore.util.FeatureMap;
-import org.eclipse.emf.ecore.util.InternalEList;
-
 /**
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Document Root</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  * <li>{@link net.gexf_1_2.gexf.impl.DocumentRootImpl#getMixed <em>Mixed</em>}</li>
  * <li>{@link net.gexf_1_2.gexf.impl.DocumentRootImpl#getXMLNSPrefixMap <em>XMLNS Prefix Map</em>}</li>
@@ -70,7 +71,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <li>{@link net.gexf_1_2.gexf.impl.DocumentRootImpl#getSpells <em>Spells</em>}</li>
  * <li>{@link net.gexf_1_2.gexf.impl.DocumentRootImpl#getThickness <em>Thickness</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -881,50 +881,50 @@ public class DocumentRootImpl extends MinimalEObjectImpl.Container implements Do
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case GexfPackage.DOCUMENT_ROOT__MIXED:
-			return ((InternalEList<?>) getMixed()).basicRemove(otherEnd, msgs);
-		case GexfPackage.DOCUMENT_ROOT__XMLNS_PREFIX_MAP:
-			return ((InternalEList<?>) getXMLNSPrefixMap()).basicRemove(otherEnd, msgs);
-		case GexfPackage.DOCUMENT_ROOT__XSI_SCHEMA_LOCATION:
-			return ((InternalEList<?>) getXSISchemaLocation()).basicRemove(otherEnd, msgs);
-		case GexfPackage.DOCUMENT_ROOT__ATTRIBUTE:
-			return basicSetAttribute(null, msgs);
-		case GexfPackage.DOCUMENT_ROOT__ATTRIBUTES:
-			return basicSetAttributes(null, msgs);
-		case GexfPackage.DOCUMENT_ROOT__ATTVALUE:
-			return basicSetAttvalue(null, msgs);
-		case GexfPackage.DOCUMENT_ROOT__ATTVALUES:
-			return basicSetAttvalues(null, msgs);
-		case GexfPackage.DOCUMENT_ROOT__COLOR:
-			return basicSetColor(null, msgs);
-		case GexfPackage.DOCUMENT_ROOT__EDGE:
-			return basicSetEdge(null, msgs);
-		case GexfPackage.DOCUMENT_ROOT__EDGES:
-			return basicSetEdges(null, msgs);
-		case GexfPackage.DOCUMENT_ROOT__GEXF:
-			return basicSetGexf(null, msgs);
-		case GexfPackage.DOCUMENT_ROOT__GRAPH:
-			return basicSetGraph(null, msgs);
-		case GexfPackage.DOCUMENT_ROOT__META:
-			return basicSetMeta(null, msgs);
-		case GexfPackage.DOCUMENT_ROOT__NODE:
-			return basicSetNode(null, msgs);
-		case GexfPackage.DOCUMENT_ROOT__NODES:
-			return basicSetNodes(null, msgs);
-		case GexfPackage.DOCUMENT_ROOT__PARENT:
-			return basicSetParent(null, msgs);
-		case GexfPackage.DOCUMENT_ROOT__PARENTS:
-			return basicSetParents(null, msgs);
-		case GexfPackage.DOCUMENT_ROOT__POSITION:
-			return basicSetPosition(null, msgs);
-		case GexfPackage.DOCUMENT_ROOT__SIZE:
-			return basicSetSize(null, msgs);
-		case GexfPackage.DOCUMENT_ROOT__SPELL:
-			return basicSetSpell(null, msgs);
-		case GexfPackage.DOCUMENT_ROOT__SPELLS:
-			return basicSetSpells(null, msgs);
-		case GexfPackage.DOCUMENT_ROOT__THICKNESS:
-			return basicSetThickness(null, msgs);
+			case GexfPackage.DOCUMENT_ROOT__MIXED:
+				return ((InternalEList<?>) getMixed()).basicRemove(otherEnd, msgs);
+			case GexfPackage.DOCUMENT_ROOT__XMLNS_PREFIX_MAP:
+				return ((InternalEList<?>) getXMLNSPrefixMap()).basicRemove(otherEnd, msgs);
+			case GexfPackage.DOCUMENT_ROOT__XSI_SCHEMA_LOCATION:
+				return ((InternalEList<?>) getXSISchemaLocation()).basicRemove(otherEnd, msgs);
+			case GexfPackage.DOCUMENT_ROOT__ATTRIBUTE:
+				return basicSetAttribute(null, msgs);
+			case GexfPackage.DOCUMENT_ROOT__ATTRIBUTES:
+				return basicSetAttributes(null, msgs);
+			case GexfPackage.DOCUMENT_ROOT__ATTVALUE:
+				return basicSetAttvalue(null, msgs);
+			case GexfPackage.DOCUMENT_ROOT__ATTVALUES:
+				return basicSetAttvalues(null, msgs);
+			case GexfPackage.DOCUMENT_ROOT__COLOR:
+				return basicSetColor(null, msgs);
+			case GexfPackage.DOCUMENT_ROOT__EDGE:
+				return basicSetEdge(null, msgs);
+			case GexfPackage.DOCUMENT_ROOT__EDGES:
+				return basicSetEdges(null, msgs);
+			case GexfPackage.DOCUMENT_ROOT__GEXF:
+				return basicSetGexf(null, msgs);
+			case GexfPackage.DOCUMENT_ROOT__GRAPH:
+				return basicSetGraph(null, msgs);
+			case GexfPackage.DOCUMENT_ROOT__META:
+				return basicSetMeta(null, msgs);
+			case GexfPackage.DOCUMENT_ROOT__NODE:
+				return basicSetNode(null, msgs);
+			case GexfPackage.DOCUMENT_ROOT__NODES:
+				return basicSetNodes(null, msgs);
+			case GexfPackage.DOCUMENT_ROOT__PARENT:
+				return basicSetParent(null, msgs);
+			case GexfPackage.DOCUMENT_ROOT__PARENTS:
+				return basicSetParents(null, msgs);
+			case GexfPackage.DOCUMENT_ROOT__POSITION:
+				return basicSetPosition(null, msgs);
+			case GexfPackage.DOCUMENT_ROOT__SIZE:
+				return basicSetSize(null, msgs);
+			case GexfPackage.DOCUMENT_ROOT__SPELL:
+				return basicSetSpell(null, msgs);
+			case GexfPackage.DOCUMENT_ROOT__SPELLS:
+				return basicSetSpells(null, msgs);
+			case GexfPackage.DOCUMENT_ROOT__THICKNESS:
+				return basicSetThickness(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -937,73 +937,73 @@ public class DocumentRootImpl extends MinimalEObjectImpl.Container implements Do
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case GexfPackage.DOCUMENT_ROOT__MIXED:
-			if (coreType) {
-				return getMixed();
-			}
-			return ((FeatureMap.Internal) getMixed()).getWrapper();
-		case GexfPackage.DOCUMENT_ROOT__XMLNS_PREFIX_MAP:
-			if (coreType) {
-				return getXMLNSPrefixMap();
-			}
-			else {
-				return getXMLNSPrefixMap().map();
-			}
-		case GexfPackage.DOCUMENT_ROOT__XSI_SCHEMA_LOCATION:
-			if (coreType) {
-				return getXSISchemaLocation();
-			}
-			else {
-				return getXSISchemaLocation().map();
-			}
-		case GexfPackage.DOCUMENT_ROOT__ATTRIBUTE:
-			return getAttribute();
-		case GexfPackage.DOCUMENT_ROOT__ATTRIBUTES:
-			return getAttributes();
-		case GexfPackage.DOCUMENT_ROOT__ATTVALUE:
-			return getAttvalue();
-		case GexfPackage.DOCUMENT_ROOT__ATTVALUES:
-			return getAttvalues();
-		case GexfPackage.DOCUMENT_ROOT__COLOR:
-			return getColor();
-		case GexfPackage.DOCUMENT_ROOT__CREATOR:
-			return getCreator();
-		case GexfPackage.DOCUMENT_ROOT__DEFAULT:
-			return getDefault();
-		case GexfPackage.DOCUMENT_ROOT__DESCRIPTION:
-			return getDescription();
-		case GexfPackage.DOCUMENT_ROOT__EDGE:
-			return getEdge();
-		case GexfPackage.DOCUMENT_ROOT__EDGES:
-			return getEdges();
-		case GexfPackage.DOCUMENT_ROOT__GEXF:
-			return getGexf();
-		case GexfPackage.DOCUMENT_ROOT__GRAPH:
-			return getGraph();
-		case GexfPackage.DOCUMENT_ROOT__KEYWORDS:
-			return getKeywords();
-		case GexfPackage.DOCUMENT_ROOT__META:
-			return getMeta();
-		case GexfPackage.DOCUMENT_ROOT__NODE:
-			return getNode();
-		case GexfPackage.DOCUMENT_ROOT__NODES:
-			return getNodes();
-		case GexfPackage.DOCUMENT_ROOT__OPTIONS:
-			return getOptions();
-		case GexfPackage.DOCUMENT_ROOT__PARENT:
-			return getParent();
-		case GexfPackage.DOCUMENT_ROOT__PARENTS:
-			return getParents();
-		case GexfPackage.DOCUMENT_ROOT__POSITION:
-			return getPosition();
-		case GexfPackage.DOCUMENT_ROOT__SIZE:
-			return getSize();
-		case GexfPackage.DOCUMENT_ROOT__SPELL:
-			return getSpell();
-		case GexfPackage.DOCUMENT_ROOT__SPELLS:
-			return getSpells();
-		case GexfPackage.DOCUMENT_ROOT__THICKNESS:
-			return getThickness();
+			case GexfPackage.DOCUMENT_ROOT__MIXED:
+				if (coreType) {
+					return getMixed();
+				}
+				return ((FeatureMap.Internal) getMixed()).getWrapper();
+			case GexfPackage.DOCUMENT_ROOT__XMLNS_PREFIX_MAP:
+				if (coreType) {
+					return getXMLNSPrefixMap();
+				}
+				else {
+					return getXMLNSPrefixMap().map();
+				}
+			case GexfPackage.DOCUMENT_ROOT__XSI_SCHEMA_LOCATION:
+				if (coreType) {
+					return getXSISchemaLocation();
+				}
+				else {
+					return getXSISchemaLocation().map();
+				}
+			case GexfPackage.DOCUMENT_ROOT__ATTRIBUTE:
+				return getAttribute();
+			case GexfPackage.DOCUMENT_ROOT__ATTRIBUTES:
+				return getAttributes();
+			case GexfPackage.DOCUMENT_ROOT__ATTVALUE:
+				return getAttvalue();
+			case GexfPackage.DOCUMENT_ROOT__ATTVALUES:
+				return getAttvalues();
+			case GexfPackage.DOCUMENT_ROOT__COLOR:
+				return getColor();
+			case GexfPackage.DOCUMENT_ROOT__CREATOR:
+				return getCreator();
+			case GexfPackage.DOCUMENT_ROOT__DEFAULT:
+				return getDefault();
+			case GexfPackage.DOCUMENT_ROOT__DESCRIPTION:
+				return getDescription();
+			case GexfPackage.DOCUMENT_ROOT__EDGE:
+				return getEdge();
+			case GexfPackage.DOCUMENT_ROOT__EDGES:
+				return getEdges();
+			case GexfPackage.DOCUMENT_ROOT__GEXF:
+				return getGexf();
+			case GexfPackage.DOCUMENT_ROOT__GRAPH:
+				return getGraph();
+			case GexfPackage.DOCUMENT_ROOT__KEYWORDS:
+				return getKeywords();
+			case GexfPackage.DOCUMENT_ROOT__META:
+				return getMeta();
+			case GexfPackage.DOCUMENT_ROOT__NODE:
+				return getNode();
+			case GexfPackage.DOCUMENT_ROOT__NODES:
+				return getNodes();
+			case GexfPackage.DOCUMENT_ROOT__OPTIONS:
+				return getOptions();
+			case GexfPackage.DOCUMENT_ROOT__PARENT:
+				return getParent();
+			case GexfPackage.DOCUMENT_ROOT__PARENTS:
+				return getParents();
+			case GexfPackage.DOCUMENT_ROOT__POSITION:
+				return getPosition();
+			case GexfPackage.DOCUMENT_ROOT__SIZE:
+				return getSize();
+			case GexfPackage.DOCUMENT_ROOT__SPELL:
+				return getSpell();
+			case GexfPackage.DOCUMENT_ROOT__SPELLS:
+				return getSpells();
+			case GexfPackage.DOCUMENT_ROOT__THICKNESS:
+				return getThickness();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -1016,87 +1016,87 @@ public class DocumentRootImpl extends MinimalEObjectImpl.Container implements Do
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case GexfPackage.DOCUMENT_ROOT__MIXED:
-			((FeatureMap.Internal) getMixed()).set(newValue);
-			return;
-		case GexfPackage.DOCUMENT_ROOT__XMLNS_PREFIX_MAP:
-			((EStructuralFeature.Setting) getXMLNSPrefixMap()).set(newValue);
-			return;
-		case GexfPackage.DOCUMENT_ROOT__XSI_SCHEMA_LOCATION:
-			((EStructuralFeature.Setting) getXSISchemaLocation()).set(newValue);
-			return;
-		case GexfPackage.DOCUMENT_ROOT__ATTRIBUTE:
-			setAttribute((AttributeContent) newValue);
-			return;
-		case GexfPackage.DOCUMENT_ROOT__ATTRIBUTES:
-			setAttributes((AttributesContent) newValue);
-			return;
-		case GexfPackage.DOCUMENT_ROOT__ATTVALUE:
-			setAttvalue((AttvalueType) newValue);
-			return;
-		case GexfPackage.DOCUMENT_ROOT__ATTVALUES:
-			setAttvalues((AttvaluesContent) newValue);
-			return;
-		case GexfPackage.DOCUMENT_ROOT__COLOR:
-			setColor((ColorContent) newValue);
-			return;
-		case GexfPackage.DOCUMENT_ROOT__CREATOR:
-			setCreator((String) newValue);
-			return;
-		case GexfPackage.DOCUMENT_ROOT__DEFAULT:
-			setDefault((String) newValue);
-			return;
-		case GexfPackage.DOCUMENT_ROOT__DESCRIPTION:
-			setDescription((String) newValue);
-			return;
-		case GexfPackage.DOCUMENT_ROOT__EDGE:
-			setEdge((EdgeContent) newValue);
-			return;
-		case GexfPackage.DOCUMENT_ROOT__EDGES:
-			setEdges((EdgesContent) newValue);
-			return;
-		case GexfPackage.DOCUMENT_ROOT__GEXF:
-			setGexf((GexfContent) newValue);
-			return;
-		case GexfPackage.DOCUMENT_ROOT__GRAPH:
-			setGraph((GraphContent) newValue);
-			return;
-		case GexfPackage.DOCUMENT_ROOT__KEYWORDS:
-			setKeywords((String) newValue);
-			return;
-		case GexfPackage.DOCUMENT_ROOT__META:
-			setMeta((MetaContent) newValue);
-			return;
-		case GexfPackage.DOCUMENT_ROOT__NODE:
-			setNode((NodeContent) newValue);
-			return;
-		case GexfPackage.DOCUMENT_ROOT__NODES:
-			setNodes((NodesContent) newValue);
-			return;
-		case GexfPackage.DOCUMENT_ROOT__OPTIONS:
-			setOptions((String) newValue);
-			return;
-		case GexfPackage.DOCUMENT_ROOT__PARENT:
-			setParent((ParentType) newValue);
-			return;
-		case GexfPackage.DOCUMENT_ROOT__PARENTS:
-			setParents((ParentsContent) newValue);
-			return;
-		case GexfPackage.DOCUMENT_ROOT__POSITION:
-			setPosition((PositionContent) newValue);
-			return;
-		case GexfPackage.DOCUMENT_ROOT__SIZE:
-			setSize((SizeContent) newValue);
-			return;
-		case GexfPackage.DOCUMENT_ROOT__SPELL:
-			setSpell((SpellType) newValue);
-			return;
-		case GexfPackage.DOCUMENT_ROOT__SPELLS:
-			setSpells((SpellsContent) newValue);
-			return;
-		case GexfPackage.DOCUMENT_ROOT__THICKNESS:
-			setThickness((ThicknessContent) newValue);
-			return;
+			case GexfPackage.DOCUMENT_ROOT__MIXED:
+				((FeatureMap.Internal) getMixed()).set(newValue);
+				return;
+			case GexfPackage.DOCUMENT_ROOT__XMLNS_PREFIX_MAP:
+				((EStructuralFeature.Setting) getXMLNSPrefixMap()).set(newValue);
+				return;
+			case GexfPackage.DOCUMENT_ROOT__XSI_SCHEMA_LOCATION:
+				((EStructuralFeature.Setting) getXSISchemaLocation()).set(newValue);
+				return;
+			case GexfPackage.DOCUMENT_ROOT__ATTRIBUTE:
+				setAttribute((AttributeContent) newValue);
+				return;
+			case GexfPackage.DOCUMENT_ROOT__ATTRIBUTES:
+				setAttributes((AttributesContent) newValue);
+				return;
+			case GexfPackage.DOCUMENT_ROOT__ATTVALUE:
+				setAttvalue((AttvalueType) newValue);
+				return;
+			case GexfPackage.DOCUMENT_ROOT__ATTVALUES:
+				setAttvalues((AttvaluesContent) newValue);
+				return;
+			case GexfPackage.DOCUMENT_ROOT__COLOR:
+				setColor((ColorContent) newValue);
+				return;
+			case GexfPackage.DOCUMENT_ROOT__CREATOR:
+				setCreator((String) newValue);
+				return;
+			case GexfPackage.DOCUMENT_ROOT__DEFAULT:
+				setDefault((String) newValue);
+				return;
+			case GexfPackage.DOCUMENT_ROOT__DESCRIPTION:
+				setDescription((String) newValue);
+				return;
+			case GexfPackage.DOCUMENT_ROOT__EDGE:
+				setEdge((EdgeContent) newValue);
+				return;
+			case GexfPackage.DOCUMENT_ROOT__EDGES:
+				setEdges((EdgesContent) newValue);
+				return;
+			case GexfPackage.DOCUMENT_ROOT__GEXF:
+				setGexf((GexfContent) newValue);
+				return;
+			case GexfPackage.DOCUMENT_ROOT__GRAPH:
+				setGraph((GraphContent) newValue);
+				return;
+			case GexfPackage.DOCUMENT_ROOT__KEYWORDS:
+				setKeywords((String) newValue);
+				return;
+			case GexfPackage.DOCUMENT_ROOT__META:
+				setMeta((MetaContent) newValue);
+				return;
+			case GexfPackage.DOCUMENT_ROOT__NODE:
+				setNode((NodeContent) newValue);
+				return;
+			case GexfPackage.DOCUMENT_ROOT__NODES:
+				setNodes((NodesContent) newValue);
+				return;
+			case GexfPackage.DOCUMENT_ROOT__OPTIONS:
+				setOptions((String) newValue);
+				return;
+			case GexfPackage.DOCUMENT_ROOT__PARENT:
+				setParent((ParentType) newValue);
+				return;
+			case GexfPackage.DOCUMENT_ROOT__PARENTS:
+				setParents((ParentsContent) newValue);
+				return;
+			case GexfPackage.DOCUMENT_ROOT__POSITION:
+				setPosition((PositionContent) newValue);
+				return;
+			case GexfPackage.DOCUMENT_ROOT__SIZE:
+				setSize((SizeContent) newValue);
+				return;
+			case GexfPackage.DOCUMENT_ROOT__SPELL:
+				setSpell((SpellType) newValue);
+				return;
+			case GexfPackage.DOCUMENT_ROOT__SPELLS:
+				setSpells((SpellsContent) newValue);
+				return;
+			case GexfPackage.DOCUMENT_ROOT__THICKNESS:
+				setThickness((ThicknessContent) newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -1109,87 +1109,87 @@ public class DocumentRootImpl extends MinimalEObjectImpl.Container implements Do
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case GexfPackage.DOCUMENT_ROOT__MIXED:
-			getMixed().clear();
-			return;
-		case GexfPackage.DOCUMENT_ROOT__XMLNS_PREFIX_MAP:
-			getXMLNSPrefixMap().clear();
-			return;
-		case GexfPackage.DOCUMENT_ROOT__XSI_SCHEMA_LOCATION:
-			getXSISchemaLocation().clear();
-			return;
-		case GexfPackage.DOCUMENT_ROOT__ATTRIBUTE:
-			setAttribute((AttributeContent) null);
-			return;
-		case GexfPackage.DOCUMENT_ROOT__ATTRIBUTES:
-			setAttributes((AttributesContent) null);
-			return;
-		case GexfPackage.DOCUMENT_ROOT__ATTVALUE:
-			setAttvalue((AttvalueType) null);
-			return;
-		case GexfPackage.DOCUMENT_ROOT__ATTVALUES:
-			setAttvalues((AttvaluesContent) null);
-			return;
-		case GexfPackage.DOCUMENT_ROOT__COLOR:
-			setColor((ColorContent) null);
-			return;
-		case GexfPackage.DOCUMENT_ROOT__CREATOR:
-			setCreator(CREATOR_EDEFAULT);
-			return;
-		case GexfPackage.DOCUMENT_ROOT__DEFAULT:
-			setDefault(DEFAULT_EDEFAULT);
-			return;
-		case GexfPackage.DOCUMENT_ROOT__DESCRIPTION:
-			setDescription(DESCRIPTION_EDEFAULT);
-			return;
-		case GexfPackage.DOCUMENT_ROOT__EDGE:
-			setEdge((EdgeContent) null);
-			return;
-		case GexfPackage.DOCUMENT_ROOT__EDGES:
-			setEdges((EdgesContent) null);
-			return;
-		case GexfPackage.DOCUMENT_ROOT__GEXF:
-			setGexf((GexfContent) null);
-			return;
-		case GexfPackage.DOCUMENT_ROOT__GRAPH:
-			setGraph((GraphContent) null);
-			return;
-		case GexfPackage.DOCUMENT_ROOT__KEYWORDS:
-			setKeywords(KEYWORDS_EDEFAULT);
-			return;
-		case GexfPackage.DOCUMENT_ROOT__META:
-			setMeta((MetaContent) null);
-			return;
-		case GexfPackage.DOCUMENT_ROOT__NODE:
-			setNode((NodeContent) null);
-			return;
-		case GexfPackage.DOCUMENT_ROOT__NODES:
-			setNodes((NodesContent) null);
-			return;
-		case GexfPackage.DOCUMENT_ROOT__OPTIONS:
-			setOptions(OPTIONS_EDEFAULT);
-			return;
-		case GexfPackage.DOCUMENT_ROOT__PARENT:
-			setParent((ParentType) null);
-			return;
-		case GexfPackage.DOCUMENT_ROOT__PARENTS:
-			setParents((ParentsContent) null);
-			return;
-		case GexfPackage.DOCUMENT_ROOT__POSITION:
-			setPosition((PositionContent) null);
-			return;
-		case GexfPackage.DOCUMENT_ROOT__SIZE:
-			setSize((SizeContent) null);
-			return;
-		case GexfPackage.DOCUMENT_ROOT__SPELL:
-			setSpell((SpellType) null);
-			return;
-		case GexfPackage.DOCUMENT_ROOT__SPELLS:
-			setSpells((SpellsContent) null);
-			return;
-		case GexfPackage.DOCUMENT_ROOT__THICKNESS:
-			setThickness((ThicknessContent) null);
-			return;
+			case GexfPackage.DOCUMENT_ROOT__MIXED:
+				getMixed().clear();
+				return;
+			case GexfPackage.DOCUMENT_ROOT__XMLNS_PREFIX_MAP:
+				getXMLNSPrefixMap().clear();
+				return;
+			case GexfPackage.DOCUMENT_ROOT__XSI_SCHEMA_LOCATION:
+				getXSISchemaLocation().clear();
+				return;
+			case GexfPackage.DOCUMENT_ROOT__ATTRIBUTE:
+				setAttribute((AttributeContent) null);
+				return;
+			case GexfPackage.DOCUMENT_ROOT__ATTRIBUTES:
+				setAttributes((AttributesContent) null);
+				return;
+			case GexfPackage.DOCUMENT_ROOT__ATTVALUE:
+				setAttvalue((AttvalueType) null);
+				return;
+			case GexfPackage.DOCUMENT_ROOT__ATTVALUES:
+				setAttvalues((AttvaluesContent) null);
+				return;
+			case GexfPackage.DOCUMENT_ROOT__COLOR:
+				setColor((ColorContent) null);
+				return;
+			case GexfPackage.DOCUMENT_ROOT__CREATOR:
+				setCreator(CREATOR_EDEFAULT);
+				return;
+			case GexfPackage.DOCUMENT_ROOT__DEFAULT:
+				setDefault(DEFAULT_EDEFAULT);
+				return;
+			case GexfPackage.DOCUMENT_ROOT__DESCRIPTION:
+				setDescription(DESCRIPTION_EDEFAULT);
+				return;
+			case GexfPackage.DOCUMENT_ROOT__EDGE:
+				setEdge((EdgeContent) null);
+				return;
+			case GexfPackage.DOCUMENT_ROOT__EDGES:
+				setEdges((EdgesContent) null);
+				return;
+			case GexfPackage.DOCUMENT_ROOT__GEXF:
+				setGexf((GexfContent) null);
+				return;
+			case GexfPackage.DOCUMENT_ROOT__GRAPH:
+				setGraph((GraphContent) null);
+				return;
+			case GexfPackage.DOCUMENT_ROOT__KEYWORDS:
+				setKeywords(KEYWORDS_EDEFAULT);
+				return;
+			case GexfPackage.DOCUMENT_ROOT__META:
+				setMeta((MetaContent) null);
+				return;
+			case GexfPackage.DOCUMENT_ROOT__NODE:
+				setNode((NodeContent) null);
+				return;
+			case GexfPackage.DOCUMENT_ROOT__NODES:
+				setNodes((NodesContent) null);
+				return;
+			case GexfPackage.DOCUMENT_ROOT__OPTIONS:
+				setOptions(OPTIONS_EDEFAULT);
+				return;
+			case GexfPackage.DOCUMENT_ROOT__PARENT:
+				setParent((ParentType) null);
+				return;
+			case GexfPackage.DOCUMENT_ROOT__PARENTS:
+				setParents((ParentsContent) null);
+				return;
+			case GexfPackage.DOCUMENT_ROOT__POSITION:
+				setPosition((PositionContent) null);
+				return;
+			case GexfPackage.DOCUMENT_ROOT__SIZE:
+				setSize((SizeContent) null);
+				return;
+			case GexfPackage.DOCUMENT_ROOT__SPELL:
+				setSpell((SpellType) null);
+				return;
+			case GexfPackage.DOCUMENT_ROOT__SPELLS:
+				setSpells((SpellsContent) null);
+				return;
+			case GexfPackage.DOCUMENT_ROOT__THICKNESS:
+				setThickness((ThicknessContent) null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -1202,61 +1202,61 @@ public class DocumentRootImpl extends MinimalEObjectImpl.Container implements Do
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case GexfPackage.DOCUMENT_ROOT__MIXED:
-			return mixed != null && !mixed.isEmpty();
-		case GexfPackage.DOCUMENT_ROOT__XMLNS_PREFIX_MAP:
-			return xMLNSPrefixMap != null && !xMLNSPrefixMap.isEmpty();
-		case GexfPackage.DOCUMENT_ROOT__XSI_SCHEMA_LOCATION:
-			return xSISchemaLocation != null && !xSISchemaLocation.isEmpty();
-		case GexfPackage.DOCUMENT_ROOT__ATTRIBUTE:
-			return getAttribute() != null;
-		case GexfPackage.DOCUMENT_ROOT__ATTRIBUTES:
-			return getAttributes() != null;
-		case GexfPackage.DOCUMENT_ROOT__ATTVALUE:
-			return getAttvalue() != null;
-		case GexfPackage.DOCUMENT_ROOT__ATTVALUES:
-			return getAttvalues() != null;
-		case GexfPackage.DOCUMENT_ROOT__COLOR:
-			return getColor() != null;
-		case GexfPackage.DOCUMENT_ROOT__CREATOR:
-			return CREATOR_EDEFAULT == null ? getCreator() != null : !CREATOR_EDEFAULT.equals(getCreator());
-		case GexfPackage.DOCUMENT_ROOT__DEFAULT:
-			return DEFAULT_EDEFAULT == null ? getDefault() != null : !DEFAULT_EDEFAULT.equals(getDefault());
-		case GexfPackage.DOCUMENT_ROOT__DESCRIPTION:
-			return DESCRIPTION_EDEFAULT == null ? getDescription() != null : !DESCRIPTION_EDEFAULT
-					.equals(getDescription());
-		case GexfPackage.DOCUMENT_ROOT__EDGE:
-			return getEdge() != null;
-		case GexfPackage.DOCUMENT_ROOT__EDGES:
-			return getEdges() != null;
-		case GexfPackage.DOCUMENT_ROOT__GEXF:
-			return getGexf() != null;
-		case GexfPackage.DOCUMENT_ROOT__GRAPH:
-			return getGraph() != null;
-		case GexfPackage.DOCUMENT_ROOT__KEYWORDS:
-			return KEYWORDS_EDEFAULT == null ? getKeywords() != null : !KEYWORDS_EDEFAULT.equals(getKeywords());
-		case GexfPackage.DOCUMENT_ROOT__META:
-			return getMeta() != null;
-		case GexfPackage.DOCUMENT_ROOT__NODE:
-			return getNode() != null;
-		case GexfPackage.DOCUMENT_ROOT__NODES:
-			return getNodes() != null;
-		case GexfPackage.DOCUMENT_ROOT__OPTIONS:
-			return OPTIONS_EDEFAULT == null ? getOptions() != null : !OPTIONS_EDEFAULT.equals(getOptions());
-		case GexfPackage.DOCUMENT_ROOT__PARENT:
-			return getParent() != null;
-		case GexfPackage.DOCUMENT_ROOT__PARENTS:
-			return getParents() != null;
-		case GexfPackage.DOCUMENT_ROOT__POSITION:
-			return getPosition() != null;
-		case GexfPackage.DOCUMENT_ROOT__SIZE:
-			return getSize() != null;
-		case GexfPackage.DOCUMENT_ROOT__SPELL:
-			return getSpell() != null;
-		case GexfPackage.DOCUMENT_ROOT__SPELLS:
-			return getSpells() != null;
-		case GexfPackage.DOCUMENT_ROOT__THICKNESS:
-			return getThickness() != null;
+			case GexfPackage.DOCUMENT_ROOT__MIXED:
+				return mixed != null && !mixed.isEmpty();
+			case GexfPackage.DOCUMENT_ROOT__XMLNS_PREFIX_MAP:
+				return xMLNSPrefixMap != null && !xMLNSPrefixMap.isEmpty();
+			case GexfPackage.DOCUMENT_ROOT__XSI_SCHEMA_LOCATION:
+				return xSISchemaLocation != null && !xSISchemaLocation.isEmpty();
+			case GexfPackage.DOCUMENT_ROOT__ATTRIBUTE:
+				return getAttribute() != null;
+			case GexfPackage.DOCUMENT_ROOT__ATTRIBUTES:
+				return getAttributes() != null;
+			case GexfPackage.DOCUMENT_ROOT__ATTVALUE:
+				return getAttvalue() != null;
+			case GexfPackage.DOCUMENT_ROOT__ATTVALUES:
+				return getAttvalues() != null;
+			case GexfPackage.DOCUMENT_ROOT__COLOR:
+				return getColor() != null;
+			case GexfPackage.DOCUMENT_ROOT__CREATOR:
+				return CREATOR_EDEFAULT == null ? getCreator() != null : !CREATOR_EDEFAULT.equals(getCreator());
+			case GexfPackage.DOCUMENT_ROOT__DEFAULT:
+				return DEFAULT_EDEFAULT == null ? getDefault() != null : !DEFAULT_EDEFAULT.equals(getDefault());
+			case GexfPackage.DOCUMENT_ROOT__DESCRIPTION:
+				return DESCRIPTION_EDEFAULT == null ? getDescription() != null
+						: !DESCRIPTION_EDEFAULT.equals(getDescription());
+			case GexfPackage.DOCUMENT_ROOT__EDGE:
+				return getEdge() != null;
+			case GexfPackage.DOCUMENT_ROOT__EDGES:
+				return getEdges() != null;
+			case GexfPackage.DOCUMENT_ROOT__GEXF:
+				return getGexf() != null;
+			case GexfPackage.DOCUMENT_ROOT__GRAPH:
+				return getGraph() != null;
+			case GexfPackage.DOCUMENT_ROOT__KEYWORDS:
+				return KEYWORDS_EDEFAULT == null ? getKeywords() != null : !KEYWORDS_EDEFAULT.equals(getKeywords());
+			case GexfPackage.DOCUMENT_ROOT__META:
+				return getMeta() != null;
+			case GexfPackage.DOCUMENT_ROOT__NODE:
+				return getNode() != null;
+			case GexfPackage.DOCUMENT_ROOT__NODES:
+				return getNodes() != null;
+			case GexfPackage.DOCUMENT_ROOT__OPTIONS:
+				return OPTIONS_EDEFAULT == null ? getOptions() != null : !OPTIONS_EDEFAULT.equals(getOptions());
+			case GexfPackage.DOCUMENT_ROOT__PARENT:
+				return getParent() != null;
+			case GexfPackage.DOCUMENT_ROOT__PARENTS:
+				return getParents() != null;
+			case GexfPackage.DOCUMENT_ROOT__POSITION:
+				return getPosition() != null;
+			case GexfPackage.DOCUMENT_ROOT__SIZE:
+				return getSize() != null;
+			case GexfPackage.DOCUMENT_ROOT__SPELL:
+				return getSpell() != null;
+			case GexfPackage.DOCUMENT_ROOT__SPELLS:
+				return getSpells() != null;
+			case GexfPackage.DOCUMENT_ROOT__THICKNESS:
+				return getThickness() != null;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -1279,4 +1279,4 @@ public class DocumentRootImpl extends MinimalEObjectImpl.Container implements Do
 		return result.toString();
 	}
 
-} //DocumentRootImpl
+} // DocumentRootImpl

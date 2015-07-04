@@ -25,7 +25,7 @@ public interface Structure_3_0Factory extends EFactory {
 	 * @return a new object of class '<em>Component</em>'.
 	 * @generated
 	 */
-	Component createComponent();
+			Component createComponent();
 
 	/**
 	 * Returns a new object of class '<em>Connector</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -33,7 +33,7 @@ public interface Structure_3_0Factory extends EFactory {
 	 * @return a new object of class '<em>Connector</em>'.
 	 * @generated
 	 */
-	Connector createConnector();
+			Connector createConnector();
 
 	/**
 	 * Returns a new object of class '<em>Document Root</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -41,7 +41,7 @@ public interface Structure_3_0Factory extends EFactory {
 	 * @return a new object of class '<em>Document Root</em>'.
 	 * @generated
 	 */
-	DocumentRoot createDocumentRoot();
+			DocumentRoot createDocumentRoot();
 
 	/**
 	 * Returns a new object of class '<em>Interface</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -49,7 +49,7 @@ public interface Structure_3_0Factory extends EFactory {
 	 * @return a new object of class '<em>Interface</em>'.
 	 * @generated
 	 */
-	Interface createInterface();
+			Interface createInterface();
 
 	/**
 	 * Returns a new object of class '<em>Interface Mapping</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -57,7 +57,7 @@ public interface Structure_3_0Factory extends EFactory {
 	 * @return a new object of class '<em>Interface Mapping</em>'.
 	 * @generated
 	 */
-	InterfaceMapping createInterfaceMapping();
+			InterfaceMapping createInterfaceMapping();
 
 	/**
 	 * Returns a new object of class '<em>Link</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -65,7 +65,7 @@ public interface Structure_3_0Factory extends EFactory {
 	 * @return a new object of class '<em>Link</em>'.
 	 * @generated
 	 */
-	Link createLink();
+			Link createLink();
 
 	/**
 	 * Returns a new object of class '<em>Structure</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -73,7 +73,7 @@ public interface Structure_3_0Factory extends EFactory {
 	 * @return a new object of class '<em>Structure</em>'.
 	 * @generated
 	 */
-	Structure createStructure();
+			Structure createStructure();
 
 	/**
 	 * Returns a new object of class '<em>Sub Structure</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -81,7 +81,7 @@ public interface Structure_3_0Factory extends EFactory {
 	 * @return a new object of class '<em>Sub Structure</em>'.
 	 * @generated
 	 */
-	SubStructure createSubStructure();
+			SubStructure createSubStructure();
 
 	/**
 	 * Returns the package supported by this factory. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -89,6 +89,6 @@ public interface Structure_3_0Factory extends EFactory {
 	 * @return the package supported by this factory.
 	 * @generated
 	 */
-	Structure_3_0Package getStructure_3_0Package();
+			Structure_3_0Package getStructure_3_0Package();
 
-} //Structure_3_0Factory
+} // Structure_3_0Factory

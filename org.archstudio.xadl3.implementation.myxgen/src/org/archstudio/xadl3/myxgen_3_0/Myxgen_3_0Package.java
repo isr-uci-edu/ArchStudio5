@@ -16,37 +16,13 @@ import org.eclipse.emf.ecore.EPackage;
  * <li>each enum,</li>
  * <li>and each data type</li>
  * </ul>
- * <!-- end-user-doc --> <!-- begin-model-doc -->
- * 
- * 
- * xADL 3 MyxGen Schema
- * 
- * This schema defines references to MyxGen bricks.
- * 
- * Changelog: - 3.0.0 * Initial version
- * 
- * 
- * 
- * 
- * xADL 3 Abstract Implementation Schema
- * 
- * This schema defines the concept of an implementation. The concept is abstract, so it is intended to be specialized by
- * various specific types of implementations. However, it exists so that implementations can be treated similarly.
- * 
- * Changelog: - 3.0.0 * Initial version
- * 
- * 
- * 
- * 
- * xADL 3 Core Schema
- * 
- * This schema defines the core elements for xADL 3 documents. The schema is intentionally small, defining only a few
- * elements that are intended to be common across xADL descriptions and extensions, regardless of domain.
- * 
- * Changelog: - 3.0.0: * Initial version
- * 
- * 
- * <!-- end-model-doc -->
+ * <!-- end-user-doc --> <!-- begin-model-doc --> xADL 3 MyxGen Schema This schema defines references to MyxGen bricks.
+ * Changelog: - 3.0.0 * Initial version xADL 3 Abstract Implementation Schema This schema defines the concept of an
+ * implementation. The concept is abstract, so it is intended to be specialized by various specific types of
+ * implementations. However, it exists so that implementations can be treated similarly. Changelog: - 3.0.0 * Initial
+ * version xADL 3 Core Schema This schema defines the core elements for xADL 3 documents. The schema is intentionally
+ * small, defining only a few elements that are intended to be common across xADL descriptions and extensions,
+ * regardless of domain. Changelog: - 3.0.0: * Initial version <!-- end-model-doc -->
  * 
  * @see org.archstudio.xadl3.myxgen_3_0.Myxgen_3_0Factory
  * @model kind="package"
@@ -131,7 +107,7 @@ public interface Myxgen_3_0Package extends EPackage {
 	 * @see org.archstudio.xadl3.myxgen_3_0.MyxGen
 	 * @generated
 	 */
-	EClass getMyxGen();
+			EClass getMyxGen();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.archstudio.xadl3.myxgen_3_0.MyxGen#getBrickID
@@ -142,7 +118,7 @@ public interface Myxgen_3_0Package extends EPackage {
 	 * @see #getMyxGen()
 	 * @generated
 	 */
-	EAttribute getMyxGen_BrickID();
+			EAttribute getMyxGen_BrickID();
 
 	/**
 	 * Returns the factory that creates the instances of the model. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -150,7 +126,7 @@ public interface Myxgen_3_0Package extends EPackage {
 	 * @return the factory that creates the instances of the model.
 	 * @generated
 	 */
-	Myxgen_3_0Factory getMyxgen_3_0Factory();
+			Myxgen_3_0Factory getMyxgen_3_0Factory();
 
 	/**
 	 * <!-- begin-user-doc --> Defines literals for the meta objects that represent
@@ -186,4 +162,4 @@ public interface Myxgen_3_0Package extends EPackage {
 
 	}
 
-} //Myxgen_3_0Package
+} // Myxgen_3_0Package

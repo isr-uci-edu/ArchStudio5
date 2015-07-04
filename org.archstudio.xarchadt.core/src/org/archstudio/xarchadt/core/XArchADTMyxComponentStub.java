@@ -5,9 +5,8 @@ import org.archstudio.myx.fw.MyxRegistry;
 import org.archstudio.myx.fw.MyxUtils;
 
 /*
- * DO NOT EDIT THIS CLASS, it is automatically generated. ANY MODIFICATIONS WILL BE OVERWRITTEN.
- * 
- * To modify, update the "XArch ADT Impl" MyxGen extension in the org.archstudio.xarchadt.core plugin.
+ * DO NOT EDIT THIS CLASS, it is automatically generated. ANY MODIFICATIONS WILL BE OVERWRITTEN. To modify, update the
+ * "XArch ADT Impl" MyxGen extension in the org.archstudio.xarchadt.core plugin.
  */
 
 /**
@@ -15,8 +14,8 @@ import org.archstudio.myx.fw.MyxUtils;
  * 
  * @generated
  */
-public abstract class XArchADTMyxComponentStub extends org.archstudio.myx.fw.AbstractMyxSimpleBrick implements
-		org.archstudio.myx.fw.IMyxDynamicBrick {
+public abstract class XArchADTMyxComponentStub extends org.archstudio.myx.fw.AbstractMyxSimpleBrick
+		implements org.archstudio.myx.fw.IMyxDynamicBrick {
 
 	/**
 	 * The registry of objects for this brick.
@@ -60,7 +59,8 @@ public abstract class XArchADTMyxComponentStub extends org.archstudio.myx.fw.Abs
 	 * @see #OUT_FILE_EVENTS
 	 * @generated
 	 */
-	protected final java.util.Collection<org.archstudio.xarchadt.IXArchADTFileListener> fileEvents = new java.util.concurrent.CopyOnWriteArrayList<org.archstudio.xarchadt.IXArchADTFileListener>();
+	protected final java.util.Collection<org.archstudio.xarchadt.IXArchADTFileListener> fileEvents =
+			new java.util.concurrent.CopyOnWriteArrayList<org.archstudio.xarchadt.IXArchADTFileListener>();
 
 	/**
 	 * Service object proxy for the fileEvents interface. Calls to this proxy object are automatically delegated to all
@@ -69,8 +69,9 @@ public abstract class XArchADTMyxComponentStub extends org.archstudio.myx.fw.Abs
 	 * @see #OUT_FILE_EVENTS
 	 * @generated
 	 */
-	protected final org.archstudio.xarchadt.IXArchADTFileListener fileEventsProxy = (org.archstudio.xarchadt.IXArchADTFileListener) java.lang.reflect.Proxy
-			.newProxyInstance(org.archstudio.xarchadt.IXArchADTFileListener.class.getClassLoader(),
+	protected final org.archstudio.xarchadt.IXArchADTFileListener fileEventsProxy =
+			(org.archstudio.xarchadt.IXArchADTFileListener) java.lang.reflect.Proxy.newProxyInstance(
+					org.archstudio.xarchadt.IXArchADTFileListener.class.getClassLoader(),
 					new Class[] { org.archstudio.xarchadt.IXArchADTFileListener.class },
 					new java.lang.reflect.InvocationHandler() {
 						@Override
@@ -111,7 +112,8 @@ public abstract class XArchADTMyxComponentStub extends org.archstudio.myx.fw.Abs
 	 * @see #OUT_MODEL_EVENTS
 	 * @generated
 	 */
-	protected final java.util.Collection<org.archstudio.xarchadt.IXArchADTModelListener> modelEvents = new java.util.concurrent.CopyOnWriteArrayList<org.archstudio.xarchadt.IXArchADTModelListener>();
+	protected final java.util.Collection<org.archstudio.xarchadt.IXArchADTModelListener> modelEvents =
+			new java.util.concurrent.CopyOnWriteArrayList<org.archstudio.xarchadt.IXArchADTModelListener>();
 
 	/**
 	 * Service object proxy for the modelEvents interface. Calls to this proxy object are automatically delegated to all
@@ -120,8 +122,9 @@ public abstract class XArchADTMyxComponentStub extends org.archstudio.myx.fw.Abs
 	 * @see #OUT_MODEL_EVENTS
 	 * @generated
 	 */
-	protected final org.archstudio.xarchadt.IXArchADTModelListener modelEventsProxy = (org.archstudio.xarchadt.IXArchADTModelListener) java.lang.reflect.Proxy
-			.newProxyInstance(org.archstudio.xarchadt.IXArchADTModelListener.class.getClassLoader(),
+	protected final org.archstudio.xarchadt.IXArchADTModelListener modelEventsProxy =
+			(org.archstudio.xarchadt.IXArchADTModelListener) java.lang.reflect.Proxy.newProxyInstance(
+					org.archstudio.xarchadt.IXArchADTModelListener.class.getClassLoader(),
 					new Class[] { org.archstudio.xarchadt.IXArchADTModelListener.class },
 					new java.lang.reflect.InvocationHandler() {
 						@Override

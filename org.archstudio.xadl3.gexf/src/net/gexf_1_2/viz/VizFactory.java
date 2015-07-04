@@ -25,7 +25,7 @@ public interface VizFactory extends EFactory {
 	 * @return a new object of class '<em>Color Content</em>'.
 	 * @generated
 	 */
-	ColorContent createColorContent();
+			ColorContent createColorContent();
 
 	/**
 	 * Returns a new object of class '<em>Edge Shape Content</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -33,7 +33,7 @@ public interface VizFactory extends EFactory {
 	 * @return a new object of class '<em>Edge Shape Content</em>'.
 	 * @generated
 	 */
-	EdgeShapeContent createEdgeShapeContent();
+			EdgeShapeContent createEdgeShapeContent();
 
 	/**
 	 * Returns a new object of class '<em>Node Shape Content</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -41,7 +41,7 @@ public interface VizFactory extends EFactory {
 	 * @return a new object of class '<em>Node Shape Content</em>'.
 	 * @generated
 	 */
-	NodeShapeContent createNodeShapeContent();
+			NodeShapeContent createNodeShapeContent();
 
 	/**
 	 * Returns a new object of class '<em>Position Content</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -49,7 +49,7 @@ public interface VizFactory extends EFactory {
 	 * @return a new object of class '<em>Position Content</em>'.
 	 * @generated
 	 */
-	PositionContent createPositionContent();
+			PositionContent createPositionContent();
 
 	/**
 	 * Returns a new object of class '<em>Size Content</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -57,7 +57,7 @@ public interface VizFactory extends EFactory {
 	 * @return a new object of class '<em>Size Content</em>'.
 	 * @generated
 	 */
-	SizeContent createSizeContent();
+			SizeContent createSizeContent();
 
 	/**
 	 * Returns a new object of class '<em>Thickness Content</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -65,7 +65,7 @@ public interface VizFactory extends EFactory {
 	 * @return a new object of class '<em>Thickness Content</em>'.
 	 * @generated
 	 */
-	ThicknessContent createThicknessContent();
+			ThicknessContent createThicknessContent();
 
 	/**
 	 * Returns a new object of class '<em>Document Root</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -73,7 +73,7 @@ public interface VizFactory extends EFactory {
 	 * @return a new object of class '<em>Document Root</em>'.
 	 * @generated
 	 */
-	DocumentRoot createDocumentRoot();
+			DocumentRoot createDocumentRoot();
 
 	/**
 	 * Returns the package supported by this factory. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -81,6 +81,6 @@ public interface VizFactory extends EFactory {
 	 * @return the package supported by this factory.
 	 * @generated
 	 */
-	VizPackage getVizPackage();
+			VizPackage getVizPackage();
 
-} //VizFactory
+} // VizFactory

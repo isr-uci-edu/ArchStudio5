@@ -152,7 +152,6 @@ public class Statechart_1_0PackageImpl extends EPackageImpl implements Statechar
 
 	/**
 	 * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
-	 * 
 	 * <p>
 	 * This method is used to initialize {@link Statechart_1_0Package#eINSTANCE} when that field is accessed. Clients
 	 * should not invoke it directly. Instead, they should simply access that field to obtain the package. <!--
@@ -171,7 +170,7 @@ public class Statechart_1_0PackageImpl extends EPackageImpl implements Statechar
 		// Obtain or create and register package
 		Statechart_1_0PackageImpl theStatechart_1_0Package = (Statechart_1_0PackageImpl) (EPackage.Registry.INSTANCE
 				.get(eNS_URI) instanceof Statechart_1_0PackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI)
-				: new Statechart_1_0PackageImpl());
+						: new Statechart_1_0PackageImpl());
 
 		isInited = true;
 
@@ -180,11 +179,12 @@ public class Statechart_1_0PackageImpl extends EPackageImpl implements Statechar
 
 		// Obtain or create and register interdependencies
 		Xadlcore_3_0PackageImpl theXadlcore_3_0Package = (Xadlcore_3_0PackageImpl) (EPackage.Registry.INSTANCE
-				.getEPackage(Xadlcore_3_0Package.eNS_URI) instanceof Xadlcore_3_0PackageImpl ? EPackage.Registry.INSTANCE
-				.getEPackage(Xadlcore_3_0Package.eNS_URI) : Xadlcore_3_0Package.eINSTANCE);
+				.getEPackage(Xadlcore_3_0Package.eNS_URI) instanceof Xadlcore_3_0PackageImpl
+						? EPackage.Registry.INSTANCE.getEPackage(Xadlcore_3_0Package.eNS_URI)
+						: Xadlcore_3_0Package.eINSTANCE);
 		XlinkPackageImpl theXlinkPackage = (XlinkPackageImpl) (EPackage.Registry.INSTANCE
-				.getEPackage(XlinkPackage.eNS_URI) instanceof XlinkPackageImpl ? EPackage.Registry.INSTANCE
-				.getEPackage(XlinkPackage.eNS_URI) : XlinkPackage.eINSTANCE);
+				.getEPackage(XlinkPackage.eNS_URI) instanceof XlinkPackageImpl
+						? EPackage.Registry.INSTANCE.getEPackage(XlinkPackage.eNS_URI) : XlinkPackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theStatechart_1_0Package.createPackageContents();
@@ -781,10 +781,10 @@ public class Statechart_1_0PackageImpl extends EPackageImpl implements Statechar
 		setNsURI(eNS_URI);
 
 		// Obtain other dependent packages
-		Xadlcore_3_0Package theXadlcore_3_0Package = (Xadlcore_3_0Package) EPackage.Registry.INSTANCE
-				.getEPackage(Xadlcore_3_0Package.eNS_URI);
-		XMLTypePackage theXMLTypePackage = (XMLTypePackage) EPackage.Registry.INSTANCE
-				.getEPackage(XMLTypePackage.eNS_URI);
+		Xadlcore_3_0Package theXadlcore_3_0Package =
+				(Xadlcore_3_0Package) EPackage.Registry.INSTANCE.getEPackage(Xadlcore_3_0Package.eNS_URI);
+		XMLTypePackage theXMLTypePackage =
+				(XMLTypePackage) EPackage.Registry.INSTANCE.getEPackage(XMLTypePackage.eNS_URI);
 
 		// Create type parameters
 
@@ -797,7 +797,8 @@ public class Statechart_1_0PackageImpl extends EPackageImpl implements Statechar
 		statechartSpecificationEClass.getESuperTypes().add(theXadlcore_3_0Package.getExtension());
 
 		// Initialize classes, features, and operations; add parameters
-		initEClass(behaviorEClass, Behavior.class, "Behavior", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(behaviorEClass, Behavior.class, "Behavior", !IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getBehavior_Ext(), theXadlcore_3_0Package.getExtension(), null, "ext", null, 0, -1,
 				Behavior.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -809,13 +810,14 @@ public class Statechart_1_0PackageImpl extends EPackageImpl implements Statechar
 		initEReference(getConstraint_Ext(), theXadlcore_3_0Package.getExtension(), null, "ext", null, 0, -1,
 				Constraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getConstraint_Id(), theXMLTypePackage.getID(), "id", null, 1, 1, Constraint.class,
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getConstraint_Id(), theXMLTypePackage.getID(), "id", null, 1, 1, Constraint.class, !IS_TRANSIENT,
+				!IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(documentRootEClass, DocumentRoot.class, "DocumentRoot", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getDocumentRoot_Mixed(), ecorePackage.getEFeatureMapEntry(), "mixed", null, 0, -1, null,
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED,
+				IS_ORDERED);
 		initEReference(getDocumentRoot_XMLNSPrefixMap(), ecorePackage.getEStringToStringMapEntry(), null,
 				"xMLNSPrefixMap", null, 0, -1, null, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
 				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -870,8 +872,8 @@ public class Statechart_1_0PackageImpl extends EPackageImpl implements Statechar
 		initEReference(getStatechart_Ext(), theXadlcore_3_0Package.getExtension(), null, "ext", null, 0, -1,
 				Statechart.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getStatechart_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, Statechart.class,
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getStatechart_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, Statechart.class, !IS_TRANSIENT,
+				!IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getStatechart_Name(), theXMLTypePackage.getString(), "name", null, 0, 1, Statechart.class,
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -909,8 +911,8 @@ public class Statechart_1_0PackageImpl extends EPackageImpl implements Statechar
 		initEReference(getTransition_Ext(), theXadlcore_3_0Package.getExtension(), null, "ext", null, 0, -1,
 				Transition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getTransition_Id(), theXMLTypePackage.getID(), "id", null, 1, 1, Transition.class,
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTransition_Id(), theXMLTypePackage.getID(), "id", null, 1, 1, Transition.class, !IS_TRANSIENT,
+				!IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getTransition_Name(), theXMLTypePackage.getString(), "name", null, 0, 1, Transition.class,
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -941,86 +943,86 @@ public class Statechart_1_0PackageImpl extends EPackageImpl implements Statechar
 	protected void createExtendedMetaDataAnnotations() {
 		String source = "http:///org/eclipse/emf/ecore/util/ExtendedMetaData";
 		addAnnotation(behaviorEClass, source, new String[] { "name", "Behavior", "kind", "elementOnly" });
-		addAnnotation(getBehavior_Ext(), source, new String[] { "kind", "element", "name", "ext", "namespace",
-				"##targetNamespace" });
-		addAnnotation(getBehavior_Id(), source, new String[] { "kind", "attribute", "name", "id", "namespace",
-				"##targetNamespace" });
+		addAnnotation(getBehavior_Ext(), source,
+				new String[] { "kind", "element", "name", "ext", "namespace", "##targetNamespace" });
+		addAnnotation(getBehavior_Id(), source,
+				new String[] { "kind", "attribute", "name", "id", "namespace", "##targetNamespace" });
 		addAnnotation(constraintEClass, source, new String[] { "name", "Constraint", "kind", "elementOnly" });
-		addAnnotation(getConstraint_Ext(), source, new String[] { "kind", "element", "name", "ext", "namespace",
-				"##targetNamespace" });
-		addAnnotation(getConstraint_Id(), source, new String[] { "kind", "attribute", "name", "id", "namespace",
-				"##targetNamespace" });
+		addAnnotation(getConstraint_Ext(), source,
+				new String[] { "kind", "element", "name", "ext", "namespace", "##targetNamespace" });
+		addAnnotation(getConstraint_Id(), source,
+				new String[] { "kind", "attribute", "name", "id", "namespace", "##targetNamespace" });
 		addAnnotation(documentRootEClass, source, new String[] { "name", "", "kind", "mixed" });
 		addAnnotation(getDocumentRoot_Mixed(), source, new String[] { "kind", "elementWildcard", "name", ":mixed" });
-		addAnnotation(getDocumentRoot_XMLNSPrefixMap(), source, new String[] { "kind", "attribute", "name",
-				"xmlns:prefix" });
-		addAnnotation(getDocumentRoot_XSISchemaLocation(), source, new String[] { "kind", "attribute", "name",
-				"xsi:schemaLocation" });
-		addAnnotation(getDocumentRoot_Statechart(), source, new String[] { "kind", "element", "name", "statechart",
-				"namespace", "##targetNamespace", "affiliation",
-				"http://www.archstudio.org/xadl3/schemas/xadlcore-3.0.xsd#topLevelElement" });
+		addAnnotation(getDocumentRoot_XMLNSPrefixMap(), source,
+				new String[] { "kind", "attribute", "name", "xmlns:prefix" });
+		addAnnotation(getDocumentRoot_XSISchemaLocation(), source,
+				new String[] { "kind", "attribute", "name", "xsi:schemaLocation" });
+		addAnnotation(getDocumentRoot_Statechart(), source,
+				new String[] { "kind", "element", "name", "statechart", "namespace", "##targetNamespace", "affiliation",
+						"http://www.archstudio.org/xadl3/schemas/xadlcore-3.0.xsd#topLevelElement" });
 		addAnnotation(finalStateEClass, source, new String[] { "name", "FinalState", "kind", "elementOnly" });
-		addAnnotation(getFinalState_Type(), source, new String[] { "kind", "attribute", "name", "type", "namespace",
-				"##targetNamespace" });
+		addAnnotation(getFinalState_Type(), source,
+				new String[] { "kind", "attribute", "name", "type", "namespace", "##targetNamespace" });
 		addAnnotation(initialStateEClass, source, new String[] { "name", "InitialState", "kind", "elementOnly" });
-		addAnnotation(getInitialState_Type(), source, new String[] { "kind", "attribute", "name", "type", "namespace",
-				"##targetNamespace" });
+		addAnnotation(getInitialState_Type(), source,
+				new String[] { "kind", "attribute", "name", "type", "namespace", "##targetNamespace" });
 		addAnnotation(pseudoStateEClass, source, new String[] { "name", "PseudoState", "kind", "elementOnly" });
-		addAnnotation(getPseudoState_Ext(), source, new String[] { "kind", "element", "name", "ext", "namespace",
-				"##targetNamespace" });
-		addAnnotation(getPseudoState_Id(), source, new String[] { "kind", "attribute", "name", "id", "namespace",
-				"##targetNamespace" });
-		addAnnotation(getPseudoState_Name(), source, new String[] { "kind", "attribute", "name", "name", "namespace",
-				"##targetNamespace" });
+		addAnnotation(getPseudoState_Ext(), source,
+				new String[] { "kind", "element", "name", "ext", "namespace", "##targetNamespace" });
+		addAnnotation(getPseudoState_Id(), source,
+				new String[] { "kind", "attribute", "name", "id", "namespace", "##targetNamespace" });
+		addAnnotation(getPseudoState_Name(), source,
+				new String[] { "kind", "attribute", "name", "name", "namespace", "##targetNamespace" });
 		addAnnotation(stateEClass, source, new String[] { "name", "State", "kind", "elementOnly" });
-		addAnnotation(getState_Entry(), source, new String[] { "kind", "element", "name", "entry", "namespace",
-				"##targetNamespace" });
-		addAnnotation(getState_Exit(), source, new String[] { "kind", "element", "name", "exit", "namespace",
-				"##targetNamespace" });
-		addAnnotation(getState_SubStatechart(), source, new String[] { "kind", "element", "name", "subStatechart",
-				"namespace", "##targetNamespace" });
-		addAnnotation(getState_Type(), source, new String[] { "kind", "attribute", "name", "type", "namespace",
-				"##targetNamespace" });
+		addAnnotation(getState_Entry(), source,
+				new String[] { "kind", "element", "name", "entry", "namespace", "##targetNamespace" });
+		addAnnotation(getState_Exit(), source,
+				new String[] { "kind", "element", "name", "exit", "namespace", "##targetNamespace" });
+		addAnnotation(getState_SubStatechart(), source,
+				new String[] { "kind", "element", "name", "subStatechart", "namespace", "##targetNamespace" });
+		addAnnotation(getState_Type(), source,
+				new String[] { "kind", "attribute", "name", "type", "namespace", "##targetNamespace" });
 		addAnnotation(statechartEClass, source, new String[] { "name", "Statechart", "kind", "elementOnly" });
-		addAnnotation(getStatechart_State(), source, new String[] { "kind", "element", "name", "state", "namespace",
-				"##targetNamespace" });
-		addAnnotation(getStatechart_Transition(), source, new String[] { "kind", "element", "name", "transition",
-				"namespace", "##targetNamespace" });
-		addAnnotation(getStatechart_Ext(), source, new String[] { "kind", "element", "name", "ext", "namespace",
-				"##targetNamespace" });
-		addAnnotation(getStatechart_Id(), source, new String[] { "kind", "attribute", "name", "id", "namespace",
-				"##targetNamespace" });
-		addAnnotation(getStatechart_Name(), source, new String[] { "kind", "attribute", "name", "name", "namespace",
-				"##targetNamespace" });
-		addAnnotation(statechartSpecificationEClass, source, new String[] { "name", "StatechartSpecification", "kind",
-				"elementOnly" });
-		addAnnotation(getStatechartSpecification_Statechart(), source, new String[] { "kind", "element", "name",
-				"statechart", "namespace", "##targetNamespace" });
-		addAnnotation(getStatechartSpecification_Ext(), source, new String[] { "kind", "element", "name", "ext",
-				"namespace", "##targetNamespace" });
-		addAnnotation(getStatechartSpecification_Id(), source, new String[] { "kind", "attribute", "name", "id",
-				"namespace", "##targetNamespace" });
+		addAnnotation(getStatechart_State(), source,
+				new String[] { "kind", "element", "name", "state", "namespace", "##targetNamespace" });
+		addAnnotation(getStatechart_Transition(), source,
+				new String[] { "kind", "element", "name", "transition", "namespace", "##targetNamespace" });
+		addAnnotation(getStatechart_Ext(), source,
+				new String[] { "kind", "element", "name", "ext", "namespace", "##targetNamespace" });
+		addAnnotation(getStatechart_Id(), source,
+				new String[] { "kind", "attribute", "name", "id", "namespace", "##targetNamespace" });
+		addAnnotation(getStatechart_Name(), source,
+				new String[] { "kind", "attribute", "name", "name", "namespace", "##targetNamespace" });
+		addAnnotation(statechartSpecificationEClass, source,
+				new String[] { "name", "StatechartSpecification", "kind", "elementOnly" });
+		addAnnotation(getStatechartSpecification_Statechart(), source,
+				new String[] { "kind", "element", "name", "statechart", "namespace", "##targetNamespace" });
+		addAnnotation(getStatechartSpecification_Ext(), source,
+				new String[] { "kind", "element", "name", "ext", "namespace", "##targetNamespace" });
+		addAnnotation(getStatechartSpecification_Id(), source,
+				new String[] { "kind", "attribute", "name", "id", "namespace", "##targetNamespace" });
 		addAnnotation(stateTypeEEnum, source, new String[] { "name", "StateType" });
-		addAnnotation(stateTypeObjectEDataType, source, new String[] { "name", "StateType:Object", "baseType",
-				"StateType" });
+		addAnnotation(stateTypeObjectEDataType, source,
+				new String[] { "name", "StateType:Object", "baseType", "StateType" });
 		addAnnotation(subStatechartEClass, source, new String[] { "name", "SubStatechart", "kind", "elementOnly" });
-		addAnnotation(getSubStatechart_InnerStatechart(), source, new String[] { "kind", "element", "name",
-				"innerStatechart", "namespace", "##targetNamespace" });
-		addAnnotation(getSubStatechart_Id(), source, new String[] { "kind", "attribute", "name", "id", "namespace",
-				"##targetNamespace" });
+		addAnnotation(getSubStatechart_InnerStatechart(), source,
+				new String[] { "kind", "element", "name", "innerStatechart", "namespace", "##targetNamespace" });
+		addAnnotation(getSubStatechart_Id(), source,
+				new String[] { "kind", "attribute", "name", "id", "namespace", "##targetNamespace" });
 		addAnnotation(transitionEClass, source, new String[] { "name", "Transition", "kind", "elementOnly" });
-		addAnnotation(getTransition_From(), source, new String[] { "kind", "element", "name", "from", "namespace",
-				"##targetNamespace" });
-		addAnnotation(getTransition_To(), source, new String[] { "kind", "element", "name", "to", "namespace",
-				"##targetNamespace" });
-		addAnnotation(getTransition_Constraint(), source, new String[] { "kind", "element", "name", "constraint",
-				"namespace", "##targetNamespace" });
-		addAnnotation(getTransition_Ext(), source, new String[] { "kind", "element", "name", "ext", "namespace",
-				"##targetNamespace" });
-		addAnnotation(getTransition_Id(), source, new String[] { "kind", "attribute", "name", "id", "namespace",
-				"##targetNamespace" });
-		addAnnotation(getTransition_Name(), source, new String[] { "kind", "attribute", "name", "name", "namespace",
-				"##targetNamespace" });
+		addAnnotation(getTransition_From(), source,
+				new String[] { "kind", "element", "name", "from", "namespace", "##targetNamespace" });
+		addAnnotation(getTransition_To(), source,
+				new String[] { "kind", "element", "name", "to", "namespace", "##targetNamespace" });
+		addAnnotation(getTransition_Constraint(), source,
+				new String[] { "kind", "element", "name", "constraint", "namespace", "##targetNamespace" });
+		addAnnotation(getTransition_Ext(), source,
+				new String[] { "kind", "element", "name", "ext", "namespace", "##targetNamespace" });
+		addAnnotation(getTransition_Id(), source,
+				new String[] { "kind", "attribute", "name", "id", "namespace", "##targetNamespace" });
+		addAnnotation(getTransition_Name(), source,
+				new String[] { "kind", "attribute", "name", "name", "namespace", "##targetNamespace" });
 	}
 
-} //Statechart_1_0PackageImpl
+} // Statechart_1_0PackageImpl

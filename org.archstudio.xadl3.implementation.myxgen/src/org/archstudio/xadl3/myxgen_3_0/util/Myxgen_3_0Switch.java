@@ -40,7 +40,7 @@ public class Myxgen_3_0Switch<T> extends Switch<T> {
 	/**
 	 * Checks whether this is a switch for the given package. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
-	 * @parameter ePackage the package in question.
+	 * @param ePackage the package in question.
 	 * @return whether this is a switch for the given package.
 	 * @generated
 	 */
@@ -59,19 +59,19 @@ public class Myxgen_3_0Switch<T> extends Switch<T> {
 	@Override
 	protected T doSwitch(int classifierID, EObject theEObject) {
 		switch (classifierID) {
-		case Myxgen_3_0Package.MYX_GEN: {
-			MyxGen myxGen = (MyxGen) theEObject;
-			T result = caseMyxGen(myxGen);
-			if (result == null) {
-				result = caseImplementation(myxGen);
+			case Myxgen_3_0Package.MYX_GEN: {
+				MyxGen myxGen = (MyxGen) theEObject;
+				T result = caseMyxGen(myxGen);
+				if (result == null) {
+					result = caseImplementation(myxGen);
+				}
+				if (result == null) {
+					result = defaultCase(theEObject);
+				}
+				return result;
 			}
-			if (result == null) {
-				result = defaultCase(theEObject);
-			}
-			return result;
-		}
-		default:
-			return defaultCase(theEObject);
+			default:
+				return defaultCase(theEObject);
 		}
 	}
 
@@ -79,8 +79,7 @@ public class Myxgen_3_0Switch<T> extends Switch<T> {
 	 * Returns the result of interpreting the object as an instance of '<em>Myx Gen</em>'. <!-- begin-user-doc --> This
 	 * implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
 	 * 
-	 * @param object
-	 *            the target of the switch.
+	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>Myx Gen</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
@@ -94,8 +93,7 @@ public class Myxgen_3_0Switch<T> extends Switch<T> {
 	 * --> This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc
 	 * -->
 	 * 
-	 * @param object
-	 *            the target of the switch.
+	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>Implementation</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
@@ -109,8 +107,7 @@ public class Myxgen_3_0Switch<T> extends Switch<T> {
 	 * implementation returns null; returning a non-null result will terminate the switch, but this is the last case
 	 * anyway. <!-- end-user-doc -->
 	 * 
-	 * @param object
-	 *            the target of the switch.
+	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>EObject</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject)
 	 * @generated
@@ -120,4 +117,4 @@ public class Myxgen_3_0Switch<T> extends Switch<T> {
 		return null;
 	}
 
-} //Myxgen_3_0Switch
+} // Myxgen_3_0Switch

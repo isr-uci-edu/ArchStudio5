@@ -4,9 +4,8 @@ import org.archstudio.myx.fw.IMyxName;
 import org.archstudio.myx.fw.MyxUtils;
 
 /*
- * DO NOT EDIT THIS CLASS, it is automatically generated. ANY MODIFICATIONS WILL BE OVERWRITTEN.
- * 
- * To modify, update the "Synch Event Pump Impl" MyxGen extension in the org.archstudio.myx.java plugin.
+ * DO NOT EDIT THIS CLASS, it is automatically generated. ANY MODIFICATIONS WILL BE OVERWRITTEN. To modify, update the
+ * "Synch Event Pump Impl" MyxGen extension in the org.archstudio.myx.java plugin.
  */
 
 /**
@@ -14,8 +13,8 @@ import org.archstudio.myx.fw.MyxUtils;
  * 
  * @generated
  */
-public abstract class SynchEventPumpConnectorStub extends org.archstudio.myx.java.conn.EventPumpConnector implements
-		org.archstudio.myx.fw.IMyxDynamicBrick {
+public abstract class SynchEventPumpConnectorStub extends org.archstudio.myx.java.conn.EventPumpConnector
+		implements org.archstudio.myx.fw.IMyxDynamicBrick {
 
 	/**
 	 * Myx name for the <code>synch</code> interface.
@@ -30,7 +29,8 @@ public abstract class SynchEventPumpConnectorStub extends org.archstudio.myx.jav
 	 * @see #OUT_SYNCH
 	 * @generated
 	 */
-	protected final java.util.Collection<java.lang.Object> synch = new java.util.concurrent.CopyOnWriteArrayList<java.lang.Object>();
+	protected final java.util.Collection<java.lang.Object> synch =
+			new java.util.concurrent.CopyOnWriteArrayList<java.lang.Object>();
 
 	/**
 	 * Returns the service object(s) for the synch interface.

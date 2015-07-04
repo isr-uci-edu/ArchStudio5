@@ -22,11 +22,11 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  * <li>{@link org.archstudio.xadl3.osgiimplementation_3_0.impl.OSGiImplementationImpl#getExt <em>Ext</em>}</li>
  * <li>{@link org.archstudio.xadl3.osgiimplementation_3_0.impl.OSGiImplementationImpl#getBundle <em>Bundle</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -127,8 +127,8 @@ public class OSGiImplementationImpl extends ImplementationImpl implements OSGiIm
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case Osgiimplementation_3_0Package.OS_GI_IMPLEMENTATION__EXT:
-			return ((InternalEList<?>) getExt()).basicRemove(otherEnd, msgs);
+			case Osgiimplementation_3_0Package.OS_GI_IMPLEMENTATION__EXT:
+				return ((InternalEList<?>) getExt()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -141,10 +141,10 @@ public class OSGiImplementationImpl extends ImplementationImpl implements OSGiIm
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case Osgiimplementation_3_0Package.OS_GI_IMPLEMENTATION__EXT:
-			return getExt();
-		case Osgiimplementation_3_0Package.OS_GI_IMPLEMENTATION__BUNDLE:
-			return getBundle();
+			case Osgiimplementation_3_0Package.OS_GI_IMPLEMENTATION__EXT:
+				return getExt();
+			case Osgiimplementation_3_0Package.OS_GI_IMPLEMENTATION__BUNDLE:
+				return getBundle();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -158,13 +158,13 @@ public class OSGiImplementationImpl extends ImplementationImpl implements OSGiIm
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Osgiimplementation_3_0Package.OS_GI_IMPLEMENTATION__EXT:
-			getExt().clear();
-			getExt().addAll((Collection<? extends Extension>) newValue);
-			return;
-		case Osgiimplementation_3_0Package.OS_GI_IMPLEMENTATION__BUNDLE:
-			setBundle((String) newValue);
-			return;
+			case Osgiimplementation_3_0Package.OS_GI_IMPLEMENTATION__EXT:
+				getExt().clear();
+				getExt().addAll((Collection<? extends Extension>) newValue);
+				return;
+			case Osgiimplementation_3_0Package.OS_GI_IMPLEMENTATION__BUNDLE:
+				setBundle((String) newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -177,12 +177,12 @@ public class OSGiImplementationImpl extends ImplementationImpl implements OSGiIm
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Osgiimplementation_3_0Package.OS_GI_IMPLEMENTATION__EXT:
-			getExt().clear();
-			return;
-		case Osgiimplementation_3_0Package.OS_GI_IMPLEMENTATION__BUNDLE:
-			setBundle(BUNDLE_EDEFAULT);
-			return;
+			case Osgiimplementation_3_0Package.OS_GI_IMPLEMENTATION__EXT:
+				getExt().clear();
+				return;
+			case Osgiimplementation_3_0Package.OS_GI_IMPLEMENTATION__BUNDLE:
+				setBundle(BUNDLE_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -195,10 +195,10 @@ public class OSGiImplementationImpl extends ImplementationImpl implements OSGiIm
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Osgiimplementation_3_0Package.OS_GI_IMPLEMENTATION__EXT:
-			return ext != null && !ext.isEmpty();
-		case Osgiimplementation_3_0Package.OS_GI_IMPLEMENTATION__BUNDLE:
-			return BUNDLE_EDEFAULT == null ? bundle != null : !BUNDLE_EDEFAULT.equals(bundle);
+			case Osgiimplementation_3_0Package.OS_GI_IMPLEMENTATION__EXT:
+				return ext != null && !ext.isEmpty();
+			case Osgiimplementation_3_0Package.OS_GI_IMPLEMENTATION__BUNDLE:
+				return BUNDLE_EDEFAULT == null ? bundle != null : !BUNDLE_EDEFAULT.equals(bundle);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -221,4 +221,4 @@ public class OSGiImplementationImpl extends ImplementationImpl implements OSGiIm
 		return result.toString();
 	}
 
-} //OSGiImplementationImpl
+} // OSGiImplementationImpl

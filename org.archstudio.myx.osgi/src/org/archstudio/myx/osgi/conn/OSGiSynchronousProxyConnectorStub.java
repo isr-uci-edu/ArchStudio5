@@ -3,9 +3,8 @@ package org.archstudio.myx.osgi.conn;
 import org.archstudio.myx.fw.IMyxName;
 
 /*
- * DO NOT EDIT THIS CLASS, it is automatically generated. ANY MODIFICATIONS WILL BE OVERWRITTEN.
- * 
- * To modify, update the "OSGi Synch Proxy Connector" MyxGen extension in the org.archstudio.myx.osgi plugin.
+ * DO NOT EDIT THIS CLASS, it is automatically generated. ANY MODIFICATIONS WILL BE OVERWRITTEN. To modify, update the
+ * "OSGi Synch Proxy Connector" MyxGen extension in the org.archstudio.myx.osgi plugin.
  */
 
 /**

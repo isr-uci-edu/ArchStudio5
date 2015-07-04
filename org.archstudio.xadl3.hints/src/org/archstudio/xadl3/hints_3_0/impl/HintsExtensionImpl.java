@@ -20,10 +20,10 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  * <li>{@link org.archstudio.xadl3.hints_3_0.impl.HintsExtensionImpl#getHint <em>Hint</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -78,8 +78,8 @@ public class HintsExtensionImpl extends ExtensionImpl implements HintsExtension 
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case Hints_3_0Package.HINTS_EXTENSION__HINT:
-			return ((InternalEList<?>) getHint()).basicRemove(otherEnd, msgs);
+			case Hints_3_0Package.HINTS_EXTENSION__HINT:
+				return ((InternalEList<?>) getHint()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -92,8 +92,8 @@ public class HintsExtensionImpl extends ExtensionImpl implements HintsExtension 
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case Hints_3_0Package.HINTS_EXTENSION__HINT:
-			return getHint();
+			case Hints_3_0Package.HINTS_EXTENSION__HINT:
+				return getHint();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -107,10 +107,10 @@ public class HintsExtensionImpl extends ExtensionImpl implements HintsExtension 
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Hints_3_0Package.HINTS_EXTENSION__HINT:
-			getHint().clear();
-			getHint().addAll((Collection<? extends Hint>) newValue);
-			return;
+			case Hints_3_0Package.HINTS_EXTENSION__HINT:
+				getHint().clear();
+				getHint().addAll((Collection<? extends Hint>) newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -123,9 +123,9 @@ public class HintsExtensionImpl extends ExtensionImpl implements HintsExtension 
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Hints_3_0Package.HINTS_EXTENSION__HINT:
-			getHint().clear();
-			return;
+			case Hints_3_0Package.HINTS_EXTENSION__HINT:
+				getHint().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -138,10 +138,10 @@ public class HintsExtensionImpl extends ExtensionImpl implements HintsExtension 
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Hints_3_0Package.HINTS_EXTENSION__HINT:
-			return hint != null && !hint.isEmpty();
+			case Hints_3_0Package.HINTS_EXTENSION__HINT:
+				return hint != null && !hint.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
 
-} //HintsExtensionImpl
+} // HintsExtensionImpl

@@ -16,12 +16,12 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Hint</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  * <li>{@link org.archstudio.xadl3.hints_3_0.impl.HintImpl#getValue <em>Value</em>}</li>
  * <li>{@link org.archstudio.xadl3.hints_3_0.impl.HintImpl#getHint <em>Hint</em>}</li>
  * <li>{@link org.archstudio.xadl3.hints_3_0.impl.HintImpl#getName <em>Name</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -114,8 +114,8 @@ public class HintImpl extends MinimalEObjectImpl.Container implements Hint {
 		Value oldValue = value;
 		value = newValue;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
-					Hints_3_0Package.HINT__VALUE, oldValue, newValue);
+			ENotificationImpl notification =
+					new ENotificationImpl(this, Notification.SET, Hints_3_0Package.HINT__VALUE, oldValue, newValue);
 			if (msgs == null) {
 				msgs = notification;
 			}
@@ -136,12 +136,12 @@ public class HintImpl extends MinimalEObjectImpl.Container implements Hint {
 		if (newValue != value) {
 			NotificationChain msgs = null;
 			if (value != null) {
-				msgs = ((InternalEObject) value).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
-						- Hints_3_0Package.HINT__VALUE, null, msgs);
+				msgs = ((InternalEObject) value).eInverseRemove(this,
+						EOPPOSITE_FEATURE_BASE - Hints_3_0Package.HINT__VALUE, null, msgs);
 			}
 			if (newValue != null) {
-				msgs = ((InternalEObject) newValue).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
-						- Hints_3_0Package.HINT__VALUE, null, msgs);
+				msgs = ((InternalEObject) newValue).eInverseAdd(this,
+						EOPPOSITE_FEATURE_BASE - Hints_3_0Package.HINT__VALUE, null, msgs);
 			}
 			msgs = basicSetValue(newValue, msgs);
 			if (msgs != null) {
@@ -209,8 +209,8 @@ public class HintImpl extends MinimalEObjectImpl.Container implements Hint {
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case Hints_3_0Package.HINT__VALUE:
-			return basicSetValue(null, msgs);
+			case Hints_3_0Package.HINT__VALUE:
+				return basicSetValue(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -223,12 +223,12 @@ public class HintImpl extends MinimalEObjectImpl.Container implements Hint {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case Hints_3_0Package.HINT__VALUE:
-			return getValue();
-		case Hints_3_0Package.HINT__HINT:
-			return getHint();
-		case Hints_3_0Package.HINT__NAME:
-			return getName();
+			case Hints_3_0Package.HINT__VALUE:
+				return getValue();
+			case Hints_3_0Package.HINT__HINT:
+				return getHint();
+			case Hints_3_0Package.HINT__NAME:
+				return getName();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -241,15 +241,15 @@ public class HintImpl extends MinimalEObjectImpl.Container implements Hint {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Hints_3_0Package.HINT__VALUE:
-			setValue((Value) newValue);
-			return;
-		case Hints_3_0Package.HINT__HINT:
-			setHint((String) newValue);
-			return;
-		case Hints_3_0Package.HINT__NAME:
-			setName((String) newValue);
-			return;
+			case Hints_3_0Package.HINT__VALUE:
+				setValue((Value) newValue);
+				return;
+			case Hints_3_0Package.HINT__HINT:
+				setHint((String) newValue);
+				return;
+			case Hints_3_0Package.HINT__NAME:
+				setName((String) newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -262,15 +262,15 @@ public class HintImpl extends MinimalEObjectImpl.Container implements Hint {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Hints_3_0Package.HINT__VALUE:
-			setValue((Value) null);
-			return;
-		case Hints_3_0Package.HINT__HINT:
-			setHint(HINT_EDEFAULT);
-			return;
-		case Hints_3_0Package.HINT__NAME:
-			setName(NAME_EDEFAULT);
-			return;
+			case Hints_3_0Package.HINT__VALUE:
+				setValue((Value) null);
+				return;
+			case Hints_3_0Package.HINT__HINT:
+				setHint(HINT_EDEFAULT);
+				return;
+			case Hints_3_0Package.HINT__NAME:
+				setName(NAME_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -283,12 +283,12 @@ public class HintImpl extends MinimalEObjectImpl.Container implements Hint {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Hints_3_0Package.HINT__VALUE:
-			return value != null;
-		case Hints_3_0Package.HINT__HINT:
-			return HINT_EDEFAULT == null ? hint != null : !HINT_EDEFAULT.equals(hint);
-		case Hints_3_0Package.HINT__NAME:
-			return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+			case Hints_3_0Package.HINT__VALUE:
+				return value != null;
+			case Hints_3_0Package.HINT__HINT:
+				return HINT_EDEFAULT == null ? hint != null : !HINT_EDEFAULT.equals(hint);
+			case Hints_3_0Package.HINT__NAME:
+				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -313,4 +313,4 @@ public class HintImpl extends MinimalEObjectImpl.Container implements Hint {
 		return result.toString();
 	}
 
-} //HintImpl
+} // HintImpl

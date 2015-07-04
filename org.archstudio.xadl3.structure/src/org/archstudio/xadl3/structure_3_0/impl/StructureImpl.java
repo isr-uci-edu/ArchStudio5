@@ -24,6 +24,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Structure</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  * <li>{@link org.archstudio.xadl3.structure_3_0.impl.StructureImpl#getComponent <em>Component</em>}</li>
  * <li>{@link org.archstudio.xadl3.structure_3_0.impl.StructureImpl#getConnector <em>Connector</em>}</li>
@@ -32,7 +33,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <li>{@link org.archstudio.xadl3.structure_3_0.impl.StructureImpl#getId <em>Id</em>}</li>
  * <li>{@link org.archstudio.xadl3.structure_3_0.impl.StructureImpl#getName <em>Name</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -244,14 +244,14 @@ public class StructureImpl extends MinimalEObjectImpl.Container implements Struc
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case Structure_3_0Package.STRUCTURE__COMPONENT:
-			return ((InternalEList<?>) getComponent()).basicRemove(otherEnd, msgs);
-		case Structure_3_0Package.STRUCTURE__CONNECTOR:
-			return ((InternalEList<?>) getConnector()).basicRemove(otherEnd, msgs);
-		case Structure_3_0Package.STRUCTURE__LINK:
-			return ((InternalEList<?>) getLink()).basicRemove(otherEnd, msgs);
-		case Structure_3_0Package.STRUCTURE__EXT:
-			return ((InternalEList<?>) getExt()).basicRemove(otherEnd, msgs);
+			case Structure_3_0Package.STRUCTURE__COMPONENT:
+				return ((InternalEList<?>) getComponent()).basicRemove(otherEnd, msgs);
+			case Structure_3_0Package.STRUCTURE__CONNECTOR:
+				return ((InternalEList<?>) getConnector()).basicRemove(otherEnd, msgs);
+			case Structure_3_0Package.STRUCTURE__LINK:
+				return ((InternalEList<?>) getLink()).basicRemove(otherEnd, msgs);
+			case Structure_3_0Package.STRUCTURE__EXT:
+				return ((InternalEList<?>) getExt()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -264,18 +264,18 @@ public class StructureImpl extends MinimalEObjectImpl.Container implements Struc
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case Structure_3_0Package.STRUCTURE__COMPONENT:
-			return getComponent();
-		case Structure_3_0Package.STRUCTURE__CONNECTOR:
-			return getConnector();
-		case Structure_3_0Package.STRUCTURE__LINK:
-			return getLink();
-		case Structure_3_0Package.STRUCTURE__EXT:
-			return getExt();
-		case Structure_3_0Package.STRUCTURE__ID:
-			return getId();
-		case Structure_3_0Package.STRUCTURE__NAME:
-			return getName();
+			case Structure_3_0Package.STRUCTURE__COMPONENT:
+				return getComponent();
+			case Structure_3_0Package.STRUCTURE__CONNECTOR:
+				return getConnector();
+			case Structure_3_0Package.STRUCTURE__LINK:
+				return getLink();
+			case Structure_3_0Package.STRUCTURE__EXT:
+				return getExt();
+			case Structure_3_0Package.STRUCTURE__ID:
+				return getId();
+			case Structure_3_0Package.STRUCTURE__NAME:
+				return getName();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -289,28 +289,28 @@ public class StructureImpl extends MinimalEObjectImpl.Container implements Struc
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Structure_3_0Package.STRUCTURE__COMPONENT:
-			getComponent().clear();
-			getComponent().addAll((Collection<? extends Component>) newValue);
-			return;
-		case Structure_3_0Package.STRUCTURE__CONNECTOR:
-			getConnector().clear();
-			getConnector().addAll((Collection<? extends Connector>) newValue);
-			return;
-		case Structure_3_0Package.STRUCTURE__LINK:
-			getLink().clear();
-			getLink().addAll((Collection<? extends Link>) newValue);
-			return;
-		case Structure_3_0Package.STRUCTURE__EXT:
-			getExt().clear();
-			getExt().addAll((Collection<? extends Extension>) newValue);
-			return;
-		case Structure_3_0Package.STRUCTURE__ID:
-			setId((String) newValue);
-			return;
-		case Structure_3_0Package.STRUCTURE__NAME:
-			setName((String) newValue);
-			return;
+			case Structure_3_0Package.STRUCTURE__COMPONENT:
+				getComponent().clear();
+				getComponent().addAll((Collection<? extends Component>) newValue);
+				return;
+			case Structure_3_0Package.STRUCTURE__CONNECTOR:
+				getConnector().clear();
+				getConnector().addAll((Collection<? extends Connector>) newValue);
+				return;
+			case Structure_3_0Package.STRUCTURE__LINK:
+				getLink().clear();
+				getLink().addAll((Collection<? extends Link>) newValue);
+				return;
+			case Structure_3_0Package.STRUCTURE__EXT:
+				getExt().clear();
+				getExt().addAll((Collection<? extends Extension>) newValue);
+				return;
+			case Structure_3_0Package.STRUCTURE__ID:
+				setId((String) newValue);
+				return;
+			case Structure_3_0Package.STRUCTURE__NAME:
+				setName((String) newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -323,24 +323,24 @@ public class StructureImpl extends MinimalEObjectImpl.Container implements Struc
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Structure_3_0Package.STRUCTURE__COMPONENT:
-			getComponent().clear();
-			return;
-		case Structure_3_0Package.STRUCTURE__CONNECTOR:
-			getConnector().clear();
-			return;
-		case Structure_3_0Package.STRUCTURE__LINK:
-			getLink().clear();
-			return;
-		case Structure_3_0Package.STRUCTURE__EXT:
-			getExt().clear();
-			return;
-		case Structure_3_0Package.STRUCTURE__ID:
-			setId(ID_EDEFAULT);
-			return;
-		case Structure_3_0Package.STRUCTURE__NAME:
-			setName(NAME_EDEFAULT);
-			return;
+			case Structure_3_0Package.STRUCTURE__COMPONENT:
+				getComponent().clear();
+				return;
+			case Structure_3_0Package.STRUCTURE__CONNECTOR:
+				getConnector().clear();
+				return;
+			case Structure_3_0Package.STRUCTURE__LINK:
+				getLink().clear();
+				return;
+			case Structure_3_0Package.STRUCTURE__EXT:
+				getExt().clear();
+				return;
+			case Structure_3_0Package.STRUCTURE__ID:
+				setId(ID_EDEFAULT);
+				return;
+			case Structure_3_0Package.STRUCTURE__NAME:
+				setName(NAME_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -353,18 +353,18 @@ public class StructureImpl extends MinimalEObjectImpl.Container implements Struc
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Structure_3_0Package.STRUCTURE__COMPONENT:
-			return component != null && !component.isEmpty();
-		case Structure_3_0Package.STRUCTURE__CONNECTOR:
-			return connector != null && !connector.isEmpty();
-		case Structure_3_0Package.STRUCTURE__LINK:
-			return link != null && !link.isEmpty();
-		case Structure_3_0Package.STRUCTURE__EXT:
-			return ext != null && !ext.isEmpty();
-		case Structure_3_0Package.STRUCTURE__ID:
-			return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
-		case Structure_3_0Package.STRUCTURE__NAME:
-			return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+			case Structure_3_0Package.STRUCTURE__COMPONENT:
+				return component != null && !component.isEmpty();
+			case Structure_3_0Package.STRUCTURE__CONNECTOR:
+				return connector != null && !connector.isEmpty();
+			case Structure_3_0Package.STRUCTURE__LINK:
+				return link != null && !link.isEmpty();
+			case Structure_3_0Package.STRUCTURE__EXT:
+				return ext != null && !ext.isEmpty();
+			case Structure_3_0Package.STRUCTURE__ID:
+				return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
+			case Structure_3_0Package.STRUCTURE__NAME:
+				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -389,4 +389,4 @@ public class StructureImpl extends MinimalEObjectImpl.Container implements Struc
 		return result.toString();
 	}
 
-} //StructureImpl
+} // StructureImpl

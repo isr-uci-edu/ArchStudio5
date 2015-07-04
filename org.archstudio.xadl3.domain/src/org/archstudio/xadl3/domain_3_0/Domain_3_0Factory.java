@@ -25,7 +25,7 @@ public interface Domain_3_0Factory extends EFactory {
 	 * @return a new object of class '<em>Domain</em>'.
 	 * @generated
 	 */
-	Domain createDomain();
+			Domain createDomain();
 
 	/**
 	 * Returns a new object of class '<em>Domain Extension</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -33,7 +33,7 @@ public interface Domain_3_0Factory extends EFactory {
 	 * @return a new object of class '<em>Domain Extension</em>'.
 	 * @generated
 	 */
-	DomainExtension createDomainExtension();
+			DomainExtension createDomainExtension();
 
 	/**
 	 * Returns the package supported by this factory. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -41,6 +41,6 @@ public interface Domain_3_0Factory extends EFactory {
 	 * @return the package supported by this factory.
 	 * @generated
 	 */
-	Domain_3_0Package getDomain_3_0Package();
+			Domain_3_0Package getDomain_3_0Package();
 
-} //Domain_3_0Factory
+} // Domain_3_0Factory

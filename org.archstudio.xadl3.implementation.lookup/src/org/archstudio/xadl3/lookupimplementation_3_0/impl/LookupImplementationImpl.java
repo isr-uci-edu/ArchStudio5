@@ -22,11 +22,12 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  * <li>{@link org.archstudio.xadl3.lookupimplementation_3_0.impl.LookupImplementationImpl#getExt <em>Ext</em>}</li>
- * <li>{@link org.archstudio.xadl3.lookupimplementation_3_0.impl.LookupImplementationImpl#getLookup <em>Lookup</em>}</li>
+ * <li>{@link org.archstudio.xadl3.lookupimplementation_3_0.impl.LookupImplementationImpl#getLookup <em>Lookup</em>}
+ * </li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -127,8 +128,8 @@ public class LookupImplementationImpl extends ImplementationImpl implements Look
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case Lookupimplementation_3_0Package.LOOKUP_IMPLEMENTATION__EXT:
-			return ((InternalEList<?>) getExt()).basicRemove(otherEnd, msgs);
+			case Lookupimplementation_3_0Package.LOOKUP_IMPLEMENTATION__EXT:
+				return ((InternalEList<?>) getExt()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -141,10 +142,10 @@ public class LookupImplementationImpl extends ImplementationImpl implements Look
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case Lookupimplementation_3_0Package.LOOKUP_IMPLEMENTATION__EXT:
-			return getExt();
-		case Lookupimplementation_3_0Package.LOOKUP_IMPLEMENTATION__LOOKUP:
-			return getLookup();
+			case Lookupimplementation_3_0Package.LOOKUP_IMPLEMENTATION__EXT:
+				return getExt();
+			case Lookupimplementation_3_0Package.LOOKUP_IMPLEMENTATION__LOOKUP:
+				return getLookup();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -158,13 +159,13 @@ public class LookupImplementationImpl extends ImplementationImpl implements Look
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Lookupimplementation_3_0Package.LOOKUP_IMPLEMENTATION__EXT:
-			getExt().clear();
-			getExt().addAll((Collection<? extends Extension>) newValue);
-			return;
-		case Lookupimplementation_3_0Package.LOOKUP_IMPLEMENTATION__LOOKUP:
-			setLookup((String) newValue);
-			return;
+			case Lookupimplementation_3_0Package.LOOKUP_IMPLEMENTATION__EXT:
+				getExt().clear();
+				getExt().addAll((Collection<? extends Extension>) newValue);
+				return;
+			case Lookupimplementation_3_0Package.LOOKUP_IMPLEMENTATION__LOOKUP:
+				setLookup((String) newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -177,12 +178,12 @@ public class LookupImplementationImpl extends ImplementationImpl implements Look
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Lookupimplementation_3_0Package.LOOKUP_IMPLEMENTATION__EXT:
-			getExt().clear();
-			return;
-		case Lookupimplementation_3_0Package.LOOKUP_IMPLEMENTATION__LOOKUP:
-			setLookup(LOOKUP_EDEFAULT);
-			return;
+			case Lookupimplementation_3_0Package.LOOKUP_IMPLEMENTATION__EXT:
+				getExt().clear();
+				return;
+			case Lookupimplementation_3_0Package.LOOKUP_IMPLEMENTATION__LOOKUP:
+				setLookup(LOOKUP_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -195,10 +196,10 @@ public class LookupImplementationImpl extends ImplementationImpl implements Look
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Lookupimplementation_3_0Package.LOOKUP_IMPLEMENTATION__EXT:
-			return ext != null && !ext.isEmpty();
-		case Lookupimplementation_3_0Package.LOOKUP_IMPLEMENTATION__LOOKUP:
-			return LOOKUP_EDEFAULT == null ? lookup != null : !LOOKUP_EDEFAULT.equals(lookup);
+			case Lookupimplementation_3_0Package.LOOKUP_IMPLEMENTATION__EXT:
+				return ext != null && !ext.isEmpty();
+			case Lookupimplementation_3_0Package.LOOKUP_IMPLEMENTATION__LOOKUP:
+				return LOOKUP_EDEFAULT == null ? lookup != null : !LOOKUP_EDEFAULT.equals(lookup);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -221,4 +222,4 @@ public class LookupImplementationImpl extends ImplementationImpl implements Look
 		return result.toString();
 	}
 
-} //LookupImplementationImpl
+} // LookupImplementationImpl

@@ -71,7 +71,6 @@ public class Hints_3_0PackageImpl extends EPackageImpl implements Hints_3_0Packa
 
 	/**
 	 * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
-	 * 
 	 * <p>
 	 * This method is used to initialize {@link Hints_3_0Package#eINSTANCE} when that field is accessed. Clients should
 	 * not invoke it directly. Instead, they should simply access that field to obtain the package. <!-- begin-user-doc
@@ -88,8 +87,9 @@ public class Hints_3_0PackageImpl extends EPackageImpl implements Hints_3_0Packa
 		}
 
 		// Obtain or create and register package
-		Hints_3_0PackageImpl theHints_3_0Package = (Hints_3_0PackageImpl) (EPackage.Registry.INSTANCE.get(eNS_URI) instanceof Hints_3_0PackageImpl ? EPackage.Registry.INSTANCE
-				.get(eNS_URI) : new Hints_3_0PackageImpl());
+		Hints_3_0PackageImpl theHints_3_0Package =
+				(Hints_3_0PackageImpl) (EPackage.Registry.INSTANCE.get(eNS_URI) instanceof Hints_3_0PackageImpl
+						? EPackage.Registry.INSTANCE.get(eNS_URI) : new Hints_3_0PackageImpl());
 
 		isInited = true;
 
@@ -98,11 +98,12 @@ public class Hints_3_0PackageImpl extends EPackageImpl implements Hints_3_0Packa
 
 		// Obtain or create and register interdependencies
 		Xadlcore_3_0PackageImpl theXadlcore_3_0Package = (Xadlcore_3_0PackageImpl) (EPackage.Registry.INSTANCE
-				.getEPackage(Xadlcore_3_0Package.eNS_URI) instanceof Xadlcore_3_0PackageImpl ? EPackage.Registry.INSTANCE
-				.getEPackage(Xadlcore_3_0Package.eNS_URI) : Xadlcore_3_0Package.eINSTANCE);
+				.getEPackage(Xadlcore_3_0Package.eNS_URI) instanceof Xadlcore_3_0PackageImpl
+						? EPackage.Registry.INSTANCE.getEPackage(Xadlcore_3_0Package.eNS_URI)
+						: Xadlcore_3_0Package.eINSTANCE);
 		XlinkPackageImpl theXlinkPackage = (XlinkPackageImpl) (EPackage.Registry.INSTANCE
-				.getEPackage(XlinkPackage.eNS_URI) instanceof XlinkPackageImpl ? EPackage.Registry.INSTANCE
-				.getEPackage(XlinkPackage.eNS_URI) : XlinkPackage.eINSTANCE);
+				.getEPackage(XlinkPackage.eNS_URI) instanceof XlinkPackageImpl
+						? EPackage.Registry.INSTANCE.getEPackage(XlinkPackage.eNS_URI) : XlinkPackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theHints_3_0Package.createPackageContents();
@@ -291,10 +292,10 @@ public class Hints_3_0PackageImpl extends EPackageImpl implements Hints_3_0Packa
 		setNsURI(eNS_URI);
 
 		// Obtain other dependent packages
-		XMLTypePackage theXMLTypePackage = (XMLTypePackage) EPackage.Registry.INSTANCE
-				.getEPackage(XMLTypePackage.eNS_URI);
-		Xadlcore_3_0Package theXadlcore_3_0Package = (Xadlcore_3_0Package) EPackage.Registry.INSTANCE
-				.getEPackage(Xadlcore_3_0Package.eNS_URI);
+		XMLTypePackage theXMLTypePackage =
+				(XMLTypePackage) EPackage.Registry.INSTANCE.getEPackage(XMLTypePackage.eNS_URI);
+		Xadlcore_3_0Package theXadlcore_3_0Package =
+				(Xadlcore_3_0Package) EPackage.Registry.INSTANCE.getEPackage(Xadlcore_3_0Package.eNS_URI);
 
 		// Create type parameters
 
@@ -345,22 +346,22 @@ public class Hints_3_0PackageImpl extends EPackageImpl implements Hints_3_0Packa
 	protected void createExtendedMetaDataAnnotations() {
 		String source = "http:///org/eclipse/emf/ecore/util/ExtendedMetaData";
 		addAnnotation(hintEClass, source, new String[] { "name", "Hint", "kind", "elementOnly" });
-		addAnnotation(getHint_Value(), source, new String[] { "kind", "element", "name", "value", "namespace",
-				"##targetNamespace" });
-		addAnnotation(getHint_Hint(), source, new String[] { "kind", "attribute", "name", "hint", "namespace",
-				"##targetNamespace" });
-		addAnnotation(getHint_Name(), source, new String[] { "kind", "attribute", "name", "name", "namespace",
-				"##targetNamespace" });
+		addAnnotation(getHint_Value(), source,
+				new String[] { "kind", "element", "name", "value", "namespace", "##targetNamespace" });
+		addAnnotation(getHint_Hint(), source,
+				new String[] { "kind", "attribute", "name", "hint", "namespace", "##targetNamespace" });
+		addAnnotation(getHint_Name(), source,
+				new String[] { "kind", "attribute", "name", "name", "namespace", "##targetNamespace" });
 		addAnnotation(hintsExtensionEClass, source, new String[] { "name", "HintsExtension", "kind", "elementOnly" });
-		addAnnotation(getHintsExtension_Hint(), source, new String[] { "kind", "element", "name", "hint", "namespace",
-				"##targetNamespace" });
+		addAnnotation(getHintsExtension_Hint(), source,
+				new String[] { "kind", "element", "name", "hint", "namespace", "##targetNamespace" });
 		addAnnotation(valueEClass, source, new String[] { "name", "Value", "kind", "elementOnly" });
-		addAnnotation(getValue_Value(), source, new String[] { "kind", "element", "name", "value", "namespace",
-				"##targetNamespace" });
-		addAnnotation(getValue_Data(), source, new String[] { "kind", "attribute", "name", "data", "namespace",
-				"##targetNamespace" });
-		addAnnotation(getValue_Type(), source, new String[] { "kind", "attribute", "name", "type", "namespace",
-				"##targetNamespace" });
+		addAnnotation(getValue_Value(), source,
+				new String[] { "kind", "element", "name", "value", "namespace", "##targetNamespace" });
+		addAnnotation(getValue_Data(), source,
+				new String[] { "kind", "attribute", "name", "data", "namespace", "##targetNamespace" });
+		addAnnotation(getValue_Type(), source,
+				new String[] { "kind", "attribute", "name", "type", "namespace", "##targetNamespace" });
 	}
 
-} //Hints_3_0PackageImpl
+} // Hints_3_0PackageImpl

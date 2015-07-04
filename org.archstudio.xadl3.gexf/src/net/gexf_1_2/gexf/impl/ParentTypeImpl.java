@@ -2,22 +2,22 @@
  */
 package net.gexf_1_2.gexf.impl;
 
-import net.gexf_1_2.gexf.GexfPackage;
-import net.gexf_1_2.gexf.ParentType;
-
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
+import net.gexf_1_2.gexf.GexfPackage;
+import net.gexf_1_2.gexf.ParentType;
+
 /**
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Parent Type</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  * <li>{@link net.gexf_1_2.gexf.impl.ParentTypeImpl#getFor <em>For</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -92,8 +92,8 @@ public class ParentTypeImpl extends MinimalEObjectImpl.Container implements Pare
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case GexfPackage.PARENT_TYPE__FOR:
-			return getFor();
+			case GexfPackage.PARENT_TYPE__FOR:
+				return getFor();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -106,9 +106,9 @@ public class ParentTypeImpl extends MinimalEObjectImpl.Container implements Pare
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case GexfPackage.PARENT_TYPE__FOR:
-			setFor(newValue);
-			return;
+			case GexfPackage.PARENT_TYPE__FOR:
+				setFor(newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -121,9 +121,9 @@ public class ParentTypeImpl extends MinimalEObjectImpl.Container implements Pare
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case GexfPackage.PARENT_TYPE__FOR:
-			setFor(FOR_EDEFAULT);
-			return;
+			case GexfPackage.PARENT_TYPE__FOR:
+				setFor(FOR_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -136,8 +136,8 @@ public class ParentTypeImpl extends MinimalEObjectImpl.Container implements Pare
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case GexfPackage.PARENT_TYPE__FOR:
-			return FOR_EDEFAULT == null ? for_ != null : !FOR_EDEFAULT.equals(for_);
+			case GexfPackage.PARENT_TYPE__FOR:
+				return FOR_EDEFAULT == null ? for_ != null : !FOR_EDEFAULT.equals(for_);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -160,4 +160,4 @@ public class ParentTypeImpl extends MinimalEObjectImpl.Container implements Pare
 		return result.toString();
 	}
 
-} //ParentTypeImpl
+} // ParentTypeImpl

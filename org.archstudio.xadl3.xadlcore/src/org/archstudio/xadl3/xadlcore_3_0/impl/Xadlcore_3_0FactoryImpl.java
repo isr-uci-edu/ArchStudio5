@@ -26,8 +26,8 @@ public class Xadlcore_3_0FactoryImpl extends EFactoryImpl implements Xadlcore_3_
 	 */
 	public static Xadlcore_3_0Factory init() {
 		try {
-			Xadlcore_3_0Factory theXadlcore_3_0Factory = (Xadlcore_3_0Factory) EPackage.Registry.INSTANCE
-					.getEFactory(Xadlcore_3_0Package.eNS_URI);
+			Xadlcore_3_0Factory theXadlcore_3_0Factory =
+					(Xadlcore_3_0Factory) EPackage.Registry.INSTANCE.getEFactory(Xadlcore_3_0Package.eNS_URI);
 			if (theXadlcore_3_0Factory != null) {
 				return theXadlcore_3_0Factory;
 			}
@@ -55,14 +55,14 @@ public class Xadlcore_3_0FactoryImpl extends EFactoryImpl implements Xadlcore_3_
 	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
-		case Xadlcore_3_0Package.DOCUMENT_ROOT:
-			return createDocumentRoot();
-		case Xadlcore_3_0Package.SIMPLE_LINK:
-			return createSimpleLink();
-		case Xadlcore_3_0Package.XADL_TYPE:
-			return createXADLType();
-		default:
-			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+			case Xadlcore_3_0Package.DOCUMENT_ROOT:
+				return createDocumentRoot();
+			case Xadlcore_3_0Package.SIMPLE_LINK:
+				return createSimpleLink();
+			case Xadlcore_3_0Package.XADL_TYPE:
+				return createXADLType();
+			default:
+				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
 	}
 
@@ -120,4 +120,4 @@ public class Xadlcore_3_0FactoryImpl extends EFactoryImpl implements Xadlcore_3_
 		return Xadlcore_3_0Package.eINSTANCE;
 	}
 
-} //Xadlcore_3_0FactoryImpl
+} // Xadlcore_3_0FactoryImpl

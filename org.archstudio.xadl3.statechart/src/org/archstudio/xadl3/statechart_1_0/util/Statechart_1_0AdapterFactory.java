@@ -140,8 +140,7 @@ public class Statechart_1_0AdapterFactory extends AdapterFactoryImpl {
 	/**
 	 * Creates an adapter for the <code>target</code>. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
-	 * @param target
-	 *            the object to adapt.
+	 * @param target the object to adapt.
 	 * @return the adapter for the <code>target</code>.
 	 * @generated
 	 */
@@ -328,4 +327,4 @@ public class Statechart_1_0AdapterFactory extends AdapterFactoryImpl {
 		return null;
 	}
 
-} //Statechart_1_0AdapterFactory
+} // Statechart_1_0AdapterFactory

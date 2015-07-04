@@ -19,18 +19,9 @@ import org.eclipse.emf.ecore.EReference;
  * <li>each enum,</li>
  * <li>and each data type</li>
  * </ul>
- * <!-- end-user-doc --> <!-- begin-model-doc -->
- * 
- * 
- * xADL 3 Core Schema
- * 
- * This schema defines the core elements for xADL 3 documents. The schema is intentionally small, defining only a few
- * elements that are intended to be common across xADL descriptions and extensions, regardless of domain.
- * 
- * Changelog: - 3.0.0: * Initial version
- * 
- * 
- * <!-- end-model-doc -->
+ * <!-- end-user-doc --> <!-- begin-model-doc --> xADL 3 Core Schema This schema defines the core elements for xADL 3
+ * documents. The schema is intentionally small, defining only a few elements that are intended to be common across xADL
+ * descriptions and extensions, regardless of domain. Changelog: - 3.0.0: * Initial version <!-- end-model-doc -->
  * 
  * @see org.archstudio.xadl3.statechart_1_0.Statechart_1_0Factory
  * @model kind="package"
@@ -213,8 +204,8 @@ public interface Statechart_1_0Package extends EPackage {
 	int DOCUMENT_ROOT_OPERATION_COUNT = 0;
 
 	/**
-	 * The meta object id for the '{@link org.archstudio.xadl3.statechart_1_0.impl.PseudoStateImpl
-	 * <em>Pseudo State</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The meta object id for the '{@link org.archstudio.xadl3.statechart_1_0.impl.PseudoStateImpl <em>Pseudo State</em>
+	 * }' class. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see org.archstudio.xadl3.statechart_1_0.impl.PseudoStateImpl
 	 * @see org.archstudio.xadl3.statechart_1_0.impl.Statechart_1_0PackageImpl#getPseudoState()
@@ -741,7 +732,7 @@ public interface Statechart_1_0Package extends EPackage {
 	 * @see org.archstudio.xadl3.statechart_1_0.Behavior
 	 * @generated
 	 */
-	EClass getBehavior();
+			EClass getBehavior();
 
 	/**
 	 * Returns the meta object for the containment reference list '
@@ -753,7 +744,7 @@ public interface Statechart_1_0Package extends EPackage {
 	 * @see #getBehavior()
 	 * @generated
 	 */
-	EReference getBehavior_Ext();
+			EReference getBehavior_Ext();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.archstudio.xadl3.statechart_1_0.Behavior#getId <em>Id</em>}
@@ -764,7 +755,7 @@ public interface Statechart_1_0Package extends EPackage {
 	 * @see #getBehavior()
 	 * @generated
 	 */
-	EAttribute getBehavior_Id();
+			EAttribute getBehavior_Id();
 
 	/**
 	 * Returns the meta object for class '{@link org.archstudio.xadl3.statechart_1_0.Constraint <em>Constraint</em>}'.
@@ -774,7 +765,7 @@ public interface Statechart_1_0Package extends EPackage {
 	 * @see org.archstudio.xadl3.statechart_1_0.Constraint
 	 * @generated
 	 */
-	EClass getConstraint();
+			EClass getConstraint();
 
 	/**
 	 * Returns the meta object for the containment reference list '
@@ -786,7 +777,7 @@ public interface Statechart_1_0Package extends EPackage {
 	 * @see #getConstraint()
 	 * @generated
 	 */
-	EReference getConstraint_Ext();
+			EReference getConstraint_Ext();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.archstudio.xadl3.statechart_1_0.Constraint#getId
@@ -797,17 +788,17 @@ public interface Statechart_1_0Package extends EPackage {
 	 * @see #getConstraint()
 	 * @generated
 	 */
-	EAttribute getConstraint_Id();
+			EAttribute getConstraint_Id();
 
 	/**
-	 * Returns the meta object for class '{@link org.archstudio.xadl3.statechart_1_0.DocumentRoot
-	 * <em>Document Root</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the meta object for class '{@link org.archstudio.xadl3.statechart_1_0.DocumentRoot <em>Document Root</em>
+	 * }'. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Document Root</em>'.
 	 * @see org.archstudio.xadl3.statechart_1_0.DocumentRoot
 	 * @generated
 	 */
-	EClass getDocumentRoot();
+			EClass getDocumentRoot();
 
 	/**
 	 * Returns the meta object for the attribute list '{@link org.archstudio.xadl3.statechart_1_0.DocumentRoot#getMixed
@@ -818,7 +809,7 @@ public interface Statechart_1_0Package extends EPackage {
 	 * @see #getDocumentRoot()
 	 * @generated
 	 */
-	EAttribute getDocumentRoot_Mixed();
+			EAttribute getDocumentRoot_Mixed();
 
 	/**
 	 * Returns the meta object for the map '{@link org.archstudio.xadl3.statechart_1_0.DocumentRoot#getXMLNSPrefixMap
@@ -829,19 +820,18 @@ public interface Statechart_1_0Package extends EPackage {
 	 * @see #getDocumentRoot()
 	 * @generated
 	 */
-	EReference getDocumentRoot_XMLNSPrefixMap();
+			EReference getDocumentRoot_XMLNSPrefixMap();
 
 	/**
-	 * Returns the meta object for the map '
-	 * {@link org.archstudio.xadl3.statechart_1_0.DocumentRoot#getXSISchemaLocation <em>XSI Schema Location</em>}'. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the meta object for the map '{@link org.archstudio.xadl3.statechart_1_0.DocumentRoot#getXSISchemaLocation
+	 * <em>XSI Schema Location</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the map '<em>XSI Schema Location</em>'.
 	 * @see org.archstudio.xadl3.statechart_1_0.DocumentRoot#getXSISchemaLocation()
 	 * @see #getDocumentRoot()
 	 * @generated
 	 */
-	EReference getDocumentRoot_XSISchemaLocation();
+			EReference getDocumentRoot_XSISchemaLocation();
 
 	/**
 	 * Returns the meta object for the containment reference '
@@ -853,7 +843,7 @@ public interface Statechart_1_0Package extends EPackage {
 	 * @see #getDocumentRoot()
 	 * @generated
 	 */
-	EReference getDocumentRoot_Statechart();
+			EReference getDocumentRoot_Statechart();
 
 	/**
 	 * Returns the meta object for class '{@link org.archstudio.xadl3.statechart_1_0.FinalState <em>Final State</em>}'.
@@ -863,7 +853,7 @@ public interface Statechart_1_0Package extends EPackage {
 	 * @see org.archstudio.xadl3.statechart_1_0.FinalState
 	 * @generated
 	 */
-	EClass getFinalState();
+			EClass getFinalState();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.archstudio.xadl3.statechart_1_0.FinalState#getType
@@ -874,17 +864,17 @@ public interface Statechart_1_0Package extends EPackage {
 	 * @see #getFinalState()
 	 * @generated
 	 */
-	EAttribute getFinalState_Type();
+			EAttribute getFinalState_Type();
 
 	/**
-	 * Returns the meta object for class '{@link org.archstudio.xadl3.statechart_1_0.InitialState
-	 * <em>Initial State</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the meta object for class '{@link org.archstudio.xadl3.statechart_1_0.InitialState <em>Initial State</em>
+	 * }'. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Initial State</em>'.
 	 * @see org.archstudio.xadl3.statechart_1_0.InitialState
 	 * @generated
 	 */
-	EClass getInitialState();
+			EClass getInitialState();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.archstudio.xadl3.statechart_1_0.InitialState#getType
@@ -895,7 +885,7 @@ public interface Statechart_1_0Package extends EPackage {
 	 * @see #getInitialState()
 	 * @generated
 	 */
-	EAttribute getInitialState_Type();
+			EAttribute getInitialState_Type();
 
 	/**
 	 * Returns the meta object for class '{@link org.archstudio.xadl3.statechart_1_0.PseudoState <em>Pseudo State</em>}
@@ -905,7 +895,7 @@ public interface Statechart_1_0Package extends EPackage {
 	 * @see org.archstudio.xadl3.statechart_1_0.PseudoState
 	 * @generated
 	 */
-	EClass getPseudoState();
+			EClass getPseudoState();
 
 	/**
 	 * Returns the meta object for the containment reference list '
@@ -917,7 +907,7 @@ public interface Statechart_1_0Package extends EPackage {
 	 * @see #getPseudoState()
 	 * @generated
 	 */
-	EReference getPseudoState_Ext();
+			EReference getPseudoState_Ext();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.archstudio.xadl3.statechart_1_0.PseudoState#getId
@@ -928,7 +918,7 @@ public interface Statechart_1_0Package extends EPackage {
 	 * @see #getPseudoState()
 	 * @generated
 	 */
-	EAttribute getPseudoState_Id();
+			EAttribute getPseudoState_Id();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.archstudio.xadl3.statechart_1_0.PseudoState#getName
@@ -939,7 +929,7 @@ public interface Statechart_1_0Package extends EPackage {
 	 * @see #getPseudoState()
 	 * @generated
 	 */
-	EAttribute getPseudoState_Name();
+			EAttribute getPseudoState_Name();
 
 	/**
 	 * Returns the meta object for class '{@link org.archstudio.xadl3.statechart_1_0.State <em>State</em>}'. <!--
@@ -949,7 +939,7 @@ public interface Statechart_1_0Package extends EPackage {
 	 * @see org.archstudio.xadl3.statechart_1_0.State
 	 * @generated
 	 */
-	EClass getState();
+			EClass getState();
 
 	/**
 	 * Returns the meta object for the containment reference list '
@@ -961,7 +951,7 @@ public interface Statechart_1_0Package extends EPackage {
 	 * @see #getState()
 	 * @generated
 	 */
-	EReference getState_Entry();
+			EReference getState_Entry();
 
 	/**
 	 * Returns the meta object for the containment reference list '
@@ -973,7 +963,7 @@ public interface Statechart_1_0Package extends EPackage {
 	 * @see #getState()
 	 * @generated
 	 */
-	EReference getState_Exit();
+			EReference getState_Exit();
 
 	/**
 	 * Returns the meta object for the containment reference '
@@ -985,18 +975,18 @@ public interface Statechart_1_0Package extends EPackage {
 	 * @see #getState()
 	 * @generated
 	 */
-	EReference getState_SubStatechart();
+			EReference getState_SubStatechart();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.archstudio.xadl3.statechart_1_0.State#getType
-	 * <em>Type</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the meta object for the attribute '{@link org.archstudio.xadl3.statechart_1_0.State#getType <em>Type</em>
+	 * }'. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Type</em>'.
 	 * @see org.archstudio.xadl3.statechart_1_0.State#getType()
 	 * @see #getState()
 	 * @generated
 	 */
-	EAttribute getState_Type();
+			EAttribute getState_Type();
 
 	/**
 	 * Returns the meta object for class '{@link org.archstudio.xadl3.statechart_1_0.Statechart <em>Statechart</em>}'.
@@ -1006,7 +996,7 @@ public interface Statechart_1_0Package extends EPackage {
 	 * @see org.archstudio.xadl3.statechart_1_0.Statechart
 	 * @generated
 	 */
-	EClass getStatechart();
+			EClass getStatechart();
 
 	/**
 	 * Returns the meta object for the containment reference list '
@@ -1018,7 +1008,7 @@ public interface Statechart_1_0Package extends EPackage {
 	 * @see #getStatechart()
 	 * @generated
 	 */
-	EReference getStatechart_State();
+			EReference getStatechart_State();
 
 	/**
 	 * Returns the meta object for the containment reference list '
@@ -1030,7 +1020,7 @@ public interface Statechart_1_0Package extends EPackage {
 	 * @see #getStatechart()
 	 * @generated
 	 */
-	EReference getStatechart_Transition();
+			EReference getStatechart_Transition();
 
 	/**
 	 * Returns the meta object for the containment reference list '
@@ -1042,7 +1032,7 @@ public interface Statechart_1_0Package extends EPackage {
 	 * @see #getStatechart()
 	 * @generated
 	 */
-	EReference getStatechart_Ext();
+			EReference getStatechart_Ext();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.archstudio.xadl3.statechart_1_0.Statechart#getId
@@ -1053,7 +1043,7 @@ public interface Statechart_1_0Package extends EPackage {
 	 * @see #getStatechart()
 	 * @generated
 	 */
-	EAttribute getStatechart_Id();
+			EAttribute getStatechart_Id();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.archstudio.xadl3.statechart_1_0.Statechart#getName
@@ -1064,7 +1054,7 @@ public interface Statechart_1_0Package extends EPackage {
 	 * @see #getStatechart()
 	 * @generated
 	 */
-	EAttribute getStatechart_Name();
+			EAttribute getStatechart_Name();
 
 	/**
 	 * Returns the meta object for class '{@link org.archstudio.xadl3.statechart_1_0.StatechartSpecification
@@ -1074,7 +1064,7 @@ public interface Statechart_1_0Package extends EPackage {
 	 * @see org.archstudio.xadl3.statechart_1_0.StatechartSpecification
 	 * @generated
 	 */
-	EClass getStatechartSpecification();
+			EClass getStatechartSpecification();
 
 	/**
 	 * Returns the meta object for the reference '
@@ -1086,7 +1076,7 @@ public interface Statechart_1_0Package extends EPackage {
 	 * @see #getStatechartSpecification()
 	 * @generated
 	 */
-	EReference getStatechartSpecification_Statechart();
+			EReference getStatechartSpecification_Statechart();
 
 	/**
 	 * Returns the meta object for the containment reference list '
@@ -1098,7 +1088,7 @@ public interface Statechart_1_0Package extends EPackage {
 	 * @see #getStatechartSpecification()
 	 * @generated
 	 */
-	EReference getStatechartSpecification_Ext();
+			EReference getStatechartSpecification_Ext();
 
 	/**
 	 * Returns the meta object for the attribute '
@@ -1110,7 +1100,7 @@ public interface Statechart_1_0Package extends EPackage {
 	 * @see #getStatechartSpecification()
 	 * @generated
 	 */
-	EAttribute getStatechartSpecification_Id();
+			EAttribute getStatechartSpecification_Id();
 
 	/**
 	 * Returns the meta object for class '{@link org.archstudio.xadl3.statechart_1_0.SubStatechart
@@ -1120,7 +1110,7 @@ public interface Statechart_1_0Package extends EPackage {
 	 * @see org.archstudio.xadl3.statechart_1_0.SubStatechart
 	 * @generated
 	 */
-	EClass getSubStatechart();
+			EClass getSubStatechart();
 
 	/**
 	 * Returns the meta object for the reference '
@@ -1132,7 +1122,7 @@ public interface Statechart_1_0Package extends EPackage {
 	 * @see #getSubStatechart()
 	 * @generated
 	 */
-	EReference getSubStatechart_InnerStatechart();
+			EReference getSubStatechart_InnerStatechart();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.archstudio.xadl3.statechart_1_0.SubStatechart#getId
@@ -1143,7 +1133,7 @@ public interface Statechart_1_0Package extends EPackage {
 	 * @see #getSubStatechart()
 	 * @generated
 	 */
-	EAttribute getSubStatechart_Id();
+			EAttribute getSubStatechart_Id();
 
 	/**
 	 * Returns the meta object for class '{@link org.archstudio.xadl3.statechart_1_0.Transition <em>Transition</em>}'.
@@ -1153,7 +1143,7 @@ public interface Statechart_1_0Package extends EPackage {
 	 * @see org.archstudio.xadl3.statechart_1_0.Transition
 	 * @generated
 	 */
-	EClass getTransition();
+			EClass getTransition();
 
 	/**
 	 * Returns the meta object for the reference '{@link org.archstudio.xadl3.statechart_1_0.Transition#getFrom
@@ -1164,7 +1154,7 @@ public interface Statechart_1_0Package extends EPackage {
 	 * @see #getTransition()
 	 * @generated
 	 */
-	EReference getTransition_From();
+			EReference getTransition_From();
 
 	/**
 	 * Returns the meta object for the reference '{@link org.archstudio.xadl3.statechart_1_0.Transition#getTo
@@ -1175,7 +1165,7 @@ public interface Statechart_1_0Package extends EPackage {
 	 * @see #getTransition()
 	 * @generated
 	 */
-	EReference getTransition_To();
+			EReference getTransition_To();
 
 	/**
 	 * Returns the meta object for the containment reference '
@@ -1187,7 +1177,7 @@ public interface Statechart_1_0Package extends EPackage {
 	 * @see #getTransition()
 	 * @generated
 	 */
-	EReference getTransition_Constraint();
+			EReference getTransition_Constraint();
 
 	/**
 	 * Returns the meta object for the containment reference list '
@@ -1199,7 +1189,7 @@ public interface Statechart_1_0Package extends EPackage {
 	 * @see #getTransition()
 	 * @generated
 	 */
-	EReference getTransition_Ext();
+			EReference getTransition_Ext();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.archstudio.xadl3.statechart_1_0.Transition#getId
@@ -1210,7 +1200,7 @@ public interface Statechart_1_0Package extends EPackage {
 	 * @see #getTransition()
 	 * @generated
 	 */
-	EAttribute getTransition_Id();
+			EAttribute getTransition_Id();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.archstudio.xadl3.statechart_1_0.Transition#getName
@@ -1221,7 +1211,7 @@ public interface Statechart_1_0Package extends EPackage {
 	 * @see #getTransition()
 	 * @generated
 	 */
-	EAttribute getTransition_Name();
+			EAttribute getTransition_Name();
 
 	/**
 	 * Returns the meta object for enum '{@link org.archstudio.xadl3.statechart_1_0.StateType <em>State Type</em>}'.
@@ -1231,7 +1221,7 @@ public interface Statechart_1_0Package extends EPackage {
 	 * @see org.archstudio.xadl3.statechart_1_0.StateType
 	 * @generated
 	 */
-	EEnum getStateType();
+			EEnum getStateType();
 
 	/**
 	 * Returns the meta object for data type '{@link org.archstudio.xadl3.statechart_1_0.StateType
@@ -1239,11 +1229,11 @@ public interface Statechart_1_0Package extends EPackage {
 	 * 
 	 * @return the meta object for data type '<em>State Type Object</em>'.
 	 * @see org.archstudio.xadl3.statechart_1_0.StateType
-	 * @model instanceClass="org.archstudio.xadl3.statechart_1_0.StateType"
-	 *        extendedMetaData="name='StateType:Object' baseType='StateType'"
+	 * @model instanceClass="org.archstudio.xadl3.statechart_1_0.StateType" extendedMetaData=
+	 *        "name='StateType:Object' baseType='StateType'"
 	 * @generated
 	 */
-	EDataType getStateTypeObject();
+			EDataType getStateTypeObject();
 
 	/**
 	 * Returns the factory that creates the instances of the model. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -1251,7 +1241,7 @@ public interface Statechart_1_0Package extends EPackage {
 	 * @return the factory that creates the instances of the model.
 	 * @generated
 	 */
-	Statechart_1_0Factory getStatechart_1_0Factory();
+			Statechart_1_0Factory getStatechart_1_0Factory();
 
 	/**
 	 * <!-- begin-user-doc --> Defines literals for the meta objects that represent
@@ -1663,4 +1653,4 @@ public interface Statechart_1_0Package extends EPackage {
 
 	}
 
-} //Statechart_1_0Package
+} // Statechart_1_0Package

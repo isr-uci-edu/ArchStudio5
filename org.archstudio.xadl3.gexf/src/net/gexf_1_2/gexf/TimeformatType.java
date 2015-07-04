@@ -132,6 +132,8 @@ public enum TimeformatType implements Enumerator {
 	 * Returns the '<em><b>Timeformat Type</b></em>' literal with the specified literal value. <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
+	 * @param literal the literal.
+	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
 	public static TimeformatType get(String literal) {
@@ -147,6 +149,8 @@ public enum TimeformatType implements Enumerator {
 	 * Returns the '<em><b>Timeformat Type</b></em>' literal with the specified name. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
 	 * 
+	 * @param name the name.
+	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
 	public static TimeformatType getByName(String name) {
@@ -162,18 +166,20 @@ public enum TimeformatType implements Enumerator {
 	 * Returns the '<em><b>Timeformat Type</b></em>' literal with the specified integer value. <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
+	 * @param value the integer value.
+	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
 	public static TimeformatType get(int value) {
 		switch (value) {
-		case INTEGER_VALUE:
-			return INTEGER;
-		case DOUBLE_VALUE:
-			return DOUBLE;
-		case DATE_VALUE:
-			return DATE;
-		case DATE_TIME_VALUE:
-			return DATE_TIME;
+			case INTEGER_VALUE:
+				return INTEGER;
+			case DOUBLE_VALUE:
+				return DOUBLE;
+			case DATE_VALUE:
+				return DATE;
+			case DATE_TIME_VALUE:
+				return DATE_TIME;
 		}
 		return null;
 	}
@@ -251,4 +257,4 @@ public enum TimeformatType implements Enumerator {
 		return literal;
 	}
 
-} //TimeformatType
+} // TimeformatType

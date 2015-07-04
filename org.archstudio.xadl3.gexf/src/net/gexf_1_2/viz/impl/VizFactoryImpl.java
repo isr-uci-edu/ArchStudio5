@@ -4,6 +4,15 @@ package net.gexf_1_2.viz.impl;
 
 import java.math.BigInteger;
 
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.impl.EFactoryImpl;
+import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import org.eclipse.emf.ecore.xml.type.XMLTypeFactory;
+import org.eclipse.emf.ecore.xml.type.XMLTypePackage;
+
 import net.gexf_1_2.viz.ColorContent;
 import net.gexf_1_2.viz.DocumentRoot;
 import net.gexf_1_2.viz.EdgeShapeContent;
@@ -15,15 +24,6 @@ import net.gexf_1_2.viz.SizeContent;
 import net.gexf_1_2.viz.ThicknessContent;
 import net.gexf_1_2.viz.VizFactory;
 import net.gexf_1_2.viz.VizPackage;
-
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EDataType;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.impl.EFactoryImpl;
-import org.eclipse.emf.ecore.plugin.EcorePlugin;
-import org.eclipse.emf.ecore.xml.type.XMLTypeFactory;
-import org.eclipse.emf.ecore.xml.type.XMLTypePackage;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model <b>Factory</b>. <!-- end-user-doc -->
@@ -66,22 +66,22 @@ public class VizFactoryImpl extends EFactoryImpl implements VizFactory {
 	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
-		case VizPackage.COLOR_CONTENT:
-			return createColorContent();
-		case VizPackage.EDGE_SHAPE_CONTENT:
-			return createEdgeShapeContent();
-		case VizPackage.NODE_SHAPE_CONTENT:
-			return createNodeShapeContent();
-		case VizPackage.POSITION_CONTENT:
-			return createPositionContent();
-		case VizPackage.SIZE_CONTENT:
-			return createSizeContent();
-		case VizPackage.THICKNESS_CONTENT:
-			return createThicknessContent();
-		case VizPackage.DOCUMENT_ROOT:
-			return createDocumentRoot();
-		default:
-			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+			case VizPackage.COLOR_CONTENT:
+				return createColorContent();
+			case VizPackage.EDGE_SHAPE_CONTENT:
+				return createEdgeShapeContent();
+			case VizPackage.NODE_SHAPE_CONTENT:
+				return createNodeShapeContent();
+			case VizPackage.POSITION_CONTENT:
+				return createPositionContent();
+			case VizPackage.SIZE_CONTENT:
+				return createSizeContent();
+			case VizPackage.THICKNESS_CONTENT:
+				return createThicknessContent();
+			case VizPackage.DOCUMENT_ROOT:
+				return createDocumentRoot();
+			default:
+				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
 	}
 
@@ -93,34 +93,35 @@ public class VizFactoryImpl extends EFactoryImpl implements VizFactory {
 	@Override
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
-		case VizPackage.EDGE_SHAPE_TYPE:
-			return createEdgeShapeTypeFromString(eDataType, initialValue);
-		case VizPackage.NODE_SHAPE_TYPE:
-			return createNodeShapeTypeFromString(eDataType, initialValue);
-		case VizPackage.ALPHA_CHANNEL:
-			return createAlphaChannelFromString(eDataType, initialValue);
-		case VizPackage.ALPHA_CHANNEL_OBJECT:
-			return createAlphaChannelObjectFromString(eDataType, initialValue);
-		case VizPackage.COLOR_CHANNEL:
-			return createColorChannelFromString(eDataType, initialValue);
-		case VizPackage.EDGE_SHAPE_TYPE_OBJECT:
-			return createEdgeShapeTypeObjectFromString(eDataType, initialValue);
-		case VizPackage.NODE_SHAPE_TYPE_OBJECT:
-			return createNodeShapeTypeObjectFromString(eDataType, initialValue);
-		case VizPackage.SIZE_TYPE:
-			return createSizeTypeFromString(eDataType, initialValue);
-		case VizPackage.SIZE_TYPE_OBJECT:
-			return createSizeTypeObjectFromString(eDataType, initialValue);
-		case VizPackage.SPACE_POINT:
-			return createSpacePointFromString(eDataType, initialValue);
-		case VizPackage.SPACE_POINT_OBJECT:
-			return createSpacePointObjectFromString(eDataType, initialValue);
-		case VizPackage.THICKNESS_TYPE:
-			return createThicknessTypeFromString(eDataType, initialValue);
-		case VizPackage.THICKNESS_TYPE_OBJECT:
-			return createThicknessTypeObjectFromString(eDataType, initialValue);
-		default:
-			throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
+			case VizPackage.EDGE_SHAPE_TYPE:
+				return createEdgeShapeTypeFromString(eDataType, initialValue);
+			case VizPackage.NODE_SHAPE_TYPE:
+				return createNodeShapeTypeFromString(eDataType, initialValue);
+			case VizPackage.ALPHA_CHANNEL:
+				return createAlphaChannelFromString(eDataType, initialValue);
+			case VizPackage.ALPHA_CHANNEL_OBJECT:
+				return createAlphaChannelObjectFromString(eDataType, initialValue);
+			case VizPackage.COLOR_CHANNEL:
+				return createColorChannelFromString(eDataType, initialValue);
+			case VizPackage.EDGE_SHAPE_TYPE_OBJECT:
+				return createEdgeShapeTypeObjectFromString(eDataType, initialValue);
+			case VizPackage.NODE_SHAPE_TYPE_OBJECT:
+				return createNodeShapeTypeObjectFromString(eDataType, initialValue);
+			case VizPackage.SIZE_TYPE:
+				return createSizeTypeFromString(eDataType, initialValue);
+			case VizPackage.SIZE_TYPE_OBJECT:
+				return createSizeTypeObjectFromString(eDataType, initialValue);
+			case VizPackage.SPACE_POINT:
+				return createSpacePointFromString(eDataType, initialValue);
+			case VizPackage.SPACE_POINT_OBJECT:
+				return createSpacePointObjectFromString(eDataType, initialValue);
+			case VizPackage.THICKNESS_TYPE:
+				return createThicknessTypeFromString(eDataType, initialValue);
+			case VizPackage.THICKNESS_TYPE_OBJECT:
+				return createThicknessTypeObjectFromString(eDataType, initialValue);
+			default:
+				throw new IllegalArgumentException(
+						"The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
 	}
 
@@ -132,34 +133,35 @@ public class VizFactoryImpl extends EFactoryImpl implements VizFactory {
 	@Override
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
-		case VizPackage.EDGE_SHAPE_TYPE:
-			return convertEdgeShapeTypeToString(eDataType, instanceValue);
-		case VizPackage.NODE_SHAPE_TYPE:
-			return convertNodeShapeTypeToString(eDataType, instanceValue);
-		case VizPackage.ALPHA_CHANNEL:
-			return convertAlphaChannelToString(eDataType, instanceValue);
-		case VizPackage.ALPHA_CHANNEL_OBJECT:
-			return convertAlphaChannelObjectToString(eDataType, instanceValue);
-		case VizPackage.COLOR_CHANNEL:
-			return convertColorChannelToString(eDataType, instanceValue);
-		case VizPackage.EDGE_SHAPE_TYPE_OBJECT:
-			return convertEdgeShapeTypeObjectToString(eDataType, instanceValue);
-		case VizPackage.NODE_SHAPE_TYPE_OBJECT:
-			return convertNodeShapeTypeObjectToString(eDataType, instanceValue);
-		case VizPackage.SIZE_TYPE:
-			return convertSizeTypeToString(eDataType, instanceValue);
-		case VizPackage.SIZE_TYPE_OBJECT:
-			return convertSizeTypeObjectToString(eDataType, instanceValue);
-		case VizPackage.SPACE_POINT:
-			return convertSpacePointToString(eDataType, instanceValue);
-		case VizPackage.SPACE_POINT_OBJECT:
-			return convertSpacePointObjectToString(eDataType, instanceValue);
-		case VizPackage.THICKNESS_TYPE:
-			return convertThicknessTypeToString(eDataType, instanceValue);
-		case VizPackage.THICKNESS_TYPE_OBJECT:
-			return convertThicknessTypeObjectToString(eDataType, instanceValue);
-		default:
-			throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
+			case VizPackage.EDGE_SHAPE_TYPE:
+				return convertEdgeShapeTypeToString(eDataType, instanceValue);
+			case VizPackage.NODE_SHAPE_TYPE:
+				return convertNodeShapeTypeToString(eDataType, instanceValue);
+			case VizPackage.ALPHA_CHANNEL:
+				return convertAlphaChannelToString(eDataType, instanceValue);
+			case VizPackage.ALPHA_CHANNEL_OBJECT:
+				return convertAlphaChannelObjectToString(eDataType, instanceValue);
+			case VizPackage.COLOR_CHANNEL:
+				return convertColorChannelToString(eDataType, instanceValue);
+			case VizPackage.EDGE_SHAPE_TYPE_OBJECT:
+				return convertEdgeShapeTypeObjectToString(eDataType, instanceValue);
+			case VizPackage.NODE_SHAPE_TYPE_OBJECT:
+				return convertNodeShapeTypeObjectToString(eDataType, instanceValue);
+			case VizPackage.SIZE_TYPE:
+				return convertSizeTypeToString(eDataType, instanceValue);
+			case VizPackage.SIZE_TYPE_OBJECT:
+				return convertSizeTypeObjectToString(eDataType, instanceValue);
+			case VizPackage.SPACE_POINT:
+				return convertSpacePointToString(eDataType, instanceValue);
+			case VizPackage.SPACE_POINT_OBJECT:
+				return convertSpacePointObjectToString(eDataType, instanceValue);
+			case VizPackage.THICKNESS_TYPE:
+				return convertThicknessTypeToString(eDataType, instanceValue);
+			case VizPackage.THICKNESS_TYPE_OBJECT:
+				return convertThicknessTypeObjectToString(eDataType, instanceValue);
+			default:
+				throw new IllegalArgumentException(
+						"The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
 	}
 
@@ -248,8 +250,8 @@ public class VizFactoryImpl extends EFactoryImpl implements VizFactory {
 	public EdgeShapeType createEdgeShapeTypeFromString(EDataType eDataType, String initialValue) {
 		EdgeShapeType result = EdgeShapeType.get(initialValue);
 		if (result == null) {
-			throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
-					+ eDataType.getName() + "'");
+			throw new IllegalArgumentException(
+					"The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
 		}
 		return result;
 	}
@@ -271,8 +273,8 @@ public class VizFactoryImpl extends EFactoryImpl implements VizFactory {
 	public NodeShapeType createNodeShapeTypeFromString(EDataType eDataType, String initialValue) {
 		NodeShapeType result = NodeShapeType.get(initialValue);
 		if (result == null) {
-			throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
-					+ eDataType.getName() + "'");
+			throw new IllegalArgumentException(
+					"The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
 		}
 		return result;
 	}
@@ -506,4 +508,4 @@ public class VizFactoryImpl extends EFactoryImpl implements VizFactory {
 		return VizPackage.eINSTANCE;
 	}
 
-} //VizFactoryImpl
+} // VizFactoryImpl

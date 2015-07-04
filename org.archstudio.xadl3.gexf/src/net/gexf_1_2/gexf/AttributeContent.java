@@ -9,9 +9,9 @@ import org.eclipse.emf.ecore.util.FeatureMap;
 /**
  * <!-- begin-user-doc --> A representation of the model object '<em><b>Attribute Content</b></em>'. <!-- end-user-doc
  * -->
- *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  * <li>{@link net.gexf_1_2.gexf.AttributeContent#getGroup <em>Group</em>}</li>
  * <li>{@link net.gexf_1_2.gexf.AttributeContent#getDefault <em>Default</em>}</li>
@@ -20,29 +20,29 @@ import org.eclipse.emf.ecore.util.FeatureMap;
  * <li>{@link net.gexf_1_2.gexf.AttributeContent#getTitle <em>Title</em>}</li>
  * <li>{@link net.gexf_1_2.gexf.AttributeContent#getType <em>Type</em>}</li>
  * </ul>
- * </p>
  *
  * @see net.gexf_1_2.gexf.GexfPackage#getAttributeContent()
  * @model extendedMetaData="name='attribute-content' kind='elementOnly'"
  * @generated
  */
-public interface AttributeContent extends EObject {
-	/**
-	 * Returns the value of the '<em><b>Group</b></em>' attribute list. The list contents are of type
-	 * {@link org.eclipse.emf.ecore.util.FeatureMap.Entry}. <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Group</em>' attribute list isn't clear, there really should be more of a description
-	 * here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * 
-	 * @return the value of the '<em>Group</em>' attribute list.
-	 * @see net.gexf_1_2.gexf.GexfPackage#getAttributeContent_Group()
-	 * @model unique="false" dataType="org.eclipse.emf.ecore.EFeatureMapEntry" many="true"
-	 *        extendedMetaData="kind='group' name='group:0'"
-	 * @generated
-	 */
-	FeatureMap getGroup();
+public interface AttributeContent extends
+		EObject {
+					/**
+					 * Returns the value of the '<em><b>Group</b></em>' attribute list. The list contents are of type
+					 * {@link org.eclipse.emf.ecore.util.FeatureMap.Entry}. <!-- begin-user-doc -->
+					 * <p>
+					 * If the meaning of the '<em>Group</em>' attribute list isn't clear, there really should be more of
+					 * a description here...
+					 * </p>
+					 * <!-- end-user-doc -->
+					 * 
+					 * @return the value of the '<em>Group</em>' attribute list.
+					 * @see net.gexf_1_2.gexf.GexfPackage#getAttributeContent_Group()
+					 * @model unique="false" dataType="org.eclipse.emf.ecore.EFeatureMapEntry" many="true"
+					 *        extendedMetaData="kind='group' name='group:0'"
+					 * @generated
+					 */
+					FeatureMap getGroup();
 
 	/**
 	 * Returns the value of the '<em><b>Default</b></em>' attribute list. The list contents are of type
@@ -56,11 +56,11 @@ public interface AttributeContent extends EObject {
 	 * @return the value of the '<em>Default</em>' attribute list.
 	 * @see net.gexf_1_2.gexf.GexfPackage#getAttributeContent_Default()
 	 * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String" transient="true" volatile="true"
-	 *        derived="true"
-	 *        extendedMetaData="kind='element' name='default' namespace='##targetNamespace' group='#group:0'"
+	 *        derived="true" extendedMetaData=
+	 *        "kind='element' name='default' namespace='##targetNamespace' group='#group:0'"
 	 * @generated
 	 */
-	EList<String> getDefault();
+			EList<String> getDefault();
 
 	/**
 	 * Returns the value of the '<em><b>Options</b></em>' attribute list. The list contents are of type
@@ -74,11 +74,11 @@ public interface AttributeContent extends EObject {
 	 * @return the value of the '<em>Options</em>' attribute list.
 	 * @see net.gexf_1_2.gexf.GexfPackage#getAttributeContent_Options()
 	 * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String" transient="true" volatile="true"
-	 *        derived="true"
-	 *        extendedMetaData="kind='element' name='options' namespace='##targetNamespace' group='#group:0'"
+	 *        derived="true" extendedMetaData=
+	 *        "kind='element' name='options' namespace='##targetNamespace' group='#group:0'"
 	 * @generated
 	 */
-	EList<String> getOptions();
+			EList<String> getOptions();
 
 	/**
 	 * Returns the value of the '<em><b>Id</b></em>' attribute. <!-- begin-user-doc -->
@@ -93,18 +93,17 @@ public interface AttributeContent extends EObject {
 	 * @model dataType="net.gexf_1_2.gexf.IdType" required="true" extendedMetaData="kind='attribute' name='id'"
 	 * @generated
 	 */
-	Object getId();
+			Object getId();
 
 	/**
 	 * Sets the value of the '{@link net.gexf_1_2.gexf.AttributeContent#getId <em>Id</em>}' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
-	 * @param value
-	 *            the new value of the '<em>Id</em>' attribute.
+	 * @param value the new value of the '<em>Id</em>' attribute.
 	 * @see #getId()
 	 * @generated
 	 */
-	void setId(Object value);
+			void setId(Object value);
 
 	/**
 	 * Returns the value of the '<em><b>Title</b></em>' attribute. <!-- begin-user-doc -->
@@ -117,22 +116,21 @@ public interface AttributeContent extends EObject {
 	 * @return the value of the '<em>Title</em>' attribute.
 	 * @see #setTitle(String)
 	 * @see net.gexf_1_2.gexf.GexfPackage#getAttributeContent_Title()
-	 * @model dataType="org.eclipse.emf.ecore.xml.type.String" required="true"
-	 *        extendedMetaData="kind='attribute' name='title'"
+	 * @model dataType="org.eclipse.emf.ecore.xml.type.String" required="true" extendedMetaData=
+	 *        "kind='attribute' name='title'"
 	 * @generated
 	 */
-	String getTitle();
+			String getTitle();
 
 	/**
 	 * Sets the value of the '{@link net.gexf_1_2.gexf.AttributeContent#getTitle <em>Title</em>}' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
-	 * @param value
-	 *            the new value of the '<em>Title</em>' attribute.
+	 * @param value the new value of the '<em>Title</em>' attribute.
 	 * @see #getTitle()
 	 * @generated
 	 */
-	void setTitle(String value);
+			void setTitle(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Type</b></em>' attribute. The literals are from the enumeration
@@ -151,21 +149,20 @@ public interface AttributeContent extends EObject {
 	 * @model unsettable="true" required="true" extendedMetaData="kind='attribute' name='type'"
 	 * @generated
 	 */
-	AttrtypeType getType();
+			AttrtypeType getType();
 
 	/**
 	 * Sets the value of the '{@link net.gexf_1_2.gexf.AttributeContent#getType <em>Type</em>}' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
-	 * @param value
-	 *            the new value of the '<em>Type</em>' attribute.
+	 * @param value the new value of the '<em>Type</em>' attribute.
 	 * @see net.gexf_1_2.gexf.AttrtypeType
 	 * @see #isSetType()
 	 * @see #unsetType()
 	 * @see #getType()
 	 * @generated
 	 */
-	void setType(AttrtypeType value);
+			void setType(AttrtypeType value);
 
 	/**
 	 * Unsets the value of the '{@link net.gexf_1_2.gexf.AttributeContent#getType <em>Type</em>}' attribute. <!--
@@ -176,7 +173,7 @@ public interface AttributeContent extends EObject {
 	 * @see #setType(AttrtypeType)
 	 * @generated
 	 */
-	void unsetType();
+			void unsetType();
 
 	/**
 	 * Returns whether the value of the '{@link net.gexf_1_2.gexf.AttributeContent#getType <em>Type</em>}' attribute is
@@ -188,6 +185,6 @@ public interface AttributeContent extends EObject {
 	 * @see #setType(AttrtypeType)
 	 * @generated
 	 */
-	boolean isSetType();
+			boolean isSetType();
 
 } // AttributeContent

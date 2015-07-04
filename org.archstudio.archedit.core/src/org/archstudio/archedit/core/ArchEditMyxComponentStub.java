@@ -3,9 +3,8 @@ package org.archstudio.archedit.core;
 import org.archstudio.myx.fw.IMyxName;
 
 /*
- * DO NOT EDIT THIS CLASS, it is automatically generated. ANY MODIFICATIONS WILL BE OVERWRITTEN.
- * 
- * To modify, update the "ArchEdit Component Impl" MyxGen extension in the org.archstudio.archedit.core plugin.
+ * DO NOT EDIT THIS CLASS, it is automatically generated. ANY MODIFICATIONS WILL BE OVERWRITTEN. To modify, update the
+ * "ArchEdit Component Impl" MyxGen extension in the org.archstudio.archedit.core plugin.
  */
 
 /**
@@ -13,9 +12,9 @@ import org.archstudio.myx.fw.IMyxName;
  * 
  * @generated
  */
-public abstract class ArchEditMyxComponentStub extends
-		org.archstudio.eclipse.ui.editors.AbstractArchStudioEditorMyxComponent implements
-		org.archstudio.myx.fw.IMyxDynamicBrick {
+public abstract class ArchEditMyxComponentStub
+		extends org.archstudio.eclipse.ui.editors.AbstractArchStudioEditorMyxComponent
+		implements org.archstudio.myx.fw.IMyxDynamicBrick {
 
 	/**
 	 * A constructor from the super class...

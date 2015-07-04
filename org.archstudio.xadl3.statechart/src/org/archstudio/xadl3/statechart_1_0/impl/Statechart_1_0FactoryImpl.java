@@ -36,8 +36,8 @@ public class Statechart_1_0FactoryImpl extends EFactoryImpl implements Statechar
 	 */
 	public static Statechart_1_0Factory init() {
 		try {
-			Statechart_1_0Factory theStatechart_1_0Factory = (Statechart_1_0Factory) EPackage.Registry.INSTANCE
-					.getEFactory(Statechart_1_0Package.eNS_URI);
+			Statechart_1_0Factory theStatechart_1_0Factory =
+					(Statechart_1_0Factory) EPackage.Registry.INSTANCE.getEFactory(Statechart_1_0Package.eNS_URI);
 			if (theStatechart_1_0Factory != null) {
 				return theStatechart_1_0Factory;
 			}
@@ -65,30 +65,30 @@ public class Statechart_1_0FactoryImpl extends EFactoryImpl implements Statechar
 	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
-		case Statechart_1_0Package.BEHAVIOR:
-			return createBehavior();
-		case Statechart_1_0Package.CONSTRAINT:
-			return createConstraint();
-		case Statechart_1_0Package.DOCUMENT_ROOT:
-			return createDocumentRoot();
-		case Statechart_1_0Package.FINAL_STATE:
-			return createFinalState();
-		case Statechart_1_0Package.INITIAL_STATE:
-			return createInitialState();
-		case Statechart_1_0Package.PSEUDO_STATE:
-			return createPseudoState();
-		case Statechart_1_0Package.STATE:
-			return createState();
-		case Statechart_1_0Package.STATECHART:
-			return createStatechart();
-		case Statechart_1_0Package.STATECHART_SPECIFICATION:
-			return createStatechartSpecification();
-		case Statechart_1_0Package.SUB_STATECHART:
-			return createSubStatechart();
-		case Statechart_1_0Package.TRANSITION:
-			return createTransition();
-		default:
-			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+			case Statechart_1_0Package.BEHAVIOR:
+				return createBehavior();
+			case Statechart_1_0Package.CONSTRAINT:
+				return createConstraint();
+			case Statechart_1_0Package.DOCUMENT_ROOT:
+				return createDocumentRoot();
+			case Statechart_1_0Package.FINAL_STATE:
+				return createFinalState();
+			case Statechart_1_0Package.INITIAL_STATE:
+				return createInitialState();
+			case Statechart_1_0Package.PSEUDO_STATE:
+				return createPseudoState();
+			case Statechart_1_0Package.STATE:
+				return createState();
+			case Statechart_1_0Package.STATECHART:
+				return createStatechart();
+			case Statechart_1_0Package.STATECHART_SPECIFICATION:
+				return createStatechartSpecification();
+			case Statechart_1_0Package.SUB_STATECHART:
+				return createSubStatechart();
+			case Statechart_1_0Package.TRANSITION:
+				return createTransition();
+			default:
+				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
 	}
 
@@ -100,12 +100,13 @@ public class Statechart_1_0FactoryImpl extends EFactoryImpl implements Statechar
 	@Override
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
-		case Statechart_1_0Package.STATE_TYPE:
-			return createStateTypeFromString(eDataType, initialValue);
-		case Statechart_1_0Package.STATE_TYPE_OBJECT:
-			return createStateTypeObjectFromString(eDataType, initialValue);
-		default:
-			throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
+			case Statechart_1_0Package.STATE_TYPE:
+				return createStateTypeFromString(eDataType, initialValue);
+			case Statechart_1_0Package.STATE_TYPE_OBJECT:
+				return createStateTypeObjectFromString(eDataType, initialValue);
+			default:
+				throw new IllegalArgumentException(
+						"The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
 	}
 
@@ -117,12 +118,13 @@ public class Statechart_1_0FactoryImpl extends EFactoryImpl implements Statechar
 	@Override
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
-		case Statechart_1_0Package.STATE_TYPE:
-			return convertStateTypeToString(eDataType, instanceValue);
-		case Statechart_1_0Package.STATE_TYPE_OBJECT:
-			return convertStateTypeObjectToString(eDataType, instanceValue);
-		default:
-			throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
+			case Statechart_1_0Package.STATE_TYPE:
+				return convertStateTypeToString(eDataType, instanceValue);
+			case Statechart_1_0Package.STATE_TYPE_OBJECT:
+				return convertStateTypeObjectToString(eDataType, instanceValue);
+			default:
+				throw new IllegalArgumentException(
+						"The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
 	}
 
@@ -255,8 +257,8 @@ public class Statechart_1_0FactoryImpl extends EFactoryImpl implements Statechar
 	public StateType createStateTypeFromString(EDataType eDataType, String initialValue) {
 		StateType result = StateType.get(initialValue);
 		if (result == null) {
-			throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
-					+ eDataType.getName() + "'");
+			throw new IllegalArgumentException(
+					"The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
 		}
 		return result;
 	}
@@ -309,4 +311,4 @@ public class Statechart_1_0FactoryImpl extends EFactoryImpl implements Statechar
 		return Statechart_1_0Package.eINSTANCE;
 	}
 
-} //Statechart_1_0FactoryImpl
+} // Statechart_1_0FactoryImpl

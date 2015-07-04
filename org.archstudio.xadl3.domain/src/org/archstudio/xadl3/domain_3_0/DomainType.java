@@ -10,14 +10,9 @@ import org.eclipse.emf.common.util.Enumerator;
 
 /**
  * <!-- begin-user-doc --> A representation of the literals of the enumeration '<em><b>Domain Type</b></em>', and
- * utility methods for working with them. <!-- end-user-doc --> <!-- begin-model-doc -->
- * 
- * This enumeration defines allowable domains for interfaces in styles that support the notion of domains.
- * 
- * They are: - top: Top domain. - bottom: Bottom domain.
- * 
- * 
- * <!-- end-model-doc -->
+ * utility methods for working with them. <!-- end-user-doc --> <!-- begin-model-doc --> This enumeration defines
+ * allowable domains for interfaces in styles that support the notion of domains. They are: - top: Top domain. - bottom:
+ * Bottom domain. <!-- end-model-doc -->
  * 
  * @see org.archstudio.xadl3.domain_3_0.Domain_3_0Package#getDomainType()
  * @model extendedMetaData="name='DomainType'"
@@ -91,6 +86,8 @@ public enum DomainType implements Enumerator {
 	 * Returns the '<em><b>Domain Type</b></em>' literal with the specified literal value. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
 	 * 
+	 * @param literal the literal.
+	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
 	public static DomainType get(String literal) {
@@ -106,6 +103,8 @@ public enum DomainType implements Enumerator {
 	 * Returns the '<em><b>Domain Type</b></em>' literal with the specified name. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
 	 * 
+	 * @param name the name.
+	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
 	public static DomainType getByName(String name) {
@@ -121,14 +120,16 @@ public enum DomainType implements Enumerator {
 	 * Returns the '<em><b>Domain Type</b></em>' literal with the specified integer value. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
 	 * 
+	 * @param value the integer value.
+	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
 	public static DomainType get(int value) {
 		switch (value) {
-		case TOP_VALUE:
-			return TOP;
-		case BOTTOM_VALUE:
-			return BOTTOM;
+			case TOP_VALUE:
+				return TOP;
+			case BOTTOM_VALUE:
+				return BOTTOM;
 		}
 		return null;
 	}
@@ -206,4 +207,4 @@ public enum DomainType implements Enumerator {
 		return literal;
 	}
 
-} //DomainType
+} // DomainType

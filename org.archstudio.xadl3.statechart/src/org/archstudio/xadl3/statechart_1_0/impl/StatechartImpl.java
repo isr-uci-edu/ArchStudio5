@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Statechart</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  * <li>{@link org.archstudio.xadl3.statechart_1_0.impl.StatechartImpl#getState <em>State</em>}</li>
  * <li>{@link org.archstudio.xadl3.statechart_1_0.impl.StatechartImpl#getTransition <em>Transition</em>}</li>
@@ -30,7 +31,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <li>{@link org.archstudio.xadl3.statechart_1_0.impl.StatechartImpl#getId <em>Id</em>}</li>
  * <li>{@link org.archstudio.xadl3.statechart_1_0.impl.StatechartImpl#getName <em>Name</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -207,7 +207,8 @@ public class StatechartImpl extends MinimalEObjectImpl.Container implements Stat
 		String oldName = name;
 		name = newName;
 		if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, Statechart_1_0Package.STATECHART__NAME, oldName, name));
+			eNotify(new ENotificationImpl(this, Notification.SET, Statechart_1_0Package.STATECHART__NAME, oldName,
+					name));
 		}
 	}
 
@@ -219,12 +220,12 @@ public class StatechartImpl extends MinimalEObjectImpl.Container implements Stat
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case Statechart_1_0Package.STATECHART__STATE:
-			return ((InternalEList<?>) getState()).basicRemove(otherEnd, msgs);
-		case Statechart_1_0Package.STATECHART__TRANSITION:
-			return ((InternalEList<?>) getTransition()).basicRemove(otherEnd, msgs);
-		case Statechart_1_0Package.STATECHART__EXT:
-			return ((InternalEList<?>) getExt()).basicRemove(otherEnd, msgs);
+			case Statechart_1_0Package.STATECHART__STATE:
+				return ((InternalEList<?>) getState()).basicRemove(otherEnd, msgs);
+			case Statechart_1_0Package.STATECHART__TRANSITION:
+				return ((InternalEList<?>) getTransition()).basicRemove(otherEnd, msgs);
+			case Statechart_1_0Package.STATECHART__EXT:
+				return ((InternalEList<?>) getExt()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -237,16 +238,16 @@ public class StatechartImpl extends MinimalEObjectImpl.Container implements Stat
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case Statechart_1_0Package.STATECHART__STATE:
-			return getState();
-		case Statechart_1_0Package.STATECHART__TRANSITION:
-			return getTransition();
-		case Statechart_1_0Package.STATECHART__EXT:
-			return getExt();
-		case Statechart_1_0Package.STATECHART__ID:
-			return getId();
-		case Statechart_1_0Package.STATECHART__NAME:
-			return getName();
+			case Statechart_1_0Package.STATECHART__STATE:
+				return getState();
+			case Statechart_1_0Package.STATECHART__TRANSITION:
+				return getTransition();
+			case Statechart_1_0Package.STATECHART__EXT:
+				return getExt();
+			case Statechart_1_0Package.STATECHART__ID:
+				return getId();
+			case Statechart_1_0Package.STATECHART__NAME:
+				return getName();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -260,24 +261,24 @@ public class StatechartImpl extends MinimalEObjectImpl.Container implements Stat
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Statechart_1_0Package.STATECHART__STATE:
-			getState().clear();
-			getState().addAll((Collection<? extends PseudoState>) newValue);
-			return;
-		case Statechart_1_0Package.STATECHART__TRANSITION:
-			getTransition().clear();
-			getTransition().addAll((Collection<? extends Transition>) newValue);
-			return;
-		case Statechart_1_0Package.STATECHART__EXT:
-			getExt().clear();
-			getExt().addAll((Collection<? extends Extension>) newValue);
-			return;
-		case Statechart_1_0Package.STATECHART__ID:
-			setId((String) newValue);
-			return;
-		case Statechart_1_0Package.STATECHART__NAME:
-			setName((String) newValue);
-			return;
+			case Statechart_1_0Package.STATECHART__STATE:
+				getState().clear();
+				getState().addAll((Collection<? extends PseudoState>) newValue);
+				return;
+			case Statechart_1_0Package.STATECHART__TRANSITION:
+				getTransition().clear();
+				getTransition().addAll((Collection<? extends Transition>) newValue);
+				return;
+			case Statechart_1_0Package.STATECHART__EXT:
+				getExt().clear();
+				getExt().addAll((Collection<? extends Extension>) newValue);
+				return;
+			case Statechart_1_0Package.STATECHART__ID:
+				setId((String) newValue);
+				return;
+			case Statechart_1_0Package.STATECHART__NAME:
+				setName((String) newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -290,21 +291,21 @@ public class StatechartImpl extends MinimalEObjectImpl.Container implements Stat
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Statechart_1_0Package.STATECHART__STATE:
-			getState().clear();
-			return;
-		case Statechart_1_0Package.STATECHART__TRANSITION:
-			getTransition().clear();
-			return;
-		case Statechart_1_0Package.STATECHART__EXT:
-			getExt().clear();
-			return;
-		case Statechart_1_0Package.STATECHART__ID:
-			setId(ID_EDEFAULT);
-			return;
-		case Statechart_1_0Package.STATECHART__NAME:
-			setName(NAME_EDEFAULT);
-			return;
+			case Statechart_1_0Package.STATECHART__STATE:
+				getState().clear();
+				return;
+			case Statechart_1_0Package.STATECHART__TRANSITION:
+				getTransition().clear();
+				return;
+			case Statechart_1_0Package.STATECHART__EXT:
+				getExt().clear();
+				return;
+			case Statechart_1_0Package.STATECHART__ID:
+				setId(ID_EDEFAULT);
+				return;
+			case Statechart_1_0Package.STATECHART__NAME:
+				setName(NAME_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -317,16 +318,16 @@ public class StatechartImpl extends MinimalEObjectImpl.Container implements Stat
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Statechart_1_0Package.STATECHART__STATE:
-			return state != null && !state.isEmpty();
-		case Statechart_1_0Package.STATECHART__TRANSITION:
-			return transition != null && !transition.isEmpty();
-		case Statechart_1_0Package.STATECHART__EXT:
-			return ext != null && !ext.isEmpty();
-		case Statechart_1_0Package.STATECHART__ID:
-			return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
-		case Statechart_1_0Package.STATECHART__NAME:
-			return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+			case Statechart_1_0Package.STATECHART__STATE:
+				return state != null && !state.isEmpty();
+			case Statechart_1_0Package.STATECHART__TRANSITION:
+				return transition != null && !transition.isEmpty();
+			case Statechart_1_0Package.STATECHART__EXT:
+				return ext != null && !ext.isEmpty();
+			case Statechart_1_0Package.STATECHART__ID:
+				return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
+			case Statechart_1_0Package.STATECHART__NAME:
+				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -351,4 +352,4 @@ public class StatechartImpl extends MinimalEObjectImpl.Container implements Stat
 		return result.toString();
 	}
 
-} //StatechartImpl
+} // StatechartImpl

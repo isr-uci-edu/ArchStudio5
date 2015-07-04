@@ -2,6 +2,16 @@
  */
 package net.gexf_1_2.gexf.impl;
 
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.impl.EFactoryImpl;
+import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import org.eclipse.emf.ecore.util.Diagnostician;
+import org.eclipse.emf.ecore.xml.type.XMLTypeFactory;
+import org.eclipse.emf.ecore.xml.type.XMLTypePackage;
+
 import net.gexf_1_2.gexf.AttributeContent;
 import net.gexf_1_2.gexf.AttributesContent;
 import net.gexf_1_2.gexf.AttrtypeType;
@@ -28,16 +38,6 @@ import net.gexf_1_2.gexf.SpellType;
 import net.gexf_1_2.gexf.SpellsContent;
 import net.gexf_1_2.gexf.TimeformatType;
 import net.gexf_1_2.gexf.VersionType;
-
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EDataType;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.impl.EFactoryImpl;
-import org.eclipse.emf.ecore.plugin.EcorePlugin;
-import org.eclipse.emf.ecore.util.Diagnostician;
-import org.eclipse.emf.ecore.xml.type.XMLTypeFactory;
-import org.eclipse.emf.ecore.xml.type.XMLTypePackage;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model <b>Factory</b>. <!-- end-user-doc -->
@@ -80,40 +80,40 @@ public class GexfFactoryImpl extends EFactoryImpl implements GexfFactory {
 	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
-		case GexfPackage.ATTRIBUTE_CONTENT:
-			return createAttributeContent();
-		case GexfPackage.ATTRIBUTES_CONTENT:
-			return createAttributesContent();
-		case GexfPackage.ATTVALUES_CONTENT:
-			return createAttvaluesContent();
-		case GexfPackage.ATTVALUE_TYPE:
-			return createAttvalueType();
-		case GexfPackage.DOCUMENT_ROOT:
-			return createDocumentRoot();
-		case GexfPackage.EDGE_CONTENT:
-			return createEdgeContent();
-		case GexfPackage.EDGES_CONTENT:
-			return createEdgesContent();
-		case GexfPackage.GEXF_CONTENT:
-			return createGexfContent();
-		case GexfPackage.GRAPH_CONTENT:
-			return createGraphContent();
-		case GexfPackage.META_CONTENT:
-			return createMetaContent();
-		case GexfPackage.NODE_CONTENT:
-			return createNodeContent();
-		case GexfPackage.NODES_CONTENT:
-			return createNodesContent();
-		case GexfPackage.PARENTS_CONTENT:
-			return createParentsContent();
-		case GexfPackage.PARENT_TYPE:
-			return createParentType();
-		case GexfPackage.SPELLS_CONTENT:
-			return createSpellsContent();
-		case GexfPackage.SPELL_TYPE:
-			return createSpellType();
-		default:
-			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+			case GexfPackage.ATTRIBUTE_CONTENT:
+				return createAttributeContent();
+			case GexfPackage.ATTRIBUTES_CONTENT:
+				return createAttributesContent();
+			case GexfPackage.ATTVALUES_CONTENT:
+				return createAttvaluesContent();
+			case GexfPackage.ATTVALUE_TYPE:
+				return createAttvalueType();
+			case GexfPackage.DOCUMENT_ROOT:
+				return createDocumentRoot();
+			case GexfPackage.EDGE_CONTENT:
+				return createEdgeContent();
+			case GexfPackage.EDGES_CONTENT:
+				return createEdgesContent();
+			case GexfPackage.GEXF_CONTENT:
+				return createGexfContent();
+			case GexfPackage.GRAPH_CONTENT:
+				return createGraphContent();
+			case GexfPackage.META_CONTENT:
+				return createMetaContent();
+			case GexfPackage.NODE_CONTENT:
+				return createNodeContent();
+			case GexfPackage.NODES_CONTENT:
+				return createNodesContent();
+			case GexfPackage.PARENTS_CONTENT:
+				return createParentsContent();
+			case GexfPackage.PARENT_TYPE:
+				return createParentType();
+			case GexfPackage.SPELLS_CONTENT:
+				return createSpellsContent();
+			case GexfPackage.SPELL_TYPE:
+				return createSpellType();
+			default:
+				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
 	}
 
@@ -125,48 +125,49 @@ public class GexfFactoryImpl extends EFactoryImpl implements GexfFactory {
 	@Override
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
-		case GexfPackage.ATTRTYPE_TYPE:
-			return createAttrtypeTypeFromString(eDataType, initialValue);
-		case GexfPackage.CLASS_TYPE:
-			return createClassTypeFromString(eDataType, initialValue);
-		case GexfPackage.DEFAULTEDGETYPE_TYPE:
-			return createDefaultedgetypeTypeFromString(eDataType, initialValue);
-		case GexfPackage.EDGETYPE_TYPE:
-			return createEdgetypeTypeFromString(eDataType, initialValue);
-		case GexfPackage.IDTYPE_TYPE:
-			return createIdtypeTypeFromString(eDataType, initialValue);
-		case GexfPackage.MODE_TYPE:
-			return createModeTypeFromString(eDataType, initialValue);
-		case GexfPackage.TIMEFORMAT_TYPE:
-			return createTimeformatTypeFromString(eDataType, initialValue);
-		case GexfPackage.VERSION_TYPE:
-			return createVersionTypeFromString(eDataType, initialValue);
-		case GexfPackage.ATTRTYPE_TYPE_OBJECT:
-			return createAttrtypeTypeObjectFromString(eDataType, initialValue);
-		case GexfPackage.CLASS_TYPE_OBJECT:
-			return createClassTypeObjectFromString(eDataType, initialValue);
-		case GexfPackage.DEFAULTEDGETYPE_TYPE_OBJECT:
-			return createDefaultedgetypeTypeObjectFromString(eDataType, initialValue);
-		case GexfPackage.EDGETYPE_TYPE_OBJECT:
-			return createEdgetypeTypeObjectFromString(eDataType, initialValue);
-		case GexfPackage.ID_TYPE:
-			return createIdTypeFromString(eDataType, initialValue);
-		case GexfPackage.IDTYPE_TYPE_OBJECT:
-			return createIdtypeTypeObjectFromString(eDataType, initialValue);
-		case GexfPackage.MODE_TYPE_OBJECT:
-			return createModeTypeObjectFromString(eDataType, initialValue);
-		case GexfPackage.TIMEFORMAT_TYPE_OBJECT:
-			return createTimeformatTypeObjectFromString(eDataType, initialValue);
-		case GexfPackage.TIME_TYPE:
-			return createTimeTypeFromString(eDataType, initialValue);
-		case GexfPackage.VERSION_TYPE_OBJECT:
-			return createVersionTypeObjectFromString(eDataType, initialValue);
-		case GexfPackage.WEIGHT_TYPE:
-			return createWeightTypeFromString(eDataType, initialValue);
-		case GexfPackage.WEIGHT_TYPE_OBJECT:
-			return createWeightTypeObjectFromString(eDataType, initialValue);
-		default:
-			throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
+			case GexfPackage.ATTRTYPE_TYPE:
+				return createAttrtypeTypeFromString(eDataType, initialValue);
+			case GexfPackage.CLASS_TYPE:
+				return createClassTypeFromString(eDataType, initialValue);
+			case GexfPackage.DEFAULTEDGETYPE_TYPE:
+				return createDefaultedgetypeTypeFromString(eDataType, initialValue);
+			case GexfPackage.EDGETYPE_TYPE:
+				return createEdgetypeTypeFromString(eDataType, initialValue);
+			case GexfPackage.IDTYPE_TYPE:
+				return createIdtypeTypeFromString(eDataType, initialValue);
+			case GexfPackage.MODE_TYPE:
+				return createModeTypeFromString(eDataType, initialValue);
+			case GexfPackage.TIMEFORMAT_TYPE:
+				return createTimeformatTypeFromString(eDataType, initialValue);
+			case GexfPackage.VERSION_TYPE:
+				return createVersionTypeFromString(eDataType, initialValue);
+			case GexfPackage.ATTRTYPE_TYPE_OBJECT:
+				return createAttrtypeTypeObjectFromString(eDataType, initialValue);
+			case GexfPackage.CLASS_TYPE_OBJECT:
+				return createClassTypeObjectFromString(eDataType, initialValue);
+			case GexfPackage.DEFAULTEDGETYPE_TYPE_OBJECT:
+				return createDefaultedgetypeTypeObjectFromString(eDataType, initialValue);
+			case GexfPackage.EDGETYPE_TYPE_OBJECT:
+				return createEdgetypeTypeObjectFromString(eDataType, initialValue);
+			case GexfPackage.ID_TYPE:
+				return createIdTypeFromString(eDataType, initialValue);
+			case GexfPackage.IDTYPE_TYPE_OBJECT:
+				return createIdtypeTypeObjectFromString(eDataType, initialValue);
+			case GexfPackage.MODE_TYPE_OBJECT:
+				return createModeTypeObjectFromString(eDataType, initialValue);
+			case GexfPackage.TIMEFORMAT_TYPE_OBJECT:
+				return createTimeformatTypeObjectFromString(eDataType, initialValue);
+			case GexfPackage.TIME_TYPE:
+				return createTimeTypeFromString(eDataType, initialValue);
+			case GexfPackage.VERSION_TYPE_OBJECT:
+				return createVersionTypeObjectFromString(eDataType, initialValue);
+			case GexfPackage.WEIGHT_TYPE:
+				return createWeightTypeFromString(eDataType, initialValue);
+			case GexfPackage.WEIGHT_TYPE_OBJECT:
+				return createWeightTypeObjectFromString(eDataType, initialValue);
+			default:
+				throw new IllegalArgumentException(
+						"The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
 	}
 
@@ -178,48 +179,49 @@ public class GexfFactoryImpl extends EFactoryImpl implements GexfFactory {
 	@Override
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
-		case GexfPackage.ATTRTYPE_TYPE:
-			return convertAttrtypeTypeToString(eDataType, instanceValue);
-		case GexfPackage.CLASS_TYPE:
-			return convertClassTypeToString(eDataType, instanceValue);
-		case GexfPackage.DEFAULTEDGETYPE_TYPE:
-			return convertDefaultedgetypeTypeToString(eDataType, instanceValue);
-		case GexfPackage.EDGETYPE_TYPE:
-			return convertEdgetypeTypeToString(eDataType, instanceValue);
-		case GexfPackage.IDTYPE_TYPE:
-			return convertIdtypeTypeToString(eDataType, instanceValue);
-		case GexfPackage.MODE_TYPE:
-			return convertModeTypeToString(eDataType, instanceValue);
-		case GexfPackage.TIMEFORMAT_TYPE:
-			return convertTimeformatTypeToString(eDataType, instanceValue);
-		case GexfPackage.VERSION_TYPE:
-			return convertVersionTypeToString(eDataType, instanceValue);
-		case GexfPackage.ATTRTYPE_TYPE_OBJECT:
-			return convertAttrtypeTypeObjectToString(eDataType, instanceValue);
-		case GexfPackage.CLASS_TYPE_OBJECT:
-			return convertClassTypeObjectToString(eDataType, instanceValue);
-		case GexfPackage.DEFAULTEDGETYPE_TYPE_OBJECT:
-			return convertDefaultedgetypeTypeObjectToString(eDataType, instanceValue);
-		case GexfPackage.EDGETYPE_TYPE_OBJECT:
-			return convertEdgetypeTypeObjectToString(eDataType, instanceValue);
-		case GexfPackage.ID_TYPE:
-			return convertIdTypeToString(eDataType, instanceValue);
-		case GexfPackage.IDTYPE_TYPE_OBJECT:
-			return convertIdtypeTypeObjectToString(eDataType, instanceValue);
-		case GexfPackage.MODE_TYPE_OBJECT:
-			return convertModeTypeObjectToString(eDataType, instanceValue);
-		case GexfPackage.TIMEFORMAT_TYPE_OBJECT:
-			return convertTimeformatTypeObjectToString(eDataType, instanceValue);
-		case GexfPackage.TIME_TYPE:
-			return convertTimeTypeToString(eDataType, instanceValue);
-		case GexfPackage.VERSION_TYPE_OBJECT:
-			return convertVersionTypeObjectToString(eDataType, instanceValue);
-		case GexfPackage.WEIGHT_TYPE:
-			return convertWeightTypeToString(eDataType, instanceValue);
-		case GexfPackage.WEIGHT_TYPE_OBJECT:
-			return convertWeightTypeObjectToString(eDataType, instanceValue);
-		default:
-			throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
+			case GexfPackage.ATTRTYPE_TYPE:
+				return convertAttrtypeTypeToString(eDataType, instanceValue);
+			case GexfPackage.CLASS_TYPE:
+				return convertClassTypeToString(eDataType, instanceValue);
+			case GexfPackage.DEFAULTEDGETYPE_TYPE:
+				return convertDefaultedgetypeTypeToString(eDataType, instanceValue);
+			case GexfPackage.EDGETYPE_TYPE:
+				return convertEdgetypeTypeToString(eDataType, instanceValue);
+			case GexfPackage.IDTYPE_TYPE:
+				return convertIdtypeTypeToString(eDataType, instanceValue);
+			case GexfPackage.MODE_TYPE:
+				return convertModeTypeToString(eDataType, instanceValue);
+			case GexfPackage.TIMEFORMAT_TYPE:
+				return convertTimeformatTypeToString(eDataType, instanceValue);
+			case GexfPackage.VERSION_TYPE:
+				return convertVersionTypeToString(eDataType, instanceValue);
+			case GexfPackage.ATTRTYPE_TYPE_OBJECT:
+				return convertAttrtypeTypeObjectToString(eDataType, instanceValue);
+			case GexfPackage.CLASS_TYPE_OBJECT:
+				return convertClassTypeObjectToString(eDataType, instanceValue);
+			case GexfPackage.DEFAULTEDGETYPE_TYPE_OBJECT:
+				return convertDefaultedgetypeTypeObjectToString(eDataType, instanceValue);
+			case GexfPackage.EDGETYPE_TYPE_OBJECT:
+				return convertEdgetypeTypeObjectToString(eDataType, instanceValue);
+			case GexfPackage.ID_TYPE:
+				return convertIdTypeToString(eDataType, instanceValue);
+			case GexfPackage.IDTYPE_TYPE_OBJECT:
+				return convertIdtypeTypeObjectToString(eDataType, instanceValue);
+			case GexfPackage.MODE_TYPE_OBJECT:
+				return convertModeTypeObjectToString(eDataType, instanceValue);
+			case GexfPackage.TIMEFORMAT_TYPE_OBJECT:
+				return convertTimeformatTypeObjectToString(eDataType, instanceValue);
+			case GexfPackage.TIME_TYPE:
+				return convertTimeTypeToString(eDataType, instanceValue);
+			case GexfPackage.VERSION_TYPE_OBJECT:
+				return convertVersionTypeObjectToString(eDataType, instanceValue);
+			case GexfPackage.WEIGHT_TYPE:
+				return convertWeightTypeToString(eDataType, instanceValue);
+			case GexfPackage.WEIGHT_TYPE_OBJECT:
+				return convertWeightTypeObjectToString(eDataType, instanceValue);
+			default:
+				throw new IllegalArgumentException(
+						"The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
 	}
 
@@ -407,8 +409,8 @@ public class GexfFactoryImpl extends EFactoryImpl implements GexfFactory {
 	public AttrtypeType createAttrtypeTypeFromString(EDataType eDataType, String initialValue) {
 		AttrtypeType result = AttrtypeType.get(initialValue);
 		if (result == null) {
-			throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
-					+ eDataType.getName() + "'");
+			throw new IllegalArgumentException(
+					"The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
 		}
 		return result;
 	}
@@ -430,8 +432,8 @@ public class GexfFactoryImpl extends EFactoryImpl implements GexfFactory {
 	public ClassType createClassTypeFromString(EDataType eDataType, String initialValue) {
 		ClassType result = ClassType.get(initialValue);
 		if (result == null) {
-			throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
-					+ eDataType.getName() + "'");
+			throw new IllegalArgumentException(
+					"The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
 		}
 		return result;
 	}
@@ -453,8 +455,8 @@ public class GexfFactoryImpl extends EFactoryImpl implements GexfFactory {
 	public DefaultedgetypeType createDefaultedgetypeTypeFromString(EDataType eDataType, String initialValue) {
 		DefaultedgetypeType result = DefaultedgetypeType.get(initialValue);
 		if (result == null) {
-			throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
-					+ eDataType.getName() + "'");
+			throw new IllegalArgumentException(
+					"The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
 		}
 		return result;
 	}
@@ -476,8 +478,8 @@ public class GexfFactoryImpl extends EFactoryImpl implements GexfFactory {
 	public EdgetypeType createEdgetypeTypeFromString(EDataType eDataType, String initialValue) {
 		EdgetypeType result = EdgetypeType.get(initialValue);
 		if (result == null) {
-			throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
-					+ eDataType.getName() + "'");
+			throw new IllegalArgumentException(
+					"The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
 		}
 		return result;
 	}
@@ -499,8 +501,8 @@ public class GexfFactoryImpl extends EFactoryImpl implements GexfFactory {
 	public IdtypeType createIdtypeTypeFromString(EDataType eDataType, String initialValue) {
 		IdtypeType result = IdtypeType.get(initialValue);
 		if (result == null) {
-			throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
-					+ eDataType.getName() + "'");
+			throw new IllegalArgumentException(
+					"The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
 		}
 		return result;
 	}
@@ -522,8 +524,8 @@ public class GexfFactoryImpl extends EFactoryImpl implements GexfFactory {
 	public ModeType createModeTypeFromString(EDataType eDataType, String initialValue) {
 		ModeType result = ModeType.get(initialValue);
 		if (result == null) {
-			throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
-					+ eDataType.getName() + "'");
+			throw new IllegalArgumentException(
+					"The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
 		}
 		return result;
 	}
@@ -545,8 +547,8 @@ public class GexfFactoryImpl extends EFactoryImpl implements GexfFactory {
 	public TimeformatType createTimeformatTypeFromString(EDataType eDataType, String initialValue) {
 		TimeformatType result = TimeformatType.get(initialValue);
 		if (result == null) {
-			throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
-					+ eDataType.getName() + "'");
+			throw new IllegalArgumentException(
+					"The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
 		}
 		return result;
 	}
@@ -568,8 +570,8 @@ public class GexfFactoryImpl extends EFactoryImpl implements GexfFactory {
 	public VersionType createVersionTypeFromString(EDataType eDataType, String initialValue) {
 		VersionType result = VersionType.get(initialValue);
 		if (result == null) {
-			throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
-					+ eDataType.getName() + "'");
+			throw new IllegalArgumentException(
+					"The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
 		}
 		return result;
 	}
@@ -722,8 +724,8 @@ public class GexfFactoryImpl extends EFactoryImpl implements GexfFactory {
 				// Keep trying other member types until all have failed.
 			}
 		}
-		throw new IllegalArgumentException("Invalid value: '" + instanceValue + "' for datatype :"
-				+ eDataType.getName());
+		throw new IllegalArgumentException(
+				"Invalid value: '" + instanceValue + "' for datatype :" + eDataType.getName());
 	}
 
 	/**
@@ -878,8 +880,8 @@ public class GexfFactoryImpl extends EFactoryImpl implements GexfFactory {
 		}
 		if (XMLTypePackage.Literals.DATE_TIME.isInstance(instanceValue)) {
 			try {
-				String value = XMLTypeFactory.eINSTANCE.convertToString(XMLTypePackage.Literals.DATE_TIME,
-						instanceValue);
+				String value =
+						XMLTypeFactory.eINSTANCE.convertToString(XMLTypePackage.Literals.DATE_TIME, instanceValue);
 				if (value != null) {
 					return value;
 				}
@@ -888,8 +890,8 @@ public class GexfFactoryImpl extends EFactoryImpl implements GexfFactory {
 				// Keep trying other member types until all have failed.
 			}
 		}
-		throw new IllegalArgumentException("Invalid value: '" + instanceValue + "' for datatype :"
-				+ eDataType.getName());
+		throw new IllegalArgumentException(
+				"Invalid value: '" + instanceValue + "' for datatype :" + eDataType.getName());
 	}
 
 	/**
@@ -967,4 +969,4 @@ public class GexfFactoryImpl extends EFactoryImpl implements GexfFactory {
 		return GexfPackage.eINSTANCE;
 	}
 
-} //GexfFactoryImpl
+} // GexfFactoryImpl

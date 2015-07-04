@@ -4,16 +4,6 @@ package net.gexf_1_2.gexf.impl;
 
 import java.util.Collection;
 
-import net.gexf_1_2.gexf.AttributesContent;
-import net.gexf_1_2.gexf.DefaultedgetypeType;
-import net.gexf_1_2.gexf.EdgesContent;
-import net.gexf_1_2.gexf.GexfPackage;
-import net.gexf_1_2.gexf.GraphContent;
-import net.gexf_1_2.gexf.IdtypeType;
-import net.gexf_1_2.gexf.ModeType;
-import net.gexf_1_2.gexf.NodesContent;
-import net.gexf_1_2.gexf.TimeformatType;
-
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
@@ -25,10 +15,21 @@ import org.eclipse.emf.ecore.util.BasicFeatureMap;
 import org.eclipse.emf.ecore.util.FeatureMap;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import net.gexf_1_2.gexf.AttributesContent;
+import net.gexf_1_2.gexf.DefaultedgetypeType;
+import net.gexf_1_2.gexf.EdgesContent;
+import net.gexf_1_2.gexf.GexfPackage;
+import net.gexf_1_2.gexf.GraphContent;
+import net.gexf_1_2.gexf.IdtypeType;
+import net.gexf_1_2.gexf.ModeType;
+import net.gexf_1_2.gexf.NodesContent;
+import net.gexf_1_2.gexf.TimeformatType;
+
 /**
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Graph Content</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  * <li>{@link net.gexf_1_2.gexf.impl.GraphContentImpl#getGroup <em>Group</em>}</li>
  * <li>{@link net.gexf_1_2.gexf.impl.GraphContentImpl#getAttributes <em>Attributes</em>}</li>
@@ -43,7 +44,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <li>{@link net.gexf_1_2.gexf.impl.GraphContentImpl#getStartopen <em>Startopen</em>}</li>
  * <li>{@link net.gexf_1_2.gexf.impl.GraphContentImpl#getTimeformat <em>Timeformat</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -633,14 +633,14 @@ public class GraphContentImpl extends MinimalEObjectImpl.Container implements Gr
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case GexfPackage.GRAPH_CONTENT__GROUP:
-			return ((InternalEList<?>) getGroup()).basicRemove(otherEnd, msgs);
-		case GexfPackage.GRAPH_CONTENT__ATTRIBUTES:
-			return ((InternalEList<?>) getAttributes()).basicRemove(otherEnd, msgs);
-		case GexfPackage.GRAPH_CONTENT__NODES:
-			return ((InternalEList<?>) getNodes()).basicRemove(otherEnd, msgs);
-		case GexfPackage.GRAPH_CONTENT__EDGES:
-			return ((InternalEList<?>) getEdges()).basicRemove(otherEnd, msgs);
+			case GexfPackage.GRAPH_CONTENT__GROUP:
+				return ((InternalEList<?>) getGroup()).basicRemove(otherEnd, msgs);
+			case GexfPackage.GRAPH_CONTENT__ATTRIBUTES:
+				return ((InternalEList<?>) getAttributes()).basicRemove(otherEnd, msgs);
+			case GexfPackage.GRAPH_CONTENT__NODES:
+				return ((InternalEList<?>) getNodes()).basicRemove(otherEnd, msgs);
+			case GexfPackage.GRAPH_CONTENT__EDGES:
+				return ((InternalEList<?>) getEdges()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -653,33 +653,33 @@ public class GraphContentImpl extends MinimalEObjectImpl.Container implements Gr
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case GexfPackage.GRAPH_CONTENT__GROUP:
-			if (coreType) {
-				return getGroup();
-			}
-			return ((FeatureMap.Internal) getGroup()).getWrapper();
-		case GexfPackage.GRAPH_CONTENT__ATTRIBUTES:
-			return getAttributes();
-		case GexfPackage.GRAPH_CONTENT__NODES:
-			return getNodes();
-		case GexfPackage.GRAPH_CONTENT__EDGES:
-			return getEdges();
-		case GexfPackage.GRAPH_CONTENT__DEFAULTEDGETYPE:
-			return getDefaultedgetype();
-		case GexfPackage.GRAPH_CONTENT__END:
-			return getEnd();
-		case GexfPackage.GRAPH_CONTENT__ENDOPEN:
-			return getEndopen();
-		case GexfPackage.GRAPH_CONTENT__IDTYPE:
-			return getIdtype();
-		case GexfPackage.GRAPH_CONTENT__MODE:
-			return getMode();
-		case GexfPackage.GRAPH_CONTENT__START:
-			return getStart();
-		case GexfPackage.GRAPH_CONTENT__STARTOPEN:
-			return getStartopen();
-		case GexfPackage.GRAPH_CONTENT__TIMEFORMAT:
-			return getTimeformat();
+			case GexfPackage.GRAPH_CONTENT__GROUP:
+				if (coreType) {
+					return getGroup();
+				}
+				return ((FeatureMap.Internal) getGroup()).getWrapper();
+			case GexfPackage.GRAPH_CONTENT__ATTRIBUTES:
+				return getAttributes();
+			case GexfPackage.GRAPH_CONTENT__NODES:
+				return getNodes();
+			case GexfPackage.GRAPH_CONTENT__EDGES:
+				return getEdges();
+			case GexfPackage.GRAPH_CONTENT__DEFAULTEDGETYPE:
+				return getDefaultedgetype();
+			case GexfPackage.GRAPH_CONTENT__END:
+				return getEnd();
+			case GexfPackage.GRAPH_CONTENT__ENDOPEN:
+				return getEndopen();
+			case GexfPackage.GRAPH_CONTENT__IDTYPE:
+				return getIdtype();
+			case GexfPackage.GRAPH_CONTENT__MODE:
+				return getMode();
+			case GexfPackage.GRAPH_CONTENT__START:
+				return getStart();
+			case GexfPackage.GRAPH_CONTENT__STARTOPEN:
+				return getStartopen();
+			case GexfPackage.GRAPH_CONTENT__TIMEFORMAT:
+				return getTimeformat();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -693,45 +693,45 @@ public class GraphContentImpl extends MinimalEObjectImpl.Container implements Gr
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case GexfPackage.GRAPH_CONTENT__GROUP:
-			((FeatureMap.Internal) getGroup()).set(newValue);
-			return;
-		case GexfPackage.GRAPH_CONTENT__ATTRIBUTES:
-			getAttributes().clear();
-			getAttributes().addAll((Collection<? extends AttributesContent>) newValue);
-			return;
-		case GexfPackage.GRAPH_CONTENT__NODES:
-			getNodes().clear();
-			getNodes().addAll((Collection<? extends NodesContent>) newValue);
-			return;
-		case GexfPackage.GRAPH_CONTENT__EDGES:
-			getEdges().clear();
-			getEdges().addAll((Collection<? extends EdgesContent>) newValue);
-			return;
-		case GexfPackage.GRAPH_CONTENT__DEFAULTEDGETYPE:
-			setDefaultedgetype((DefaultedgetypeType) newValue);
-			return;
-		case GexfPackage.GRAPH_CONTENT__END:
-			setEnd(newValue);
-			return;
-		case GexfPackage.GRAPH_CONTENT__ENDOPEN:
-			setEndopen(newValue);
-			return;
-		case GexfPackage.GRAPH_CONTENT__IDTYPE:
-			setIdtype((IdtypeType) newValue);
-			return;
-		case GexfPackage.GRAPH_CONTENT__MODE:
-			setMode((ModeType) newValue);
-			return;
-		case GexfPackage.GRAPH_CONTENT__START:
-			setStart(newValue);
-			return;
-		case GexfPackage.GRAPH_CONTENT__STARTOPEN:
-			setStartopen(newValue);
-			return;
-		case GexfPackage.GRAPH_CONTENT__TIMEFORMAT:
-			setTimeformat((TimeformatType) newValue);
-			return;
+			case GexfPackage.GRAPH_CONTENT__GROUP:
+				((FeatureMap.Internal) getGroup()).set(newValue);
+				return;
+			case GexfPackage.GRAPH_CONTENT__ATTRIBUTES:
+				getAttributes().clear();
+				getAttributes().addAll((Collection<? extends AttributesContent>) newValue);
+				return;
+			case GexfPackage.GRAPH_CONTENT__NODES:
+				getNodes().clear();
+				getNodes().addAll((Collection<? extends NodesContent>) newValue);
+				return;
+			case GexfPackage.GRAPH_CONTENT__EDGES:
+				getEdges().clear();
+				getEdges().addAll((Collection<? extends EdgesContent>) newValue);
+				return;
+			case GexfPackage.GRAPH_CONTENT__DEFAULTEDGETYPE:
+				setDefaultedgetype((DefaultedgetypeType) newValue);
+				return;
+			case GexfPackage.GRAPH_CONTENT__END:
+				setEnd(newValue);
+				return;
+			case GexfPackage.GRAPH_CONTENT__ENDOPEN:
+				setEndopen(newValue);
+				return;
+			case GexfPackage.GRAPH_CONTENT__IDTYPE:
+				setIdtype((IdtypeType) newValue);
+				return;
+			case GexfPackage.GRAPH_CONTENT__MODE:
+				setMode((ModeType) newValue);
+				return;
+			case GexfPackage.GRAPH_CONTENT__START:
+				setStart(newValue);
+				return;
+			case GexfPackage.GRAPH_CONTENT__STARTOPEN:
+				setStartopen(newValue);
+				return;
+			case GexfPackage.GRAPH_CONTENT__TIMEFORMAT:
+				setTimeformat((TimeformatType) newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -744,42 +744,42 @@ public class GraphContentImpl extends MinimalEObjectImpl.Container implements Gr
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case GexfPackage.GRAPH_CONTENT__GROUP:
-			getGroup().clear();
-			return;
-		case GexfPackage.GRAPH_CONTENT__ATTRIBUTES:
-			getAttributes().clear();
-			return;
-		case GexfPackage.GRAPH_CONTENT__NODES:
-			getNodes().clear();
-			return;
-		case GexfPackage.GRAPH_CONTENT__EDGES:
-			getEdges().clear();
-			return;
-		case GexfPackage.GRAPH_CONTENT__DEFAULTEDGETYPE:
-			unsetDefaultedgetype();
-			return;
-		case GexfPackage.GRAPH_CONTENT__END:
-			setEnd(END_EDEFAULT);
-			return;
-		case GexfPackage.GRAPH_CONTENT__ENDOPEN:
-			setEndopen(ENDOPEN_EDEFAULT);
-			return;
-		case GexfPackage.GRAPH_CONTENT__IDTYPE:
-			unsetIdtype();
-			return;
-		case GexfPackage.GRAPH_CONTENT__MODE:
-			unsetMode();
-			return;
-		case GexfPackage.GRAPH_CONTENT__START:
-			setStart(START_EDEFAULT);
-			return;
-		case GexfPackage.GRAPH_CONTENT__STARTOPEN:
-			setStartopen(STARTOPEN_EDEFAULT);
-			return;
-		case GexfPackage.GRAPH_CONTENT__TIMEFORMAT:
-			unsetTimeformat();
-			return;
+			case GexfPackage.GRAPH_CONTENT__GROUP:
+				getGroup().clear();
+				return;
+			case GexfPackage.GRAPH_CONTENT__ATTRIBUTES:
+				getAttributes().clear();
+				return;
+			case GexfPackage.GRAPH_CONTENT__NODES:
+				getNodes().clear();
+				return;
+			case GexfPackage.GRAPH_CONTENT__EDGES:
+				getEdges().clear();
+				return;
+			case GexfPackage.GRAPH_CONTENT__DEFAULTEDGETYPE:
+				unsetDefaultedgetype();
+				return;
+			case GexfPackage.GRAPH_CONTENT__END:
+				setEnd(END_EDEFAULT);
+				return;
+			case GexfPackage.GRAPH_CONTENT__ENDOPEN:
+				setEndopen(ENDOPEN_EDEFAULT);
+				return;
+			case GexfPackage.GRAPH_CONTENT__IDTYPE:
+				unsetIdtype();
+				return;
+			case GexfPackage.GRAPH_CONTENT__MODE:
+				unsetMode();
+				return;
+			case GexfPackage.GRAPH_CONTENT__START:
+				setStart(START_EDEFAULT);
+				return;
+			case GexfPackage.GRAPH_CONTENT__STARTOPEN:
+				setStartopen(STARTOPEN_EDEFAULT);
+				return;
+			case GexfPackage.GRAPH_CONTENT__TIMEFORMAT:
+				unsetTimeformat();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -792,30 +792,30 @@ public class GraphContentImpl extends MinimalEObjectImpl.Container implements Gr
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case GexfPackage.GRAPH_CONTENT__GROUP:
-			return group != null && !group.isEmpty();
-		case GexfPackage.GRAPH_CONTENT__ATTRIBUTES:
-			return !getAttributes().isEmpty();
-		case GexfPackage.GRAPH_CONTENT__NODES:
-			return !getNodes().isEmpty();
-		case GexfPackage.GRAPH_CONTENT__EDGES:
-			return !getEdges().isEmpty();
-		case GexfPackage.GRAPH_CONTENT__DEFAULTEDGETYPE:
-			return isSetDefaultedgetype();
-		case GexfPackage.GRAPH_CONTENT__END:
-			return END_EDEFAULT == null ? end != null : !END_EDEFAULT.equals(end);
-		case GexfPackage.GRAPH_CONTENT__ENDOPEN:
-			return ENDOPEN_EDEFAULT == null ? endopen != null : !ENDOPEN_EDEFAULT.equals(endopen);
-		case GexfPackage.GRAPH_CONTENT__IDTYPE:
-			return isSetIdtype();
-		case GexfPackage.GRAPH_CONTENT__MODE:
-			return isSetMode();
-		case GexfPackage.GRAPH_CONTENT__START:
-			return START_EDEFAULT == null ? start != null : !START_EDEFAULT.equals(start);
-		case GexfPackage.GRAPH_CONTENT__STARTOPEN:
-			return STARTOPEN_EDEFAULT == null ? startopen != null : !STARTOPEN_EDEFAULT.equals(startopen);
-		case GexfPackage.GRAPH_CONTENT__TIMEFORMAT:
-			return isSetTimeformat();
+			case GexfPackage.GRAPH_CONTENT__GROUP:
+				return group != null && !group.isEmpty();
+			case GexfPackage.GRAPH_CONTENT__ATTRIBUTES:
+				return !getAttributes().isEmpty();
+			case GexfPackage.GRAPH_CONTENT__NODES:
+				return !getNodes().isEmpty();
+			case GexfPackage.GRAPH_CONTENT__EDGES:
+				return !getEdges().isEmpty();
+			case GexfPackage.GRAPH_CONTENT__DEFAULTEDGETYPE:
+				return isSetDefaultedgetype();
+			case GexfPackage.GRAPH_CONTENT__END:
+				return END_EDEFAULT == null ? end != null : !END_EDEFAULT.equals(end);
+			case GexfPackage.GRAPH_CONTENT__ENDOPEN:
+				return ENDOPEN_EDEFAULT == null ? endopen != null : !ENDOPEN_EDEFAULT.equals(endopen);
+			case GexfPackage.GRAPH_CONTENT__IDTYPE:
+				return isSetIdtype();
+			case GexfPackage.GRAPH_CONTENT__MODE:
+				return isSetMode();
+			case GexfPackage.GRAPH_CONTENT__START:
+				return START_EDEFAULT == null ? start != null : !START_EDEFAULT.equals(start);
+			case GexfPackage.GRAPH_CONTENT__STARTOPEN:
+				return STARTOPEN_EDEFAULT == null ? startopen != null : !STARTOPEN_EDEFAULT.equals(startopen);
+			case GexfPackage.GRAPH_CONTENT__TIMEFORMAT:
+				return isSetTimeformat();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -874,4 +874,4 @@ public class GraphContentImpl extends MinimalEObjectImpl.Container implements Gr
 		return result.toString();
 	}
 
-} //GraphContentImpl
+} // GraphContentImpl

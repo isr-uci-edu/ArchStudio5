@@ -22,12 +22,12 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  * <li>{@link org.archstudio.xadl3.javaimplementation_3_0.impl.ClassPathEntryImpl#getExt <em>Ext</em>}</li>
  * <li>{@link org.archstudio.xadl3.javaimplementation_3_0.impl.ClassPathEntryImpl#getEntry <em>Entry</em>}</li>
  * <li>{@link org.archstudio.xadl3.javaimplementation_3_0.impl.ClassPathEntryImpl#getId <em>Id</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -133,8 +133,8 @@ public class ClassPathEntryImpl extends MinimalEObjectImpl.Container implements 
 		String oldEntry = entry;
 		entry = newEntry;
 		if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Javaimplementation_3_0Package.CLASS_PATH_ENTRY__ENTRY, oldEntry, entry));
+			eNotify(new ENotificationImpl(this, Notification.SET, Javaimplementation_3_0Package.CLASS_PATH_ENTRY__ENTRY,
+					oldEntry, entry));
 		}
 	}
 
@@ -171,8 +171,8 @@ public class ClassPathEntryImpl extends MinimalEObjectImpl.Container implements 
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case Javaimplementation_3_0Package.CLASS_PATH_ENTRY__EXT:
-			return ((InternalEList<?>) getExt()).basicRemove(otherEnd, msgs);
+			case Javaimplementation_3_0Package.CLASS_PATH_ENTRY__EXT:
+				return ((InternalEList<?>) getExt()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -185,12 +185,12 @@ public class ClassPathEntryImpl extends MinimalEObjectImpl.Container implements 
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case Javaimplementation_3_0Package.CLASS_PATH_ENTRY__EXT:
-			return getExt();
-		case Javaimplementation_3_0Package.CLASS_PATH_ENTRY__ENTRY:
-			return getEntry();
-		case Javaimplementation_3_0Package.CLASS_PATH_ENTRY__ID:
-			return getId();
+			case Javaimplementation_3_0Package.CLASS_PATH_ENTRY__EXT:
+				return getExt();
+			case Javaimplementation_3_0Package.CLASS_PATH_ENTRY__ENTRY:
+				return getEntry();
+			case Javaimplementation_3_0Package.CLASS_PATH_ENTRY__ID:
+				return getId();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -204,16 +204,16 @@ public class ClassPathEntryImpl extends MinimalEObjectImpl.Container implements 
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Javaimplementation_3_0Package.CLASS_PATH_ENTRY__EXT:
-			getExt().clear();
-			getExt().addAll((Collection<? extends Extension>) newValue);
-			return;
-		case Javaimplementation_3_0Package.CLASS_PATH_ENTRY__ENTRY:
-			setEntry((String) newValue);
-			return;
-		case Javaimplementation_3_0Package.CLASS_PATH_ENTRY__ID:
-			setId((String) newValue);
-			return;
+			case Javaimplementation_3_0Package.CLASS_PATH_ENTRY__EXT:
+				getExt().clear();
+				getExt().addAll((Collection<? extends Extension>) newValue);
+				return;
+			case Javaimplementation_3_0Package.CLASS_PATH_ENTRY__ENTRY:
+				setEntry((String) newValue);
+				return;
+			case Javaimplementation_3_0Package.CLASS_PATH_ENTRY__ID:
+				setId((String) newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -226,15 +226,15 @@ public class ClassPathEntryImpl extends MinimalEObjectImpl.Container implements 
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Javaimplementation_3_0Package.CLASS_PATH_ENTRY__EXT:
-			getExt().clear();
-			return;
-		case Javaimplementation_3_0Package.CLASS_PATH_ENTRY__ENTRY:
-			setEntry(ENTRY_EDEFAULT);
-			return;
-		case Javaimplementation_3_0Package.CLASS_PATH_ENTRY__ID:
-			setId(ID_EDEFAULT);
-			return;
+			case Javaimplementation_3_0Package.CLASS_PATH_ENTRY__EXT:
+				getExt().clear();
+				return;
+			case Javaimplementation_3_0Package.CLASS_PATH_ENTRY__ENTRY:
+				setEntry(ENTRY_EDEFAULT);
+				return;
+			case Javaimplementation_3_0Package.CLASS_PATH_ENTRY__ID:
+				setId(ID_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -247,12 +247,12 @@ public class ClassPathEntryImpl extends MinimalEObjectImpl.Container implements 
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Javaimplementation_3_0Package.CLASS_PATH_ENTRY__EXT:
-			return ext != null && !ext.isEmpty();
-		case Javaimplementation_3_0Package.CLASS_PATH_ENTRY__ENTRY:
-			return ENTRY_EDEFAULT == null ? entry != null : !ENTRY_EDEFAULT.equals(entry);
-		case Javaimplementation_3_0Package.CLASS_PATH_ENTRY__ID:
-			return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
+			case Javaimplementation_3_0Package.CLASS_PATH_ENTRY__EXT:
+				return ext != null && !ext.isEmpty();
+			case Javaimplementation_3_0Package.CLASS_PATH_ENTRY__ENTRY:
+				return ENTRY_EDEFAULT == null ? entry != null : !ENTRY_EDEFAULT.equals(entry);
+			case Javaimplementation_3_0Package.CLASS_PATH_ENTRY__ID:
+				return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -277,4 +277,4 @@ public class ClassPathEntryImpl extends MinimalEObjectImpl.Container implements 
 		return result.toString();
 	}
 
-} //ClassPathEntryImpl
+} // ClassPathEntryImpl

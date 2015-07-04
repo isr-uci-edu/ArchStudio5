@@ -23,12 +23,13 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
- * <li>{@link org.archstudio.xadl3.statechart_1_0.impl.StatechartSpecificationImpl#getStatechart <em>Statechart</em>}</li>
+ * <li>{@link org.archstudio.xadl3.statechart_1_0.impl.StatechartSpecificationImpl#getStatechart <em>Statechart</em>}
+ * </li>
  * <li>{@link org.archstudio.xadl3.statechart_1_0.impl.StatechartSpecificationImpl#getExt <em>Ext</em>}</li>
  * <li>{@link org.archstudio.xadl3.statechart_1_0.impl.StatechartSpecificationImpl#getId <em>Id</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -162,8 +163,8 @@ public class StatechartSpecificationImpl extends ExtensionImpl implements Statec
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case Statechart_1_0Package.STATECHART_SPECIFICATION__EXT:
-			return ((InternalEList<?>) getExt()).basicRemove(otherEnd, msgs);
+			case Statechart_1_0Package.STATECHART_SPECIFICATION__EXT:
+				return ((InternalEList<?>) getExt()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -176,12 +177,12 @@ public class StatechartSpecificationImpl extends ExtensionImpl implements Statec
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case Statechart_1_0Package.STATECHART_SPECIFICATION__STATECHART:
-			return getStatechart();
-		case Statechart_1_0Package.STATECHART_SPECIFICATION__EXT:
-			return getExt();
-		case Statechart_1_0Package.STATECHART_SPECIFICATION__ID:
-			return getId();
+			case Statechart_1_0Package.STATECHART_SPECIFICATION__STATECHART:
+				return getStatechart();
+			case Statechart_1_0Package.STATECHART_SPECIFICATION__EXT:
+				return getExt();
+			case Statechart_1_0Package.STATECHART_SPECIFICATION__ID:
+				return getId();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -195,16 +196,16 @@ public class StatechartSpecificationImpl extends ExtensionImpl implements Statec
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Statechart_1_0Package.STATECHART_SPECIFICATION__STATECHART:
-			setStatechart((Statechart) newValue);
-			return;
-		case Statechart_1_0Package.STATECHART_SPECIFICATION__EXT:
-			getExt().clear();
-			getExt().addAll((Collection<? extends Extension>) newValue);
-			return;
-		case Statechart_1_0Package.STATECHART_SPECIFICATION__ID:
-			setId((String) newValue);
-			return;
+			case Statechart_1_0Package.STATECHART_SPECIFICATION__STATECHART:
+				setStatechart((Statechart) newValue);
+				return;
+			case Statechart_1_0Package.STATECHART_SPECIFICATION__EXT:
+				getExt().clear();
+				getExt().addAll((Collection<? extends Extension>) newValue);
+				return;
+			case Statechart_1_0Package.STATECHART_SPECIFICATION__ID:
+				setId((String) newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -217,15 +218,15 @@ public class StatechartSpecificationImpl extends ExtensionImpl implements Statec
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Statechart_1_0Package.STATECHART_SPECIFICATION__STATECHART:
-			setStatechart((Statechart) null);
-			return;
-		case Statechart_1_0Package.STATECHART_SPECIFICATION__EXT:
-			getExt().clear();
-			return;
-		case Statechart_1_0Package.STATECHART_SPECIFICATION__ID:
-			setId(ID_EDEFAULT);
-			return;
+			case Statechart_1_0Package.STATECHART_SPECIFICATION__STATECHART:
+				setStatechart((Statechart) null);
+				return;
+			case Statechart_1_0Package.STATECHART_SPECIFICATION__EXT:
+				getExt().clear();
+				return;
+			case Statechart_1_0Package.STATECHART_SPECIFICATION__ID:
+				setId(ID_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -238,12 +239,12 @@ public class StatechartSpecificationImpl extends ExtensionImpl implements Statec
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Statechart_1_0Package.STATECHART_SPECIFICATION__STATECHART:
-			return statechart != null;
-		case Statechart_1_0Package.STATECHART_SPECIFICATION__EXT:
-			return ext != null && !ext.isEmpty();
-		case Statechart_1_0Package.STATECHART_SPECIFICATION__ID:
-			return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
+			case Statechart_1_0Package.STATECHART_SPECIFICATION__STATECHART:
+				return statechart != null;
+			case Statechart_1_0Package.STATECHART_SPECIFICATION__EXT:
+				return ext != null && !ext.isEmpty();
+			case Statechart_1_0Package.STATECHART_SPECIFICATION__ID:
+				return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -266,4 +267,4 @@ public class StatechartSpecificationImpl extends ExtensionImpl implements Statec
 		return result.toString();
 	}
 
-} //StatechartSpecificationImpl
+} // StatechartSpecificationImpl

@@ -43,4 +43,4 @@ public class Prolog_3_0ResourceFactoryImpl extends ResourceFactoryImpl {
 		return result;
 	}
 
-} //Prolog_3_0ResourceFactoryImpl
+} // Prolog_3_0ResourceFactoryImpl

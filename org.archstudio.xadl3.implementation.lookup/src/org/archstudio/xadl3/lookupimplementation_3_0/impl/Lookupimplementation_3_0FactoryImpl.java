@@ -24,8 +24,9 @@ public class Lookupimplementation_3_0FactoryImpl extends EFactoryImpl implements
 	 */
 	public static Lookupimplementation_3_0Factory init() {
 		try {
-			Lookupimplementation_3_0Factory theLookupimplementation_3_0Factory = (Lookupimplementation_3_0Factory) EPackage.Registry.INSTANCE
-					.getEFactory(Lookupimplementation_3_0Package.eNS_URI);
+			Lookupimplementation_3_0Factory theLookupimplementation_3_0Factory =
+					(Lookupimplementation_3_0Factory) EPackage.Registry.INSTANCE
+							.getEFactory(Lookupimplementation_3_0Package.eNS_URI);
 			if (theLookupimplementation_3_0Factory != null) {
 				return theLookupimplementation_3_0Factory;
 			}
@@ -53,10 +54,10 @@ public class Lookupimplementation_3_0FactoryImpl extends EFactoryImpl implements
 	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
-		case Lookupimplementation_3_0Package.LOOKUP_IMPLEMENTATION:
-			return createLookupImplementation();
-		default:
-			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+			case Lookupimplementation_3_0Package.LOOKUP_IMPLEMENTATION:
+				return createLookupImplementation();
+			default:
+				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
 	}
 
@@ -92,4 +93,4 @@ public class Lookupimplementation_3_0FactoryImpl extends EFactoryImpl implements
 		return Lookupimplementation_3_0Package.eINSTANCE;
 	}
 
-} //Lookupimplementation_3_0FactoryImpl
+} // Lookupimplementation_3_0FactoryImpl

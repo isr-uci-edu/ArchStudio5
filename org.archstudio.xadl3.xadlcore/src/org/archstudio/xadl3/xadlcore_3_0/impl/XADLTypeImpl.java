@@ -19,10 +19,10 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>XADL Type</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  * <li>{@link org.archstudio.xadl3.xadlcore_3_0.impl.XADLTypeImpl#getTopLevelElement <em>Top Level Element</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -78,8 +78,8 @@ public class XADLTypeImpl extends MinimalEObjectImpl.Container implements XADLTy
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case Xadlcore_3_0Package.XADL_TYPE__TOP_LEVEL_ELEMENT:
-			return ((InternalEList<?>) getTopLevelElement()).basicRemove(otherEnd, msgs);
+			case Xadlcore_3_0Package.XADL_TYPE__TOP_LEVEL_ELEMENT:
+				return ((InternalEList<?>) getTopLevelElement()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -92,8 +92,8 @@ public class XADLTypeImpl extends MinimalEObjectImpl.Container implements XADLTy
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case Xadlcore_3_0Package.XADL_TYPE__TOP_LEVEL_ELEMENT:
-			return getTopLevelElement();
+			case Xadlcore_3_0Package.XADL_TYPE__TOP_LEVEL_ELEMENT:
+				return getTopLevelElement();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -107,10 +107,10 @@ public class XADLTypeImpl extends MinimalEObjectImpl.Container implements XADLTy
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Xadlcore_3_0Package.XADL_TYPE__TOP_LEVEL_ELEMENT:
-			getTopLevelElement().clear();
-			getTopLevelElement().addAll((Collection<? extends EObject>) newValue);
-			return;
+			case Xadlcore_3_0Package.XADL_TYPE__TOP_LEVEL_ELEMENT:
+				getTopLevelElement().clear();
+				getTopLevelElement().addAll((Collection<? extends EObject>) newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -123,9 +123,9 @@ public class XADLTypeImpl extends MinimalEObjectImpl.Container implements XADLTy
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Xadlcore_3_0Package.XADL_TYPE__TOP_LEVEL_ELEMENT:
-			getTopLevelElement().clear();
-			return;
+			case Xadlcore_3_0Package.XADL_TYPE__TOP_LEVEL_ELEMENT:
+				getTopLevelElement().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -138,10 +138,10 @@ public class XADLTypeImpl extends MinimalEObjectImpl.Container implements XADLTy
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Xadlcore_3_0Package.XADL_TYPE__TOP_LEVEL_ELEMENT:
-			return topLevelElement != null && !topLevelElement.isEmpty();
+			case Xadlcore_3_0Package.XADL_TYPE__TOP_LEVEL_ELEMENT:
+				return topLevelElement != null && !topLevelElement.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
 
-} //XADLTypeImpl
+} // XADLTypeImpl

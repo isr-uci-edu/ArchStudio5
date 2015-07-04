@@ -2,10 +2,6 @@
  */
 package net.gexf_1_2.viz.impl;
 
-import net.gexf_1_2.gexf.SpellsContent;
-import net.gexf_1_2.viz.DocumentRoot;
-import net.gexf_1_2.viz.VizPackage;
-
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.ecore.EClass;
@@ -19,17 +15,21 @@ import org.eclipse.emf.ecore.util.EcoreEMap;
 import org.eclipse.emf.ecore.util.FeatureMap;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import net.gexf_1_2.gexf.SpellsContent;
+import net.gexf_1_2.viz.DocumentRoot;
+import net.gexf_1_2.viz.VizPackage;
+
 /**
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Document Root</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  * <li>{@link net.gexf_1_2.viz.impl.DocumentRootImpl#getMixed <em>Mixed</em>}</li>
  * <li>{@link net.gexf_1_2.viz.impl.DocumentRootImpl#getXMLNSPrefixMap <em>XMLNS Prefix Map</em>}</li>
  * <li>{@link net.gexf_1_2.viz.impl.DocumentRootImpl#getXSISchemaLocation <em>XSI Schema Location</em>}</li>
  * <li>{@link net.gexf_1_2.viz.impl.DocumentRootImpl#getSpells <em>Spells</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -161,14 +161,14 @@ public class DocumentRootImpl extends MinimalEObjectImpl.Container implements Do
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case VizPackage.DOCUMENT_ROOT__MIXED:
-			return ((InternalEList<?>) getMixed()).basicRemove(otherEnd, msgs);
-		case VizPackage.DOCUMENT_ROOT__XMLNS_PREFIX_MAP:
-			return ((InternalEList<?>) getXMLNSPrefixMap()).basicRemove(otherEnd, msgs);
-		case VizPackage.DOCUMENT_ROOT__XSI_SCHEMA_LOCATION:
-			return ((InternalEList<?>) getXSISchemaLocation()).basicRemove(otherEnd, msgs);
-		case VizPackage.DOCUMENT_ROOT__SPELLS:
-			return basicSetSpells(null, msgs);
+			case VizPackage.DOCUMENT_ROOT__MIXED:
+				return ((InternalEList<?>) getMixed()).basicRemove(otherEnd, msgs);
+			case VizPackage.DOCUMENT_ROOT__XMLNS_PREFIX_MAP:
+				return ((InternalEList<?>) getXMLNSPrefixMap()).basicRemove(otherEnd, msgs);
+			case VizPackage.DOCUMENT_ROOT__XSI_SCHEMA_LOCATION:
+				return ((InternalEList<?>) getXSISchemaLocation()).basicRemove(otherEnd, msgs);
+			case VizPackage.DOCUMENT_ROOT__SPELLS:
+				return basicSetSpells(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -181,27 +181,27 @@ public class DocumentRootImpl extends MinimalEObjectImpl.Container implements Do
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case VizPackage.DOCUMENT_ROOT__MIXED:
-			if (coreType) {
-				return getMixed();
-			}
-			return ((FeatureMap.Internal) getMixed()).getWrapper();
-		case VizPackage.DOCUMENT_ROOT__XMLNS_PREFIX_MAP:
-			if (coreType) {
-				return getXMLNSPrefixMap();
-			}
-			else {
-				return getXMLNSPrefixMap().map();
-			}
-		case VizPackage.DOCUMENT_ROOT__XSI_SCHEMA_LOCATION:
-			if (coreType) {
-				return getXSISchemaLocation();
-			}
-			else {
-				return getXSISchemaLocation().map();
-			}
-		case VizPackage.DOCUMENT_ROOT__SPELLS:
-			return getSpells();
+			case VizPackage.DOCUMENT_ROOT__MIXED:
+				if (coreType) {
+					return getMixed();
+				}
+				return ((FeatureMap.Internal) getMixed()).getWrapper();
+			case VizPackage.DOCUMENT_ROOT__XMLNS_PREFIX_MAP:
+				if (coreType) {
+					return getXMLNSPrefixMap();
+				}
+				else {
+					return getXMLNSPrefixMap().map();
+				}
+			case VizPackage.DOCUMENT_ROOT__XSI_SCHEMA_LOCATION:
+				if (coreType) {
+					return getXSISchemaLocation();
+				}
+				else {
+					return getXSISchemaLocation().map();
+				}
+			case VizPackage.DOCUMENT_ROOT__SPELLS:
+				return getSpells();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -214,18 +214,18 @@ public class DocumentRootImpl extends MinimalEObjectImpl.Container implements Do
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case VizPackage.DOCUMENT_ROOT__MIXED:
-			((FeatureMap.Internal) getMixed()).set(newValue);
-			return;
-		case VizPackage.DOCUMENT_ROOT__XMLNS_PREFIX_MAP:
-			((EStructuralFeature.Setting) getXMLNSPrefixMap()).set(newValue);
-			return;
-		case VizPackage.DOCUMENT_ROOT__XSI_SCHEMA_LOCATION:
-			((EStructuralFeature.Setting) getXSISchemaLocation()).set(newValue);
-			return;
-		case VizPackage.DOCUMENT_ROOT__SPELLS:
-			setSpells((SpellsContent) newValue);
-			return;
+			case VizPackage.DOCUMENT_ROOT__MIXED:
+				((FeatureMap.Internal) getMixed()).set(newValue);
+				return;
+			case VizPackage.DOCUMENT_ROOT__XMLNS_PREFIX_MAP:
+				((EStructuralFeature.Setting) getXMLNSPrefixMap()).set(newValue);
+				return;
+			case VizPackage.DOCUMENT_ROOT__XSI_SCHEMA_LOCATION:
+				((EStructuralFeature.Setting) getXSISchemaLocation()).set(newValue);
+				return;
+			case VizPackage.DOCUMENT_ROOT__SPELLS:
+				setSpells((SpellsContent) newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -238,18 +238,18 @@ public class DocumentRootImpl extends MinimalEObjectImpl.Container implements Do
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case VizPackage.DOCUMENT_ROOT__MIXED:
-			getMixed().clear();
-			return;
-		case VizPackage.DOCUMENT_ROOT__XMLNS_PREFIX_MAP:
-			getXMLNSPrefixMap().clear();
-			return;
-		case VizPackage.DOCUMENT_ROOT__XSI_SCHEMA_LOCATION:
-			getXSISchemaLocation().clear();
-			return;
-		case VizPackage.DOCUMENT_ROOT__SPELLS:
-			setSpells((SpellsContent) null);
-			return;
+			case VizPackage.DOCUMENT_ROOT__MIXED:
+				getMixed().clear();
+				return;
+			case VizPackage.DOCUMENT_ROOT__XMLNS_PREFIX_MAP:
+				getXMLNSPrefixMap().clear();
+				return;
+			case VizPackage.DOCUMENT_ROOT__XSI_SCHEMA_LOCATION:
+				getXSISchemaLocation().clear();
+				return;
+			case VizPackage.DOCUMENT_ROOT__SPELLS:
+				setSpells((SpellsContent) null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -262,14 +262,14 @@ public class DocumentRootImpl extends MinimalEObjectImpl.Container implements Do
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case VizPackage.DOCUMENT_ROOT__MIXED:
-			return mixed != null && !mixed.isEmpty();
-		case VizPackage.DOCUMENT_ROOT__XMLNS_PREFIX_MAP:
-			return xMLNSPrefixMap != null && !xMLNSPrefixMap.isEmpty();
-		case VizPackage.DOCUMENT_ROOT__XSI_SCHEMA_LOCATION:
-			return xSISchemaLocation != null && !xSISchemaLocation.isEmpty();
-		case VizPackage.DOCUMENT_ROOT__SPELLS:
-			return getSpells() != null;
+			case VizPackage.DOCUMENT_ROOT__MIXED:
+				return mixed != null && !mixed.isEmpty();
+			case VizPackage.DOCUMENT_ROOT__XMLNS_PREFIX_MAP:
+				return xMLNSPrefixMap != null && !xMLNSPrefixMap.isEmpty();
+			case VizPackage.DOCUMENT_ROOT__XSI_SCHEMA_LOCATION:
+				return xSISchemaLocation != null && !xSISchemaLocation.isEmpty();
+			case VizPackage.DOCUMENT_ROOT__SPELLS:
+				return getSpells() != null;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -292,4 +292,4 @@ public class DocumentRootImpl extends MinimalEObjectImpl.Container implements Do
 		return result.toString();
 	}
 
-} //DocumentRootImpl
+} // DocumentRootImpl

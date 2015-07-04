@@ -52,10 +52,10 @@ public class XlinkFactoryImpl extends EFactoryImpl implements XlinkFactory {
 	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
-		case XlinkPackage.DOCUMENT_ROOT:
-			return createDocumentRoot();
-		default:
-			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+			case XlinkPackage.DOCUMENT_ROOT:
+				return createDocumentRoot();
+			default:
+				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
 	}
 
@@ -91,4 +91,4 @@ public class XlinkFactoryImpl extends EFactoryImpl implements XlinkFactory {
 		return XlinkPackage.eINSTANCE;
 	}
 
-} //XlinkFactoryImpl
+} // XlinkFactoryImpl

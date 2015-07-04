@@ -132,6 +132,8 @@ public enum EdgeShapeType implements Enumerator {
 	 * Returns the '<em><b>Edge Shape Type</b></em>' literal with the specified literal value. <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
+	 * @param literal the literal.
+	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
 	public static EdgeShapeType get(String literal) {
@@ -147,6 +149,8 @@ public enum EdgeShapeType implements Enumerator {
 	 * Returns the '<em><b>Edge Shape Type</b></em>' literal with the specified name. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
 	 * 
+	 * @param name the name.
+	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
 	public static EdgeShapeType getByName(String name) {
@@ -162,18 +166,20 @@ public enum EdgeShapeType implements Enumerator {
 	 * Returns the '<em><b>Edge Shape Type</b></em>' literal with the specified integer value. <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
+	 * @param value the integer value.
+	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
 	public static EdgeShapeType get(int value) {
 		switch (value) {
-		case SOLID_VALUE:
-			return SOLID;
-		case DOTTED_VALUE:
-			return DOTTED;
-		case DASHED_VALUE:
-			return DASHED;
-		case DOUBLE_VALUE:
-			return DOUBLE;
+			case SOLID_VALUE:
+				return SOLID;
+			case DOTTED_VALUE:
+				return DOTTED;
+			case DASHED_VALUE:
+				return DASHED;
+			case DOUBLE_VALUE:
+				return DOUBLE;
 		}
 		return null;
 	}
@@ -251,4 +257,4 @@ public enum EdgeShapeType implements Enumerator {
 		return literal;
 	}
 
-} //EdgeShapeType
+} // EdgeShapeType

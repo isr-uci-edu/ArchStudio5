@@ -57,7 +57,6 @@ public class Lookupimplementation_3_0PackageImpl extends EPackageImpl implements
 
 	/**
 	 * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
-	 * 
 	 * <p>
 	 * This method is used to initialize {@link Lookupimplementation_3_0Package#eINSTANCE} when that field is accessed.
 	 * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package. <!--
@@ -75,9 +74,10 @@ public class Lookupimplementation_3_0PackageImpl extends EPackageImpl implements
 		}
 
 		// Obtain or create and register package
-		Lookupimplementation_3_0PackageImpl theLookupimplementation_3_0Package = (Lookupimplementation_3_0PackageImpl) (EPackage.Registry.INSTANCE
-				.get(eNS_URI) instanceof Lookupimplementation_3_0PackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI)
-				: new Lookupimplementation_3_0PackageImpl());
+		Lookupimplementation_3_0PackageImpl theLookupimplementation_3_0Package =
+				(Lookupimplementation_3_0PackageImpl) (EPackage.Registry.INSTANCE
+						.get(eNS_URI) instanceof Lookupimplementation_3_0PackageImpl
+								? EPackage.Registry.INSTANCE.get(eNS_URI) : new Lookupimplementation_3_0PackageImpl());
 
 		isInited = true;
 
@@ -86,14 +86,17 @@ public class Lookupimplementation_3_0PackageImpl extends EPackageImpl implements
 
 		// Obtain or create and register interdependencies
 		Xadlcore_3_0PackageImpl theXadlcore_3_0Package = (Xadlcore_3_0PackageImpl) (EPackage.Registry.INSTANCE
-				.getEPackage(Xadlcore_3_0Package.eNS_URI) instanceof Xadlcore_3_0PackageImpl ? EPackage.Registry.INSTANCE
-				.getEPackage(Xadlcore_3_0Package.eNS_URI) : Xadlcore_3_0Package.eINSTANCE);
+				.getEPackage(Xadlcore_3_0Package.eNS_URI) instanceof Xadlcore_3_0PackageImpl
+						? EPackage.Registry.INSTANCE.getEPackage(Xadlcore_3_0Package.eNS_URI)
+						: Xadlcore_3_0Package.eINSTANCE);
 		XlinkPackageImpl theXlinkPackage = (XlinkPackageImpl) (EPackage.Registry.INSTANCE
-				.getEPackage(XlinkPackage.eNS_URI) instanceof XlinkPackageImpl ? EPackage.Registry.INSTANCE
-				.getEPackage(XlinkPackage.eNS_URI) : XlinkPackage.eINSTANCE);
-		Implementation_3_0PackageImpl theImplementation_3_0Package = (Implementation_3_0PackageImpl) (EPackage.Registry.INSTANCE
-				.getEPackage(Implementation_3_0Package.eNS_URI) instanceof Implementation_3_0PackageImpl ? EPackage.Registry.INSTANCE
-				.getEPackage(Implementation_3_0Package.eNS_URI) : Implementation_3_0Package.eINSTANCE);
+				.getEPackage(XlinkPackage.eNS_URI) instanceof XlinkPackageImpl
+						? EPackage.Registry.INSTANCE.getEPackage(XlinkPackage.eNS_URI) : XlinkPackage.eINSTANCE);
+		Implementation_3_0PackageImpl theImplementation_3_0Package =
+				(Implementation_3_0PackageImpl) (EPackage.Registry.INSTANCE
+						.getEPackage(Implementation_3_0Package.eNS_URI) instanceof Implementation_3_0PackageImpl
+								? EPackage.Registry.INSTANCE.getEPackage(Implementation_3_0Package.eNS_URI)
+								: Implementation_3_0Package.eINSTANCE);
 
 		// Create package meta-data objects
 		theLookupimplementation_3_0Package.createPackageContents();
@@ -205,12 +208,12 @@ public class Lookupimplementation_3_0PackageImpl extends EPackageImpl implements
 		setNsURI(eNS_URI);
 
 		// Obtain other dependent packages
-		Implementation_3_0Package theImplementation_3_0Package = (Implementation_3_0Package) EPackage.Registry.INSTANCE
-				.getEPackage(Implementation_3_0Package.eNS_URI);
-		Xadlcore_3_0Package theXadlcore_3_0Package = (Xadlcore_3_0Package) EPackage.Registry.INSTANCE
-				.getEPackage(Xadlcore_3_0Package.eNS_URI);
-		XMLTypePackage theXMLTypePackage = (XMLTypePackage) EPackage.Registry.INSTANCE
-				.getEPackage(XMLTypePackage.eNS_URI);
+		Implementation_3_0Package theImplementation_3_0Package =
+				(Implementation_3_0Package) EPackage.Registry.INSTANCE.getEPackage(Implementation_3_0Package.eNS_URI);
+		Xadlcore_3_0Package theXadlcore_3_0Package =
+				(Xadlcore_3_0Package) EPackage.Registry.INSTANCE.getEPackage(Xadlcore_3_0Package.eNS_URI);
+		XMLTypePackage theXMLTypePackage =
+				(XMLTypePackage) EPackage.Registry.INSTANCE.getEPackage(XMLTypePackage.eNS_URI);
 
 		// Create type parameters
 
@@ -245,12 +248,12 @@ public class Lookupimplementation_3_0PackageImpl extends EPackageImpl implements
 	 */
 	protected void createExtendedMetaDataAnnotations() {
 		String source = "http:///org/eclipse/emf/ecore/util/ExtendedMetaData";
-		addAnnotation(lookupImplementationEClass, source, new String[] { "name", "LookupImplementation", "kind",
-				"elementOnly" });
-		addAnnotation(getLookupImplementation_Ext(), source, new String[] { "kind", "element", "name", "ext",
-				"namespace", "##targetNamespace" });
-		addAnnotation(getLookupImplementation_Lookup(), source, new String[] { "kind", "attribute", "name", "lookup",
-				"namespace", "##targetNamespace" });
+		addAnnotation(lookupImplementationEClass, source,
+				new String[] { "name", "LookupImplementation", "kind", "elementOnly" });
+		addAnnotation(getLookupImplementation_Ext(), source,
+				new String[] { "kind", "element", "name", "ext", "namespace", "##targetNamespace" });
+		addAnnotation(getLookupImplementation_Lookup(), source,
+				new String[] { "kind", "attribute", "name", "lookup", "namespace", "##targetNamespace" });
 	}
 
-} //Lookupimplementation_3_0PackageImpl
+} // Lookupimplementation_3_0PackageImpl

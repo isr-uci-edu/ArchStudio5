@@ -43,4 +43,4 @@ public class Lookupimplementation_3_0ResourceFactoryImpl extends ResourceFactory
 		return result;
 	}
 
-} //Lookupimplementation_3_0ResourceFactoryImpl
+} // Lookupimplementation_3_0ResourceFactoryImpl

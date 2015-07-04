@@ -4,6 +4,16 @@ package net.gexf_1_2.viz.impl;
 
 import java.math.BigInteger;
 
+import org.eclipse.emf.ecore.EAttribute;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
+import org.eclipse.emf.ecore.EEnum;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EValidator;
+import org.eclipse.emf.ecore.impl.EPackageImpl;
+import org.eclipse.emf.ecore.xml.type.XMLTypePackage;
+
 import net.gexf_1_2.gexf.GexfPackage;
 import net.gexf_1_2.gexf.impl.GexfPackageImpl;
 import net.gexf_1_2.viz.ColorContent;
@@ -18,16 +28,6 @@ import net.gexf_1_2.viz.ThicknessContent;
 import net.gexf_1_2.viz.VizFactory;
 import net.gexf_1_2.viz.VizPackage;
 import net.gexf_1_2.viz.util.VizValidator;
-
-import org.eclipse.emf.ecore.EAttribute;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EDataType;
-import org.eclipse.emf.ecore.EEnum;
-import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.EReference;
-import org.eclipse.emf.ecore.EValidator;
-import org.eclipse.emf.ecore.impl.EPackageImpl;
-import org.eclipse.emf.ecore.xml.type.XMLTypePackage;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model <b>Package</b>. <!-- end-user-doc -->
@@ -201,7 +201,6 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 
 	/**
 	 * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
-	 * 
 	 * <p>
 	 * This method is used to initialize {@link VizPackage#eINSTANCE} when that field is accessed. Clients should not
 	 * invoke it directly. Instead, they should simply access that field to obtain the package. <!-- begin-user-doc -->
@@ -218,8 +217,9 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 		}
 
 		// Obtain or create and register package
-		VizPackageImpl theVizPackage = (VizPackageImpl) (EPackage.Registry.INSTANCE.get(eNS_URI) instanceof VizPackageImpl ? EPackage.Registry.INSTANCE
-				.get(eNS_URI) : new VizPackageImpl());
+		VizPackageImpl theVizPackage =
+				(VizPackageImpl) (EPackage.Registry.INSTANCE.get(eNS_URI) instanceof VizPackageImpl
+						? EPackage.Registry.INSTANCE.get(eNS_URI) : new VizPackageImpl());
 
 		isInited = true;
 
@@ -227,8 +227,9 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 		XMLTypePackage.eINSTANCE.eClass();
 
 		// Obtain or create and register interdependencies
-		GexfPackageImpl theGexfPackage = (GexfPackageImpl) (EPackage.Registry.INSTANCE.getEPackage(GexfPackage.eNS_URI) instanceof GexfPackageImpl ? EPackage.Registry.INSTANCE
-				.getEPackage(GexfPackage.eNS_URI) : GexfPackage.eINSTANCE);
+		GexfPackageImpl theGexfPackage = (GexfPackageImpl) (EPackage.Registry.INSTANCE
+				.getEPackage(GexfPackage.eNS_URI) instanceof GexfPackageImpl
+						? EPackage.Registry.INSTANCE.getEPackage(GexfPackage.eNS_URI) : GexfPackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theVizPackage.createPackageContents();
@@ -1048,8 +1049,8 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 
 		// Obtain other dependent packages
 		GexfPackage theGexfPackage = (GexfPackage) EPackage.Registry.INSTANCE.getEPackage(GexfPackage.eNS_URI);
-		XMLTypePackage theXMLTypePackage = (XMLTypePackage) EPackage.Registry.INSTANCE
-				.getEPackage(XMLTypePackage.eNS_URI);
+		XMLTypePackage theXMLTypePackage =
+				(XMLTypePackage) EPackage.Registry.INSTANCE.getEPackage(XMLTypePackage.eNS_URI);
 
 		// Create type parameters
 
@@ -1132,9 +1133,8 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 		initEReference(getPositionContent_Spells(), theGexfPackage.getSpellsContent(), null, "spells", null, 0, 1,
 				PositionContent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getPositionContent_End(), theGexfPackage.getTimeType(), "end", null, 0, 1,
-				PositionContent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
-				!IS_DERIVED, IS_ORDERED);
+		initEAttribute(getPositionContent_End(), theGexfPackage.getTimeType(), "end", null, 0, 1, PositionContent.class,
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPositionContent_Endopen(), theGexfPackage.getTimeType(), "endopen", null, 0, 1,
 				PositionContent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
 				!IS_DERIVED, IS_ORDERED);
@@ -1158,9 +1158,8 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSizeContent_End(), theGexfPackage.getTimeType(), "end", null, 0, 1, SizeContent.class,
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getSizeContent_Endopen(), theGexfPackage.getTimeType(), "endopen", null, 0, 1,
-				SizeContent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
-				!IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSizeContent_Endopen(), theGexfPackage.getTimeType(), "endopen", null, 0, 1, SizeContent.class,
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSizeContent_Start(), theGexfPackage.getTimeType(), "start", null, 0, 1, SizeContent.class,
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSizeContent_Startopen(), theGexfPackage.getTimeType(), "startopen", null, 0, 1,
@@ -1193,7 +1192,8 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 		initEClass(documentRootEClass, DocumentRoot.class, "DocumentRoot", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getDocumentRoot_Mixed(), ecorePackage.getEFeatureMapEntry(), "mixed", null, 0, -1, null,
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED,
+				IS_ORDERED);
 		initEReference(getDocumentRoot_XMLNSPrefixMap(), ecorePackage.getEStringToStringMapEntry(), null,
 				"xMLNSPrefixMap", null, 0, -1, null, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
 				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1219,7 +1219,8 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 		addEEnumLiteral(nodeShapeTypeEEnum, NodeShapeType.IMAGE);
 
 		// Initialize data types
-		initEDataType(alphaChannelEDataType, float.class, "AlphaChannel", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
+		initEDataType(alphaChannelEDataType, float.class, "AlphaChannel", IS_SERIALIZABLE,
+				!IS_GENERATED_INSTANCE_CLASS);
 		initEDataType(alphaChannelObjectEDataType, Float.class, "AlphaChannelObject", IS_SERIALIZABLE,
 				!IS_GENERATED_INSTANCE_CLASS);
 		initEDataType(colorChannelEDataType, BigInteger.class, "ColorChannel", IS_SERIALIZABLE,
@@ -1257,13 +1258,13 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 		String source = "http:///org/eclipse/emf/ecore/util/ExtendedMetaData";
 		addAnnotation(alphaChannelEDataType, source, new String[] { "name", "alpha-channel", "baseType",
 				"http://www.eclipse.org/emf/2003/XMLType#float", "minInclusive", "0.0", "maxInclusive", "1.0" });
-		addAnnotation(alphaChannelObjectEDataType, source, new String[] { "name", "alpha-channel:Object", "baseType",
-				"alpha-channel" });
+		addAnnotation(alphaChannelObjectEDataType, source,
+				new String[] { "name", "alpha-channel:Object", "baseType", "alpha-channel" });
 		addAnnotation(colorChannelEDataType, source, new String[] { "name", "color-channel", "baseType",
 				"http://www.eclipse.org/emf/2003/XMLType#nonNegativeInteger", "maxInclusive", "255" });
 		addAnnotation(colorContentEClass, source, new String[] { "name", "color-content", "kind", "elementOnly" });
-		addAnnotation(getColorContent_Spells(), source, new String[] { "kind", "element", "name", "spells",
-				"namespace", "##targetNamespace" });
+		addAnnotation(getColorContent_Spells(), source,
+				new String[] { "kind", "element", "name", "spells", "namespace", "##targetNamespace" });
 		addAnnotation(getColorContent_A(), source, new String[] { "kind", "attribute", "name", "a" });
 		addAnnotation(getColorContent_B(), source, new String[] { "kind", "attribute", "name", "b" });
 		addAnnotation(getColorContent_End(), source, new String[] { "kind", "attribute", "name", "end" });
@@ -1272,10 +1273,10 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 		addAnnotation(getColorContent_R(), source, new String[] { "kind", "attribute", "name", "r" });
 		addAnnotation(getColorContent_Start(), source, new String[] { "kind", "attribute", "name", "start" });
 		addAnnotation(getColorContent_Startopen(), source, new String[] { "kind", "attribute", "name", "startopen" });
-		addAnnotation(edgeShapeContentEClass, source, new String[] { "name", "edge-shape-content", "kind",
-				"elementOnly" });
-		addAnnotation(getEdgeShapeContent_Spells(), source, new String[] { "kind", "element", "name", "spells",
-				"namespace", "##targetNamespace" });
+		addAnnotation(edgeShapeContentEClass, source,
+				new String[] { "name", "edge-shape-content", "kind", "elementOnly" });
+		addAnnotation(getEdgeShapeContent_Spells(), source,
+				new String[] { "kind", "element", "name", "spells", "namespace", "##targetNamespace" });
 		addAnnotation(getEdgeShapeContent_End(), source, new String[] { "kind", "attribute", "name", "end" });
 		addAnnotation(getEdgeShapeContent_Endopen(), source, new String[] { "kind", "attribute", "name", "endopen" });
 		addAnnotation(getEdgeShapeContent_Start(), source, new String[] { "kind", "attribute", "name", "start" });
@@ -1283,12 +1284,12 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 				new String[] { "kind", "attribute", "name", "startopen" });
 		addAnnotation(getEdgeShapeContent_Value(), source, new String[] { "kind", "attribute", "name", "value" });
 		addAnnotation(edgeShapeTypeEEnum, source, new String[] { "name", "edge-shape-type" });
-		addAnnotation(edgeShapeTypeObjectEDataType, source, new String[] { "name", "edge-shape-type:Object",
-				"baseType", "edge-shape-type" });
-		addAnnotation(nodeShapeContentEClass, source, new String[] { "name", "node-shape-content", "kind",
-				"elementOnly" });
-		addAnnotation(getNodeShapeContent_Spells(), source, new String[] { "kind", "element", "name", "spells",
-				"namespace", "##targetNamespace" });
+		addAnnotation(edgeShapeTypeObjectEDataType, source,
+				new String[] { "name", "edge-shape-type:Object", "baseType", "edge-shape-type" });
+		addAnnotation(nodeShapeContentEClass, source,
+				new String[] { "name", "node-shape-content", "kind", "elementOnly" });
+		addAnnotation(getNodeShapeContent_Spells(), source,
+				new String[] { "kind", "element", "name", "spells", "namespace", "##targetNamespace" });
 		addAnnotation(getNodeShapeContent_End(), source, new String[] { "kind", "attribute", "name", "end" });
 		addAnnotation(getNodeShapeContent_Endopen(), source, new String[] { "kind", "attribute", "name", "endopen" });
 		addAnnotation(getNodeShapeContent_Start(), source, new String[] { "kind", "attribute", "name", "start" });
@@ -1297,21 +1298,23 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 		addAnnotation(getNodeShapeContent_Uri(), source, new String[] { "kind", "attribute", "name", "uri" });
 		addAnnotation(getNodeShapeContent_Value(), source, new String[] { "kind", "attribute", "name", "value" });
 		addAnnotation(nodeShapeTypeEEnum, source, new String[] { "name", "node-shape-type" });
-		addAnnotation(nodeShapeTypeObjectEDataType, source, new String[] { "name", "node-shape-type:Object",
-				"baseType", "node-shape-type" });
-		addAnnotation(positionContentEClass, source, new String[] { "name", "position-content", "kind", "elementOnly" });
-		addAnnotation(getPositionContent_Spells(), source, new String[] { "kind", "element", "name", "spells",
-				"namespace", "##targetNamespace" });
+		addAnnotation(nodeShapeTypeObjectEDataType, source,
+				new String[] { "name", "node-shape-type:Object", "baseType", "node-shape-type" });
+		addAnnotation(positionContentEClass, source,
+				new String[] { "name", "position-content", "kind", "elementOnly" });
+		addAnnotation(getPositionContent_Spells(), source,
+				new String[] { "kind", "element", "name", "spells", "namespace", "##targetNamespace" });
 		addAnnotation(getPositionContent_End(), source, new String[] { "kind", "attribute", "name", "end" });
 		addAnnotation(getPositionContent_Endopen(), source, new String[] { "kind", "attribute", "name", "endopen" });
 		addAnnotation(getPositionContent_Start(), source, new String[] { "kind", "attribute", "name", "start" });
-		addAnnotation(getPositionContent_Startopen(), source, new String[] { "kind", "attribute", "name", "startopen" });
+		addAnnotation(getPositionContent_Startopen(), source,
+				new String[] { "kind", "attribute", "name", "startopen" });
 		addAnnotation(getPositionContent_X(), source, new String[] { "kind", "attribute", "name", "x" });
 		addAnnotation(getPositionContent_Y(), source, new String[] { "kind", "attribute", "name", "y" });
 		addAnnotation(getPositionContent_Z(), source, new String[] { "kind", "attribute", "name", "z" });
 		addAnnotation(sizeContentEClass, source, new String[] { "name", "size-content", "kind", "elementOnly" });
-		addAnnotation(getSizeContent_Spells(), source, new String[] { "kind", "element", "name", "spells", "namespace",
-				"##targetNamespace" });
+		addAnnotation(getSizeContent_Spells(), source,
+				new String[] { "kind", "element", "name", "spells", "namespace", "##targetNamespace" });
 		addAnnotation(getSizeContent_End(), source, new String[] { "kind", "attribute", "name", "end" });
 		addAnnotation(getSizeContent_Endopen(), source, new String[] { "kind", "attribute", "name", "endopen" });
 		addAnnotation(getSizeContent_Start(), source, new String[] { "kind", "attribute", "name", "start" });
@@ -1319,16 +1322,16 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 		addAnnotation(getSizeContent_Value(), source, new String[] { "kind", "attribute", "name", "value" });
 		addAnnotation(sizeTypeEDataType, source, new String[] { "name", "size-type", "baseType",
 				"http://www.eclipse.org/emf/2003/XMLType#float", "minInclusive", "0.0" });
-		addAnnotation(sizeTypeObjectEDataType, source, new String[] { "name", "size-type:Object", "baseType",
-				"size-type" });
-		addAnnotation(spacePointEDataType, source, new String[] { "name", "space-point", "baseType",
-				"http://www.eclipse.org/emf/2003/XMLType#float" });
-		addAnnotation(spacePointObjectEDataType, source, new String[] { "name", "space-point:Object", "baseType",
-				"space-point" });
+		addAnnotation(sizeTypeObjectEDataType, source,
+				new String[] { "name", "size-type:Object", "baseType", "size-type" });
+		addAnnotation(spacePointEDataType, source,
+				new String[] { "name", "space-point", "baseType", "http://www.eclipse.org/emf/2003/XMLType#float" });
+		addAnnotation(spacePointObjectEDataType, source,
+				new String[] { "name", "space-point:Object", "baseType", "space-point" });
 		addAnnotation(thicknessContentEClass, source,
 				new String[] { "name", "thickness-content", "kind", "elementOnly" });
-		addAnnotation(getThicknessContent_Spells(), source, new String[] { "kind", "element", "name", "spells",
-				"namespace", "##targetNamespace" });
+		addAnnotation(getThicknessContent_Spells(), source,
+				new String[] { "kind", "element", "name", "spells", "namespace", "##targetNamespace" });
 		addAnnotation(getThicknessContent_End(), source, new String[] { "kind", "attribute", "name", "end" });
 		addAnnotation(getThicknessContent_Endopen(), source, new String[] { "kind", "attribute", "name", "endopen" });
 		addAnnotation(getThicknessContent_Start(), source, new String[] { "kind", "attribute", "name", "start" });
@@ -1337,16 +1340,16 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 		addAnnotation(getThicknessContent_Value(), source, new String[] { "kind", "attribute", "name", "value" });
 		addAnnotation(thicknessTypeEDataType, source, new String[] { "name", "thickness-type", "baseType",
 				"http://www.eclipse.org/emf/2003/XMLType#float", "minInclusive", "0.0" });
-		addAnnotation(thicknessTypeObjectEDataType, source, new String[] { "name", "thickness-type:Object", "baseType",
-				"thickness-type" });
+		addAnnotation(thicknessTypeObjectEDataType, source,
+				new String[] { "name", "thickness-type:Object", "baseType", "thickness-type" });
 		addAnnotation(documentRootEClass, source, new String[] { "name", "", "kind", "mixed" });
 		addAnnotation(getDocumentRoot_Mixed(), source, new String[] { "kind", "elementWildcard", "name", ":mixed" });
-		addAnnotation(getDocumentRoot_XMLNSPrefixMap(), source, new String[] { "kind", "attribute", "name",
-				"xmlns:prefix" });
-		addAnnotation(getDocumentRoot_XSISchemaLocation(), source, new String[] { "kind", "attribute", "name",
-				"xsi:schemaLocation" });
-		addAnnotation(getDocumentRoot_Spells(), source, new String[] { "kind", "element", "name", "spells",
-				"namespace", "##targetNamespace" });
+		addAnnotation(getDocumentRoot_XMLNSPrefixMap(), source,
+				new String[] { "kind", "attribute", "name", "xmlns:prefix" });
+		addAnnotation(getDocumentRoot_XSISchemaLocation(), source,
+				new String[] { "kind", "attribute", "name", "xsi:schemaLocation" });
+		addAnnotation(getDocumentRoot_Spells(), source,
+				new String[] { "kind", "element", "name", "spells", "namespace", "##targetNamespace" });
 	}
 
-} //VizPackageImpl
+} // VizPackageImpl

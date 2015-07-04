@@ -26,8 +26,8 @@ public class Hints_3_0FactoryImpl extends EFactoryImpl implements Hints_3_0Facto
 	 */
 	public static Hints_3_0Factory init() {
 		try {
-			Hints_3_0Factory theHints_3_0Factory = (Hints_3_0Factory) EPackage.Registry.INSTANCE
-					.getEFactory(Hints_3_0Package.eNS_URI);
+			Hints_3_0Factory theHints_3_0Factory =
+					(Hints_3_0Factory) EPackage.Registry.INSTANCE.getEFactory(Hints_3_0Package.eNS_URI);
 			if (theHints_3_0Factory != null) {
 				return theHints_3_0Factory;
 			}
@@ -55,14 +55,14 @@ public class Hints_3_0FactoryImpl extends EFactoryImpl implements Hints_3_0Facto
 	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
-		case Hints_3_0Package.HINT:
-			return createHint();
-		case Hints_3_0Package.HINTS_EXTENSION:
-			return createHintsExtension();
-		case Hints_3_0Package.VALUE:
-			return createValue();
-		default:
-			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+			case Hints_3_0Package.HINT:
+				return createHint();
+			case Hints_3_0Package.HINTS_EXTENSION:
+				return createHintsExtension();
+			case Hints_3_0Package.VALUE:
+				return createValue();
+			default:
+				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
 	}
 
@@ -120,4 +120,4 @@ public class Hints_3_0FactoryImpl extends EFactoryImpl implements Hints_3_0Facto
 		return Hints_3_0Package.eINSTANCE;
 	}
 
-} //Hints_3_0FactoryImpl
+} // Hints_3_0FactoryImpl

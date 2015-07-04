@@ -2,6 +2,11 @@
  */
 package net.gexf_1_2.viz.util;
 
+import org.eclipse.emf.common.notify.Adapter;
+import org.eclipse.emf.common.notify.Notifier;
+import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
+import org.eclipse.emf.ecore.EObject;
+
 import net.gexf_1_2.viz.ColorContent;
 import net.gexf_1_2.viz.DocumentRoot;
 import net.gexf_1_2.viz.EdgeShapeContent;
@@ -10,11 +15,6 @@ import net.gexf_1_2.viz.PositionContent;
 import net.gexf_1_2.viz.SizeContent;
 import net.gexf_1_2.viz.ThicknessContent;
 import net.gexf_1_2.viz.VizPackage;
-
-import org.eclipse.emf.common.notify.Adapter;
-import org.eclipse.emf.common.notify.Notifier;
-import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
-import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc --> The <b>Adapter Factory</b> for the model. It provides an adapter <code>createXXX</code>
@@ -111,8 +111,7 @@ public class VizAdapterFactory extends AdapterFactoryImpl {
 	/**
 	 * Creates an adapter for the <code>target</code>. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
-	 * @param target
-	 *            the object to adapt.
+	 * @param target the object to adapt.
 	 * @return the adapter for the <code>target</code>.
 	 * @generated
 	 */
@@ -189,10 +188,9 @@ public class VizAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link net.gexf_1_2.viz.ThicknessContent
-	 * <em>Thickness Content</em>}'. <!-- begin-user-doc --> This default implementation returns null so that we can
-	 * easily ignore cases; it's useful to ignore a case when inheritance will catch all the cases anyway. <!--
-	 * end-user-doc -->
+	 * Creates a new adapter for an object of class '{@link net.gexf_1_2.viz.ThicknessContent <em>Thickness Content</em>
+	 * }'. <!-- begin-user-doc --> This default implementation returns null so that we can easily ignore cases; it's
+	 * useful to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
 	 * @see net.gexf_1_2.viz.ThicknessContent
@@ -226,4 +224,4 @@ public class VizAdapterFactory extends AdapterFactoryImpl {
 		return null;
 	}
 
-} //VizAdapterFactory
+} // VizAdapterFactory

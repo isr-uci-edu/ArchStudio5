@@ -24,8 +24,9 @@ public class Osgiimplementation_3_0FactoryImpl extends EFactoryImpl implements O
 	 */
 	public static Osgiimplementation_3_0Factory init() {
 		try {
-			Osgiimplementation_3_0Factory theOsgiimplementation_3_0Factory = (Osgiimplementation_3_0Factory) EPackage.Registry.INSTANCE
-					.getEFactory(Osgiimplementation_3_0Package.eNS_URI);
+			Osgiimplementation_3_0Factory theOsgiimplementation_3_0Factory =
+					(Osgiimplementation_3_0Factory) EPackage.Registry.INSTANCE
+							.getEFactory(Osgiimplementation_3_0Package.eNS_URI);
 			if (theOsgiimplementation_3_0Factory != null) {
 				return theOsgiimplementation_3_0Factory;
 			}
@@ -53,10 +54,10 @@ public class Osgiimplementation_3_0FactoryImpl extends EFactoryImpl implements O
 	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
-		case Osgiimplementation_3_0Package.OS_GI_IMPLEMENTATION:
-			return createOSGiImplementation();
-		default:
-			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+			case Osgiimplementation_3_0Package.OS_GI_IMPLEMENTATION:
+				return createOSGiImplementation();
+			default:
+				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
 	}
 
@@ -92,4 +93,4 @@ public class Osgiimplementation_3_0FactoryImpl extends EFactoryImpl implements O
 		return Osgiimplementation_3_0Package.eINSTANCE;
 	}
 
-} //Osgiimplementation_3_0FactoryImpl
+} // Osgiimplementation_3_0FactoryImpl

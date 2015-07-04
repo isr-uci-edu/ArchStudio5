@@ -21,11 +21,11 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Constraint</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  * <li>{@link org.archstudio.xadl3.statechart_1_0.impl.ConstraintImpl#getExt <em>Ext</em>}</li>
  * <li>{@link org.archstudio.xadl3.statechart_1_0.impl.ConstraintImpl#getId <em>Id</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -122,8 +122,8 @@ public class ConstraintImpl extends MinimalEObjectImpl.Container implements Cons
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case Statechart_1_0Package.CONSTRAINT__EXT:
-			return ((InternalEList<?>) getExt()).basicRemove(otherEnd, msgs);
+			case Statechart_1_0Package.CONSTRAINT__EXT:
+				return ((InternalEList<?>) getExt()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -136,10 +136,10 @@ public class ConstraintImpl extends MinimalEObjectImpl.Container implements Cons
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case Statechart_1_0Package.CONSTRAINT__EXT:
-			return getExt();
-		case Statechart_1_0Package.CONSTRAINT__ID:
-			return getId();
+			case Statechart_1_0Package.CONSTRAINT__EXT:
+				return getExt();
+			case Statechart_1_0Package.CONSTRAINT__ID:
+				return getId();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -153,13 +153,13 @@ public class ConstraintImpl extends MinimalEObjectImpl.Container implements Cons
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Statechart_1_0Package.CONSTRAINT__EXT:
-			getExt().clear();
-			getExt().addAll((Collection<? extends Extension>) newValue);
-			return;
-		case Statechart_1_0Package.CONSTRAINT__ID:
-			setId((String) newValue);
-			return;
+			case Statechart_1_0Package.CONSTRAINT__EXT:
+				getExt().clear();
+				getExt().addAll((Collection<? extends Extension>) newValue);
+				return;
+			case Statechart_1_0Package.CONSTRAINT__ID:
+				setId((String) newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -172,12 +172,12 @@ public class ConstraintImpl extends MinimalEObjectImpl.Container implements Cons
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Statechart_1_0Package.CONSTRAINT__EXT:
-			getExt().clear();
-			return;
-		case Statechart_1_0Package.CONSTRAINT__ID:
-			setId(ID_EDEFAULT);
-			return;
+			case Statechart_1_0Package.CONSTRAINT__EXT:
+				getExt().clear();
+				return;
+			case Statechart_1_0Package.CONSTRAINT__ID:
+				setId(ID_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -190,10 +190,10 @@ public class ConstraintImpl extends MinimalEObjectImpl.Container implements Cons
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Statechart_1_0Package.CONSTRAINT__EXT:
-			return ext != null && !ext.isEmpty();
-		case Statechart_1_0Package.CONSTRAINT__ID:
-			return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
+			case Statechart_1_0Package.CONSTRAINT__EXT:
+				return ext != null && !ext.isEmpty();
+			case Statechart_1_0Package.CONSTRAINT__ID:
+				return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -216,4 +216,4 @@ public class ConstraintImpl extends MinimalEObjectImpl.Container implements Cons
 		return result.toString();
 	}
 
-} //ConstraintImpl
+} // ConstraintImpl

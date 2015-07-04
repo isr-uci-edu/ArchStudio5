@@ -43,4 +43,4 @@ public class Implementation_3_0ResourceFactoryImpl extends ResourceFactoryImpl {
 		return result;
 	}
 
-} //Implementation_3_0ResourceFactoryImpl
+} // Implementation_3_0ResourceFactoryImpl

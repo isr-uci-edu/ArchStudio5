@@ -51,7 +51,6 @@ public class XlinkPackageImpl extends EPackageImpl implements XlinkPackage {
 
 	/**
 	 * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
-	 * 
 	 * <p>
 	 * This method is used to initialize {@link XlinkPackage#eINSTANCE} when that field is accessed. Clients should not
 	 * invoke it directly. Instead, they should simply access that field to obtain the package. <!-- begin-user-doc -->
@@ -68,8 +67,9 @@ public class XlinkPackageImpl extends EPackageImpl implements XlinkPackage {
 		}
 
 		// Obtain or create and register package
-		XlinkPackageImpl theXlinkPackage = (XlinkPackageImpl) (EPackage.Registry.INSTANCE.get(eNS_URI) instanceof XlinkPackageImpl ? EPackage.Registry.INSTANCE
-				.get(eNS_URI) : new XlinkPackageImpl());
+		XlinkPackageImpl theXlinkPackage =
+				(XlinkPackageImpl) (EPackage.Registry.INSTANCE.get(eNS_URI) instanceof XlinkPackageImpl
+						? EPackage.Registry.INSTANCE.get(eNS_URI) : new XlinkPackageImpl());
 
 		isInited = true;
 
@@ -213,8 +213,8 @@ public class XlinkPackageImpl extends EPackageImpl implements XlinkPackage {
 		setNsURI(eNS_URI);
 
 		// Obtain other dependent packages
-		XMLTypePackage theXMLTypePackage = (XMLTypePackage) EPackage.Registry.INSTANCE
-				.getEPackage(XMLTypePackage.eNS_URI);
+		XMLTypePackage theXMLTypePackage =
+				(XMLTypePackage) EPackage.Registry.INSTANCE.getEPackage(XMLTypePackage.eNS_URI);
 
 		// Create type parameters
 
@@ -226,7 +226,8 @@ public class XlinkPackageImpl extends EPackageImpl implements XlinkPackage {
 		initEClass(documentRootEClass, DocumentRoot.class, "DocumentRoot", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getDocumentRoot_Mixed(), ecorePackage.getEFeatureMapEntry(), "mixed", null, 0, -1, null,
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED,
+				IS_ORDERED);
 		initEReference(getDocumentRoot_XMLNSPrefixMap(), ecorePackage.getEStringToStringMapEntry(), null,
 				"xMLNSPrefixMap", null, 0, -1, null, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
 				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -256,14 +257,14 @@ public class XlinkPackageImpl extends EPackageImpl implements XlinkPackage {
 		String source = "http:///org/eclipse/emf/ecore/util/ExtendedMetaData";
 		addAnnotation(documentRootEClass, source, new String[] { "name", "", "kind", "mixed" });
 		addAnnotation(getDocumentRoot_Mixed(), source, new String[] { "kind", "elementWildcard", "name", ":mixed" });
-		addAnnotation(getDocumentRoot_XMLNSPrefixMap(), source, new String[] { "kind", "attribute", "name",
-				"xmlns:prefix" });
-		addAnnotation(getDocumentRoot_XSISchemaLocation(), source, new String[] { "kind", "attribute", "name",
-				"xsi:schemaLocation" });
-		addAnnotation(getDocumentRoot_Href(), source, new String[] { "kind", "attribute", "name", "href", "namespace",
-				"##targetNamespace" });
-		addAnnotation(getDocumentRoot_Type(), source, new String[] { "kind", "attribute", "name", "type", "namespace",
-				"##targetNamespace" });
+		addAnnotation(getDocumentRoot_XMLNSPrefixMap(), source,
+				new String[] { "kind", "attribute", "name", "xmlns:prefix" });
+		addAnnotation(getDocumentRoot_XSISchemaLocation(), source,
+				new String[] { "kind", "attribute", "name", "xsi:schemaLocation" });
+		addAnnotation(getDocumentRoot_Href(), source,
+				new String[] { "kind", "attribute", "name", "href", "namespace", "##targetNamespace" });
+		addAnnotation(getDocumentRoot_Type(), source,
+				new String[] { "kind", "attribute", "name", "type", "namespace", "##targetNamespace" });
 	}
 
-} //XlinkPackageImpl
+} // XlinkPackageImpl

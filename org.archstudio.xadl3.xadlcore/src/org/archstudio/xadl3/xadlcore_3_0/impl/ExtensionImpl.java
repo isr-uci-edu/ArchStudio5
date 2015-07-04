@@ -9,8 +9,6 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Extension</b></em>'. <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */
@@ -34,4 +32,4 @@ public abstract class ExtensionImpl extends MinimalEObjectImpl.Container impleme
 		return Xadlcore_3_0Package.Literals.EXTENSION;
 	}
 
-} //ExtensionImpl
+} // ExtensionImpl

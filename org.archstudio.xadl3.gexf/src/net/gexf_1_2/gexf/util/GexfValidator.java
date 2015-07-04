@@ -7,6 +7,15 @@ import java.util.Map;
 
 import javax.xml.datatype.XMLGregorianCalendar;
 
+import org.eclipse.emf.common.util.BasicDiagnostic;
+import org.eclipse.emf.common.util.Diagnostic;
+import org.eclipse.emf.common.util.DiagnosticChain;
+import org.eclipse.emf.common.util.ResourceLocator;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.util.EObjectValidator;
+import org.eclipse.emf.ecore.xml.type.XMLTypePackage;
+import org.eclipse.emf.ecore.xml.type.util.XMLTypeValidator;
+
 import net.gexf_1_2.gexf.AttributeContent;
 import net.gexf_1_2.gexf.AttributesContent;
 import net.gexf_1_2.gexf.AttrtypeType;
@@ -32,15 +41,6 @@ import net.gexf_1_2.gexf.SpellType;
 import net.gexf_1_2.gexf.SpellsContent;
 import net.gexf_1_2.gexf.TimeformatType;
 import net.gexf_1_2.gexf.VersionType;
-
-import org.eclipse.emf.common.util.BasicDiagnostic;
-import org.eclipse.emf.common.util.Diagnostic;
-import org.eclipse.emf.common.util.DiagnosticChain;
-import org.eclipse.emf.common.util.ResourceLocator;
-import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.util.EObjectValidator;
-import org.eclipse.emf.ecore.xml.type.XMLTypePackage;
-import org.eclipse.emf.ecore.xml.type.util.XMLTypeValidator;
 
 /**
  * <!-- begin-user-doc --> The <b>Validator</b> for the model. <!-- end-user-doc -->
@@ -117,82 +117,83 @@ public class GexfValidator extends EObjectValidator {
 	 * @generated
 	 */
 	@Override
-	protected boolean validate(int classifierID, Object value, DiagnosticChain diagnostics, Map<Object, Object> context) {
+	protected boolean validate(int classifierID, Object value, DiagnosticChain diagnostics,
+			Map<Object, Object> context) {
 		switch (classifierID) {
-		case GexfPackage.ATTRIBUTE_CONTENT:
-			return validateAttributeContent((AttributeContent) value, diagnostics, context);
-		case GexfPackage.ATTRIBUTES_CONTENT:
-			return validateAttributesContent((AttributesContent) value, diagnostics, context);
-		case GexfPackage.ATTVALUES_CONTENT:
-			return validateAttvaluesContent((AttvaluesContent) value, diagnostics, context);
-		case GexfPackage.ATTVALUE_TYPE:
-			return validateAttvalueType((AttvalueType) value, diagnostics, context);
-		case GexfPackage.DOCUMENT_ROOT:
-			return validateDocumentRoot((DocumentRoot) value, diagnostics, context);
-		case GexfPackage.EDGE_CONTENT:
-			return validateEdgeContent((EdgeContent) value, diagnostics, context);
-		case GexfPackage.EDGES_CONTENT:
-			return validateEdgesContent((EdgesContent) value, diagnostics, context);
-		case GexfPackage.GEXF_CONTENT:
-			return validateGexfContent((GexfContent) value, diagnostics, context);
-		case GexfPackage.GRAPH_CONTENT:
-			return validateGraphContent((GraphContent) value, diagnostics, context);
-		case GexfPackage.META_CONTENT:
-			return validateMetaContent((MetaContent) value, diagnostics, context);
-		case GexfPackage.NODE_CONTENT:
-			return validateNodeContent((NodeContent) value, diagnostics, context);
-		case GexfPackage.NODES_CONTENT:
-			return validateNodesContent((NodesContent) value, diagnostics, context);
-		case GexfPackage.PARENTS_CONTENT:
-			return validateParentsContent((ParentsContent) value, diagnostics, context);
-		case GexfPackage.PARENT_TYPE:
-			return validateParentType((ParentType) value, diagnostics, context);
-		case GexfPackage.SPELLS_CONTENT:
-			return validateSpellsContent((SpellsContent) value, diagnostics, context);
-		case GexfPackage.SPELL_TYPE:
-			return validateSpellType((SpellType) value, diagnostics, context);
-		case GexfPackage.ATTRTYPE_TYPE:
-			return validateAttrtypeType((AttrtypeType) value, diagnostics, context);
-		case GexfPackage.CLASS_TYPE:
-			return validateClassType((ClassType) value, diagnostics, context);
-		case GexfPackage.DEFAULTEDGETYPE_TYPE:
-			return validateDefaultedgetypeType((DefaultedgetypeType) value, diagnostics, context);
-		case GexfPackage.EDGETYPE_TYPE:
-			return validateEdgetypeType((EdgetypeType) value, diagnostics, context);
-		case GexfPackage.IDTYPE_TYPE:
-			return validateIdtypeType((IdtypeType) value, diagnostics, context);
-		case GexfPackage.MODE_TYPE:
-			return validateModeType((ModeType) value, diagnostics, context);
-		case GexfPackage.TIMEFORMAT_TYPE:
-			return validateTimeformatType((TimeformatType) value, diagnostics, context);
-		case GexfPackage.VERSION_TYPE:
-			return validateVersionType((VersionType) value, diagnostics, context);
-		case GexfPackage.ATTRTYPE_TYPE_OBJECT:
-			return validateAttrtypeTypeObject((AttrtypeType) value, diagnostics, context);
-		case GexfPackage.CLASS_TYPE_OBJECT:
-			return validateClassTypeObject((ClassType) value, diagnostics, context);
-		case GexfPackage.DEFAULTEDGETYPE_TYPE_OBJECT:
-			return validateDefaultedgetypeTypeObject((DefaultedgetypeType) value, diagnostics, context);
-		case GexfPackage.EDGETYPE_TYPE_OBJECT:
-			return validateEdgetypeTypeObject((EdgetypeType) value, diagnostics, context);
-		case GexfPackage.ID_TYPE:
-			return validateIdType(value, diagnostics, context);
-		case GexfPackage.IDTYPE_TYPE_OBJECT:
-			return validateIdtypeTypeObject((IdtypeType) value, diagnostics, context);
-		case GexfPackage.MODE_TYPE_OBJECT:
-			return validateModeTypeObject((ModeType) value, diagnostics, context);
-		case GexfPackage.TIMEFORMAT_TYPE_OBJECT:
-			return validateTimeformatTypeObject((TimeformatType) value, diagnostics, context);
-		case GexfPackage.TIME_TYPE:
-			return validateTimeType(value, diagnostics, context);
-		case GexfPackage.VERSION_TYPE_OBJECT:
-			return validateVersionTypeObject((VersionType) value, diagnostics, context);
-		case GexfPackage.WEIGHT_TYPE:
-			return validateWeightType((Float) value, diagnostics, context);
-		case GexfPackage.WEIGHT_TYPE_OBJECT:
-			return validateWeightTypeObject((Float) value, diagnostics, context);
-		default:
-			return true;
+			case GexfPackage.ATTRIBUTE_CONTENT:
+				return validateAttributeContent((AttributeContent) value, diagnostics, context);
+			case GexfPackage.ATTRIBUTES_CONTENT:
+				return validateAttributesContent((AttributesContent) value, diagnostics, context);
+			case GexfPackage.ATTVALUES_CONTENT:
+				return validateAttvaluesContent((AttvaluesContent) value, diagnostics, context);
+			case GexfPackage.ATTVALUE_TYPE:
+				return validateAttvalueType((AttvalueType) value, diagnostics, context);
+			case GexfPackage.DOCUMENT_ROOT:
+				return validateDocumentRoot((DocumentRoot) value, diagnostics, context);
+			case GexfPackage.EDGE_CONTENT:
+				return validateEdgeContent((EdgeContent) value, diagnostics, context);
+			case GexfPackage.EDGES_CONTENT:
+				return validateEdgesContent((EdgesContent) value, diagnostics, context);
+			case GexfPackage.GEXF_CONTENT:
+				return validateGexfContent((GexfContent) value, diagnostics, context);
+			case GexfPackage.GRAPH_CONTENT:
+				return validateGraphContent((GraphContent) value, diagnostics, context);
+			case GexfPackage.META_CONTENT:
+				return validateMetaContent((MetaContent) value, diagnostics, context);
+			case GexfPackage.NODE_CONTENT:
+				return validateNodeContent((NodeContent) value, diagnostics, context);
+			case GexfPackage.NODES_CONTENT:
+				return validateNodesContent((NodesContent) value, diagnostics, context);
+			case GexfPackage.PARENTS_CONTENT:
+				return validateParentsContent((ParentsContent) value, diagnostics, context);
+			case GexfPackage.PARENT_TYPE:
+				return validateParentType((ParentType) value, diagnostics, context);
+			case GexfPackage.SPELLS_CONTENT:
+				return validateSpellsContent((SpellsContent) value, diagnostics, context);
+			case GexfPackage.SPELL_TYPE:
+				return validateSpellType((SpellType) value, diagnostics, context);
+			case GexfPackage.ATTRTYPE_TYPE:
+				return validateAttrtypeType((AttrtypeType) value, diagnostics, context);
+			case GexfPackage.CLASS_TYPE:
+				return validateClassType((ClassType) value, diagnostics, context);
+			case GexfPackage.DEFAULTEDGETYPE_TYPE:
+				return validateDefaultedgetypeType((DefaultedgetypeType) value, diagnostics, context);
+			case GexfPackage.EDGETYPE_TYPE:
+				return validateEdgetypeType((EdgetypeType) value, diagnostics, context);
+			case GexfPackage.IDTYPE_TYPE:
+				return validateIdtypeType((IdtypeType) value, diagnostics, context);
+			case GexfPackage.MODE_TYPE:
+				return validateModeType((ModeType) value, diagnostics, context);
+			case GexfPackage.TIMEFORMAT_TYPE:
+				return validateTimeformatType((TimeformatType) value, diagnostics, context);
+			case GexfPackage.VERSION_TYPE:
+				return validateVersionType((VersionType) value, diagnostics, context);
+			case GexfPackage.ATTRTYPE_TYPE_OBJECT:
+				return validateAttrtypeTypeObject((AttrtypeType) value, diagnostics, context);
+			case GexfPackage.CLASS_TYPE_OBJECT:
+				return validateClassTypeObject((ClassType) value, diagnostics, context);
+			case GexfPackage.DEFAULTEDGETYPE_TYPE_OBJECT:
+				return validateDefaultedgetypeTypeObject((DefaultedgetypeType) value, diagnostics, context);
+			case GexfPackage.EDGETYPE_TYPE_OBJECT:
+				return validateEdgetypeTypeObject((EdgetypeType) value, diagnostics, context);
+			case GexfPackage.ID_TYPE:
+				return validateIdType(value, diagnostics, context);
+			case GexfPackage.IDTYPE_TYPE_OBJECT:
+				return validateIdtypeTypeObject((IdtypeType) value, diagnostics, context);
+			case GexfPackage.MODE_TYPE_OBJECT:
+				return validateModeTypeObject((ModeType) value, diagnostics, context);
+			case GexfPackage.TIMEFORMAT_TYPE_OBJECT:
+				return validateTimeformatTypeObject((TimeformatType) value, diagnostics, context);
+			case GexfPackage.TIME_TYPE:
+				return validateTimeType(value, diagnostics, context);
+			case GexfPackage.VERSION_TYPE_OBJECT:
+				return validateVersionTypeObject((VersionType) value, diagnostics, context);
+			case GexfPackage.WEIGHT_TYPE:
+				return validateWeightType((Float) value, diagnostics, context);
+			case GexfPackage.WEIGHT_TYPE_OBJECT:
+				return validateWeightTypeObject((Float) value, diagnostics, context);
+			default:
+				return true;
 		}
 	}
 
@@ -251,7 +252,8 @@ public class GexfValidator extends EObjectValidator {
 	 * 
 	 * @generated
 	 */
-	public boolean validateEdgeContent(EdgeContent edgeContent, DiagnosticChain diagnostics, Map<Object, Object> context) {
+	public boolean validateEdgeContent(EdgeContent edgeContent, DiagnosticChain diagnostics,
+			Map<Object, Object> context) {
 		return validate_EveryDefaultConstraint(edgeContent, diagnostics, context);
 	}
 
@@ -270,7 +272,8 @@ public class GexfValidator extends EObjectValidator {
 	 * 
 	 * @generated
 	 */
-	public boolean validateGexfContent(GexfContent gexfContent, DiagnosticChain diagnostics, Map<Object, Object> context) {
+	public boolean validateGexfContent(GexfContent gexfContent, DiagnosticChain diagnostics,
+			Map<Object, Object> context) {
 		return validate_EveryDefaultConstraint(gexfContent, diagnostics, context);
 	}
 
@@ -289,7 +292,8 @@ public class GexfValidator extends EObjectValidator {
 	 * 
 	 * @generated
 	 */
-	public boolean validateMetaContent(MetaContent metaContent, DiagnosticChain diagnostics, Map<Object, Object> context) {
+	public boolean validateMetaContent(MetaContent metaContent, DiagnosticChain diagnostics,
+			Map<Object, Object> context) {
 		return validate_EveryDefaultConstraint(metaContent, diagnostics, context);
 	}
 
@@ -298,7 +302,8 @@ public class GexfValidator extends EObjectValidator {
 	 * 
 	 * @generated
 	 */
-	public boolean validateNodeContent(NodeContent nodeContent, DiagnosticChain diagnostics, Map<Object, Object> context) {
+	public boolean validateNodeContent(NodeContent nodeContent, DiagnosticChain diagnostics,
+			Map<Object, Object> context) {
 		return validate_EveryDefaultConstraint(nodeContent, diagnostics, context);
 	}
 
@@ -422,7 +427,8 @@ public class GexfValidator extends EObjectValidator {
 	 * 
 	 * @generated
 	 */
-	public boolean validateVersionType(VersionType versionType, DiagnosticChain diagnostics, Map<Object, Object> context) {
+	public boolean validateVersionType(VersionType versionType, DiagnosticChain diagnostics,
+			Map<Object, Object> context) {
 		return true;
 	}
 
@@ -654,4 +660,4 @@ public class GexfValidator extends EObjectValidator {
 		return super.getResourceLocator();
 	}
 
-} //GexfValidator
+} // GexfValidator

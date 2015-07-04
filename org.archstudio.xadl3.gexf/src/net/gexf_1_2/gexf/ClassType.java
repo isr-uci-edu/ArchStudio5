@@ -84,6 +84,8 @@ public enum ClassType implements Enumerator {
 	 * Returns the '<em><b>Class Type</b></em>' literal with the specified literal value. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
 	 * 
+	 * @param literal the literal.
+	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
 	public static ClassType get(String literal) {
@@ -99,6 +101,8 @@ public enum ClassType implements Enumerator {
 	 * Returns the '<em><b>Class Type</b></em>' literal with the specified name. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
 	 * 
+	 * @param name the name.
+	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
 	public static ClassType getByName(String name) {
@@ -114,14 +118,16 @@ public enum ClassType implements Enumerator {
 	 * Returns the '<em><b>Class Type</b></em>' literal with the specified integer value. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
 	 * 
+	 * @param value the integer value.
+	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
 	public static ClassType get(int value) {
 		switch (value) {
-		case NODE_VALUE:
-			return NODE;
-		case EDGE_VALUE:
-			return EDGE;
+			case NODE_VALUE:
+				return NODE;
+			case EDGE_VALUE:
+				return EDGE;
 		}
 		return null;
 	}
@@ -199,4 +205,4 @@ public enum ClassType implements Enumerator {
 		return literal;
 	}
 
-} //ClassType
+} // ClassType

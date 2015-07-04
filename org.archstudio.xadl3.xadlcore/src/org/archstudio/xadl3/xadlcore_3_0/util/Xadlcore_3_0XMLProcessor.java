@@ -43,4 +43,4 @@ public class Xadlcore_3_0XMLProcessor extends XMLProcessor {
 		return registrations;
 	}
 
-} //Xadlcore_3_0XMLProcessor
+} // Xadlcore_3_0XMLProcessor

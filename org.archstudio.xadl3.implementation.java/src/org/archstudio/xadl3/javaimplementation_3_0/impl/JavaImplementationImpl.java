@@ -23,12 +23,14 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
- * <li>{@link org.archstudio.xadl3.javaimplementation_3_0.impl.JavaImplementationImpl#getMainClass <em>Main Class</em>}</li>
- * <li>{@link org.archstudio.xadl3.javaimplementation_3_0.impl.JavaImplementationImpl#getAuxClass <em>Aux Class</em>}</li>
+ * <li>{@link org.archstudio.xadl3.javaimplementation_3_0.impl.JavaImplementationImpl#getMainClass <em>Main Class</em>}
+ * </li>
+ * <li>{@link org.archstudio.xadl3.javaimplementation_3_0.impl.JavaImplementationImpl#getAuxClass <em>Aux Class</em>}
+ * </li>
  * <li>{@link org.archstudio.xadl3.javaimplementation_3_0.impl.JavaImplementationImpl#getExt <em>Ext</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -123,12 +125,14 @@ public class JavaImplementationImpl extends ImplementationImpl implements JavaIm
 		if (newMainClass != mainClass) {
 			NotificationChain msgs = null;
 			if (mainClass != null) {
-				msgs = ((InternalEObject) mainClass).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
-						- Javaimplementation_3_0Package.JAVA_IMPLEMENTATION__MAIN_CLASS, null, msgs);
+				msgs = ((InternalEObject) mainClass).eInverseRemove(this,
+						EOPPOSITE_FEATURE_BASE - Javaimplementation_3_0Package.JAVA_IMPLEMENTATION__MAIN_CLASS, null,
+						msgs);
 			}
 			if (newMainClass != null) {
-				msgs = ((InternalEObject) newMainClass).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
-						- Javaimplementation_3_0Package.JAVA_IMPLEMENTATION__MAIN_CLASS, null, msgs);
+				msgs = ((InternalEObject) newMainClass).eInverseAdd(this,
+						EOPPOSITE_FEATURE_BASE - Javaimplementation_3_0Package.JAVA_IMPLEMENTATION__MAIN_CLASS, null,
+						msgs);
 			}
 			msgs = basicSetMainClass(newMainClass, msgs);
 			if (msgs != null) {
@@ -177,12 +181,12 @@ public class JavaImplementationImpl extends ImplementationImpl implements JavaIm
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case Javaimplementation_3_0Package.JAVA_IMPLEMENTATION__MAIN_CLASS:
-			return basicSetMainClass(null, msgs);
-		case Javaimplementation_3_0Package.JAVA_IMPLEMENTATION__AUX_CLASS:
-			return ((InternalEList<?>) getAuxClass()).basicRemove(otherEnd, msgs);
-		case Javaimplementation_3_0Package.JAVA_IMPLEMENTATION__EXT:
-			return ((InternalEList<?>) getExt()).basicRemove(otherEnd, msgs);
+			case Javaimplementation_3_0Package.JAVA_IMPLEMENTATION__MAIN_CLASS:
+				return basicSetMainClass(null, msgs);
+			case Javaimplementation_3_0Package.JAVA_IMPLEMENTATION__AUX_CLASS:
+				return ((InternalEList<?>) getAuxClass()).basicRemove(otherEnd, msgs);
+			case Javaimplementation_3_0Package.JAVA_IMPLEMENTATION__EXT:
+				return ((InternalEList<?>) getExt()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -195,12 +199,12 @@ public class JavaImplementationImpl extends ImplementationImpl implements JavaIm
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case Javaimplementation_3_0Package.JAVA_IMPLEMENTATION__MAIN_CLASS:
-			return getMainClass();
-		case Javaimplementation_3_0Package.JAVA_IMPLEMENTATION__AUX_CLASS:
-			return getAuxClass();
-		case Javaimplementation_3_0Package.JAVA_IMPLEMENTATION__EXT:
-			return getExt();
+			case Javaimplementation_3_0Package.JAVA_IMPLEMENTATION__MAIN_CLASS:
+				return getMainClass();
+			case Javaimplementation_3_0Package.JAVA_IMPLEMENTATION__AUX_CLASS:
+				return getAuxClass();
+			case Javaimplementation_3_0Package.JAVA_IMPLEMENTATION__EXT:
+				return getExt();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -214,17 +218,17 @@ public class JavaImplementationImpl extends ImplementationImpl implements JavaIm
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Javaimplementation_3_0Package.JAVA_IMPLEMENTATION__MAIN_CLASS:
-			setMainClass((JavaClass) newValue);
-			return;
-		case Javaimplementation_3_0Package.JAVA_IMPLEMENTATION__AUX_CLASS:
-			getAuxClass().clear();
-			getAuxClass().addAll((Collection<? extends JavaClass>) newValue);
-			return;
-		case Javaimplementation_3_0Package.JAVA_IMPLEMENTATION__EXT:
-			getExt().clear();
-			getExt().addAll((Collection<? extends Extension>) newValue);
-			return;
+			case Javaimplementation_3_0Package.JAVA_IMPLEMENTATION__MAIN_CLASS:
+				setMainClass((JavaClass) newValue);
+				return;
+			case Javaimplementation_3_0Package.JAVA_IMPLEMENTATION__AUX_CLASS:
+				getAuxClass().clear();
+				getAuxClass().addAll((Collection<? extends JavaClass>) newValue);
+				return;
+			case Javaimplementation_3_0Package.JAVA_IMPLEMENTATION__EXT:
+				getExt().clear();
+				getExt().addAll((Collection<? extends Extension>) newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -237,15 +241,15 @@ public class JavaImplementationImpl extends ImplementationImpl implements JavaIm
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Javaimplementation_3_0Package.JAVA_IMPLEMENTATION__MAIN_CLASS:
-			setMainClass((JavaClass) null);
-			return;
-		case Javaimplementation_3_0Package.JAVA_IMPLEMENTATION__AUX_CLASS:
-			getAuxClass().clear();
-			return;
-		case Javaimplementation_3_0Package.JAVA_IMPLEMENTATION__EXT:
-			getExt().clear();
-			return;
+			case Javaimplementation_3_0Package.JAVA_IMPLEMENTATION__MAIN_CLASS:
+				setMainClass((JavaClass) null);
+				return;
+			case Javaimplementation_3_0Package.JAVA_IMPLEMENTATION__AUX_CLASS:
+				getAuxClass().clear();
+				return;
+			case Javaimplementation_3_0Package.JAVA_IMPLEMENTATION__EXT:
+				getExt().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -258,14 +262,14 @@ public class JavaImplementationImpl extends ImplementationImpl implements JavaIm
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Javaimplementation_3_0Package.JAVA_IMPLEMENTATION__MAIN_CLASS:
-			return mainClass != null;
-		case Javaimplementation_3_0Package.JAVA_IMPLEMENTATION__AUX_CLASS:
-			return auxClass != null && !auxClass.isEmpty();
-		case Javaimplementation_3_0Package.JAVA_IMPLEMENTATION__EXT:
-			return ext != null && !ext.isEmpty();
+			case Javaimplementation_3_0Package.JAVA_IMPLEMENTATION__MAIN_CLASS:
+				return mainClass != null;
+			case Javaimplementation_3_0Package.JAVA_IMPLEMENTATION__AUX_CLASS:
+				return auxClass != null && !auxClass.isEmpty();
+			case Javaimplementation_3_0Package.JAVA_IMPLEMENTATION__EXT:
+				return ext != null && !ext.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
 
-} //JavaImplementationImpl
+} // JavaImplementationImpl

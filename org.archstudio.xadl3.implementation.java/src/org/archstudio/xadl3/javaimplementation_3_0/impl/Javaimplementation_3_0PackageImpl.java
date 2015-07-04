@@ -73,7 +73,6 @@ public class Javaimplementation_3_0PackageImpl extends EPackageImpl implements J
 
 	/**
 	 * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
-	 * 
 	 * <p>
 	 * This method is used to initialize {@link Javaimplementation_3_0Package#eINSTANCE} when that field is accessed.
 	 * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package. <!--
@@ -91,9 +90,10 @@ public class Javaimplementation_3_0PackageImpl extends EPackageImpl implements J
 		}
 
 		// Obtain or create and register package
-		Javaimplementation_3_0PackageImpl theJavaimplementation_3_0Package = (Javaimplementation_3_0PackageImpl) (EPackage.Registry.INSTANCE
-				.get(eNS_URI) instanceof Javaimplementation_3_0PackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI)
-				: new Javaimplementation_3_0PackageImpl());
+		Javaimplementation_3_0PackageImpl theJavaimplementation_3_0Package =
+				(Javaimplementation_3_0PackageImpl) (EPackage.Registry.INSTANCE
+						.get(eNS_URI) instanceof Javaimplementation_3_0PackageImpl
+								? EPackage.Registry.INSTANCE.get(eNS_URI) : new Javaimplementation_3_0PackageImpl());
 
 		isInited = true;
 
@@ -102,14 +102,17 @@ public class Javaimplementation_3_0PackageImpl extends EPackageImpl implements J
 
 		// Obtain or create and register interdependencies
 		Xadlcore_3_0PackageImpl theXadlcore_3_0Package = (Xadlcore_3_0PackageImpl) (EPackage.Registry.INSTANCE
-				.getEPackage(Xadlcore_3_0Package.eNS_URI) instanceof Xadlcore_3_0PackageImpl ? EPackage.Registry.INSTANCE
-				.getEPackage(Xadlcore_3_0Package.eNS_URI) : Xadlcore_3_0Package.eINSTANCE);
+				.getEPackage(Xadlcore_3_0Package.eNS_URI) instanceof Xadlcore_3_0PackageImpl
+						? EPackage.Registry.INSTANCE.getEPackage(Xadlcore_3_0Package.eNS_URI)
+						: Xadlcore_3_0Package.eINSTANCE);
 		XlinkPackageImpl theXlinkPackage = (XlinkPackageImpl) (EPackage.Registry.INSTANCE
-				.getEPackage(XlinkPackage.eNS_URI) instanceof XlinkPackageImpl ? EPackage.Registry.INSTANCE
-				.getEPackage(XlinkPackage.eNS_URI) : XlinkPackage.eINSTANCE);
-		Implementation_3_0PackageImpl theImplementation_3_0Package = (Implementation_3_0PackageImpl) (EPackage.Registry.INSTANCE
-				.getEPackage(Implementation_3_0Package.eNS_URI) instanceof Implementation_3_0PackageImpl ? EPackage.Registry.INSTANCE
-				.getEPackage(Implementation_3_0Package.eNS_URI) : Implementation_3_0Package.eINSTANCE);
+				.getEPackage(XlinkPackage.eNS_URI) instanceof XlinkPackageImpl
+						? EPackage.Registry.INSTANCE.getEPackage(XlinkPackage.eNS_URI) : XlinkPackage.eINSTANCE);
+		Implementation_3_0PackageImpl theImplementation_3_0Package =
+				(Implementation_3_0PackageImpl) (EPackage.Registry.INSTANCE
+						.getEPackage(Implementation_3_0Package.eNS_URI) instanceof Implementation_3_0PackageImpl
+								? EPackage.Registry.INSTANCE.getEPackage(Implementation_3_0Package.eNS_URI)
+								: Implementation_3_0Package.eINSTANCE);
 
 		// Create package meta-data objects
 		theJavaimplementation_3_0Package.createPackageContents();
@@ -333,12 +336,12 @@ public class Javaimplementation_3_0PackageImpl extends EPackageImpl implements J
 		setNsURI(eNS_URI);
 
 		// Obtain other dependent packages
-		Xadlcore_3_0Package theXadlcore_3_0Package = (Xadlcore_3_0Package) EPackage.Registry.INSTANCE
-				.getEPackage(Xadlcore_3_0Package.eNS_URI);
-		XMLTypePackage theXMLTypePackage = (XMLTypePackage) EPackage.Registry.INSTANCE
-				.getEPackage(XMLTypePackage.eNS_URI);
-		Implementation_3_0Package theImplementation_3_0Package = (Implementation_3_0Package) EPackage.Registry.INSTANCE
-				.getEPackage(Implementation_3_0Package.eNS_URI);
+		Xadlcore_3_0Package theXadlcore_3_0Package =
+				(Xadlcore_3_0Package) EPackage.Registry.INSTANCE.getEPackage(Xadlcore_3_0Package.eNS_URI);
+		XMLTypePackage theXMLTypePackage =
+				(XMLTypePackage) EPackage.Registry.INSTANCE.getEPackage(XMLTypePackage.eNS_URI);
+		Implementation_3_0Package theImplementation_3_0Package =
+				(Implementation_3_0Package) EPackage.Registry.INSTANCE.getEPackage(Implementation_3_0Package.eNS_URI);
 
 		// Create type parameters
 
@@ -376,14 +379,14 @@ public class Javaimplementation_3_0PackageImpl extends EPackageImpl implements J
 		initEClass(javaImplementationEClass, JavaImplementation.class, "JavaImplementation", !IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getJavaImplementation_MainClass(), this.getJavaClass(), null, "mainClass", null, 1, 1,
-				JavaImplementation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
-				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+				JavaImplementation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getJavaImplementation_AuxClass(), this.getJavaClass(), null, "auxClass", null, 0, -1,
-				JavaImplementation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
-				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+				JavaImplementation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getJavaImplementation_Ext(), theXadlcore_3_0Package.getExtension(), null, "ext", null, 0, -1,
-				JavaImplementation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
-				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+				JavaImplementation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);
@@ -402,29 +405,29 @@ public class Javaimplementation_3_0PackageImpl extends EPackageImpl implements J
 	protected void createExtendedMetaDataAnnotations() {
 		String source = "http:///org/eclipse/emf/ecore/util/ExtendedMetaData";
 		addAnnotation(classPathEntryEClass, source, new String[] { "name", "ClassPathEntry", "kind", "elementOnly" });
-		addAnnotation(getClassPathEntry_Ext(), source, new String[] { "kind", "element", "name", "ext", "namespace",
-				"##targetNamespace" });
-		addAnnotation(getClassPathEntry_Entry(), source, new String[] { "kind", "attribute", "name", "entry",
-				"namespace", "##targetNamespace" });
-		addAnnotation(getClassPathEntry_Id(), source, new String[] { "kind", "attribute", "name", "id", "namespace",
-				"##targetNamespace" });
+		addAnnotation(getClassPathEntry_Ext(), source,
+				new String[] { "kind", "element", "name", "ext", "namespace", "##targetNamespace" });
+		addAnnotation(getClassPathEntry_Entry(), source,
+				new String[] { "kind", "attribute", "name", "entry", "namespace", "##targetNamespace" });
+		addAnnotation(getClassPathEntry_Id(), source,
+				new String[] { "kind", "attribute", "name", "id", "namespace", "##targetNamespace" });
 		addAnnotation(javaClassEClass, source, new String[] { "name", "JavaClass", "kind", "elementOnly" });
-		addAnnotation(getJavaClass_ClassPathEntry(), source, new String[] { "kind", "element", "name",
-				"classPathEntry", "namespace", "##targetNamespace" });
-		addAnnotation(getJavaClass_Ext(), source, new String[] { "kind", "element", "name", "ext", "namespace",
-				"##targetNamespace" });
-		addAnnotation(getJavaClass_ClassName(), source, new String[] { "kind", "attribute", "name", "className",
-				"namespace", "##targetNamespace" });
-		addAnnotation(getJavaClass_Id(), source, new String[] { "kind", "attribute", "name", "id", "namespace",
-				"##targetNamespace" });
-		addAnnotation(javaImplementationEClass, source, new String[] { "name", "JavaImplementation", "kind",
-				"elementOnly" });
-		addAnnotation(getJavaImplementation_MainClass(), source, new String[] { "kind", "element", "name", "mainClass",
-				"namespace", "##targetNamespace" });
-		addAnnotation(getJavaImplementation_AuxClass(), source, new String[] { "kind", "element", "name", "auxClass",
-				"namespace", "##targetNamespace" });
-		addAnnotation(getJavaImplementation_Ext(), source, new String[] { "kind", "element", "name", "ext",
-				"namespace", "##targetNamespace" });
+		addAnnotation(getJavaClass_ClassPathEntry(), source,
+				new String[] { "kind", "element", "name", "classPathEntry", "namespace", "##targetNamespace" });
+		addAnnotation(getJavaClass_Ext(), source,
+				new String[] { "kind", "element", "name", "ext", "namespace", "##targetNamespace" });
+		addAnnotation(getJavaClass_ClassName(), source,
+				new String[] { "kind", "attribute", "name", "className", "namespace", "##targetNamespace" });
+		addAnnotation(getJavaClass_Id(), source,
+				new String[] { "kind", "attribute", "name", "id", "namespace", "##targetNamespace" });
+		addAnnotation(javaImplementationEClass, source,
+				new String[] { "name", "JavaImplementation", "kind", "elementOnly" });
+		addAnnotation(getJavaImplementation_MainClass(), source,
+				new String[] { "kind", "element", "name", "mainClass", "namespace", "##targetNamespace" });
+		addAnnotation(getJavaImplementation_AuxClass(), source,
+				new String[] { "kind", "element", "name", "auxClass", "namespace", "##targetNamespace" });
+		addAnnotation(getJavaImplementation_Ext(), source,
+				new String[] { "kind", "element", "name", "ext", "namespace", "##targetNamespace" });
 	}
 
-} //Javaimplementation_3_0PackageImpl
+} // Javaimplementation_3_0PackageImpl

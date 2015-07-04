@@ -15,12 +15,11 @@ public class Domain_3_0ResourceImpl extends XMLResourceImpl {
 	/**
 	 * Creates an instance of the resource. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
-	 * @param uri
-	 *            the URI of the new resource.
+	 * @param uri the URI of the new resource.
 	 * @generated
 	 */
 	public Domain_3_0ResourceImpl(URI uri) {
 		super(uri);
 	}
 
-} //Domain_3_0ResourceImpl
+} // Domain_3_0ResourceImpl

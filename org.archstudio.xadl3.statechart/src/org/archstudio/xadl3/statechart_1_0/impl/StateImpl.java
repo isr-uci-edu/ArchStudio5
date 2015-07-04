@@ -22,13 +22,13 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>State</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  * <li>{@link org.archstudio.xadl3.statechart_1_0.impl.StateImpl#getEntry <em>Entry</em>}</li>
  * <li>{@link org.archstudio.xadl3.statechart_1_0.impl.StateImpl#getExit <em>Exit</em>}</li>
  * <li>{@link org.archstudio.xadl3.statechart_1_0.impl.StateImpl#getSubStatechart <em>Sub Statechart</em>}</li>
  * <li>{@link org.archstudio.xadl3.statechart_1_0.impl.StateImpl#getType <em>Type</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -177,12 +177,12 @@ public class StateImpl extends PseudoStateImpl implements State {
 		if (newSubStatechart != subStatechart) {
 			NotificationChain msgs = null;
 			if (subStatechart != null) {
-				msgs = ((InternalEObject) subStatechart).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
-						- Statechart_1_0Package.STATE__SUB_STATECHART, null, msgs);
+				msgs = ((InternalEObject) subStatechart).eInverseRemove(this,
+						EOPPOSITE_FEATURE_BASE - Statechart_1_0Package.STATE__SUB_STATECHART, null, msgs);
 			}
 			if (newSubStatechart != null) {
-				msgs = ((InternalEObject) newSubStatechart).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
-						- Statechart_1_0Package.STATE__SUB_STATECHART, null, msgs);
+				msgs = ((InternalEObject) newSubStatechart).eInverseAdd(this,
+						EOPPOSITE_FEATURE_BASE - Statechart_1_0Package.STATE__SUB_STATECHART, null, msgs);
 			}
 			msgs = basicSetSubStatechart(newSubStatechart, msgs);
 			if (msgs != null) {
@@ -257,12 +257,12 @@ public class StateImpl extends PseudoStateImpl implements State {
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case Statechart_1_0Package.STATE__ENTRY:
-			return ((InternalEList<?>) getEntry()).basicRemove(otherEnd, msgs);
-		case Statechart_1_0Package.STATE__EXIT:
-			return ((InternalEList<?>) getExit()).basicRemove(otherEnd, msgs);
-		case Statechart_1_0Package.STATE__SUB_STATECHART:
-			return basicSetSubStatechart(null, msgs);
+			case Statechart_1_0Package.STATE__ENTRY:
+				return ((InternalEList<?>) getEntry()).basicRemove(otherEnd, msgs);
+			case Statechart_1_0Package.STATE__EXIT:
+				return ((InternalEList<?>) getExit()).basicRemove(otherEnd, msgs);
+			case Statechart_1_0Package.STATE__SUB_STATECHART:
+				return basicSetSubStatechart(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -275,14 +275,14 @@ public class StateImpl extends PseudoStateImpl implements State {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case Statechart_1_0Package.STATE__ENTRY:
-			return getEntry();
-		case Statechart_1_0Package.STATE__EXIT:
-			return getExit();
-		case Statechart_1_0Package.STATE__SUB_STATECHART:
-			return getSubStatechart();
-		case Statechart_1_0Package.STATE__TYPE:
-			return getType();
+			case Statechart_1_0Package.STATE__ENTRY:
+				return getEntry();
+			case Statechart_1_0Package.STATE__EXIT:
+				return getExit();
+			case Statechart_1_0Package.STATE__SUB_STATECHART:
+				return getSubStatechart();
+			case Statechart_1_0Package.STATE__TYPE:
+				return getType();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -296,20 +296,20 @@ public class StateImpl extends PseudoStateImpl implements State {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Statechart_1_0Package.STATE__ENTRY:
-			getEntry().clear();
-			getEntry().addAll((Collection<? extends Behavior>) newValue);
-			return;
-		case Statechart_1_0Package.STATE__EXIT:
-			getExit().clear();
-			getExit().addAll((Collection<? extends Behavior>) newValue);
-			return;
-		case Statechart_1_0Package.STATE__SUB_STATECHART:
-			setSubStatechart((SubStatechart) newValue);
-			return;
-		case Statechart_1_0Package.STATE__TYPE:
-			setType((StateType) newValue);
-			return;
+			case Statechart_1_0Package.STATE__ENTRY:
+				getEntry().clear();
+				getEntry().addAll((Collection<? extends Behavior>) newValue);
+				return;
+			case Statechart_1_0Package.STATE__EXIT:
+				getExit().clear();
+				getExit().addAll((Collection<? extends Behavior>) newValue);
+				return;
+			case Statechart_1_0Package.STATE__SUB_STATECHART:
+				setSubStatechart((SubStatechart) newValue);
+				return;
+			case Statechart_1_0Package.STATE__TYPE:
+				setType((StateType) newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -322,18 +322,18 @@ public class StateImpl extends PseudoStateImpl implements State {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Statechart_1_0Package.STATE__ENTRY:
-			getEntry().clear();
-			return;
-		case Statechart_1_0Package.STATE__EXIT:
-			getExit().clear();
-			return;
-		case Statechart_1_0Package.STATE__SUB_STATECHART:
-			setSubStatechart((SubStatechart) null);
-			return;
-		case Statechart_1_0Package.STATE__TYPE:
-			unsetType();
-			return;
+			case Statechart_1_0Package.STATE__ENTRY:
+				getEntry().clear();
+				return;
+			case Statechart_1_0Package.STATE__EXIT:
+				getExit().clear();
+				return;
+			case Statechart_1_0Package.STATE__SUB_STATECHART:
+				setSubStatechart((SubStatechart) null);
+				return;
+			case Statechart_1_0Package.STATE__TYPE:
+				unsetType();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -346,14 +346,14 @@ public class StateImpl extends PseudoStateImpl implements State {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Statechart_1_0Package.STATE__ENTRY:
-			return entry != null && !entry.isEmpty();
-		case Statechart_1_0Package.STATE__EXIT:
-			return exit != null && !exit.isEmpty();
-		case Statechart_1_0Package.STATE__SUB_STATECHART:
-			return subStatechart != null;
-		case Statechart_1_0Package.STATE__TYPE:
-			return isSetType();
+			case Statechart_1_0Package.STATE__ENTRY:
+				return entry != null && !entry.isEmpty();
+			case Statechart_1_0Package.STATE__EXIT:
+				return exit != null && !exit.isEmpty();
+			case Statechart_1_0Package.STATE__SUB_STATECHART:
+				return subStatechart != null;
+			case Statechart_1_0Package.STATE__TYPE:
+				return isSetType();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -381,4 +381,4 @@ public class StateImpl extends PseudoStateImpl implements State {
 		return result.toString();
 	}
 
-} //StateImpl
+} // StateImpl

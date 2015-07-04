@@ -23,15 +23,16 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Variability</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
- * <li>{@link org.archstudio.xadl3.variability_3_0.impl.VariabilityImpl#getActiveChangeSet <em>Active Change Set</em>}</li>
- * <li>{@link org.archstudio.xadl3.variability_3_0.impl.VariabilityImpl#getAppliedChangeSets <em>Applied Change Sets
- * </em>}</li>
+ * <li>{@link org.archstudio.xadl3.variability_3_0.impl.VariabilityImpl#getActiveChangeSet <em>Active Change Set</em>}
+ * </li>
+ * <li>{@link org.archstudio.xadl3.variability_3_0.impl.VariabilityImpl#getAppliedChangeSets
+ * <em>Applied Change Sets</em>}</li>
  * <li>{@link org.archstudio.xadl3.variability_3_0.impl.VariabilityImpl#getChangeSet <em>Change Set</em>}</li>
  * <li>{@link org.archstudio.xadl3.variability_3_0.impl.VariabilityImpl#getRelationship <em>Relationship</em>}</li>
  * <li>{@link org.archstudio.xadl3.variability_3_0.impl.VariabilityImpl#isOverview <em>Overview</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -143,8 +144,8 @@ public class VariabilityImpl extends MinimalEObjectImpl.Container implements Var
 		ChangeSet oldActiveChangeSet = activeChangeSet;
 		activeChangeSet = newActiveChangeSet;
 		if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Variability_3_0Package.VARIABILITY__ACTIVE_CHANGE_SET, oldActiveChangeSet, activeChangeSet));
+			eNotify(new ENotificationImpl(this, Notification.SET, Variability_3_0Package.VARIABILITY__ACTIVE_CHANGE_SET,
+					oldActiveChangeSet, activeChangeSet));
 		}
 	}
 
@@ -252,10 +253,10 @@ public class VariabilityImpl extends MinimalEObjectImpl.Container implements Var
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case Variability_3_0Package.VARIABILITY__CHANGE_SET:
-			return ((InternalEList<?>) getChangeSet()).basicRemove(otherEnd, msgs);
-		case Variability_3_0Package.VARIABILITY__RELATIONSHIP:
-			return ((InternalEList<?>) getRelationship()).basicRemove(otherEnd, msgs);
+			case Variability_3_0Package.VARIABILITY__CHANGE_SET:
+				return ((InternalEList<?>) getChangeSet()).basicRemove(otherEnd, msgs);
+			case Variability_3_0Package.VARIABILITY__RELATIONSHIP:
+				return ((InternalEList<?>) getRelationship()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -268,16 +269,16 @@ public class VariabilityImpl extends MinimalEObjectImpl.Container implements Var
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case Variability_3_0Package.VARIABILITY__ACTIVE_CHANGE_SET:
-			return getActiveChangeSet();
-		case Variability_3_0Package.VARIABILITY__APPLIED_CHANGE_SETS:
-			return getAppliedChangeSets();
-		case Variability_3_0Package.VARIABILITY__CHANGE_SET:
-			return getChangeSet();
-		case Variability_3_0Package.VARIABILITY__RELATIONSHIP:
-			return getRelationship();
-		case Variability_3_0Package.VARIABILITY__OVERVIEW:
-			return isOverview();
+			case Variability_3_0Package.VARIABILITY__ACTIVE_CHANGE_SET:
+				return getActiveChangeSet();
+			case Variability_3_0Package.VARIABILITY__APPLIED_CHANGE_SETS:
+				return getAppliedChangeSets();
+			case Variability_3_0Package.VARIABILITY__CHANGE_SET:
+				return getChangeSet();
+			case Variability_3_0Package.VARIABILITY__RELATIONSHIP:
+				return getRelationship();
+			case Variability_3_0Package.VARIABILITY__OVERVIEW:
+				return isOverview();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -291,24 +292,24 @@ public class VariabilityImpl extends MinimalEObjectImpl.Container implements Var
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Variability_3_0Package.VARIABILITY__ACTIVE_CHANGE_SET:
-			setActiveChangeSet((ChangeSet) newValue);
-			return;
-		case Variability_3_0Package.VARIABILITY__APPLIED_CHANGE_SETS:
-			getAppliedChangeSets().clear();
-			getAppliedChangeSets().addAll((Collection<? extends ChangeSet>) newValue);
-			return;
-		case Variability_3_0Package.VARIABILITY__CHANGE_SET:
-			getChangeSet().clear();
-			getChangeSet().addAll((Collection<? extends ChangeSet>) newValue);
-			return;
-		case Variability_3_0Package.VARIABILITY__RELATIONSHIP:
-			getRelationship().clear();
-			getRelationship().addAll((Collection<? extends Relationship>) newValue);
-			return;
-		case Variability_3_0Package.VARIABILITY__OVERVIEW:
-			setOverview((Boolean) newValue);
-			return;
+			case Variability_3_0Package.VARIABILITY__ACTIVE_CHANGE_SET:
+				setActiveChangeSet((ChangeSet) newValue);
+				return;
+			case Variability_3_0Package.VARIABILITY__APPLIED_CHANGE_SETS:
+				getAppliedChangeSets().clear();
+				getAppliedChangeSets().addAll((Collection<? extends ChangeSet>) newValue);
+				return;
+			case Variability_3_0Package.VARIABILITY__CHANGE_SET:
+				getChangeSet().clear();
+				getChangeSet().addAll((Collection<? extends ChangeSet>) newValue);
+				return;
+			case Variability_3_0Package.VARIABILITY__RELATIONSHIP:
+				getRelationship().clear();
+				getRelationship().addAll((Collection<? extends Relationship>) newValue);
+				return;
+			case Variability_3_0Package.VARIABILITY__OVERVIEW:
+				setOverview((Boolean) newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -321,21 +322,21 @@ public class VariabilityImpl extends MinimalEObjectImpl.Container implements Var
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Variability_3_0Package.VARIABILITY__ACTIVE_CHANGE_SET:
-			setActiveChangeSet((ChangeSet) null);
-			return;
-		case Variability_3_0Package.VARIABILITY__APPLIED_CHANGE_SETS:
-			getAppliedChangeSets().clear();
-			return;
-		case Variability_3_0Package.VARIABILITY__CHANGE_SET:
-			getChangeSet().clear();
-			return;
-		case Variability_3_0Package.VARIABILITY__RELATIONSHIP:
-			getRelationship().clear();
-			return;
-		case Variability_3_0Package.VARIABILITY__OVERVIEW:
-			unsetOverview();
-			return;
+			case Variability_3_0Package.VARIABILITY__ACTIVE_CHANGE_SET:
+				setActiveChangeSet((ChangeSet) null);
+				return;
+			case Variability_3_0Package.VARIABILITY__APPLIED_CHANGE_SETS:
+				getAppliedChangeSets().clear();
+				return;
+			case Variability_3_0Package.VARIABILITY__CHANGE_SET:
+				getChangeSet().clear();
+				return;
+			case Variability_3_0Package.VARIABILITY__RELATIONSHIP:
+				getRelationship().clear();
+				return;
+			case Variability_3_0Package.VARIABILITY__OVERVIEW:
+				unsetOverview();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -348,16 +349,16 @@ public class VariabilityImpl extends MinimalEObjectImpl.Container implements Var
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Variability_3_0Package.VARIABILITY__ACTIVE_CHANGE_SET:
-			return activeChangeSet != null;
-		case Variability_3_0Package.VARIABILITY__APPLIED_CHANGE_SETS:
-			return appliedChangeSets != null && !appliedChangeSets.isEmpty();
-		case Variability_3_0Package.VARIABILITY__CHANGE_SET:
-			return changeSet != null && !changeSet.isEmpty();
-		case Variability_3_0Package.VARIABILITY__RELATIONSHIP:
-			return relationship != null && !relationship.isEmpty();
-		case Variability_3_0Package.VARIABILITY__OVERVIEW:
-			return isSetOverview();
+			case Variability_3_0Package.VARIABILITY__ACTIVE_CHANGE_SET:
+				return activeChangeSet != null;
+			case Variability_3_0Package.VARIABILITY__APPLIED_CHANGE_SETS:
+				return appliedChangeSets != null && !appliedChangeSets.isEmpty();
+			case Variability_3_0Package.VARIABILITY__CHANGE_SET:
+				return changeSet != null && !changeSet.isEmpty();
+			case Variability_3_0Package.VARIABILITY__RELATIONSHIP:
+				return relationship != null && !relationship.isEmpty();
+			case Variability_3_0Package.VARIABILITY__OVERVIEW:
+				return isSetOverview();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -385,4 +386,4 @@ public class VariabilityImpl extends MinimalEObjectImpl.Container implements Var
 		return result.toString();
 	}
 
-} //VariabilityImpl
+} // VariabilityImpl

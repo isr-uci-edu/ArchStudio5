@@ -2,8 +2,8 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Eclipse 4.4 Target Dependencies
 Bundle-SymbolicName: org.archstudio.releng.target.eclipse.4.4
-Bundle-Version: 5.0.2.qualifier
 Bundle-Vendor: archstudio.org
+Bundle-Version: 5.0.2.qualifier
 Require-Bundle: org.archstudio.releng,
  org.eclipse.emf;bundle-version="[2.6.0,2.7.0)",
  org.eclipse.jdt;bundle-version="[3.10.0,3.11.0)",

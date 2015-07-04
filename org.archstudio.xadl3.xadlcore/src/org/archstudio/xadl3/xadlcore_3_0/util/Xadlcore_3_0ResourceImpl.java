@@ -15,12 +15,11 @@ public class Xadlcore_3_0ResourceImpl extends XMLResourceImpl {
 	/**
 	 * Creates an instance of the resource. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
-	 * @param uri
-	 *            the URI of the new resource.
+	 * @param uri the URI of the new resource.
 	 * @generated
 	 */
 	public Xadlcore_3_0ResourceImpl(URI uri) {
 		super(uri);
 	}
 
-} //Xadlcore_3_0ResourceImpl
+} // Xadlcore_3_0ResourceImpl

@@ -17,10 +17,10 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  * <li>{@link org.archstudio.xadl3.domain_3_0.impl.DomainExtensionImpl#getDomain <em>Domain</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -95,12 +95,12 @@ public class DomainExtensionImpl extends ExtensionImpl implements DomainExtensio
 		if (newDomain != domain) {
 			NotificationChain msgs = null;
 			if (domain != null) {
-				msgs = ((InternalEObject) domain).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
-						- Domain_3_0Package.DOMAIN_EXTENSION__DOMAIN, null, msgs);
+				msgs = ((InternalEObject) domain).eInverseRemove(this,
+						EOPPOSITE_FEATURE_BASE - Domain_3_0Package.DOMAIN_EXTENSION__DOMAIN, null, msgs);
 			}
 			if (newDomain != null) {
-				msgs = ((InternalEObject) newDomain).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
-						- Domain_3_0Package.DOMAIN_EXTENSION__DOMAIN, null, msgs);
+				msgs = ((InternalEObject) newDomain).eInverseAdd(this,
+						EOPPOSITE_FEATURE_BASE - Domain_3_0Package.DOMAIN_EXTENSION__DOMAIN, null, msgs);
 			}
 			msgs = basicSetDomain(newDomain, msgs);
 			if (msgs != null) {
@@ -108,8 +108,8 @@ public class DomainExtensionImpl extends ExtensionImpl implements DomainExtensio
 			}
 		}
 		else if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, Domain_3_0Package.DOMAIN_EXTENSION__DOMAIN,
-					newDomain, newDomain));
+			eNotify(new ENotificationImpl(this, Notification.SET, Domain_3_0Package.DOMAIN_EXTENSION__DOMAIN, newDomain,
+					newDomain));
 		}
 	}
 
@@ -121,8 +121,8 @@ public class DomainExtensionImpl extends ExtensionImpl implements DomainExtensio
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case Domain_3_0Package.DOMAIN_EXTENSION__DOMAIN:
-			return basicSetDomain(null, msgs);
+			case Domain_3_0Package.DOMAIN_EXTENSION__DOMAIN:
+				return basicSetDomain(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -135,8 +135,8 @@ public class DomainExtensionImpl extends ExtensionImpl implements DomainExtensio
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case Domain_3_0Package.DOMAIN_EXTENSION__DOMAIN:
-			return getDomain();
+			case Domain_3_0Package.DOMAIN_EXTENSION__DOMAIN:
+				return getDomain();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -149,9 +149,9 @@ public class DomainExtensionImpl extends ExtensionImpl implements DomainExtensio
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Domain_3_0Package.DOMAIN_EXTENSION__DOMAIN:
-			setDomain((Domain) newValue);
-			return;
+			case Domain_3_0Package.DOMAIN_EXTENSION__DOMAIN:
+				setDomain((Domain) newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -164,9 +164,9 @@ public class DomainExtensionImpl extends ExtensionImpl implements DomainExtensio
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Domain_3_0Package.DOMAIN_EXTENSION__DOMAIN:
-			setDomain((Domain) null);
-			return;
+			case Domain_3_0Package.DOMAIN_EXTENSION__DOMAIN:
+				setDomain((Domain) null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -179,10 +179,10 @@ public class DomainExtensionImpl extends ExtensionImpl implements DomainExtensio
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Domain_3_0Package.DOMAIN_EXTENSION__DOMAIN:
-			return domain != null;
+			case Domain_3_0Package.DOMAIN_EXTENSION__DOMAIN:
+				return domain != null;
 		}
 		return super.eIsSet(featureID);
 	}
 
-} //DomainExtensionImpl
+} // DomainExtensionImpl

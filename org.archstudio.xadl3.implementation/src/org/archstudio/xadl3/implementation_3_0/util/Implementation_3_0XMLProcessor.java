@@ -43,4 +43,4 @@ public class Implementation_3_0XMLProcessor extends XMLProcessor {
 		return registrations;
 	}
 
-} //Implementation_3_0XMLProcessor
+} // Implementation_3_0XMLProcessor

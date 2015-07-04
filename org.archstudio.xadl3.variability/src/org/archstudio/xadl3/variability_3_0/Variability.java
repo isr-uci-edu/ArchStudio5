@@ -7,9 +7,9 @@ import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc --> A representation of the model object '<em><b>Variability</b></em>'. <!-- end-user-doc -->
- *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  * <li>{@link org.archstudio.xadl3.variability_3_0.Variability#getActiveChangeSet <em>Active Change Set</em>}</li>
  * <li>{@link org.archstudio.xadl3.variability_3_0.Variability#getAppliedChangeSets <em>Applied Change Sets</em>}</li>
@@ -17,40 +17,39 @@ import org.eclipse.emf.ecore.EObject;
  * <li>{@link org.archstudio.xadl3.variability_3_0.Variability#getRelationship <em>Relationship</em>}</li>
  * <li>{@link org.archstudio.xadl3.variability_3_0.Variability#isOverview <em>Overview</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.archstudio.xadl3.variability_3_0.Variability_3_0Package#getVariability()
  * @model extendedMetaData="name='Variability' kind='elementOnly'"
  * @generated
  */
-public interface Variability extends EObject {
-	/**
-	 * Returns the value of the '<em><b>Active Change Set</b></em>' reference. <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Active Change Set</em>' reference isn't clear, there really should be more of a
-	 * description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * 
-	 * @return the value of the '<em>Active Change Set</em>' reference.
-	 * @see #setActiveChangeSet(ChangeSet)
-	 * @see org.archstudio.xadl3.variability_3_0.Variability_3_0Package#getVariability_ActiveChangeSet()
-	 * @model resolveProxies="false"
-	 *        extendedMetaData="kind='element' name='activeChangeSet' namespace='##targetNamespace'"
-	 * @generated
-	 */
-	ChangeSet getActiveChangeSet();
+public interface Variability extends
+		EObject {
+					/**
+					 * Returns the value of the '<em><b>Active Change Set</b></em>' reference. <!-- begin-user-doc -->
+					 * <p>
+					 * If the meaning of the '<em>Active Change Set</em>' reference isn't clear, there really should be
+					 * more of a description here...
+					 * </p>
+					 * <!-- end-user-doc -->
+					 * 
+					 * @return the value of the '<em>Active Change Set</em>' reference.
+					 * @see #setActiveChangeSet(ChangeSet)
+					 * @see org.archstudio.xadl3.variability_3_0.Variability_3_0Package#getVariability_ActiveChangeSet()
+					 * @model resolveProxies="false" extendedMetaData=
+					 *        "kind='element' name='activeChangeSet' namespace='##targetNamespace'"
+					 * @generated
+					 */
+					ChangeSet getActiveChangeSet();
 
 	/**
 	 * Sets the value of the '{@link org.archstudio.xadl3.variability_3_0.Variability#getActiveChangeSet
 	 * <em>Active Change Set</em>}' reference. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
-	 * @param value
-	 *            the new value of the '<em>Active Change Set</em>' reference.
+	 * @param value the new value of the '<em>Active Change Set</em>' reference.
 	 * @see #getActiveChangeSet()
 	 * @generated
 	 */
-	void setActiveChangeSet(ChangeSet value);
+			void setActiveChangeSet(ChangeSet value);
 
 	/**
 	 * Returns the value of the '<em><b>Applied Change Sets</b></em>' reference list. The list contents are of type
@@ -63,11 +62,11 @@ public interface Variability extends EObject {
 	 * 
 	 * @return the value of the '<em>Applied Change Sets</em>' reference list.
 	 * @see org.archstudio.xadl3.variability_3_0.Variability_3_0Package#getVariability_AppliedChangeSets()
-	 * @model resolveProxies="false" required="true"
-	 *        extendedMetaData="kind='element' name='appliedChangeSets' namespace='##targetNamespace'"
+	 * @model resolveProxies="false" required="true" extendedMetaData=
+	 *        "kind='element' name='appliedChangeSets' namespace='##targetNamespace'"
 	 * @generated
 	 */
-	EList<ChangeSet> getAppliedChangeSets();
+			EList<ChangeSet> getAppliedChangeSets();
 
 	/**
 	 * Returns the value of the '<em><b>Change Set</b></em>' containment reference list. The list contents are of type
@@ -83,7 +82,7 @@ public interface Variability extends EObject {
 	 * @model containment="true" extendedMetaData="kind='element' name='changeSet' namespace='##targetNamespace'"
 	 * @generated
 	 */
-	EList<ChangeSet> getChangeSet();
+			EList<ChangeSet> getChangeSet();
 
 	/**
 	 * Returns the value of the '<em><b>Relationship</b></em>' containment reference list. The list contents are of type
@@ -99,7 +98,7 @@ public interface Variability extends EObject {
 	 * @model containment="true" extendedMetaData="kind='element' name='relationship' namespace='##targetNamespace'"
 	 * @generated
 	 */
-	EList<Relationship> getRelationship();
+			EList<Relationship> getRelationship();
 
 	/**
 	 * Returns the value of the '<em><b>Overview</b></em>' attribute. <!-- begin-user-doc -->
@@ -114,24 +113,23 @@ public interface Variability extends EObject {
 	 * @see #unsetOverview()
 	 * @see #setOverview(boolean)
 	 * @see org.archstudio.xadl3.variability_3_0.Variability_3_0Package#getVariability_Overview()
-	 * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
-	 *        extendedMetaData="kind='attribute' name='overview' namespace='##targetNamespace'"
+	 * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean" extendedMetaData=
+	 *        "kind='attribute' name='overview' namespace='##targetNamespace'"
 	 * @generated
 	 */
-	boolean isOverview();
+			boolean isOverview();
 
 	/**
 	 * Sets the value of the '{@link org.archstudio.xadl3.variability_3_0.Variability#isOverview <em>Overview</em>}'
 	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
-	 * @param value
-	 *            the new value of the '<em>Overview</em>' attribute.
+	 * @param value the new value of the '<em>Overview</em>' attribute.
 	 * @see #isSetOverview()
 	 * @see #unsetOverview()
 	 * @see #isOverview()
 	 * @generated
 	 */
-	void setOverview(boolean value);
+			void setOverview(boolean value);
 
 	/**
 	 * Unsets the value of the '{@link org.archstudio.xadl3.variability_3_0.Variability#isOverview <em>Overview</em>}'
@@ -142,7 +140,7 @@ public interface Variability extends EObject {
 	 * @see #setOverview(boolean)
 	 * @generated
 	 */
-	void unsetOverview();
+			void unsetOverview();
 
 	/**
 	 * Returns whether the value of the '{@link org.archstudio.xadl3.variability_3_0.Variability#isOverview
@@ -154,6 +152,6 @@ public interface Variability extends EObject {
 	 * @see #setOverview(boolean)
 	 * @generated
 	 */
-	boolean isSetOverview();
+			boolean isSetOverview();
 
 } // Variability

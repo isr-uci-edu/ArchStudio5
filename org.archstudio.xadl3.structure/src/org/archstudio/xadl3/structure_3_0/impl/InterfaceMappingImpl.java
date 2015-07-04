@@ -23,16 +23,16 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
- * <li>{@link org.archstudio.xadl3.structure_3_0.impl.InterfaceMappingImpl#getOuterInterfaceLink <em>Outer Interface
- * Link</em>}</li>
- * <li>{@link org.archstudio.xadl3.structure_3_0.impl.InterfaceMappingImpl#getInnerInterfaceLink <em>Inner Interface
- * Link</em>}</li>
+ * <li>{@link org.archstudio.xadl3.structure_3_0.impl.InterfaceMappingImpl#getOuterInterfaceLink
+ * <em>Outer Interface Link</em>}</li>
+ * <li>{@link org.archstudio.xadl3.structure_3_0.impl.InterfaceMappingImpl#getInnerInterfaceLink
+ * <em>Inner Interface Link</em>}</li>
  * <li>{@link org.archstudio.xadl3.structure_3_0.impl.InterfaceMappingImpl#getExt <em>Ext</em>}</li>
  * <li>{@link org.archstudio.xadl3.structure_3_0.impl.InterfaceMappingImpl#getId <em>Id</em>}</li>
  * <li>{@link org.archstudio.xadl3.structure_3_0.impl.InterfaceMappingImpl#getName <em>Name</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -210,7 +210,8 @@ public class InterfaceMappingImpl extends MinimalEObjectImpl.Container implement
 		String oldId = id;
 		id = newId;
 		if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, Structure_3_0Package.INTERFACE_MAPPING__ID, oldId, id));
+			eNotify(new ENotificationImpl(this, Notification.SET, Structure_3_0Package.INTERFACE_MAPPING__ID, oldId,
+					id));
 		}
 	}
 
@@ -234,8 +235,8 @@ public class InterfaceMappingImpl extends MinimalEObjectImpl.Container implement
 		String oldName = name;
 		name = newName;
 		if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, Structure_3_0Package.INTERFACE_MAPPING__NAME,
-					oldName, name));
+			eNotify(new ENotificationImpl(this, Notification.SET, Structure_3_0Package.INTERFACE_MAPPING__NAME, oldName,
+					name));
 		}
 	}
 
@@ -247,8 +248,8 @@ public class InterfaceMappingImpl extends MinimalEObjectImpl.Container implement
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case Structure_3_0Package.INTERFACE_MAPPING__EXT:
-			return ((InternalEList<?>) getExt()).basicRemove(otherEnd, msgs);
+			case Structure_3_0Package.INTERFACE_MAPPING__EXT:
+				return ((InternalEList<?>) getExt()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -261,16 +262,16 @@ public class InterfaceMappingImpl extends MinimalEObjectImpl.Container implement
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case Structure_3_0Package.INTERFACE_MAPPING__OUTER_INTERFACE_LINK:
-			return getOuterInterfaceLink();
-		case Structure_3_0Package.INTERFACE_MAPPING__INNER_INTERFACE_LINK:
-			return getInnerInterfaceLink();
-		case Structure_3_0Package.INTERFACE_MAPPING__EXT:
-			return getExt();
-		case Structure_3_0Package.INTERFACE_MAPPING__ID:
-			return getId();
-		case Structure_3_0Package.INTERFACE_MAPPING__NAME:
-			return getName();
+			case Structure_3_0Package.INTERFACE_MAPPING__OUTER_INTERFACE_LINK:
+				return getOuterInterfaceLink();
+			case Structure_3_0Package.INTERFACE_MAPPING__INNER_INTERFACE_LINK:
+				return getInnerInterfaceLink();
+			case Structure_3_0Package.INTERFACE_MAPPING__EXT:
+				return getExt();
+			case Structure_3_0Package.INTERFACE_MAPPING__ID:
+				return getId();
+			case Structure_3_0Package.INTERFACE_MAPPING__NAME:
+				return getName();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -284,22 +285,22 @@ public class InterfaceMappingImpl extends MinimalEObjectImpl.Container implement
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Structure_3_0Package.INTERFACE_MAPPING__OUTER_INTERFACE_LINK:
-			setOuterInterfaceLink((Interface) newValue);
-			return;
-		case Structure_3_0Package.INTERFACE_MAPPING__INNER_INTERFACE_LINK:
-			setInnerInterfaceLink((Interface) newValue);
-			return;
-		case Structure_3_0Package.INTERFACE_MAPPING__EXT:
-			getExt().clear();
-			getExt().addAll((Collection<? extends Extension>) newValue);
-			return;
-		case Structure_3_0Package.INTERFACE_MAPPING__ID:
-			setId((String) newValue);
-			return;
-		case Structure_3_0Package.INTERFACE_MAPPING__NAME:
-			setName((String) newValue);
-			return;
+			case Structure_3_0Package.INTERFACE_MAPPING__OUTER_INTERFACE_LINK:
+				setOuterInterfaceLink((Interface) newValue);
+				return;
+			case Structure_3_0Package.INTERFACE_MAPPING__INNER_INTERFACE_LINK:
+				setInnerInterfaceLink((Interface) newValue);
+				return;
+			case Structure_3_0Package.INTERFACE_MAPPING__EXT:
+				getExt().clear();
+				getExt().addAll((Collection<? extends Extension>) newValue);
+				return;
+			case Structure_3_0Package.INTERFACE_MAPPING__ID:
+				setId((String) newValue);
+				return;
+			case Structure_3_0Package.INTERFACE_MAPPING__NAME:
+				setName((String) newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -312,21 +313,21 @@ public class InterfaceMappingImpl extends MinimalEObjectImpl.Container implement
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Structure_3_0Package.INTERFACE_MAPPING__OUTER_INTERFACE_LINK:
-			setOuterInterfaceLink((Interface) null);
-			return;
-		case Structure_3_0Package.INTERFACE_MAPPING__INNER_INTERFACE_LINK:
-			setInnerInterfaceLink((Interface) null);
-			return;
-		case Structure_3_0Package.INTERFACE_MAPPING__EXT:
-			getExt().clear();
-			return;
-		case Structure_3_0Package.INTERFACE_MAPPING__ID:
-			setId(ID_EDEFAULT);
-			return;
-		case Structure_3_0Package.INTERFACE_MAPPING__NAME:
-			setName(NAME_EDEFAULT);
-			return;
+			case Structure_3_0Package.INTERFACE_MAPPING__OUTER_INTERFACE_LINK:
+				setOuterInterfaceLink((Interface) null);
+				return;
+			case Structure_3_0Package.INTERFACE_MAPPING__INNER_INTERFACE_LINK:
+				setInnerInterfaceLink((Interface) null);
+				return;
+			case Structure_3_0Package.INTERFACE_MAPPING__EXT:
+				getExt().clear();
+				return;
+			case Structure_3_0Package.INTERFACE_MAPPING__ID:
+				setId(ID_EDEFAULT);
+				return;
+			case Structure_3_0Package.INTERFACE_MAPPING__NAME:
+				setName(NAME_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -339,16 +340,16 @@ public class InterfaceMappingImpl extends MinimalEObjectImpl.Container implement
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Structure_3_0Package.INTERFACE_MAPPING__OUTER_INTERFACE_LINK:
-			return outerInterfaceLink != null;
-		case Structure_3_0Package.INTERFACE_MAPPING__INNER_INTERFACE_LINK:
-			return innerInterfaceLink != null;
-		case Structure_3_0Package.INTERFACE_MAPPING__EXT:
-			return ext != null && !ext.isEmpty();
-		case Structure_3_0Package.INTERFACE_MAPPING__ID:
-			return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
-		case Structure_3_0Package.INTERFACE_MAPPING__NAME:
-			return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+			case Structure_3_0Package.INTERFACE_MAPPING__OUTER_INTERFACE_LINK:
+				return outerInterfaceLink != null;
+			case Structure_3_0Package.INTERFACE_MAPPING__INNER_INTERFACE_LINK:
+				return innerInterfaceLink != null;
+			case Structure_3_0Package.INTERFACE_MAPPING__EXT:
+				return ext != null && !ext.isEmpty();
+			case Structure_3_0Package.INTERFACE_MAPPING__ID:
+				return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
+			case Structure_3_0Package.INTERFACE_MAPPING__NAME:
+				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -373,4 +374,4 @@ public class InterfaceMappingImpl extends MinimalEObjectImpl.Container implement
 		return result.toString();
 	}
 
-} //InterfaceMappingImpl
+} // InterfaceMappingImpl

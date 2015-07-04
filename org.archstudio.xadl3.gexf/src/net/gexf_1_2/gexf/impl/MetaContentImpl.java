@@ -6,9 +6,6 @@ import java.util.Collection;
 
 import javax.xml.datatype.XMLGregorianCalendar;
 
-import net.gexf_1_2.gexf.GexfPackage;
-import net.gexf_1_2.gexf.MetaContent;
-
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
@@ -20,10 +17,14 @@ import org.eclipse.emf.ecore.util.BasicFeatureMap;
 import org.eclipse.emf.ecore.util.FeatureMap;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import net.gexf_1_2.gexf.GexfPackage;
+import net.gexf_1_2.gexf.MetaContent;
+
 /**
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Meta Content</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  * <li>{@link net.gexf_1_2.gexf.impl.MetaContentImpl#getGroup <em>Group</em>}</li>
  * <li>{@link net.gexf_1_2.gexf.impl.MetaContentImpl#getCreator <em>Creator</em>}</li>
@@ -31,7 +32,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <li>{@link net.gexf_1_2.gexf.impl.MetaContentImpl#getDescription <em>Description</em>}</li>
  * <li>{@link net.gexf_1_2.gexf.impl.MetaContentImpl#getLastmodifieddate <em>Lastmodifieddate</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -161,8 +161,8 @@ public class MetaContentImpl extends MinimalEObjectImpl.Container implements Met
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case GexfPackage.META_CONTENT__GROUP:
-			return ((InternalEList<?>) getGroup()).basicRemove(otherEnd, msgs);
+			case GexfPackage.META_CONTENT__GROUP:
+				return ((InternalEList<?>) getGroup()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -175,19 +175,19 @@ public class MetaContentImpl extends MinimalEObjectImpl.Container implements Met
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case GexfPackage.META_CONTENT__GROUP:
-			if (coreType) {
-				return getGroup();
-			}
-			return ((FeatureMap.Internal) getGroup()).getWrapper();
-		case GexfPackage.META_CONTENT__CREATOR:
-			return getCreator();
-		case GexfPackage.META_CONTENT__KEYWORDS:
-			return getKeywords();
-		case GexfPackage.META_CONTENT__DESCRIPTION:
-			return getDescription();
-		case GexfPackage.META_CONTENT__LASTMODIFIEDDATE:
-			return getLastmodifieddate();
+			case GexfPackage.META_CONTENT__GROUP:
+				if (coreType) {
+					return getGroup();
+				}
+				return ((FeatureMap.Internal) getGroup()).getWrapper();
+			case GexfPackage.META_CONTENT__CREATOR:
+				return getCreator();
+			case GexfPackage.META_CONTENT__KEYWORDS:
+				return getKeywords();
+			case GexfPackage.META_CONTENT__DESCRIPTION:
+				return getDescription();
+			case GexfPackage.META_CONTENT__LASTMODIFIEDDATE:
+				return getLastmodifieddate();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -201,24 +201,24 @@ public class MetaContentImpl extends MinimalEObjectImpl.Container implements Met
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case GexfPackage.META_CONTENT__GROUP:
-			((FeatureMap.Internal) getGroup()).set(newValue);
-			return;
-		case GexfPackage.META_CONTENT__CREATOR:
-			getCreator().clear();
-			getCreator().addAll((Collection<? extends String>) newValue);
-			return;
-		case GexfPackage.META_CONTENT__KEYWORDS:
-			getKeywords().clear();
-			getKeywords().addAll((Collection<? extends String>) newValue);
-			return;
-		case GexfPackage.META_CONTENT__DESCRIPTION:
-			getDescription().clear();
-			getDescription().addAll((Collection<? extends String>) newValue);
-			return;
-		case GexfPackage.META_CONTENT__LASTMODIFIEDDATE:
-			setLastmodifieddate((XMLGregorianCalendar) newValue);
-			return;
+			case GexfPackage.META_CONTENT__GROUP:
+				((FeatureMap.Internal) getGroup()).set(newValue);
+				return;
+			case GexfPackage.META_CONTENT__CREATOR:
+				getCreator().clear();
+				getCreator().addAll((Collection<? extends String>) newValue);
+				return;
+			case GexfPackage.META_CONTENT__KEYWORDS:
+				getKeywords().clear();
+				getKeywords().addAll((Collection<? extends String>) newValue);
+				return;
+			case GexfPackage.META_CONTENT__DESCRIPTION:
+				getDescription().clear();
+				getDescription().addAll((Collection<? extends String>) newValue);
+				return;
+			case GexfPackage.META_CONTENT__LASTMODIFIEDDATE:
+				setLastmodifieddate((XMLGregorianCalendar) newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -231,21 +231,21 @@ public class MetaContentImpl extends MinimalEObjectImpl.Container implements Met
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case GexfPackage.META_CONTENT__GROUP:
-			getGroup().clear();
-			return;
-		case GexfPackage.META_CONTENT__CREATOR:
-			getCreator().clear();
-			return;
-		case GexfPackage.META_CONTENT__KEYWORDS:
-			getKeywords().clear();
-			return;
-		case GexfPackage.META_CONTENT__DESCRIPTION:
-			getDescription().clear();
-			return;
-		case GexfPackage.META_CONTENT__LASTMODIFIEDDATE:
-			setLastmodifieddate(LASTMODIFIEDDATE_EDEFAULT);
-			return;
+			case GexfPackage.META_CONTENT__GROUP:
+				getGroup().clear();
+				return;
+			case GexfPackage.META_CONTENT__CREATOR:
+				getCreator().clear();
+				return;
+			case GexfPackage.META_CONTENT__KEYWORDS:
+				getKeywords().clear();
+				return;
+			case GexfPackage.META_CONTENT__DESCRIPTION:
+				getDescription().clear();
+				return;
+			case GexfPackage.META_CONTENT__LASTMODIFIEDDATE:
+				setLastmodifieddate(LASTMODIFIEDDATE_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -258,17 +258,17 @@ public class MetaContentImpl extends MinimalEObjectImpl.Container implements Met
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case GexfPackage.META_CONTENT__GROUP:
-			return group != null && !group.isEmpty();
-		case GexfPackage.META_CONTENT__CREATOR:
-			return !getCreator().isEmpty();
-		case GexfPackage.META_CONTENT__KEYWORDS:
-			return !getKeywords().isEmpty();
-		case GexfPackage.META_CONTENT__DESCRIPTION:
-			return !getDescription().isEmpty();
-		case GexfPackage.META_CONTENT__LASTMODIFIEDDATE:
-			return LASTMODIFIEDDATE_EDEFAULT == null ? lastmodifieddate != null : !LASTMODIFIEDDATE_EDEFAULT
-					.equals(lastmodifieddate);
+			case GexfPackage.META_CONTENT__GROUP:
+				return group != null && !group.isEmpty();
+			case GexfPackage.META_CONTENT__CREATOR:
+				return !getCreator().isEmpty();
+			case GexfPackage.META_CONTENT__KEYWORDS:
+				return !getKeywords().isEmpty();
+			case GexfPackage.META_CONTENT__DESCRIPTION:
+				return !getDescription().isEmpty();
+			case GexfPackage.META_CONTENT__LASTMODIFIEDDATE:
+				return LASTMODIFIEDDATE_EDEFAULT == null ? lastmodifieddate != null
+						: !LASTMODIFIEDDATE_EDEFAULT.equals(lastmodifieddate);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -293,4 +293,4 @@ public class MetaContentImpl extends MinimalEObjectImpl.Container implements Met
 		return result.toString();
 	}
 
-} //MetaContentImpl
+} // MetaContentImpl

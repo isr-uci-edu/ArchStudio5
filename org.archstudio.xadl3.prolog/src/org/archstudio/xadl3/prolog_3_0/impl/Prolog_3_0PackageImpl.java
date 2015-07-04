@@ -63,7 +63,6 @@ public class Prolog_3_0PackageImpl extends EPackageImpl implements Prolog_3_0Pac
 
 	/**
 	 * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
-	 * 
 	 * <p>
 	 * This method is used to initialize {@link Prolog_3_0Package#eINSTANCE} when that field is accessed. Clients should
 	 * not invoke it directly. Instead, they should simply access that field to obtain the package. <!-- begin-user-doc
@@ -80,8 +79,9 @@ public class Prolog_3_0PackageImpl extends EPackageImpl implements Prolog_3_0Pac
 		}
 
 		// Obtain or create and register package
-		Prolog_3_0PackageImpl theProlog_3_0Package = (Prolog_3_0PackageImpl) (EPackage.Registry.INSTANCE.get(eNS_URI) instanceof Prolog_3_0PackageImpl ? EPackage.Registry.INSTANCE
-				.get(eNS_URI) : new Prolog_3_0PackageImpl());
+		Prolog_3_0PackageImpl theProlog_3_0Package =
+				(Prolog_3_0PackageImpl) (EPackage.Registry.INSTANCE.get(eNS_URI) instanceof Prolog_3_0PackageImpl
+						? EPackage.Registry.INSTANCE.get(eNS_URI) : new Prolog_3_0PackageImpl());
 
 		isInited = true;
 
@@ -90,11 +90,12 @@ public class Prolog_3_0PackageImpl extends EPackageImpl implements Prolog_3_0Pac
 
 		// Obtain or create and register interdependencies
 		Xadlcore_3_0PackageImpl theXadlcore_3_0Package = (Xadlcore_3_0PackageImpl) (EPackage.Registry.INSTANCE
-				.getEPackage(Xadlcore_3_0Package.eNS_URI) instanceof Xadlcore_3_0PackageImpl ? EPackage.Registry.INSTANCE
-				.getEPackage(Xadlcore_3_0Package.eNS_URI) : Xadlcore_3_0Package.eINSTANCE);
+				.getEPackage(Xadlcore_3_0Package.eNS_URI) instanceof Xadlcore_3_0PackageImpl
+						? EPackage.Registry.INSTANCE.getEPackage(Xadlcore_3_0Package.eNS_URI)
+						: Xadlcore_3_0Package.eINSTANCE);
 		XlinkPackageImpl theXlinkPackage = (XlinkPackageImpl) (EPackage.Registry.INSTANCE
-				.getEPackage(XlinkPackage.eNS_URI) instanceof XlinkPackageImpl ? EPackage.Registry.INSTANCE
-				.getEPackage(XlinkPackage.eNS_URI) : XlinkPackage.eINSTANCE);
+				.getEPackage(XlinkPackage.eNS_URI) instanceof XlinkPackageImpl
+						? EPackage.Registry.INSTANCE.getEPackage(XlinkPackage.eNS_URI) : XlinkPackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theProlog_3_0Package.createPackageContents();
@@ -216,10 +217,10 @@ public class Prolog_3_0PackageImpl extends EPackageImpl implements Prolog_3_0Pac
 		setNsURI(eNS_URI);
 
 		// Obtain other dependent packages
-		Xadlcore_3_0Package theXadlcore_3_0Package = (Xadlcore_3_0Package) EPackage.Registry.INSTANCE
-				.getEPackage(Xadlcore_3_0Package.eNS_URI);
-		XMLTypePackage theXMLTypePackage = (XMLTypePackage) EPackage.Registry.INSTANCE
-				.getEPackage(XMLTypePackage.eNS_URI);
+		Xadlcore_3_0Package theXadlcore_3_0Package =
+				(Xadlcore_3_0Package) EPackage.Registry.INSTANCE.getEPackage(Xadlcore_3_0Package.eNS_URI);
+		XMLTypePackage theXMLTypePackage =
+				(XMLTypePackage) EPackage.Registry.INSTANCE.getEPackage(XMLTypePackage.eNS_URI);
 
 		// Create type parameters
 
@@ -257,11 +258,11 @@ public class Prolog_3_0PackageImpl extends EPackageImpl implements Prolog_3_0Pac
 	protected void createExtendedMetaDataAnnotations() {
 		String source = "http:///org/eclipse/emf/ecore/util/ExtendedMetaData";
 		addAnnotation(prologExtensionEClass, source, new String[] { "name", "PrologExtension", "kind", "elementOnly" });
-		addAnnotation(getPrologExtension_Statement(), source, new String[] { "kind", "element", "name", "statement",
-				"namespace", "##targetNamespace" });
+		addAnnotation(getPrologExtension_Statement(), source,
+				new String[] { "kind", "element", "name", "statement", "namespace", "##targetNamespace" });
 		addAnnotation(statementEClass, source, new String[] { "name", "Statement", "kind", "empty" });
-		addAnnotation(getStatement_Value(), source, new String[] { "kind", "attribute", "name", "value", "namespace",
-				"##targetNamespace" });
+		addAnnotation(getStatement_Value(), source,
+				new String[] { "kind", "attribute", "name", "value", "namespace", "##targetNamespace" });
 	}
 
-} //Prolog_3_0PackageImpl
+} // Prolog_3_0PackageImpl

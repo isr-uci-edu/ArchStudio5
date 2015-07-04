@@ -86,8 +86,7 @@ public class Prolog_3_0AdapterFactory extends AdapterFactoryImpl {
 	/**
 	 * Creates an adapter for the <code>target</code>. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
-	 * @param target
-	 *            the object to adapt.
+	 * @param target the object to adapt.
 	 * @return the adapter for the <code>target</code>.
 	 * @generated
 	 */
@@ -111,10 +110,9 @@ public class Prolog_3_0AdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.archstudio.xadl3.prolog_3_0.Statement
-	 * <em>Statement</em>}'. <!-- begin-user-doc --> This default implementation returns null so that we can easily
-	 * ignore cases; it's useful to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc
-	 * -->
+	 * Creates a new adapter for an object of class '{@link org.archstudio.xadl3.prolog_3_0.Statement <em>Statement</em>
+	 * }'. <!-- begin-user-doc --> This default implementation returns null so that we can easily ignore cases; it's
+	 * useful to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
 	 * @see org.archstudio.xadl3.prolog_3_0.Statement
@@ -149,4 +147,4 @@ public class Prolog_3_0AdapterFactory extends AdapterFactoryImpl {
 		return null;
 	}
 
-} //Prolog_3_0AdapterFactory
+} // Prolog_3_0AdapterFactory

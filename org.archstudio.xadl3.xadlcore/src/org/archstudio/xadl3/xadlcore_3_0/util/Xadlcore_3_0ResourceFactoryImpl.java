@@ -43,4 +43,4 @@ public class Xadlcore_3_0ResourceFactoryImpl extends ResourceFactoryImpl {
 		return result;
 	}
 
-} //Xadlcore_3_0ResourceFactoryImpl
+} // Xadlcore_3_0ResourceFactoryImpl

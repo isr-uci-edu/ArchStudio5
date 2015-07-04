@@ -43,4 +43,4 @@ public class Lookupimplementation_3_0XMLProcessor extends XMLProcessor {
 		return registrations;
 	}
 
-} //Lookupimplementation_3_0XMLProcessor
+} // Lookupimplementation_3_0XMLProcessor

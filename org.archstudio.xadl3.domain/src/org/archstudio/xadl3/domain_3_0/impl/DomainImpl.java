@@ -14,10 +14,10 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Domain</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  * <li>{@link org.archstudio.xadl3.domain_3_0.impl.DomainImpl#getType <em>Type</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -131,8 +131,8 @@ public class DomainImpl extends MinimalEObjectImpl.Container implements Domain {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case Domain_3_0Package.DOMAIN__TYPE:
-			return getType();
+			case Domain_3_0Package.DOMAIN__TYPE:
+				return getType();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -145,9 +145,9 @@ public class DomainImpl extends MinimalEObjectImpl.Container implements Domain {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Domain_3_0Package.DOMAIN__TYPE:
-			setType((DomainType) newValue);
-			return;
+			case Domain_3_0Package.DOMAIN__TYPE:
+				setType((DomainType) newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -160,9 +160,9 @@ public class DomainImpl extends MinimalEObjectImpl.Container implements Domain {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Domain_3_0Package.DOMAIN__TYPE:
-			unsetType();
-			return;
+			case Domain_3_0Package.DOMAIN__TYPE:
+				unsetType();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -175,8 +175,8 @@ public class DomainImpl extends MinimalEObjectImpl.Container implements Domain {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Domain_3_0Package.DOMAIN__TYPE:
-			return isSetType();
+			case Domain_3_0Package.DOMAIN__TYPE:
+				return isSetType();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -204,4 +204,4 @@ public class DomainImpl extends MinimalEObjectImpl.Container implements Domain {
 		return result.toString();
 	}
 
-} //DomainImpl
+} // DomainImpl

@@ -43,4 +43,4 @@ public class Domain_3_0ResourceFactoryImpl extends ResourceFactoryImpl {
 		return result;
 	}
 
-} //Domain_3_0ResourceFactoryImpl
+} // Domain_3_0ResourceFactoryImpl
