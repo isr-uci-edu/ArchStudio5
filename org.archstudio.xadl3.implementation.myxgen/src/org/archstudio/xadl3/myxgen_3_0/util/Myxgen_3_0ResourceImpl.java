@@ -12,14 +12,14 @@ import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl;
  * @generated
  */
 public class Myxgen_3_0ResourceImpl extends XMLResourceImpl {
-	/**
-	 * Creates an instance of the resource. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @param uri the URI of the new resource.
-	 * @generated
-	 */
-	public Myxgen_3_0ResourceImpl(URI uri) {
-		super(uri);
-	}
+  /**
+   * Creates an instance of the resource. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
+   * @param uri the URI of the new resource.
+   * @generated
+   */
+  public Myxgen_3_0ResourceImpl(URI uri) {
+    super(uri);
+  }
 
 } // Myxgen_3_0ResourceImpl
