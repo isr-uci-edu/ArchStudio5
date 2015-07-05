@@ -19,6 +19,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.archstudio.dblgen.DataBindingGenerationStatus.Status;
 import org.archstudio.dblgen.builder.Xadl3SchemaLocation;
 import org.archstudio.dblgen.core.Activator;
+import org.archstudio.releng.pde.actions.SortManifests;
 import org.archstudio.sysutils.SystemUtils;
 import org.archstudio.utils.eclipse.jdt.CodeGeneration;
 import org.archstudio.utils.osgi.OSGiUtils;
@@ -1116,6 +1117,7 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 					}
 
 					CodeGeneration.formatCode(project);
+					SortManifests.sortManifest(project);
 				}
 				catch (Throwable t) {
 					// well, we tried

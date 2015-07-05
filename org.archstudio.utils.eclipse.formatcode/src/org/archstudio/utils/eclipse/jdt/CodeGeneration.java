@@ -93,7 +93,7 @@ public class CodeGeneration {
 				final Map<String, String> options = new HashMap<String, String>();
 				try {
 					factory.newSAXParser().parse(
-							CodeGeneration.class.getResourceAsStream("ArchStudio Clean Up 4.5.xml"),
+							CodeGeneration.class.getResourceAsStream("ArchStudio Clean Up 4.5 Google.xml"),
 							new DefaultHandler() {
 
 								@Override
@@ -128,7 +128,7 @@ public class CodeGeneration {
 				// read settings from format file
 				try {
 					factory.newSAXParser().parse(
-							CodeGeneration.class.getResourceAsStream("ArchStudio Code Formatting 4.5.xml"),
+							CodeGeneration.class.getResourceAsStream("ArchStudio Code Formatting 4.5 Google.xml"),
 							new DefaultHandler() {
 
 								@Override
