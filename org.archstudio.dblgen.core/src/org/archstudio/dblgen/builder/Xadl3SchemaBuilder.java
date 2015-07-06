@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.archstudio.dblgen.DataBindingGenerationStatus;
 import org.archstudio.dblgen.DataBindingGeneratorImpl;
 import org.archstudio.dblgen.core.Activator;
@@ -32,6 +34,7 @@ import org.eclipse.pde.core.plugin.IPluginExtension;
 import org.eclipse.pde.core.plugin.IPluginModelBase;
 import org.eclipse.pde.core.plugin.IPluginObject;
 import org.eclipse.pde.core.plugin.PluginRegistry;
+import org.osgi.framework.BundleException;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -51,7 +54,8 @@ public class Xadl3SchemaBuilder extends IncrementalProjectBuilder {
 
 	protected final DataBindingGeneratorImpl dbGenerator;
 
-	public Xadl3SchemaBuilder() {
+	public Xadl3SchemaBuilder()
+			throws ParserConfigurationException, SAXException, IOException, CoreException, BundleException {
 		this.dbGenerator = new DataBindingGeneratorImpl();
 	}
 
@@ -264,8 +268,8 @@ public class Xadl3SchemaBuilder extends IncrementalProjectBuilder {
 			String projectName = getProject().getName();
 
 			dbGenerator.setMonitor(BasicMonitor.toMonitor(monitor));
-			List<DataBindingGenerationStatus> statusList = dbGenerator.generateBindings(fileURIs, schemaLocations,
-					projectName);
+			List<DataBindingGenerationStatus> statusList =
+					dbGenerator.generateBindings(fileURIs, schemaLocations, projectName);
 
 			for (DataBindingGenerationStatus status : statusList) {
 				if (status.getThrowable() != null) {
@@ -300,26 +304,6 @@ public class Xadl3SchemaBuilder extends IncrementalProjectBuilder {
 		final IProject project = getProject();
 		project.getFolder("src").refreshLocal(IResource.DEPTH_INFINITE, monitor);
 		needRebuild();
-
-		//		Job job = new Job("Formatting Project") {
-		//
-		//			@Override
-		//			protected IStatus run(IProgressMonitor monitor) {
-		//				try {
-		//					// Wait until all builds are done
-		//					Job.getJobManager().join(ResourcesPlugin.FAMILY_AUTO_BUILD, null);
-		//
-		//					// Then refresh the project to make sure that everything is synced
-		//					CodeGeneration.formatCode(project);
-		//					project.getFolder("src").refreshLocal(IResource.DEPTH_INFINITE, monitor);
-		//				}
-		//				catch (Exception e) {
-		//				}
-		//				return Status.OK_STATUS;
-		//			}
-		//		};
-		//		job.setPriority(Job.SHORT);
-		//		job.schedule(); // start as soon as possible
 	}
 
 	private void addURIMappings(IProject project) {
@@ -334,10 +318,10 @@ public class Xadl3SchemaBuilder extends IncrementalProjectBuilder {
 						if (pluginObjects != null && pluginObjects.length > 0) {
 							for (IPluginElement pluginElement : Iterables.filter(Arrays.asList(pluginObjects),
 									IPluginElement.class)) {
-								URI source = URI.createURI(Preconditions.checkNotNull(pluginElement.getAttribute(
-										"source").getValue()));
-								URI target = URI.createURI(Preconditions.checkNotNull(pluginElement.getAttribute(
-										"target").getValue()));
+								URI source = URI.createURI(
+										Preconditions.checkNotNull(pluginElement.getAttribute("source").getValue()));
+								URI target = URI.createURI(
+										Preconditions.checkNotNull(pluginElement.getAttribute("target").getValue()));
 								if (source != null && target != null) {
 									URIConverter.URI_MAP.put(source, target);
 								}

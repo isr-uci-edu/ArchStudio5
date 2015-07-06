@@ -37,5 +37,19 @@
             class="net.gexf_1_2.viz.VizPackage">
       </package>
    </extension>
+   <extension
+         point="org.archstudio.dblgen.processedSchema">
+      <Schema
+            url="http://gexf.net/1.2draft/gexf.xsd"
+            nsURI="http://www.gexf.net/1.2draft">
+      </Schema>
+   </extension>
+   <extension
+         point="org.archstudio.dblgen.processedSchema">
+      <Schema
+            url="http://gexf.net/1.2draft/viz.xsd"
+            nsURI="http://www.gexf.net/1.2draft/viz">
+      </Schema>
+   </extension>
 
 </plugin>
