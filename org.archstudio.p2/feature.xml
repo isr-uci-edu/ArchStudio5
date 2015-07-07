@@ -43,4 +43,8 @@
          id="org.archstudio.pde.feature"
          version="0.0.0"/>
 
+   <includes
+         id="org.archstudio.bna.builder.feature"
+         version="0.0.0"/>
+
 </feature>
