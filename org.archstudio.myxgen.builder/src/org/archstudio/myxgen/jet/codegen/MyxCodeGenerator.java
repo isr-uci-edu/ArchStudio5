@@ -5,7 +5,9 @@ import java.io.ByteArrayInputStream;
 import org.archstudio.myxgen.MyxGenBrick;
 import org.archstudio.myxgen.eclipse.extension.MyxGenWorkspaceExtensions;
 import org.archstudio.utils.eclipse.jdt.CodeGeneration;
+import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jdt.core.IJavaProject;
@@ -38,6 +40,10 @@ public class MyxCodeGenerator {
 					new NullProgressMonitor());
 		}
 		else {
+			IContainer parent = stubFile.getParent();
+			if (!parent.exists() && parent instanceof IFolder) {
+				((IFolder) parent).create(true, true, new NullProgressMonitor());
+			}
 			stubFile.create(new ByteArrayInputStream(stubSource.getBytes()), true, new NullProgressMonitor());
 		}
 		CodeGeneration.formatCode(stubFile);
