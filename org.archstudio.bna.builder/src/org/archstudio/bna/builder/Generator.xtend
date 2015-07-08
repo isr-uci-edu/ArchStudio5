@@ -139,8 +139,9 @@ class Generator {
 	}
 
 	def private static List<IConfigurationElement> facetSort(List<IConfigurationElement> elements, Mappings mappings) {
-		Collections.sort(elements,
-			[x, y|x.facetRefToFacet(mappings).elementName.compareTo(y.facetRefToFacet(mappings).elementName)])
+		Collections.sort(elements, [ x, y |
+			x.facetRefToFacet(mappings).elementName.compareTo(y.facetRefToFacet(mappings).elementName)
+		])
 		elements
 	}
 
@@ -164,8 +165,7 @@ class Generator {
 	}
 
 	def private static String keyType(IConfigurationElement key) {
-		Preconditions.checkNotNull(
-			key.getAttribute("type") ?: key.getAttribute("enum") ?: key.getAttribute("generic"),
+		Preconditions.checkNotNull(key.getAttribute("type") ?: key.getAttribute("enum") ?: key.getAttribute("generic"),
 			"Key %s has no type", key.elementPath).replace('$', '.');
 	}
 
@@ -351,11 +351,8 @@ class Generator {
 			if (!file.exists) {
 				file.create(null, true, null)
 			}
-			file.setContents(
-				new ByteArrayInputStream(
-					new String(
-						'''
-package «packageElement.packageName»;
+			file.setContents(new ByteArrayInputStream(new String(
+'''package «packageElement.packageName»;
 
 import org.archstudio.bna.keys.IThingKey;
 import org.archstudio.bna.keys.IThingRefKey;
@@ -371,41 +368,30 @@ import org.eclipse.jdt.annotation.Nullable;
  * «facet.elementPath».
  */
 
-«facet.elementJavaDoc»
-@SuppressWarnings("all")
+«facet.elementJavaDoc»@SuppressWarnings("all")
 @NonNullByDefault
 public interface «facet.facetClassName» extends org.archstudio.bna.IThing«FOR i : facet.getChildren("ExtendsFacet").
 							facetSort(mappings) BEFORE ',
 		' SEPARATOR ',
-		'»«i.facetRefToFacet(mappings).facetFQClassName»«ENDFOR» {
+		'»«i.facetRefToFacet(mappings).facetFQClassName»«ENDFOR» {«FOR method : facet.getChildren("Method")»
 
-	«FOR method : facet.getChildren("Method")»
+«method.elementJavaDoc»«method.getAttribute("signature")»;
+	«ENDFOR»«FOR key : facet.getChildren("Key").elementSortByName»
 
-«method.elementJavaDoc»
-		«method.getAttribute("signature")»;
-
-	«ENDFOR»
-	«FOR key : facet.getChildren("Key").elementSortByName»
 		public static final IThingKey<«key.keyType»> «key.keyConstantName» = ThingKey.create(com.google.common.collect.Lists.newArrayList("«key.elementName.
 							toFirstKeywordLower»", «facet.facetClassName».class)«key.keyCloneParameter»«IF key.keyIsNullable», true«ENDIF»);
+	«ENDFOR»«FOR key : facet.getChildren("RefKey").elementSortByName»
 
-	«ENDFOR»
-	«FOR key : facet.getChildren("RefKey").elementSortByName»
 		public static final IThingRefKey<«key.refKeyType»> «key.refKeyConstantName» = ThingRefKey.create(com.google.common.collect.Lists.newArrayList("«key.elementName.
 							toFirstKeywordLower»", «facet.facetClassName».class));
+	«ENDFOR»«FOR key : facet.getChildren("Key").elementSortByName»
 
-	«ENDFOR»
-	«FOR key : facet.getChildren("Key").elementSortByName»
 		public «IF key.keyIsNullable»@Nullable «ENDIF»«key.keySimpleType» «IF "boolean".equals(key.keySimpleType)»is«ELSE»get«ENDIF»«key.
 							keyFunctionName»();
+	«ENDFOR»«FOR key : facet.getChildren("RefKey").elementSortByName»
 
-	«ENDFOR»
-	«FOR key : facet.getChildren("RefKey").elementSortByName»
 		public @Nullable «key.refKeyType» get«key.refKeyFunctionName»(org.archstudio.bna.IBNAModel model);
-
-	«ENDFOR»
-}
-''').bytes), true, true, null);
+	«ENDFOR»}''').bytes), true, true, null);
 			filesToFormat.add(file);
 			val IFile mutableFile = folder.getFile(facet.facetMutableFileName)
 			if (!mutableFile.exists) {
@@ -414,8 +400,7 @@ public interface «facet.facetClassName» extends org.archstudio.bna.IThing«FOR
 			mutableFile.setContents(
 				new ByteArrayInputStream(
 					new String(
-						'''
-package «packageElement.packageName»;
+'''package «packageElement.packageName»;
 
 import org.archstudio.bna.keys.IThingKey;
 import org.archstudio.bna.keys.ThingKey;
@@ -429,29 +414,21 @@ import org.eclipse.jdt.annotation.Nullable;
  * «facet.elementPath».
  */
 
-«facet.elementJavaDoc»
-@SuppressWarnings("all")
+«facet.elementJavaDoc»@SuppressWarnings("all")
 @NonNullByDefault
 public interface «facet.facetMutableClassName» extends «facet.facetClassName»«FOR i : facet.getChildren("ExtendsFacet").
 							facetSort(mappings) BEFORE ',
 		' SEPARATOR ',
-		'»«i.facetRefToFacet(mappings).facetFQMutableClassName»«ENDFOR» {
+		'»«i.facetRefToFacet(mappings).facetFQMutableClassName»«ENDFOR» {«FOR quality : facet.getChildren("EditableQuality").elementSortByName»
 
-	«FOR quality : facet.getChildren("EditableQuality").elementSortByName»
 		public static final String «quality.elementName.toConstantName» = "«quality.elementName»";
+	«ENDFOR»«FOR key : facet.getChildren("Key").elementSortByName»
 
-	«ENDFOR»
-	«FOR key : facet.getChildren("Key").elementSortByName»
 		public void set«key.keyFunctionName»(«IF key.keyIsNullable»@Nullable «ENDIF»«key.keySimpleType» «key.keyVariableName»);
+	«ENDFOR»«FOR key : facet.getChildren("RefKey").elementSortByName»
 
-	«ENDFOR»
-	«FOR key : facet.getChildren("RefKey").elementSortByName»
 		public void set«key.refKeyFunctionName»(@Nullable «key.refKeyType» «key.refKeyVariableName»);
-
-	«ENDFOR»
-}
-'''
-					).bytes), true, true, null);
+	«ENDFOR»}''').bytes), true, true, null);
 			filesToFormat.add(mutableFile);
 		}
 		for (thing : packageElement.getChildren("Thing")) {
@@ -462,8 +439,7 @@ public interface «facet.facetMutableClassName» extends «facet.facetClassName�
 			file.setContents(
 				new ByteArrayInputStream(
 					new String(
-						'''
-package «packageElement.packageName»;
+'''package «packageElement.packageName»;
 
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinateMapper;
@@ -482,8 +458,7 @@ import org.eclipse.jdt.annotation.Nullable;
  * «thing.elementPath».
  */
  
-«thing.elementJavaDoc»
-@SuppressWarnings("all")
+«thing.elementJavaDoc»@SuppressWarnings("all")
 @NonNullByDefault
 public abstract class «thing.thingAbstractClassName» extends «thing.thingExtendsClassName(mappings)»
 	implements org.archstudio.bna.IThing«FOR i : thing.getChildren("ImplementsFacet").facetSort(mappings) BEFORE ',
@@ -491,43 +466,39 @@ public abstract class «thing.thingAbstractClassName» extends «thing.thingExte
 		'»«IF i.implementsFacetIsReadOnly»«i.facetRefToFacet(mappings).facetFQClassName»«ELSE»«i.facetRefToFacet(mappings).
 							facetFQMutableClassName»«ENDIF»«ENDFOR»«FOR i : thing.getChildren("ImplementsInterface") BEFORE ',
 		' SEPARATOR ',
-		'»«i.interfaceFQClassName»«ENDFOR» {
+		'»«i.interfaceFQClassName»«ENDFOR» { «FOR key : thing.getChildren("Key").elementSortByName»
 
-	«FOR key : thing.getChildren("Key").elementSortByName»
 		public static final IThingKey<«key.keyType»> «key.keyConstantName» = ThingKey.create(com.google.common.collect.Lists.newArrayList("«key.elementName.
 							toFirstKeywordLower»", «thing.thingAbstractClassName».class)«key.keyCloneParameter»);
+	«ENDFOR»«FOR key : thing.getChildren("RefKey").elementSortByName»
 
-	«ENDFOR»
-	«FOR key : thing.getChildren("RefKey").elementSortByName»
 		public static final IThingRefKey<«key.keyType»> «key.keyConstantName» = ThingRefKey.create(com.google.common.collect.Lists.newArrayList("«key.elementName.
 							toFirstKeywordLower»", «thing.thingAbstractClassName».class));
-
 	«ENDFOR»
+
 	public «thing.thingAbstractClassName»(@Nullable Object id) {
 		super(id);
 	}
-
 	«IF !thing.thingIsAbstract»
+	
 	@Override
 	public IThingPeer<? extends «thing.thingClassName»> createPeer(IBNAView view, ICoordinateMapper cm) {
 		return new «thing.thingPeerClassName»<>((«thing.thingClassName»)this, view, cm);
 	}
-
 	«ENDIF»
+
 	@Override
-	protected void initProperties() {
-		«FOR keyToFacet : thing.thingAllKeysToFacet(mappings).entrySet.sortByKeyElementName»
+	protected void initProperties() {«FOR keyToFacet : thing.thingAllKeysToFacet(mappings).entrySet.sortByKeyElementName»
 				initProperty(«keyToFacet.key.keyFQConstantName», «keyToFacet.key.keyDefaultValue»);«IF !keyToFacet.value.
 							facetIsReadOnly(thing.getChildren("ImplementsFacet")) && keyToFacet.key.keyIsShapeModifying»
 				addShapeModifyingKey(«keyToFacet.key.keyFQConstantName»);«ENDIF»
-		«ENDFOR»
-		«FOR key : thing.thingAllRefKeys(mappings).elementSortByName»
+		«ENDFOR»«FOR key : thing.thingAllRefKeys(mappings).elementSortByName»
 				initProperty(«key.refKeyFQConstantName», null);
 		«ENDFOR»
 		super.initProperties();
 	}
-
 	«FOR keyToFacet : thing.thingAllKeysToFacet(mappings).entrySet.sortByKeyElementName»
+
 		public «IF keyToFacet.key.keyIsNullable»@Nullable «ENDIF»«keyToFacet.key.keySimpleType» «IF "boolean".equals(
 						keyToFacet.key.keySimpleType)»is«ELSE»get«ENDIF»«keyToFacet.key.keyFunctionName»() {
 			return get(«keyToFacet.key.keyFQConstantName»);
@@ -537,7 +508,6 @@ public abstract class «thing.thingAbstractClassName» extends «thing.thingExte
 						keyToFacet.key.keySimpleType)»is«ELSE»get«ENDIF»Raw«keyToFacet.key.keyFunctionName»() {
 			return getRaw(«keyToFacet.key.keyFQConstantName»);
 		}
-
 		«IF keyToFacet.value.facetIsReadOnly(thing.getChildren("ImplementsFacet"))»/*package*/ «ELSE»public «ENDIF»void set«keyToFacet.
 						key.keyFunctionName»(«IF keyToFacet.key.keyIsNullable»@Nullable «ENDIF»«keyToFacet.key.
 						keySimpleType» «keyToFacet.key.keyVariableName») {
@@ -550,32 +520,25 @@ public abstract class «thing.thingAbstractClassName» extends «thing.thingExte
 						keyVariableName») {
 			return setRaw(«keyToFacet.key.keyFQConstantName», «keyToFacet.key.keyVariableName»);
 		}
-
-	«ENDFOR»
-	«FOR key : thing.thingAllRefKeys(mappings)»
-			public «key.refKeyType» get«key.refKeyFunctionName»(org.archstudio.bna.IBNAModel model) {
-				org.archstudio.bna.IThing thing = model.getThing(getRaw(«key.keyFQConstantName»));
-				if (thing instanceof «key.refKeyType») {
-					return («key.refKeyType») thing;
-				}
-				return null;
+	«ENDFOR»«FOR key : thing.thingAllRefKeys(mappings)»
+		public «key.refKeyType» get«key.refKeyFunctionName»(org.archstudio.bna.IBNAModel model) {
+			org.archstudio.bna.IThing thing = model.getThing(getRaw(«key.keyFQConstantName»));
+			if (thing instanceof «key.refKeyType») {
+				return («key.refKeyType») thing;
 			}
+			return null;
+		}
 
-			public void set«key.refKeyFunctionName»(«key.refKeyType» «key.refKeyVariableName») {
-				setRaw(«key.keyFQConstantName», «key.refKeyVariableName».getID());
-			}
-	«ENDFOR»
-}
-''').bytes), true, true, null);
+		public void set«key.refKeyFunctionName»(«key.refKeyType» «key.refKeyVariableName») {
+			setRaw(«key.keyFQConstantName», «key.refKeyVariableName».getID());
+		}
+«ENDFOR»}''').bytes), true, true, null);
 			filesToFormat.add(file);
 			file = folder.getFile(thing.thingFileName)
 			if (!file.exists) {
 				file.create(null, true, null)
-				file.setContents(
-					new ByteArrayInputStream(
-						new String(
-							'''
-package «packageElement.packageName»;
+				file.setContents(new ByteArrayInputStream(new String(
+'''package «packageElement.packageName»;
 
 import org.archstudio.bna.keys.IThingKey;
 import org.archstudio.bna.keys.ThingKey;
@@ -585,24 +548,18 @@ import org.eclipse.jdt.annotation.Nullable;
 @NonNullByDefault
 public «IF thing.thingIsAbstract»abstract «ENDIF» class «thing.thingClassName» extends «thing.thingAbstractClassName»
 {
-
 	public «thing.thingClassName»(@Nullable Object id) {
 		super(id);
 	}
-
-}
-''').bytes), true, true, null);
+}''').bytes), true, true, null);
 				filesToFormat.add(file);
 			}
 
 			file = folder.getFile(thing.thingPeerFileName)
 			if (!file.exists) {
 				file.create(null, true, null)
-				file.setContents(
-					new ByteArrayInputStream(
-						new String(
-							'''
-package «packageElement.packageName»;
+				file.setContents(new ByteArrayInputStream(new String(
+'''package «packageElement.packageName»;
 
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinateMapper;
@@ -615,13 +572,10 @@ import org.eclipse.jdt.annotation.Nullable;
 @NonNullByDefault
 public «IF thing.thingIsAbstract»abstract «ENDIF»class «thing.thingPeerClassName»<T extends «thing.thingClassName»> extends AbstractThingPeer<T>
 {
-
 	public «thing.thingPeerClassName»(T thing, IBNAView view, ICoordinateMapper cm) {
 		super(thing, view, cm);
 	}
-
-}
-''').bytes), true, true, null);
+}''').bytes), true, true, null);
 				filesToFormat.add(file);
 			}
 		}

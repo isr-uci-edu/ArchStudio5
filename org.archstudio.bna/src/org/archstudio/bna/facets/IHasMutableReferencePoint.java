@@ -14,5 +14,4 @@ import org.eclipse.jdt.annotation.NonNullByDefault;
 public interface IHasMutableReferencePoint extends IHasReferencePoint {
 
   public static final String USER_MAY_MOVE = "UserMayMove";
-
 }

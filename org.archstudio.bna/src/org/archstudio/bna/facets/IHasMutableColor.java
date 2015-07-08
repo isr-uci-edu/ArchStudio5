@@ -19,5 +19,4 @@ public interface IHasMutableColor extends IHasColor {
   public static final String USER_MAY_EDIT_COLOR = "UserMayEditColor";
 
   public void setColor(@Nullable org.eclipse.swt.graphics.RGB color);
-
 }

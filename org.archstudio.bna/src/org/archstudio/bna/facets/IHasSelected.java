@@ -15,10 +15,8 @@ import org.eclipse.jdt.annotation.NonNullByDefault;
 @NonNullByDefault
 public interface IHasSelected
     extends org.archstudio.bna.IThing, org.archstudio.bna.facets.IHasRotatingOffset {
-
   public static final IThingKey<java.lang.Boolean> SELECTED_KEY =
       ThingKey.create(com.google.common.collect.Lists.newArrayList("selected", IHasSelected.class));
 
   public boolean isSelected();
-
 }

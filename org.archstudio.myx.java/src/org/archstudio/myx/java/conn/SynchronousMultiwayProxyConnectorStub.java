@@ -18,7 +18,6 @@ import org.archstudio.myx.fw.MyxUtils;
  */
 public abstract class SynchronousMultiwayProxyConnectorStub extends
     org.archstudio.myx.fw.AbstractMyxSimpleBrick implements org.archstudio.myx.fw.IMyxDynamicBrick {
-
   /**
    * The registry of objects for this brick.
    * 
@@ -63,7 +62,6 @@ public abstract class SynchronousMultiwayProxyConnectorStub extends
    */
   protected org.archstudio.myx.java.conn.IMultiwayResults results = null;
 
-
   /**
    * Returns the service object(s) for the results interface.
    * 
@@ -93,7 +91,6 @@ public abstract class SynchronousMultiwayProxyConnectorStub extends
   protected final java.util.Collection<java.lang.Object> out =
       new java.util.concurrent.CopyOnWriteArrayList<java.lang.Object>();
 
-
   /**
    * Returns the service object(s) for the out interface.
    * 
@@ -118,7 +115,6 @@ public abstract class SynchronousMultiwayProxyConnectorStub extends
    * @generated
    */
   protected java.lang.Object in = null;
-
 
   /**
    * Returns the service object(s) for the in interface.
@@ -149,7 +145,6 @@ public abstract class SynchronousMultiwayProxyConnectorStub extends
   protected final java.util.Collection<org.archstudio.myx.java.conn.IMultiwayProgressListener> progress =
       new java.util.concurrent.CopyOnWriteArrayList<org.archstudio.myx.java.conn.IMultiwayProgressListener>();
 
-
   /**
    * Returns the service object(s) for the progress interface.
    * 
@@ -159,7 +154,6 @@ public abstract class SynchronousMultiwayProxyConnectorStub extends
   public java.util.Collection<org.archstudio.myx.java.conn.IMultiwayProgressListener> getProgress() {
     return progress;
   }
-
 
   /**
    * Returns service object(s) for IN interfaces.
@@ -223,17 +217,14 @@ public abstract class SynchronousMultiwayProxyConnectorStub extends
     if (serviceObject == null) {
       throw new NullPointerException(interfaceName.getName());
     }
-
     if (interfaceName.equals(OUT_OUT)) {
       out.remove(serviceObject);
       return;
     }
-
     if (interfaceName.equals(OUT_PROGRESS)) {
       progress.remove(serviceObject);
       return;
     }
-
     throw new IllegalArgumentException("Unhandled interface: " + interfaceName.getName());
   }
 

@@ -14,10 +14,8 @@ import org.eclipse.jdt.annotation.NonNullByDefault;
 @SuppressWarnings("all")
 @NonNullByDefault
 public interface IHasLocalInsets extends org.archstudio.bna.IThing {
-
   public static final IThingKey<java.awt.Insets> LOCAL_INSETS_KEY = ThingKey
       .create(com.google.common.collect.Lists.newArrayList("localInsets", IHasLocalInsets.class));
 
   public java.awt.Insets getLocalInsets();
-
 }

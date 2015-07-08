@@ -25,7 +25,6 @@ public abstract class EndpointThingBase extends org.archstudio.bna.things.Abstra
     org.archstudio.bna.facets.IHasMutableRoundCorners,
     org.archstudio.bna.facets.IHasMutableSelected, org.archstudio.bna.facets.IHasMutableSize,
     org.archstudio.bna.facets.IHasMutableStickyShape {
-
   public EndpointThingBase(@Nullable Object id) {
     super(id);
   }
@@ -401,5 +400,4 @@ public abstract class EndpointThingBase extends org.archstudio.bna.things.Abstra
   /* package */ java.awt.Dimension setRawSize(java.awt.Dimension size) {
     return setRaw(org.archstudio.bna.facets.IHasSize.SIZE_KEY, size);
   }
-
 }

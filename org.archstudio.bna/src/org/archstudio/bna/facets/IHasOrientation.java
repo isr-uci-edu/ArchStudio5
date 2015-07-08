@@ -14,11 +14,9 @@ import org.eclipse.jdt.annotation.NonNullByDefault;
 @SuppressWarnings("all")
 @NonNullByDefault
 public interface IHasOrientation extends org.archstudio.bna.IThing {
-
   public static final IThingKey<org.archstudio.swtutils.constants.Orientation> ORIENTATION_KEY =
       ThingKey.create(
           com.google.common.collect.Lists.newArrayList("orientation", IHasOrientation.class));
 
   public org.archstudio.swtutils.constants.Orientation getOrientation();
-
 }

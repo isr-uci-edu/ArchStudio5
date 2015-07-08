@@ -14,10 +14,8 @@ import org.eclipse.jdt.annotation.NonNullByDefault;
 @SuppressWarnings("all")
 @NonNullByDefault
 public interface IHasAlpha extends org.archstudio.bna.IThing {
-
   public static final IThingKey<java.lang.Double> ALPHA_KEY =
       ThingKey.create(com.google.common.collect.Lists.newArrayList("alpha", IHasAlpha.class));
 
   public double getAlpha();
-
 }

@@ -14,10 +14,8 @@ import org.eclipse.jdt.annotation.NonNullByDefault;
 @SuppressWarnings("all")
 @NonNullByDefault
 public interface IHasHidden extends org.archstudio.bna.IThing {
-
   public static final IThingKey<java.lang.Boolean> HIDDEN_KEY =
       ThingKey.create(com.google.common.collect.Lists.newArrayList("hidden", IHasHidden.class));
 
   public boolean isHidden();
-
 }

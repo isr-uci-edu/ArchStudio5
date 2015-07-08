@@ -14,10 +14,8 @@ import org.eclipse.jdt.annotation.NonNullByDefault;
 @SuppressWarnings("all")
 @NonNullByDefault
 public interface IHasToolTip extends org.archstudio.bna.IThing {
-
   public static final IThingKey<java.lang.String> TOOL_TIP_KEY =
       ThingKey.create(com.google.common.collect.Lists.newArrayList("toolTip", IHasToolTip.class));
 
   public java.lang.String getToolTip();
-
 }

@@ -17,7 +17,6 @@ import org.archstudio.myx.fw.IMyxName;
 public abstract class ArchEditMyxComponentStub
     extends org.archstudio.eclipse.ui.editors.AbstractArchStudioEditorMyxComponent
     implements org.archstudio.myx.fw.IMyxDynamicBrick {
-
   /**
    * A constructor from the super class...
    * 
@@ -27,7 +26,6 @@ public abstract class ArchEditMyxComponentStub
       boolean registerWithEditorManager) {
     super(editorName, eclipseEditorID, registerWithEditorManager);
   }
-
 
   /**
    * Returns service object(s) for IN interfaces.
@@ -63,7 +61,6 @@ public abstract class ArchEditMyxComponentStub
     if (serviceObject == null) {
       throw new NullPointerException(interfaceName.getName());
     }
-
     super.interfaceDisconnecting(interfaceName, serviceObject);
   }
 

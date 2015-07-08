@@ -12,7 +12,5 @@ import org.eclipse.jdt.annotation.NonNullByDefault;
 @SuppressWarnings("all")
 @NonNullByDefault
 public interface IHasMutableLoopOrientation extends IHasLoopOrientation {
-
   public void setLoopOrientation(org.archstudio.swtutils.constants.Orientation loopOrientation);
-
 }

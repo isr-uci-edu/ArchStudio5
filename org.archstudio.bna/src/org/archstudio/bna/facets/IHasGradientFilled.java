@@ -15,10 +15,8 @@ import org.eclipse.jdt.annotation.NonNullByDefault;
 @NonNullByDefault
 public interface IHasGradientFilled extends org.archstudio.bna.IThing,
     org.archstudio.bna.facets.IHasColor, org.archstudio.bna.facets.IHasSecondaryColor {
-
   public static final IThingKey<java.lang.Boolean> GRADIENT_FILLED_KEY = ThingKey.create(
       com.google.common.collect.Lists.newArrayList("gradientFilled", IHasGradientFilled.class));
 
   public boolean isGradientFilled();
-
 }

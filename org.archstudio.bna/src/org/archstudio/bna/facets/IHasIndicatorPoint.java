@@ -15,11 +15,9 @@ import org.eclipse.jdt.annotation.Nullable;
 @SuppressWarnings("all")
 @NonNullByDefault
 public interface IHasIndicatorPoint extends org.archstudio.bna.IThing {
-
   public static final IThingKey<java.awt.geom.Point2D> INDICATOR_POINT_KEY = ThingKey.create(
       com.google.common.collect.Lists.newArrayList("indicatorPoint", IHasIndicatorPoint.class),
       true);
 
   public @Nullable java.awt.geom.Point2D getIndicatorPoint();
-
 }

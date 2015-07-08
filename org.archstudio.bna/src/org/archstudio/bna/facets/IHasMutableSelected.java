@@ -17,5 +17,4 @@ public interface IHasMutableSelected
   public static final String USER_MAY_SELECT = "UserMaySelect";
 
   public void setSelected(boolean selected);
-
 }

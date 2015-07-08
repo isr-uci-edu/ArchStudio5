@@ -20,7 +20,6 @@ public abstract class MappingThingBase extends org.archstudio.bna.things.Abstrac
     org.archstudio.bna.facets.IHasMutableGlow,
     org.archstudio.bna.facets.IHasMutableInternalWorldPoint,
     org.archstudio.bna.facets.IHasMutableLineData, org.archstudio.bna.facets.IHasMutableSelected {
-
   public MappingThingBase(@Nullable Object id) {
     super(id);
   }

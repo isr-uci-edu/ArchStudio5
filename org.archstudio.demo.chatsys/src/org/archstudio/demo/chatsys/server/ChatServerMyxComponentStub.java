@@ -18,7 +18,6 @@ import org.archstudio.myx.fw.MyxUtils;
 public abstract class ChatServerMyxComponentStub
     extends org.archstudio.myx.fw.AbstractMyxSimpleBrick
     implements org.archstudio.myx.fw.IMyxDynamicBrick, org.archstudio.demo.chatsys.IChat {
-
   /**
    * The registry of objects for this brick.
    * 
@@ -55,8 +54,6 @@ public abstract class ChatServerMyxComponentStub
    */
   public static final IMyxName IN_CHAT = MyxUtils.createName("chat");
 
-
-
   /**
    * Returns the service object(s) for the chat interface.
    * 
@@ -82,7 +79,6 @@ public abstract class ChatServerMyxComponentStub
    */
   protected org.archstudio.demo.chatsys.IChatListener chatEvents = null;
 
-
   /**
    * Returns the service object(s) for the chatEvents interface.
    * 
@@ -95,7 +91,6 @@ public abstract class ChatServerMyxComponentStub
     }
     return chatEvents;
   }
-
 
   /**
    * Returns service object(s) for IN interfaces.
@@ -146,7 +141,6 @@ public abstract class ChatServerMyxComponentStub
     if (serviceObject == null) {
       throw new NullPointerException(interfaceName.getName());
     }
-
     if (interfaceName.equals(OUT_CHAT_EVENTS)) {
       if (chatEvents == null) {
         throw new IllegalStateException("A connection was never made on interface: chatEvents");
@@ -154,7 +148,6 @@ public abstract class ChatServerMyxComponentStub
       chatEvents = null;
       return;
     }
-
     throw new IllegalArgumentException("Unhandled interface: " + interfaceName.getName());
   }
 

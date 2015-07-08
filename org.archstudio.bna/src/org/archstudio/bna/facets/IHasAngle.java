@@ -14,10 +14,8 @@ import org.eclipse.jdt.annotation.NonNullByDefault;
 @SuppressWarnings("all")
 @NonNullByDefault
 public interface IHasAngle extends org.archstudio.bna.IThing {
-
   public static final IThingKey<java.lang.Integer> ANGLE_KEY =
       ThingKey.create(com.google.common.collect.Lists.newArrayList("angle", IHasAngle.class));
 
   public int getAngle();
-
 }

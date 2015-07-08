@@ -15,10 +15,8 @@ import org.eclipse.jdt.annotation.Nullable;
 @SuppressWarnings("all")
 @NonNullByDefault
 public interface IHasTint extends org.archstudio.bna.IThing {
-
   public static final IThingKey<org.eclipse.swt.graphics.RGB> TINT_KEY =
       ThingKey.create(com.google.common.collect.Lists.newArrayList("tint", IHasTint.class), true);
 
   public @Nullable org.eclipse.swt.graphics.RGB getTint();
-
 }

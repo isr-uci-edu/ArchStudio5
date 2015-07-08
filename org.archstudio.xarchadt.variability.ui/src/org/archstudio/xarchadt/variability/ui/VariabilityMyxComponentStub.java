@@ -18,7 +18,6 @@ import org.archstudio.myx.fw.MyxUtils;
  */
 public abstract class VariabilityMyxComponentStub extends
     org.archstudio.myx.fw.AbstractMyxSimpleBrick implements org.archstudio.myx.fw.IMyxDynamicBrick {
-
   /**
    * The registry of objects for this brick.
    * 
@@ -63,7 +62,6 @@ public abstract class VariabilityMyxComponentStub extends
    */
   protected org.archstudio.xarchadt.variability.IXArchADTVariability xarch = null;
 
-
   /**
    * Returns the service object(s) for the xarch interface.
    * 
@@ -83,7 +81,6 @@ public abstract class VariabilityMyxComponentStub extends
    * @generated
    */
   public static final IMyxName IN_MODEL_EVENTS = MyxUtils.createName("modelEvents");
-
 
   /**
    * Service object proxy for the modelEvents interface. Calls to this proxy object are
@@ -131,7 +128,6 @@ public abstract class VariabilityMyxComponentStub extends
    */
   public static final IMyxName IN_FILE_EVENTS = MyxUtils.createName("fileEvents");
 
-
   /**
    * Service object proxy for the fileEvents interface. Calls to this proxy object are automatically
    * delegated to all service objects in the MyxRegistry of type
@@ -178,7 +174,6 @@ public abstract class VariabilityMyxComponentStub extends
    */
   public static final IMyxName IN_VARIABILITY_EVENTS = MyxUtils.createName("variabilityEvents");
 
-
   /**
    * Service object proxy for the variabilityEvents interface. Calls to this proxy object are
    * automatically delegated to all service objects in the MyxRegistry of type
@@ -219,7 +214,6 @@ public abstract class VariabilityMyxComponentStub extends
   public org.archstudio.xarchadt.variability.IXArchADTVariabilityListener getVariabilityEvents() {
     return variabilityEventsProxy;
   }
-
 
   /**
    * Returns service object(s) for IN interfaces.
@@ -278,7 +272,6 @@ public abstract class VariabilityMyxComponentStub extends
     if (serviceObject == null) {
       throw new NullPointerException(interfaceName.getName());
     }
-
     if (interfaceName.equals(OUT_XARCH)) {
       if (xarch == null) {
         throw new IllegalStateException("A connection was never made on interface: xarch");
@@ -286,7 +279,6 @@ public abstract class VariabilityMyxComponentStub extends
       xarch = null;
       return;
     }
-
     throw new IllegalArgumentException("Unhandled interface: " + interfaceName.getName());
   }
 

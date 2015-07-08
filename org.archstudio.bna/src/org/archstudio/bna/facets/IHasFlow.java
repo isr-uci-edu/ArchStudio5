@@ -14,10 +14,8 @@ import org.eclipse.jdt.annotation.NonNullByDefault;
 @SuppressWarnings("all")
 @NonNullByDefault
 public interface IHasFlow extends org.archstudio.bna.IThing {
-
   public static final IThingKey<org.archstudio.swtutils.constants.Flow> FLOW_KEY =
       ThingKey.create(com.google.common.collect.Lists.newArrayList("flow", IHasFlow.class));
 
   public org.archstudio.swtutils.constants.Flow getFlow();
-
 }

@@ -23,7 +23,6 @@ public abstract class FinalStateThingBase extends org.archstudio.bna.things.Abst
     org.archstudio.bna.facets.IHasMutableReferencePoint,
     org.archstudio.bna.facets.IHasMutableSelected,
     org.archstudio.bna.facets.IHasMutableStickyShape {
-
   public FinalStateThingBase(@Nullable Object id) {
     super(id);
   }
@@ -282,5 +281,4 @@ public abstract class FinalStateThingBase extends org.archstudio.bna.things.Abst
   /* package */ boolean isRawSelected(boolean selected) {
     return setRaw(org.archstudio.bna.facets.IHasSelected.SELECTED_KEY, selected);
   }
-
 }

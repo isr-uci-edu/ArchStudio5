@@ -15,7 +15,5 @@ import org.eclipse.jdt.annotation.NonNullByDefault;
 @SuppressWarnings("all")
 @NonNullByDefault
 public interface IHasMutableBoundingBox extends IHasBoundingBox {
-
   public void setBoundingBox(org.eclipse.swt.graphics.Rectangle boundingBox);
-
 }

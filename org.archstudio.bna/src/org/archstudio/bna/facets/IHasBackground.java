@@ -14,10 +14,8 @@ import org.eclipse.jdt.annotation.NonNullByDefault;
 @SuppressWarnings("all")
 @NonNullByDefault
 public interface IHasBackground extends org.archstudio.bna.IThing {
-
   public static final IThingKey<java.lang.Boolean> BACKGROUND_KEY = ThingKey
       .create(com.google.common.collect.Lists.newArrayList("background", IHasBackground.class));
 
   public boolean isBackground();
-
 }

@@ -116,5 +116,4 @@ public abstract class RotaterThingBase extends org.archstudio.bna.things.Abstrac
   /* package */ int setRawRadius(int radius) {
     return setRaw(org.archstudio.bna.facets.IHasRadius.RADIUS_KEY, radius);
   }
-
 }

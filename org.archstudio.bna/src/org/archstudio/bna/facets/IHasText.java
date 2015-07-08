@@ -14,10 +14,8 @@ import org.eclipse.jdt.annotation.NonNullByDefault;
 @SuppressWarnings("all")
 @NonNullByDefault
 public interface IHasText extends org.archstudio.bna.IThing {
-
   public static final IThingKey<java.lang.String> TEXT_KEY =
       ThingKey.create(com.google.common.collect.Lists.newArrayList("text", IHasText.class));
 
   public java.lang.String getText();
-
 }

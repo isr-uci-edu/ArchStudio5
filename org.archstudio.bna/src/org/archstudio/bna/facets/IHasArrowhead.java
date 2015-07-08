@@ -15,7 +15,6 @@ import org.eclipse.jdt.annotation.Nullable;
 @SuppressWarnings("all")
 @NonNullByDefault
 public interface IHasArrowhead extends org.archstudio.bna.IThing {
-
   public static final IThingKey<org.eclipse.swt.graphics.RGB> ARROWHEAD_COLOR_KEY = ThingKey.create(
       com.google.common.collect.Lists.newArrayList("arrowheadColor", IHasArrowhead.class), true);
 
@@ -43,5 +42,4 @@ public interface IHasArrowhead extends org.archstudio.bna.IThing {
   public org.archstudio.bna.constants.ArrowheadShape getArrowheadShape();
 
   public int getArrowheadWidth();
-
 }

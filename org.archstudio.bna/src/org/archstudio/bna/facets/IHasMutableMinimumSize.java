@@ -12,7 +12,5 @@ import org.eclipse.jdt.annotation.NonNullByDefault;
 @SuppressWarnings("all")
 @NonNullByDefault
 public interface IHasMutableMinimumSize extends IHasMinimumSize {
-
   public void setMinimumSize(java.awt.Dimension minimumSize);
-
 }

@@ -23,7 +23,6 @@ public abstract class PolygonThingBase extends org.archstudio.bna.things.Abstrac
     org.archstudio.bna.facets.IHasMutableReferencePoint,
     org.archstudio.bna.facets.IHasMutableSelected,
     org.archstudio.bna.facets.IHasMutableStickyShape {
-
   public PolygonThingBase(@Nullable Object id) {
     super(id);
   }
@@ -323,5 +322,4 @@ public abstract class PolygonThingBase extends org.archstudio.bna.things.Abstrac
   /* package */ boolean isRawSelected(boolean selected) {
     return setRaw(org.archstudio.bna.facets.IHasSelected.SELECTED_KEY, selected);
   }
-
 }

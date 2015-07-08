@@ -18,7 +18,6 @@ import org.eclipse.jdt.annotation.Nullable;
 public abstract class MarqueeBoxBorderThingBase extends org.archstudio.bna.things.AbstractThing
     implements org.archstudio.bna.IThing, org.archstudio.bna.facets.IHasMutableBoundingBox,
     org.archstudio.bna.facets.IHasMutableRotatingOffset {
-
   public MarqueeBoxBorderThingBase(@Nullable Object id) {
     super(id);
   }
@@ -74,5 +73,4 @@ public abstract class MarqueeBoxBorderThingBase extends org.archstudio.bna.thing
   /* package */ int setRawRotatingOffset(int rotatingOffset) {
     return setRaw(org.archstudio.bna.facets.IHasRotatingOffset.ROTATING_OFFSET_KEY, rotatingOffset);
   }
-
 }

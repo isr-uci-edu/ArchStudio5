@@ -12,7 +12,5 @@ import org.eclipse.jdt.annotation.NonNullByDefault;
 @SuppressWarnings("all")
 @NonNullByDefault
 public interface IHasMutableRotatingOffset extends IHasRotatingOffset {
-
   public void setRotatingOffset(int rotatingOffset);
-
 }

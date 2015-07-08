@@ -18,7 +18,6 @@ import org.archstudio.myx.fw.MyxUtils;
  */
 public abstract class BootstrapMyxComponentStub extends org.archstudio.myx.fw.AbstractMyxSimpleBrick
     implements org.archstudio.myx.fw.IMyxDynamicBrick {
-
   /**
    * The registry of objects for this brick.
    * 
@@ -63,7 +62,6 @@ public abstract class BootstrapMyxComponentStub extends org.archstudio.myx.fw.Ab
    */
   protected org.archstudio.xarchadt.IXArchADT xarch = null;
 
-
   /**
    * Returns the service object(s) for the xarch interface.
    * 
@@ -92,7 +90,6 @@ public abstract class BootstrapMyxComponentStub extends org.archstudio.myx.fw.Ab
    */
   protected org.archstudio.aim.IAIM aim = null;
 
-
   /**
    * Returns the service object(s) for the aim interface.
    * 
@@ -105,7 +102,6 @@ public abstract class BootstrapMyxComponentStub extends org.archstudio.myx.fw.Ab
     }
     return aim;
   }
-
 
   /**
    * Returns service object(s) for IN interfaces.
@@ -162,7 +158,6 @@ public abstract class BootstrapMyxComponentStub extends org.archstudio.myx.fw.Ab
     if (serviceObject == null) {
       throw new NullPointerException(interfaceName.getName());
     }
-
     if (interfaceName.equals(OUT_XARCH)) {
       if (xarch == null) {
         throw new IllegalStateException("A connection was never made on interface: xarch");
@@ -170,7 +165,6 @@ public abstract class BootstrapMyxComponentStub extends org.archstudio.myx.fw.Ab
       xarch = null;
       return;
     }
-
     if (interfaceName.equals(OUT_AIM)) {
       if (aim == null) {
         throw new IllegalStateException("A connection was never made on interface: aim");
@@ -178,7 +172,6 @@ public abstract class BootstrapMyxComponentStub extends org.archstudio.myx.fw.Ab
       aim = null;
       return;
     }
-
     throw new IllegalArgumentException("Unhandled interface: " + interfaceName.getName());
   }
 

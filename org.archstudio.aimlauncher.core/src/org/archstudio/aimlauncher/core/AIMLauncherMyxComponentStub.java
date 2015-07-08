@@ -18,7 +18,6 @@ import org.archstudio.myx.fw.MyxUtils;
 public abstract class AIMLauncherMyxComponentStub
     extends org.archstudio.eclipse.ui.editors.AbstractArchStudioEditorMyxComponent
     implements org.archstudio.myx.fw.IMyxDynamicBrick {
-
   /**
    * A constructor from the super class...
    * 
@@ -44,7 +43,6 @@ public abstract class AIMLauncherMyxComponentStub
    */
   protected org.archstudio.aim.IAIM aim = null;
 
-
   /**
    * Returns the service object(s) for the aim interface.
    * 
@@ -57,7 +55,6 @@ public abstract class AIMLauncherMyxComponentStub
     }
     return aim;
   }
-
 
   /**
    * Returns service object(s) for IN interfaces.
@@ -103,7 +100,6 @@ public abstract class AIMLauncherMyxComponentStub
     if (serviceObject == null) {
       throw new NullPointerException(interfaceName.getName());
     }
-
     if (interfaceName.equals(OUT_AIM)) {
       if (aim == null) {
         throw new IllegalStateException("A connection was never made on interface: aim");
@@ -111,7 +107,6 @@ public abstract class AIMLauncherMyxComponentStub
       aim = null;
       return;
     }
-
     super.interfaceDisconnecting(interfaceName, serviceObject);
   }
 

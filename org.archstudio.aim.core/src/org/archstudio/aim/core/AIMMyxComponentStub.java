@@ -18,7 +18,6 @@ import org.archstudio.myx.fw.MyxUtils;
  */
 public abstract class AIMMyxComponentStub extends org.archstudio.myx.fw.AbstractMyxSimpleBrick
     implements org.archstudio.myx.fw.IMyxDynamicBrick {
-
   /**
    * The registry of objects for this brick.
    * 
@@ -63,7 +62,6 @@ public abstract class AIMMyxComponentStub extends org.archstudio.myx.fw.Abstract
    */
   protected org.archstudio.aim.IAIM aim = null;
 
-
   /**
    * Returns the service object(s) for the aim interface.
    * 
@@ -91,7 +89,6 @@ public abstract class AIMMyxComponentStub extends org.archstudio.myx.fw.Abstract
    * @generated
    */
   protected org.archstudio.myx.fw.IMyxRuntime myxRuntime = null;
-
 
   /**
    * Returns the service object(s) for the myxRuntime interface.
@@ -121,7 +118,6 @@ public abstract class AIMMyxComponentStub extends org.archstudio.myx.fw.Abstract
    */
   protected org.archstudio.xarchadt.IXArchADT xarch = null;
 
-
   /**
    * Returns the service object(s) for the xarch interface.
    * 
@@ -134,7 +130,6 @@ public abstract class AIMMyxComponentStub extends org.archstudio.myx.fw.Abstract
     }
     return xarch;
   }
-
 
   /**
    * Returns service object(s) for IN interfaces.
@@ -199,7 +194,6 @@ public abstract class AIMMyxComponentStub extends org.archstudio.myx.fw.Abstract
     if (serviceObject == null) {
       throw new NullPointerException(interfaceName.getName());
     }
-
     if (interfaceName.equals(OUT_MYX_RUNTIME)) {
       if (myxRuntime == null) {
         throw new IllegalStateException("A connection was never made on interface: myxRuntime");
@@ -207,7 +201,6 @@ public abstract class AIMMyxComponentStub extends org.archstudio.myx.fw.Abstract
       myxRuntime = null;
       return;
     }
-
     if (interfaceName.equals(OUT_XARCH)) {
       if (xarch == null) {
         throw new IllegalStateException("A connection was never made on interface: xarch");
@@ -215,7 +208,6 @@ public abstract class AIMMyxComponentStub extends org.archstudio.myx.fw.Abstract
       xarch = null;
       return;
     }
-
     throw new IllegalArgumentException("Unhandled interface: " + interfaceName.getName());
   }
 

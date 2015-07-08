@@ -21,7 +21,6 @@ public abstract class BoundedLabelThingBase extends org.archstudio.bna.things.Ab
     org.archstudio.bna.facets.IHasMutableHorizontalAlignment,
     org.archstudio.bna.facets.IHasMutableText,
     org.archstudio.bna.facets.IHasMutableVerticalAlignment {
-
   public BoundedLabelThingBase(@Nullable Object id) {
     super(id);
   }
@@ -224,5 +223,4 @@ public abstract class BoundedLabelThingBase extends org.archstudio.bna.things.Ab
     return setRaw(org.archstudio.bna.facets.IHasVerticalAlignment.VERTICAL_ALIGNMENT_KEY,
         verticalAlignment);
   }
-
 }

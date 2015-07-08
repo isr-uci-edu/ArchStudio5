@@ -12,7 +12,5 @@ import org.eclipse.jdt.annotation.NonNullByDefault;
 @SuppressWarnings("all")
 @NonNullByDefault
 public interface IHasMutableOrientation extends IHasOrientation {
-
   public void setOrientation(org.archstudio.swtutils.constants.Orientation orientation);
-
 }

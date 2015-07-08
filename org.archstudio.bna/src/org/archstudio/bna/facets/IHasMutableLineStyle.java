@@ -12,7 +12,5 @@ import org.eclipse.jdt.annotation.NonNullByDefault;
 @SuppressWarnings("all")
 @NonNullByDefault
 public interface IHasMutableLineStyle extends IHasLineStyle {
-
   public void setLineStyle(org.archstudio.swtutils.constants.LineStyle lineStyle);
-
 }

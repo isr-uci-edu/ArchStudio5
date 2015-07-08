@@ -13,7 +13,5 @@ import org.eclipse.jdt.annotation.NonNullByDefault;
 @NonNullByDefault
 public interface IHasStickyShape extends org.archstudio.bna.IThing {
 
-
   public java.awt.Shape getStickyShape();
-
 }

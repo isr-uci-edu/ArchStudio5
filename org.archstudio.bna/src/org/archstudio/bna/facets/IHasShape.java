@@ -14,10 +14,8 @@ import org.eclipse.jdt.annotation.NonNullByDefault;
 @SuppressWarnings("all")
 @NonNullByDefault
 public interface IHasShape extends org.archstudio.bna.IThing {
-
   public static final IThingKey<java.awt.Shape> SHAPE_KEY =
       ThingKey.create(com.google.common.collect.Lists.newArrayList("shape", IHasShape.class));
 
   public java.awt.Shape getShape();
-
 }

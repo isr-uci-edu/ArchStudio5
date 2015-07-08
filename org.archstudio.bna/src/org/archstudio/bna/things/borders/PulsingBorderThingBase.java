@@ -18,7 +18,6 @@ import org.eclipse.jdt.annotation.Nullable;
 public abstract class PulsingBorderThingBase extends org.archstudio.bna.things.AbstractThing
     implements org.archstudio.bna.IThing, org.archstudio.bna.facets.IHasMutableBoundingBox,
     org.archstudio.bna.facets.IHasMutableGlow, org.archstudio.bna.facets.IHasMutableRotatingOffset {
-
   public PulsingBorderThingBase(@Nullable Object id) {
     super(id);
   }
@@ -132,5 +131,4 @@ public abstract class PulsingBorderThingBase extends org.archstudio.bna.things.A
   /* package */ int setRawRotatingOffset(int rotatingOffset) {
     return setRaw(org.archstudio.bna.facets.IHasRotatingOffset.ROTATING_OFFSET_KEY, rotatingOffset);
   }
-
 }

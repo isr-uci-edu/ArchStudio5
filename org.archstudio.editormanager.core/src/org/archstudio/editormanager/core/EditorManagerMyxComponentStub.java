@@ -18,7 +18,6 @@ import org.archstudio.myx.fw.MyxUtils;
  */
 public abstract class EditorManagerMyxComponentStub extends
     org.archstudio.myx.fw.AbstractMyxSimpleBrick implements org.archstudio.myx.fw.IMyxDynamicBrick {
-
   /**
    * The registry of objects for this brick.
    * 
@@ -62,7 +61,6 @@ public abstract class EditorManagerMyxComponentStub extends
    * @generated
    */
   protected org.archstudio.editormanager.IEditorManager editorManager = null;
-
 
   /**
    * Returns the service object(s) for the editorManager interface.
@@ -146,7 +144,6 @@ public abstract class EditorManagerMyxComponentStub extends
    */
   protected org.eclipse.jface.preference.IPreferenceStore preferences = null;
 
-
   /**
    * Returns the service object(s) for the preferences interface.
    * 
@@ -159,7 +156,6 @@ public abstract class EditorManagerMyxComponentStub extends
     }
     return preferences;
   }
-
 
   /**
    * Returns service object(s) for IN interfaces.
@@ -224,7 +220,6 @@ public abstract class EditorManagerMyxComponentStub extends
     if (serviceObject == null) {
       throw new NullPointerException(interfaceName.getName());
     }
-
     if (interfaceName.equals(OUT_FOCUS_EDITOR_EVENTS)) {
       if (focusEditorEvents == null) {
         throw new IllegalStateException(
@@ -233,7 +228,6 @@ public abstract class EditorManagerMyxComponentStub extends
       focusEditorEvents = null;
       return;
     }
-
     if (interfaceName.equals(OUT_PREFERENCES)) {
       if (preferences == null) {
         throw new IllegalStateException("A connection was never made on interface: preferences");
@@ -241,7 +235,6 @@ public abstract class EditorManagerMyxComponentStub extends
       preferences = null;
       return;
     }
-
     throw new IllegalArgumentException("Unhandled interface: " + interfaceName.getName());
   }
 

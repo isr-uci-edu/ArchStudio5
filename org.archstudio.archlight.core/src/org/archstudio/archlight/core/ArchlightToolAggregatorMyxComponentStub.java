@@ -19,7 +19,6 @@ public abstract class ArchlightToolAggregatorMyxComponentStub
     extends org.archstudio.myx.fw.AbstractMyxSimpleBrick
     implements org.archstudio.myx.fw.IMyxDynamicBrick, org.archstudio.archlight.IArchlightTool,
     org.archstudio.myx.java.conn.IMultiwayProgressListener {
-
   /**
    * The registry of objects for this brick.
    * 
@@ -64,7 +63,6 @@ public abstract class ArchlightToolAggregatorMyxComponentStub
    */
   protected org.archstudio.myx.java.conn.IMultiwayResults results = null;
 
-
   /**
    * Returns the service object(s) for the results interface.
    * 
@@ -93,7 +91,6 @@ public abstract class ArchlightToolAggregatorMyxComponentStub
    */
   protected org.archstudio.archlight.IArchlightTool tools = null;
 
-
   /**
    * Returns the service object(s) for the tools interface.
    * 
@@ -114,8 +111,6 @@ public abstract class ArchlightToolAggregatorMyxComponentStub
    */
   public static final IMyxName IN_TOOL = MyxUtils.createName("tool");
 
-
-
   /**
    * Returns the service object(s) for the tool interface.
    * 
@@ -133,8 +128,6 @@ public abstract class ArchlightToolAggregatorMyxComponentStub
    */
   public static final IMyxName IN_PROGRESS = MyxUtils.createName("progress");
 
-
-
   /**
    * Returns the service object(s) for the progress interface.
    * 
@@ -144,7 +137,6 @@ public abstract class ArchlightToolAggregatorMyxComponentStub
   public org.archstudio.myx.java.conn.IMultiwayProgressListener getProgress() {
     return this;
   }
-
 
   /**
    * Returns service object(s) for IN interfaces.
@@ -210,7 +202,6 @@ public abstract class ArchlightToolAggregatorMyxComponentStub
     if (serviceObject == null) {
       throw new NullPointerException(interfaceName.getName());
     }
-
     if (interfaceName.equals(OUT_RESULTS)) {
       if (results == null) {
         throw new IllegalStateException("A connection was never made on interface: results");
@@ -218,7 +209,6 @@ public abstract class ArchlightToolAggregatorMyxComponentStub
       results = null;
       return;
     }
-
     if (interfaceName.equals(OUT_TOOLS)) {
       if (tools == null) {
         throw new IllegalStateException("A connection was never made on interface: tools");
@@ -226,7 +216,6 @@ public abstract class ArchlightToolAggregatorMyxComponentStub
       tools = null;
       return;
     }
-
     throw new IllegalArgumentException("Unhandled interface: " + interfaceName.getName());
   }
 

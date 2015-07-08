@@ -15,10 +15,8 @@ import org.eclipse.jdt.annotation.Nullable;
 @SuppressWarnings("all")
 @NonNullByDefault
 public interface IHasColor extends org.archstudio.bna.IThing {
-
   public static final IThingKey<org.eclipse.swt.graphics.RGB> COLOR_KEY =
       ThingKey.create(com.google.common.collect.Lists.newArrayList("color", IHasColor.class), true);
 
   public @Nullable org.eclipse.swt.graphics.RGB getColor();
-
 }

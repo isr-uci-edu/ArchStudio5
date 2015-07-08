@@ -25,7 +25,6 @@ public abstract class AnchoredLabelThingBase extends org.archstudio.bna.things.A
     org.archstudio.bna.facets.IHasMutableReferencePoint, org.archstudio.bna.facets.IHasMutableText,
     org.archstudio.bna.facets.IHasMutableVerticalAlignment,
     org.archstudio.bna.logics.coordinating.StickPointLogic.IHasSecondaryPoint {
-
   public AnchoredLabelThingBase(@Nullable Object id) {
     super(id);
   }
@@ -350,5 +349,4 @@ public abstract class AnchoredLabelThingBase extends org.archstudio.bna.things.A
     return setRaw(org.archstudio.bna.facets.IHasVerticalAlignment.VERTICAL_ALIGNMENT_KEY,
         verticalAlignment);
   }
-
 }

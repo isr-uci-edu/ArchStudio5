@@ -17,5 +17,4 @@ public interface IHasMutableEdgeColor extends IHasEdgeColor {
   public static final String USER_MAY_EDIT_EDGE_COLOR = "UserMayEditEdgeColor";
 
   public void setEdgeColor(@Nullable org.eclipse.swt.graphics.RGB edgeColor);
-
 }

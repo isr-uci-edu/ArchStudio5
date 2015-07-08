@@ -12,5 +12,4 @@ import org.eclipse.jdt.annotation.NonNullByDefault;
 @SuppressWarnings("all")
 @NonNullByDefault
 public interface IHasMutableStickyShape extends IHasStickyShape {
-
 }

@@ -14,7 +14,6 @@ import org.eclipse.jdt.annotation.NonNullByDefault;
 @SuppressWarnings("all")
 @NonNullByDefault
 public interface IHasEndpoints extends org.archstudio.bna.IThing {
-
   public static final IThingKey<java.awt.geom.Point2D> ENDPOINT_1_KEY = ThingKey
       .create(com.google.common.collect.Lists.newArrayList("endpoint1", IHasEndpoints.class));
 
@@ -24,5 +23,4 @@ public interface IHasEndpoints extends org.archstudio.bna.IThing {
   public java.awt.geom.Point2D getEndpoint1();
 
   public java.awt.geom.Point2D getEndpoint2();
-
 }

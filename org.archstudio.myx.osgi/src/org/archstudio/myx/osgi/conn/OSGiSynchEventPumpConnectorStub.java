@@ -17,7 +17,6 @@ import org.archstudio.myx.fw.MyxRegistry;
  */
 public abstract class OSGiSynchEventPumpConnectorStub extends
     org.archstudio.myx.fw.AbstractMyxSimpleBrick implements org.archstudio.myx.fw.IMyxDynamicBrick {
-
   /**
    * The registry of objects for this brick.
    * 
@@ -46,7 +45,6 @@ public abstract class OSGiSynchEventPumpConnectorStub extends
     myxRegistry.unregister(this);
     super.end();
   }
-
 
   /**
    * Returns service object(s) for IN interfaces.
@@ -82,7 +80,6 @@ public abstract class OSGiSynchEventPumpConnectorStub extends
     if (serviceObject == null) {
       throw new NullPointerException(interfaceName.getName());
     }
-
     throw new IllegalArgumentException("Unhandled interface: " + interfaceName.getName());
   }
 

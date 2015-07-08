@@ -14,10 +14,8 @@ import org.eclipse.jdt.annotation.NonNullByDefault;
 @SuppressWarnings("all")
 @NonNullByDefault
 public interface IHasStandardCursor extends org.archstudio.bna.IThing {
-
   public static final IThingKey<java.lang.Integer> STANDARD_CURSOR_KEY = ThingKey.create(
       com.google.common.collect.Lists.newArrayList("standardCursor", IHasStandardCursor.class));
 
   public int getStandardCursor();
-
 }

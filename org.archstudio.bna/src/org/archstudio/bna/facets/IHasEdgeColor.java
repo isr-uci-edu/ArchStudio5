@@ -15,10 +15,8 @@ import org.eclipse.jdt.annotation.Nullable;
 @SuppressWarnings("all")
 @NonNullByDefault
 public interface IHasEdgeColor extends org.archstudio.bna.IThing {
-
   public static final IThingKey<org.eclipse.swt.graphics.RGB> EDGE_COLOR_KEY = ThingKey
       .create(com.google.common.collect.Lists.newArrayList("edgeColor", IHasEdgeColor.class), true);
 
   public @Nullable org.eclipse.swt.graphics.RGB getEdgeColor();
-
 }

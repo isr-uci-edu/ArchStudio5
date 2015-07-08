@@ -23,7 +23,6 @@ public abstract class SplineThingBase extends org.archstudio.bna.things.Abstract
     org.archstudio.bna.facets.IHasMutableReferencePoint,
     org.archstudio.bna.facets.IHasMutableSelected,
     org.archstudio.bna.logics.coordinating.StickPointLogic.IHasSecondaryPoint {
-
   public SplineThingBase(@Nullable Object id) {
     super(id);
   }
@@ -512,5 +511,4 @@ public abstract class SplineThingBase extends org.archstudio.bna.things.Abstract
   /* package */ boolean isRawSelected(boolean selected) {
     return setRaw(org.archstudio.bna.facets.IHasSelected.SELECTED_KEY, selected);
   }
-
 }

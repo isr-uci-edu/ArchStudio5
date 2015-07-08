@@ -18,7 +18,6 @@ import org.eclipse.jdt.annotation.Nullable;
 public abstract class WorldThingBase extends org.archstudio.bna.things.AbstractThing
     implements org.archstudio.bna.IThing, org.archstudio.bna.facets.IHasMutableBoundingBox,
     org.archstudio.bna.facets.IHasMutableWorld {
-
   public WorldThingBase(@Nullable Object id) {
     super(id);
   }
@@ -75,5 +74,4 @@ public abstract class WorldThingBase extends org.archstudio.bna.things.AbstractT
   org.archstudio.bna.IBNAWorld setRawWorld(@Nullable org.archstudio.bna.IBNAWorld world) {
     return setRaw(org.archstudio.bna.facets.IHasWorld.WORLD_KEY, world);
   }
-
 }

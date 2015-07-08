@@ -20,7 +20,6 @@ public abstract class FileManagerMyxComponentStub
     extends org.archstudio.myx.fw.AbstractMyxSimpleBrick implements
     org.archstudio.myx.fw.IMyxDynamicBrick, org.archstudio.xarchadt.IXArchADTModelListener,
     org.archstudio.xarchadt.IXArchADTFileListener, org.archstudio.filemanager.IFileManager {
-
   /**
    * The registry of objects for this brick.
    * 
@@ -65,7 +64,6 @@ public abstract class FileManagerMyxComponentStub
    */
   protected org.archstudio.xarchadt.IXArchADT xarch = null;
 
-
   /**
    * Returns the service object(s) for the xarch interface.
    * 
@@ -86,8 +84,6 @@ public abstract class FileManagerMyxComponentStub
    */
   public static final IMyxName IN_MODEL_EVENTS = MyxUtils.createName("modelEvents");
 
-
-
   /**
    * Returns the service object(s) for the modelEvents interface.
    * 
@@ -105,8 +101,6 @@ public abstract class FileManagerMyxComponentStub
    */
   public static final IMyxName IN_FILE_EVENTS = MyxUtils.createName("fileEvents");
 
-
-
   /**
    * Returns the service object(s) for the fileEvents interface.
    * 
@@ -123,8 +117,6 @@ public abstract class FileManagerMyxComponentStub
    * @generated
    */
   public static final IMyxName IN_FILE_MANAGER = MyxUtils.createName("fileManager");
-
-
 
   /**
    * Returns the service object(s) for the fileManager interface.
@@ -187,7 +179,6 @@ public abstract class FileManagerMyxComponentStub
   public org.archstudio.filemanager.IFileManagerListener getFileManagerEvents() {
     return fileManagerEventsProxy;
   }
-
 
   /**
    * Returns service object(s) for IN interfaces.
@@ -253,7 +244,6 @@ public abstract class FileManagerMyxComponentStub
     if (serviceObject == null) {
       throw new NullPointerException(interfaceName.getName());
     }
-
     if (interfaceName.equals(OUT_XARCH)) {
       if (xarch == null) {
         throw new IllegalStateException("A connection was never made on interface: xarch");
@@ -261,12 +251,10 @@ public abstract class FileManagerMyxComponentStub
       xarch = null;
       return;
     }
-
     if (interfaceName.equals(OUT_FILE_MANAGER_EVENTS)) {
       fileManagerEvents.remove(serviceObject);
       return;
     }
-
     throw new IllegalArgumentException("Unhandled interface: " + interfaceName.getName());
   }
 

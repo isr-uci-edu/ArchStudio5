@@ -25,7 +25,6 @@ public abstract class CurvedSplineThingBase extends org.archstudio.bna.things.Ab
     org.archstudio.bna.facets.IHasMutableSelected, org.archstudio.bna.facets.IHasMutableSpacing,
     org.archstudio.bna.logics.coordinating.StickPointLogic.IHasLoopablePoint,
     org.archstudio.bna.logics.coordinating.StickPointLogic.IHasSecondaryPoint {
-
   public CurvedSplineThingBase(@Nullable Object id) {
     super(id);
   }
@@ -551,5 +550,4 @@ public abstract class CurvedSplineThingBase extends org.archstudio.bna.things.Ab
   /* package */ int setRawSpacing(int spacing) {
     return setRaw(org.archstudio.bna.facets.IHasSpacing.SPACING_KEY, spacing);
   }
-
 }

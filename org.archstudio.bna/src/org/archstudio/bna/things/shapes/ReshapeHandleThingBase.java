@@ -19,7 +19,6 @@ public abstract class ReshapeHandleThingBase extends org.archstudio.bna.things.A
     implements org.archstudio.bna.IThing, org.archstudio.bna.facets.IHasMutableAnchorPoint,
     org.archstudio.bna.facets.IHasMutableColor, org.archstudio.bna.facets.IHasMutableReferencePoint,
     org.archstudio.bna.facets.IHasMutableSize {
-
   public ReshapeHandleThingBase(@Nullable Object id) {
     super(id);
   }
@@ -95,5 +94,4 @@ public abstract class ReshapeHandleThingBase extends org.archstudio.bna.things.A
   /* package */ java.awt.Dimension setRawSize(java.awt.Dimension size) {
     return setRaw(org.archstudio.bna.facets.IHasSize.SIZE_KEY, size);
   }
-
 }

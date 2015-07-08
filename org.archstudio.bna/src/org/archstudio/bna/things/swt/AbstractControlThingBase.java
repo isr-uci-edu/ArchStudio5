@@ -14,7 +14,6 @@ import org.eclipse.jdt.annotation.Nullable;
 @NonNullByDefault
 public abstract class AbstractControlThingBase extends org.archstudio.bna.things.AbstractThing
     implements org.archstudio.bna.IThing, org.archstudio.bna.facets.IHasMutableBoundingBox {
-
   public AbstractControlThingBase(@Nullable Object id) {
     super(id);
   }
@@ -45,5 +44,4 @@ public abstract class AbstractControlThingBase extends org.archstudio.bna.things
       org.eclipse.swt.graphics.Rectangle boundingBox) {
     return setRaw(org.archstudio.bna.facets.IHasBoundingBox.BOUNDING_BOX_KEY, boundingBox);
   }
-
 }

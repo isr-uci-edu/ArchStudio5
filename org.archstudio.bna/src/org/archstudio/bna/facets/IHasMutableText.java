@@ -16,5 +16,4 @@ public interface IHasMutableText extends IHasText {
   public static final String USER_MAY_EDIT_TEXT = "UserMayEditText";
 
   public void setText(java.lang.String text);
-
 }

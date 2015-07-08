@@ -14,10 +14,8 @@ import org.eclipse.jdt.annotation.NonNullByDefault;
 @SuppressWarnings("all")
 @NonNullByDefault
 public interface IHasSpacing extends org.archstudio.bna.IThing {
-
   public static final IThingKey<java.lang.Integer> SPACING_KEY =
       ThingKey.create(com.google.common.collect.Lists.newArrayList("spacing", IHasSpacing.class));
 
   public int getSpacing();
-
 }

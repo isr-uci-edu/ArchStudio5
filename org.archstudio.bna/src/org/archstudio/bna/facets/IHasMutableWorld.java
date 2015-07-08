@@ -13,7 +13,5 @@ import org.eclipse.jdt.annotation.Nullable;
 @SuppressWarnings("all")
 @NonNullByDefault
 public interface IHasMutableWorld extends IHasWorld {
-
   public void setWorld(@Nullable org.archstudio.bna.IBNAWorld world);
-
 }

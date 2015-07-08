@@ -12,7 +12,5 @@ import org.eclipse.jdt.annotation.NonNullByDefault;
 @SuppressWarnings("all")
 @NonNullByDefault
 public interface IHasMutableAnchorPoint extends IHasAnchorPoint {
-
   public void setAnchorPoint(java.awt.geom.Point2D anchorPoint);
-
 }

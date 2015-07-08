@@ -14,7 +14,6 @@ import org.eclipse.jdt.annotation.NonNullByDefault;
 @SuppressWarnings("all")
 @NonNullByDefault
 public interface IHasFontData extends org.archstudio.bna.IThing {
-
   public static final IThingKey<java.lang.Boolean> DONT_INCREASE_FONT_SIZE_KEY = ThingKey.create(
       com.google.common.collect.Lists.newArrayList("dontIncreaseFontSize", IHasFontData.class));
 
@@ -35,5 +34,4 @@ public interface IHasFontData extends org.archstudio.bna.IThing {
   public int getFontSize();
 
   public org.archstudio.swtutils.constants.FontStyle getFontStyle();
-
 }

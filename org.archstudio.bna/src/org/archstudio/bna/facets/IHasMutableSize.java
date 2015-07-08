@@ -16,5 +16,4 @@ public interface IHasMutableSize extends IHasSize {
   public static final String USER_MAY_RESIZE = "UserMayResize";
 
   public void setSize(java.awt.Dimension size);
-
 }

@@ -13,7 +13,5 @@ import org.eclipse.jdt.annotation.Nullable;
 @SuppressWarnings("all")
 @NonNullByDefault
 public interface IHasMutableIndicatorPoint extends IHasIndicatorPoint {
-
   public void setIndicatorPoint(@Nullable java.awt.geom.Point2D indicatorPoint);
-
 }

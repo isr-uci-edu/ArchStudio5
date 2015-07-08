@@ -18,7 +18,6 @@ import org.eclipse.jdt.annotation.NonNullByDefault;
 @NonNullByDefault
 public interface IHasRotatingOffset extends org.archstudio.bna.IThing {
 
-
   /**
    * This is an optimization to reduce unnecessary BNA event noise caused by the
    * {@link RotatingOffsetLogic} calling {@link #incrementRotatingOffset()}. For example, it is
@@ -37,5 +36,4 @@ public interface IHasRotatingOffset extends org.archstudio.bna.IThing {
       com.google.common.collect.Lists.newArrayList("rotatingOffset", IHasRotatingOffset.class));
 
   public int getRotatingOffset();
-
 }

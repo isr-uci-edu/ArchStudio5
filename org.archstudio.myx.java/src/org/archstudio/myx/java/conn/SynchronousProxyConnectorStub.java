@@ -17,7 +17,6 @@ import org.archstudio.myx.fw.MyxUtils;
  */
 public abstract class SynchronousProxyConnectorStub extends
     org.archstudio.myx.fw.AbstractMyxSimpleBrick implements org.archstudio.myx.fw.IMyxDynamicBrick {
-
   /**
    * The registry of objects for this brick.
    * 
@@ -62,7 +61,6 @@ public abstract class SynchronousProxyConnectorStub extends
    */
   protected java.lang.Object in = null;
 
-
   /**
    * Returns the service object(s) for the in interface.
    * 
@@ -91,7 +89,6 @@ public abstract class SynchronousProxyConnectorStub extends
    */
   protected java.lang.Object out = null;
 
-
   /**
    * Returns the service object(s) for the out interface.
    * 
@@ -104,7 +101,6 @@ public abstract class SynchronousProxyConnectorStub extends
     }
     return out;
   }
-
 
   /**
    * Returns service object(s) for IN interfaces.
@@ -157,7 +153,6 @@ public abstract class SynchronousProxyConnectorStub extends
     if (serviceObject == null) {
       throw new NullPointerException(interfaceName.getName());
     }
-
     if (interfaceName.equals(OUT_OUT)) {
       if (out == null) {
         throw new IllegalStateException("A connection was never made on interface: out");
@@ -165,7 +160,6 @@ public abstract class SynchronousProxyConnectorStub extends
       out = null;
       return;
     }
-
     throw new IllegalArgumentException("Unhandled interface: " + interfaceName.getName());
   }
 

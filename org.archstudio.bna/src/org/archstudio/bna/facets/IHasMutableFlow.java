@@ -16,5 +16,4 @@ public interface IHasMutableFlow extends IHasFlow {
   public static final String USER_MAY_EDIT_FLOW = "UserMayEditFlow";
 
   public void setFlow(org.archstudio.swtutils.constants.Flow flow);
-
 }

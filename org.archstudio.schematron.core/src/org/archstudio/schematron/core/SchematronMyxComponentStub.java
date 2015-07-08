@@ -19,7 +19,6 @@ import org.archstudio.myx.fw.MyxUtils;
 public abstract class SchematronMyxComponentStub
     extends org.archstudio.myx.fw.AbstractMyxSimpleBrick
     implements org.archstudio.myx.fw.IMyxDynamicBrick, org.archstudio.archlight.IArchlightTool {
-
   /**
    * The registry of objects for this brick.
    * 
@@ -56,8 +55,6 @@ public abstract class SchematronMyxComponentStub
    */
   public static final IMyxName IN_TOOLS = MyxUtils.createName("tools");
 
-
-
   /**
    * Returns the service object(s) for the tools interface.
    * 
@@ -82,7 +79,6 @@ public abstract class SchematronMyxComponentStub
    * @generated
    */
   protected org.archstudio.testadt.IArchlightTestADT tests = null;
-
 
   /**
    * Returns the service object(s) for the tests interface.
@@ -112,7 +108,6 @@ public abstract class SchematronMyxComponentStub
    */
   protected org.archstudio.xarchadt.IXArchADT xarch = null;
 
-
   /**
    * Returns the service object(s) for the xarch interface.
    * 
@@ -125,7 +120,6 @@ public abstract class SchematronMyxComponentStub
     }
     return xarch;
   }
-
 
   /**
    * Returns service object(s) for IN interfaces.
@@ -187,7 +181,6 @@ public abstract class SchematronMyxComponentStub
     if (serviceObject == null) {
       throw new NullPointerException(interfaceName.getName());
     }
-
     if (interfaceName.equals(OUT_TESTS)) {
       if (tests == null) {
         throw new IllegalStateException("A connection was never made on interface: tests");
@@ -195,7 +188,6 @@ public abstract class SchematronMyxComponentStub
       tests = null;
       return;
     }
-
     if (interfaceName.equals(OUT_XARCH)) {
       if (xarch == null) {
         throw new IllegalStateException("A connection was never made on interface: xarch");
@@ -203,7 +195,6 @@ public abstract class SchematronMyxComponentStub
       xarch = null;
       return;
     }
-
     throw new IllegalArgumentException("Unhandled interface: " + interfaceName.getName());
   }
 

@@ -13,7 +13,5 @@ import org.eclipse.jdt.annotation.Nullable;
 @SuppressWarnings("all")
 @NonNullByDefault
 public interface IHasMutableSecondaryColor extends IHasSecondaryColor {
-
   public void setSecondaryColor(@Nullable org.eclipse.swt.graphics.RGB secondaryColor);
-
 }

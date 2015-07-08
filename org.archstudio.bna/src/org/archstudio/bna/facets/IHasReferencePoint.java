@@ -13,10 +13,7 @@ import org.eclipse.jdt.annotation.NonNullByDefault;
 @NonNullByDefault
 public interface IHasReferencePoint extends org.archstudio.bna.IThing {
 
-
   public org.eclipse.swt.graphics.Point getReferencePoint();
 
-
   public void setReferencePoint(org.eclipse.swt.graphics.Point value);
-
 }

@@ -18,8 +18,6 @@ public abstract class OSGiEventPumpConnectorStub
     extends org.archstudio.myx.java.conn.EventPumpConnector
     implements org.archstudio.myx.fw.IMyxDynamicBrick {
 
-
-
   /**
    * Returns service object(s) for IN interfaces.
    * 
@@ -54,7 +52,6 @@ public abstract class OSGiEventPumpConnectorStub
     if (serviceObject == null) {
       throw new NullPointerException(interfaceName.getName());
     }
-
     super.interfaceDisconnecting(interfaceName, serviceObject);
   }
 

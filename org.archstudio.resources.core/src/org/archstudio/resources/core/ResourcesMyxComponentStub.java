@@ -18,7 +18,6 @@ import org.archstudio.myx.fw.MyxUtils;
  */
 public abstract class ResourcesMyxComponentStub extends org.archstudio.myx.fw.AbstractMyxSimpleBrick
     implements org.archstudio.myx.fw.IMyxDynamicBrick, org.archstudio.resources.IResources {
-
   /**
    * The registry of objects for this brick.
    * 
@@ -55,8 +54,6 @@ public abstract class ResourcesMyxComponentStub extends org.archstudio.myx.fw.Ab
    */
   public static final IMyxName IN_RESOURCES = MyxUtils.createName("resources");
 
-
-
   /**
    * Returns the service object(s) for the resources interface.
    * 
@@ -66,7 +63,6 @@ public abstract class ResourcesMyxComponentStub extends org.archstudio.myx.fw.Ab
   public org.archstudio.resources.IResources getResources() {
     return this;
   }
-
 
   /**
    * Returns service object(s) for IN interfaces.
@@ -106,7 +102,6 @@ public abstract class ResourcesMyxComponentStub extends org.archstudio.myx.fw.Ab
     if (serviceObject == null) {
       throw new NullPointerException(interfaceName.getName());
     }
-
     throw new IllegalArgumentException("Unhandled interface: " + interfaceName.getName());
   }
 

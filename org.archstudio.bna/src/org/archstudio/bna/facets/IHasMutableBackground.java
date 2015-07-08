@@ -12,7 +12,5 @@ import org.eclipse.jdt.annotation.NonNullByDefault;
 @SuppressWarnings("all")
 @NonNullByDefault
 public interface IHasMutableBackground extends IHasBackground {
-
   public void setBackground(boolean background);
-
 }

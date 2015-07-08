@@ -17,7 +17,6 @@ import org.archstudio.myx.fw.MyxUtils;
  */
 public abstract class MyxRuntimeComponentStub extends org.archstudio.myx.fw.AbstractMyxSimpleBrick
     implements org.archstudio.myx.fw.IMyxDynamicBrick {
-
   /**
    * The registry of objects for this brick.
    * 
@@ -62,7 +61,6 @@ public abstract class MyxRuntimeComponentStub extends org.archstudio.myx.fw.Abst
    */
   protected org.archstudio.myx.fw.IMyxRuntime myxRuntime = null;
 
-
   /**
    * Returns the service object(s) for the myxRuntime interface.
    * 
@@ -75,7 +73,6 @@ public abstract class MyxRuntimeComponentStub extends org.archstudio.myx.fw.Abst
     }
     return myxRuntime;
   }
-
 
   /**
    * Returns service object(s) for IN interfaces.
@@ -118,7 +115,6 @@ public abstract class MyxRuntimeComponentStub extends org.archstudio.myx.fw.Abst
     if (serviceObject == null) {
       throw new NullPointerException(interfaceName.getName());
     }
-
     throw new IllegalArgumentException("Unhandled interface: " + interfaceName.getName());
   }
 

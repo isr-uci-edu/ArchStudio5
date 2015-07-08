@@ -17,7 +17,6 @@ import org.eclipse.jdt.annotation.Nullable;
 @NonNullByDefault
 public abstract class ShadowThingBase extends org.archstudio.bna.things.AbstractThing
     implements org.archstudio.bna.IThing {
-
   public ShadowThingBase(@Nullable Object id) {
     super(id);
   }
@@ -31,5 +30,4 @@ public abstract class ShadowThingBase extends org.archstudio.bna.things.Abstract
   protected void initProperties() {
     super.initProperties();
   }
-
 }

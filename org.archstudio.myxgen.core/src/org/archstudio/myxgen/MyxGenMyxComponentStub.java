@@ -18,7 +18,6 @@ import org.archstudio.myx.fw.MyxUtils;
  */
 public abstract class MyxGenMyxComponentStub extends org.archstudio.myx.fw.AbstractMyxSimpleBrick
     implements org.archstudio.myx.fw.IMyxDynamicBrick {
-
   /**
    * The registry of objects for this brick.
    * 
@@ -63,7 +62,6 @@ public abstract class MyxGenMyxComponentStub extends org.archstudio.myx.fw.Abstr
    */
   protected org.archstudio.myxgen.IMyxStubGenerator myxgen = null;
 
-
   /**
    * Returns the service object(s) for the myxgen interface.
    * 
@@ -76,7 +74,6 @@ public abstract class MyxGenMyxComponentStub extends org.archstudio.myx.fw.Abstr
     }
     return myxgen;
   }
-
 
   /**
    * Returns service object(s) for IN interfaces.
@@ -119,7 +116,6 @@ public abstract class MyxGenMyxComponentStub extends org.archstudio.myx.fw.Abstr
     if (serviceObject == null) {
       throw new NullPointerException(interfaceName.getName());
     }
-
     throw new IllegalArgumentException("Unhandled interface: " + interfaceName.getName());
   }
 

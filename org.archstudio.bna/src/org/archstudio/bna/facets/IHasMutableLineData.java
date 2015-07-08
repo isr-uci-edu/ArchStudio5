@@ -14,5 +14,4 @@ import org.eclipse.jdt.annotation.NonNullByDefault;
 public interface IHasMutableLineData
     extends IHasLineData, org.archstudio.bna.facets.IHasMutableEdgeColor,
     org.archstudio.bna.facets.IHasMutableLineStyle, org.archstudio.bna.facets.IHasMutableLineWidth {
-
 }

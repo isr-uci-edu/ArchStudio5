@@ -24,5 +24,4 @@ public interface IHasMutableEndpoints extends IHasEndpoints {
   public void setEndpoint1(java.awt.geom.Point2D endpoint1);
 
   public void setEndpoint2(java.awt.geom.Point2D endpoint2);
-
 }

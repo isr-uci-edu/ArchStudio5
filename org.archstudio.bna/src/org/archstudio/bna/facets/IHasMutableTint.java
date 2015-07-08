@@ -13,7 +13,5 @@ import org.eclipse.jdt.annotation.Nullable;
 @SuppressWarnings("all")
 @NonNullByDefault
 public interface IHasMutableTint extends IHasTint {
-
   public void setTint(@Nullable org.eclipse.swt.graphics.RGB tint);
-
 }

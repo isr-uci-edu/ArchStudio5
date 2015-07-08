@@ -18,7 +18,6 @@ import org.archstudio.myx.fw.MyxUtils;
 public abstract class ArchlightMyxComponentStub
     extends org.archstudio.eclipse.ui.editors.AbstractArchStudioEditorMyxComponent
     implements org.archstudio.myx.fw.IMyxDynamicBrick {
-
   /**
    * A constructor from the super class...
    * 
@@ -43,7 +42,6 @@ public abstract class ArchlightMyxComponentStub
    * @generated
    */
   protected org.archstudio.archlight.IArchlightTool tools = null;
-
 
   /**
    * Returns the service object(s) for the tools interface.
@@ -73,7 +71,6 @@ public abstract class ArchlightMyxComponentStub
    */
   protected org.archstudio.testadt.IArchlightTestADT tests = null;
 
-
   /**
    * Returns the service object(s) for the tests interface.
    * 
@@ -86,7 +83,6 @@ public abstract class ArchlightMyxComponentStub
     }
     return tests;
   }
-
 
   /**
    * Returns service object(s) for IN interfaces.
@@ -144,7 +140,6 @@ public abstract class ArchlightMyxComponentStub
     if (serviceObject == null) {
       throw new NullPointerException(interfaceName.getName());
     }
-
     if (interfaceName.equals(OUT_TOOLS)) {
       if (tools == null) {
         throw new IllegalStateException("A connection was never made on interface: tools");
@@ -152,7 +147,6 @@ public abstract class ArchlightMyxComponentStub
       tools = null;
       return;
     }
-
     if (interfaceName.equals(OUT_TESTS)) {
       if (tests == null) {
         throw new IllegalStateException("A connection was never made on interface: tests");
@@ -160,7 +154,6 @@ public abstract class ArchlightMyxComponentStub
       tests = null;
       return;
     }
-
     super.interfaceDisconnecting(interfaceName, serviceObject);
   }
 

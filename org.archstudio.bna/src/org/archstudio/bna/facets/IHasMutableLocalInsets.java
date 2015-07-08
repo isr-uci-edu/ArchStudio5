@@ -12,7 +12,5 @@ import org.eclipse.jdt.annotation.NonNullByDefault;
 @SuppressWarnings("all")
 @NonNullByDefault
 public interface IHasMutableLocalInsets extends IHasLocalInsets {
-
   public void setLocalInsets(java.awt.Insets localInsets);
-
 }

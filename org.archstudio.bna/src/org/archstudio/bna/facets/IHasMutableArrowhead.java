@@ -13,7 +13,6 @@ import org.eclipse.jdt.annotation.Nullable;
 @SuppressWarnings("all")
 @NonNullByDefault
 public interface IHasMutableArrowhead extends IHasArrowhead {
-
   public void setArrowheadColor(@Nullable org.eclipse.swt.graphics.RGB arrowheadColor);
 
   public void setArrowheadEdgeColor(@Nullable org.eclipse.swt.graphics.RGB arrowheadEdgeColor);
@@ -23,5 +22,4 @@ public interface IHasMutableArrowhead extends IHasArrowhead {
   public void setArrowheadShape(org.archstudio.bna.constants.ArrowheadShape arrowheadShape);
 
   public void setArrowheadWidth(int arrowheadWidth);
-
 }

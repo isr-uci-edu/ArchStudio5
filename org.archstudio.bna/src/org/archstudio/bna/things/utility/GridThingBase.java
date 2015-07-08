@@ -99,5 +99,4 @@ public abstract class GridThingBase extends org.archstudio.bna.things.AbstractTh
   /* package */ int setRawGridSpacing(int gridSpacing) {
     return setRaw(org.archstudio.bna.things.utility.GridThing.GRID_SPACING_KEY, gridSpacing);
   }
-
 }

@@ -18,7 +18,6 @@ import org.archstudio.myx.fw.MyxUtils;
  */
 public abstract class PrologMyxComponentStub extends org.archstudio.myx.fw.AbstractMyxSimpleBrick
     implements org.archstudio.myx.fw.IMyxDynamicBrick, org.archstudio.archlight.IArchlightTool {
-
   /**
    * The registry of objects for this brick.
    * 
@@ -63,7 +62,6 @@ public abstract class PrologMyxComponentStub extends org.archstudio.myx.fw.Abstr
    */
   protected org.archstudio.xarchadt.IXArchADT xarch = null;
 
-
   /**
    * Returns the service object(s) for the xarch interface.
    * 
@@ -92,7 +90,6 @@ public abstract class PrologMyxComponentStub extends org.archstudio.myx.fw.Abstr
    */
   protected org.archstudio.testadt.IArchlightTestADT tests = null;
 
-
   /**
    * Returns the service object(s) for the tests interface.
    * 
@@ -113,8 +110,6 @@ public abstract class PrologMyxComponentStub extends org.archstudio.myx.fw.Abstr
    */
   public static final IMyxName IN_TOOLS = MyxUtils.createName("tools");
 
-
-
   /**
    * Returns the service object(s) for the tools interface.
    * 
@@ -124,7 +119,6 @@ public abstract class PrologMyxComponentStub extends org.archstudio.myx.fw.Abstr
   public org.archstudio.archlight.IArchlightTool getTools() {
     return this;
   }
-
 
   /**
    * Returns service object(s) for IN interfaces.
@@ -186,7 +180,6 @@ public abstract class PrologMyxComponentStub extends org.archstudio.myx.fw.Abstr
     if (serviceObject == null) {
       throw new NullPointerException(interfaceName.getName());
     }
-
     if (interfaceName.equals(OUT_XARCH)) {
       if (xarch == null) {
         throw new IllegalStateException("A connection was never made on interface: xarch");
@@ -194,7 +187,6 @@ public abstract class PrologMyxComponentStub extends org.archstudio.myx.fw.Abstr
       xarch = null;
       return;
     }
-
     if (interfaceName.equals(OUT_TESTS)) {
       if (tests == null) {
         throw new IllegalStateException("A connection was never made on interface: tests");
@@ -202,7 +194,6 @@ public abstract class PrologMyxComponentStub extends org.archstudio.myx.fw.Abstr
       tests = null;
       return;
     }
-
     throw new IllegalArgumentException("Unhandled interface: " + interfaceName.getName());
   }
 

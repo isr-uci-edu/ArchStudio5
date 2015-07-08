@@ -12,7 +12,6 @@ import org.eclipse.jdt.annotation.NonNullByDefault;
 @SuppressWarnings("all")
 @NonNullByDefault
 public interface IHasMutableFontData extends IHasFontData {
-
   public void setDontIncreaseFontSize(boolean dontIncreaseFontSize);
 
   public void setFontName(java.lang.String fontName);
@@ -20,5 +19,4 @@ public interface IHasMutableFontData extends IHasFontData {
   public void setFontSize(int fontSize);
 
   public void setFontStyle(org.archstudio.swtutils.constants.FontStyle fontStyle);
-
 }

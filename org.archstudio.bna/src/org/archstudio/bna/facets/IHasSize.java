@@ -14,10 +14,8 @@ import org.eclipse.jdt.annotation.NonNullByDefault;
 @SuppressWarnings("all")
 @NonNullByDefault
 public interface IHasSize extends org.archstudio.bna.IThing {
-
   public static final IThingKey<java.awt.Dimension> SIZE_KEY =
       ThingKey.create(com.google.common.collect.Lists.newArrayList("size", IHasSize.class));
 
   public java.awt.Dimension getSize();
-
 }

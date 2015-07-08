@@ -17,7 +17,6 @@ import org.archstudio.myx.fw.MyxUtils;
  */
 public abstract class EventPumpConnectorStub extends org.archstudio.myx.fw.AbstractMyxSimpleBrick
     implements org.archstudio.myx.fw.IMyxDynamicBrick {
-
   /**
    * The registry of objects for this brick.
    * 
@@ -62,7 +61,6 @@ public abstract class EventPumpConnectorStub extends org.archstudio.myx.fw.Abstr
    */
   protected java.lang.Object in = null;
 
-
   /**
    * Returns the service object(s) for the in interface.
    * 
@@ -92,7 +90,6 @@ public abstract class EventPumpConnectorStub extends org.archstudio.myx.fw.Abstr
   protected final java.util.Collection<java.lang.Object> out =
       new java.util.concurrent.CopyOnWriteArrayList<java.lang.Object>();
 
-
   /**
    * Returns the service object(s) for the out interface.
    * 
@@ -102,7 +99,6 @@ public abstract class EventPumpConnectorStub extends org.archstudio.myx.fw.Abstr
   public java.util.Collection<java.lang.Object> getOut() {
     return out;
   }
-
 
   /**
    * Returns service object(s) for IN interfaces.
@@ -152,12 +148,10 @@ public abstract class EventPumpConnectorStub extends org.archstudio.myx.fw.Abstr
     if (serviceObject == null) {
       throw new NullPointerException(interfaceName.getName());
     }
-
     if (interfaceName.equals(OUT_OUT)) {
       out.remove(serviceObject);
       return;
     }
-
     throw new IllegalArgumentException("Unhandled interface: " + interfaceName.getName());
   }
 

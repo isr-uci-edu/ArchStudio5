@@ -13,9 +13,7 @@ import org.eclipse.jdt.annotation.Nullable;
 @SuppressWarnings("all")
 @NonNullByDefault
 public interface IHasMutableInternalWorldPoint extends IHasInternalWorldPoint {
-
   public void setInternalPoint(java.awt.geom.Point2D internalPoint);
 
   public void setInternalWorld(@Nullable org.archstudio.bna.facets.IHasWorld internalWorld);
-
 }

@@ -18,7 +18,6 @@ import org.archstudio.myx.fw.MyxUtils;
  */
 public abstract class LauncherMyxComponentStub extends org.archstudio.myx.fw.AbstractMyxSimpleBrick
     implements org.archstudio.myx.fw.IMyxDynamicBrick {
-
   /**
    * The registry of objects for this brick.
    * 
@@ -63,7 +62,6 @@ public abstract class LauncherMyxComponentStub extends org.archstudio.myx.fw.Abs
    */
   protected org.archstudio.myx.java.conn.IMultiwayResults results = null;
 
-
   /**
    * Returns the service object(s) for the results interface.
    * 
@@ -91,7 +89,6 @@ public abstract class LauncherMyxComponentStub extends org.archstudio.myx.fw.Abs
    * @generated
    */
   protected org.archstudio.launcher.ILaunchable launcher = null;
-
 
   /**
    * Returns the service object(s) for the launcher interface.
@@ -121,7 +118,6 @@ public abstract class LauncherMyxComponentStub extends org.archstudio.myx.fw.Abs
    */
   protected org.archstudio.resources.IResources resources = null;
 
-
   /**
    * Returns the service object(s) for the resources interface.
    * 
@@ -134,7 +130,6 @@ public abstract class LauncherMyxComponentStub extends org.archstudio.myx.fw.Abs
     }
     return resources;
   }
-
 
   /**
    * Returns service object(s) for IN interfaces.
@@ -203,7 +198,6 @@ public abstract class LauncherMyxComponentStub extends org.archstudio.myx.fw.Abs
     if (serviceObject == null) {
       throw new NullPointerException(interfaceName.getName());
     }
-
     if (interfaceName.equals(OUT_RESULTS)) {
       if (results == null) {
         throw new IllegalStateException("A connection was never made on interface: results");
@@ -211,7 +205,6 @@ public abstract class LauncherMyxComponentStub extends org.archstudio.myx.fw.Abs
       results = null;
       return;
     }
-
     if (interfaceName.equals(OUT_LAUNCHER)) {
       if (launcher == null) {
         throw new IllegalStateException("A connection was never made on interface: launcher");
@@ -219,7 +212,6 @@ public abstract class LauncherMyxComponentStub extends org.archstudio.myx.fw.Abs
       launcher = null;
       return;
     }
-
     if (interfaceName.equals(OUT_RESOURCES)) {
       if (resources == null) {
         throw new IllegalStateException("A connection was never made on interface: resources");
@@ -227,7 +219,6 @@ public abstract class LauncherMyxComponentStub extends org.archstudio.myx.fw.Abs
       resources = null;
       return;
     }
-
     throw new IllegalArgumentException("Unhandled interface: " + interfaceName.getName());
   }
 

@@ -12,7 +12,5 @@ import org.eclipse.jdt.annotation.NonNullByDefault;
 @SuppressWarnings("all")
 @NonNullByDefault
 public interface IHasMutableRoundCorners extends IHasRoundCorners {
-
   public void setRoundCorners(java.awt.Dimension roundCorners);
-
 }

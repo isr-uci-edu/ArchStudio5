@@ -14,11 +14,9 @@ import org.eclipse.jdt.annotation.NonNullByDefault;
 @SuppressWarnings("all")
 @NonNullByDefault
 public interface IHasVerticalAlignment extends org.archstudio.bna.IThing {
-
   public static final IThingKey<org.archstudio.swtutils.constants.VerticalAlignment> VERTICAL_ALIGNMENT_KEY =
       ThingKey.create(com.google.common.collect.Lists.newArrayList("verticalAlignment",
           IHasVerticalAlignment.class));
 
   public org.archstudio.swtutils.constants.VerticalAlignment getVerticalAlignment();
-
 }

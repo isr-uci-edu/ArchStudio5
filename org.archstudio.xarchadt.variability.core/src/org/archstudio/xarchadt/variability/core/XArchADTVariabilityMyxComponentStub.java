@@ -18,7 +18,6 @@ import org.archstudio.myx.fw.MyxUtils;
  */
 public abstract class XArchADTVariabilityMyxComponentStub extends
     org.archstudio.myx.fw.AbstractMyxSimpleBrick implements org.archstudio.myx.fw.IMyxDynamicBrick {
-
   /**
    * The registry of objects for this brick.
    * 
@@ -221,7 +220,6 @@ public abstract class XArchADTVariabilityMyxComponentStub extends
    */
   protected org.archstudio.xarchadt.IXArchADT xarch = null;
 
-
   /**
    * Returns the service object(s) for the xarch interface.
    * 
@@ -234,7 +232,6 @@ public abstract class XArchADTVariabilityMyxComponentStub extends
     }
     return xarch;
   }
-
 
   /**
    * Returns service object(s) for IN interfaces.
@@ -299,22 +296,18 @@ public abstract class XArchADTVariabilityMyxComponentStub extends
     if (serviceObject == null) {
       throw new NullPointerException(interfaceName.getName());
     }
-
     if (interfaceName.equals(OUT_FILE_EVENTS)) {
       fileEvents.remove(serviceObject);
       return;
     }
-
     if (interfaceName.equals(OUT_MODEL_EVENTS)) {
       modelEvents.remove(serviceObject);
       return;
     }
-
     if (interfaceName.equals(OUT_VARIABILITY_EVENTS)) {
       variabilityEvents.remove(serviceObject);
       return;
     }
-
     throw new IllegalArgumentException("Unhandled interface: " + interfaceName.getName());
   }
 

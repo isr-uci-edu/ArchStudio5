@@ -20,7 +20,6 @@ public abstract class UserNotificationThingBase extends org.archstudio.bna.thing
     org.archstudio.bna.facets.IHasMutableEdgeColor, org.archstudio.bna.facets.IHasMutableFontData,
     org.archstudio.bna.facets.IHasMutableGradientFilled, org.archstudio.bna.facets.IHasMutableLife,
     org.archstudio.bna.facets.IHasMutableText {
-
   public UserNotificationThingBase(@Nullable Object id) {
     super(id);
   }
@@ -259,5 +258,4 @@ public abstract class UserNotificationThingBase extends org.archstudio.bna.thing
   /* package */ java.lang.String setRawText(java.lang.String text) {
     return setRaw(org.archstudio.bna.facets.IHasText.TEXT_KEY, text);
   }
-
 }

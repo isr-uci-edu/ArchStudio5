@@ -19,7 +19,6 @@ import org.archstudio.myx.fw.MyxUtils;
 public abstract class AbstractArchStudioEditorMyxComponentStub
     extends org.archstudio.myx.fw.AbstractMyxSimpleBrick
     implements org.archstudio.myx.fw.IMyxDynamicBrick, org.archstudio.launcher.ILaunchable {
-
   /**
    * The registry of objects for this brick.
    * 
@@ -64,7 +63,6 @@ public abstract class AbstractArchStudioEditorMyxComponentStub
    */
   protected org.archstudio.resources.IResources resources = null;
 
-
   /**
    * Returns the service object(s) for the resources interface.
    * 
@@ -93,7 +91,6 @@ public abstract class AbstractArchStudioEditorMyxComponentStub
    */
   protected org.archstudio.editormanager.IEditorManager editorManager = null;
 
-
   /**
    * Returns the service object(s) for the editorManager interface.
    * 
@@ -113,7 +110,6 @@ public abstract class AbstractArchStudioEditorMyxComponentStub
    * @generated
    */
   public static final IMyxName IN_FOCUS_EDITOR_EVENTS = MyxUtils.createName("focusEditorEvents");
-
 
   /**
    * Service object proxy for the focusEditorEvents interface. Calls to this proxy object are
@@ -169,7 +165,6 @@ public abstract class AbstractArchStudioEditorMyxComponentStub
    */
   protected org.archstudio.filemanager.IFileManager fileManager = null;
 
-
   /**
    * Returns the service object(s) for the fileManager interface.
    * 
@@ -189,7 +184,6 @@ public abstract class AbstractArchStudioEditorMyxComponentStub
    * @generated
    */
   public static final IMyxName IN_FILE_MANAGER_EVENTS = MyxUtils.createName("fileManagerEvents");
-
 
   /**
    * Service object proxy for the fileManagerEvents interface. Calls to this proxy object are
@@ -245,7 +239,6 @@ public abstract class AbstractArchStudioEditorMyxComponentStub
    */
   protected org.archstudio.xarchadt.IXArchADT xarch = null;
 
-
   /**
    * Returns the service object(s) for the xarch interface.
    * 
@@ -265,7 +258,6 @@ public abstract class AbstractArchStudioEditorMyxComponentStub
    * @generated
    */
   public static final IMyxName IN_FILE_EVENTS = MyxUtils.createName("fileEvents");
-
 
   /**
    * Service object proxy for the fileEvents interface. Calls to this proxy object are automatically
@@ -313,7 +305,6 @@ public abstract class AbstractArchStudioEditorMyxComponentStub
    */
   public static final IMyxName IN_MODEL_EVENTS = MyxUtils.createName("modelEvents");
 
-
   /**
    * Service object proxy for the modelEvents interface. Calls to this proxy object are
    * automatically delegated to all service objects in the MyxRegistry of type
@@ -360,8 +351,6 @@ public abstract class AbstractArchStudioEditorMyxComponentStub
    */
   public static final IMyxName IN_LAUNCHER = MyxUtils.createName("launcher");
 
-
-
   /**
    * Returns the service object(s) for the launcher interface.
    * 
@@ -378,7 +367,6 @@ public abstract class AbstractArchStudioEditorMyxComponentStub
    * @generated
    */
   public static final IMyxName IN_VARIABILITY_EVENTS = MyxUtils.createName("variabilityEvents");
-
 
   /**
    * Service object proxy for the variabilityEvents interface. Calls to this proxy object are
@@ -420,7 +408,6 @@ public abstract class AbstractArchStudioEditorMyxComponentStub
   public org.archstudio.xarchadt.variability.IXArchADTVariabilityListener getVariabilityEvents() {
     return variabilityEventsProxy;
   }
-
 
   /**
    * Returns service object(s) for IN interfaces.
@@ -524,7 +511,6 @@ public abstract class AbstractArchStudioEditorMyxComponentStub
     if (serviceObject == null) {
       throw new NullPointerException(interfaceName.getName());
     }
-
     if (interfaceName.equals(OUT_RESOURCES)) {
       if (resources == null) {
         throw new IllegalStateException("A connection was never made on interface: resources");
@@ -532,7 +518,6 @@ public abstract class AbstractArchStudioEditorMyxComponentStub
       resources = null;
       return;
     }
-
     if (interfaceName.equals(OUT_EDITOR_MANAGER)) {
       if (editorManager == null) {
         throw new IllegalStateException("A connection was never made on interface: editorManager");
@@ -540,7 +525,6 @@ public abstract class AbstractArchStudioEditorMyxComponentStub
       editorManager = null;
       return;
     }
-
     if (interfaceName.equals(OUT_FILE_MANAGER)) {
       if (fileManager == null) {
         throw new IllegalStateException("A connection was never made on interface: fileManager");
@@ -548,7 +532,6 @@ public abstract class AbstractArchStudioEditorMyxComponentStub
       fileManager = null;
       return;
     }
-
     if (interfaceName.equals(OUT_XARCH)) {
       if (xarch == null) {
         throw new IllegalStateException("A connection was never made on interface: xarch");
@@ -556,7 +539,6 @@ public abstract class AbstractArchStudioEditorMyxComponentStub
       xarch = null;
       return;
     }
-
     throw new IllegalArgumentException("Unhandled interface: " + interfaceName.getName());
   }
 

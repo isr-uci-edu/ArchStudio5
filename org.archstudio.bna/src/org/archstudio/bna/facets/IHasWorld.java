@@ -15,10 +15,8 @@ import org.eclipse.jdt.annotation.Nullable;
 @SuppressWarnings("all")
 @NonNullByDefault
 public interface IHasWorld extends org.archstudio.bna.IThing {
-
   public static final IThingKey<org.archstudio.bna.IBNAWorld> WORLD_KEY =
       ThingKey.create(com.google.common.collect.Lists.newArrayList("world", IHasWorld.class), true);
 
   public @Nullable org.archstudio.bna.IBNAWorld getWorld();
-
 }

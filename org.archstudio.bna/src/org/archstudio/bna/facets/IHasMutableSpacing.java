@@ -12,7 +12,5 @@ import org.eclipse.jdt.annotation.NonNullByDefault;
 @SuppressWarnings("all")
 @NonNullByDefault
 public interface IHasMutableSpacing extends IHasSpacing {
-
   public void setSpacing(int spacing);
-
 }

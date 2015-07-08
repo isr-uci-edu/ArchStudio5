@@ -18,7 +18,6 @@ import org.archstudio.myx.fw.MyxUtils;
  */
 public abstract class ArchlightTestADTMyxComponentStub extends
     org.archstudio.myx.fw.AbstractMyxSimpleBrick implements org.archstudio.myx.fw.IMyxDynamicBrick {
-
   /**
    * The registry of objects for this brick.
    * 
@@ -62,7 +61,6 @@ public abstract class ArchlightTestADTMyxComponentStub extends
    * @generated
    */
   protected org.archstudio.testadt.IArchlightTestADT tests = null;
-
 
   /**
    * Returns the service object(s) for the tests interface.
@@ -129,7 +127,6 @@ public abstract class ArchlightTestADTMyxComponentStub extends
     return testEventsProxy;
   }
 
-
   /**
    * Returns service object(s) for IN interfaces.
    * 
@@ -178,12 +175,10 @@ public abstract class ArchlightTestADTMyxComponentStub extends
     if (serviceObject == null) {
       throw new NullPointerException(interfaceName.getName());
     }
-
     if (interfaceName.equals(OUT_TEST_EVENTS)) {
       testEvents.remove(serviceObject);
       return;
     }
-
     throw new IllegalArgumentException("Unhandled interface: " + interfaceName.getName());
   }
 

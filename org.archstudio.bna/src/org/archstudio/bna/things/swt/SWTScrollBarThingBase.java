@@ -116,5 +116,4 @@ public abstract class SWTScrollBarThingBase extends
   /* package */ int setRawValue(int value) {
     return setRaw(org.archstudio.bna.things.swt.SWTScrollBarThing.VALUE_KEY, value);
   }
-
 }

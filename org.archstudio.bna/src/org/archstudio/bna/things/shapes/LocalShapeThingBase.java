@@ -22,7 +22,6 @@ public abstract class LocalShapeThingBase extends org.archstudio.bna.things.Abst
     org.archstudio.bna.facets.IHasMutableLineData, org.archstudio.bna.facets.IHasMutableMinimumSize,
     org.archstudio.bna.facets.IHasMutableSelected, org.archstudio.bna.facets.IHasMutableShape,
     org.archstudio.bna.facets.IHasMutableSize {
-
   public LocalShapeThingBase(@Nullable Object id) {
     super(id);
   }
@@ -359,5 +358,4 @@ public abstract class LocalShapeThingBase extends org.archstudio.bna.things.Abst
   /* package */ java.awt.Dimension setRawSize(java.awt.Dimension size) {
     return setRaw(org.archstudio.bna.facets.IHasSize.SIZE_KEY, size);
   }
-
 }

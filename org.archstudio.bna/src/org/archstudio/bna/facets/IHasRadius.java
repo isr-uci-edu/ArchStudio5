@@ -14,10 +14,8 @@ import org.eclipse.jdt.annotation.NonNullByDefault;
 @SuppressWarnings("all")
 @NonNullByDefault
 public interface IHasRadius extends org.archstudio.bna.IThing {
-
   public static final IThingKey<java.lang.Integer> RADIUS_KEY =
       ThingKey.create(com.google.common.collect.Lists.newArrayList("radius", IHasRadius.class));
 
   public int getRadius();
-
 }

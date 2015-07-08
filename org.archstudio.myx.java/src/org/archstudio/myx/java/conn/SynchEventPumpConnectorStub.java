@@ -19,7 +19,6 @@ public abstract class SynchEventPumpConnectorStub
     extends org.archstudio.myx.java.conn.EventPumpConnector
     implements org.archstudio.myx.fw.IMyxDynamicBrick {
 
-
   /**
    * Myx name for the <code>synch</code> interface.
    * 
@@ -36,7 +35,6 @@ public abstract class SynchEventPumpConnectorStub
   protected final java.util.Collection<java.lang.Object> synch =
       new java.util.concurrent.CopyOnWriteArrayList<java.lang.Object>();
 
-
   /**
    * Returns the service object(s) for the synch interface.
    * 
@@ -46,7 +44,6 @@ public abstract class SynchEventPumpConnectorStub
   public java.util.Collection<java.lang.Object> getSynch() {
     return synch;
   }
-
 
   /**
    * Returns service object(s) for IN interfaces.
@@ -89,12 +86,10 @@ public abstract class SynchEventPumpConnectorStub
     if (serviceObject == null) {
       throw new NullPointerException(interfaceName.getName());
     }
-
     if (interfaceName.equals(OUT_SYNCH)) {
       synch.remove(serviceObject);
       return;
     }
-
     super.interfaceDisconnecting(interfaceName, serviceObject);
   }
 

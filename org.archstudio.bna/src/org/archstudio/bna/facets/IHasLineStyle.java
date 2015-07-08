@@ -14,11 +14,9 @@ import org.eclipse.jdt.annotation.NonNullByDefault;
 @SuppressWarnings("all")
 @NonNullByDefault
 public interface IHasLineStyle extends org.archstudio.bna.IThing {
-
   public static final IThingKey<org.archstudio.swtutils.constants.LineStyle> LINE_STYLE_KEY =
       ThingKey
           .create(com.google.common.collect.Lists.newArrayList("lineStyle", IHasLineStyle.class));
 
   public org.archstudio.swtutils.constants.LineStyle getLineStyle();
-
 }

@@ -12,7 +12,5 @@ import org.eclipse.jdt.annotation.NonNullByDefault;
 @SuppressWarnings("all")
 @NonNullByDefault
 public interface IHasMutableHidden extends IHasHidden {
-
   public void setHidden(boolean hidden);
-
 }

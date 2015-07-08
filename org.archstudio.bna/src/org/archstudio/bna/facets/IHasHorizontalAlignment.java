@@ -14,11 +14,9 @@ import org.eclipse.jdt.annotation.NonNullByDefault;
 @SuppressWarnings("all")
 @NonNullByDefault
 public interface IHasHorizontalAlignment extends org.archstudio.bna.IThing {
-
   public static final IThingKey<org.archstudio.swtutils.constants.HorizontalAlignment> HORIZONTAL_ALIGNMENT_KEY =
       ThingKey.create(com.google.common.collect.Lists.newArrayList("horizontalAlignment",
           IHasHorizontalAlignment.class));
 
   public org.archstudio.swtutils.constants.HorizontalAlignment getHorizontalAlignment();
-
 }

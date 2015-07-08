@@ -12,8 +12,6 @@ import org.eclipse.jdt.annotation.NonNullByDefault;
 @SuppressWarnings("all")
 @NonNullByDefault
 public interface IHasMutableVerticalAlignment extends IHasVerticalAlignment {
-
   public void setVerticalAlignment(
       org.archstudio.swtutils.constants.VerticalAlignment verticalAlignment);
-
 }

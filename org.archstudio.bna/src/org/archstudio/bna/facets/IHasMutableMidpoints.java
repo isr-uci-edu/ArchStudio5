@@ -20,5 +20,4 @@ public interface IHasMutableMidpoints extends IHasMidpoints {
   public static final String USER_MAY_REMOVE_MIDPOINTS = "UserMayRemoveMidpoints";
 
   public void setMidpoints(java.util.List<java.awt.geom.Point2D> midpoints);
-
 }

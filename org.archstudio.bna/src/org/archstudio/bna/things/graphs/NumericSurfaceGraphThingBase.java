@@ -401,5 +401,4 @@ public abstract class NumericSurfaceGraphThingBase extends org.archstudio.bna.th
     return setRaw(org.archstudio.bna.things.graphs.NumericSurfaceGraphThing.Z_MINOR_AXIS_KEY,
         zMinorAxis);
   }
-
 }

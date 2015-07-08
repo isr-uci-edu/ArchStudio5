@@ -15,7 +15,6 @@ import org.eclipse.jdt.annotation.Nullable;
 @SuppressWarnings("all")
 @NonNullByDefault
 public interface IHasGlow extends org.archstudio.bna.IThing {
-
   public static final IThingKey<java.lang.Double> GLOW_ALPHA_KEY =
       ThingKey.create(com.google.common.collect.Lists.newArrayList("glowAlpha", IHasGlow.class));
 
@@ -30,5 +29,4 @@ public interface IHasGlow extends org.archstudio.bna.IThing {
   public @Nullable org.eclipse.swt.graphics.RGB getGlowColor();
 
   public int getGlowWidth();
-
 }

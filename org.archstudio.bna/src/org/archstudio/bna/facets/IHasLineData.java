@@ -14,5 +14,4 @@ import org.eclipse.jdt.annotation.NonNullByDefault;
 public interface IHasLineData
     extends org.archstudio.bna.IThing, org.archstudio.bna.facets.IHasEdgeColor,
     org.archstudio.bna.facets.IHasLineStyle, org.archstudio.bna.facets.IHasLineWidth {
-
 }

@@ -14,10 +14,8 @@ import org.eclipse.jdt.annotation.NonNullByDefault;
 @SuppressWarnings("all")
 @NonNullByDefault
 public interface IHasRoundCorners extends org.archstudio.bna.IThing {
-
   public static final IThingKey<java.awt.Dimension> ROUND_CORNERS_KEY = ThingKey
       .create(com.google.common.collect.Lists.newArrayList("roundCorners", IHasRoundCorners.class));
 
   public java.awt.Dimension getRoundCorners();
-
 }

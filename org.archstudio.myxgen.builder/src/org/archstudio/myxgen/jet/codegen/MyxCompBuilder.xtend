@@ -9,13 +9,11 @@ class MyxCompBuilder extends MyxCompUtils {
 			package «toPackageName(b.className)»;
 			
 			/**
-			 * Myx brick: «b.name»
-			 * «IF b.description != null»<p>«b.description»«ENDIF»
+			 * Myx brick: «b.name»«IF b.description != null»
+			 * <p>«b.description»«ENDIF»
 			 */
 			public class «toClassName(b.className)»
-			extends «b.stubClassName»
-			{
-				
+			extends «b.stubClassName» {
 			}
 		''';
 	}

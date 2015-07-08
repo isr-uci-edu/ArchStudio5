@@ -18,7 +18,6 @@ import org.archstudio.myx.fw.MyxUtils;
 public abstract class ArchipelagoMyxComponentStub
     extends org.archstudio.eclipse.ui.editors.AbstractArchStudioEditorMyxComponent
     implements org.archstudio.myx.fw.IMyxDynamicBrick {
-
   /**
    * A constructor from the super class...
    * 
@@ -44,7 +43,6 @@ public abstract class ArchipelagoMyxComponentStub
    */
   protected org.archstudio.graphlayout.IGraphLayout graphLayout = null;
 
-
   /**
    * Returns the service object(s) for the graphLayout interface.
    * 
@@ -57,7 +55,6 @@ public abstract class ArchipelagoMyxComponentStub
     }
     return graphLayout;
   }
-
 
   /**
    * Returns service object(s) for IN interfaces.
@@ -104,7 +101,6 @@ public abstract class ArchipelagoMyxComponentStub
     if (serviceObject == null) {
       throw new NullPointerException(interfaceName.getName());
     }
-
     if (interfaceName.equals(OUT_GRAPH_LAYOUT)) {
       if (graphLayout == null) {
         throw new IllegalStateException("A connection was never made on interface: graphLayout");
@@ -112,7 +108,6 @@ public abstract class ArchipelagoMyxComponentStub
       graphLayout = null;
       return;
     }
-
     super.interfaceDisconnecting(interfaceName, serviceObject);
   }
 

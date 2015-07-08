@@ -17,7 +17,6 @@ import org.eclipse.jdt.annotation.Nullable;
 @NonNullByDefault
 public abstract class SWTTextThingBase extends org.archstudio.bna.things.swt.AbstractControlThing
     implements org.archstudio.bna.IThing, org.archstudio.bna.facets.IHasMutableText {
-
   public SWTTextThingBase(@Nullable Object id) {
     super(id);
   }
@@ -50,5 +49,4 @@ public abstract class SWTTextThingBase extends org.archstudio.bna.things.swt.Abs
   /* package */ java.lang.String setRawText(java.lang.String text) {
     return setRaw(org.archstudio.bna.facets.IHasText.TEXT_KEY, text);
   }
-
 }

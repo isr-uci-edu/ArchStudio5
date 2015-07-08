@@ -12,7 +12,5 @@ import org.eclipse.jdt.annotation.NonNullByDefault;
 @SuppressWarnings("all")
 @NonNullByDefault
 public interface IHasMutablePoints extends IHasPoints {
-
   public void setPoints(java.util.List<java.awt.geom.Point2D> points);
-
 }

@@ -14,7 +14,5 @@ import org.eclipse.jdt.annotation.NonNullByDefault;
 public interface IHasMutableGradientFilled
     extends IHasGradientFilled, org.archstudio.bna.facets.IHasMutableColor,
     org.archstudio.bna.facets.IHasMutableSecondaryColor {
-
   public void setGradientFilled(boolean gradientFilled);
-
 }

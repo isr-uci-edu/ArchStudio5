@@ -15,11 +15,9 @@ import org.eclipse.jdt.annotation.Nullable;
 @SuppressWarnings("all")
 @NonNullByDefault
 public interface IHasSecondaryColor extends org.archstudio.bna.IThing {
-
   public static final IThingKey<org.eclipse.swt.graphics.RGB> SECONDARY_COLOR_KEY = ThingKey.create(
       com.google.common.collect.Lists.newArrayList("secondaryColor", IHasSecondaryColor.class),
       true);
 
   public @Nullable org.eclipse.swt.graphics.RGB getSecondaryColor();
-
 }

@@ -12,8 +12,6 @@ import org.eclipse.jdt.annotation.NonNullByDefault;
 @SuppressWarnings("all")
 @NonNullByDefault
 public interface IHasMutableHorizontalAlignment extends IHasHorizontalAlignment {
-
   public void setHorizontalAlignment(
       org.archstudio.swtutils.constants.HorizontalAlignment horizontalAlignment);
-
 }

@@ -21,7 +21,6 @@ public abstract class DirectionalLabelThingBase extends org.archstudio.bna.thing
     org.archstudio.bna.facets.IHasMutableLocalInsets,
     org.archstudio.bna.facets.IHasMutableOrientation,
     org.archstudio.bna.facets.IHasMutableReferencePoint {
-
   public DirectionalLabelThingBase(@Nullable Object id) {
     super(id);
   }
@@ -142,5 +141,4 @@ public abstract class DirectionalLabelThingBase extends org.archstudio.bna.thing
       org.archstudio.swtutils.constants.Orientation orientation) {
     return setRaw(org.archstudio.bna.facets.IHasOrientation.ORIENTATION_KEY, orientation);
   }
-
 }

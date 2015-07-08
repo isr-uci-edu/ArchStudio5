@@ -14,10 +14,8 @@ import org.eclipse.jdt.annotation.NonNullByDefault;
 @SuppressWarnings("all")
 @NonNullByDefault
 public interface IHasCount extends org.archstudio.bna.IThing {
-
   public static final IThingKey<java.lang.Integer> COUNT_KEY =
       ThingKey.create(com.google.common.collect.Lists.newArrayList("count", IHasCount.class));
 
   public int getCount();
-
 }

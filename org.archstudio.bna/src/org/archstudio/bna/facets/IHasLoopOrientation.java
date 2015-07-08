@@ -14,11 +14,9 @@ import org.eclipse.jdt.annotation.NonNullByDefault;
 @SuppressWarnings("all")
 @NonNullByDefault
 public interface IHasLoopOrientation extends org.archstudio.bna.IThing {
-
   public static final IThingKey<org.archstudio.swtutils.constants.Orientation> LOOP_ORIENTATION_KEY =
       ThingKey.create(com.google.common.collect.Lists.newArrayList("loopOrientation",
           IHasLoopOrientation.class));
 
   public org.archstudio.swtutils.constants.Orientation getLoopOrientation();
-
 }

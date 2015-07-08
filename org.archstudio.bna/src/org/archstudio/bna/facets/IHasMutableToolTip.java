@@ -16,5 +16,4 @@ public interface IHasMutableToolTip extends IHasToolTip {
   public static final String USER_MAY_EDIT_TOOL_TIP = "UserMayEditToolTip";
 
   public void setToolTip(java.lang.String toolTip);
-
 }

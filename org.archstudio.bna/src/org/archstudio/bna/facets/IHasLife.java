@@ -14,10 +14,8 @@ import org.eclipse.jdt.annotation.NonNullByDefault;
 @SuppressWarnings("all")
 @NonNullByDefault
 public interface IHasLife extends org.archstudio.bna.IThing {
-
   public static final IThingKey<java.lang.Integer> LIFE_KEY =
       ThingKey.create(com.google.common.collect.Lists.newArrayList("life", IHasLife.class));
 
   public int getLife();
-
 }

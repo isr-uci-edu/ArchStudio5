@@ -24,7 +24,6 @@ public abstract class RectangleThingBase extends org.archstudio.bna.things.Abstr
     org.archstudio.bna.facets.IHasMutableRoundCorners,
     org.archstudio.bna.facets.IHasMutableSelected,
     org.archstudio.bna.facets.IHasMutableStickyShape {
-
   public RectangleThingBase(@Nullable Object id) {
     super(id);
   }
@@ -362,5 +361,4 @@ public abstract class RectangleThingBase extends org.archstudio.bna.things.Abstr
   /* package */ boolean isRawSelected(boolean selected) {
     return setRaw(org.archstudio.bna.facets.IHasSelected.SELECTED_KEY, selected);
   }
-
 }
