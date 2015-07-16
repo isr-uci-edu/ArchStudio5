@@ -40,11 +40,14 @@ public class BNACanvas extends Composite implements ControlListener, SelectionLi
 	}
 
 	public BNACanvas(Composite parent, int style, final IBNAView view) {
-		super(parent, style & ~(SWT.H_SCROLL | SWT.V_SCROLL));
+		super(parent, style);
 		try (Finally lock = BNAUtils.lock()) {
 			parent.setLayout(new FillLayout());
 			setLayout(new FillLayout());
-			this.bnaUIStyle = style & (SWT.H_SCROLL | SWT.V_SCROLL);
+			// Oddly enough, passing either of the scroll bar constants to a child canvas
+			// causes Mac's to get duplicate context menu events. So, we filter those
+			// out here.
+			this.bnaUIStyle = style & ~(SWT.H_SCROLL | SWT.V_SCROLL);
 			this.view = view;
 			setBNAUI(new AutodetectBNAUI(view));
 			updateScrollBars();
@@ -92,8 +95,8 @@ public class BNACanvas extends Composite implements ControlListener, SelectionLi
 		layout(true, true);
 		bnaUI.getComposite().addControlListener(this);
 		bnaUI.getComposite().addMouseListener(this);
-		hBar = bnaUI.getComposite().getHorizontalBar();
-		vBar = bnaUI.getComposite().getVerticalBar();
+		hBar = getHorizontalBar();
+		vBar = getVerticalBar();
 		updateScrollBars();
 		if (hBar != null) {
 			hBar.addSelectionListener(this);

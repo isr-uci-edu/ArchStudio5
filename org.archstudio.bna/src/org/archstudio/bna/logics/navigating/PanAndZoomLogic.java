@@ -65,7 +65,7 @@ public class PanAndZoomLogic extends AbstractThingLogic implements IBNAMouseWhee
 
 	protected static void registerView(IBNAView view) {
 		final Composite composite = view.getBNAUI().getComposite();
-		if (!registeredComposites.contains(composite)) {
+		if (registeredComposites.add(composite)) {
 			composite.addListener(SWT.MouseVerticalWheel, preventScrollListener);
 			composite.addListener(SWT.MouseHorizontalWheel, preventScrollListener);
 			composite.addDisposeListener(new DisposeListener() {

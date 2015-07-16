@@ -8,6 +8,7 @@ import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThingLogicManager;
 import org.archstudio.bna.IThingLogicManagerListener;
 import org.archstudio.bna.ThingLogicManagerEvent;
+import org.eclipse.jdt.annotation.Nullable;
 
 public class DefaultBNAWorld implements IBNAWorld, IThingLogicManagerListener {
 
@@ -16,8 +17,8 @@ public class DefaultBNAWorld implements IBNAWorld, IThingLogicManagerListener {
 
 	protected transient IThingLogicManager logics = null;
 
-	public DefaultBNAWorld(Object id, IBNAModel model) {
-		this.id = id;
+	public DefaultBNAWorld(@Nullable Object id, IBNAModel model) {
+		this.id = id != null ? id : new Object();
 		this.model = checkNotNull(model);
 		this.logics = new DefaultThingLogicManager(this);
 		logics.addThingLogicManagerListener(this);
