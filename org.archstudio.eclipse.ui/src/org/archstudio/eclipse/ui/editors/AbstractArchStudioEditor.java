@@ -108,7 +108,7 @@ public abstract class AbstractArchStudioEditor<B extends AbstractArchStudioEdito
 		this.brick = myxRegistry.waitForBrick(brickClass);
 		this.uniqueEditorID = UIDGenerator.generateUID(editorName);
 		this.editorName = editorName;
-		myxRegistry.map(brick, this);
+		myxRegistry.registerObject(brick, this);
 		services.add(this);
 		xarch = services.add(brick.getXarch());
 		fileman = services.add(brick.getFileManager());
@@ -241,7 +241,7 @@ public abstract class AbstractArchStudioEditor<B extends AbstractArchStudioEdito
 		if (documentRootRef != null) {
 			fileman.close(uniqueEditorID, documentRootRef);
 		}
-		myxRegistry.unmap(brick, this);
+		myxRegistry.unregisterObject(brick, this);
 		super.dispose();
 	}
 

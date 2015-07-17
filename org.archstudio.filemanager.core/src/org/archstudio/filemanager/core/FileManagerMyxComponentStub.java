@@ -35,7 +35,7 @@ public abstract class FileManagerMyxComponentStub
   @Override
   public void begin() {
     super.begin();
-    myxRegistry.register(this);
+    myxRegistry.registerBrick(this);
   }
 
   /**
@@ -45,7 +45,7 @@ public abstract class FileManagerMyxComponentStub
    */
   @Override
   public void end() {
-    myxRegistry.unregister(this);
+    myxRegistry.unregisterBrick(this);
     super.end();
   }
 

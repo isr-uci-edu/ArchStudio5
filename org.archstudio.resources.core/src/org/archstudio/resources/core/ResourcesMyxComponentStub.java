@@ -33,7 +33,7 @@ public abstract class ResourcesMyxComponentStub extends org.archstudio.myx.fw.Ab
   @Override
   public void begin() {
     super.begin();
-    myxRegistry.register(this);
+    myxRegistry.registerBrick(this);
   }
 
   /**
@@ -43,7 +43,7 @@ public abstract class ResourcesMyxComponentStub extends org.archstudio.myx.fw.Ab
    */
   @Override
   public void end() {
-    myxRegistry.unregister(this);
+    myxRegistry.unregisterBrick(this);
     super.end();
   }
 

@@ -153,7 +153,7 @@ public class VariabilityViewPart extends AbstractArchStudioView<VariabilityMyxCo
 	protected void myxMap(Object o) {
 		if (o != null) {
 			myxMapped.add(o);
-			MyxRegistry.getSharedInstance().map(brick, o);
+			MyxRegistry.getSharedInstance().registerObject(brick, o);
 		}
 	}
 
@@ -669,7 +669,7 @@ public class VariabilityViewPart extends AbstractArchStudioView<VariabilityMyxCo
 	@Override
 	public void dispose() {
 		for (Object o : myxMapped) {
-			MyxRegistry.getSharedInstance().unmap(brick, o);
+			MyxRegistry.getSharedInstance().unregisterObject(brick, o);
 		}
 
 		getSite().getWorkbenchWindow().getPartService().removePartListener(this);

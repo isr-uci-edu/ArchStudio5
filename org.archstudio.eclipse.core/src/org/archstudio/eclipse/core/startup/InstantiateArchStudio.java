@@ -28,6 +28,7 @@ public class InstantiateArchStudio implements IStartup {
 
 	public static final URL ARCHSTUDIO_DESCRIPTION = InstantiateArchStudio.class.getResource("archstudio5.xml");
 	public static final String ARCHSTUDIO_URI = ARCHSTUDIO_DESCRIPTION.toString();
+	private static final IMyxRuntime myxRuntime = new MyxEquinoxRuntime();
 
 	public InstantiateArchStudio() {
 	}
@@ -104,7 +105,6 @@ public class InstantiateArchStudio implements IStartup {
 		URI docRootURI = URI.createURI(System.getProperty("org.archstudio.startup.uri", ARCHSTUDIO_URI));
 		try {
 			final IXArchADT xarch = new XArchADTImpl();
-			final IMyxRuntime myxRuntime = new MyxEquinoxRuntime();
 			final IAIM aim = new AIMImpl(xarch, myxRuntime);
 
 			InputStream docRootIS = new URL(docRootURI.toString()).openStream();

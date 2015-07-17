@@ -46,7 +46,7 @@ public class NewFileWizard extends Wizard implements INewWizard {
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
 		InstantiateArchStudio.instantiate();
 		comp = er.waitForBrick(FileManagerMyxComponent.class);
-		er.map(comp, this);
+		er.registerObject(comp, this);
 		xarch = comp.xarch;
 
 		this.workbench = workbench;

@@ -58,7 +58,7 @@ public class PrologMyxComponent extends org.archstudio.prolog.archstudio.PrologM
 	public void begin() {
 		super.begin();
 		reloadTests();
-		MyxRegistry.getSharedInstance().map(this, xarch);
+		MyxRegistry.getSharedInstance().registerObject(this, xarch);
 	}
 
 	@Override

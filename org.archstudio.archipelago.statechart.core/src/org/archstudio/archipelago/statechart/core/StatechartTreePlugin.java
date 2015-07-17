@@ -626,9 +626,9 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 
 			final MyxRegistry myxRegistry = MyxRegistry.getSharedInstance();
 			final IMyxBrick brick = myxRegistry.waitForBrick(ArchipelagoMyxComponent.class);
-			myxRegistry.map(brick, proxyLogic.getProxyForInterface(IXArchADTModelListener.class));
-			myxRegistry.map(brick, proxyLogic.getProxyForInterface(IXArchADTFileListener.class));
-			myxRegistry.map(brick, proxyLogic.getProxyForInterface(IXArchADTVariabilityListener.class));
+			myxRegistry.registerObject(brick, proxyLogic.getProxyForInterface(IXArchADTModelListener.class));
+			myxRegistry.registerObject(brick, proxyLogic.getProxyForInterface(IXArchADTFileListener.class));
+			myxRegistry.registerObject(brick, proxyLogic.getProxyForInterface(IXArchADTVariabilityListener.class));
 
 			// these logics need to be last
 

@@ -42,7 +42,7 @@ public class FileManagerMyxComponent extends org.archstudio.filemanager.core.Fil
 	@Override
 	public void begin() {
 		super.begin();
-		myxRegistry.map(this, this);
+		myxRegistry.registerObject(this, this);
 	}
 
 	@Override

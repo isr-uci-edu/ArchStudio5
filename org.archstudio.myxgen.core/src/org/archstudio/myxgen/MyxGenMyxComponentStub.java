@@ -33,7 +33,7 @@ public abstract class MyxGenMyxComponentStub extends org.archstudio.myx.fw.Abstr
   @Override
   public void begin() {
     super.begin();
-    myxRegistry.register(this);
+    myxRegistry.registerBrick(this);
   }
 
   /**
@@ -43,7 +43,7 @@ public abstract class MyxGenMyxComponentStub extends org.archstudio.myx.fw.Abstr
    */
   @Override
   public void end() {
-    myxRegistry.unregister(this);
+    myxRegistry.unregisterBrick(this);
     super.end();
   }
 

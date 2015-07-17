@@ -76,7 +76,7 @@ public class FileManagerView extends ViewPart implements IXArchADTFileListener, 
 	public void createPartControl(Composite parent) {
 		InstantiateArchStudio.instantiate();
 		comp = er.waitForBrick(FileManagerMyxComponent.class);
-		er.map(comp, this);
+		er.registerObject(comp, this);
 		xarch = comp.getXarch();
 
 		viewer = new TableViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);

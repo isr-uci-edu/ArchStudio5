@@ -62,7 +62,7 @@ class MyxCompStubBuilder extends MyxCompUtils {
 				@Override
 				public void begin(){
 					super.begin();
-					myxRegistry.register(this);
+					myxRegistry.registerBrick(this);
 				}
 				
 				/**
@@ -71,12 +71,12 @@ class MyxCompStubBuilder extends MyxCompUtils {
 				 */
 				@Override
 				public void end(){
-					myxRegistry.unregister(this);
+					myxRegistry.unregisterBrick(this);
 					super.end();
 				}
 			«ENDIF»
 			«FOR i : b.interfaces»
-		
+
 				/**
 				 * Myx name for the <code>«i.name»</code> interface.
 				 * «IF i.description != null»<p>«i.description»«ENDIF»

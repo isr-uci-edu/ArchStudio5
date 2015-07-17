@@ -32,7 +32,7 @@ public abstract class MyxRuntimeComponentStub extends org.archstudio.myx.fw.Abst
   @Override
   public void begin() {
     super.begin();
-    myxRegistry.register(this);
+    myxRegistry.registerBrick(this);
   }
 
   /**
@@ -42,7 +42,7 @@ public abstract class MyxRuntimeComponentStub extends org.archstudio.myx.fw.Abst
    */
   @Override
   public void end() {
-    myxRegistry.unregister(this);
+    myxRegistry.unregisterBrick(this);
     super.end();
   }
 

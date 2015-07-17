@@ -1,165 +1,296 @@
 package org.archstudio.myx.fw;
 
+import java.lang.ref.WeakReference;
 import java.util.Collections;
-import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.WeakHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.archstudio.myx.fw.MyxRegistryEvent.EventType;
 
-import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
 
+/**
+ * A thread safe registry for managing arbitrary objects associated with Myx bricks.
+ * <p/>
+ * The Myx brick and its objects are stored using weak references and thus garbage collected when no longer reachable.
+ * The registry is used, among other things, as a source of listeners for service objects passed through "out"
+ * interfaces.
+ *
+ * @author sahendrickson@gmail.com (Scott A. Hendrickson)
+ */
 public final class MyxRegistry {
+	/** The singleton MyxRegistry object. */
+	private static final MyxRegistry singleton = new MyxRegistry();
+
+	/** Returns the singleton MyxRegistry. */
+	public static final MyxRegistry getSharedInstance() {
+		return singleton;
+	}
+
+	/** Maintains the collection of Myx bricks and objects associated with them. */
+	private final Map<IMyxBrick, List<WeakReference<Object>>> brickToObjectsMap =
+			Collections.synchronizedMap(new WeakHashMap<IMyxBrick, List<WeakReference<Object>>>());
+
+	/** The listeners to be informed of changes to the MyxRegistry. */
+	private List<IMyxRegistryListener> listeners = new CopyOnWriteArrayList<IMyxRegistryListener>();
+
+	/** Prevent instantiation. Instead use {@link #getSharedInstance()}. */
+	private MyxRegistry() {
+	}
 
 	/**
-	 * Maps bricks to lists of Objects to which they correspond. Because the lists tend to be iterated over and modified
-	 * also, CopyOnWriteArrayLists should generally be used.
+	 * Registers a brick with the registry.
+	 *
+	 * @param brick The brick to register.
 	 */
-
-	protected Map<IMyxBrick, List<Object>> brickToObjectMap = Collections
-			.synchronizedMap(new HashMap<IMyxBrick, List<Object>>());
-
-	private MyxRegistry() {
-		// to prevent instantiation other than from getSharedInstance()
-	}
-
-	public void register(IMyxBrick b) {
+	public void registerBrick(IMyxBrick brick) {
 		synchronized (this) {
-			Object o = brickToObjectMap.get(b);
-			if (o != null) {
-				throw new IllegalArgumentException("Aleady registered this Myx brick in the Myx Registry");
+			if (brickToObjectsMap.get(brick) == null) {
+				brickToObjectsMap.put(brick, new CopyOnWriteArrayList<WeakReference<Object>>());
 			}
-			brickToObjectMap.put(b, new CopyOnWriteArrayList<Object>());
 			notifyAll();
 		}
-		fireMyxRegistryEvent(MyxRegistryEvent.EventType.BRICK_REGISTERED, b, null);
+		fireMyxRegistryEvent(MyxRegistryEvent.EventType.BRICK_REGISTERED, brick, null);
 	}
 
-	public void unregister(IMyxBrick b) {
+	/**
+	 * Use {@link #registerBrick(IMyxBrick)}.
+	 */
+	@Deprecated
+	public void register(IMyxBrick brick) {
+		registerBrick(brick);
+	}
+
+	/**
+	 * Unregisters a brick with the registry.
+	 *
+	 * @param brick The brick to unregister.
+	 */
+	public void unregisterBrick(IMyxBrick brick) {
 		synchronized (this) {
-			brickToObjectMap.remove(b);
-			notifyAll();
+			brickToObjectsMap.remove(brick);
 		}
-		fireMyxRegistryEvent(MyxRegistryEvent.EventType.BRICK_UNREGISTERED, b, null);
 	}
 
+	/**
+	 * User {@link #unregisterBrick(IMyxBrick)}.
+	 */
+	@Deprecated
+	public void unregister(IMyxBrick brick) {
+		unregisterBrick(brick);
+	}
+
+	/**
+	 * Returns the brick with the given name, or <code>null</code> if none with that name are registered.
+	 *
+	 * @param name The Myx name to look for.
+	 * @return the brick with the given name, or <code>null</code> if none with that name are registered.
+	 */
 	public synchronized IMyxBrick getBrick(IMyxName name) {
-		for (IMyxBrick b : brickToObjectMap.keySet()) {
-			if (name.equals(MyxUtils.getName(b))) {
-				return b;
+		for (IMyxBrick brick : brickToObjectsMap.keySet()) {
+			if (name.equals(MyxUtils.getName(brick))) {
+				return brick;
 			}
 		}
 		return null;
 	}
 
-	public synchronized IMyxBrick waitForBrick(IMyxName name) {
-		IMyxBrick b = null;
-		while ((b = getBrick(name)) == null) {
-			try {
-				wait();
-			}
-			catch (InterruptedException e) {
-				e.printStackTrace();
+	/**
+	 * Waits for and returns the brick with the given name, blocking until available.
+	 *
+	 * @param name The Myx name to look for.
+	 * @return the brick with the given name.
+	 */
+	@SuppressWarnings("unchecked")
+	public <B extends IMyxBrick> B waitForBrick(IMyxName name) {
+		IMyxBrick brick = null;
+		while ((brick = getBrick(name)) == null) {
+			synchronized (this) {
+				try {
+					wait();
+				}
+				catch (InterruptedException e) {
+					e.printStackTrace();
+				}
 			}
 		}
-		return b;
+		return (B) brick;
 	}
 
+	/**
+	 * Returns the brick of the given type, or <code>null</code> if none with that type are registered.
+	 *
+	 * @param brickClass The type of the brick to retrieve.
+	 * @return the brick of the given type, or <code>null</code> if none with that type are registered.
+	 */
 	@SuppressWarnings("unchecked")
 	public synchronized <B extends IMyxBrick> B getBrick(Class<B> brickClass) {
-		for (IMyxBrick b : brickToObjectMap.keySet()) {
-			if (brickClass.equals(b.getClass())) {
-				return (B) b;
+		for (IMyxBrick brick : brickToObjectsMap.keySet()) {
+			if (brickClass.equals(brick.getClass())) {
+				return (B) brick;
 			}
 		}
 		return null;
 	}
 
-	public synchronized <B extends IMyxBrick> B waitForBrick(Class<B> brickClass) {
-		B b = null;
-		while ((b = getBrick(brickClass)) == null) {
-			try {
-				wait();
-			}
-			catch (InterruptedException e) {
-				e.printStackTrace();
+	/**
+	 * Returns the brick of the given type, blocking until available.
+	 *
+	 * @param brickClass The type of the brick to retrieve.
+	 * @return the brick of the given type.
+	 */
+	public <B extends IMyxBrick> B waitForBrick(Class<B> brickClass) {
+		B brick = null;
+		while ((brick = getBrick(brickClass)) == null) {
+			synchronized (this) {
+				try {
+					wait();
+				}
+				catch (InterruptedException e) {
+					e.printStackTrace();
+				}
 			}
 		}
-		return b;
+		return brick;
 	}
 
-	public void map(IMyxBrick b, Object o) {
+	/**
+	 * Adds an object to the given brick, registering the brick if it is not already registered.
+	 *
+	 * @param brick The brick to associate the object with.
+	 * @param object The object to associate with the brick.
+	 */
+	public void registerObject(IMyxBrick brick, Object object) {
 		synchronized (this) {
-			List<Object> objectList = brickToObjectMap.get(b);
-			if (objectList == null) {
-				throw new IllegalArgumentException("No such brick registered: " + MyxUtils.getName(b));
-			}
-			if (objectList.contains(o)) {
-				throw new IllegalArgumentException("Object " + o + " is already registered with that brick.");
-			}
-			objectList.add(o);
+			registerBrick(brick);
+			List<WeakReference<Object>> objectsList = brickToObjectsMap.get(brick);
+			objectsList.add(new WeakReference<>(object));
 			notifyAll();
 		}
-		fireMyxRegistryEvent(MyxRegistryEvent.EventType.OBJECT_REGISTERED, b, o);
+		fireMyxRegistryEvent(MyxRegistryEvent.EventType.OBJECT_REGISTERED, brick, object);
 	}
 
-	public void unmap(IMyxBrick b, Object o) {
-		boolean fireEvent = false;
+	/**
+	 * Use {@link #registerObject(IMyxBrick, Object)}.
+	 */
+	@Deprecated
+	public void map(IMyxBrick brick, Object object) {
+		registerObject(brick, object);
+	}
+
+	/**
+	 * Removes an object from the given brick, registering the brick if it is not already registered.
+	 *
+	 * @param brick The brick with the associated object.
+	 * @param object The object to remove.
+	 */
+	public void unregisterObject(IMyxBrick brick, Object object) {
 		synchronized (this) {
-			List<Object> objectList = brickToObjectMap.get(b);
-			if (objectList == null) {
-				throw new IllegalArgumentException("No such brick registered: " + MyxUtils.getName(b));
+			registerBrick(brick);
+			for (Iterator<WeakReference<Object>> i = brickToObjectsMap.get(brick).iterator(); i.hasNext();) {
+				Object weakObject = i.next().get();
+				// Clean up garbage collected references.
+				if (weakObject == null) {
+					i.remove();
+				}
+				if (object.equals(weakObject)) {
+					i.remove();
+					break;
+				}
 			}
-			if (!objectList.contains(o)) {
-				throw new IllegalArgumentException("Object " + o + " is not registered with that brick.");
+		}
+	}
+
+	/**
+	 * Use {@link #unregisterObject(IMyxBrick, Object)}.
+	 */
+	@Deprecated
+	public void unmap(IMyxBrick brick, Object object) {
+		unregisterObject(brick, object);
+	}
+
+	/**
+	 * Returns the objects associated with the brick, registering the brick if it is not already registered.
+	 *
+	 * @param brick The brick with the associated objects.
+	 * @return a list of all objects associated with the brick.
+	 */
+	public synchronized List<? extends Object> getObjects(IMyxBrick brick) {
+		registerBrick(brick);
+		List<WeakReference<Object>> weakObjects = brickToObjectsMap.get(brick);
+		List<Object> objects = Lists.newArrayListWithCapacity(weakObjects.size());
+		for (Iterator<WeakReference<Object>> i = weakObjects.iterator(); i.hasNext();) {
+			Object weakObject = i.next().get();
+			// Clean up garbage collected references.
+			if (weakObject == null) {
+				i.remove();
 			}
-			fireEvent = objectList.remove(o);
-			notifyAll();
+			objects.add(weakObject);
 		}
-		if (fireEvent) {
-			fireMyxRegistryEvent(MyxRegistryEvent.EventType.OBJECT_UNREGISTERED, b, o);
-		}
+		return objects;
 	}
 
-	public synchronized List<? extends Object> getObjects(IMyxBrick b) {
-		List<Object> objectList = brickToObjectMap.get(b);
-		if (objectList == null) {
-			return Collections.emptyList();
+	/**
+	 * Returns the objects associated with the brick of the given type, registering the brick if it is not already
+	 * registered.
+	 *
+	 * @param brick The brick with the associated objects.
+	 * @param objectClass The required type for filtered objects.
+	 * @return a list of all objects associated with the brick.
+	 */
+	@SuppressWarnings("unchecked")
+	public <T> Iterable<T> getObjects(IMyxBrick brick, Class<T> objectClass) {
+		registerBrick(brick);
+		List<WeakReference<Object>> weakObjects = brickToObjectsMap.get(brick);
+		List<T> objects = Lists.newArrayListWithCapacity(weakObjects.size());
+		for (Iterator<WeakReference<Object>> i = weakObjects.iterator(); i.hasNext();) {
+			Object weakObject = i.next().get();
+			// Clean up garbage collected references.
+			if (weakObject == null) {
+				i.remove();
+			}
+			if (objectClass.isInstance(weakObject)) {
+				objects.add((T) weakObject);
+			}
 		}
-		return Collections.unmodifiableList(brickToObjectMap.get(b));
+		return objects;
 	}
 
-	public <T> Iterable<T> getObjects(IMyxBrick b, Class<T> tClass) {
-		List<Object> objectList = brickToObjectMap.get(b);
-		if (objectList == null) {
-			return Collections.<T> emptyList();
-		}
-		return Iterables.filter(objectList, tClass);
+	/**
+	 * Adds the listener to the collection of listeners that will be notified when a brick or object is registered with
+	 * the registry.
+	 *
+	 * @param listener The listener.
+	 */
+	public synchronized void addMyxRegistryListener(IMyxRegistryListener listener) {
+		listeners.add(listener);
 	}
 
-	List<IMyxRegistryListener> listeners = new CopyOnWriteArrayList<IMyxRegistryListener>();
-
-	public synchronized void addMyxRegistryListener(IMyxRegistryListener l) {
-		listeners.add(l);
-	}
-
+	/**
+	 * Removes the listener from the collection of listeners that will be notified when a brick or object is registered
+	 * with the registry.
+	 *
+	 * @param listener The listener.
+	 */
 	public synchronized void removeMyxRegistryListener(IMyxRegistryListener l) {
 		listeners.remove(l);
 	}
 
-	public void fireMyxRegistryEvent(EventType eventType, IMyxBrick brick, Object object) {
-		assert !Thread.holdsLock(this);
-
+	/**
+	 * Fires a event to listeners that should be notified when a brick or object is registered with the registry.
+	 *
+	 * @param eventType The type of event.
+	 * @param brick The brick that was modified.
+	 * @param object The object that was added.
+	 */
+	private void fireMyxRegistryEvent(EventType eventType, IMyxBrick brick, Object object) {
+		assert!Thread.holdsLock(this);
 		MyxRegistryEvent evt = new MyxRegistryEvent(eventType, brick, object);
-		for (IMyxRegistryListener l : listeners) {
-			l.handleMyxRegistryEvent(evt);
+		for (IMyxRegistryListener listener : listeners) {
+			listener.handleMyxRegistryEvent(evt);
 		}
-	}
-
-	protected static MyxRegistry sharedInstance = new MyxRegistry();
-
-	public static MyxRegistry getSharedInstance() {
-		return sharedInstance;
 	}
 }

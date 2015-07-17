@@ -3,7 +3,7 @@ package org.archstudio.myx.fw;
 public class MyxRegistryEvent {
 
 	public enum EventType {
-		BRICK_REGISTERED, BRICK_UNREGISTERED, OBJECT_REGISTERED, OBJECT_UNREGISTERED
+		BRICK_REGISTERED, OBJECT_REGISTERED
 	}
 
 	private EventType eventType;
