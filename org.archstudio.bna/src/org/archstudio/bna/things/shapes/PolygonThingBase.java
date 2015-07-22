@@ -57,6 +57,7 @@ public abstract class PolygonThingBase extends org.archstudio.bna.things.Abstrac
     initProperty(org.archstudio.bna.facets.IHasSecondaryColor.SECONDARY_COLOR_KEY,
         new org.eclipse.swt.graphics.RGB(192, 192, 192));
     initProperty(org.archstudio.bna.facets.IHasSelected.SELECTED_KEY, false);
+    initProperty(org.archstudio.bna.facets.IHasRotatingOffset.TICKS_PER_INCREMENT_KEY, 10);
     super.initProperties();
   }
 
@@ -321,5 +322,24 @@ public abstract class PolygonThingBase extends org.archstudio.bna.things.Abstrac
 
   /* package */ boolean isRawSelected(boolean selected) {
     return setRaw(org.archstudio.bna.facets.IHasSelected.SELECTED_KEY, selected);
+  }
+
+  @Override
+  public int getTicksPerIncrement() {
+    return get(org.archstudio.bna.facets.IHasRotatingOffset.TICKS_PER_INCREMENT_KEY);
+  }
+
+  /* package */ int getRawTicksPerIncrement() {
+    return getRaw(org.archstudio.bna.facets.IHasRotatingOffset.TICKS_PER_INCREMENT_KEY);
+  }
+
+  @Override
+  public void setTicksPerIncrement(int ticksPerIncrement) {
+    set(org.archstudio.bna.facets.IHasRotatingOffset.TICKS_PER_INCREMENT_KEY, ticksPerIncrement);
+  }
+
+  /* package */ int setRawTicksPerIncrement(int ticksPerIncrement) {
+    return setRaw(org.archstudio.bna.facets.IHasRotatingOffset.TICKS_PER_INCREMENT_KEY,
+        ticksPerIncrement);
   }
 }

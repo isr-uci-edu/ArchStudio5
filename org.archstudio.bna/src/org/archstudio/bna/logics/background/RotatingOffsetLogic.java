@@ -16,17 +16,22 @@ public final class RotatingOffsetLogic extends AbstractThingLogic {
 
 	private static List<RotatingOffsetLogic> instances = Lists.newCopyOnWriteArrayList();
 	private static Thread updater;
+
 	static {
 		updater = new Thread(new Runnable() {
 			@Override
 			public void run() {
+				int ticks = 0;
 				while (true) {
 					try {
-						Thread.sleep(1000 / 6);
+						Thread.sleep(1000 / 60);
 					}
 					catch (InterruptedException e) {
 					}
 					try (Finally lock = BNAUtils.lock()) {
+						if (++ticks < 0) {
+							ticks = 0;
+						}
 						for (RotatingOffsetLogic instance : instances) {
 							if (instance.DEBUG) {
 								continue;
@@ -36,7 +41,7 @@ public final class RotatingOffsetLogic extends AbstractThingLogic {
 							ThingTypeTrackingLogic typesLogic = logics.addThingLogic(ThingTypeTrackingLogic.class);
 							for (IHasMutableRotatingOffset t : typesLogic.getThings(IHasMutableRotatingOffset.class)) {
 								if (t.shouldIncrementRotatingOffset()) {
-									t.setRotatingOffset(t.getRotatingOffset() + 1);
+									t.setRotatingOffset(ticks / t.getTicksPerIncrement());
 								}
 							}
 						}

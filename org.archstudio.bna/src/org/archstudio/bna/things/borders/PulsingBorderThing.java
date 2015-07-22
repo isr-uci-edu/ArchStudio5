@@ -17,6 +17,7 @@ public class PulsingBorderThing extends PulsingBorderThingBase {
 		setRawGlowColor(new RGB(255, 0, 0));
 		setRawGlowWidth(20);
 		setRawGlowAlpha(1d);
+		setTicksPerIncrement(4);
 	}
 
 	@Override

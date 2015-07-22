@@ -64,6 +64,7 @@ public abstract class EndpointThingBase extends org.archstudio.bna.things.Abstra
         new org.eclipse.swt.graphics.RGB(192, 192, 192));
     initProperty(org.archstudio.bna.facets.IHasSelected.SELECTED_KEY, false);
     initProperty(org.archstudio.bna.facets.IHasSize.SIZE_KEY, new java.awt.Dimension(10, 10));
+    initProperty(org.archstudio.bna.facets.IHasRotatingOffset.TICKS_PER_INCREMENT_KEY, 10);
     super.initProperties();
   }
 
@@ -399,5 +400,24 @@ public abstract class EndpointThingBase extends org.archstudio.bna.things.Abstra
 
   /* package */ java.awt.Dimension setRawSize(java.awt.Dimension size) {
     return setRaw(org.archstudio.bna.facets.IHasSize.SIZE_KEY, size);
+  }
+
+  @Override
+  public int getTicksPerIncrement() {
+    return get(org.archstudio.bna.facets.IHasRotatingOffset.TICKS_PER_INCREMENT_KEY);
+  }
+
+  /* package */ int getRawTicksPerIncrement() {
+    return getRaw(org.archstudio.bna.facets.IHasRotatingOffset.TICKS_PER_INCREMENT_KEY);
+  }
+
+  @Override
+  public void setTicksPerIncrement(int ticksPerIncrement) {
+    set(org.archstudio.bna.facets.IHasRotatingOffset.TICKS_PER_INCREMENT_KEY, ticksPerIncrement);
+  }
+
+  /* package */ int setRawTicksPerIncrement(int ticksPerIncrement) {
+    return setRaw(org.archstudio.bna.facets.IHasRotatingOffset.TICKS_PER_INCREMENT_KEY,
+        ticksPerIncrement);
   }
 }

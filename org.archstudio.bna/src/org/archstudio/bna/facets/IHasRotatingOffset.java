@@ -35,5 +35,10 @@ public interface IHasRotatingOffset extends org.archstudio.bna.IThing {
   public static final IThingKey<java.lang.Integer> ROTATING_OFFSET_KEY = ThingKey.create(
       com.google.common.collect.Lists.newArrayList("rotatingOffset", IHasRotatingOffset.class));
 
+  public static final IThingKey<java.lang.Integer> TICKS_PER_INCREMENT_KEY = ThingKey.create(
+      com.google.common.collect.Lists.newArrayList("ticksPerIncrement", IHasRotatingOffset.class));
+
   public int getRotatingOffset();
+
+  public int getTicksPerIncrement();
 }

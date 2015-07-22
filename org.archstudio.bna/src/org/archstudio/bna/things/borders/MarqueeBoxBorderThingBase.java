@@ -34,6 +34,7 @@ public abstract class MarqueeBoxBorderThingBase extends org.archstudio.bna.thing
         new org.eclipse.swt.graphics.Rectangle(0, 0, 30, 20));
     addShapeModifyingKey(org.archstudio.bna.facets.IHasBoundingBox.BOUNDING_BOX_KEY);
     initProperty(org.archstudio.bna.facets.IHasRotatingOffset.ROTATING_OFFSET_KEY, 0);
+    initProperty(org.archstudio.bna.facets.IHasRotatingOffset.TICKS_PER_INCREMENT_KEY, 10);
     super.initProperties();
   }
 
@@ -72,5 +73,24 @@ public abstract class MarqueeBoxBorderThingBase extends org.archstudio.bna.thing
 
   /* package */ int setRawRotatingOffset(int rotatingOffset) {
     return setRaw(org.archstudio.bna.facets.IHasRotatingOffset.ROTATING_OFFSET_KEY, rotatingOffset);
+  }
+
+  @Override
+  public int getTicksPerIncrement() {
+    return get(org.archstudio.bna.facets.IHasRotatingOffset.TICKS_PER_INCREMENT_KEY);
+  }
+
+  /* package */ int getRawTicksPerIncrement() {
+    return getRaw(org.archstudio.bna.facets.IHasRotatingOffset.TICKS_PER_INCREMENT_KEY);
+  }
+
+  @Override
+  public void setTicksPerIncrement(int ticksPerIncrement) {
+    set(org.archstudio.bna.facets.IHasRotatingOffset.TICKS_PER_INCREMENT_KEY, ticksPerIncrement);
+  }
+
+  /* package */ int setRawTicksPerIncrement(int ticksPerIncrement) {
+    return setRaw(org.archstudio.bna.facets.IHasRotatingOffset.TICKS_PER_INCREMENT_KEY,
+        ticksPerIncrement);
   }
 }

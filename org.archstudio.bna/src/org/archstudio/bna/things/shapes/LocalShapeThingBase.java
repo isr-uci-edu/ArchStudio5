@@ -58,6 +58,7 @@ public abstract class LocalShapeThingBase extends org.archstudio.bna.things.Abst
         new java.awt.geom.Rectangle2D.Double(0, 0, 0, 0));
     addShapeModifyingKey(org.archstudio.bna.facets.IHasShape.SHAPE_KEY);
     initProperty(org.archstudio.bna.facets.IHasSize.SIZE_KEY, new java.awt.Dimension(10, 10));
+    initProperty(org.archstudio.bna.facets.IHasRotatingOffset.TICKS_PER_INCREMENT_KEY, 10);
     super.initProperties();
   }
 
@@ -357,5 +358,24 @@ public abstract class LocalShapeThingBase extends org.archstudio.bna.things.Abst
 
   /* package */ java.awt.Dimension setRawSize(java.awt.Dimension size) {
     return setRaw(org.archstudio.bna.facets.IHasSize.SIZE_KEY, size);
+  }
+
+  @Override
+  public int getTicksPerIncrement() {
+    return get(org.archstudio.bna.facets.IHasRotatingOffset.TICKS_PER_INCREMENT_KEY);
+  }
+
+  /* package */ int getRawTicksPerIncrement() {
+    return getRaw(org.archstudio.bna.facets.IHasRotatingOffset.TICKS_PER_INCREMENT_KEY);
+  }
+
+  @Override
+  public void setTicksPerIncrement(int ticksPerIncrement) {
+    set(org.archstudio.bna.facets.IHasRotatingOffset.TICKS_PER_INCREMENT_KEY, ticksPerIncrement);
+  }
+
+  /* package */ int setRawTicksPerIncrement(int ticksPerIncrement) {
+    return setRaw(org.archstudio.bna.facets.IHasRotatingOffset.TICKS_PER_INCREMENT_KEY,
+        ticksPerIncrement);
   }
 }

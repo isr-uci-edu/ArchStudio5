@@ -36,6 +36,7 @@ public abstract class PulsingBorderThingBase extends org.archstudio.bna.things.A
     initProperty(org.archstudio.bna.facets.IHasGlow.GLOW_COLOR_KEY, null);
     initProperty(org.archstudio.bna.facets.IHasGlow.GLOW_WIDTH_KEY, 20);
     initProperty(org.archstudio.bna.facets.IHasRotatingOffset.ROTATING_OFFSET_KEY, 0);
+    initProperty(org.archstudio.bna.facets.IHasRotatingOffset.TICKS_PER_INCREMENT_KEY, 10);
     super.initProperties();
   }
 
@@ -130,5 +131,24 @@ public abstract class PulsingBorderThingBase extends org.archstudio.bna.things.A
 
   /* package */ int setRawRotatingOffset(int rotatingOffset) {
     return setRaw(org.archstudio.bna.facets.IHasRotatingOffset.ROTATING_OFFSET_KEY, rotatingOffset);
+  }
+
+  @Override
+  public int getTicksPerIncrement() {
+    return get(org.archstudio.bna.facets.IHasRotatingOffset.TICKS_PER_INCREMENT_KEY);
+  }
+
+  /* package */ int getRawTicksPerIncrement() {
+    return getRaw(org.archstudio.bna.facets.IHasRotatingOffset.TICKS_PER_INCREMENT_KEY);
+  }
+
+  @Override
+  public void setTicksPerIncrement(int ticksPerIncrement) {
+    set(org.archstudio.bna.facets.IHasRotatingOffset.TICKS_PER_INCREMENT_KEY, ticksPerIncrement);
+  }
+
+  /* package */ int setRawTicksPerIncrement(int ticksPerIncrement) {
+    return setRaw(org.archstudio.bna.facets.IHasRotatingOffset.TICKS_PER_INCREMENT_KEY,
+        ticksPerIncrement);
   }
 }

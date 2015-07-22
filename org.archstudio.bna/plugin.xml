@@ -322,6 +322,11 @@
  */
                </JavaDoc>
             </Method>
+            <Key
+                  default="10"
+                  name="TicksPerIncrement"
+                  type="java.lang.Integer">
+            </Key>
          </Facet>
          <Facet
                name="SecondaryColor">
