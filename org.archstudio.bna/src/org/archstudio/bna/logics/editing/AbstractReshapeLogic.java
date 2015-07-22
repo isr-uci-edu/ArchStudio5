@@ -176,7 +176,8 @@ public abstract class AbstractReshapeLogic<R extends IThing, D> extends Abstract
 		if (handles.contains(movedThing)) {
 			D data = movedThing.get(HANDLE_DATA_KEY);
 			handleMoveFinished(reshapingThing, (ReshapeHandleThing) movedThing, data, evt);
-			checkHandles(reshapingThing);
+			removeHandles(reshapingThing);
+			addHandles(reshapingThing);
 
 			if (!initialPosition.equals(((ReshapeHandleThing) movedThing).getReferencePoint())) {
 				final Runnable undoSnapshot = initialSnapshot;
