@@ -2,7 +2,7 @@
 <plugin>
 
    <extension
-         point="org.archstudio.metadata.icon">
+         point="org.archstudio.utils.resources">
       <Icon
             icon16="res/hint-16.png"
             name="hint">

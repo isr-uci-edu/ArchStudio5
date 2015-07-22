@@ -14,7 +14,9 @@ import org.archstudio.xarchadt.ObjRef;
 import org.archstudio.xarchadt.XArchADTProxy;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.jdt.annotation.Nullable;
 
@@ -234,5 +236,20 @@ public class XadlUtils {
 				}
 			}
 		}
+	}
+
+	public static Class<?> getType(IXArchADT xarch, ObjRef objRef) {
+		IXArchADTTypeMetadata typeMetadata = xarch.getTypeMetadata(objRef);
+		String nsURI = typeMetadata.getNsURI();
+		EPackage ePackage = EPackage.Registry.INSTANCE.getEPackage(nsURI);
+		if (ePackage != null) {
+			String typeName = typeMetadata.getTypeName();
+			EClassifier eClassifier = ePackage.getEClassifier(typeName);
+			if (eClassifier instanceof EClass) {
+				EClass eClass = (EClass) eClassifier;
+				return eClass.getInstanceClass();
+			}
+		}
+		return Object.class;
 	}
 }

@@ -1,6 +1,0 @@
-Manifest-Version: 1.0
-Bundle-ManifestVersion: 2
-Bundle-Name: ArchStudio Metadata
-Bundle-SymbolicName: org.archstudio.metadata;singleton:=true
-Bundle-Vendor: archstudio.org
-Bundle-Version: 5.0.2.qualifier

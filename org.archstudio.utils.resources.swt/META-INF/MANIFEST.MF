@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ActivationPolicy: lazy
+Bundle-Activator: org.archstudio.utils.resources.swt.Activator
+Bundle-ManifestVersion: 2
+Bundle-Name: ArchStudio Resource Utils for SWT
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-SymbolicName: org.archstudio.utils.resources.swt;singleton:=true
+Bundle-Vendor: archstudio.org
+Bundle-Version: 5.0.2.qualifier
+Export-Package: org.archstudio.utils.resources.swt
+Require-Bundle: org.archstudio.guava;visibility:=reexport,
+ org.archstudio.utils.resources;visibility:=reexport,
+ org.archstudio.utils.system;visibility:=reexport,
+ org.eclipse.core.runtime;visibility:=reexport,
+ org.eclipse.swt;visibility:=reexport

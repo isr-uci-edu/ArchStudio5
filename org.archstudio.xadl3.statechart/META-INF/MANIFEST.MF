@@ -12,7 +12,7 @@ Export-Package: org.archstudio.xadl3.statechart_1_0,
  org.archstudio.xadl3.statechart_1_0.impl,
  org.archstudio.xadl3.statechart_1_0.util
 Require-Bundle: org.archstudio.dblgen;visibility:=reexport,
- org.archstudio.metadata,
+ org.archstudio.utils.resources,
  org.archstudio.xadl3.xadlcore;visibility:=reexport,
  org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport,

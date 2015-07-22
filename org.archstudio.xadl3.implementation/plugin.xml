@@ -2,7 +2,7 @@
 <plugin>
 
    <extension
-         point="org.archstudio.metadata.icon">
+         point="org.archstudio.utils.resources">
       <Icon
             icon16="res/impl.png"
             name="implementation">

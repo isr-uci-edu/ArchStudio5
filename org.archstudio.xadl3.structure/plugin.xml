@@ -15,7 +15,7 @@ compatible_directions(&apos;none&apos;, &apos;none&apos;).
       </Statements>
    </extension>
    <extension
-         point="org.archstudio.metadata.icon">
+         point="org.archstudio.utils.resources">
       <Icon
             name="structure"
             icon16="res/structure-16.png">

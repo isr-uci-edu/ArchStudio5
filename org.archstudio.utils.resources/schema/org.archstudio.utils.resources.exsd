@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- Schema file written by PDE -->
-<schema targetNamespace="org.archstudio.metadata" xmlns="http://www.w3.org/2001/XMLSchema">
+<schema targetNamespace="org.archstudio.utils.resources" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
       <appinfo>
-         <meta.schema plugin="org.archstudio.metadata" id="icon" name="icon"/>
+         <meta.schema plugin="org.archstudio.utils.resources" id="org.archstudio.utils.resources" name="resources"/>
       </appinfo>
       <documentation>
          [Enter description of this extension point.]
@@ -17,8 +17,8 @@
          </appinfo>
       </annotation>
       <complexType>
-         <sequence minOccurs="0" maxOccurs="unbounded">
-            <element ref="Icon"/>
+         <sequence>
+            <element ref="Icon" minOccurs="0" maxOccurs="unbounded"/>
          </sequence>
          <attribute name="point" type="string" use="required">
             <annotation>
