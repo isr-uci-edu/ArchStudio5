@@ -5,7 +5,9 @@ import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.ICoordinateMapper;
 import org.archstudio.bna.things.AbstractThingPeer;
 import org.archstudio.bna.ui.IUIResources;
+import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.swtutils.SWTWidgetUtils;
+import org.archstudio.sysutils.Finally;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -22,7 +24,9 @@ public abstract class AbstractControlThingPeer<T extends AbstractControlThing, C
 	protected abstract C createControl(IBNAView view, ICoordinateMapper cm);
 
 	protected void remove(IBNAView view) {
-		model.removeThing(t);
+		try (Finally lock = BNAUtils.lock()) {
+			model.removeThing(t);
+		}
 	}
 
 	protected Rectangle getBounds(IBNAView view, ICoordinateMapper cm) {
@@ -34,26 +38,26 @@ public abstract class AbstractControlThingPeer<T extends AbstractControlThing, C
 		SWTWidgetUtils.async(view.getBNAUI().getComposite(), new Runnable() {
 			@Override
 			public void run() {
-				if (control == null) {
-					control = createControl(view, cm);
+				try (Finally lock = BNAUtils.lock()) {
 					if (control == null) {
-						return;
-					}
-					// necessary for the AWT UI
-					control.moveAbove(null);
-				}
-
-				Rectangle newBounds = getBounds(view, cm);
-				Rectangle oldBounds = control.getBounds();
-				if (!oldBounds.equals(newBounds)) {
-					if (oldBounds.width != newBounds.width || oldBounds.height != newBounds.height) {
-						control.setSize(newBounds.width, newBounds.height);
-						if (control instanceof Composite) {
-							((Composite) control).layout(true, true);
-							control.pack(true);
+						control = createControl(view, cm);
+						if (control == null) {
+							return;
 						}
 					}
-					control.setLocation(newBounds.x, newBounds.y);
+
+					Rectangle newBounds = getBounds(view, cm);
+					Rectangle oldBounds = control.getBounds();
+					if (!oldBounds.equals(newBounds)) {
+						if (oldBounds.width != newBounds.width || oldBounds.height != newBounds.height) {
+							control.setSize(newBounds.width, newBounds.height);
+							if (control instanceof Composite) {
+								((Composite) control).layout(true, true);
+								control.pack(true);
+							}
+						}
+						control.setLocation(newBounds.x, newBounds.y);
+					}
 				}
 			}
 		});

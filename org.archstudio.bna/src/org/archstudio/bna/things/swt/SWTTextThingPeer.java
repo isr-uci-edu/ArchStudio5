@@ -2,7 +2,9 @@ package org.archstudio.bna.things.swt;
 
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinateMapper;
+import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.swtutils.SWTWidgetUtils;
+import org.archstudio.sysutils.Finally;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.FocusAdapter;
 import org.eclipse.swt.events.FocusEvent;
@@ -29,7 +31,10 @@ public class SWTTextThingPeer<T extends SWTTextThing> extends AbstractControlThi
 		}
 
 		final Text control = new Text(view.getBNAUI().getComposite(), SWT.BORDER | SWT.FLAT | SWT.SINGLE);
+		// necessary for the AWT UI
+		control.moveAbove(null);
 		control.setData(t);
+		control.setFocus();
 		control.addFocusListener(new FocusAdapter() {
 
 			@Override
@@ -41,12 +46,14 @@ public class SWTTextThingPeer<T extends SWTTextThing> extends AbstractControlThi
 
 			@Override
 			public void keyReleased(KeyEvent e) {
-				if (e.character == SWT.CR) {
-					t.setText(control.getText());
-					remove(view);
-				}
-				else if (e.character == SWT.ESC) {
-					remove(view);
+				try (Finally lock = BNAUtils.lock()) {
+					if (e.character == SWT.CR) {
+						t.setText(control.getText());
+						remove(view);
+					}
+					else if (e.character == SWT.ESC) {
+						remove(view);
+					}
 				}
 			}
 		});
