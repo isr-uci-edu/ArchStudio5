@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xadlcore_3_0:xADL
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:archlight_3_0="http://www.archstudio.org/xadl3/schemas/archlight-3.0.xsd"
+<xadlcore_3_0:xADL xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:archlight_3_0="http://www.archstudio.org/xadl3/schemas/archlight-3.0.xsd"
     xmlns:domain_3_0="http://www.archstudio.org/xadl3/schemas/domain-3.0.xsd" xmlns:hints_3_0="http://www.archstudio.org/xadl3/schemas/hints-3.0.xsd"
     xmlns:implementation_3_0="http://www.archstudio.org/xadl3/schemas/implementation-3.0.xsd"
     xmlns:lookupimplementation_3_0="http://www.archstudio.org/xadl3/schemas/lookupimplementation-3.0.xsd"
@@ -21,9 +20,8 @@
           <domain_3_0:domain domain_3_0:type="bottom"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="10152,10024" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="java.awt.geom.Point2D:1,4642648265865560064,4630826316843712512"
+              hints_3_0:name="location"/>
         </structure_3_0:ext>
       </structure_3_0:interface>
       <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="0a53496a-4de62675-d3739129-224c000a"
@@ -36,15 +34,15 @@
           <domain_3_0:domain domain_3_0:type="bottom"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="10200,10024" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="java.awt.geom.Point2D:1,4643774165772402688,4630826316843712512"
+              hints_3_0:name="location"/>
         </structure_3_0:ext>
       </structure_3_0:interface>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="bounds">
-          <hints_3_0:value hints_3_0:data="10116,9944,120,80" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Rectangle:204,-40,120,80"
+            hints_3_0:name="bounds"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.RGB:197,203,245"
+            hints_3_0:name="color"/>
       </structure_3_0:ext>
       <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
         <implementation_3_0:implementation xsi:type="myxgen_3_0:MyxGen" implementation_3_0:id="0a534964-a59e9ff4-f603a4bc-7a2b0002">
@@ -64,9 +62,8 @@
           <domain_3_0:domain domain_3_0:type="top"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="10056,10208" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="java.awt.geom.Point2D:1,4639270566145032192,4642085315912138752"
+              hints_3_0:name="location"/>
         </structure_3_0:ext>
       </structure_3_0:interface>
       <structure_3_0:interface structure_3_0:direction="in" structure_3_0:id="0a53496a-4de90ded-87066a1e-224c0014"
@@ -79,15 +76,15 @@
           <domain_3_0:domain domain_3_0:type="top"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="10104,10208" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="java.awt.geom.Point2D:1,4640959416005296128,4642085315912138752"
+              hints_3_0:name="location"/>
         </structure_3_0:ext>
       </structure_3_0:interface>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="bounds">
-          <hints_3_0:value hints_3_0:data="10020,10208,120,80" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Rectangle:108,224,120,80"
+            hints_3_0:name="bounds"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.RGB:197,203,245"
+            hints_3_0:name="color"/>
       </structure_3_0:ext>
       <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
         <implementation_3_0:implementation xsi:type="myxgen_3_0:MyxGen" implementation_3_0:id="0a534964-a59ed117-883ad967-7a2b0005">
@@ -107,9 +104,8 @@
           <domain_3_0:domain domain_3_0:type="top"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="10248,10208" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="java.awt.geom.Point2D:1,4644618590702534656,4642085315912138752"
+              hints_3_0:name="location"/>
         </structure_3_0:ext>
       </structure_3_0:interface>
       <structure_3_0:interface structure_3_0:direction="in" structure_3_0:id="0a53496a-4de9f4db-e0562fc4-224c0019"
@@ -122,15 +118,15 @@
           <domain_3_0:domain domain_3_0:type="top"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="10296,10208" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="java.awt.geom.Point2D:1,4645463015632666624,4642085315912138752"
+              hints_3_0:name="location"/>
         </structure_3_0:ext>
       </structure_3_0:interface>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="bounds">
-          <hints_3_0:value hints_3_0:data="10212,10208,120,80" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Rectangle:300,224,120,80"
+            hints_3_0:name="bounds"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.RGB:197,203,245"
+            hints_3_0:name="color"/>
       </structure_3_0:ext>
       <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
         <implementation_3_0:implementation xsi:type="myxgen_3_0:MyxGen" implementation_3_0:id="0a534964-a59ee2ef-4a7ccaab-7a2b0008">
@@ -150,9 +146,8 @@
           <domain_3_0:domain domain_3_0:type="top"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="10368,10080" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="java.awt.geom.Point2D:1,4646729653027864576,4636455816377925632"
+              hints_3_0:name="location"/>
         </structure_3_0:ext>
       </structure_3_0:interface>
       <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="0a534964-a6434c01-e4d13410-7a2b0011"
@@ -165,9 +160,8 @@
           <domain_3_0:domain domain_3_0:type="bottom"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="10368,10128" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="java.awt.geom.Point2D:1,4646729653027864576,4639270566145032192"
+              hints_3_0:name="location"/>
         </structure_3_0:ext>
       </structure_3_0:interface>
       <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
@@ -182,35 +176,75 @@
             osgiimplementation_3_0:bundle="org.archstudio.demo.chatsys"/>
       </structure_3_0:ext>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="bounds">
-          <hints_3_0:value hints_3_0:data="10248,10080,240,48" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Rectangle:336,96,240,48"
+            hints_3_0:name="bounds"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.RGB:245,234,191"
+            hints_3_0:name="color"/>
       </structure_3_0:ext>
     </structure_3_0:connector>
     <structure_3_0:link structure_3_0:id="link0a53496a-4ca3f6af-269696f5-dad3000e"
         structure_3_0:name="[New Link]">
       <structure_3_0:point1>0a53496a-4de90de9-581d8885-224c0012</structure_3_0:point1>
       <structure_3_0:point2>0a53496a-4de6266f-a486c786-224c0008</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:hint="java.awt.geom.Point2D:1,4639362351463524797,4641909394051694592"
+            hints_3_0:name="endpoint1"/>
+        <hints_3_0:hint hints_3_0:hint="java.awt.geom.Point2D:1,4642556480547067459,4631530004285489152"
+            hints_3_0:name="endpoint2"/>
+        <hints_3_0:hint hints_3_0:hint="List{}:" hints_3_0:name="midpoints"/>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="link0a53496a-4ca43fc9-f54b44cb-dad3000f"
         structure_3_0:name="[New Link]">
       <structure_3_0:point1>0a53496a-4de90ded-87066a1e-224c0014</structure_3_0:point1>
       <structure_3_0:point2>0a534964-a6434c01-e4d13410-7a2b0011</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:hint="java.awt.geom.Point2D:1,4641135337865740288,4642032006257458704"
+            hints_3_0:name="endpoint1"/>
+        <hints_3_0:hint hints_3_0:hint="java.awt.geom.Point2D:1,4646641692097642496,4639323875799712240"
+            hints_3_0:name="endpoint2"/>
+        <hints_3_0:hint hints_3_0:hint="List{}:" hints_3_0:name="midpoints"/>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="link0a53496a-4ca45dd3-2019879e-dad30010"
         structure_3_0:name="[New Link]">
       <structure_3_0:point1>0a53496a-4de9f4d8-928caa0d-224c0017</structure_3_0:point1>
       <structure_3_0:point2>0a53496a-4de6266f-a486c786-224c0008</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:hint="java.awt.geom.Point2D:1,4644572698043288353,4641909394051694592"
+            hints_3_0:name="endpoint1"/>
+        <hints_3_0:hint hints_3_0:hint="java.awt.geom.Point2D:1,4642740051184052669,4631530004285489152"
+            hints_3_0:name="endpoint2"/>
+        <hints_3_0:hint hints_3_0:hint="List{}:" hints_3_0:name="midpoints"/>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="link0a53496a-4ca47a8a-5bd3f219-dad30011"
         structure_3_0:name="[New Link]">
       <structure_3_0:point1>0a53496a-4de9f4db-e0562fc4-224c0019</structure_3_0:point1>
       <structure_3_0:point2>0a534964-a6434c01-e4d13410-7a2b0011</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:hint="java.awt.geom.Point2D:1,4645542180469866496,4641909394051694592"
+            hints_3_0:name="endpoint1"/>
+        <hints_3_0:hint hints_3_0:hint="java.awt.geom.Point2D:1,4646650488190664704,4639446488005476352"
+            hints_3_0:name="endpoint2"/>
+        <hints_3_0:hint hints_3_0:hint="List{}:" hints_3_0:name="midpoints"/>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="link0a534964-a64395ef-76dcd3f4-7a2b0013"
         structure_3_0:name="[New Link]">
       <structure_3_0:point1>0a534964-a6434be2-58f1f003-7a2b000f</structure_3_0:point1>
       <structure_3_0:point2>0a53496a-4de62675-d3739129-224c000a</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:hint="java.awt.geom.Point2D:1,4646641692097642496,4636338535137629525"
+            hints_3_0:name="endpoint1"/>
+        <hints_3_0:hint hints_3_0:hint="java.awt.geom.Point2D:1,4643862126702624768,4631060879324304725"
+            hints_3_0:name="endpoint2"/>
+        <hints_3_0:hint hints_3_0:hint="List{}:" hints_3_0:name="midpoints"/>
+      </structure_3_0:ext>
     </structure_3_0:link>
+    <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+      <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:-245,-108" hints_3_0:name="local-origin"/>
+      <hints_3_0:hint hints_3_0:hint="java.lang.Double:1.0" hints_3_0:name="local-scale"/>
+    </structure_3_0:ext>
   </structure_3_0:structure>
 </xadlcore_3_0:xADL>
