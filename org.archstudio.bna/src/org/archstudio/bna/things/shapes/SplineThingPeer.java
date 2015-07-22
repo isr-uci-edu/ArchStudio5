@@ -48,16 +48,12 @@ public class SplineThingPeer<T extends SplineThing> extends AbstractThingPeer<T>
 		Shape localShape = createLocalShape();
 		ArrowheadShape arrowhead1 = (t.getRawArrowhead1Color() != null || t.getRawArrowhead1EdgeColor() != null)
 				&& t.getRawArrowhead1Shape() != ArrowheadShape.NONE ? t.getRawArrowhead1Shape() : ArrowheadShape.NONE;
-		Shape localArrowhead1 = BNAUtils.worldToLocal(
-				cm,
-				ShapeUtils.createArrowhead(arrowhead1, points.get(0), points.get(1), t.getRawArrowhead1Width(),
-						t.getRawArrowhead1Length()));
+		Shape localArrowhead1 = ShapeUtils.createArrowhead(arrowhead1, points.get(0), points.get(1),
+				t.getRawArrowhead1Width(), t.getRawArrowhead1Length());
 		ArrowheadShape arrowhead2 = (t.getRawArrowhead2Color() != null || t.getRawArrowhead2EdgeColor() != null)
 				&& t.getRawArrowhead2Shape() != ArrowheadShape.NONE ? t.getRawArrowhead2Shape() : ArrowheadShape.NONE;
-		Shape localArrowhead2 = BNAUtils.worldToLocal(
-				cm,
-				ShapeUtils.createArrowhead(arrowhead2, points.get(points.size() - 1), points.get(points.size() - 2),
-						t.getRawArrowhead2Width(), t.getRawArrowhead2Length()));
+		Shape localArrowhead2 = ShapeUtils.createArrowhead(arrowhead2, points.get(points.size() - 1),
+				points.get(points.size() - 2), t.getRawArrowhead2Width(), t.getRawArrowhead2Length());
 
 		RGB glowColor = t.getRawGlowColor();
 		if (glowColor != null) {
