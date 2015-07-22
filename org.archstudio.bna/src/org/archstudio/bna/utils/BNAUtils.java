@@ -76,6 +76,15 @@ public class BNAUtils {
 		}
 	};
 
+	/**
+	 * Obtains the BNA lock. The intended use is as follows:
+	 * <code>
+	 * try (Finally lock = BNAUtils.lock()) {
+	 *   // ... use BNA
+	 * }
+	 * </code>
+	 * @return a closeable object capable of being used in a try-with-resources statement.
+	 */
 	public static Finally lock() {
 		LOCK.writeLock().lock();
 		return UNLOCK;
@@ -83,6 +92,7 @@ public class BNAUtils {
 
 	/**
 	 * Asserts that the current thread has the lock. The lock is required for <b><i>any</i></b> BNA related method call.
+	 * @see #lock() for an example of how to obtain the lock.
 	 */
 	public static void checkLock() {
 		if (!LOCK.writeLock().isHeldByCurrentThread()) {
