@@ -70,15 +70,16 @@ public class SynchronizeThingIDAndObjRefLogic extends AbstractKeyCoordinatingThi
 		else if (key instanceof IThingRefKey) {
 			IThingRefKey<?> refKey = (IThingRefKey<?>) key;
 			IThingMetakey<?, IThingRefKey<?>, ObjRef> objRefKey = _syncObjRefKeyToThingIDKey(refKey);
-			if (thing.has(objRefKey)) {
+			ObjRef objRef = null;
+			if (thing.has(refKey)) {
 				IThing referencedThing = refKey.get(thing, model);
-				ObjRef objRef = referencedThing != null ? referencedThing.get(IHasObjRef.OBJREF_KEY) : null;
-				if (objRef != null) {
-					thing.set(objRefKey, objRef);
-				}
-				else {
-					thing.remove(objRefKey);
-				}
+				objRef = referencedThing != null ? referencedThing.get(IHasObjRef.OBJREF_KEY) : null;
+			}
+			if (objRef != null) {
+				thing.set(objRefKey, objRef);
+			}
+			else {
+				thing.remove(objRefKey);
 			}
 		}
 	}
@@ -86,7 +87,6 @@ public class SynchronizeThingIDAndObjRefLogic extends AbstractKeyCoordinatingThi
 	@Override
 	public void bnaModelChanged(BNAModelEvent evt) {
 		BNAUtils.checkLock();
-
 		super.bnaModelChanged(evt);
 		if (evt.getEventType() == EventType.THING_REMOVED) {
 			IThing thing = evt.getTargetThing();
