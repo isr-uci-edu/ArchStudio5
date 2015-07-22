@@ -178,6 +178,12 @@ public final class MyxRegistry {
 		synchronized (this) {
 			registerBrick(brick);
 			List<WeakReference<Object>> objectsList = brickToObjectsMap.get(brick);
+			for (WeakReference<Object> objectListEntry : objectsList) {
+				Object weakObject = objectListEntry.get();
+				if (object == weakObject) {
+					return;
+				}
+			}
 			objectsList.add(new WeakReference<>(object));
 			notifyAll();
 			fireMyxRegistryEvent(MyxRegistryEvent.EventType.OBJECT_REGISTERED, brick, object);
