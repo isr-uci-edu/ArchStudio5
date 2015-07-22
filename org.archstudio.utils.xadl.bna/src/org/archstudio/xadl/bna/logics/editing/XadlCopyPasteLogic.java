@@ -42,7 +42,7 @@ public class XadlCopyPasteLogic extends AbstractThingLogic implements IBNAMenuLi
 
 	protected final IXArchADT xarch;
 	protected final IActionBars actionBars;
-	protected final XArchADTCopyPaste copyPaste = new XArchADTCopyPaste();
+	protected static final XArchADTCopyPaste copyPaste = new XArchADTCopyPaste();
 	protected final Map<ObjRef, Integer> selectAndMoveObjRefs = Maps.newHashMap();
 	protected int pasteOffset = 0;
 
