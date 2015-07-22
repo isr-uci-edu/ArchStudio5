@@ -15,12 +15,8 @@ import org.archstudio.archipelago.core.structure.mapping.MapLinkLogic;
 import org.archstudio.archipelago.core.structure.mapping.MapMappingsLogic;
 import org.archstudio.archipelago.core.util.ArchipelagoFinder;
 import org.archstudio.bna.BNACanvas;
-import org.archstudio.bna.CoordinateMapperEvent;
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAWorld;
-import org.archstudio.bna.ICoordinateMapper;
-import org.archstudio.bna.ICoordinateMapperListener;
-import org.archstudio.bna.IMutableCoordinateMapper;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThingLogicManager;
 import org.archstudio.bna.constants.GridDisplayType;
@@ -140,19 +136,7 @@ public class StructureEditorSupport {
 			final EnvironmentPropertiesThing ept = EnvironmentPropertiesThing.createIn(world);
 			ept.set(IHasObjRef.OBJREF_KEY, structureRef);
 			ept.set(IHasXArchID.XARCH_ID_KEY, (String) xarch.get(structureRef, "id"));
-
-			// persist the coordinate mapper
-
-			final ICoordinateMapper cm = bnaCanvas.getBNAView().getCoordinateMapper();
-			if (cm instanceof IMutableCoordinateMapper) {
-				ept.restoreCoordinateMapperData((IMutableCoordinateMapper) cm);
-			}
-			cm.addCoordinateMapperListener(new ICoordinateMapperListener() {
-				@Override
-				public void coordinateMappingsChanged(CoordinateMapperEvent evt) {
-					ept.storeCoordinateMapperData(cm);
-				}
-			});
+			ept.monitorCoordinateMapper(bnaCanvas.getBNAView().getCoordinateMapper());
 
 			// coordinate preferences
 			final IPreferenceStore prefs = org.archstudio.archipelago.core.Activator.getDefault().getPreferenceStore();

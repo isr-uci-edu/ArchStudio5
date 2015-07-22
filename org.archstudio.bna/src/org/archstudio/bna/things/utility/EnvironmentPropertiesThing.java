@@ -1,7 +1,9 @@
 package org.archstudio.bna.things.utility;
 
+import org.archstudio.bna.CoordinateMapperEvent;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.ICoordinateMapper;
+import org.archstudio.bna.ICoordinateMapperListener;
 import org.archstudio.bna.IMutableCoordinateMapper;
 import org.archstudio.bna.keys.IThingKey;
 import org.archstudio.bna.keys.ThingKey;
@@ -46,6 +48,18 @@ public class EnvironmentPropertiesThing extends NoThing {
 
 	public void setNewThingSpot(Point point) {
 		set(NEW_THING_SPOT_KEY, point);
+	}
+
+	public void monitorCoordinateMapper(final ICoordinateMapper cm) {
+		if (cm instanceof IMutableCoordinateMapper) {
+			this.restoreCoordinateMapperData((IMutableCoordinateMapper) cm);
+		}
+		cm.addCoordinateMapperListener(new ICoordinateMapperListener() {
+			@Override
+			public void coordinateMappingsChanged(CoordinateMapperEvent evt) {
+				EnvironmentPropertiesThing.this.storeCoordinateMapperData(cm);
+			}
+		});
 	}
 
 	public void restoreCoordinateMapperData(IMutableCoordinateMapper cm) {
