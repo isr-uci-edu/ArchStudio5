@@ -119,6 +119,10 @@ public final class FastMap<K, V> implements Map<K, V> {
 			return true;
 		}
 
+		@Override
+		public String toString() {
+			return (key == null ? "null" : key.toString()) + " = " + value;
+		}
 	}
 
 	private class EntrySet extends AbstractSet<Entry<K, V>> {
