@@ -214,9 +214,12 @@ public class XArchADTVariabilityElementImpl implements IXArchADT {
 	}
 
 	@Override
-	public boolean isInstanceOf(@Nullable ObjRef baseObjRef, String sourceNsURI, String sourceTypeName) {
-		IXArchADTTypeMetadata type = getTypeMetadata(baseObjRef);
-		return xarch.isAssignable(sourceNsURI, sourceTypeName, type.getNsURI(), type.getTypeName());
+	public boolean isInstanceOf(@Nullable Serializable object, String sourceNsURI, String sourceTypeName) {
+		if (object instanceof ObjRef) {
+			IXArchADTTypeMetadata type = getTypeMetadata((ObjRef) object);
+			return xarch.isAssignable(sourceNsURI, sourceTypeName, type.getNsURI(), type.getTypeName());
+		}
+		return false;
 	}
 
 	@Override

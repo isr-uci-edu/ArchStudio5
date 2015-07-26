@@ -743,13 +743,16 @@ public class XArchADTImpl implements IXArchADT {
 	}
 
 	@Override
-	public boolean isInstanceOf(@Nullable ObjRef baseObjRef, String sourceNsURI, String sourceTypeName) {
+	public boolean isInstanceOf(@Nullable Serializable object, String sourceNsURI, String sourceTypeName) {
 		rLock.lock();
 		try {
-			if (baseObjRef == null) {
+			if (object == null) {
 				return false;
 			}
-			EObject baseEObject = get(baseObjRef);
+			if (!(object instanceof ObjRef)) {
+				return false;
+			}
+			EObject baseEObject = get((ObjRef) object);
 			return getEClass(ePackageCache.getUnchecked(sourceNsURI), sourceTypeName).isSuperTypeOf(
 					baseEObject.eClass());
 		}

@@ -406,8 +406,8 @@ public class XArchADTOperations implements IXArchADT {
 	}
 
 	@Override
-	public boolean isInstanceOf(@Nullable ObjRef baseObjRef, String sourceNsURI, String sourceTypeName) {
-		return xarch.isInstanceOf(baseObjRef, sourceNsURI, sourceTypeName);
+	public boolean isInstanceOf(@Nullable Serializable object, String sourceNsURI, String sourceTypeName) {
+		return xarch.isInstanceOf(object, sourceNsURI, sourceTypeName);
 	}
 
 	@Override

@@ -222,7 +222,7 @@ public interface IXArchADTQuery {
 
 	public IXArchADTTypeMetadata getTypeMetadata(ObjRef objRef);
 
-	public boolean isInstanceOf(@Nullable ObjRef baseObjRef, String sourceNsURI, String sourceTypeName);
+	public boolean isInstanceOf(@Nullable Serializable object, String sourceNsURI, String sourceTypeName);
 
 	/**
 	 * Determines if an object of the target type can be assigned to a variable of the source type. In other words,
