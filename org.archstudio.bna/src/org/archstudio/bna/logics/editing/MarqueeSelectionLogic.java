@@ -9,7 +9,6 @@ import org.archstudio.bna.IThing;
 import org.archstudio.bna.constants.MouseType;
 import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.facets.IHasMutableSelected;
-import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.logics.background.RotatingOffsetLogic;
 import org.archstudio.bna.logics.tracking.ThingTypeTrackingLogic;
 import org.archstudio.bna.things.borders.MarqueeBoxBorderThing;
@@ -22,7 +21,7 @@ import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 
-public class MarqueeSelectionLogic extends AbstractThingLogic implements IBNAMouseListener, IBNAMouseMoveListener {
+public class MarqueeSelectionLogic extends SelectionLogic implements IBNAMouseListener, IBNAMouseMoveListener {
 
 	protected final ThingTypeTrackingLogic typeLogic;
 
@@ -55,6 +54,7 @@ public class MarqueeSelectionLogic extends AbstractThingLogic implements IBNAMou
 		}
 		if (evt.button == 1) {
 			if (t.isEmpty()) {
+				setWorldWithSelectionFocus(world);
 				initDownWorldPoint = location.getWorldPoint();
 				marqueeSelection = model.addThing(new MarqueeBoxBorderThing(null));
 				marqueeSelection.setBoundingBox(new Rectangle(initDownWorldPoint.x, initDownWorldPoint.y, 1, 1));
@@ -91,9 +91,8 @@ public class MarqueeSelectionLogic extends AbstractThingLogic implements IBNAMou
 							if (!BNAUtils.wasControlPressed(evt)) {
 								mst.setSelected(false);
 							}
-							if (mst instanceof IHasBoundingBox
-									&& UserEditableUtils.isEditableForAllQualities(mst,
-											IHasMutableSelected.USER_MAY_SELECT)) {
+							if (mst instanceof IHasBoundingBox && UserEditableUtils.isEditableForAllQualities(mst,
+									IHasMutableSelected.USER_MAY_SELECT)) {
 								Rectangle r = ((IHasBoundingBox) mst).getBoundingBox();
 								if (BNAUtils.isWithin(selectionRectangle, r)) {
 									if (!BNAUtils.wasControlPressed(evt)) {

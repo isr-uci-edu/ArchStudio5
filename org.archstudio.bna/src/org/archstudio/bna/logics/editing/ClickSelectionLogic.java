@@ -10,35 +10,18 @@ import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.constants.MouseType;
 import org.archstudio.bna.facets.IHasMutableSelected;
-import org.archstudio.bna.facets.IHasSelected;
-import org.archstudio.bna.logics.AbstractThingLogic;
-import org.archstudio.bna.logics.tracking.ThingValueTrackingLogic;
+import org.archstudio.bna.logics.background.RotatingOffsetLogic;
 import org.archstudio.bna.ui.IBNAMenuListener;
 import org.archstudio.bna.ui.IBNAMouseListener;
 import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.BNAUtils;
-import org.archstudio.sysutils.Finally;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.swt.events.MouseEvent;
 
-public class ClickSelectionLogic extends AbstractThingLogic implements IBNAMouseListener, IBNAMenuListener {
-
-	protected final ThingValueTrackingLogic valueLogic;
-
+public class ClickSelectionLogic extends SelectionLogic implements IBNAMouseListener, IBNAMenuListener {
 	public ClickSelectionLogic(IBNAWorld world) {
 		super(world);
-		valueLogic = logics.addThingLogic(ThingValueTrackingLogic.class);
-	}
-
-	private void removeAllSelections() {
-		BNAUtils.checkLock();
-
-		try (Finally bulkChange = model.beginBulkChange()) {
-			for (IHasMutableSelected t : valueLogic.getThings(IHasSelected.SELECTED_KEY, Boolean.TRUE,
-					IHasMutableSelected.class)) {
-				t.setSelected(false);
-			}
-		}
+		logics.addThingLogic(RotatingOffsetLogic.class);
 	}
 
 	@Override
@@ -54,26 +37,27 @@ public class ClickSelectionLogic extends AbstractThingLogic implements IBNAMouse
 			IHasMutableSelected selectableThing = Assemblies.getEditableThing(model, firstOrNull(t),
 					IHasMutableSelected.class, IHasMutableSelected.USER_MAY_SELECT);
 			if (selectableThing != null) {
+				setWorldWithSelectionFocus(world);
 				boolean controlPressed = BNAUtils.wasControlPressed(evt);
 				boolean shiftPressed = BNAUtils.wasShiftPressed(evt);
 
 				if (!controlPressed && !shiftPressed) {
-					//Only deselect everything if the thing we're clicking on is not selected
+					// Only deselect everything if the thing we're clicking on is not selected
 					if (!selectableThing.isSelected()) {
-						removeAllSelections();
+						unselectAllThings();
 					}
 					selectableThing.setSelected(true);
 				}
 				else if (controlPressed && !shiftPressed) {
-					//Toggle selection
+					// Toggle selection
 					selectableThing.setSelected(!selectableThing.isSelected());
 				}
 				else if (shiftPressed && !controlPressed) {
-					//Add to selection
+					// Add to selection
 					selectableThing.setSelected(true);
 				}
 				else if (shiftPressed && controlPressed) {
-					//Subtract from selection
+					// Subtract from selection
 					selectableThing.setSelected(false);
 				}
 				return;
@@ -83,7 +67,8 @@ public class ClickSelectionLogic extends AbstractThingLogic implements IBNAMouse
 				boolean shiftPressed = BNAUtils.wasShiftPressed(evt);
 
 				if (!controlPressed && !shiftPressed) {
-					removeAllSelections();
+					setWorldWithSelectionFocus(world);
+					unselectAllThings();
 				}
 			}
 		}
@@ -100,22 +85,23 @@ public class ClickSelectionLogic extends AbstractThingLogic implements IBNAMouse
 		 * something not selectable, then we clear the selection.
 		 */
 		if (things.isEmpty()) {
-			removeAllSelections();
+			setWorldWithSelectionFocus(world);
+			unselectAllThings();
 		}
 		else {
-			IHasMutableSelected mst = Assemblies.getEditableThing(model, firstOrNull(things),
-					IHasMutableSelected.class, IHasMutableSelected.USER_MAY_SELECT);
+			setWorldWithSelectionFocus(world);
+			IHasMutableSelected mst = Assemblies.getEditableThing(model, firstOrNull(things), IHasMutableSelected.class,
+					IHasMutableSelected.USER_MAY_SELECT);
 			if (mst != null) {
-
 				if (!mst.isSelected()) {
-					removeAllSelections();
+					unselectAllThings();
 				}
 				mst.setSelected(true);
 
 				return;
 			}
 
-			removeAllSelections();
+			unselectAllThings();
 		}
 	}
 }

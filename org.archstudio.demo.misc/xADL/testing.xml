@@ -91,8 +91,10 @@
     </statechart_1_0:transition>
     <statechart_1_0:transition statechart_1_0:id="transitionffffff8e-87525784-aaad4c67-08db0003"
         statechart_1_0:name="[New Transition]">
+      <statechart_1_0:from>stateffffffec-cbca9d58-26b94c1f-5f910003</statechart_1_0:from>
+      <statechart_1_0:to>stateffffff8e-35bc9965-a06460bd-b4a90001</statechart_1_0:to>
       <statechart_1_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:hint="java.awt.geom.Point2D:1,4645040803167600640,4641611926178579921"
+        <hints_3_0:hint hints_3_0:hint="java.awt.geom.Point2D:1,4645040803167600641,4641467100425650973"
             hints_3_0:name="endpoint1"/>
         <hints_3_0:hint hints_3_0:hint="java.awt.geom.Point2D:1,4647151865492930560,4641611926178579921"
             hints_3_0:name="endpoint2"/>
@@ -100,8 +102,10 @@
     </statechart_1_0:transition>
     <statechart_1_0:transition statechart_1_0:id="transitionffffff8e-87528a26-625eaeec-08db0004"
         statechart_1_0:name="[New Transition]">
+      <statechart_1_0:from>stateffffff8e-35bc9965-a06460bd-b4a90001</statechart_1_0:from>
+      <statechart_1_0:to>stateffffffec-cbca9d58-26b94c1f-5f910003</statechart_1_0:to>
       <statechart_1_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:hint="java.awt.geom.Point2D:1,4647151865492930560,4641995755692276271"
+        <hints_3_0:hint hints_3_0:hint="java.awt.geom.Point2D:1,4647151865492930560,4642140581445205225"
             hints_3_0:name="endpoint1"/>
         <hints_3_0:hint hints_3_0:hint="java.awt.geom.Point2D:1,4645040803167600640,4641995755692276271"
             hints_3_0:name="endpoint2"/>
