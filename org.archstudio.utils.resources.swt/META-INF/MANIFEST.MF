@@ -12,4 +12,5 @@ Require-Bundle: org.archstudio.guava;visibility:=reexport,
  org.archstudio.utils.resources;visibility:=reexport,
  org.archstudio.utils.system;visibility:=reexport,
  org.eclipse.core.runtime;visibility:=reexport,
- org.eclipse.swt;visibility:=reexport
+ org.eclipse.swt;visibility:=reexport,
+ org.eclipse.jface;visibility:=reexport

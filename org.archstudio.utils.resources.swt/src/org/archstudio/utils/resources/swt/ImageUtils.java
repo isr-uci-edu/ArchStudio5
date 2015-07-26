@@ -6,6 +6,8 @@ import java.util.Map;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Display;
 
@@ -24,6 +26,7 @@ import com.google.common.collect.Maps;
 public class ImageUtils {
   /** Mapping from class to icon. */
   private static final Map<Class<?>, URL> typeToIcon16Url = Maps.newHashMap();
+
   static {
     // Read plug-in extensions and populate typeToIcon16Url.
     IExtensionRegistry reg = Platform.getExtensionRegistry();
@@ -115,5 +118,18 @@ public class ImageUtils {
       return imageCache.getUnchecked(display).getUnchecked(url);
     }
     return null;
+  }
+
+  /**
+   * Like {@link ImageDescriptor#createFromImage(Image)}, except returns <code>null</code> if the
+   * image is <code>null</code>. Useful, for example, for returning {@link ImageDescriptor}s from
+   * {@link IAction#getImageDescriptor()}.
+   * 
+   * @param image The image from which to get the image descriptor.
+   * @return an {@link ImageDescriptor} for the provided image, or <code>null</code> if the image
+   *         was <code>null</code>.
+   */
+  public static final ImageDescriptor toImageDescriptor(Image image) {
+    return image != null ? ImageDescriptor.createFromImage(image) : null;
   }
 }
