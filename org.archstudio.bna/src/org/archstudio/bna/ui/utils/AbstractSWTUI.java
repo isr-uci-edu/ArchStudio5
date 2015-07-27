@@ -144,10 +144,23 @@ public abstract class AbstractSWTUI extends AbstractBNAUI implements IBNAUI {
 	}
 
 	class SWTMenuDetectListener implements MenuDetectListener {
+		/**
+		 * On Cocoa the menu appears twice. To prevent this, we filter out a second menu attempt immediately after the
+		 * first.
+		 */
+		private long lastMenuTimeMillis = System.currentTimeMillis() - 250;
 
 		@Override
 		public void menuDetected(MenuDetectEvent e) {
-			menuEventSWT(e);
+			if (System.currentTimeMillis() - lastMenuTimeMillis <= 100) {
+				return;
+			}
+			try {
+				menuEventSWT(e);
+			}
+			finally {
+				lastMenuTimeMillis = System.currentTimeMillis();
+			}
 		}
 	}
 
