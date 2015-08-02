@@ -2,13 +2,9 @@ package org.archstudio.utils.eclipse.jdt;
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
-
-import javax.xml.parsers.SAXParserFactory;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -17,6 +13,7 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IJavaProject;
@@ -28,20 +25,18 @@ import org.eclipse.jdt.core.dom.ASTRequestor;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.formatter.CodeFormatter;
 import org.eclipse.jdt.core.refactoring.CompilationUnitChange;
+import org.eclipse.jdt.internal.corext.fix.CleanUpConstants;
 import org.eclipse.jdt.internal.ui.JavaPlugin;
-import org.eclipse.jdt.internal.ui.fix.CodeFormatCleanUp;
 import org.eclipse.jdt.ui.cleanup.CleanUpContext;
 import org.eclipse.jdt.ui.cleanup.CleanUpOptions;
 import org.eclipse.jdt.ui.cleanup.ICleanUp;
 import org.eclipse.jdt.ui.cleanup.ICleanUpFix;
 import org.eclipse.ltk.core.refactoring.RefactoringStatus;
 import org.eclipse.text.edits.TextEdit;
-import org.xml.sax.Attributes;
-import org.xml.sax.SAXException;
-import org.xml.sax.helpers.DefaultHandler;
+import org.osgi.service.prefs.BackingStoreException;
+import org.osgi.service.prefs.Preferences;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import com.google.common.primitives.Ints;
 
 @SuppressWarnings({ "restriction", "unchecked" })
@@ -70,6 +65,24 @@ public class CodeGeneration {
 		formatCode(file.getProject(), Arrays.asList(file));
 	}
 
+	@SuppressWarnings("unused")
+	private static void dump(Preferences preferences, int indent) throws BackingStoreException {
+		char[] indentSpaceChars = new char[indent];
+		Arrays.fill(indentSpaceChars, ' ');
+		String indentSpace = new String(indentSpaceChars);
+		List<String> children = Arrays.asList(preferences.childrenNames());
+		Collections.sort(children);
+		for (String child : children) {
+			System.err.println(indentSpace + "* " + child);
+			dump(preferences.node(child), indent + 2);
+		}
+		List<String> keys = Arrays.asList(preferences.keys());
+		Collections.sort(keys);
+		for (String key : keys) {
+			System.err.println(indentSpace + "- " + key + " = " + preferences.get(key, "[]"));
+		}
+	}
+
 	public static void formatCode(IProject project, List<IFile> files) throws CoreException {
 		Collection<ICompilationUnit> cus = Lists.newArrayList();
 		Collection<ICompilationUnit> cuWorkingCopies = Lists.newArrayList();
@@ -85,36 +98,7 @@ public class CodeGeneration {
 				}
 				cus.add(cu);
 			}
-			SAXParserFactory factory = SAXParserFactory.newInstance();
-
-			// get cleanup options
-			CleanUpOptions cuOptions = new CleanUpOptions();
-			{
-				final Map<String, String> options = new HashMap<String, String>();
-				try {
-					factory.newSAXParser().parse(
-							CodeGeneration.class.getResourceAsStream("ArchStudio Clean Up 4.5 Google.xml"),
-							new DefaultHandler() {
-
-								@Override
-								public void startElement(String uri, String localName, String qName,
-										Attributes attributes) throws SAXException {
-									if ("setting".equals(qName)) {
-										options.put(attributes.getValue("id"), attributes.getValue("value"));
-									}
-								}
-							});
-				}
-				catch (Exception e) {
-				}
-				for (Entry<String, String> e : options.entrySet()) {
-					cuOptions.setOption(e.getKey(), e.getValue());
-				}
-			}
-
-			// get compiler options
-			final Map<String, String> compilerOptions = Maps.newHashMap(JavaCore.getOptions());
-			// put some defaults
+			Map<String, String> compilerOptions = javaProject.getOptions(true);
 			compilerOptions.put(JavaCore.COMPILER_SOURCE, JavaCore.VERSION_1_7);
 			compilerOptions.put(JavaCore.COMPILER_COMPLIANCE, JavaCore.VERSION_1_7);
 			compilerOptions.put(JavaCore.COMPILER_CODEGEN_TARGET_PLATFORM, JavaCore.VERSION_1_7);
@@ -124,36 +108,20 @@ public class CodeGeneration {
 			compilerOptions.put(JavaCore.COMPILER_PB_SUPPRESS_WARNINGS, JavaCore.DISABLED);
 			compilerOptions.put(JavaCore.COMPILER_PB_SUPPRESS_OPTIONAL_ERRORS, JavaCore.DISABLED);
 			compilerOptions.put(JavaCore.COMPILER_PB_MAX_PER_UNIT, "0");
-			{
-				// read settings from format file
-				try {
-					factory.newSAXParser().parse(
-							CodeGeneration.class.getResourceAsStream("ArchStudio Code Formatting 4.5 Google.xml"),
-							new DefaultHandler() {
 
-								@Override
-								public void startElement(String uri, String localName, String qName,
-										Attributes attributes) throws SAXException {
-									if ("setting".equals(qName)) {
-										compilerOptions.put(attributes.getValue("id"), attributes.getValue("value"));
-									}
-								}
-							});
-				}
-				catch (Exception e) {
-					e.printStackTrace();
-				}
+			CleanUpOptions cuOptions = JavaPlugin.getDefault().getCleanUpRegistry()
+					.getDefaultOptions(CleanUpConstants.DEFAULT_SAVE_ACTION_OPTIONS);
+			// dump(Platform.getPreferencesService().getRootNode(), 0);
+			for (String key : Lists.newArrayList(cuOptions.getKeys())) {
+				String value = Platform.getPreferencesService().getRootNode().node("instance")
+						.node(JavaPlugin.getPluginId()).get(key, cuOptions.getValue(key));
+				cuOptions.setOption(key, value);
 			}
 
 			// iterate through cleanups
 			{
 				final List<ICleanUp> cleanups =
 						Lists.newArrayList(JavaPlugin.getDefault().getCleanUpRegistry().createCleanUps());
-				for (Iterator<ICleanUp> i = cleanups.iterator(); i.hasNext();) {
-					if (i.next() instanceof CodeFormatCleanUp) {
-						i.remove(); // we do this later
-					}
-				}
 
 				for (final ICleanUp cleanup : cleanups) {
 					try {
@@ -216,8 +184,16 @@ public class CodeGeneration {
 
 			// format files
 			{
+				// dump(Platform.getPreferencesService().getRootNode(), 0);
+				Map<String, String> formatterOptions = JavaCore.getOptions();
+				for (String key : Lists.newArrayList(formatterOptions.keySet())) {
+					String value = Platform.getPreferencesService().getRootNode().node("project")
+							.node(project.getName()).node("org.eclipse.jdt.core").get(key, formatterOptions.get(key));
+					formatterOptions.put(key, value);
+				}
+
 				CodeFormatter codeFormatter =
-						ToolFactory.createCodeFormatter(compilerOptions, ToolFactory.M_FORMAT_NEW);
+						ToolFactory.createCodeFormatter(formatterOptions, ToolFactory.M_FORMAT_NEW);
 				for (ICompilationUnit cu : cus) {
 					String contents = cu.getBuffer().getContents();
 					for (int kind : Ints.asList(CodeFormatter.K_COMPILATION_UNIT | CodeFormatter.F_INCLUDE_COMMENTS)) {

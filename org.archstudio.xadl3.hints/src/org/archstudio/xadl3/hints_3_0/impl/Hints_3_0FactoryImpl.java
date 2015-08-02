@@ -19,105 +19,105 @@ import org.eclipse.emf.ecore.plugin.EcorePlugin;
  * @generated
  */
 public class Hints_3_0FactoryImpl extends EFactoryImpl implements Hints_3_0Factory {
-  /**
-   * Creates the default factory implementation. <!-- begin-user-doc --> <!-- end-user-doc -->
-   * 
-   * @generated
-   */
-  public static Hints_3_0Factory init() {
-    try {
-      Hints_3_0Factory theHints_3_0Factory =
-          (Hints_3_0Factory) EPackage.Registry.INSTANCE.getEFactory(Hints_3_0Package.eNS_URI);
-      if (theHints_3_0Factory != null) {
-        return theHints_3_0Factory;
-      }
-    } catch (Exception exception) {
-      EcorePlugin.INSTANCE.log(exception);
-    }
-    return new Hints_3_0FactoryImpl();
-  }
+	/**
+	 * Creates the default factory implementation. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public static Hints_3_0Factory init() {
+		try {
+			Hints_3_0Factory theHints_3_0Factory =
+					(Hints_3_0Factory) EPackage.Registry.INSTANCE.getEFactory(Hints_3_0Package.eNS_URI);
+			if (theHints_3_0Factory != null) {
+				return theHints_3_0Factory;
+			}
+		}
+		catch (Exception exception) {
+			EcorePlugin.INSTANCE.log(exception);
+		}
+		return new Hints_3_0FactoryImpl();
+	}
 
-  /**
-   * Creates an instance of the factory. <!-- begin-user-doc --> <!-- end-user-doc -->
-   * 
-   * @generated
-   */
-  public Hints_3_0FactoryImpl() {
-    super();
-  }
+	/**
+	 * Creates an instance of the factory. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public Hints_3_0FactoryImpl() {
+		super();
+	}
 
-  /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   * 
-   * @generated
-   */
-  @Override
-  public EObject create(EClass eClass) {
-    switch (eClass.getClassifierID()) {
-      case Hints_3_0Package.HINT:
-        return createHint();
-      case Hints_3_0Package.HINTS_EXTENSION:
-        return createHintsExtension();
-      case Hints_3_0Package.VALUE:
-        return createValue();
-      default:
-        throw new IllegalArgumentException(
-            "The class '" + eClass.getName() + "' is not a valid classifier");
-    }
-  }
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
+	public EObject create(EClass eClass) {
+		switch (eClass.getClassifierID()) {
+		case Hints_3_0Package.HINT:
+			return createHint();
+		case Hints_3_0Package.HINTS_EXTENSION:
+			return createHintsExtension();
+		case Hints_3_0Package.VALUE:
+			return createValue();
+		default:
+			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+		}
+	}
 
-  /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   * 
-   * @generated
-   */
-  @Override
-  public Hint createHint() {
-    HintImpl hint = new HintImpl();
-    return hint;
-  }
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
+	public Hint createHint() {
+		HintImpl hint = new HintImpl();
+		return hint;
+	}
 
-  /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   * 
-   * @generated
-   */
-  @Override
-  public HintsExtension createHintsExtension() {
-    HintsExtensionImpl hintsExtension = new HintsExtensionImpl();
-    return hintsExtension;
-  }
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
+	public HintsExtension createHintsExtension() {
+		HintsExtensionImpl hintsExtension = new HintsExtensionImpl();
+		return hintsExtension;
+	}
 
-  /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   * 
-   * @generated
-   */
-  @Override
-  public Value createValue() {
-    ValueImpl value = new ValueImpl();
-    return value;
-  }
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
+	public Value createValue() {
+		ValueImpl value = new ValueImpl();
+		return value;
+	}
 
-  /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   * 
-   * @generated
-   */
-  @Override
-  public Hints_3_0Package getHints_3_0Package() {
-    return (Hints_3_0Package) getEPackage();
-  }
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
+	public Hints_3_0Package getHints_3_0Package() {
+		return (Hints_3_0Package) getEPackage();
+	}
 
-  /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   * 
-   * @deprecated
-   * @generated
-   */
-  @Deprecated
-  public static Hints_3_0Package getPackage() {
-    return Hints_3_0Package.eINSTANCE;
-  }
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @deprecated
+	 * @generated
+	 */
+	@Deprecated
+	public static Hints_3_0Package getPackage() {
+		return Hints_3_0Package.eINSTANCE;
+	}
 
 } // Hints_3_0FactoryImpl

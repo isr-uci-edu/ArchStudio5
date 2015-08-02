@@ -17,8 +17,8 @@ import net.gexf_1_2.gexf.AttvaluesContent;
 import net.gexf_1_2.gexf.GexfPackage;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object '<em><b>Attvalues Content</b></em>
- * '. <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '<em><b>Attvalues Content</b></em>'. <!-- end-user-doc
+ * -->
  * <p>
  * The following features are implemented:
  * </p>
@@ -29,122 +29,121 @@ import net.gexf_1_2.gexf.GexfPackage;
  * @generated
  */
 public class AttvaluesContentImpl extends MinimalEObjectImpl.Container implements AttvaluesContent {
-  /**
-   * The cached value of the '{@link #getAttvalue() <em>Attvalue</em>}' containment reference list.
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   * 
-   * @see #getAttvalue()
-   * @generated
-   * @ordered
-   */
-  protected EList<AttvalueType> attvalue;
+	/**
+	 * The cached value of the '{@link #getAttvalue() <em>Attvalue</em>}' containment reference list. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @see #getAttvalue()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<AttvalueType> attvalue;
 
-  /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   * 
-   * @generated
-   */
-  protected AttvaluesContentImpl() {
-    super();
-  }
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	protected AttvaluesContentImpl() {
+		super();
+	}
 
-  /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   * 
-   * @generated
-   */
-  @Override
-  protected EClass eStaticClass() {
-    return GexfPackage.Literals.ATTVALUES_CONTENT;
-  }
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
+	protected EClass eStaticClass() {
+		return GexfPackage.Literals.ATTVALUES_CONTENT;
+	}
 
-  /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   * 
-   * @generated
-   */
-  @Override
-  public EList<AttvalueType> getAttvalue() {
-    if (attvalue == null) {
-      attvalue = new EObjectContainmentEList<AttvalueType>(AttvalueType.class, this,
-          GexfPackage.ATTVALUES_CONTENT__ATTVALUE);
-    }
-    return attvalue;
-  }
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
+	public EList<AttvalueType> getAttvalue() {
+		if (attvalue == null) {
+			attvalue = new EObjectContainmentEList<AttvalueType>(AttvalueType.class, this,
+					GexfPackage.ATTVALUES_CONTENT__ATTVALUE);
+		}
+		return attvalue;
+	}
 
-  /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   * 
-   * @generated
-   */
-  @Override
-  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID,
-      NotificationChain msgs) {
-    switch (featureID) {
-      case GexfPackage.ATTVALUES_CONTENT__ATTVALUE:
-        return ((InternalEList<?>) getAttvalue()).basicRemove(otherEnd, msgs);
-    }
-    return super.eInverseRemove(otherEnd, featureID, msgs);
-  }
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+		case GexfPackage.ATTVALUES_CONTENT__ATTVALUE:
+			return ((InternalEList<?>) getAttvalue()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
 
-  /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   * 
-   * @generated
-   */
-  @Override
-  public Object eGet(int featureID, boolean resolve, boolean coreType) {
-    switch (featureID) {
-      case GexfPackage.ATTVALUES_CONTENT__ATTVALUE:
-        return getAttvalue();
-    }
-    return super.eGet(featureID, resolve, coreType);
-  }
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
+		case GexfPackage.ATTVALUES_CONTENT__ATTVALUE:
+			return getAttvalue();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
 
-  /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   * 
-   * @generated
-   */
-  @SuppressWarnings("unchecked")
-  @Override
-  public void eSet(int featureID, Object newValue) {
-    switch (featureID) {
-      case GexfPackage.ATTVALUES_CONTENT__ATTVALUE:
-        getAttvalue().clear();
-        getAttvalue().addAll((Collection<? extends AttvalueType>) newValue);
-        return;
-    }
-    super.eSet(featureID, newValue);
-  }
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
+		case GexfPackage.ATTVALUES_CONTENT__ATTVALUE:
+			getAttvalue().clear();
+			getAttvalue().addAll((Collection<? extends AttvalueType>) newValue);
+			return;
+		}
+		super.eSet(featureID, newValue);
+	}
 
-  /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   * 
-   * @generated
-   */
-  @Override
-  public void eUnset(int featureID) {
-    switch (featureID) {
-      case GexfPackage.ATTVALUES_CONTENT__ATTVALUE:
-        getAttvalue().clear();
-        return;
-    }
-    super.eUnset(featureID);
-  }
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
+	public void eUnset(int featureID) {
+		switch (featureID) {
+		case GexfPackage.ATTVALUES_CONTENT__ATTVALUE:
+			getAttvalue().clear();
+			return;
+		}
+		super.eUnset(featureID);
+	}
 
-  /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   * 
-   * @generated
-   */
-  @Override
-  public boolean eIsSet(int featureID) {
-    switch (featureID) {
-      case GexfPackage.ATTVALUES_CONTENT__ATTVALUE:
-        return attvalue != null && !attvalue.isEmpty();
-    }
-    return super.eIsSet(featureID);
-  }
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+		case GexfPackage.ATTVALUES_CONTENT__ATTVALUE:
+			return attvalue != null && !attvalue.isEmpty();
+		}
+		return super.eIsSet(featureID);
+	}
 
 } // AttvaluesContentImpl

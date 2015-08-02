@@ -17,79 +17,78 @@ import org.w3.xlink.XlinkPackage;
  * @generated
  */
 public class XlinkFactoryImpl extends EFactoryImpl implements XlinkFactory {
-  /**
-   * Creates the default factory implementation. <!-- begin-user-doc --> <!-- end-user-doc -->
-   * 
-   * @generated
-   */
-  public static XlinkFactory init() {
-    try {
-      XlinkFactory theXlinkFactory =
-          (XlinkFactory) EPackage.Registry.INSTANCE.getEFactory(XlinkPackage.eNS_URI);
-      if (theXlinkFactory != null) {
-        return theXlinkFactory;
-      }
-    } catch (Exception exception) {
-      EcorePlugin.INSTANCE.log(exception);
-    }
-    return new XlinkFactoryImpl();
-  }
+	/**
+	 * Creates the default factory implementation. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public static XlinkFactory init() {
+		try {
+			XlinkFactory theXlinkFactory = (XlinkFactory) EPackage.Registry.INSTANCE.getEFactory(XlinkPackage.eNS_URI);
+			if (theXlinkFactory != null) {
+				return theXlinkFactory;
+			}
+		}
+		catch (Exception exception) {
+			EcorePlugin.INSTANCE.log(exception);
+		}
+		return new XlinkFactoryImpl();
+	}
 
-  /**
-   * Creates an instance of the factory. <!-- begin-user-doc --> <!-- end-user-doc -->
-   * 
-   * @generated
-   */
-  public XlinkFactoryImpl() {
-    super();
-  }
+	/**
+	 * Creates an instance of the factory. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public XlinkFactoryImpl() {
+		super();
+	}
 
-  /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   * 
-   * @generated
-   */
-  @Override
-  public EObject create(EClass eClass) {
-    switch (eClass.getClassifierID()) {
-      case XlinkPackage.DOCUMENT_ROOT:
-        return createDocumentRoot();
-      default:
-        throw new IllegalArgumentException(
-            "The class '" + eClass.getName() + "' is not a valid classifier");
-    }
-  }
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
+	public EObject create(EClass eClass) {
+		switch (eClass.getClassifierID()) {
+		case XlinkPackage.DOCUMENT_ROOT:
+			return createDocumentRoot();
+		default:
+			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+		}
+	}
 
-  /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   * 
-   * @generated
-   */
-  @Override
-  public DocumentRoot createDocumentRoot() {
-    DocumentRootImpl documentRoot = new DocumentRootImpl();
-    return documentRoot;
-  }
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
+	public DocumentRoot createDocumentRoot() {
+		DocumentRootImpl documentRoot = new DocumentRootImpl();
+		return documentRoot;
+	}
 
-  /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   * 
-   * @generated
-   */
-  @Override
-  public XlinkPackage getXlinkPackage() {
-    return (XlinkPackage) getEPackage();
-  }
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
+	public XlinkPackage getXlinkPackage() {
+		return (XlinkPackage) getEPackage();
+	}
 
-  /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   * 
-   * @deprecated
-   * @generated
-   */
-  @Deprecated
-  public static XlinkPackage getPackage() {
-    return XlinkPackage.eINSTANCE;
-  }
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @deprecated
+	 * @generated
+	 */
+	@Deprecated
+	public static XlinkPackage getPackage() {
+		return XlinkPackage.eINSTANCE;
+	}
 
 } // XlinkFactoryImpl

@@ -16,82 +16,81 @@ import org.eclipse.emf.ecore.plugin.EcorePlugin;
  * 
  * @generated
  */
-public class Osgiimplementation_3_0FactoryImpl extends EFactoryImpl
-    implements Osgiimplementation_3_0Factory {
-  /**
-   * Creates the default factory implementation. <!-- begin-user-doc --> <!-- end-user-doc -->
-   * 
-   * @generated
-   */
-  public static Osgiimplementation_3_0Factory init() {
-    try {
-      Osgiimplementation_3_0Factory theOsgiimplementation_3_0Factory =
-          (Osgiimplementation_3_0Factory) EPackage.Registry.INSTANCE
-              .getEFactory(Osgiimplementation_3_0Package.eNS_URI);
-      if (theOsgiimplementation_3_0Factory != null) {
-        return theOsgiimplementation_3_0Factory;
-      }
-    } catch (Exception exception) {
-      EcorePlugin.INSTANCE.log(exception);
-    }
-    return new Osgiimplementation_3_0FactoryImpl();
-  }
+public class Osgiimplementation_3_0FactoryImpl extends EFactoryImpl implements Osgiimplementation_3_0Factory {
+	/**
+	 * Creates the default factory implementation. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public static Osgiimplementation_3_0Factory init() {
+		try {
+			Osgiimplementation_3_0Factory theOsgiimplementation_3_0Factory =
+					(Osgiimplementation_3_0Factory) EPackage.Registry.INSTANCE
+							.getEFactory(Osgiimplementation_3_0Package.eNS_URI);
+			if (theOsgiimplementation_3_0Factory != null) {
+				return theOsgiimplementation_3_0Factory;
+			}
+		}
+		catch (Exception exception) {
+			EcorePlugin.INSTANCE.log(exception);
+		}
+		return new Osgiimplementation_3_0FactoryImpl();
+	}
 
-  /**
-   * Creates an instance of the factory. <!-- begin-user-doc --> <!-- end-user-doc -->
-   * 
-   * @generated
-   */
-  public Osgiimplementation_3_0FactoryImpl() {
-    super();
-  }
+	/**
+	 * Creates an instance of the factory. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public Osgiimplementation_3_0FactoryImpl() {
+		super();
+	}
 
-  /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   * 
-   * @generated
-   */
-  @Override
-  public EObject create(EClass eClass) {
-    switch (eClass.getClassifierID()) {
-      case Osgiimplementation_3_0Package.OS_GI_IMPLEMENTATION:
-        return createOSGiImplementation();
-      default:
-        throw new IllegalArgumentException(
-            "The class '" + eClass.getName() + "' is not a valid classifier");
-    }
-  }
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
+	public EObject create(EClass eClass) {
+		switch (eClass.getClassifierID()) {
+		case Osgiimplementation_3_0Package.OS_GI_IMPLEMENTATION:
+			return createOSGiImplementation();
+		default:
+			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+		}
+	}
 
-  /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   * 
-   * @generated
-   */
-  @Override
-  public OSGiImplementation createOSGiImplementation() {
-    OSGiImplementationImpl osGiImplementation = new OSGiImplementationImpl();
-    return osGiImplementation;
-  }
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
+	public OSGiImplementation createOSGiImplementation() {
+		OSGiImplementationImpl osGiImplementation = new OSGiImplementationImpl();
+		return osGiImplementation;
+	}
 
-  /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   * 
-   * @generated
-   */
-  @Override
-  public Osgiimplementation_3_0Package getOsgiimplementation_3_0Package() {
-    return (Osgiimplementation_3_0Package) getEPackage();
-  }
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
+	public Osgiimplementation_3_0Package getOsgiimplementation_3_0Package() {
+		return (Osgiimplementation_3_0Package) getEPackage();
+	}
 
-  /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   * 
-   * @deprecated
-   * @generated
-   */
-  @Deprecated
-  public static Osgiimplementation_3_0Package getPackage() {
-    return Osgiimplementation_3_0Package.eINSTANCE;
-  }
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @deprecated
+	 * @generated
+	 */
+	@Deprecated
+	public static Osgiimplementation_3_0Package getPackage() {
+		return Osgiimplementation_3_0Package.eINSTANCE;
+	}
 
 } // Osgiimplementation_3_0FactoryImpl
