@@ -66,7 +66,7 @@ public class AnchoredLabelThingPeer<T extends AnchoredLabelThing> extends Abstra
 			Point2D lap = cm.worldToLocal(ap);
 			Point2D lip = ip != null ? cm.worldToLocal(ip) : null;
 			int lfontsize = (int) (t.getRawFontSize() * cm.getLocalScale());
-			Font lfont = lfontsize > 0 ? r.getFont(t.getRawFontName(), t.getRawFontStyle(), lfontsize) : null;
+			Font lfont = lfontsize > 2 ? r.getFont(t.getRawFontName(), t.getRawFontStyle(), lfontsize) : null;
 			Dimension lsize = lfont == null ? new Dimension(0, 0) : r.getTextSize(lfont, text);
 			double loffsetX = -lsize.width / 2d + horizontal.getDelta() * (lsize.width / 2d);
 			double loffsetY = -lsize.height / 2d + vertical.getDelta() * (lsize.height / 2d);
