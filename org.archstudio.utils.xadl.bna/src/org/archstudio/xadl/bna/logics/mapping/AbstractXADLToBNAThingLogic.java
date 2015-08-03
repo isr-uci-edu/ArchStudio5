@@ -14,6 +14,7 @@ import org.archstudio.bna.keys.IThingKey;
 import org.archstudio.bna.keys.IThingRefKey;
 import org.archstudio.bna.keys.ThingKey;
 import org.archstudio.bna.logics.AbstractThingLogic;
+import org.archstudio.bna.logics.events.ProxyLogic;
 import org.archstudio.bna.logics.hints.SynchronizeHintsLogic;
 import org.archstudio.bna.logics.tracking.ThingValueTrackingLogic;
 import org.archstudio.bna.utils.Assemblies;
@@ -35,7 +36,7 @@ import com.google.common.collect.Lists;
  * Synchronizes a xADL ObjRef with a single BNA Assembly (or plain Thing). Changes to the xADL ObjRef and its children
  * will be reflected in the BNA Assembly, and changes to things in the BNA Assembly will be reflected in the xADL
  * ObjRef. This class facilitates the synchronization by preventing update cycles.
- * 
+ *
  * @param <T>
  *            The type of BNA Assembly/Thing that will be created by this class to represent targeted ObjRefs, see
  *            {@link #addThing(List, ObjRef)}
@@ -73,6 +74,7 @@ public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends Abst
 		BNAUtils.checkLock();
 
 		super.init();
+		logics.addThingLogic(ProxyLogic.class).getProxyForInterface(IXArchADTModelListener.class);
 		tracker.startScanning();
 	}
 
@@ -193,7 +195,7 @@ public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends Abst
 	 * Creates the BNA Assembly that represents the given ObjRef. Note that this class should merely create the assembly
 	 * and not configure it with information from the ObjRef, that functionality is reserved for
 	 * {@link #updateThing(List, XArchADTPath, ObjRef, XArchADTModelEvent, IThing)}
-	 * 
+	 *
 	 * @param relativeLineageRefs
 	 *            The ObjRefs from the rootObjRef to the objRef
 	 * @param objRef
@@ -208,7 +210,7 @@ public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends Abst
 	 * Updates the Thing returned from {@link #addThing(List, ObjRef)} to reflect information stored in the ObjRef and
 	 * its children. This will be called upon initial creation of the BNA Assembly, and when the ObjRef or its children
 	 * are modified.
-	 * 
+	 *
 	 * @param relativeLineageRefs
 	 *            The ObjRefs from the rootObjRef to the objRef
 	 * @param relativePath
@@ -229,7 +231,7 @@ public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends Abst
 	/**
 	 * Updates the ObjRef to reflect information in the BNA Assembly returned from {@link #addThing(List, ObjRef)}. This
 	 * will be called when the BNA Assembly's root thing or any of its parts are modified.
-	 * 
+	 *
 	 * @param objRef
 	 *            The objRef corresponding to the BNA Assembly
 	 * @param thing
