@@ -845,15 +845,19 @@ public class BNAUtils {
 		double closestDistanceSq = Double.POSITIVE_INFINITY;
 		Point2D closestIntersection = new Point2D.Double(refX, refY);
 		{
+			Point2D closePoint = new Point2D.Double();
 			Point2D lastPoint = new Point2D.Double();
 			Line2D lineSegment = new Line2D.Double();
 			for (PathIterator i = shape.getPathIterator(new AffineTransform(), 0.5f); !i.isDone(); i.next()) {
 				switch (i.currentSegment(coords)) {
 				case PathIterator.SEG_MOVETO:
+					closePoint.setLocation(coords[0], coords[1]);
 					lastPoint.setLocation(coords[0], coords[1]);
 					continue;
 				case PathIterator.SEG_CLOSE:
-					continue;
+					lineSegment.setLine(closePoint.getX(), closePoint.getY(), coords[0], coords[1]);
+					lastPoint.setLocation(coords[0], coords[1]);
+					break;
 				case PathIterator.SEG_LINETO:
 					lineSegment.setLine(lastPoint.getX(), lastPoint.getY(), coords[0], coords[1]);
 					lastPoint.setLocation(coords[0], coords[1]);
