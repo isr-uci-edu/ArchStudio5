@@ -48,7 +48,7 @@ public class MapInitialStateLogic extends AbstractXADLToBNAPathLogic<EllipseThin
 	}
 
 	@Override
-	protected EllipseThing addThing(List<ObjRef> relLineageRefs, ObjRef objRef) {
+	protected EllipseThing addThing(List<ObjRef> descendantRefs, ObjRef objRef) {
 
 		Point newPointSpot = ArchipelagoUtils.findOpenSpotForNewThing(world);
 

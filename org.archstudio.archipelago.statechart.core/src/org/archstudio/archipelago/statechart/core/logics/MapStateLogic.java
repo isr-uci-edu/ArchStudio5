@@ -145,7 +145,7 @@ public class MapStateLogic extends AbstractXADLToBNAPathLogic<RectangleThing> im
 	}
 
 	@Override
-	protected RectangleThing addThing(List<ObjRef> relLineageRefs, ObjRef objRef) {
+	protected RectangleThing addThing(List<ObjRef> descendantRefs, ObjRef objRef) {
 
 		Point newPointSpot = ArchipelagoUtils.findOpenSpotForNewThing(world);
 

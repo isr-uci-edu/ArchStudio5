@@ -128,7 +128,7 @@ public class MapInterfaceLogic extends AbstractXADLToBNAPathLogic<EndpointThing>
 	}
 
 	@Override
-	protected EndpointThing addThing(List<ObjRef> relLineageRefs, ObjRef objRef) {
+	protected EndpointThing addThing(List<ObjRef> descendantRefs, ObjRef objRef) {
 
 		EndpointThing thing = Assemblies.createEndpoint(world, null, null);
 		thing.setAnchorPoint(BNAUtils.toPoint2D(ArchipelagoUtils.getNewThingSpot(world)));
@@ -144,15 +144,15 @@ public class MapInterfaceLogic extends AbstractXADLToBNAPathLogic<EndpointThing>
 		/*
 		 * restack on top of the thing representing the first ancestor (i.e., the component or connector)
 		 */
-		thing.set(syncLogic.syncObjRefKeyToThingIDKey(reparentLogic.getReparentToThingKey()), relLineageRefs.get(1));
+		thing.set(syncLogic.syncObjRefKeyToThingIDKey(reparentLogic.getReparentToThingKey()), descendantRefs.get(1));
 
 		/* orient to the parent thing */
 		Assemblies.DIRECTION_KEY.get(thing, model).set(
-				syncLogic.syncObjRefKeyToThingIDKey(reorientLogic.getReorientToThingKey()), relLineageRefs.get(1));
+				syncLogic.syncObjRefKeyToThingIDKey(reorientLogic.getReorientToThingKey()), descendantRefs.get(1));
 
 		thing.set(stickLogic.getStickyModeKey(IHasAnchorPoint.ANCHOR_POINT_KEY), StickyMode.EDGE);
 		thing.set(syncLogic.syncObjRefKeyToThingIDKey(stickLogic.getStickyThingKey(IHasAnchorPoint.ANCHOR_POINT_KEY)),
-				relLineageRefs.get(1));
+				descendantRefs.get(1));
 
 		return thing;
 	}

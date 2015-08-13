@@ -1,8 +1,7 @@
 package org.archstudio.xadl;
 
+import java.util.Arrays;
 import java.util.List;
-
-import junit.framework.TestCase;
 
 import org.archstudio.xadl3.domain_3_0.DomainExtension;
 import org.archstudio.xadl3.domain_3_0.Domain_3_0Factory;
@@ -30,6 +29,8 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 
 import com.google.common.collect.Lists;
+
+import junit.framework.TestCase;
 
 public class XArchRelativePathTrackerTest extends TestCase {
 
@@ -89,255 +90,237 @@ public class XArchRelativePathTrackerTest extends TestCase {
 		subStructure.getComponent().add(subComp);
 
 		results = Lists.newArrayList();
-		tracker = new XArchRelativePathTracker(xarch);
+	}
+
+	private void initTracker(ObjRef rootRef, String xPath) {
+		tracker = new XArchRelativePathTracker(xarch, rootRef, xPath, false);
 		tracker.addTrackerListener(new IXArchRelativePathTrackerListener() {
-
 			@Override
-			public void processAdd(List<ObjRef> relLineageRefs, ObjRef objRef) {
-				results.add("A:" + objRef);
+			public void processAdd(List<ObjRef> descendantRefs, ObjRef addedRef) {
+				results.add("A:" + addedRef);
 			}
 
 			@Override
-			public void processUpdate(List<ObjRef> relLineageRefs, String relPath, ObjRef objRef, XArchADTModelEvent evt) {
-				results.add("U:" + objRef);
+			public void processUpdate(List<ObjRef> descendantRefs, String descendantPath, ObjRef modifiedRef,
+					XArchADTModelEvent relativeEvt) {
+				results.add("U:" + modifiedRef + ":" + descendantPath);
 			}
 
 			@Override
-			public void processRemove(List<ObjRef> relLineageRefs, ObjRef objRef) {
+			public void processRemove(List<ObjRef> descendantRefs, ObjRef objRef) {
 				results.add("R:" + objRef);
 			}
 		});
 		((XArchADTImpl) xarch).addXArchADTModelListener(tracker);
+		tracker.startScanning();
 	}
 
-	private static String e(String s, EObject o) {
-		return s + ":" + XArchADTProxy.unproxy(o);
+	private static String a(EObject o) {
+		return "A:" + XArchADTProxy.unproxy(o);
 	}
 
-	private static String a(String... s) {
-		StringBuffer sb = new StringBuffer();
-		for (String s0 : s) {
-			sb.append(s0);
-			sb.append("\n");
-		}
-		return sb.toString();
+	private static String u(EObject o, String path) {
+		return "U:" + XArchADTProxy.unproxy(o) + ":" + path;
 	}
 
-	private void assertEquals(String a) {
-		assertEquals(a, a(results.toArray(new String[results.size()])));
+	private static String r(EObject o) {
+		return "R:" + XArchADTProxy.unproxy(o);
+	}
+
+	private void assertEvents(String... a) {
+		assertEquals(Arrays.asList(a), results);
 	}
 
 	public void testTrack1() {
-		tracker.setTrackInfo(XArchADTProxy.unproxy(structure), "component");
-		tracker.startScanning();
-		assertEquals(a(e("A", comp)));
+		initTracker(XArchADTProxy.unproxy(structure), "component");
+		assertEvents(a(comp));
 
 		structure.getComponent().remove(comp);
-		assertEquals(a(e("A", comp), e("R", comp)));
+		assertEvents(a(comp), r(comp));
 	}
 
 	public void testTrack1Attribute() {
-		tracker.setTrackInfo(XArchADTProxy.unproxy(structure), "component");
-		tracker.startScanning();
+		initTracker(XArchADTProxy.unproxy(structure), "component");
 
-		assertEquals(a(e("A", comp)));
+		assertEvents(a(comp));
 		comp.setId("SomeID");
-		assertEquals(a(e("A", comp), e("U", comp)));
+		assertEvents(a(comp), u(comp, ""));
 		comp.setId(null);
-		assertEquals(a(e("A", comp), e("U", comp), e("U", comp)));
+		assertEvents(a(comp), u(comp, ""), u(comp, ""));
 	}
 
 	public void testTrack1Attribute2() {
-		tracker.setTrackInfo(XArchADTProxy.unproxy(structure), "component");
-		tracker.startScanning();
-		assertEquals(a(e("A", comp)));
+		initTracker(XArchADTProxy.unproxy(structure), "component");
+		assertEvents(a(comp));
 
 		iface.setId(null);
-		assertEquals(a(e("A", comp)));
+		assertEvents(a(comp));
 		iface.setId("SomeID");
-		assertEquals(a(e("A", comp), e("U", comp)));
+		assertEvents(a(comp), u(comp, "interface"));
 	}
 
 	public void testTrack1Attributec() {
-		tracker.setTrackInfo(XArchADTProxy.unproxy(structure), "component");
-		tracker.startScanning();
+		initTracker(XArchADTProxy.unproxy(structure), "component");
 
-		assertEquals(a(e("A", comp)));
+		assertEvents(a(comp));
 		comp.setId("SomeID");
-		assertEquals(a(e("A", comp), e("U", comp)));
+		assertEvents(a(comp), u(comp, ""));
 		xarch.clear(XArchADTProxy.unproxy(comp), "id");
-		assertEquals(a(e("A", comp), e("U", comp), e("U", comp)));
+		assertEvents(a(comp), u(comp, ""), u(comp, ""));
 	}
 
 	public void testTrack1Attribute2c() {
-		tracker.setTrackInfo(XArchADTProxy.unproxy(structure), "component");
-		tracker.startScanning();
-		assertEquals(a(e("A", comp)));
+		initTracker(XArchADTProxy.unproxy(structure), "component");
+		assertEvents(a(comp));
 
 		xarch.clear(XArchADTProxy.unproxy(iface), "id");
-		assertEquals(a(e("A", comp)));
+		assertEvents(a(comp));
 		iface.setId("SomeID");
-		assertEquals(a(e("A", comp), e("U", comp)));
+		assertEvents(a(comp), u(comp, "interface"));
 	}
 
 	public void testTrack1Attribute3() {
-		tracker.setTrackInfo(XArchADTProxy.unproxy(structure), "component");
-		tracker.startScanning();
-		assertEquals(a(e("A", comp)));
+		initTracker(XArchADTProxy.unproxy(structure), "component");
+		assertEvents(a(comp));
 
 		iface.setId("SomeID");
-		assertEquals(a(e("A", comp), e("U", comp)));
+		assertEvents(a(comp), u(comp, "interface"));
 		iface.setId("SomeOtherId");
-		assertEquals(a(e("A", comp), e("U", comp), e("U", comp)));
+		assertEvents(a(comp), u(comp, "interface"), u(comp, "interface"));
 	}
 
 	public void testTrack1Substructure1() {
-		tracker.setTrackInfo(XArchADTProxy.unproxy(structure), "component");
-		tracker.startScanning();
+		initTracker(XArchADTProxy.unproxy(structure), "component");
 
-		assertEquals(a(e("A", comp)));
+		assertEvents(a(comp));
 		comp.setSubStructure(null);
-		assertEquals(a(e("A", comp), e("U", comp)));
+		assertEvents(a(comp), u(comp, ""));
 		comp.setSubStructure(compSubStructure);
-		assertEquals(a(e("A", comp), e("U", comp), e("U", comp)));
-	}
-
-	public void testTrack1Substructure1c() {
-		tracker.setTrackInfo(XArchADTProxy.unproxy(structure), "component");
-		tracker.startScanning();
-
-		assertEquals(a(e("A", comp)));
-		xarch.clear(XArchADTProxy.unproxy(comp), "SubStructure");
-		assertEquals(a(e("A", comp), e("U", comp)));
-		comp.setSubStructure(compSubStructure);
-		assertEquals(a(e("A", comp), e("U", comp), e("U", comp)));
+		assertEvents(a(comp), u(comp, ""), u(comp, ""));
+		compSubStructure.setId("id");
+		assertEvents(a(comp), u(comp, ""), u(comp, ""), u(comp, "subStructure"));
 	}
 
 	public void testTrack1Add1() {
-		tracker.setTrackInfo(XArchADTProxy.unproxy(structure), "component");
-		tracker.startScanning();
-		assertEquals(a(e("A", comp)));
+		initTracker(XArchADTProxy.unproxy(structure), "component");
+		assertEvents(a(comp));
 
 		Component comp2 = structureF.createComponent();
 
 		structure.getComponent().add(comp2);
-		assertEquals(a(e("A", comp), e("A", comp2)));
+		assertEvents(a(comp), a(comp2));
 		structure.getComponent().remove(comp2);
-		assertEquals(a(e("A", comp), e("A", comp2), e("R", comp2)));
+		assertEvents(a(comp), a(comp2), r(comp2));
 	}
 
 	public void testTrack1Add1_2() {
-		tracker.setTrackInfo(XArchADTProxy.unproxy(structure), "component");
-		tracker.startScanning();
-		assertEquals(a(e("A", comp)));
+		initTracker(XArchADTProxy.unproxy(structure), "component");
+		assertEvents(a(comp));
 
 		Component comp2 = structureF.createComponent();
 		Interface iface2 = structureF.createInterface();
 
 		structure.getComponent().add(comp2);
-		assertEquals(a(e("A", comp), e("A", comp2)));
+		assertEvents(a(comp), a(comp2));
 		comp2.getInterface().add(iface2);
-		assertEquals(a(e("A", comp), e("A", comp2), e("U", comp2)));
+		assertEvents(a(comp), a(comp2), u(comp2, ""));
+		iface2.setId("id");
+		assertEvents(a(comp), a(comp2), u(comp2, ""), u(comp2, "interface"));
 		comp2.getInterface().remove(iface2);
-		assertEquals(a(e("A", comp), e("A", comp2), e("U", comp2), e("U", comp2)));
+		assertEvents(a(comp), a(comp2), u(comp2, ""), u(comp2, "interface"), u(comp2, ""));
 		structure.getComponent().remove(comp2);
-		assertEquals(a(e("A", comp), e("A", comp2), e("U", comp2), e("U", comp2), e("R", comp2)));
+		assertEvents(a(comp), a(comp2), u(comp2, ""), u(comp2, "interface"), u(comp2, ""), r(comp2));
 	}
 
 	public void testTrack1Add2_1() {
-		tracker.setTrackInfo(XArchADTProxy.unproxy(structure), "component");
-		tracker.startScanning();
-		assertEquals(a(e("A", comp)));
+		initTracker(XArchADTProxy.unproxy(structure), "component");
+		assertEvents(a(comp));
 
 		Component comp2 = structureF.createComponent();
 		Interface iface2 = structureF.createInterface();
 
 		comp2.getInterface().add(iface2);
-		assertEquals(a(e("A", comp)));
+		assertEvents(a(comp));
 		structure.getComponent().add(comp2);
-		assertEquals(a(e("A", comp), e("A", comp2)));
+		assertEvents(a(comp), a(comp2));
 		structure.getComponent().remove(comp2);
-		assertEquals(a(e("A", comp), e("A", comp2), e("R", comp2)));
+		assertEvents(a(comp), a(comp2), r(comp2));
 		comp2.getInterface().remove(iface2);
-		assertEquals(a(e("A", comp), e("A", comp2), e("R", comp2)));
+		assertEvents(a(comp), a(comp2), r(comp2));
 	}
 
 	public void testTrack2Add1_2() {
-		tracker.setTrackInfo(XArchADTProxy.unproxy(structure), "component/interface");
-		tracker.startScanning();
-		assertEquals(a(e("A", iface)));
+		initTracker(XArchADTProxy.unproxy(structure), "component/interface");
+		assertEvents(a(iface));
 
 		Component comp2 = structureF.createComponent();
 		Interface iface2 = structureF.createInterface();
 
 		structure.getComponent().add(comp2);
-		assertEquals(a(e("A", iface)));
+		assertEvents(a(iface));
 		comp2.getInterface().add(iface2);
-		assertEquals(a(e("A", iface), e("A", iface2)));
+		assertEvents(a(iface), a(iface2));
 		comp2.getInterface().remove(iface2);
-		assertEquals(a(e("A", iface), e("A", iface2), e("R", iface2)));
+		assertEvents(a(iface), a(iface2), r(iface2));
 		structure.getComponent().remove(comp2);
-		assertEquals(a(e("A", iface), e("A", iface2), e("R", iface2)));
+		assertEvents(a(iface), a(iface2), r(iface2));
 	}
 
 	public void testTrack2Add2_1() {
-		tracker.setTrackInfo(XArchADTProxy.unproxy(structure), "component/interface");
-		tracker.startScanning();
-		assertEquals(a(e("A", iface)));
+		initTracker(XArchADTProxy.unproxy(structure), "component/interface");
+		assertEvents(a(iface));
 
 		Component comp2 = structureF.createComponent();
 		Interface iface2 = structureF.createInterface();
 
 		comp2.getInterface().add(iface2);
-		assertEquals(a(e("A", iface)));
+		assertEvents(a(iface));
 		structure.getComponent().add(comp2);
-		assertEquals(a(e("A", iface), e("A", iface2)));
+		assertEvents(a(iface), a(iface2));
 		structure.getComponent().remove(comp2);
-		assertEquals(a(e("A", iface), e("A", iface2), e("R", iface2)));
+		assertEvents(a(iface), a(iface2), r(iface2));
 		comp2.getInterface().remove(iface2);
-		assertEquals(a(e("A", iface), e("A", iface2), e("R", iface2)));
+		assertEvents(a(iface), a(iface2), r(iface2));
 	}
 
 	public void testTrack2Add2_3() {
-		tracker.setTrackInfo(XArchADTProxy.unproxy(structure), "component/interface");
-		tracker.startScanning();
-		assertEquals(a(e("A", iface)));
+		initTracker(XArchADTProxy.unproxy(structure), "component/interface");
+		assertEvents(a(iface));
 
 		Component comp2 = structureF.createComponent();
 		Interface iface2 = structureF.createInterface();
 
 		comp2.getInterface().add(iface2);
-		assertEquals(a(e("A", iface)));
+		assertEvents(a(iface));
 		structure.getComponent().add(comp2);
-		assertEquals(a(e("A", iface), e("A", iface2)));
+		assertEvents(a(iface), a(iface2));
 
 		HintsExtension compHintsExtension = hintsF.createHintsExtension();
 		comp2.getExt().add(compHintsExtension);
 
-		assertEquals(a(e("A", iface), e("A", iface2)));
+		assertEvents(a(iface), a(iface2));
 
 		HintsExtension ifaceHintsExtension = hintsF.createHintsExtension();
 		iface2.getExt().add(ifaceHintsExtension);
 
-		assertEquals(a(e("A", iface), e("A", iface2), e("U", iface2)));
+		assertEvents(a(iface), a(iface2), u(iface2, ""));
 	}
 
 	public void testExtension1() {
-		tracker.setTrackInfo(XArchADTProxy.unproxy(structure), //
+		initTracker(XArchADTProxy.unproxy(structure), //
 				"component/ext[*[namespace-uri()='" + Domain_3_0Package.eNS_URI + "']]");
-		tracker.startScanning();
-		assertEquals(a());
+		assertEvents();
 
 		DomainExtension domainExt = domainF.createDomainExtension();
 		comp.getExt().add(domainExt);
-		assertEquals(a(e("A", domainExt)));
+		assertEvents(a(domainExt));
 
 		HintsExtension hintsExt = hintsF.createHintsExtension();
 		comp.getExt().add(hintsExt);
-		assertEquals(a(e("A", domainExt)));
+		assertEvents(a(domainExt));
 
 		comp.getExt().remove(domainExt);
-		assertEquals(a(e("A", domainExt), e("R", domainExt)));
+		assertEvents(a(domainExt), r(domainExt));
 
 		Component comp2 = structureF.createComponent();
 		DomainExtension domainExt2 = domainF.createDomainExtension();
@@ -346,6 +329,56 @@ public class XArchRelativePathTrackerTest extends TestCase {
 		comp2.getExt().add(hintsExt2);
 		structure.getComponent().add(comp2);
 
-		assertEquals(a(e("A", domainExt), e("R", domainExt), e("A", domainExt2)));
+		assertEvents(a(domainExt), r(domainExt), a(domainExt2));
+	}
+
+	public void testAttributeChange() {
+		initTracker(XArchADTProxy.unproxy(structure), //
+				"component[contains(@name, 'x')]");
+
+		Component comp1 = structureF.createComponent();
+		comp1.setName("1x");
+		structure.getComponent().add(comp1);
+		assertEvents(a(comp1));
+
+		Component comp2 = structureF.createComponent();
+		structure.getComponent().add(comp2);
+		assertEvents(a(comp1));
+		comp2.setName("2x");
+		assertEvents(a(comp1), a(comp2));
+
+		comp1.setName("1y");
+		assertEvents(a(comp1), a(comp2), r(comp1));
+
+		comp2.setName("2y");
+		assertEvents(a(comp1), a(comp2), r(comp1), r(comp2));
+	}
+
+	public void testChildAttributeChange() {
+		initTracker(XArchADTProxy.unproxy(structure), //
+				"component[contains(@name, 'x')]/interface");
+
+		Component comp1 = structureF.createComponent();
+		Interface iface1a = structureF.createInterface();
+		comp1.getInterface().add(iface1a);
+
+		comp1.setName("1x");
+		structure.getComponent().add(comp1);
+		assertEvents(a(iface1a));
+
+		Component comp2 = structureF.createComponent();
+		Interface iface2a = structureF.createInterface();
+		comp2.getInterface().add(iface2a);
+
+		structure.getComponent().add(comp2);
+		assertEvents(a(iface1a));
+		comp2.setName("2x");
+		assertEvents(a(iface1a), a(iface2a));
+
+		comp1.setName("1y");
+		assertEvents(a(iface1a), a(iface2a), r(iface1a));
+
+		comp2.setName("2y");
+		assertEvents(a(iface1a), a(iface2a), r(iface1a), r(iface2a));
 	}
 }

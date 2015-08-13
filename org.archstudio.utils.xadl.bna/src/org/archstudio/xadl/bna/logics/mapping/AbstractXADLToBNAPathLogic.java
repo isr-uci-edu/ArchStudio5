@@ -97,20 +97,20 @@ public abstract class AbstractXADLToBNAPathLogic<T extends IThing> extends Abstr
 	 */
 
 	@Override
-	protected void updateThing(List<ObjRef> relativeLineageRefs, String relativePath, ObjRef objRef,
+	protected void updateThing(List<ObjRef> descendantRefs, String descendantPath, ObjRef objRef,
 			XArchADTModelEvent evt, T thing) {
-		if (relativePath == null) {
+		if (descendantPath == null) {
 			for (IBNAUpdater bnaUpdater : xADLPathBNAUpdaters.values()) {
-				bnaUpdater.updateBNA(objRef, relativePath, evt, thing);
+				bnaUpdater.updateBNA(objRef, descendantPath, evt, thing);
 			}
 		}
 		else {
-			String path = relativePath.substring(this.relativePath.length()) + "/" + evt.getFeatureName();
+			String path = descendantPath.substring(this.relativePath.length()) + "/" + evt.getFeatureName();
 			if (path.charAt(0) == '/') {
 				path = path.substring(1);
 			}
 			for (IBNAUpdater bnaUpdater : xADLPathBNAUpdaters.get(path)) {
-				bnaUpdater.updateBNA(objRef, relativePath, evt, thing);
+				bnaUpdater.updateBNA(objRef, descendantPath, evt, thing);
 			}
 		}
 	}

@@ -33,9 +33,7 @@ import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.swt.graphics.Point;
 
-import com.google.common.collect.Lists;
-
-public class MapMappingsLogic extends AbstractXADLToBNAPathLogic<MappingThing> implements IPropertyChangeListener {
+public class MapMappingsLogic extends AbstractXADLToBNAPathLogic<MappingThing>implements IPropertyChangeListener {
 
 	protected final DynamicStickPointLogic stickLogic;
 	protected final SynchronizeThingIDAndObjRefLogic syncLogic;
@@ -43,7 +41,8 @@ public class MapMappingsLogic extends AbstractXADLToBNAPathLogic<MappingThing> i
 
 	protected int defaultLineWidth;
 
-	public MapMappingsLogic(IBNAWorld world, IXArchADT xarch, ObjRef rootObjRef, String objRefPath, String description) {
+	public MapMappingsLogic(IBNAWorld world, IXArchADT xarch, ObjRef rootObjRef, String objRefPath,
+			String description) {
 		super(world, xarch, rootObjRef, objRefPath);
 		stickLogic = logics.addThingLogic(DynamicStickPointLogic.class);
 		syncLogic = logics.addThingLogic(SynchronizeThingIDAndObjRefLogic.class);
@@ -100,7 +99,7 @@ public class MapMappingsLogic extends AbstractXADLToBNAPathLogic<MappingThing> i
 	}
 
 	@Override
-	protected MappingThing addThing(List<ObjRef> relLineageRefs, ObjRef objRef) {
+	protected MappingThing addThing(List<ObjRef> descendantRefs, ObjRef objRef) {
 
 		MappingThing thing = Assemblies.createMapping(world, null, null);
 		Point newPointSpot = ArchipelagoUtils.getNewThingSpot(world);
@@ -111,9 +110,8 @@ public class MapMappingsLogic extends AbstractXADLToBNAPathLogic<MappingThing> i
 		UserEditableUtils.addEditableQualities(thing, IHasMutableToolTip.USER_MAY_EDIT_TOOL_TIP,
 				IHasMutableSelected.USER_MAY_SELECT, HighlightLogic.USER_MAY_HIGHLIGHT);
 
-		//stack above the world thing
-		thing.set(syncLogic.syncObjRefKeyToThingIDKey(reparentLogic.getReparentToThingKey()),
-				Lists.reverse(relLineageRefs).get(1));
+		// stack above the world thing
+		thing.set(syncLogic.syncObjRefKeyToThingIDKey(reparentLogic.getReparentToThingKey()), descendantRefs.get(1));
 
 		return thing;
 	}

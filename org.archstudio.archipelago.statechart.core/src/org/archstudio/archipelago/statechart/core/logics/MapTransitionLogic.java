@@ -105,7 +105,7 @@ public class MapTransitionLogic extends AbstractXADLToBNAPathLogic<CurvedSplineT
 	}
 
 	@Override
-	protected CurvedSplineThing addThing(List<ObjRef> relLineageRefs, ObjRef objRef) {
+	protected CurvedSplineThing addThing(List<ObjRef> descendantRefs, ObjRef objRef) {
 
 		CurvedSplineThing transition = StatechartAssemblies.createTransition(world, null, null);
 		Point newPointSpot = ArchipelagoUtils.findOpenSpotForNewThing(world);
