@@ -4,8 +4,6 @@ import static org.archstudio.sysutils.SystemUtils.firstOrNull;
 
 import java.util.Set;
 
-import org.archstudio.bna.BNAModelEvent;
-import org.archstudio.bna.BNAModelEvent.EventType;
 import org.archstudio.bna.IBNAModelListener;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
@@ -29,7 +27,7 @@ public class SynchronizeThingIDAndXArchIDLogic extends AbstractKeyCoordinatingTh
 		track(IHasXArchID.XARCH_ID_KEY);
 	}
 
-	public IThingKey<String> syncXArchIDKeyToThingIDKey(IThingRefKey<?> thingRefKey) {
+	public IThingMetakey<?, IThingRefKey<?>, String> syncXArchIDKeyToThingIDKey(IThingRefKey<?> thingRefKey) {
 		BNAUtils.checkLock();
 
 		track(thingRefKey);
@@ -63,32 +61,22 @@ public class SynchronizeThingIDAndXArchIDLogic extends AbstractKeyCoordinatingTh
 				thing.set(xArchIDKey.getKey(), firstOrNull(valueLogic.getThingIDs(IHasXArchID.XARCH_ID_KEY, xArchID)));
 			}
 			else {
-				thing.set(xArchIDKey.getKey(), null);
+				thing.remove(xArchIDKey.getKey());
 			}
 		}
 		else if (key instanceof IThingRefKey) {
 			IThingRefKey<?> refKey = (IThingRefKey<?>) key;
 			IThingMetakey<?, IThingRefKey<?>, String> xArchIDKey = _syncXArchIDKeyToThingIDKey(refKey);
+			String xArchID = null;
 			if (thing.has(xArchIDKey)) {
 				IThing referencedThing = refKey.get(thing, model);
-				String xArchID = referencedThing != null ? referencedThing.get(IHasXArchID.XARCH_ID_KEY) : null;
+				xArchID = referencedThing != null ? referencedThing.get(IHasXArchID.XARCH_ID_KEY) : null;
+			}
+			if (xArchID != null) {
 				thing.set(xArchIDKey, xArchID);
 			}
-		}
-	}
-
-	@Override
-	public void bnaModelChanged(BNAModelEvent evt) {
-		super.bnaModelChanged(evt);
-		if (evt.getEventType() == EventType.THING_REMOVED) {
-			IThing thing = evt.getTargetThing();
-			String xArchID = thing.get(IHasXArchID.XARCH_ID_KEY);
-			if (xArchID != null) {
-				for (IThingMetakey<?, IThingRefKey<?>, String> xArchIDKey : xArchIDMetakeys) {
-					for (IThing thingWithXArchID : valueLogic.getThings(xArchIDKey, xArchID)) {
-						thingWithXArchID.set(xArchIDKey.getKey(), null);
-					}
-				}
+			else {
+				thing.remove(xArchIDKey);
 			}
 		}
 	}

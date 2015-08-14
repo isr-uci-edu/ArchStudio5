@@ -4,8 +4,6 @@ import static org.archstudio.sysutils.SystemUtils.firstOrNull;
 
 import java.util.Set;
 
-import org.archstudio.bna.BNAModelEvent;
-import org.archstudio.bna.BNAModelEvent.EventType;
 import org.archstudio.bna.IBNAModelListener;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
@@ -80,23 +78,6 @@ public class SynchronizeThingIDAndObjRefLogic extends AbstractKeyCoordinatingThi
 			}
 			else {
 				thing.remove(objRefKey);
-			}
-		}
-	}
-
-	@Override
-	public void bnaModelChanged(BNAModelEvent evt) {
-		BNAUtils.checkLock();
-		super.bnaModelChanged(evt);
-		if (evt.getEventType() == EventType.THING_REMOVED) {
-			IThing thing = evt.getTargetThing();
-			ObjRef objRef = thing.get(IHasObjRef.OBJREF_KEY);
-			if (objRef != null) {
-				for (IThingMetakey<?, IThingRefKey<?>, ObjRef> objRefKey : objRefMetakeys) {
-					for (IThing thingWithObjRef : valueLogic.getThings(objRefKey, objRef)) {
-						thingWithObjRef.set(objRefKey.getKey(), null);
-					}
-				}
 			}
 		}
 	}

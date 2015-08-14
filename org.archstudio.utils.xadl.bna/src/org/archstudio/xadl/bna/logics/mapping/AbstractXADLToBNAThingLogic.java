@@ -10,12 +10,11 @@ import org.archstudio.bna.BNAModelEvent.EventType;
 import org.archstudio.bna.IBNAModelListener;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
-import org.archstudio.bna.keys.IThingKey;
 import org.archstudio.bna.keys.IThingRefKey;
-import org.archstudio.bna.keys.ThingKey;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.logics.events.ProxyLogic;
 import org.archstudio.bna.logics.hints.SynchronizeHintsLogic;
+import org.archstudio.bna.logics.mapping.IBNAMappingLogic;
 import org.archstudio.bna.logics.tracking.ThingValueTrackingLogic;
 import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.BNAPath;
@@ -41,11 +40,8 @@ import com.google.common.collect.Lists;
  *            The type of BNA Assembly/Thing that will be created by this class to represent targeted ObjRefs, see
  *            {@link #addThing(List, ObjRef)}
  */
-public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends AbstractThingLogic implements
-		IBNAModelListener, IXArchADTModelListener, IXArchRelativePathTrackerListener {
-
-	protected static final IThingKey<AbstractXADLToBNAThingLogic<?>> MAPPING_KEY = ThingKey
-			.create(AbstractXADLToBNAThingLogic.class);
+public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends AbstractThingLogic
+		implements IBNAMappingLogic<T>, IBNAModelListener, IXArchADTModelListener, IXArchRelativePathTrackerListener {
 
 	protected final ThingValueTrackingLogic valueLogic;
 	protected final IXArchADT xarch;
@@ -67,6 +63,10 @@ public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends Abst
 
 	protected void setProgressInfo(String description) {
 		// TODO: implement progress bar
+	}
+
+	@Override
+	public void restoreDefaults(T thing) {
 	}
 
 	@Override
@@ -97,14 +97,14 @@ public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends Abst
 	 * Gets the things that have been added by this logic.
 	 */
 	@SuppressWarnings("unchecked")
-	protected Collection<T> getAddedThings() {
+	public Collection<T> getAddedThings() {
 		return (Collection<T>) valueLogic.getThings(MAPPING_KEY, this);
 	}
 
 	/**
 	 * Takes the newly added ObjRef, translates it into a BNA Assembly through a call to {@link #addThing(List, ObjRef)}
 	 * and updates the BNA Assembly through a call to
-	 * {@link #updateThing(List, XArchADTPath, ObjRef, XArchADTModelEvent, IThing)}
+	 * {@link #updateThing(List, String, ObjRef, XArchADTModelEvent, IThing)}
 	 */
 
 	@Override
@@ -135,7 +135,7 @@ public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends Abst
 
 	/**
 	 * Finds any BNA Assemblies that correspond to the modified ObjRef and updates them through calls to
-	 * {@link #updateThing(List, XArchADTPath, ObjRef, XArchADTModelEvent, IThing)}
+	 * {@link #updateThing(List, String, ObjRef, XArchADTModelEvent, IThing)}
 	 */
 	@Override
 	@SuppressWarnings("unchecked")
@@ -152,7 +152,6 @@ public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends Abst
 	/**
 	 * Removes all BNA Assemblies that were created by this logic and correspond to the removed ObjRef
 	 */
-
 	@Override
 	public void processRemove(final List<ObjRef> descendantRefs, final ObjRef objRef) {
 		try (Finally lock = BNAUtils.lock(); Finally bulkChange = model.beginBulkChange();) {
@@ -194,7 +193,7 @@ public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends Abst
 	/**
 	 * Creates the BNA Assembly that represents the given ObjRef. Note that this class should merely create the assembly
 	 * and not configure it with information from the ObjRef, that functionality is reserved for
-	 * {@link #updateThing(List, XArchADTPath, ObjRef, XArchADTModelEvent, IThing)}
+	 * {@link #updateThing(List, String, ObjRef, XArchADTModelEvent, IThing)}
 	 *
 	 * @param descendantRefs
 	 *            The ObjRefs from the rootObjRef to the objRef

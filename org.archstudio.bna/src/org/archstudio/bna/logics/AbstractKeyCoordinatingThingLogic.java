@@ -11,12 +11,14 @@ import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.ThingEvent;
 import org.archstudio.bna.keys.IThingKey;
+import org.archstudio.bna.keys.IThingMetakey;
 import org.archstudio.bna.keys.IThingRefKey;
 import org.archstudio.bna.logics.tracking.ThingReferenceTrackingLogic;
 import org.archstudio.bna.logics.tracking.ThingReferenceTrackingLogic.Reference;
 import org.archstudio.bna.logics.tracking.ThingValueTrackingLogic;
 import org.archstudio.bna.utils.BNAUtils;
 
+import com.google.common.collect.Iterables;
 import com.google.common.collect.Sets;
 
 public abstract class AbstractKeyCoordinatingThingLogic extends AbstractThingLogic implements IBNAModelListener {
@@ -85,6 +87,14 @@ public abstract class AbstractKeyCoordinatingThingLogic extends AbstractThingLog
 			break;
 		case THING_REMOVED:
 			IThing thing = evt.getTargetThing();
+			for (IThingMetakey<?, ?, ?> metaKey : Iterables.filter(trackedKeys, IThingMetakey.class)) {
+				IThingKey<?> refKey = metaKey.getKey();
+				if (refKey instanceof IThingRefKey<?>) {
+					for (IThing fromThing : valueLogic.getThings((IThingRefKey<?>) refKey, thing.getID())) {
+						_update(fromThing, metaKey);
+					}
+				}
+			}
 			for (IThingRefKey<?> fromKey : trackedRefKeys) {
 				for (IThing fromThing : valueLogic.getThings(fromKey, thing.getID())) {
 					_update(fromThing, fromKey);

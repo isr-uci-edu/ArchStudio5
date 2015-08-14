@@ -93,24 +93,33 @@ public abstract class AbstractXADLToBNAPathLogic<T extends IThing> extends Abstr
 	 * Propagate the xADL event to all of the {@link IBNAUpdater}s registered with this class, which each do small
 	 * updates.
 	 * 
-	 * @see AbstractXADLToBNAThingLogic#updateThing(List, XArchADTPath, ObjRef, XArchADTModelEvent, IThing)
+	 * @see AbstractXADLToBNAThingLogic#updateThing(List, String, ObjRef, XArchADTModelEvent, IThing)
 	 */
 
 	@Override
 	protected void updateThing(List<ObjRef> descendantRefs, String descendantPath, ObjRef objRef,
 			XArchADTModelEvent evt, T thing) {
-		if (descendantPath == null) {
+		if (evt == null) {
 			for (IBNAUpdater bnaUpdater : xADLPathBNAUpdaters.values()) {
-				bnaUpdater.updateBNA(objRef, descendantPath, evt, thing);
+				bnaUpdater.updateBNA(objRef, null, evt, thing);
 			}
 		}
 		else {
-			String path = descendantPath.substring(this.relativePath.length()) + "/" + evt.getFeatureName();
+			String path = evt.getSourcePath() + "/" + evt.getFeatureName() + "/";
 			if (path.charAt(0) == '/') {
 				path = path.substring(1);
 			}
-			for (IBNAUpdater bnaUpdater : xADLPathBNAUpdaters.get(path)) {
-				bnaUpdater.updateBNA(objRef, descendantPath, evt, thing);
+			while (path.length() > 0) {
+				int lastDelimiter = path.lastIndexOf('/');
+				if (lastDelimiter > 0) {
+					path = path.substring(0, lastDelimiter);
+				}
+				else {
+					path = "";
+				}
+				for (IBNAUpdater bnaUpdater : xADLPathBNAUpdaters.get(path)) {
+					bnaUpdater.updateBNA(objRef, path, evt, thing);
+				}
 			}
 		}
 	}
