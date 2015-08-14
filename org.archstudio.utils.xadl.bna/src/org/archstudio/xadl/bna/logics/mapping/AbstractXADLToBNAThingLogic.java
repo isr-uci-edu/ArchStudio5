@@ -66,7 +66,7 @@ public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends Abst
 	}
 
 	@Override
-	public void restoreDefaults(T thing) {
+	public void applyDefaults(T thing) {
 	}
 
 	@Override
