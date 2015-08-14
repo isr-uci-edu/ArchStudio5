@@ -21,6 +21,11 @@ class ThingTree {
 		public Node(IThing t) {
 			this.t = t;
 		}
+
+		@Override
+		public String toString() {
+			return t.toString();
+		}
 	}
 
 	private final Node root = new Node(null);

@@ -14,7 +14,6 @@ import org.archstudio.bna.ThingEvent;
 import org.archstudio.bna.keys.IThingKey;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.sysutils.FastMap;
-import org.archstudio.sysutils.SystemUtils;
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
 
@@ -119,8 +118,7 @@ public abstract class AbstractThing implements IThing {
 	}
 
 	@Override
-	public final @Nullable
-	<V> V get(IThingKey<V> key) {
+	public final @Nullable <V> V get(IThingKey<V> key) {
 		BNAUtils.checkLock();
 
 		V value = getRaw(key);
@@ -136,8 +134,7 @@ public abstract class AbstractThing implements IThing {
 	}
 
 	@SuppressWarnings("unchecked")
-	protected final @Nullable
-	<V> V getRaw(IThingKey<V> key) {
+	protected final @Nullable <V> V getRaw(IThingKey<V> key) {
 		BNAUtils.checkLock();
 
 		return (V) properties.get(key);
@@ -205,8 +202,7 @@ public abstract class AbstractThing implements IThing {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public final @Nullable
-	<V> V remove(IThingKey<V> key) {
+	public final @Nullable <V> V remove(IThingKey<V> key) {
 		BNAUtils.checkLock();
 
 		V oldValue = null;
@@ -262,11 +258,7 @@ public abstract class AbstractThing implements IThing {
 		BNAUtils.checkLock();
 
 		StringBuffer sb = new StringBuffer();
-		sb.append(simpleName(this.getClass())).append("[id=").append(id);
-		for (Map.Entry<IThingKey<?>, ?> entry : SystemUtils.sortedByKey(properties.entrySet())) {
-			sb.append(",").append(entry.getKey()).append("=").append(entry.getValue());
-		}
-		sb.append("]");
+		sb.append(simpleName(this.getClass())).append(" (").append(id).append("):\n").append(properties.toString());
 		return sb.toString();
 	}
 }

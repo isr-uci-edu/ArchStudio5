@@ -22,6 +22,7 @@ import com.google.common.collect.Sets;
 public final class FastMap<K, V> implements Map<K, V> {
 
 	private static int[] powersOf2 = new int[31];
+
 	static {
 		for (int i = 0; i < powersOf2.length; i++) {
 			powersOf2[i] = 1 << i;
@@ -419,9 +420,11 @@ public final class FastMap<K, V> implements Map<K, V> {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append(SystemUtils.simpleName(getClass()));
 		for (Map.Entry<K, V> entry : SystemUtils.sortedByKey(entrySet())) {
-			sb.append("\n").append(entry.getKey()).append(" = ").append(entry.getValue());
+			if (sb.length() > 0) {
+				sb.append("\n");
+			}
+			sb.append(entry.getKey()).append(" = ").append(entry.getValue());
 		}
 		return sb.toString();
 	}
