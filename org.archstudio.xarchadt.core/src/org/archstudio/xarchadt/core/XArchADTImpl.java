@@ -95,6 +95,8 @@ public class XArchADTImpl implements IXArchADT {
 	static {
 		// This allows root elements in other schema
 		LOAD_OPTIONS_MAP.put(XMLResource.OPTION_EXTENDED_META_DATA, true);
+		LOAD_OPTIONS_MAP.put(XMLResource.OPTION_PROCESS_DANGLING_HREF,
+				XMLResource.OPTION_PROCESS_DANGLING_HREF_DISCARD);
 		// optimizations from http://www.eclipse.org/modeling/emf/docs/performance/EMFPerformanceTips.html
 		LOAD_OPTIONS_MAP.put(XMLResource.OPTION_DEFER_ATTACHMENT, true);
 		LOAD_OPTIONS_MAP.put(XMLResource.OPTION_DEFER_IDREF_RESOLUTION, true);
@@ -326,7 +328,16 @@ public class XArchADTImpl implements IXArchADT {
 		wLock.lock();
 		try {
 			EObject baseEObject = get(baseObjRef);
-			baseEObject.eSet(getEFeature(baseEObject, typeOfThing, false), uncheck(value));
+			EStructuralFeature typeFeature = getEFeature(baseEObject, typeOfThing, false);
+			if (typeFeature instanceof EReference) {
+				if (((EReference) typeFeature).isContainment()) {
+					Object oldValue = baseEObject.eGet(typeFeature);
+					if (oldValue instanceof EObject) {
+						EcoreUtil.delete((EObject) oldValue);
+					}
+				}
+			}
+			baseEObject.eSet(typeFeature, uncheck(value));
 		}
 		finally {
 			wLock.unlock();
@@ -375,7 +386,17 @@ public class XArchADTImpl implements IXArchADT {
 		wLock.lock();
 		try {
 			EObject baseEObject = get(baseObjRef);
-			baseEObject.eUnset(getEFeature(baseEObject, typeOfThing, false));
+			EStructuralFeature typeFeature = getEFeature(baseEObject, typeOfThing, false);
+			if (typeFeature instanceof EReference) {
+				if (((EReference) typeFeature).isContainment()) {
+					Object oldValue = baseEObject.eGet(typeFeature);
+					if (oldValue instanceof EObject) {
+						EcoreUtil.delete((EObject) oldValue);
+						return;
+					}
+				}
+			}
+			baseEObject.eUnset(typeFeature);
 		}
 		finally {
 			wLock.unlock();
@@ -426,7 +447,18 @@ public class XArchADTImpl implements IXArchADT {
 	public void remove(ObjRef baseObjRef, String typeOfThing, Serializable thingToRemove) {
 		wLock.lock();
 		try {
-			getEList(get(baseObjRef), typeOfThing).remove(uncheck(thingToRemove));
+			Object unchecked = uncheck(thingToRemove);
+			EObject baseEObject = get(baseObjRef);
+			EStructuralFeature typeFeature = getEFeature(baseEObject, typeOfThing, true);
+			if (typeFeature instanceof EReference) {
+				if (((EReference) typeFeature).isContainment()) {
+					if (unchecked instanceof EObject) {
+						EcoreUtil.delete((EObject) unchecked);
+						return;
+					}
+				}
+			}
+			getEList(get(baseObjRef), typeOfThing).remove(unchecked);
 		}
 		finally {
 			wLock.unlock();
@@ -438,7 +470,7 @@ public class XArchADTImpl implements IXArchADT {
 		wLock.lock();
 		try {
 			for (Serializable thingToRemove : thingsToRemove) {
-				getEList(get(baseObjRef), typeOfThing).remove(uncheck(thingToRemove));
+				remove(baseObjRef, typeOfThing, thingToRemove);
 			}
 		}
 		finally {
