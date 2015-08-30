@@ -609,6 +609,23 @@ public final class XArchRelativePathTracker implements IXArchADTModelListener {
           case SET:
             if (evt.getOldValue() instanceof ObjRef) {
               ObjRef oldRef = (ObjRef) evt.getOldValue();
+              // Check whether the removed ObjRef is a candidate for an XPath match.
+              List<ObjRef> descendants = Lists.reverse(evt.getOldValueAncestors());
+              int indexOfRootRef = descendants.indexOf(rootRef);
+              if (indexOfRootRef < 0) {
+                return;
+              }
+              descendants = subList(descendants, indexOfRootRef);
+              // Determine whether oldRef causes the removal of an ObjRef.
+              if (descendants.size() > xPath.size() + 1) {
+                break;
+              }
+              // If all descendants are in positiveObjRefs then we remove it.
+              for (ObjRef descendantRef : descendants) {
+                if (!positiveObjRefs.containsKey(descendantRef)) {
+                  return;
+                }
+              }
               if (removeObjRef(oldRef)) {
                 skipUpdateEvent = true;
                 break;
@@ -665,7 +682,7 @@ public final class XArchRelativePathTracker implements IXArchADTModelListener {
             if (evt.getNewValue() instanceof ObjRef) {
               break;
             }
-            // Check whether the newly modified ObjRef is a candidate for and XPath match.
+            // Check whether the newly modified ObjRef is a candidate for an XPath match.
             List<ObjRef> descendants = Lists.reverse(evt.getSourceAncestors());
             int indexOfRootRef = descendants.indexOf(rootRef);
             if (indexOfRootRef < 0) {
