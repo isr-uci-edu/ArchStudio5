@@ -24,7 +24,7 @@ public interface IBNAModel {
 	 * end of the bulk change. This method is optional; it need not be implemented by models. Calls to this method
 	 * should be wrapped in a try-with-resource block, which ensures that the bulk change is properly bounded. For
 	 * example:
-	 * 
+	 *
 	 * <pre>
 	 * IBNAModel model = ...;
 	 * try (Finally bulkChange = model.beginBulkChange) {
@@ -64,6 +64,10 @@ public interface IBNAModel {
 	public void bringToFront(IThing thing);
 
 	public void sendToBack(IThing thing);
+
+	public void moveAfter(IThing thing, IThing afterThing);
+
+	public void moveBefore(IThing thing, IThing beforeThing);
 
 	public void reparent(IThing newParent, IThing thing);
 

@@ -161,6 +161,22 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 	}
 
 	@Override
+	public void moveAfter(IThing thing, IThing afterThing) {
+		BNAUtils.checkLock();
+
+		thingTree.moveAfter(thing, afterThing);
+		fire(BNAModelEvent.create(this, EventType.THING_RESTACKED, thing));
+	}
+
+	@Override
+	public void moveBefore(IThing thing, IThing beforeThing) {
+		BNAUtils.checkLock();
+
+		thingTree.moveBefore(thing, beforeThing);
+		fire(BNAModelEvent.create(this, EventType.THING_RESTACKED, thing));
+	}
+
+	@Override
 	public void reparent(IThing newParentThing, IThing thing) {
 		BNAUtils.checkLock();
 

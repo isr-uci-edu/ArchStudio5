@@ -144,6 +144,16 @@ class ThingTree {
 		move(childNode, afterIndex + 1);
 	}
 
+	public void moveBefore(IThing t, IThing beforeThing) {
+		Node childNode = getNode(t);
+		Node beforeNode = getNode(beforeThing);
+		if (childNode.parent != beforeNode.parent) {
+			throw new IllegalArgumentException("Things do not share a parent!");
+		}
+		int beforeIndex = beforeNode.parent.children.indexOf(beforeNode);
+		move(childNode, beforeIndex);
+	}
+
 	public void reparent(IThing parentThing, IThing t) {
 		Node parentNode = getNode(parentThing);
 		Node childNode = getNode(t);
