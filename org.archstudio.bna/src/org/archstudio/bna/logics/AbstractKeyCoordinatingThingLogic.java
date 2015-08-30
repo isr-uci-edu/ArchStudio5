@@ -2,7 +2,6 @@ package org.archstudio.bna.logics;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import java.util.Map;
 import java.util.Set;
 
 import org.archstudio.bna.BNAModelEvent;
@@ -68,9 +67,8 @@ public abstract class AbstractKeyCoordinatingThingLogic extends AbstractThingLog
 		switch (evt.getEventType()) {
 		case THING_ADDED: {
 			IThing thing = evt.getTargetThing();
-			for (Map.Entry<IThingKey<?>, ?> entry : thing.entrySet()) {
-				IThingKey<?> key = entry.getKey();
-				if (trackedKeys.contains(key)) {
+			for (IThingKey<?> key : trackedKeys) {
+				if (thing.has(key)) {
 					_update(thing, key);
 				}
 			}
