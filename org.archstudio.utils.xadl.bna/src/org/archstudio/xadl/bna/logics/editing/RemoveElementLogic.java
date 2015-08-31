@@ -12,11 +12,15 @@ import org.archstudio.bna.logics.editing.BNAOperations;
 import org.archstudio.bna.ui.IBNAMenuListener;
 import org.archstudio.bna.utils.BNAAction;
 import org.archstudio.bna.utils.BNAUtils;
+import org.archstudio.utils.resources.Resources;
+import org.archstudio.utils.resources.swt.ImageUtils;
 import org.archstudio.xadl.bna.facets.IHasObjRef;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.IXArchADTTypeMetadata;
 import org.archstudio.xarchadt.ObjRef;
 import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.swt.widgets.Display;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
@@ -48,7 +52,7 @@ public class RemoveElementLogic extends AbstractThingLogic implements IBNAMenuLi
 			}
 		}
 		if (objRefs.size() > 0) {
-			m.add(new BNAAction(objRefs.size() == 1 ? "Remove" : "Remove " + objRefs.size() + " Elements") {
+			m.add(new BNAAction(objRefs.size() == 1 ? "Delete" : "Delete " + objRefs.size() + " Elements") {
 
 				@Override
 				public void runWithLock() {
@@ -93,7 +97,7 @@ public class RemoveElementLogic extends AbstractThingLogic implements IBNAMenuLi
 						}
 					}
 
-					BNAOperations.runnable("Remove", new Runnable() {
+					BNAOperations.runnable("Delete", new Runnable() {
 
 						@Override
 						public void run() {
@@ -110,6 +114,12 @@ public class RemoveElementLogic extends AbstractThingLogic implements IBNAMenuLi
 							}
 						}
 					}, true);
+				}
+
+				@Override
+				public ImageDescriptor getImageDescriptor() {
+					return ImageUtils
+							.toImageDescriptor(ImageUtils.getImage(Display.getDefault(), Resources.DELETE_ICON_16));
 				}
 			});
 		}

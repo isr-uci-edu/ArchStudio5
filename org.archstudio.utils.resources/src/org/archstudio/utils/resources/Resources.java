@@ -23,7 +23,7 @@ public class Resources {
   public static final URL COPY_ICON_16 =
       Activator.getContext().getBundle().getResource("res/copy_edit.png");
 
-  public static final URL CUT_ICON_8 =
+  public static final URL CUT_ICON_16 =
       Activator.getContext().getBundle().getResource("res/cut_edit.png");
 
   public static final URL PASTE_ICON_16 =

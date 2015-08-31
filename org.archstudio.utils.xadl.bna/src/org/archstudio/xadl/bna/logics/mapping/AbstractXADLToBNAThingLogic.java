@@ -113,10 +113,11 @@ public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends Abst
 			// start by creating and updating the thing
 			T thing = addThing(descendantRefs, objRef);
 			if (thing != null) {
+				applyDefaults(thing);
 				updateThing(descendantRefs, null, objRef, null, thing);
 				// note which ObjRef the thing represents
 				thing.set(IHasObjRef.OBJREF_KEY, objRef);
-				// mark the thing as originating from, and being  by this logic
+				// mark the thing as originating from, and being by this logic
 				thing.set(MAPPING_KEY, AbstractXADLToBNAThingLogic.this);
 				// restore hints now, so as to avoid extra processing later
 				SynchronizeHintsLogic hintsLogic = logics.getThingLogic(SynchronizeHintsLogic.class);

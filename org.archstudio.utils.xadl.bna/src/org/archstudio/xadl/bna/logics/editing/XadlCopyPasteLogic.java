@@ -20,6 +20,8 @@ import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.GridUtils;
 import org.archstudio.bna.utils.UserEditableUtils;
 import org.archstudio.swtutils.SWTWidgetUtils;
+import org.archstudio.utils.resources.Resources;
+import org.archstudio.utils.resources.swt.ImageUtils;
 import org.archstudio.xadl.bna.facets.IHasObjRef;
 import org.archstudio.xadl.bna.utils.XArchADTCopyPaste;
 import org.archstudio.xadl.bna.utils.XArchADTOperations;
@@ -29,6 +31,7 @@ import org.archstudio.xarchadt.IXArchADTTypeMetadata;
 import org.archstudio.xarchadt.ObjRef;
 import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
@@ -61,11 +64,23 @@ public class XadlCopyPasteLogic extends AbstractThingLogic implements IBNAMenuLi
 						copy();
 						delete();
 					}
+
+					@Override
+					public ImageDescriptor getImageDescriptor() {
+						return ImageUtils
+								.toImageDescriptor(ImageUtils.getImage(Display.getDefault(), Resources.CUT_ICON_16));
+					}
 				});
 				actionBars.setGlobalActionHandler(ActionFactory.COPY.getId(), new BNAAction() {
 					@Override
 					public void runWithEventAndLock(@Nullable Event event) {
 						copy();
+					}
+
+					@Override
+					public ImageDescriptor getImageDescriptor() {
+						return ImageUtils
+								.toImageDescriptor(ImageUtils.getImage(Display.getDefault(), Resources.COPY_ICON_16));
 					}
 				});
 				actionBars.setGlobalActionHandler(ActionFactory.PASTE.getId(), new BNAAction() {
@@ -73,11 +88,23 @@ public class XadlCopyPasteLogic extends AbstractThingLogic implements IBNAMenuLi
 					public void runWithEventAndLock(@Nullable Event event) {
 						paste();
 					}
+
+					@Override
+					public ImageDescriptor getImageDescriptor() {
+						return ImageUtils
+								.toImageDescriptor(ImageUtils.getImage(Display.getDefault(), Resources.PASTE_ICON_16));
+					}
 				});
 				actionBars.setGlobalActionHandler(ActionFactory.DELETE.getId(), new BNAAction() {
 					@Override
 					public void runWithEventAndLock(@Nullable Event event) {
 						delete();
+					}
+
+					@Override
+					public ImageDescriptor getImageDescriptor() {
+						return ImageUtils
+								.toImageDescriptor(ImageUtils.getImage(Display.getDefault(), Resources.DELETE_ICON_16));
 					}
 				});
 				actionBars.setGlobalActionHandler(ActionFactory.SELECT_ALL.getId(), new BNAAction() {
@@ -227,6 +254,11 @@ public class XadlCopyPasteLogic extends AbstractThingLogic implements IBNAMenuLi
 				copy();
 				delete();
 			}
+
+			@Override
+			public ImageDescriptor getImageDescriptor() {
+				return ImageUtils.toImageDescriptor(ImageUtils.getImage(Display.getDefault(), Resources.CUT_ICON_16));
+			}
 		});
 		menu.add(new BNAAction("Copy") {
 
@@ -234,12 +266,22 @@ public class XadlCopyPasteLogic extends AbstractThingLogic implements IBNAMenuLi
 			public void runWithLock() {
 				copy();
 			}
+
+			@Override
+			public ImageDescriptor getImageDescriptor() {
+				return ImageUtils.toImageDescriptor(ImageUtils.getImage(Display.getDefault(), Resources.COPY_ICON_16));
+			}
 		});
 		menu.add(new BNAAction("Paste") {
 
 			@Override
 			public void runWithLock() {
 				paste();
+			}
+
+			@Override
+			public ImageDescriptor getImageDescriptor() {
+				return ImageUtils.toImageDescriptor(ImageUtils.getImage(Display.getDefault(), Resources.PASTE_ICON_16));
 			}
 		});
 
