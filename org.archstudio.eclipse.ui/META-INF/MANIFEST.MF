@@ -30,4 +30,5 @@ Require-Bundle: org.archstudio.eclipse,
  org.eclipse.emf.common,
  org.eclipse.ui,
  org.eclipse.ui.ide,
- org.eclipse.ui.views
+ org.eclipse.ui.views,
+ org.archstudio.bna

@@ -1,5 +1,6 @@
 package org.archstudio.eclipse.ui.views;
 
+import org.archstudio.bna.ui.IBNAMenuListener;
 import org.archstudio.eclipse.ui.IFocusEditorListener;
 import org.archstudio.resources.IResources;
 import org.archstudio.swtutils.IMenuFiller;
@@ -10,6 +11,7 @@ import org.eclipse.core.commands.operations.IUndoContext;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
+import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionProvider;
@@ -20,6 +22,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.IKeyBindingService;
+import org.eclipse.ui.IWorkbenchActionConstants;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchPartSite;
@@ -170,6 +173,11 @@ public abstract class AbstractArchStudioOutlinePage extends ContentOutlinePage i
 			SWTWidgetUtils.setupContextMenu("#PopupMenu", getTreeViewer().getControl(), getSite(), new IMenuFiller() {
 				@Override
 				public void fillMenu(IMenuManager m) {
+					m.add(new Separator(IBNAMenuListener.NEW_ELEMENTS_GROUP));
+					m.add(new Separator(IBNAMenuListener.PRIMARY_PROPERTIES_GROUP));
+					m.add(new Separator(IBNAMenuListener.SECONDARY_PROPERTIES_GROUP));
+					m.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
+					m.add(new Separator(IBNAMenuListener.FINAL_ENTRIES_GROUP));
 					fillContextMenu(m);
 				}
 			});

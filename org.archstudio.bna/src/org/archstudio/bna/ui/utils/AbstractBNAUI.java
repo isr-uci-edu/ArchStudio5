@@ -41,6 +41,7 @@ import org.archstudio.bna.utils.DefaultCoordinate;
 import org.archstudio.sysutils.Finally;
 import org.archstudio.sysutils.SystemUtils;
 import org.eclipse.jface.action.MenuManager;
+import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.FocusEvent;
@@ -53,6 +54,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Menu;
+import org.eclipse.ui.IWorkbenchActionConstants;
 
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
@@ -550,6 +552,11 @@ public abstract class AbstractBNAUI implements IBNAUI {
 			MenuManager menuMgr = null;
 			try {
 				menuMgr = new MenuManager("BNA Popup Menu");
+				menuMgr.add(new Separator(IBNAMenuListener.NEW_ELEMENTS_GROUP));
+				menuMgr.add(new Separator(IBNAMenuListener.PRIMARY_PROPERTIES_GROUP));
+				menuMgr.add(new Separator(IBNAMenuListener.SECONDARY_PROPERTIES_GROUP));
+				menuMgr.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
+				menuMgr.add(new Separator(IBNAMenuListener.FINAL_ENTRIES_GROUP));
 				Menu menu = menuMgr.createContextMenu(eventControl);
 				IHasWorld world = SystemUtils.firstOrNull(things, IHasWorld.class);
 				if (world != null && world.getWorld() != null) {
