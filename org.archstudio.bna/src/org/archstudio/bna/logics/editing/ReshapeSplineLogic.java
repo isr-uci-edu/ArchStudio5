@@ -1,7 +1,6 @@
 package org.archstudio.bna.logics.editing;
 
 import static org.archstudio.sysutils.SystemUtils.castOrNull;
-import static org.archstudio.sysutils.SystemUtils.firstOrNull;
 
 import java.awt.Dimension;
 import java.awt.geom.Line2D;
@@ -37,9 +36,10 @@ import org.archstudio.bna.logics.coordinating.StickPointLogic;
 import org.archstudio.bna.logics.events.DragMoveEvent;
 import org.archstudio.bna.things.shapes.LocalShapeThing;
 import org.archstudio.bna.things.shapes.ReshapeHandleThing;
-import org.archstudio.bna.ui.IBNAMouseClickListener;
+import org.archstudio.bna.ui.IBNAMouseClickListener2;
 import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.BNAUtils;
+import org.archstudio.bna.utils.BNAUtils2.ThingsAtLocation;
 import org.archstudio.bna.utils.DefaultCoordinate;
 import org.archstudio.bna.utils.ShapeUtils;
 import org.archstudio.bna.utils.UserEditableUtils;
@@ -52,7 +52,7 @@ import org.eclipse.swt.graphics.RGB;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
-public class ReshapeSplineLogic extends AbstractReshapeLogic<IThing, Integer> implements IBNAMouseClickListener {
+public class ReshapeSplineLogic extends AbstractReshapeLogic<IThing, Integer> implements IBNAMouseClickListener2 {
 
 	public static final int SELECT_DIST = 8;
 
@@ -153,18 +153,18 @@ public class ReshapeSplineLogic extends AbstractReshapeLogic<IThing, Integer> im
 		final Object reshapingThingID = reshapingThing.getID();
 
 		final Point2D endpoint1 = reshapingThing.get(IHasEndpoints.ENDPOINT_1_KEY);
-		final StickyMode stickToThingMode1 = reshapingThing.get(dynamicStickLogic
-				.getStickyModeKey(IHasEndpoints.ENDPOINT_1_KEY));
-		final Object stickToThingID1 = reshapingThing.get(dynamicStickLogic
-				.getStickyThingKey(IHasEndpoints.ENDPOINT_1_KEY));
+		final StickyMode stickToThingMode1 =
+				reshapingThing.get(dynamicStickLogic.getStickyModeKey(IHasEndpoints.ENDPOINT_1_KEY));
+		final Object stickToThingID1 =
+				reshapingThing.get(dynamicStickLogic.getStickyThingKey(IHasEndpoints.ENDPOINT_1_KEY));
 
 		final List<Point2D> midpoints = reshapingThing.get(IHasMidpoints.MIDPOINTS_KEY);
 
 		final Point2D endpoint2 = reshapingThing.get(IHasEndpoints.ENDPOINT_2_KEY);
-		final StickyMode stickToThingMode2 = reshapingThing.get(dynamicStickLogic
-				.getStickyModeKey(IHasEndpoints.ENDPOINT_2_KEY));
-		final Object stickToThingID2 = reshapingThing.get(dynamicStickLogic
-				.getStickyThingKey(IHasEndpoints.ENDPOINT_2_KEY));
+		final StickyMode stickToThingMode2 =
+				reshapingThing.get(dynamicStickLogic.getStickyModeKey(IHasEndpoints.ENDPOINT_2_KEY));
+		final Object stickToThingID2 =
+				reshapingThing.get(dynamicStickLogic.getStickyThingKey(IHasEndpoints.ENDPOINT_2_KEY));
 
 		return new Runnable() {
 			@Override
@@ -280,15 +280,14 @@ public class ReshapeSplineLogic extends AbstractReshapeLogic<IThing, Integer> im
 				for (IReshapeSplineGuide guide : reshapeSplineGuides) {
 					StickyMode stickyMode = guide.getStickyMode(reshapingThing, stickyThing, pointKey);
 					if (stickyMode != null) {
-						Point2D stuckPoint = BNAUtils.getClosestPointOnShape(stickyThing.getStickyShape(), mp.getX(),
-								mp.getY());
+						Point2D stuckPoint =
+								BNAUtils.getClosestPointOnShape(stickyThing.getStickyShape(), mp.getX(), mp.getY());
 						IBNAView view = evt.getView();
 						IThingPeer<?> peer = view.getThingPeer(stickyThing);
-						if (stuckPoint != null
-								&& (BNAUtils.getDistance(stuckPoint, mp) <= STICK_DIST
-										|| peer.isInThing(DefaultCoordinate.forWorld(BNAUtils.toPoint(mp), cm))
-										|| BNAUtils.getDistance(stuckPoint, amp) <= STICK_DIST || peer
-											.isInThing(DefaultCoordinate.forWorld(BNAUtils.toPoint(mp), cm)))) {
+						if (stuckPoint != null && (BNAUtils.getDistance(stuckPoint, mp) <= STICK_DIST
+								|| peer.isInThing(DefaultCoordinate.forWorld(BNAUtils.toPoint(mp), cm))
+								|| BNAUtils.getDistance(stuckPoint, amp) <= STICK_DIST
+								|| peer.isInThing(DefaultCoordinate.forWorld(BNAUtils.toPoint(mp), cm)))) {
 							stickToThingID = stickyThing.getID();
 							stickToThingMode = stickyMode;
 						}
@@ -311,9 +310,8 @@ public class ReshapeSplineLogic extends AbstractReshapeLogic<IThing, Integer> im
 			int index = handle.get(POINTS_INDEX_KEY);
 
 			// remove point if it is dragged close to its neighbors
-			if (IHasMidpoints.MIDPOINTS_KEY.equals(pointsKey)
-					&& UserEditableUtils.isEditableForAnyQualities(reshapingThing,
-							IHasMutableMidpoints.USER_MAY_REMOVE_MIDPOINTS)) {
+			if (IHasMidpoints.MIDPOINTS_KEY.equals(pointsKey) && UserEditableUtils
+					.isEditableForAnyQualities(reshapingThing, IHasMutableMidpoints.USER_MAY_REMOVE_MIDPOINTS)) {
 				List<Point2D> points = reshapingThing.get(pointsKey);
 				if (index < points.size()) {
 
@@ -367,7 +365,8 @@ public class ReshapeSplineLogic extends AbstractReshapeLogic<IThing, Integer> im
 	}
 
 	@Override
-	protected void handleMoveFinished(IThing reshapingThing, ReshapeHandleThing handle, Integer data, DragMoveEvent evt) {
+	protected void handleMoveFinished(IThing reshapingThing, ReshapeHandleThing handle, Integer data,
+			DragMoveEvent evt) {
 
 		if (handle.get(POINT_KEY_KEY) != null) {
 			IThingKey<Point2D> pointKey = handle.get(POINT_KEY_KEY);
@@ -392,12 +391,24 @@ public class ReshapeSplineLogic extends AbstractReshapeLogic<IThing, Integer> im
 	}
 
 	@Override
-	public void mouseClick(IBNAView view, MouseType type, MouseEvent evt, List<IThing> things, ICoordinate location) {
+	public void mouseDown(IBNAView view, MouseType type, MouseEvent evt, ICoordinate location,
+			ThingsAtLocation thingsAtLocation) {
+	}
+
+	@Override
+	public void mouseUp(IBNAView view, MouseType type, MouseEvent evt, ICoordinate location,
+			ThingsAtLocation thingsAtLocation) {
+	}
+
+	@Override
+	public void mouseClick(IBNAView view, MouseType type, MouseEvent evt, ICoordinate location,
+			ThingsAtLocation thingsAtLocation) {
 		BNAUtils.checkLock();
 
-		if (evt.count == 2) {
+		if (evt.count == 2 && thingsAtLocation.getThingAtLocation() != null) {
 
-			final IHasMutableMidpoints t = castOrNull(firstOrNull(things), IHasMutableMidpoints.class);
+			final IHasMutableMidpoints t =
+					castOrNull(thingsAtLocation.getThingAtLocation().getThing(), IHasMutableMidpoints.class);
 			if (t != null
 					&& UserEditableUtils.isEditableForAllQualities(t, IHasMutableMidpoints.USER_MAY_ADD_MIDPOINTS)) {
 				final List<Point2D> oldPoints = t.getMidpoints();
@@ -409,15 +420,17 @@ public class ReshapeSplineLogic extends AbstractReshapeLogic<IThing, Integer> im
 
 				// insert the new point
 				boolean pointAdded = false;
-				Point worldPoint = location.getWorldPoint();
+				Point worldPoint = view.getCoordinateMapper().localToWorld(new Point(evt.x, evt.y));
 				for (int i = 1; i < newPoints.size(); i++) {
 					Point2D p1 = newPoints.get(i - 1);
 					Point2D p2 = newPoints.get(i);
-					double dist = Line2D.ptSegDist(p2.getX(), p2.getY(), p1.getX(), p1.getY(), worldPoint.x,
-							worldPoint.y);
+					double dist =
+							Line2D.ptSegDist(p2.getX(), p2.getY(), p1.getX(), p1.getY(), worldPoint.x, worldPoint.y);
 					if (dist <= ADD_DIST) {
 						pointAdded = true;
-						newPoints.add(i, new Point2D.Double(worldPoint.x, worldPoint.y));
+						Point2D newPoint =
+								BNAUtils.getClosestPointOnShape(new Line2D.Double(p1, p2), worldPoint.x, worldPoint.y);
+						newPoints.add(i, newPoint);
 						break;
 					}
 				}
