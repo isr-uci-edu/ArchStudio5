@@ -22,21 +22,21 @@ import org.eclipse.emf.ecore.EObject;
  * @generated
  */
 public interface NodesContent extends EObject {
-			/**
-			 * Returns the value of the '<em><b>Node</b></em>' containment reference list. The list contents are of type
-			 * {@link net.gexf_1_2.gexf.NodeContent}. <!-- begin-user-doc -->
-			 * <p>
-			 * If the meaning of the '<em>Node</em>' containment reference list isn't clear, there really should be more
-			 * of a description here...
-			 * </p>
-			 * <!-- end-user-doc -->
-			 * 
-			 * @return the value of the '<em>Node</em>' containment reference list.
-			 * @see net.gexf_1_2.gexf.GexfPackage#getNodesContent_Node()
-			 * @model containment="true" extendedMetaData="kind='element' name='node' namespace='##targetNamespace'"
-			 * @generated
-			 */
-			EList<NodeContent> getNode();
+	/**
+	 * Returns the value of the '<em><b>Node</b></em>' containment reference list. The list contents are of type
+	 * {@link net.gexf_1_2.gexf.NodeContent}. <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Node</em>' containment reference list isn't clear, there really should be more of a
+	 * description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the value of the '<em>Node</em>' containment reference list.
+	 * @see net.gexf_1_2.gexf.GexfPackage#getNodesContent_Node()
+	 * @model containment="true" extendedMetaData="kind='element' name='node' namespace='##targetNamespace'"
+	 * @generated
+	 */
+	EList<NodeContent> getNode();
 
 	/**
 	 * Returns the value of the '<em><b>Count</b></em>' attribute. <!-- begin-user-doc -->
@@ -53,7 +53,7 @@ public interface NodesContent extends EObject {
 	 *        "kind='attribute' name='count'"
 	 * @generated
 	 */
-			BigInteger getCount();
+	BigInteger getCount();
 
 	/**
 	 * Sets the value of the '{@link net.gexf_1_2.gexf.NodesContent#getCount <em>Count</em>}' attribute. <!--
@@ -63,6 +63,6 @@ public interface NodesContent extends EObject {
 	 * @see #getCount()
 	 * @generated
 	 */
-			void setCount(BigInteger value);
+	void setCount(BigInteger value);
 
 } // NodesContent

@@ -25,24 +25,23 @@ import org.eclipse.emf.ecore.util.FeatureMap;
  * @model extendedMetaData="name='meta-content' kind='elementOnly'"
  * @generated
  */
-public interface MetaContent extends
-		EObject {
-					/**
-					 * Returns the value of the '<em><b>Group</b></em>' attribute list. The list contents are of type
-					 * {@link org.eclipse.emf.ecore.util.FeatureMap.Entry}. <!-- begin-user-doc -->
-					 * <p>
-					 * If the meaning of the '<em>Group</em>' attribute list isn't clear, there really should be more of
-					 * a description here...
-					 * </p>
-					 * <!-- end-user-doc -->
-					 * 
-					 * @return the value of the '<em>Group</em>' attribute list.
-					 * @see net.gexf_1_2.gexf.GexfPackage#getMetaContent_Group()
-					 * @model unique="false" dataType="org.eclipse.emf.ecore.EFeatureMapEntry" many="true"
-					 *        extendedMetaData="kind='group' name='group:0'"
-					 * @generated
-					 */
-					FeatureMap getGroup();
+public interface MetaContent extends EObject {
+	/**
+	 * Returns the value of the '<em><b>Group</b></em>' attribute list. The list contents are of type
+	 * {@link org.eclipse.emf.ecore.util.FeatureMap.Entry}. <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Group</em>' attribute list isn't clear, there really should be more of a description
+	 * here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the value of the '<em>Group</em>' attribute list.
+	 * @see net.gexf_1_2.gexf.GexfPackage#getMetaContent_Group()
+	 * @model unique="false" dataType="org.eclipse.emf.ecore.EFeatureMapEntry" many="true" extendedMetaData=
+	 *        "kind='group' name='group:0'"
+	 * @generated
+	 */
+	FeatureMap getGroup();
 
 	/**
 	 * Returns the value of the '<em><b>Creator</b></em>' attribute list. The list contents are of type
@@ -60,7 +59,7 @@ public interface MetaContent extends
 	 *        "kind='element' name='creator' namespace='##targetNamespace' group='#group:0'"
 	 * @generated
 	 */
-			EList<String> getCreator();
+	EList<String> getCreator();
 
 	/**
 	 * Returns the value of the '<em><b>Keywords</b></em>' attribute list. The list contents are of type
@@ -78,7 +77,7 @@ public interface MetaContent extends
 	 *        "kind='element' name='keywords' namespace='##targetNamespace' group='#group:0'"
 	 * @generated
 	 */
-			EList<String> getKeywords();
+	EList<String> getKeywords();
 
 	/**
 	 * Returns the value of the '<em><b>Description</b></em>' attribute list. The list contents are of type
@@ -96,7 +95,7 @@ public interface MetaContent extends
 	 *        "kind='element' name='description' namespace='##targetNamespace' group='#group:0'"
 	 * @generated
 	 */
-			EList<String> getDescription();
+	EList<String> getDescription();
 
 	/**
 	 * Returns the value of the '<em><b>Lastmodifieddate</b></em>' attribute. <!-- begin-user-doc -->
@@ -112,7 +111,7 @@ public interface MetaContent extends
 	 * @model dataType="org.eclipse.emf.ecore.xml.type.Date" extendedMetaData="kind='attribute' name='lastmodifieddate'"
 	 * @generated
 	 */
-			XMLGregorianCalendar getLastmodifieddate();
+	XMLGregorianCalendar getLastmodifieddate();
 
 	/**
 	 * Sets the value of the '{@link net.gexf_1_2.gexf.MetaContent#getLastmodifieddate <em>Lastmodifieddate</em>}'
@@ -122,6 +121,6 @@ public interface MetaContent extends
 	 * @see #getLastmodifieddate()
 	 * @generated
 	 */
-			void setLastmodifieddate(XMLGregorianCalendar value);
+	void setLastmodifieddate(XMLGregorianCalendar value);
 
 } // MetaContent

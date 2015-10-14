@@ -26,7 +26,7 @@ public interface Javaimplementation_3_0Factory extends EFactory {
 	 * @return a new object of class '<em>Class Path Entry</em>'.
 	 * @generated
 	 */
-			ClassPathEntry createClassPathEntry();
+	ClassPathEntry createClassPathEntry();
 
 	/**
 	 * Returns a new object of class '<em>Java Class</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -34,7 +34,7 @@ public interface Javaimplementation_3_0Factory extends EFactory {
 	 * @return a new object of class '<em>Java Class</em>'.
 	 * @generated
 	 */
-			JavaClass createJavaClass();
+	JavaClass createJavaClass();
 
 	/**
 	 * Returns a new object of class '<em>Java Implementation</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -42,7 +42,7 @@ public interface Javaimplementation_3_0Factory extends EFactory {
 	 * @return a new object of class '<em>Java Implementation</em>'.
 	 * @generated
 	 */
-			JavaImplementation createJavaImplementation();
+	JavaImplementation createJavaImplementation();
 
 	/**
 	 * Returns the package supported by this factory. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -50,6 +50,6 @@ public interface Javaimplementation_3_0Factory extends EFactory {
 	 * @return the package supported by this factory.
 	 * @generated
 	 */
-			Javaimplementation_3_0Package getJavaimplementation_3_0Package();
+	Javaimplementation_3_0Package getJavaimplementation_3_0Package();
 
 } // Javaimplementation_3_0Factory

@@ -44,17 +44,9 @@ public abstract class PulsingBorderThingBase extends org.archstudio.bna.things.A
 		return get(org.archstudio.bna.facets.IHasBoundingBox.BOUNDING_BOX_KEY);
 	}
 
-	/* package */ org.eclipse.swt.graphics.Rectangle getRawBoundingBox() {
-		return getRaw(org.archstudio.bna.facets.IHasBoundingBox.BOUNDING_BOX_KEY);
-	}
-
 	@Override
 	public void setBoundingBox(org.eclipse.swt.graphics.Rectangle boundingBox) {
 		set(org.archstudio.bna.facets.IHasBoundingBox.BOUNDING_BOX_KEY, boundingBox);
-	}
-
-	/* package */ org.eclipse.swt.graphics.Rectangle setRawBoundingBox(org.eclipse.swt.graphics.Rectangle boundingBox) {
-		return setRaw(org.archstudio.bna.facets.IHasBoundingBox.BOUNDING_BOX_KEY, boundingBox);
 	}
 
 	@Override
@@ -62,17 +54,9 @@ public abstract class PulsingBorderThingBase extends org.archstudio.bna.things.A
 		return get(org.archstudio.bna.facets.IHasGlow.GLOW_ALPHA_KEY);
 	}
 
-	/* package */ double getRawGlowAlpha() {
-		return getRaw(org.archstudio.bna.facets.IHasGlow.GLOW_ALPHA_KEY);
-	}
-
 	@Override
 	public void setGlowAlpha(double glowAlpha) {
 		set(org.archstudio.bna.facets.IHasGlow.GLOW_ALPHA_KEY, glowAlpha);
-	}
-
-	/* package */ double setRawGlowAlpha(double glowAlpha) {
-		return setRaw(org.archstudio.bna.facets.IHasGlow.GLOW_ALPHA_KEY, glowAlpha);
 	}
 
 	@Override
@@ -80,19 +64,9 @@ public abstract class PulsingBorderThingBase extends org.archstudio.bna.things.A
 		return get(org.archstudio.bna.facets.IHasGlow.GLOW_COLOR_KEY);
 	}
 
-	/* package */ @Nullable
-			org.eclipse.swt.graphics.RGB getRawGlowColor() {
-		return getRaw(org.archstudio.bna.facets.IHasGlow.GLOW_COLOR_KEY);
-	}
-
 	@Override
 	public void setGlowColor(@Nullable org.eclipse.swt.graphics.RGB glowColor) {
 		set(org.archstudio.bna.facets.IHasGlow.GLOW_COLOR_KEY, glowColor);
-	}
-
-	/* package */ @Nullable
-			org.eclipse.swt.graphics.RGB setRawGlowColor(@Nullable org.eclipse.swt.graphics.RGB glowColor) {
-		return setRaw(org.archstudio.bna.facets.IHasGlow.GLOW_COLOR_KEY, glowColor);
 	}
 
 	@Override
@@ -100,17 +74,9 @@ public abstract class PulsingBorderThingBase extends org.archstudio.bna.things.A
 		return get(org.archstudio.bna.facets.IHasGlow.GLOW_WIDTH_KEY);
 	}
 
-	/* package */ int getRawGlowWidth() {
-		return getRaw(org.archstudio.bna.facets.IHasGlow.GLOW_WIDTH_KEY);
-	}
-
 	@Override
 	public void setGlowWidth(int glowWidth) {
 		set(org.archstudio.bna.facets.IHasGlow.GLOW_WIDTH_KEY, glowWidth);
-	}
-
-	/* package */ int setRawGlowWidth(int glowWidth) {
-		return setRaw(org.archstudio.bna.facets.IHasGlow.GLOW_WIDTH_KEY, glowWidth);
 	}
 
 	@Override
@@ -118,17 +84,9 @@ public abstract class PulsingBorderThingBase extends org.archstudio.bna.things.A
 		return get(org.archstudio.bna.facets.IHasRotatingOffset.ROTATING_OFFSET_KEY);
 	}
 
-	/* package */ int getRawRotatingOffset() {
-		return getRaw(org.archstudio.bna.facets.IHasRotatingOffset.ROTATING_OFFSET_KEY);
-	}
-
 	@Override
 	public void setRotatingOffset(int rotatingOffset) {
 		set(org.archstudio.bna.facets.IHasRotatingOffset.ROTATING_OFFSET_KEY, rotatingOffset);
-	}
-
-	/* package */ int setRawRotatingOffset(int rotatingOffset) {
-		return setRaw(org.archstudio.bna.facets.IHasRotatingOffset.ROTATING_OFFSET_KEY, rotatingOffset);
 	}
 
 	@Override
@@ -136,16 +94,8 @@ public abstract class PulsingBorderThingBase extends org.archstudio.bna.things.A
 		return get(org.archstudio.bna.facets.IHasRotatingOffset.TICKS_PER_INCREMENT_KEY);
 	}
 
-	/* package */ int getRawTicksPerIncrement() {
-		return getRaw(org.archstudio.bna.facets.IHasRotatingOffset.TICKS_PER_INCREMENT_KEY);
-	}
-
 	@Override
 	public void setTicksPerIncrement(int ticksPerIncrement) {
 		set(org.archstudio.bna.facets.IHasRotatingOffset.TICKS_PER_INCREMENT_KEY, ticksPerIncrement);
-	}
-
-	/* package */ int setRawTicksPerIncrement(int ticksPerIncrement) {
-		return setRaw(org.archstudio.bna.facets.IHasRotatingOffset.TICKS_PER_INCREMENT_KEY, ticksPerIncrement);
 	}
 }

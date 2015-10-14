@@ -19,21 +19,21 @@ import org.eclipse.emf.common.util.EList;
  * @generated
  */
 public interface ElementChange extends Change {
-			/**
-			 * Returns the value of the '<em><b>Change</b></em>' containment reference list. The list contents are of
-			 * type {@link org.archstudio.xadl3.variability_3_0.Change}. <!-- begin-user-doc -->
-			 * <p>
-			 * If the meaning of the '<em>Change</em>' containment reference list isn't clear, there really should be
-			 * more of a description here...
-			 * </p>
-			 * <!-- end-user-doc -->
-			 * 
-			 * @return the value of the '<em>Change</em>' containment reference list.
-			 * @see org.archstudio.xadl3.variability_3_0.Variability_3_0Package#getElementChange_Change()
-			 * @model containment="true" extendedMetaData="kind='element' name='change' namespace='##targetNamespace'"
-			 * @generated
-			 */
-			EList<Change> getChange();
+	/**
+	 * Returns the value of the '<em><b>Change</b></em>' containment reference list. The list contents are of type
+	 * {@link org.archstudio.xadl3.variability_3_0.Change}. <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Change</em>' containment reference list isn't clear, there really should be more of a
+	 * description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the value of the '<em>Change</em>' containment reference list.
+	 * @see org.archstudio.xadl3.variability_3_0.Variability_3_0Package#getElementChange_Change()
+	 * @model containment="true" extendedMetaData="kind='element' name='change' namespace='##targetNamespace'"
+	 * @generated
+	 */
+	EList<Change> getChange();
 
 	/**
 	 * Returns the value of the '<em><b>Type</b></em>' attribute. <!-- begin-user-doc -->
@@ -49,7 +49,7 @@ public interface ElementChange extends Change {
 	 *        "kind='attribute' name='type' namespace='##targetNamespace'"
 	 * @generated
 	 */
-			String getType();
+	String getType();
 
 	/**
 	 * Sets the value of the '{@link org.archstudio.xadl3.variability_3_0.ElementChange#getType <em>Type</em>}'
@@ -59,6 +59,6 @@ public interface ElementChange extends Change {
 	 * @see #getType()
 	 * @generated
 	 */
-			void setType(String value);
+	void setType(String value);
 
 } // ElementChange

@@ -22,24 +22,22 @@ import org.eclipse.emf.ecore.EObject;
  * @model extendedMetaData="name='SimpleLink' kind='empty'"
  * @generated
  */
-public interface SimpleLink extends
-		EObject {
-					/**
-					 * Returns the value of the '<em><b>Href</b></em>' attribute. <!-- begin-user-doc -->
-					 * <p>
-					 * If the meaning of the '<em>Href</em>' attribute isn't clear, there really should be more of a
-					 * description here...
-					 * </p>
-					 * <!-- end-user-doc -->
-					 * 
-					 * @return the value of the '<em>Href</em>' attribute.
-					 * @see #setHref(String)
-					 * @see org.archstudio.xadl3.xadlcore_3_0.Xadlcore_3_0Package#getSimpleLink_Href()
-					 * @model dataType="org.eclipse.emf.ecore.xml.type.AnyURI" required="true" extendedMetaData=
-					 *        "kind='attribute' name='href' namespace='http://www.w3.org/1999/xlink'"
-					 * @generated
-					 */
-					String getHref();
+public interface SimpleLink extends EObject {
+	/**
+	 * Returns the value of the '<em><b>Href</b></em>' attribute. <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Href</em>' attribute isn't clear, there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the value of the '<em>Href</em>' attribute.
+	 * @see #setHref(String)
+	 * @see org.archstudio.xadl3.xadlcore_3_0.Xadlcore_3_0Package#getSimpleLink_Href()
+	 * @model dataType="org.eclipse.emf.ecore.xml.type.AnyURI" required="true" extendedMetaData=
+	 *        "kind='attribute' name='href' namespace='http://www.w3.org/1999/xlink'"
+	 * @generated
+	 */
+	String getHref();
 
 	/**
 	 * Sets the value of the '{@link org.archstudio.xadl3.xadlcore_3_0.SimpleLink#getHref <em>Href</em>}' attribute.
@@ -49,7 +47,7 @@ public interface SimpleLink extends
 	 * @see #getHref()
 	 * @generated
 	 */
-			void setHref(String value);
+	void setHref(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Id</b></em>' attribute. <!-- begin-user-doc -->
@@ -65,7 +63,7 @@ public interface SimpleLink extends
 	 *        "kind='attribute' name='id' namespace='##targetNamespace'"
 	 * @generated
 	 */
-			String getId();
+	String getId();
 
 	/**
 	 * Sets the value of the '{@link org.archstudio.xadl3.xadlcore_3_0.SimpleLink#getId <em>Id</em>}' attribute. <!--
@@ -75,7 +73,7 @@ public interface SimpleLink extends
 	 * @see #getId()
 	 * @generated
 	 */
-			void setId(String value);
+	void setId(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Type</b></em>' attribute. The default value is <code>"simple"</code>. <!--
@@ -94,7 +92,7 @@ public interface SimpleLink extends
 	 *        extendedMetaData="kind='attribute' name='type' namespace='http://www.w3.org/1999/xlink'"
 	 * @generated
 	 */
-			String getType();
+	String getType();
 
 	/**
 	 * Sets the value of the '{@link org.archstudio.xadl3.xadlcore_3_0.SimpleLink#getType <em>Type</em>}' attribute.
@@ -106,7 +104,7 @@ public interface SimpleLink extends
 	 * @see #getType()
 	 * @generated
 	 */
-			void setType(String value);
+	void setType(String value);
 
 	/**
 	 * Unsets the value of the '{@link org.archstudio.xadl3.xadlcore_3_0.SimpleLink#getType <em>Type</em>}' attribute.
@@ -117,7 +115,7 @@ public interface SimpleLink extends
 	 * @see #setType(String)
 	 * @generated
 	 */
-			void unsetType();
+	void unsetType();
 
 	/**
 	 * Returns whether the value of the '{@link org.archstudio.xadl3.xadlcore_3_0.SimpleLink#getType <em>Type</em>}'
@@ -129,6 +127,6 @@ public interface SimpleLink extends
 	 * @see #setType(String)
 	 * @generated
 	 */
-			boolean isSetType();
+	boolean isSetType();
 
 } // SimpleLink

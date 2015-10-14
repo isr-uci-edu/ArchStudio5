@@ -21,24 +21,23 @@ import org.eclipse.emf.common.util.EList;
  * @model extendedMetaData="name='StatechartSpecification' kind='elementOnly'"
  * @generated
  */
-public interface StatechartSpecification extends
-		Extension {
-					/**
-					 * Returns the value of the '<em><b>Statechart</b></em>' reference. <!-- begin-user-doc -->
-					 * <p>
-					 * If the meaning of the '<em>Statechart</em>' reference isn't clear, there really should be more of
-					 * a description here...
-					 * </p>
-					 * <!-- end-user-doc -->
-					 * 
-					 * @return the value of the '<em>Statechart</em>' reference.
-					 * @see #setStatechart(Statechart)
-					 * @see org.archstudio.xadl3.statechart_1_0.Statechart_1_0Package#getStatechartSpecification_Statechart()
-					 * @model resolveProxies="false" required="true" extendedMetaData=
-					 *        "kind='element' name='statechart' namespace='##targetNamespace'"
-					 * @generated
-					 */
-					Statechart getStatechart();
+public interface StatechartSpecification extends Extension {
+	/**
+	 * Returns the value of the '<em><b>Statechart</b></em>' reference. <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Statechart</em>' reference isn't clear, there really should be more of a description
+	 * here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the value of the '<em>Statechart</em>' reference.
+	 * @see #setStatechart(Statechart)
+	 * @see org.archstudio.xadl3.statechart_1_0.Statechart_1_0Package#getStatechartSpecification_Statechart()
+	 * @model resolveProxies="false" required="true" extendedMetaData=
+	 *        "kind='element' name='statechart' namespace='##targetNamespace'"
+	 * @generated
+	 */
+	Statechart getStatechart();
 
 	/**
 	 * Sets the value of the '{@link org.archstudio.xadl3.statechart_1_0.StatechartSpecification#getStatechart
@@ -48,7 +47,7 @@ public interface StatechartSpecification extends
 	 * @see #getStatechart()
 	 * @generated
 	 */
-			void setStatechart(Statechart value);
+	void setStatechart(Statechart value);
 
 	/**
 	 * Returns the value of the '<em><b>Ext</b></em>' containment reference list. The list contents are of type
@@ -64,7 +63,7 @@ public interface StatechartSpecification extends
 	 * @model containment="true" extendedMetaData="kind='element' name='ext' namespace='##targetNamespace'"
 	 * @generated
 	 */
-			EList<Extension> getExt();
+	EList<Extension> getExt();
 
 	/**
 	 * Returns the value of the '<em><b>Id</b></em>' attribute. <!-- begin-user-doc -->
@@ -80,7 +79,7 @@ public interface StatechartSpecification extends
 	 *        "kind='attribute' name='id' namespace='##targetNamespace'"
 	 * @generated
 	 */
-			String getId();
+	String getId();
 
 	/**
 	 * Sets the value of the '{@link org.archstudio.xadl3.statechart_1_0.StatechartSpecification#getId <em>Id</em>}'
@@ -90,6 +89,6 @@ public interface StatechartSpecification extends
 	 * @see #getId()
 	 * @generated
 	 */
-			void setId(String value);
+	void setId(String value);
 
 } // StatechartSpecification

@@ -496,33 +496,20 @@ public abstract class «thing.thingAbstractClassName» extends «thing.thingExte
 				initProperty(«key.refKeyFQConstantName», null);
 		«ENDFOR»
 		super.initProperties();
-	}
-	«FOR keyToFacet : thing.thingAllKeysToFacet(mappings).entrySet.sortByKeyElementName»
+	}«FOR keyToFacet : thing.thingAllKeysToFacet(mappings).entrySet.sortByKeyElementName»
 
 		public «IF keyToFacet.key.keyIsNullable»@Nullable «ENDIF»«keyToFacet.key.keySimpleType» «IF "boolean".equals(
 						keyToFacet.key.keySimpleType)»is«ELSE»get«ENDIF»«keyToFacet.key.keyFunctionName»() {
 			return get(«keyToFacet.key.keyFQConstantName»);
 		}
 
-		/*package*/ «IF keyToFacet.key.keyIsNullable»@Nullable «ENDIF»«keyToFacet.key.keySimpleType» «IF "boolean".equals(
-						keyToFacet.key.keySimpleType)»is«ELSE»get«ENDIF»Raw«keyToFacet.key.keyFunctionName»() {
-			return getRaw(«keyToFacet.key.keyFQConstantName»);
-		}
 		«IF keyToFacet.value.facetIsReadOnly(thing.getChildren("ImplementsFacet"))»/*package*/ «ELSE»public «ENDIF»void set«keyToFacet.
 						key.keyFunctionName»(«IF keyToFacet.key.keyIsNullable»@Nullable «ENDIF»«keyToFacet.key.
 						keySimpleType» «keyToFacet.key.keyVariableName») {
 			set(«keyToFacet.key.keyFQConstantName», «keyToFacet.key.keyVariableName»);
-		}
-
-		/*package*/ «IF keyToFacet.key.keyIsNullable»@Nullable «ENDIF»«keyToFacet.key.keySimpleType» «IF "boolean".equals(
-						keyToFacet.key.keySimpleType)»is«ELSE»set«ENDIF»Raw«keyToFacet.key.keyFunctionName»(«IF keyToFacet.
-						key.keyIsNullable»@Nullable «ENDIF»«keyToFacet.key.keySimpleType» «keyToFacet.key.
-						keyVariableName») {
-			return setRaw(«keyToFacet.key.keyFQConstantName», «keyToFacet.key.keyVariableName»);
-		}
-	«ENDFOR»«FOR key : thing.thingAllRefKeys(mappings)»
+		}«ENDFOR»«FOR key : thing.thingAllRefKeys(mappings)»
 		public «key.refKeyType» get«key.refKeyFunctionName»(org.archstudio.bna.IBNAModel model) {
-			org.archstudio.bna.IThing thing = model.getThing(getRaw(«key.keyFQConstantName»));
+			org.archstudio.bna.IThing thing = model.getThing(get(«key.keyFQConstantName»));
 			if (thing instanceof «key.refKeyType») {
 				return («key.refKeyType») thing;
 			}
@@ -530,9 +517,8 @@ public abstract class «thing.thingAbstractClassName» extends «thing.thingExte
 		}
 
 		public void set«key.refKeyFunctionName»(«key.refKeyType» «key.refKeyVariableName») {
-			setRaw(«key.keyFQConstantName», «key.refKeyVariableName».getID());
-		}
-«ENDFOR»}''').bytes), true, true, null);
+			set(«key.keyFQConstantName», «key.refKeyVariableName».getID());
+		}«ENDFOR»}''').bytes), true, true, null);
 			filesToFormat.add(file);
 			file = folder.getFile(thing.thingFileName)
 			if (!file.exists) {

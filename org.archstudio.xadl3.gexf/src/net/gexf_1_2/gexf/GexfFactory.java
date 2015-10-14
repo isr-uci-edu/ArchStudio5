@@ -25,7 +25,7 @@ public interface GexfFactory extends EFactory {
 	 * @return a new object of class '<em>Attribute Content</em>'.
 	 * @generated
 	 */
-			AttributeContent createAttributeContent();
+	AttributeContent createAttributeContent();
 
 	/**
 	 * Returns a new object of class '<em>Attributes Content</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -33,7 +33,7 @@ public interface GexfFactory extends EFactory {
 	 * @return a new object of class '<em>Attributes Content</em>'.
 	 * @generated
 	 */
-			AttributesContent createAttributesContent();
+	AttributesContent createAttributesContent();
 
 	/**
 	 * Returns a new object of class '<em>Attvalues Content</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -41,7 +41,7 @@ public interface GexfFactory extends EFactory {
 	 * @return a new object of class '<em>Attvalues Content</em>'.
 	 * @generated
 	 */
-			AttvaluesContent createAttvaluesContent();
+	AttvaluesContent createAttvaluesContent();
 
 	/**
 	 * Returns a new object of class '<em>Attvalue Type</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -49,7 +49,7 @@ public interface GexfFactory extends EFactory {
 	 * @return a new object of class '<em>Attvalue Type</em>'.
 	 * @generated
 	 */
-			AttvalueType createAttvalueType();
+	AttvalueType createAttvalueType();
 
 	/**
 	 * Returns a new object of class '<em>Document Root</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -57,7 +57,7 @@ public interface GexfFactory extends EFactory {
 	 * @return a new object of class '<em>Document Root</em>'.
 	 * @generated
 	 */
-			DocumentRoot createDocumentRoot();
+	DocumentRoot createDocumentRoot();
 
 	/**
 	 * Returns a new object of class '<em>Edge Content</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -65,7 +65,7 @@ public interface GexfFactory extends EFactory {
 	 * @return a new object of class '<em>Edge Content</em>'.
 	 * @generated
 	 */
-			EdgeContent createEdgeContent();
+	EdgeContent createEdgeContent();
 
 	/**
 	 * Returns a new object of class '<em>Edges Content</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -73,7 +73,7 @@ public interface GexfFactory extends EFactory {
 	 * @return a new object of class '<em>Edges Content</em>'.
 	 * @generated
 	 */
-			EdgesContent createEdgesContent();
+	EdgesContent createEdgesContent();
 
 	/**
 	 * Returns a new object of class '<em>Content</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -81,7 +81,7 @@ public interface GexfFactory extends EFactory {
 	 * @return a new object of class '<em>Content</em>'.
 	 * @generated
 	 */
-			GexfContent createGexfContent();
+	GexfContent createGexfContent();
 
 	/**
 	 * Returns a new object of class '<em>Graph Content</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -89,7 +89,7 @@ public interface GexfFactory extends EFactory {
 	 * @return a new object of class '<em>Graph Content</em>'.
 	 * @generated
 	 */
-			GraphContent createGraphContent();
+	GraphContent createGraphContent();
 
 	/**
 	 * Returns a new object of class '<em>Meta Content</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -97,7 +97,7 @@ public interface GexfFactory extends EFactory {
 	 * @return a new object of class '<em>Meta Content</em>'.
 	 * @generated
 	 */
-			MetaContent createMetaContent();
+	MetaContent createMetaContent();
 
 	/**
 	 * Returns a new object of class '<em>Node Content</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -105,7 +105,7 @@ public interface GexfFactory extends EFactory {
 	 * @return a new object of class '<em>Node Content</em>'.
 	 * @generated
 	 */
-			NodeContent createNodeContent();
+	NodeContent createNodeContent();
 
 	/**
 	 * Returns a new object of class '<em>Nodes Content</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -113,7 +113,7 @@ public interface GexfFactory extends EFactory {
 	 * @return a new object of class '<em>Nodes Content</em>'.
 	 * @generated
 	 */
-			NodesContent createNodesContent();
+	NodesContent createNodesContent();
 
 	/**
 	 * Returns a new object of class '<em>Parents Content</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -121,7 +121,7 @@ public interface GexfFactory extends EFactory {
 	 * @return a new object of class '<em>Parents Content</em>'.
 	 * @generated
 	 */
-			ParentsContent createParentsContent();
+	ParentsContent createParentsContent();
 
 	/**
 	 * Returns a new object of class '<em>Parent Type</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -129,7 +129,7 @@ public interface GexfFactory extends EFactory {
 	 * @return a new object of class '<em>Parent Type</em>'.
 	 * @generated
 	 */
-			ParentType createParentType();
+	ParentType createParentType();
 
 	/**
 	 * Returns a new object of class '<em>Spells Content</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -137,7 +137,7 @@ public interface GexfFactory extends EFactory {
 	 * @return a new object of class '<em>Spells Content</em>'.
 	 * @generated
 	 */
-			SpellsContent createSpellsContent();
+	SpellsContent createSpellsContent();
 
 	/**
 	 * Returns a new object of class '<em>Spell Type</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -145,7 +145,7 @@ public interface GexfFactory extends EFactory {
 	 * @return a new object of class '<em>Spell Type</em>'.
 	 * @generated
 	 */
-			SpellType createSpellType();
+	SpellType createSpellType();
 
 	/**
 	 * Returns the package supported by this factory. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -153,6 +153,6 @@ public interface GexfFactory extends EFactory {
 	 * @return the package supported by this factory.
 	 * @generated
 	 */
-			GexfPackage getGexfPackage();
+	GexfPackage getGexfPackage();
 
 } // GexfFactory

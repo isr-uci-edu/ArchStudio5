@@ -25,7 +25,7 @@ public interface Prolog_3_0Factory extends EFactory {
 	 * @return a new object of class '<em>Prolog Extension</em>'.
 	 * @generated
 	 */
-			PrologExtension createPrologExtension();
+	PrologExtension createPrologExtension();
 
 	/**
 	 * Returns a new object of class '<em>Statement</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -33,7 +33,7 @@ public interface Prolog_3_0Factory extends EFactory {
 	 * @return a new object of class '<em>Statement</em>'.
 	 * @generated
 	 */
-			Statement createStatement();
+	Statement createStatement();
 
 	/**
 	 * Returns the package supported by this factory. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -41,6 +41,6 @@ public interface Prolog_3_0Factory extends EFactory {
 	 * @return the package supported by this factory.
 	 * @generated
 	 */
-			Prolog_3_0Package getProlog_3_0Package();
+	Prolog_3_0Package getProlog_3_0Package();
 
 } // Prolog_3_0Factory

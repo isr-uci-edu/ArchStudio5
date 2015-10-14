@@ -746,7 +746,7 @@ public interface VizPackage extends EPackage {
 	 * @see net.gexf_1_2.viz.ColorContent
 	 * @generated
 	 */
-			EClass getColorContent();
+	EClass getColorContent();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link net.gexf_1_2.viz.ColorContent#getSpells
@@ -757,7 +757,7 @@ public interface VizPackage extends EPackage {
 	 * @see #getColorContent()
 	 * @generated
 	 */
-			EReference getColorContent_Spells();
+	EReference getColorContent_Spells();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.viz.ColorContent#getA <em>A</em>}'. <!--
@@ -768,7 +768,7 @@ public interface VizPackage extends EPackage {
 	 * @see #getColorContent()
 	 * @generated
 	 */
-			EAttribute getColorContent_A();
+	EAttribute getColorContent_A();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.viz.ColorContent#getB <em>B</em>}'. <!--
@@ -779,7 +779,7 @@ public interface VizPackage extends EPackage {
 	 * @see #getColorContent()
 	 * @generated
 	 */
-			EAttribute getColorContent_B();
+	EAttribute getColorContent_B();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.viz.ColorContent#getEnd <em>End</em>}'. <!--
@@ -790,7 +790,7 @@ public interface VizPackage extends EPackage {
 	 * @see #getColorContent()
 	 * @generated
 	 */
-			EAttribute getColorContent_End();
+	EAttribute getColorContent_End();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.viz.ColorContent#getEndopen <em>Endopen</em>}'.
@@ -801,7 +801,7 @@ public interface VizPackage extends EPackage {
 	 * @see #getColorContent()
 	 * @generated
 	 */
-			EAttribute getColorContent_Endopen();
+	EAttribute getColorContent_Endopen();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.viz.ColorContent#getG <em>G</em>}'. <!--
@@ -812,7 +812,7 @@ public interface VizPackage extends EPackage {
 	 * @see #getColorContent()
 	 * @generated
 	 */
-			EAttribute getColorContent_G();
+	EAttribute getColorContent_G();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.viz.ColorContent#getR <em>R</em>}'. <!--
@@ -823,7 +823,7 @@ public interface VizPackage extends EPackage {
 	 * @see #getColorContent()
 	 * @generated
 	 */
-			EAttribute getColorContent_R();
+	EAttribute getColorContent_R();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.viz.ColorContent#getStart <em>Start</em>}'. <!--
@@ -834,7 +834,7 @@ public interface VizPackage extends EPackage {
 	 * @see #getColorContent()
 	 * @generated
 	 */
-			EAttribute getColorContent_Start();
+	EAttribute getColorContent_Start();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.viz.ColorContent#getStartopen <em>Startopen</em>}
@@ -845,7 +845,7 @@ public interface VizPackage extends EPackage {
 	 * @see #getColorContent()
 	 * @generated
 	 */
-			EAttribute getColorContent_Startopen();
+	EAttribute getColorContent_Startopen();
 
 	/**
 	 * Returns the meta object for class '{@link net.gexf_1_2.viz.EdgeShapeContent <em>Edge Shape Content</em>}'. <!--
@@ -855,7 +855,7 @@ public interface VizPackage extends EPackage {
 	 * @see net.gexf_1_2.viz.EdgeShapeContent
 	 * @generated
 	 */
-			EClass getEdgeShapeContent();
+	EClass getEdgeShapeContent();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link net.gexf_1_2.viz.EdgeShapeContent#getSpells
@@ -866,7 +866,7 @@ public interface VizPackage extends EPackage {
 	 * @see #getEdgeShapeContent()
 	 * @generated
 	 */
-			EReference getEdgeShapeContent_Spells();
+	EReference getEdgeShapeContent_Spells();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.viz.EdgeShapeContent#getEnd <em>End</em>}'. <!--
@@ -877,7 +877,7 @@ public interface VizPackage extends EPackage {
 	 * @see #getEdgeShapeContent()
 	 * @generated
 	 */
-			EAttribute getEdgeShapeContent_End();
+	EAttribute getEdgeShapeContent_End();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.viz.EdgeShapeContent#getEndopen <em>Endopen</em>}
@@ -888,7 +888,7 @@ public interface VizPackage extends EPackage {
 	 * @see #getEdgeShapeContent()
 	 * @generated
 	 */
-			EAttribute getEdgeShapeContent_Endopen();
+	EAttribute getEdgeShapeContent_Endopen();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.viz.EdgeShapeContent#getStart <em>Start</em>}'.
@@ -899,7 +899,7 @@ public interface VizPackage extends EPackage {
 	 * @see #getEdgeShapeContent()
 	 * @generated
 	 */
-			EAttribute getEdgeShapeContent_Start();
+	EAttribute getEdgeShapeContent_Start();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.viz.EdgeShapeContent#getStartopen
@@ -910,7 +910,7 @@ public interface VizPackage extends EPackage {
 	 * @see #getEdgeShapeContent()
 	 * @generated
 	 */
-			EAttribute getEdgeShapeContent_Startopen();
+	EAttribute getEdgeShapeContent_Startopen();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.viz.EdgeShapeContent#getValue <em>Value</em>}'.
@@ -921,7 +921,7 @@ public interface VizPackage extends EPackage {
 	 * @see #getEdgeShapeContent()
 	 * @generated
 	 */
-			EAttribute getEdgeShapeContent_Value();
+	EAttribute getEdgeShapeContent_Value();
 
 	/**
 	 * Returns the meta object for class '{@link net.gexf_1_2.viz.NodeShapeContent <em>Node Shape Content</em>}'. <!--
@@ -931,7 +931,7 @@ public interface VizPackage extends EPackage {
 	 * @see net.gexf_1_2.viz.NodeShapeContent
 	 * @generated
 	 */
-			EClass getNodeShapeContent();
+	EClass getNodeShapeContent();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link net.gexf_1_2.viz.NodeShapeContent#getSpells
@@ -942,7 +942,7 @@ public interface VizPackage extends EPackage {
 	 * @see #getNodeShapeContent()
 	 * @generated
 	 */
-			EReference getNodeShapeContent_Spells();
+	EReference getNodeShapeContent_Spells();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.viz.NodeShapeContent#getEnd <em>End</em>}'. <!--
@@ -953,7 +953,7 @@ public interface VizPackage extends EPackage {
 	 * @see #getNodeShapeContent()
 	 * @generated
 	 */
-			EAttribute getNodeShapeContent_End();
+	EAttribute getNodeShapeContent_End();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.viz.NodeShapeContent#getEndopen <em>Endopen</em>}
@@ -964,7 +964,7 @@ public interface VizPackage extends EPackage {
 	 * @see #getNodeShapeContent()
 	 * @generated
 	 */
-			EAttribute getNodeShapeContent_Endopen();
+	EAttribute getNodeShapeContent_Endopen();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.viz.NodeShapeContent#getStart <em>Start</em>}'.
@@ -975,7 +975,7 @@ public interface VizPackage extends EPackage {
 	 * @see #getNodeShapeContent()
 	 * @generated
 	 */
-			EAttribute getNodeShapeContent_Start();
+	EAttribute getNodeShapeContent_Start();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.viz.NodeShapeContent#getStartopen
@@ -986,7 +986,7 @@ public interface VizPackage extends EPackage {
 	 * @see #getNodeShapeContent()
 	 * @generated
 	 */
-			EAttribute getNodeShapeContent_Startopen();
+	EAttribute getNodeShapeContent_Startopen();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.viz.NodeShapeContent#getUri <em>Uri</em>}'. <!--
@@ -997,7 +997,7 @@ public interface VizPackage extends EPackage {
 	 * @see #getNodeShapeContent()
 	 * @generated
 	 */
-			EAttribute getNodeShapeContent_Uri();
+	EAttribute getNodeShapeContent_Uri();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.viz.NodeShapeContent#getValue <em>Value</em>}'.
@@ -1008,7 +1008,7 @@ public interface VizPackage extends EPackage {
 	 * @see #getNodeShapeContent()
 	 * @generated
 	 */
-			EAttribute getNodeShapeContent_Value();
+	EAttribute getNodeShapeContent_Value();
 
 	/**
 	 * Returns the meta object for class '{@link net.gexf_1_2.viz.PositionContent <em>Position Content</em>}'. <!--
@@ -1018,7 +1018,7 @@ public interface VizPackage extends EPackage {
 	 * @see net.gexf_1_2.viz.PositionContent
 	 * @generated
 	 */
-			EClass getPositionContent();
+	EClass getPositionContent();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link net.gexf_1_2.viz.PositionContent#getSpells
@@ -1029,7 +1029,7 @@ public interface VizPackage extends EPackage {
 	 * @see #getPositionContent()
 	 * @generated
 	 */
-			EReference getPositionContent_Spells();
+	EReference getPositionContent_Spells();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.viz.PositionContent#getEnd <em>End</em>}'. <!--
@@ -1040,7 +1040,7 @@ public interface VizPackage extends EPackage {
 	 * @see #getPositionContent()
 	 * @generated
 	 */
-			EAttribute getPositionContent_End();
+	EAttribute getPositionContent_End();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.viz.PositionContent#getEndopen <em>Endopen</em>}'.
@@ -1051,7 +1051,7 @@ public interface VizPackage extends EPackage {
 	 * @see #getPositionContent()
 	 * @generated
 	 */
-			EAttribute getPositionContent_Endopen();
+	EAttribute getPositionContent_Endopen();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.viz.PositionContent#getStart <em>Start</em>}'.
@@ -1062,7 +1062,7 @@ public interface VizPackage extends EPackage {
 	 * @see #getPositionContent()
 	 * @generated
 	 */
-			EAttribute getPositionContent_Start();
+	EAttribute getPositionContent_Start();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.viz.PositionContent#getStartopen
@@ -1073,7 +1073,7 @@ public interface VizPackage extends EPackage {
 	 * @see #getPositionContent()
 	 * @generated
 	 */
-			EAttribute getPositionContent_Startopen();
+	EAttribute getPositionContent_Startopen();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.viz.PositionContent#getX <em>X</em>}'. <!--
@@ -1084,7 +1084,7 @@ public interface VizPackage extends EPackage {
 	 * @see #getPositionContent()
 	 * @generated
 	 */
-			EAttribute getPositionContent_X();
+	EAttribute getPositionContent_X();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.viz.PositionContent#getY <em>Y</em>}'. <!--
@@ -1095,7 +1095,7 @@ public interface VizPackage extends EPackage {
 	 * @see #getPositionContent()
 	 * @generated
 	 */
-			EAttribute getPositionContent_Y();
+	EAttribute getPositionContent_Y();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.viz.PositionContent#getZ <em>Z</em>}'. <!--
@@ -1106,7 +1106,7 @@ public interface VizPackage extends EPackage {
 	 * @see #getPositionContent()
 	 * @generated
 	 */
-			EAttribute getPositionContent_Z();
+	EAttribute getPositionContent_Z();
 
 	/**
 	 * Returns the meta object for class '{@link net.gexf_1_2.viz.SizeContent <em>Size Content</em>}'. <!--
@@ -1116,7 +1116,7 @@ public interface VizPackage extends EPackage {
 	 * @see net.gexf_1_2.viz.SizeContent
 	 * @generated
 	 */
-			EClass getSizeContent();
+	EClass getSizeContent();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link net.gexf_1_2.viz.SizeContent#getSpells
@@ -1127,7 +1127,7 @@ public interface VizPackage extends EPackage {
 	 * @see #getSizeContent()
 	 * @generated
 	 */
-			EReference getSizeContent_Spells();
+	EReference getSizeContent_Spells();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.viz.SizeContent#getEnd <em>End</em>}'. <!--
@@ -1138,7 +1138,7 @@ public interface VizPackage extends EPackage {
 	 * @see #getSizeContent()
 	 * @generated
 	 */
-			EAttribute getSizeContent_End();
+	EAttribute getSizeContent_End();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.viz.SizeContent#getEndopen <em>Endopen</em>}'.
@@ -1149,7 +1149,7 @@ public interface VizPackage extends EPackage {
 	 * @see #getSizeContent()
 	 * @generated
 	 */
-			EAttribute getSizeContent_Endopen();
+	EAttribute getSizeContent_Endopen();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.viz.SizeContent#getStart <em>Start</em>}'. <!--
@@ -1160,7 +1160,7 @@ public interface VizPackage extends EPackage {
 	 * @see #getSizeContent()
 	 * @generated
 	 */
-			EAttribute getSizeContent_Start();
+	EAttribute getSizeContent_Start();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.viz.SizeContent#getStartopen <em>Startopen</em>}'.
@@ -1171,7 +1171,7 @@ public interface VizPackage extends EPackage {
 	 * @see #getSizeContent()
 	 * @generated
 	 */
-			EAttribute getSizeContent_Startopen();
+	EAttribute getSizeContent_Startopen();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.viz.SizeContent#getValue <em>Value</em>}'. <!--
@@ -1182,7 +1182,7 @@ public interface VizPackage extends EPackage {
 	 * @see #getSizeContent()
 	 * @generated
 	 */
-			EAttribute getSizeContent_Value();
+	EAttribute getSizeContent_Value();
 
 	/**
 	 * Returns the meta object for class '{@link net.gexf_1_2.viz.ThicknessContent <em>Thickness Content</em>}'. <!--
@@ -1192,7 +1192,7 @@ public interface VizPackage extends EPackage {
 	 * @see net.gexf_1_2.viz.ThicknessContent
 	 * @generated
 	 */
-			EClass getThicknessContent();
+	EClass getThicknessContent();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link net.gexf_1_2.viz.ThicknessContent#getSpells
@@ -1203,7 +1203,7 @@ public interface VizPackage extends EPackage {
 	 * @see #getThicknessContent()
 	 * @generated
 	 */
-			EReference getThicknessContent_Spells();
+	EReference getThicknessContent_Spells();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.viz.ThicknessContent#getEnd <em>End</em>}'. <!--
@@ -1214,7 +1214,7 @@ public interface VizPackage extends EPackage {
 	 * @see #getThicknessContent()
 	 * @generated
 	 */
-			EAttribute getThicknessContent_End();
+	EAttribute getThicknessContent_End();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.viz.ThicknessContent#getEndopen <em>Endopen</em>}
@@ -1225,7 +1225,7 @@ public interface VizPackage extends EPackage {
 	 * @see #getThicknessContent()
 	 * @generated
 	 */
-			EAttribute getThicknessContent_Endopen();
+	EAttribute getThicknessContent_Endopen();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.viz.ThicknessContent#getStart <em>Start</em>}'.
@@ -1236,7 +1236,7 @@ public interface VizPackage extends EPackage {
 	 * @see #getThicknessContent()
 	 * @generated
 	 */
-			EAttribute getThicknessContent_Start();
+	EAttribute getThicknessContent_Start();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.viz.ThicknessContent#getStartopen
@@ -1247,7 +1247,7 @@ public interface VizPackage extends EPackage {
 	 * @see #getThicknessContent()
 	 * @generated
 	 */
-			EAttribute getThicknessContent_Startopen();
+	EAttribute getThicknessContent_Startopen();
 
 	/**
 	 * Returns the meta object for the attribute '{@link net.gexf_1_2.viz.ThicknessContent#getValue <em>Value</em>}'.
@@ -1258,7 +1258,7 @@ public interface VizPackage extends EPackage {
 	 * @see #getThicknessContent()
 	 * @generated
 	 */
-			EAttribute getThicknessContent_Value();
+	EAttribute getThicknessContent_Value();
 
 	/**
 	 * Returns the meta object for class '{@link net.gexf_1_2.viz.DocumentRoot <em>Document Root</em>}'. <!--
@@ -1268,7 +1268,7 @@ public interface VizPackage extends EPackage {
 	 * @see net.gexf_1_2.viz.DocumentRoot
 	 * @generated
 	 */
-			EClass getDocumentRoot();
+	EClass getDocumentRoot();
 
 	/**
 	 * Returns the meta object for the attribute list '{@link net.gexf_1_2.viz.DocumentRoot#getMixed <em>Mixed</em>}'.
@@ -1279,7 +1279,7 @@ public interface VizPackage extends EPackage {
 	 * @see #getDocumentRoot()
 	 * @generated
 	 */
-			EAttribute getDocumentRoot_Mixed();
+	EAttribute getDocumentRoot_Mixed();
 
 	/**
 	 * Returns the meta object for the map '{@link net.gexf_1_2.viz.DocumentRoot#getXMLNSPrefixMap
@@ -1290,7 +1290,7 @@ public interface VizPackage extends EPackage {
 	 * @see #getDocumentRoot()
 	 * @generated
 	 */
-			EReference getDocumentRoot_XMLNSPrefixMap();
+	EReference getDocumentRoot_XMLNSPrefixMap();
 
 	/**
 	 * Returns the meta object for the map '{@link net.gexf_1_2.viz.DocumentRoot#getXSISchemaLocation
@@ -1301,7 +1301,7 @@ public interface VizPackage extends EPackage {
 	 * @see #getDocumentRoot()
 	 * @generated
 	 */
-			EReference getDocumentRoot_XSISchemaLocation();
+	EReference getDocumentRoot_XSISchemaLocation();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link net.gexf_1_2.viz.DocumentRoot#getSpells
@@ -1312,7 +1312,7 @@ public interface VizPackage extends EPackage {
 	 * @see #getDocumentRoot()
 	 * @generated
 	 */
-			EReference getDocumentRoot_Spells();
+	EReference getDocumentRoot_Spells();
 
 	/**
 	 * Returns the meta object for enum '{@link net.gexf_1_2.viz.EdgeShapeType <em>Edge Shape Type</em>}'. <!--
@@ -1322,7 +1322,7 @@ public interface VizPackage extends EPackage {
 	 * @see net.gexf_1_2.viz.EdgeShapeType
 	 * @generated
 	 */
-			EEnum getEdgeShapeType();
+	EEnum getEdgeShapeType();
 
 	/**
 	 * Returns the meta object for enum '{@link net.gexf_1_2.viz.NodeShapeType <em>Node Shape Type</em>}'. <!--
@@ -1332,7 +1332,7 @@ public interface VizPackage extends EPackage {
 	 * @see net.gexf_1_2.viz.NodeShapeType
 	 * @generated
 	 */
-			EEnum getNodeShapeType();
+	EEnum getNodeShapeType();
 
 	/**
 	 * Returns the meta object for data type '<em>Alpha Channel</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -1342,7 +1342,7 @@ public interface VizPackage extends EPackage {
 	 *        "name='alpha-channel' baseType='http://www.eclipse.org/emf/2003/XMLType#float' minInclusive='0.0' maxInclusive='1.0'"
 	 * @generated
 	 */
-			EDataType getAlphaChannel();
+	EDataType getAlphaChannel();
 
 	/**
 	 * Returns the meta object for data type '{@link java.lang.Float <em>Alpha Channel Object</em>}'. <!--
@@ -1353,7 +1353,7 @@ public interface VizPackage extends EPackage {
 	 * @model instanceClass="java.lang.Float" extendedMetaData="name='alpha-channel:Object' baseType='alpha-channel'"
 	 * @generated
 	 */
-			EDataType getAlphaChannelObject();
+	EDataType getAlphaChannelObject();
 
 	/**
 	 * Returns the meta object for data type '{@link java.math.BigInteger <em>Color Channel</em>}'. <!-- begin-user-doc
@@ -1365,7 +1365,7 @@ public interface VizPackage extends EPackage {
 	 *        "name='color-channel' baseType='http://www.eclipse.org/emf/2003/XMLType#nonNegativeInteger' maxInclusive='255'"
 	 * @generated
 	 */
-			EDataType getColorChannel();
+	EDataType getColorChannel();
 
 	/**
 	 * Returns the meta object for data type '{@link net.gexf_1_2.viz.EdgeShapeType <em>Edge Shape Type Object</em>}'.
@@ -1377,7 +1377,7 @@ public interface VizPackage extends EPackage {
 	 *        "name='edge-shape-type:Object' baseType='edge-shape-type'"
 	 * @generated
 	 */
-			EDataType getEdgeShapeTypeObject();
+	EDataType getEdgeShapeTypeObject();
 
 	/**
 	 * Returns the meta object for data type '{@link net.gexf_1_2.viz.NodeShapeType <em>Node Shape Type Object</em>}'.
@@ -1389,7 +1389,7 @@ public interface VizPackage extends EPackage {
 	 *        "name='node-shape-type:Object' baseType='node-shape-type'"
 	 * @generated
 	 */
-			EDataType getNodeShapeTypeObject();
+	EDataType getNodeShapeTypeObject();
 
 	/**
 	 * Returns the meta object for data type '<em>Size Type</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -1399,7 +1399,7 @@ public interface VizPackage extends EPackage {
 	 *        "name='size-type' baseType='http://www.eclipse.org/emf/2003/XMLType#float' minInclusive='0.0'"
 	 * @generated
 	 */
-			EDataType getSizeType();
+	EDataType getSizeType();
 
 	/**
 	 * Returns the meta object for data type '{@link java.lang.Float <em>Size Type Object</em>}'. <!-- begin-user-doc
@@ -1410,7 +1410,7 @@ public interface VizPackage extends EPackage {
 	 * @model instanceClass="java.lang.Float" extendedMetaData="name='size-type:Object' baseType='size-type'"
 	 * @generated
 	 */
-			EDataType getSizeTypeObject();
+	EDataType getSizeTypeObject();
 
 	/**
 	 * Returns the meta object for data type '<em>Space Point</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -1420,7 +1420,7 @@ public interface VizPackage extends EPackage {
 	 *        "name='space-point' baseType='http://www.eclipse.org/emf/2003/XMLType#float'"
 	 * @generated
 	 */
-			EDataType getSpacePoint();
+	EDataType getSpacePoint();
 
 	/**
 	 * Returns the meta object for data type '{@link java.lang.Float <em>Space Point Object</em>}'. <!-- begin-user-doc
@@ -1431,7 +1431,7 @@ public interface VizPackage extends EPackage {
 	 * @model instanceClass="java.lang.Float" extendedMetaData="name='space-point:Object' baseType='space-point'"
 	 * @generated
 	 */
-			EDataType getSpacePointObject();
+	EDataType getSpacePointObject();
 
 	/**
 	 * Returns the meta object for data type '<em>Thickness Type</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -1441,7 +1441,7 @@ public interface VizPackage extends EPackage {
 	 *        "name='thickness-type' baseType='http://www.eclipse.org/emf/2003/XMLType#float' minInclusive='0.0'"
 	 * @generated
 	 */
-			EDataType getThicknessType();
+	EDataType getThicknessType();
 
 	/**
 	 * Returns the meta object for data type '{@link java.lang.Float <em>Thickness Type Object</em>}'. <!--
@@ -1452,7 +1452,7 @@ public interface VizPackage extends EPackage {
 	 * @model instanceClass="java.lang.Float" extendedMetaData="name='thickness-type:Object' baseType='thickness-type'"
 	 * @generated
 	 */
-			EDataType getThicknessTypeObject();
+	EDataType getThicknessTypeObject();
 
 	/**
 	 * Returns the factory that creates the instances of the model. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -1460,7 +1460,7 @@ public interface VizPackage extends EPackage {
 	 * @return the factory that creates the instances of the model.
 	 * @generated
 	 */
-			VizFactory getVizFactory();
+	VizFactory getVizFactory();
 
 	/**
 	 * <!-- begin-user-doc --> Defines literals for the meta objects that represent

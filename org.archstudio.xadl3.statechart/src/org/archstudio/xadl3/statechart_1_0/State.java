@@ -21,21 +21,21 @@ import org.eclipse.emf.common.util.EList;
  * @generated
  */
 public interface State extends PseudoState {
-			/**
-			 * Returns the value of the '<em><b>Entry</b></em>' containment reference list. The list contents are of
-			 * type {@link org.archstudio.xadl3.statechart_1_0.Behavior}. <!-- begin-user-doc -->
-			 * <p>
-			 * If the meaning of the '<em>Entry</em>' containment reference list isn't clear, there really should be
-			 * more of a description here...
-			 * </p>
-			 * <!-- end-user-doc -->
-			 * 
-			 * @return the value of the '<em>Entry</em>' containment reference list.
-			 * @see org.archstudio.xadl3.statechart_1_0.Statechart_1_0Package#getState_Entry()
-			 * @model containment="true" extendedMetaData="kind='element' name='entry' namespace='##targetNamespace'"
-			 * @generated
-			 */
-			EList<Behavior> getEntry();
+	/**
+	 * Returns the value of the '<em><b>Entry</b></em>' containment reference list. The list contents are of type
+	 * {@link org.archstudio.xadl3.statechart_1_0.Behavior}. <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Entry</em>' containment reference list isn't clear, there really should be more of a
+	 * description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the value of the '<em>Entry</em>' containment reference list.
+	 * @see org.archstudio.xadl3.statechart_1_0.Statechart_1_0Package#getState_Entry()
+	 * @model containment="true" extendedMetaData="kind='element' name='entry' namespace='##targetNamespace'"
+	 * @generated
+	 */
+	EList<Behavior> getEntry();
 
 	/**
 	 * Returns the value of the '<em><b>Exit</b></em>' containment reference list. The list contents are of type
@@ -51,7 +51,7 @@ public interface State extends PseudoState {
 	 * @model containment="true" extendedMetaData="kind='element' name='exit' namespace='##targetNamespace'"
 	 * @generated
 	 */
-			EList<Behavior> getExit();
+	EList<Behavior> getExit();
 
 	/**
 	 * Returns the value of the '<em><b>Sub Statechart</b></em>' containment reference. <!-- begin-user-doc -->
@@ -67,7 +67,7 @@ public interface State extends PseudoState {
 	 * @model containment="true" extendedMetaData="kind='element' name='subStatechart' namespace='##targetNamespace'"
 	 * @generated
 	 */
-			SubStatechart getSubStatechart();
+	SubStatechart getSubStatechart();
 
 	/**
 	 * Sets the value of the '{@link org.archstudio.xadl3.statechart_1_0.State#getSubStatechart <em>Sub Statechart</em>}
@@ -77,7 +77,7 @@ public interface State extends PseudoState {
 	 * @see #getSubStatechart()
 	 * @generated
 	 */
-			void setSubStatechart(SubStatechart value);
+	void setSubStatechart(SubStatechart value);
 
 	/**
 	 * Returns the value of the '<em><b>Type</b></em>' attribute. The default value is <code>"state"</code>. The
@@ -97,7 +97,7 @@ public interface State extends PseudoState {
 	 *        "kind='attribute' name='type' namespace='##targetNamespace'"
 	 * @generated
 	 */
-			StateType getType();
+	StateType getType();
 
 	/**
 	 * Sets the value of the '{@link org.archstudio.xadl3.statechart_1_0.State#getType <em>Type</em>}' attribute. <!--
@@ -110,7 +110,7 @@ public interface State extends PseudoState {
 	 * @see #getType()
 	 * @generated
 	 */
-			void setType(StateType value);
+	void setType(StateType value);
 
 	/**
 	 * Unsets the value of the '{@link org.archstudio.xadl3.statechart_1_0.State#getType <em>Type</em>}' attribute. <!--
@@ -121,7 +121,7 @@ public interface State extends PseudoState {
 	 * @see #setType(StateType)
 	 * @generated
 	 */
-			void unsetType();
+	void unsetType();
 
 	/**
 	 * Returns whether the value of the '{@link org.archstudio.xadl3.statechart_1_0.State#getType <em>Type</em>}'
@@ -133,6 +133,6 @@ public interface State extends PseudoState {
 	 * @see #setType(StateType)
 	 * @generated
 	 */
-			boolean isSetType();
+	boolean isSetType();
 
 } // State

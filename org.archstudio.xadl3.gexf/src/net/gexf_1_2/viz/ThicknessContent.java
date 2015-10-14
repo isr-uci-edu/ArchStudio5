@@ -26,21 +26,21 @@ import net.gexf_1_2.gexf.SpellsContent;
  * @generated
  */
 public interface ThicknessContent extends EObject {
-			/**
-			 * Returns the value of the '<em><b>Spells</b></em>' containment reference. <!-- begin-user-doc -->
-			 * <p>
-			 * If the meaning of the '<em>Spells</em>' containment reference isn't clear, there really should be more of
-			 * a description here...
-			 * </p>
-			 * <!-- end-user-doc -->
-			 * 
-			 * @return the value of the '<em>Spells</em>' containment reference.
-			 * @see #setSpells(SpellsContent)
-			 * @see net.gexf_1_2.viz.VizPackage#getThicknessContent_Spells()
-			 * @model containment="true" extendedMetaData="kind='element' name='spells' namespace='##targetNamespace'"
-			 * @generated
-			 */
-			SpellsContent getSpells();
+	/**
+	 * Returns the value of the '<em><b>Spells</b></em>' containment reference. <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Spells</em>' containment reference isn't clear, there really should be more of a
+	 * description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the value of the '<em>Spells</em>' containment reference.
+	 * @see #setSpells(SpellsContent)
+	 * @see net.gexf_1_2.viz.VizPackage#getThicknessContent_Spells()
+	 * @model containment="true" extendedMetaData="kind='element' name='spells' namespace='##targetNamespace'"
+	 * @generated
+	 */
+	SpellsContent getSpells();
 
 	/**
 	 * Sets the value of the '{@link net.gexf_1_2.viz.ThicknessContent#getSpells <em>Spells</em>}' containment
@@ -50,7 +50,7 @@ public interface ThicknessContent extends EObject {
 	 * @see #getSpells()
 	 * @generated
 	 */
-			void setSpells(SpellsContent value);
+	void setSpells(SpellsContent value);
 
 	/**
 	 * Returns the value of the '<em><b>End</b></em>' attribute. <!-- begin-user-doc -->
@@ -65,7 +65,7 @@ public interface ThicknessContent extends EObject {
 	 * @model dataType="net.gexf_1_2.gexf.TimeType" extendedMetaData="kind='attribute' name='end'"
 	 * @generated
 	 */
-			Object getEnd();
+	Object getEnd();
 
 	/**
 	 * Sets the value of the '{@link net.gexf_1_2.viz.ThicknessContent#getEnd <em>End</em>}' attribute. <!--
@@ -75,7 +75,7 @@ public interface ThicknessContent extends EObject {
 	 * @see #getEnd()
 	 * @generated
 	 */
-			void setEnd(Object value);
+	void setEnd(Object value);
 
 	/**
 	 * Returns the value of the '<em><b>Endopen</b></em>' attribute. <!-- begin-user-doc -->
@@ -91,7 +91,7 @@ public interface ThicknessContent extends EObject {
 	 * @model dataType="net.gexf_1_2.gexf.TimeType" extendedMetaData="kind='attribute' name='endopen'"
 	 * @generated
 	 */
-			Object getEndopen();
+	Object getEndopen();
 
 	/**
 	 * Sets the value of the '{@link net.gexf_1_2.viz.ThicknessContent#getEndopen <em>Endopen</em>}' attribute. <!--
@@ -101,7 +101,7 @@ public interface ThicknessContent extends EObject {
 	 * @see #getEndopen()
 	 * @generated
 	 */
-			void setEndopen(Object value);
+	void setEndopen(Object value);
 
 	/**
 	 * Returns the value of the '<em><b>Start</b></em>' attribute. <!-- begin-user-doc -->
@@ -117,7 +117,7 @@ public interface ThicknessContent extends EObject {
 	 * @model dataType="net.gexf_1_2.gexf.TimeType" extendedMetaData="kind='attribute' name='start'"
 	 * @generated
 	 */
-			Object getStart();
+	Object getStart();
 
 	/**
 	 * Sets the value of the '{@link net.gexf_1_2.viz.ThicknessContent#getStart <em>Start</em>}' attribute. <!--
@@ -127,7 +127,7 @@ public interface ThicknessContent extends EObject {
 	 * @see #getStart()
 	 * @generated
 	 */
-			void setStart(Object value);
+	void setStart(Object value);
 
 	/**
 	 * Returns the value of the '<em><b>Startopen</b></em>' attribute. <!-- begin-user-doc -->
@@ -143,7 +143,7 @@ public interface ThicknessContent extends EObject {
 	 * @model dataType="net.gexf_1_2.gexf.TimeType" extendedMetaData="kind='attribute' name='startopen'"
 	 * @generated
 	 */
-			Object getStartopen();
+	Object getStartopen();
 
 	/**
 	 * Sets the value of the '{@link net.gexf_1_2.viz.ThicknessContent#getStartopen <em>Startopen</em>}' attribute. <!--
@@ -153,7 +153,7 @@ public interface ThicknessContent extends EObject {
 	 * @see #getStartopen()
 	 * @generated
 	 */
-			void setStartopen(Object value);
+	void setStartopen(Object value);
 
 	/**
 	 * Returns the value of the '<em><b>Value</b></em>' attribute. <!-- begin-user-doc -->
@@ -172,7 +172,7 @@ public interface ThicknessContent extends EObject {
 	 *        "kind='attribute' name='value'"
 	 * @generated
 	 */
-			float getValue();
+	float getValue();
 
 	/**
 	 * Sets the value of the '{@link net.gexf_1_2.viz.ThicknessContent#getValue <em>Value</em>}' attribute. <!--
@@ -184,7 +184,7 @@ public interface ThicknessContent extends EObject {
 	 * @see #getValue()
 	 * @generated
 	 */
-			void setValue(float value);
+	void setValue(float value);
 
 	/**
 	 * Unsets the value of the '{@link net.gexf_1_2.viz.ThicknessContent#getValue <em>Value</em>}' attribute. <!--
@@ -195,7 +195,7 @@ public interface ThicknessContent extends EObject {
 	 * @see #setValue(float)
 	 * @generated
 	 */
-			void unsetValue();
+	void unsetValue();
 
 	/**
 	 * Returns whether the value of the '{@link net.gexf_1_2.viz.ThicknessContent#getValue <em>Value</em>}' attribute is
@@ -207,6 +207,6 @@ public interface ThicknessContent extends EObject {
 	 * @see #setValue(float)
 	 * @generated
 	 */
-			boolean isSetValue();
+	boolean isSetValue();
 
 } // ThicknessContent

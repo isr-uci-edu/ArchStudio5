@@ -47,51 +47,24 @@ public abstract class GridThingBase extends org.archstudio.bna.things.AbstractTh
 		return get(org.archstudio.bna.facets.IHasEdgeColor.EDGE_COLOR_KEY);
 	}
 
-	/* package */ @Nullable
-			org.eclipse.swt.graphics.RGB getRawEdgeColor() {
-		return getRaw(org.archstudio.bna.facets.IHasEdgeColor.EDGE_COLOR_KEY);
-	}
-
 	@Override
 	public void setEdgeColor(@Nullable org.eclipse.swt.graphics.RGB edgeColor) {
 		set(org.archstudio.bna.facets.IHasEdgeColor.EDGE_COLOR_KEY, edgeColor);
-	}
-
-	/* package */ @Nullable
-			org.eclipse.swt.graphics.RGB setRawEdgeColor(@Nullable org.eclipse.swt.graphics.RGB edgeColor) {
-		return setRaw(org.archstudio.bna.facets.IHasEdgeColor.EDGE_COLOR_KEY, edgeColor);
 	}
 
 	public org.archstudio.bna.constants.GridDisplayType getGridDisplayType() {
 		return get(org.archstudio.bna.things.utility.GridThing.GRID_DISPLAY_TYPE_KEY);
 	}
 
-	/* package */ org.archstudio.bna.constants.GridDisplayType getRawGridDisplayType() {
-		return getRaw(org.archstudio.bna.things.utility.GridThing.GRID_DISPLAY_TYPE_KEY);
-	}
-
 	public void setGridDisplayType(org.archstudio.bna.constants.GridDisplayType gridDisplayType) {
 		set(org.archstudio.bna.things.utility.GridThing.GRID_DISPLAY_TYPE_KEY, gridDisplayType);
-	}
-
-	/* package */ org.archstudio.bna.constants.GridDisplayType
-			setRawGridDisplayType(org.archstudio.bna.constants.GridDisplayType gridDisplayType) {
-		return setRaw(org.archstudio.bna.things.utility.GridThing.GRID_DISPLAY_TYPE_KEY, gridDisplayType);
 	}
 
 	public int getGridSpacing() {
 		return get(org.archstudio.bna.things.utility.GridThing.GRID_SPACING_KEY);
 	}
 
-	/* package */ int getRawGridSpacing() {
-		return getRaw(org.archstudio.bna.things.utility.GridThing.GRID_SPACING_KEY);
-	}
-
 	public void setGridSpacing(int gridSpacing) {
 		set(org.archstudio.bna.things.utility.GridThing.GRID_SPACING_KEY, gridSpacing);
-	}
-
-	/* package */ int setRawGridSpacing(int gridSpacing) {
-		return setRaw(org.archstudio.bna.things.utility.GridThing.GRID_SPACING_KEY, gridSpacing);
 	}
 }

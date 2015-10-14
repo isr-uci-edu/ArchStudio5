@@ -22,21 +22,20 @@ import org.eclipse.emf.common.util.EList;
  * @generated
  */
 public interface ImplementationExtension extends Extension {
-			/**
-			 * Returns the value of the '<em><b>Implementation</b></em>' containment reference list. The list contents
-			 * are of type {@link org.archstudio.xadl3.implementation_3_0.Implementation}. <!-- begin-user-doc -->
-			 * <p>
-			 * If the meaning of the '<em>Implementation</em>' containment reference list isn't clear, there really
-			 * should be more of a description here...
-			 * </p>
-			 * <!-- end-user-doc -->
-			 * 
-			 * @return the value of the '<em>Implementation</em>' containment reference list.
-			 * @see org.archstudio.xadl3.implementation_3_0.Implementation_3_0Package#getImplementationExtension_Implementation()
-			 * @model containment="true" extendedMetaData=
-			 *        "kind='element' name='implementation' namespace='##targetNamespace'"
-			 * @generated
-			 */
-			EList<Implementation> getImplementation();
+	/**
+	 * Returns the value of the '<em><b>Implementation</b></em>' containment reference list. The list contents are of
+	 * type {@link org.archstudio.xadl3.implementation_3_0.Implementation}. <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Implementation</em>' containment reference list isn't clear, there really should be
+	 * more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the value of the '<em>Implementation</em>' containment reference list.
+	 * @see org.archstudio.xadl3.implementation_3_0.Implementation_3_0Package#getImplementationExtension_Implementation()
+	 * @model containment="true" extendedMetaData="kind='element' name='implementation' namespace='##targetNamespace'"
+	 * @generated
+	 */
+	EList<Implementation> getImplementation();
 
 } // ImplementationExtension

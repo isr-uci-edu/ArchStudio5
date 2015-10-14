@@ -47,16 +47,8 @@ public abstract class RotaterThingBase extends org.archstudio.bna.things.Abstrac
 		return get(org.archstudio.bna.things.utility.RotaterThing.ADJUSTMENT_INCREMENT_KEY);
 	}
 
-	/* package */ int getRawAdjustmentIncrement() {
-		return getRaw(org.archstudio.bna.things.utility.RotaterThing.ADJUSTMENT_INCREMENT_KEY);
-	}
-
 	public void setAdjustmentIncrement(int adjustmentIncrement) {
 		set(org.archstudio.bna.things.utility.RotaterThing.ADJUSTMENT_INCREMENT_KEY, adjustmentIncrement);
-	}
-
-	/* package */ int setRawAdjustmentIncrement(int adjustmentIncrement) {
-		return setRaw(org.archstudio.bna.things.utility.RotaterThing.ADJUSTMENT_INCREMENT_KEY, adjustmentIncrement);
 	}
 
 	@Override
@@ -64,17 +56,9 @@ public abstract class RotaterThingBase extends org.archstudio.bna.things.Abstrac
 		return get(org.archstudio.bna.facets.IHasAnchorPoint.ANCHOR_POINT_KEY);
 	}
 
-	/* package */ java.awt.geom.Point2D getRawAnchorPoint() {
-		return getRaw(org.archstudio.bna.facets.IHasAnchorPoint.ANCHOR_POINT_KEY);
-	}
-
 	@Override
 	public void setAnchorPoint(java.awt.geom.Point2D anchorPoint) {
 		set(org.archstudio.bna.facets.IHasAnchorPoint.ANCHOR_POINT_KEY, anchorPoint);
-	}
-
-	/* package */ java.awt.geom.Point2D setRawAnchorPoint(java.awt.geom.Point2D anchorPoint) {
-		return setRaw(org.archstudio.bna.facets.IHasAnchorPoint.ANCHOR_POINT_KEY, anchorPoint);
 	}
 
 	@Override
@@ -82,17 +66,9 @@ public abstract class RotaterThingBase extends org.archstudio.bna.things.Abstrac
 		return get(org.archstudio.bna.facets.IHasAngle.ANGLE_KEY);
 	}
 
-	/* package */ int getRawAngle() {
-		return getRaw(org.archstudio.bna.facets.IHasAngle.ANGLE_KEY);
-	}
-
 	@Override
 	public void setAngle(int angle) {
 		set(org.archstudio.bna.facets.IHasAngle.ANGLE_KEY, angle);
-	}
-
-	/* package */ int setRawAngle(int angle) {
-		return setRaw(org.archstudio.bna.facets.IHasAngle.ANGLE_KEY, angle);
 	}
 
 	@Override
@@ -100,16 +76,8 @@ public abstract class RotaterThingBase extends org.archstudio.bna.things.Abstrac
 		return get(org.archstudio.bna.facets.IHasRadius.RADIUS_KEY);
 	}
 
-	/* package */ int getRawRadius() {
-		return getRaw(org.archstudio.bna.facets.IHasRadius.RADIUS_KEY);
-	}
-
 	@Override
 	public void setRadius(int radius) {
 		set(org.archstudio.bna.facets.IHasRadius.RADIUS_KEY, radius);
-	}
-
-	/* package */ int setRawRadius(int radius) {
-		return setRaw(org.archstudio.bna.facets.IHasRadius.RADIUS_KEY, radius);
 	}
 }

@@ -53,17 +53,9 @@ public abstract class UserNotificationThingBase extends org.archstudio.bna.thing
 		return get(org.archstudio.bna.facets.IHasAnchorPoint.ANCHOR_POINT_KEY);
 	}
 
-	/* package */ java.awt.geom.Point2D getRawAnchorPoint() {
-		return getRaw(org.archstudio.bna.facets.IHasAnchorPoint.ANCHOR_POINT_KEY);
-	}
-
 	@Override
 	public void setAnchorPoint(java.awt.geom.Point2D anchorPoint) {
 		set(org.archstudio.bna.facets.IHasAnchorPoint.ANCHOR_POINT_KEY, anchorPoint);
-	}
-
-	/* package */ java.awt.geom.Point2D setRawAnchorPoint(java.awt.geom.Point2D anchorPoint) {
-		return setRaw(org.archstudio.bna.facets.IHasAnchorPoint.ANCHOR_POINT_KEY, anchorPoint);
 	}
 
 	@Override
@@ -71,19 +63,9 @@ public abstract class UserNotificationThingBase extends org.archstudio.bna.thing
 		return get(org.archstudio.bna.facets.IHasColor.COLOR_KEY);
 	}
 
-	/* package */ @Nullable
-			org.eclipse.swt.graphics.RGB getRawColor() {
-		return getRaw(org.archstudio.bna.facets.IHasColor.COLOR_KEY);
-	}
-
 	@Override
 	public void setColor(@Nullable org.eclipse.swt.graphics.RGB color) {
 		set(org.archstudio.bna.facets.IHasColor.COLOR_KEY, color);
-	}
-
-	/* package */ @Nullable
-			org.eclipse.swt.graphics.RGB setRawColor(@Nullable org.eclipse.swt.graphics.RGB color) {
-		return setRaw(org.archstudio.bna.facets.IHasColor.COLOR_KEY, color);
 	}
 
 	@Override
@@ -91,17 +73,9 @@ public abstract class UserNotificationThingBase extends org.archstudio.bna.thing
 		return get(org.archstudio.bna.facets.IHasFontData.DONT_INCREASE_FONT_SIZE_KEY);
 	}
 
-	/* package */ boolean isRawDontIncreaseFontSize() {
-		return getRaw(org.archstudio.bna.facets.IHasFontData.DONT_INCREASE_FONT_SIZE_KEY);
-	}
-
 	@Override
 	public void setDontIncreaseFontSize(boolean dontIncreaseFontSize) {
 		set(org.archstudio.bna.facets.IHasFontData.DONT_INCREASE_FONT_SIZE_KEY, dontIncreaseFontSize);
-	}
-
-	/* package */ boolean isRawDontIncreaseFontSize(boolean dontIncreaseFontSize) {
-		return setRaw(org.archstudio.bna.facets.IHasFontData.DONT_INCREASE_FONT_SIZE_KEY, dontIncreaseFontSize);
 	}
 
 	@Override
@@ -109,19 +83,9 @@ public abstract class UserNotificationThingBase extends org.archstudio.bna.thing
 		return get(org.archstudio.bna.facets.IHasEdgeColor.EDGE_COLOR_KEY);
 	}
 
-	/* package */ @Nullable
-			org.eclipse.swt.graphics.RGB getRawEdgeColor() {
-		return getRaw(org.archstudio.bna.facets.IHasEdgeColor.EDGE_COLOR_KEY);
-	}
-
 	@Override
 	public void setEdgeColor(@Nullable org.eclipse.swt.graphics.RGB edgeColor) {
 		set(org.archstudio.bna.facets.IHasEdgeColor.EDGE_COLOR_KEY, edgeColor);
-	}
-
-	/* package */ @Nullable
-			org.eclipse.swt.graphics.RGB setRawEdgeColor(@Nullable org.eclipse.swt.graphics.RGB edgeColor) {
-		return setRaw(org.archstudio.bna.facets.IHasEdgeColor.EDGE_COLOR_KEY, edgeColor);
 	}
 
 	@Override
@@ -129,17 +93,9 @@ public abstract class UserNotificationThingBase extends org.archstudio.bna.thing
 		return get(org.archstudio.bna.facets.IHasFontData.FONT_NAME_KEY);
 	}
 
-	/* package */ java.lang.String getRawFontName() {
-		return getRaw(org.archstudio.bna.facets.IHasFontData.FONT_NAME_KEY);
-	}
-
 	@Override
 	public void setFontName(java.lang.String fontName) {
 		set(org.archstudio.bna.facets.IHasFontData.FONT_NAME_KEY, fontName);
-	}
-
-	/* package */ java.lang.String setRawFontName(java.lang.String fontName) {
-		return setRaw(org.archstudio.bna.facets.IHasFontData.FONT_NAME_KEY, fontName);
 	}
 
 	@Override
@@ -147,17 +103,9 @@ public abstract class UserNotificationThingBase extends org.archstudio.bna.thing
 		return get(org.archstudio.bna.facets.IHasFontData.FONT_SIZE_KEY);
 	}
 
-	/* package */ int getRawFontSize() {
-		return getRaw(org.archstudio.bna.facets.IHasFontData.FONT_SIZE_KEY);
-	}
-
 	@Override
 	public void setFontSize(int fontSize) {
 		set(org.archstudio.bna.facets.IHasFontData.FONT_SIZE_KEY, fontSize);
-	}
-
-	/* package */ int setRawFontSize(int fontSize) {
-		return setRaw(org.archstudio.bna.facets.IHasFontData.FONT_SIZE_KEY, fontSize);
 	}
 
 	@Override
@@ -165,18 +113,9 @@ public abstract class UserNotificationThingBase extends org.archstudio.bna.thing
 		return get(org.archstudio.bna.facets.IHasFontData.FONT_STYLE_KEY);
 	}
 
-	/* package */ org.archstudio.swtutils.constants.FontStyle getRawFontStyle() {
-		return getRaw(org.archstudio.bna.facets.IHasFontData.FONT_STYLE_KEY);
-	}
-
 	@Override
 	public void setFontStyle(org.archstudio.swtutils.constants.FontStyle fontStyle) {
 		set(org.archstudio.bna.facets.IHasFontData.FONT_STYLE_KEY, fontStyle);
-	}
-
-	/* package */ org.archstudio.swtutils.constants.FontStyle
-			setRawFontStyle(org.archstudio.swtutils.constants.FontStyle fontStyle) {
-		return setRaw(org.archstudio.bna.facets.IHasFontData.FONT_STYLE_KEY, fontStyle);
 	}
 
 	@Override
@@ -184,17 +123,9 @@ public abstract class UserNotificationThingBase extends org.archstudio.bna.thing
 		return get(org.archstudio.bna.facets.IHasGradientFilled.GRADIENT_FILLED_KEY);
 	}
 
-	/* package */ boolean isRawGradientFilled() {
-		return getRaw(org.archstudio.bna.facets.IHasGradientFilled.GRADIENT_FILLED_KEY);
-	}
-
 	@Override
 	public void setGradientFilled(boolean gradientFilled) {
 		set(org.archstudio.bna.facets.IHasGradientFilled.GRADIENT_FILLED_KEY, gradientFilled);
-	}
-
-	/* package */ boolean isRawGradientFilled(boolean gradientFilled) {
-		return setRaw(org.archstudio.bna.facets.IHasGradientFilled.GRADIENT_FILLED_KEY, gradientFilled);
 	}
 
 	@Override
@@ -202,17 +133,9 @@ public abstract class UserNotificationThingBase extends org.archstudio.bna.thing
 		return get(org.archstudio.bna.facets.IHasLife.LIFE_KEY);
 	}
 
-	/* package */ int getRawLife() {
-		return getRaw(org.archstudio.bna.facets.IHasLife.LIFE_KEY);
-	}
-
 	@Override
 	public void setLife(int life) {
 		set(org.archstudio.bna.facets.IHasLife.LIFE_KEY, life);
-	}
-
-	/* package */ int setRawLife(int life) {
-		return setRaw(org.archstudio.bna.facets.IHasLife.LIFE_KEY, life);
 	}
 
 	@Override
@@ -220,19 +143,9 @@ public abstract class UserNotificationThingBase extends org.archstudio.bna.thing
 		return get(org.archstudio.bna.facets.IHasSecondaryColor.SECONDARY_COLOR_KEY);
 	}
 
-	/* package */ @Nullable
-			org.eclipse.swt.graphics.RGB getRawSecondaryColor() {
-		return getRaw(org.archstudio.bna.facets.IHasSecondaryColor.SECONDARY_COLOR_KEY);
-	}
-
 	@Override
 	public void setSecondaryColor(@Nullable org.eclipse.swt.graphics.RGB secondaryColor) {
 		set(org.archstudio.bna.facets.IHasSecondaryColor.SECONDARY_COLOR_KEY, secondaryColor);
-	}
-
-	/* package */ @Nullable
-			org.eclipse.swt.graphics.RGB setRawSecondaryColor(@Nullable org.eclipse.swt.graphics.RGB secondaryColor) {
-		return setRaw(org.archstudio.bna.facets.IHasSecondaryColor.SECONDARY_COLOR_KEY, secondaryColor);
 	}
 
 	@Override
@@ -240,16 +153,8 @@ public abstract class UserNotificationThingBase extends org.archstudio.bna.thing
 		return get(org.archstudio.bna.facets.IHasText.TEXT_KEY);
 	}
 
-	/* package */ java.lang.String getRawText() {
-		return getRaw(org.archstudio.bna.facets.IHasText.TEXT_KEY);
-	}
-
 	@Override
 	public void setText(java.lang.String text) {
 		set(org.archstudio.bna.facets.IHasText.TEXT_KEY, text);
-	}
-
-	/* package */ java.lang.String setRawText(java.lang.String text) {
-		return setRaw(org.archstudio.bna.facets.IHasText.TEXT_KEY, text);
 	}
 }

@@ -53,64 +53,31 @@ public abstract class SWTScrollBarThingBase extends org.archstudio.bna.things.sw
 		return get(org.archstudio.bna.things.swt.SWTScrollBarThing.MAX_KEY);
 	}
 
-	/* package */ int getRawMax() {
-		return getRaw(org.archstudio.bna.things.swt.SWTScrollBarThing.MAX_KEY);
-	}
-
 	public void setMax(int max) {
 		set(org.archstudio.bna.things.swt.SWTScrollBarThing.MAX_KEY, max);
-	}
-
-	/* package */ int setRawMax(int max) {
-		return setRaw(org.archstudio.bna.things.swt.SWTScrollBarThing.MAX_KEY, max);
 	}
 
 	public int getMin() {
 		return get(org.archstudio.bna.things.swt.SWTScrollBarThing.MIN_KEY);
 	}
 
-	/* package */ int getRawMin() {
-		return getRaw(org.archstudio.bna.things.swt.SWTScrollBarThing.MIN_KEY);
-	}
-
 	public void setMin(int min) {
 		set(org.archstudio.bna.things.swt.SWTScrollBarThing.MIN_KEY, min);
-	}
-
-	/* package */ int setRawMin(int min) {
-		return setRaw(org.archstudio.bna.things.swt.SWTScrollBarThing.MIN_KEY, min);
 	}
 
 	public org.archstudio.bna.things.swt.SWTScrollBarThing.Type getType() {
 		return get(org.archstudio.bna.things.swt.SWTScrollBarThing.TYPE_KEY);
 	}
 
-	/* package */ org.archstudio.bna.things.swt.SWTScrollBarThing.Type getRawType() {
-		return getRaw(org.archstudio.bna.things.swt.SWTScrollBarThing.TYPE_KEY);
-	}
-
 	public void setType(org.archstudio.bna.things.swt.SWTScrollBarThing.Type type) {
 		set(org.archstudio.bna.things.swt.SWTScrollBarThing.TYPE_KEY, type);
-	}
-
-	/* package */ org.archstudio.bna.things.swt.SWTScrollBarThing.Type
-			setRawType(org.archstudio.bna.things.swt.SWTScrollBarThing.Type type) {
-		return setRaw(org.archstudio.bna.things.swt.SWTScrollBarThing.TYPE_KEY, type);
 	}
 
 	public int getValue() {
 		return get(org.archstudio.bna.things.swt.SWTScrollBarThing.VALUE_KEY);
 	}
 
-	/* package */ int getRawValue() {
-		return getRaw(org.archstudio.bna.things.swt.SWTScrollBarThing.VALUE_KEY);
-	}
-
 	public void setValue(int value) {
 		set(org.archstudio.bna.things.swt.SWTScrollBarThing.VALUE_KEY, value);
-	}
-
-	/* package */ int setRawValue(int value) {
-		return setRaw(org.archstudio.bna.things.swt.SWTScrollBarThing.VALUE_KEY, value);
 	}
 }

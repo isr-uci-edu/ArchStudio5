@@ -157,7 +157,7 @@ public interface Domain_3_0Package extends EPackage {
 	 * @see org.archstudio.xadl3.domain_3_0.Domain
 	 * @generated
 	 */
-			EClass getDomain();
+	EClass getDomain();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.archstudio.xadl3.domain_3_0.Domain#getType <em>Type</em>}'.
@@ -168,7 +168,7 @@ public interface Domain_3_0Package extends EPackage {
 	 * @see #getDomain()
 	 * @generated
 	 */
-			EAttribute getDomain_Type();
+	EAttribute getDomain_Type();
 
 	/**
 	 * Returns the meta object for class '{@link org.archstudio.xadl3.domain_3_0.DomainExtension
@@ -178,7 +178,7 @@ public interface Domain_3_0Package extends EPackage {
 	 * @see org.archstudio.xadl3.domain_3_0.DomainExtension
 	 * @generated
 	 */
-			EClass getDomainExtension();
+	EClass getDomainExtension();
 
 	/**
 	 * Returns the meta object for the containment reference '
@@ -190,7 +190,7 @@ public interface Domain_3_0Package extends EPackage {
 	 * @see #getDomainExtension()
 	 * @generated
 	 */
-			EReference getDomainExtension_Domain();
+	EReference getDomainExtension_Domain();
 
 	/**
 	 * Returns the meta object for enum '{@link org.archstudio.xadl3.domain_3_0.DomainType <em>Domain Type</em>}'. <!--
@@ -200,7 +200,7 @@ public interface Domain_3_0Package extends EPackage {
 	 * @see org.archstudio.xadl3.domain_3_0.DomainType
 	 * @generated
 	 */
-			EEnum getDomainType();
+	EEnum getDomainType();
 
 	/**
 	 * Returns the meta object for data type '{@link org.archstudio.xadl3.domain_3_0.DomainType
@@ -212,7 +212,7 @@ public interface Domain_3_0Package extends EPackage {
 	 *        "name='DomainType:Object' baseType='DomainType'"
 	 * @generated
 	 */
-			EDataType getDomainTypeObject();
+	EDataType getDomainTypeObject();
 
 	/**
 	 * Returns the factory that creates the instances of the model. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -220,7 +220,7 @@ public interface Domain_3_0Package extends EPackage {
 	 * @return the factory that creates the instances of the model.
 	 * @generated
 	 */
-			Domain_3_0Factory getDomain_3_0Factory();
+	Domain_3_0Factory getDomain_3_0Factory();
 
 	/**
 	 * <!-- begin-user-doc --> Defines literals for the meta objects that represent

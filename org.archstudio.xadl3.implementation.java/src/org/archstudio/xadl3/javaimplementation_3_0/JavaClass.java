@@ -24,22 +24,21 @@ import org.eclipse.emf.ecore.EObject;
  * @generated
  */
 public interface JavaClass extends EObject {
-			/**
-			 * Returns the value of the '<em><b>Class Path Entry</b></em>' containment reference list. The list contents
-			 * are of type {@link org.archstudio.xadl3.javaimplementation_3_0.ClassPathEntry}. <!-- begin-user-doc -->
-			 * <p>
-			 * If the meaning of the '<em>Class Path Entry</em>' containment reference list isn't clear, there really
-			 * should be more of a description here...
-			 * </p>
-			 * <!-- end-user-doc -->
-			 * 
-			 * @return the value of the '<em>Class Path Entry</em>' containment reference list.
-			 * @see org.archstudio.xadl3.javaimplementation_3_0.Javaimplementation_3_0Package#getJavaClass_ClassPathEntry()
-			 * @model containment="true" extendedMetaData=
-			 *        "kind='element' name='classPathEntry' namespace='##targetNamespace'"
-			 * @generated
-			 */
-			EList<ClassPathEntry> getClassPathEntry();
+	/**
+	 * Returns the value of the '<em><b>Class Path Entry</b></em>' containment reference list. The list contents are of
+	 * type {@link org.archstudio.xadl3.javaimplementation_3_0.ClassPathEntry}. <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Class Path Entry</em>' containment reference list isn't clear, there really should be
+	 * more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the value of the '<em>Class Path Entry</em>' containment reference list.
+	 * @see org.archstudio.xadl3.javaimplementation_3_0.Javaimplementation_3_0Package#getJavaClass_ClassPathEntry()
+	 * @model containment="true" extendedMetaData="kind='element' name='classPathEntry' namespace='##targetNamespace'"
+	 * @generated
+	 */
+	EList<ClassPathEntry> getClassPathEntry();
 
 	/**
 	 * Returns the value of the '<em><b>Ext</b></em>' containment reference list. The list contents are of type
@@ -55,7 +54,7 @@ public interface JavaClass extends EObject {
 	 * @model containment="true" extendedMetaData="kind='element' name='ext' namespace='##targetNamespace'"
 	 * @generated
 	 */
-			EList<Extension> getExt();
+	EList<Extension> getExt();
 
 	/**
 	 * Returns the value of the '<em><b>Class Name</b></em>' attribute. <!-- begin-user-doc -->
@@ -72,7 +71,7 @@ public interface JavaClass extends EObject {
 	 *        "kind='attribute' name='className' namespace='##targetNamespace'"
 	 * @generated
 	 */
-			String getClassName();
+	String getClassName();
 
 	/**
 	 * Sets the value of the '{@link org.archstudio.xadl3.javaimplementation_3_0.JavaClass#getClassName
@@ -82,7 +81,7 @@ public interface JavaClass extends EObject {
 	 * @see #getClassName()
 	 * @generated
 	 */
-			void setClassName(String value);
+	void setClassName(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Id</b></em>' attribute. <!-- begin-user-doc -->
@@ -98,7 +97,7 @@ public interface JavaClass extends EObject {
 	 *        "kind='attribute' name='id' namespace='##targetNamespace'"
 	 * @generated
 	 */
-			String getId();
+	String getId();
 
 	/**
 	 * Sets the value of the '{@link org.archstudio.xadl3.javaimplementation_3_0.JavaClass#getId <em>Id</em>}'
@@ -108,6 +107,6 @@ public interface JavaClass extends EObject {
 	 * @see #getId()
 	 * @generated
 	 */
-			void setId(String value);
+	void setId(String value);
 
 } // JavaClass

@@ -19,23 +19,21 @@ import org.eclipse.emf.common.util.EList;
  * @model extendedMetaData="name='PrologExtension' kind='elementOnly'"
  * @generated
  */
-public interface PrologExtension extends
-		Extension {
-					/**
-					 * Returns the value of the '<em><b>Statement</b></em>' containment reference list. The list
-					 * contents are of type {@link org.archstudio.xadl3.prolog_3_0.Statement}. <!-- begin-user-doc -->
-					 * <p>
-					 * If the meaning of the '<em>Statement</em>' containment reference list isn't clear, there really
-					 * should be more of a description here...
-					 * </p>
-					 * <!-- end-user-doc -->
-					 * 
-					 * @return the value of the '<em>Statement</em>' containment reference list.
-					 * @see org.archstudio.xadl3.prolog_3_0.Prolog_3_0Package#getPrologExtension_Statement()
-					 * @model containment="true" extendedMetaData=
-					 *        "kind='element' name='statement' namespace='##targetNamespace'"
-					 * @generated
-					 */
-					EList<Statement> getStatement();
+public interface PrologExtension extends Extension {
+	/**
+	 * Returns the value of the '<em><b>Statement</b></em>' containment reference list. The list contents are of type
+	 * {@link org.archstudio.xadl3.prolog_3_0.Statement}. <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Statement</em>' containment reference list isn't clear, there really should be more of
+	 * a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the value of the '<em>Statement</em>' containment reference list.
+	 * @see org.archstudio.xadl3.prolog_3_0.Prolog_3_0Package#getPrologExtension_Statement()
+	 * @model containment="true" extendedMetaData="kind='element' name='statement' namespace='##targetNamespace'"
+	 * @generated
+	 */
+	EList<Statement> getStatement();
 
 } // PrologExtension

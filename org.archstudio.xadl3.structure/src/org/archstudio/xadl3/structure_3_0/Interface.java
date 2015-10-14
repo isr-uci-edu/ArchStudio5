@@ -25,21 +25,21 @@ import org.eclipse.emf.ecore.EObject;
  * @generated
  */
 public interface Interface extends EObject {
-			/**
-			 * Returns the value of the '<em><b>Ext</b></em>' containment reference list. The list contents are of type
-			 * {@link org.archstudio.xadl3.xadlcore_3_0.Extension}. <!-- begin-user-doc -->
-			 * <p>
-			 * If the meaning of the '<em>Ext</em>' containment reference list isn't clear, there really should be more
-			 * of a description here...
-			 * </p>
-			 * <!-- end-user-doc -->
-			 * 
-			 * @return the value of the '<em>Ext</em>' containment reference list.
-			 * @see org.archstudio.xadl3.structure_3_0.Structure_3_0Package#getInterface_Ext()
-			 * @model containment="true" extendedMetaData="kind='element' name='ext' namespace='##targetNamespace'"
-			 * @generated
-			 */
-			EList<Extension> getExt();
+	/**
+	 * Returns the value of the '<em><b>Ext</b></em>' containment reference list. The list contents are of type
+	 * {@link org.archstudio.xadl3.xadlcore_3_0.Extension}. <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Ext</em>' containment reference list isn't clear, there really should be more of a
+	 * description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the value of the '<em>Ext</em>' containment reference list.
+	 * @see org.archstudio.xadl3.structure_3_0.Structure_3_0Package#getInterface_Ext()
+	 * @model containment="true" extendedMetaData="kind='element' name='ext' namespace='##targetNamespace'"
+	 * @generated
+	 */
+	EList<Extension> getExt();
 
 	/**
 	 * Returns the value of the '<em><b>Direction</b></em>' attribute. The literals are from the enumeration
@@ -59,7 +59,7 @@ public interface Interface extends EObject {
 	 * @model unsettable="true" extendedMetaData="kind='attribute' name='direction' namespace='##targetNamespace'"
 	 * @generated
 	 */
-			Direction getDirection();
+	Direction getDirection();
 
 	/**
 	 * Sets the value of the '{@link org.archstudio.xadl3.structure_3_0.Interface#getDirection <em>Direction</em>}'
@@ -72,7 +72,7 @@ public interface Interface extends EObject {
 	 * @see #getDirection()
 	 * @generated
 	 */
-			void setDirection(Direction value);
+	void setDirection(Direction value);
 
 	/**
 	 * Unsets the value of the '{@link org.archstudio.xadl3.structure_3_0.Interface#getDirection <em>Direction</em>}'
@@ -83,7 +83,7 @@ public interface Interface extends EObject {
 	 * @see #setDirection(Direction)
 	 * @generated
 	 */
-			void unsetDirection();
+	void unsetDirection();
 
 	/**
 	 * Returns whether the value of the '{@link org.archstudio.xadl3.structure_3_0.Interface#getDirection
@@ -95,7 +95,7 @@ public interface Interface extends EObject {
 	 * @see #setDirection(Direction)
 	 * @generated
 	 */
-			boolean isSetDirection();
+	boolean isSetDirection();
 
 	/**
 	 * Returns the value of the '<em><b>Id</b></em>' attribute. <!-- begin-user-doc -->
@@ -111,7 +111,7 @@ public interface Interface extends EObject {
 	 *        "kind='attribute' name='id' namespace='##targetNamespace'"
 	 * @generated
 	 */
-			String getId();
+	String getId();
 
 	/**
 	 * Sets the value of the '{@link org.archstudio.xadl3.structure_3_0.Interface#getId <em>Id</em>}' attribute. <!--
@@ -121,7 +121,7 @@ public interface Interface extends EObject {
 	 * @see #getId()
 	 * @generated
 	 */
-			void setId(String value);
+	void setId(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Name</b></em>' attribute. <!-- begin-user-doc -->
@@ -137,7 +137,7 @@ public interface Interface extends EObject {
 	 *        "kind='attribute' name='name' namespace='##targetNamespace'"
 	 * @generated
 	 */
-			String getName();
+	String getName();
 
 	/**
 	 * Sets the value of the '{@link org.archstudio.xadl3.structure_3_0.Interface#getName <em>Name</em>}' attribute.
@@ -147,6 +147,6 @@ public interface Interface extends EObject {
 	 * @see #getName()
 	 * @generated
 	 */
-			void setName(String value);
+	void setName(String value);
 
 } // Interface

@@ -26,7 +26,7 @@ public interface Lookupimplementation_3_0Factory extends EFactory {
 	 * @return a new object of class '<em>Lookup Implementation</em>'.
 	 * @generated
 	 */
-			LookupImplementation createLookupImplementation();
+	LookupImplementation createLookupImplementation();
 
 	/**
 	 * Returns the package supported by this factory. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -34,6 +34,6 @@ public interface Lookupimplementation_3_0Factory extends EFactory {
 	 * @return the package supported by this factory.
 	 * @generated
 	 */
-			Lookupimplementation_3_0Package getLookupimplementation_3_0Package();
+	Lookupimplementation_3_0Package getLookupimplementation_3_0Package();
 
 } // Lookupimplementation_3_0Factory

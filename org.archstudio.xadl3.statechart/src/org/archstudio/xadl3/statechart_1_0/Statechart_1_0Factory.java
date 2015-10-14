@@ -25,7 +25,7 @@ public interface Statechart_1_0Factory extends EFactory {
 	 * @return a new object of class '<em>Behavior</em>'.
 	 * @generated
 	 */
-			Behavior createBehavior();
+	Behavior createBehavior();
 
 	/**
 	 * Returns a new object of class '<em>Constraint</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -33,7 +33,7 @@ public interface Statechart_1_0Factory extends EFactory {
 	 * @return a new object of class '<em>Constraint</em>'.
 	 * @generated
 	 */
-			Constraint createConstraint();
+	Constraint createConstraint();
 
 	/**
 	 * Returns a new object of class '<em>Document Root</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -41,7 +41,7 @@ public interface Statechart_1_0Factory extends EFactory {
 	 * @return a new object of class '<em>Document Root</em>'.
 	 * @generated
 	 */
-			DocumentRoot createDocumentRoot();
+	DocumentRoot createDocumentRoot();
 
 	/**
 	 * Returns a new object of class '<em>Final State</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -49,7 +49,7 @@ public interface Statechart_1_0Factory extends EFactory {
 	 * @return a new object of class '<em>Final State</em>'.
 	 * @generated
 	 */
-			FinalState createFinalState();
+	FinalState createFinalState();
 
 	/**
 	 * Returns a new object of class '<em>Initial State</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -57,7 +57,7 @@ public interface Statechart_1_0Factory extends EFactory {
 	 * @return a new object of class '<em>Initial State</em>'.
 	 * @generated
 	 */
-			InitialState createInitialState();
+	InitialState createInitialState();
 
 	/**
 	 * Returns a new object of class '<em>Pseudo State</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -65,7 +65,7 @@ public interface Statechart_1_0Factory extends EFactory {
 	 * @return a new object of class '<em>Pseudo State</em>'.
 	 * @generated
 	 */
-			PseudoState createPseudoState();
+	PseudoState createPseudoState();
 
 	/**
 	 * Returns a new object of class '<em>State</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -73,7 +73,7 @@ public interface Statechart_1_0Factory extends EFactory {
 	 * @return a new object of class '<em>State</em>'.
 	 * @generated
 	 */
-			State createState();
+	State createState();
 
 	/**
 	 * Returns a new object of class '<em>Statechart</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -81,7 +81,7 @@ public interface Statechart_1_0Factory extends EFactory {
 	 * @return a new object of class '<em>Statechart</em>'.
 	 * @generated
 	 */
-			Statechart createStatechart();
+	Statechart createStatechart();
 
 	/**
 	 * Returns a new object of class '<em>Statechart Specification</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -89,7 +89,7 @@ public interface Statechart_1_0Factory extends EFactory {
 	 * @return a new object of class '<em>Statechart Specification</em>'.
 	 * @generated
 	 */
-			StatechartSpecification createStatechartSpecification();
+	StatechartSpecification createStatechartSpecification();
 
 	/**
 	 * Returns a new object of class '<em>Sub Statechart</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -97,7 +97,7 @@ public interface Statechart_1_0Factory extends EFactory {
 	 * @return a new object of class '<em>Sub Statechart</em>'.
 	 * @generated
 	 */
-			SubStatechart createSubStatechart();
+	SubStatechart createSubStatechart();
 
 	/**
 	 * Returns a new object of class '<em>Transition</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -105,7 +105,7 @@ public interface Statechart_1_0Factory extends EFactory {
 	 * @return a new object of class '<em>Transition</em>'.
 	 * @generated
 	 */
-			Transition createTransition();
+	Transition createTransition();
 
 	/**
 	 * Returns the package supported by this factory. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -113,6 +113,6 @@ public interface Statechart_1_0Factory extends EFactory {
 	 * @return the package supported by this factory.
 	 * @generated
 	 */
-			Statechart_1_0Package getStatechart_1_0Package();
+	Statechart_1_0Package getStatechart_1_0Package();
 
 } // Statechart_1_0Factory

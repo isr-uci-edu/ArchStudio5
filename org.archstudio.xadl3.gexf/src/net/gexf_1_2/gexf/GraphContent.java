@@ -30,24 +30,23 @@ import org.eclipse.emf.ecore.util.FeatureMap;
  * @model extendedMetaData="name='graph-content' kind='elementOnly'"
  * @generated
  */
-public interface GraphContent extends
-		EObject {
-					/**
-					 * Returns the value of the '<em><b>Group</b></em>' attribute list. The list contents are of type
-					 * {@link org.eclipse.emf.ecore.util.FeatureMap.Entry}. <!-- begin-user-doc -->
-					 * <p>
-					 * If the meaning of the '<em>Group</em>' attribute list isn't clear, there really should be more of
-					 * a description here...
-					 * </p>
-					 * <!-- end-user-doc -->
-					 * 
-					 * @return the value of the '<em>Group</em>' attribute list.
-					 * @see net.gexf_1_2.gexf.GexfPackage#getGraphContent_Group()
-					 * @model unique="false" dataType="org.eclipse.emf.ecore.EFeatureMapEntry" many="true"
-					 *        extendedMetaData="kind='group' name='group:0'"
-					 * @generated
-					 */
-					FeatureMap getGroup();
+public interface GraphContent extends EObject {
+	/**
+	 * Returns the value of the '<em><b>Group</b></em>' attribute list. The list contents are of type
+	 * {@link org.eclipse.emf.ecore.util.FeatureMap.Entry}. <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Group</em>' attribute list isn't clear, there really should be more of a description
+	 * here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the value of the '<em>Group</em>' attribute list.
+	 * @see net.gexf_1_2.gexf.GexfPackage#getGraphContent_Group()
+	 * @model unique="false" dataType="org.eclipse.emf.ecore.EFeatureMapEntry" many="true" extendedMetaData=
+	 *        "kind='group' name='group:0'"
+	 * @generated
+	 */
+	FeatureMap getGroup();
 
 	/**
 	 * Returns the value of the '<em><b>Attributes</b></em>' containment reference list. The list contents are of type
@@ -64,7 +63,7 @@ public interface GraphContent extends
 	 *        "kind='element' name='attributes' namespace='##targetNamespace' group='#group:0'"
 	 * @generated
 	 */
-			EList<AttributesContent> getAttributes();
+	EList<AttributesContent> getAttributes();
 
 	/**
 	 * Returns the value of the '<em><b>Nodes</b></em>' containment reference list. The list contents are of type
@@ -81,7 +80,7 @@ public interface GraphContent extends
 	 *        "kind='element' name='nodes' namespace='##targetNamespace' group='#group:0'"
 	 * @generated
 	 */
-			EList<NodesContent> getNodes();
+	EList<NodesContent> getNodes();
 
 	/**
 	 * Returns the value of the '<em><b>Edges</b></em>' containment reference list. The list contents are of type
@@ -98,7 +97,7 @@ public interface GraphContent extends
 	 *        "kind='element' name='edges' namespace='##targetNamespace' group='#group:0'"
 	 * @generated
 	 */
-			EList<EdgesContent> getEdges();
+	EList<EdgesContent> getEdges();
 
 	/**
 	 * Returns the value of the '<em><b>Defaultedgetype</b></em>' attribute. The literals are from the enumeration
@@ -118,7 +117,7 @@ public interface GraphContent extends
 	 * @model unsettable="true" extendedMetaData="kind='attribute' name='defaultedgetype'"
 	 * @generated
 	 */
-			DefaultedgetypeType getDefaultedgetype();
+	DefaultedgetypeType getDefaultedgetype();
 
 	/**
 	 * Sets the value of the '{@link net.gexf_1_2.gexf.GraphContent#getDefaultedgetype <em>Defaultedgetype</em>}'
@@ -131,7 +130,7 @@ public interface GraphContent extends
 	 * @see #getDefaultedgetype()
 	 * @generated
 	 */
-			void setDefaultedgetype(DefaultedgetypeType value);
+	void setDefaultedgetype(DefaultedgetypeType value);
 
 	/**
 	 * Unsets the value of the '{@link net.gexf_1_2.gexf.GraphContent#getDefaultedgetype <em>Defaultedgetype</em>}'
@@ -142,7 +141,7 @@ public interface GraphContent extends
 	 * @see #setDefaultedgetype(DefaultedgetypeType)
 	 * @generated
 	 */
-			void unsetDefaultedgetype();
+	void unsetDefaultedgetype();
 
 	/**
 	 * Returns whether the value of the '{@link net.gexf_1_2.gexf.GraphContent#getDefaultedgetype
@@ -154,7 +153,7 @@ public interface GraphContent extends
 	 * @see #setDefaultedgetype(DefaultedgetypeType)
 	 * @generated
 	 */
-			boolean isSetDefaultedgetype();
+	boolean isSetDefaultedgetype();
 
 	/**
 	 * Returns the value of the '<em><b>End</b></em>' attribute. <!-- begin-user-doc -->
@@ -169,7 +168,7 @@ public interface GraphContent extends
 	 * @model dataType="net.gexf_1_2.gexf.TimeType" extendedMetaData="kind='attribute' name='end'"
 	 * @generated
 	 */
-			Object getEnd();
+	Object getEnd();
 
 	/**
 	 * Sets the value of the '{@link net.gexf_1_2.gexf.GraphContent#getEnd <em>End</em>}' attribute. <!-- begin-user-doc
@@ -179,7 +178,7 @@ public interface GraphContent extends
 	 * @see #getEnd()
 	 * @generated
 	 */
-			void setEnd(Object value);
+	void setEnd(Object value);
 
 	/**
 	 * Returns the value of the '<em><b>Endopen</b></em>' attribute. <!-- begin-user-doc -->
@@ -195,7 +194,7 @@ public interface GraphContent extends
 	 * @model dataType="net.gexf_1_2.gexf.TimeType" extendedMetaData="kind='attribute' name='endopen'"
 	 * @generated
 	 */
-			Object getEndopen();
+	Object getEndopen();
 
 	/**
 	 * Sets the value of the '{@link net.gexf_1_2.gexf.GraphContent#getEndopen <em>Endopen</em>}' attribute. <!--
@@ -205,7 +204,7 @@ public interface GraphContent extends
 	 * @see #getEndopen()
 	 * @generated
 	 */
-			void setEndopen(Object value);
+	void setEndopen(Object value);
 
 	/**
 	 * Returns the value of the '<em><b>Idtype</b></em>' attribute. The literals are from the enumeration
@@ -225,7 +224,7 @@ public interface GraphContent extends
 	 * @model unsettable="true" extendedMetaData="kind='attribute' name='idtype'"
 	 * @generated
 	 */
-			IdtypeType getIdtype();
+	IdtypeType getIdtype();
 
 	/**
 	 * Sets the value of the '{@link net.gexf_1_2.gexf.GraphContent#getIdtype <em>Idtype</em>}' attribute. <!--
@@ -238,7 +237,7 @@ public interface GraphContent extends
 	 * @see #getIdtype()
 	 * @generated
 	 */
-			void setIdtype(IdtypeType value);
+	void setIdtype(IdtypeType value);
 
 	/**
 	 * Unsets the value of the '{@link net.gexf_1_2.gexf.GraphContent#getIdtype <em>Idtype</em>}' attribute. <!--
@@ -249,7 +248,7 @@ public interface GraphContent extends
 	 * @see #setIdtype(IdtypeType)
 	 * @generated
 	 */
-			void unsetIdtype();
+	void unsetIdtype();
 
 	/**
 	 * Returns whether the value of the '{@link net.gexf_1_2.gexf.GraphContent#getIdtype <em>Idtype</em>}' attribute is
@@ -261,7 +260,7 @@ public interface GraphContent extends
 	 * @see #setIdtype(IdtypeType)
 	 * @generated
 	 */
-			boolean isSetIdtype();
+	boolean isSetIdtype();
 
 	/**
 	 * Returns the value of the '<em><b>Mode</b></em>' attribute. The literals are from the enumeration
@@ -280,7 +279,7 @@ public interface GraphContent extends
 	 * @model unsettable="true" extendedMetaData="kind='attribute' name='mode'"
 	 * @generated
 	 */
-			ModeType getMode();
+	ModeType getMode();
 
 	/**
 	 * Sets the value of the '{@link net.gexf_1_2.gexf.GraphContent#getMode <em>Mode</em>}' attribute. <!--
@@ -293,7 +292,7 @@ public interface GraphContent extends
 	 * @see #getMode()
 	 * @generated
 	 */
-			void setMode(ModeType value);
+	void setMode(ModeType value);
 
 	/**
 	 * Unsets the value of the '{@link net.gexf_1_2.gexf.GraphContent#getMode <em>Mode</em>}' attribute. <!--
@@ -304,7 +303,7 @@ public interface GraphContent extends
 	 * @see #setMode(ModeType)
 	 * @generated
 	 */
-			void unsetMode();
+	void unsetMode();
 
 	/**
 	 * Returns whether the value of the '{@link net.gexf_1_2.gexf.GraphContent#getMode <em>Mode</em>}' attribute is set.
@@ -316,7 +315,7 @@ public interface GraphContent extends
 	 * @see #setMode(ModeType)
 	 * @generated
 	 */
-			boolean isSetMode();
+	boolean isSetMode();
 
 	/**
 	 * Returns the value of the '<em><b>Start</b></em>' attribute. <!-- begin-user-doc -->
@@ -332,7 +331,7 @@ public interface GraphContent extends
 	 * @model dataType="net.gexf_1_2.gexf.TimeType" extendedMetaData="kind='attribute' name='start'"
 	 * @generated
 	 */
-			Object getStart();
+	Object getStart();
 
 	/**
 	 * Sets the value of the '{@link net.gexf_1_2.gexf.GraphContent#getStart <em>Start</em>}' attribute. <!--
@@ -342,7 +341,7 @@ public interface GraphContent extends
 	 * @see #getStart()
 	 * @generated
 	 */
-			void setStart(Object value);
+	void setStart(Object value);
 
 	/**
 	 * Returns the value of the '<em><b>Startopen</b></em>' attribute. <!-- begin-user-doc -->
@@ -358,7 +357,7 @@ public interface GraphContent extends
 	 * @model dataType="net.gexf_1_2.gexf.TimeType" extendedMetaData="kind='attribute' name='startopen'"
 	 * @generated
 	 */
-			Object getStartopen();
+	Object getStartopen();
 
 	/**
 	 * Sets the value of the '{@link net.gexf_1_2.gexf.GraphContent#getStartopen <em>Startopen</em>}' attribute. <!--
@@ -368,7 +367,7 @@ public interface GraphContent extends
 	 * @see #getStartopen()
 	 * @generated
 	 */
-			void setStartopen(Object value);
+	void setStartopen(Object value);
 
 	/**
 	 * Returns the value of the '<em><b>Timeformat</b></em>' attribute. The literals are from the enumeration
@@ -388,7 +387,7 @@ public interface GraphContent extends
 	 * @model unsettable="true" extendedMetaData="kind='attribute' name='timeformat'"
 	 * @generated
 	 */
-			TimeformatType getTimeformat();
+	TimeformatType getTimeformat();
 
 	/**
 	 * Sets the value of the '{@link net.gexf_1_2.gexf.GraphContent#getTimeformat <em>Timeformat</em>}' attribute. <!--
@@ -401,7 +400,7 @@ public interface GraphContent extends
 	 * @see #getTimeformat()
 	 * @generated
 	 */
-			void setTimeformat(TimeformatType value);
+	void setTimeformat(TimeformatType value);
 
 	/**
 	 * Unsets the value of the '{@link net.gexf_1_2.gexf.GraphContent#getTimeformat <em>Timeformat</em>}' attribute.
@@ -412,7 +411,7 @@ public interface GraphContent extends
 	 * @see #setTimeformat(TimeformatType)
 	 * @generated
 	 */
-			void unsetTimeformat();
+	void unsetTimeformat();
 
 	/**
 	 * Returns whether the value of the '{@link net.gexf_1_2.gexf.GraphContent#getTimeformat <em>Timeformat</em>}'
@@ -424,6 +423,6 @@ public interface GraphContent extends
 	 * @see #setTimeformat(TimeformatType)
 	 * @generated
 	 */
-			boolean isSetTimeformat();
+	boolean isSetTimeformat();
 
 } // GraphContent

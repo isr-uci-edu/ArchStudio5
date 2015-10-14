@@ -119,32 +119,16 @@ public abstract class AbstractThing implements IThing {
 
 	@Override
 	public final @Nullable <V> V get(IThingKey<V> key) {
-		BNAUtils.checkLock();
-
-		V value = getRaw(key);
-		return value != null ? key.clone(value) : null;
+		return get(key, null);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public final <V> V get(IThingKey<V> key, V valueIfNull) {
 		BNAUtils.checkLock();
 
-		V value = getRaw(key);
+		V value = (V) properties.get(key);
 		return value != null ? key.clone(value) : valueIfNull;
-	}
-
-	@SuppressWarnings("unchecked")
-	protected final @Nullable <V> V getRaw(IThingKey<V> key) {
-		BNAUtils.checkLock();
-
-		return (V) properties.get(key);
-	}
-
-	protected final <V> V getRaw(IThingKey<V> key, V valueIfNull) {
-		BNAUtils.checkLock();
-
-		V value = getRaw(key);
-		return value != null ? value : valueIfNull;
 	}
 
 	@Override
@@ -168,23 +152,6 @@ public abstract class AbstractThing implements IThing {
 	@SuppressWarnings("unchecked")
 	@Override
 	public final <V> V set(IThingKey<V> key, @Nullable V value) {
-		BNAUtils.checkLock();
-
-		if (!key.isNullable() && value == null) {
-			throw new NullPointerException(key.toString());
-		}
-		V oldValue = value;
-		Map.Entry<IThingKey<?>, Object> entry = properties.createEntry(key);
-		if (!BNAUtils.like(entry.getValue(), value)) {
-			oldValue = (V) entry.getValue();
-			entry.setValue(key.clone(value));
-			fireThingEvent(ThingEvent.create(ThingEvent.EventType.PROPERTY_SET, this, key, oldValue, value));
-		}
-		return oldValue;
-	}
-
-	@SuppressWarnings("unchecked")
-	protected final <V> V setRaw(IThingKey<V> key, @Nullable V value) {
 		BNAUtils.checkLock();
 
 		if (!key.isNullable() && value == null) {

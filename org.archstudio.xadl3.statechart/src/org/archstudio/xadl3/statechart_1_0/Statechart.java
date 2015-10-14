@@ -24,21 +24,21 @@ import org.eclipse.emf.ecore.EObject;
  * @generated
  */
 public interface Statechart extends EObject {
-			/**
-			 * Returns the value of the '<em><b>State</b></em>' containment reference list. The list contents are of
-			 * type {@link org.archstudio.xadl3.statechart_1_0.PseudoState}. <!-- begin-user-doc -->
-			 * <p>
-			 * If the meaning of the '<em>State</em>' containment reference list isn't clear, there really should be
-			 * more of a description here...
-			 * </p>
-			 * <!-- end-user-doc -->
-			 * 
-			 * @return the value of the '<em>State</em>' containment reference list.
-			 * @see org.archstudio.xadl3.statechart_1_0.Statechart_1_0Package#getStatechart_State()
-			 * @model containment="true" extendedMetaData="kind='element' name='state' namespace='##targetNamespace'"
-			 * @generated
-			 */
-			EList<PseudoState> getState();
+	/**
+	 * Returns the value of the '<em><b>State</b></em>' containment reference list. The list contents are of type
+	 * {@link org.archstudio.xadl3.statechart_1_0.PseudoState}. <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>State</em>' containment reference list isn't clear, there really should be more of a
+	 * description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the value of the '<em>State</em>' containment reference list.
+	 * @see org.archstudio.xadl3.statechart_1_0.Statechart_1_0Package#getStatechart_State()
+	 * @model containment="true" extendedMetaData="kind='element' name='state' namespace='##targetNamespace'"
+	 * @generated
+	 */
+	EList<PseudoState> getState();
 
 	/**
 	 * Returns the value of the '<em><b>Transition</b></em>' containment reference list. The list contents are of type
@@ -54,7 +54,7 @@ public interface Statechart extends EObject {
 	 * @model containment="true" extendedMetaData="kind='element' name='transition' namespace='##targetNamespace'"
 	 * @generated
 	 */
-			EList<Transition> getTransition();
+	EList<Transition> getTransition();
 
 	/**
 	 * Returns the value of the '<em><b>Ext</b></em>' containment reference list. The list contents are of type
@@ -70,7 +70,7 @@ public interface Statechart extends EObject {
 	 * @model containment="true" extendedMetaData="kind='element' name='ext' namespace='##targetNamespace'"
 	 * @generated
 	 */
-			EList<Extension> getExt();
+	EList<Extension> getExt();
 
 	/**
 	 * Returns the value of the '<em><b>Id</b></em>' attribute. <!-- begin-user-doc -->
@@ -86,7 +86,7 @@ public interface Statechart extends EObject {
 	 *        "kind='attribute' name='id' namespace='##targetNamespace'"
 	 * @generated
 	 */
-			String getId();
+	String getId();
 
 	/**
 	 * Sets the value of the '{@link org.archstudio.xadl3.statechart_1_0.Statechart#getId <em>Id</em>}' attribute. <!--
@@ -96,7 +96,7 @@ public interface Statechart extends EObject {
 	 * @see #getId()
 	 * @generated
 	 */
-			void setId(String value);
+	void setId(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Name</b></em>' attribute. <!-- begin-user-doc -->
@@ -112,7 +112,7 @@ public interface Statechart extends EObject {
 	 *        "kind='attribute' name='name' namespace='##targetNamespace'"
 	 * @generated
 	 */
-			String getName();
+	String getName();
 
 	/**
 	 * Sets the value of the '{@link org.archstudio.xadl3.statechart_1_0.Statechart#getName <em>Name</em>}' attribute.
@@ -122,6 +122,6 @@ public interface Statechart extends EObject {
 	 * @see #getName()
 	 * @generated
 	 */
-			void setName(String value);
+	void setName(String value);
 
 } // Statechart

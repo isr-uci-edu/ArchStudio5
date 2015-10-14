@@ -227,7 +227,7 @@ public interface Archlight_3_0Package extends EPackage {
 	 * @see org.archstudio.xadl3.archlight_3_0.Archlight
 	 * @generated
 	 */
-			EClass getArchlight();
+	EClass getArchlight();
 
 	/**
 	 * Returns the meta object for the containment reference list '
@@ -239,7 +239,7 @@ public interface Archlight_3_0Package extends EPackage {
 	 * @see #getArchlight()
 	 * @generated
 	 */
-			EReference getArchlight_Test();
+	EReference getArchlight_Test();
 
 	/**
 	 * Returns the meta object for the containment reference list '
@@ -251,7 +251,7 @@ public interface Archlight_3_0Package extends EPackage {
 	 * @see #getArchlight()
 	 * @generated
 	 */
-			EReference getArchlight_Ext();
+	EReference getArchlight_Ext();
 
 	/**
 	 * Returns the meta object for class '{@link org.archstudio.xadl3.archlight_3_0.DocumentRoot <em>Document Root</em>}
@@ -261,7 +261,7 @@ public interface Archlight_3_0Package extends EPackage {
 	 * @see org.archstudio.xadl3.archlight_3_0.DocumentRoot
 	 * @generated
 	 */
-			EClass getDocumentRoot();
+	EClass getDocumentRoot();
 
 	/**
 	 * Returns the meta object for the attribute list '{@link org.archstudio.xadl3.archlight_3_0.DocumentRoot#getMixed
@@ -272,7 +272,7 @@ public interface Archlight_3_0Package extends EPackage {
 	 * @see #getDocumentRoot()
 	 * @generated
 	 */
-			EAttribute getDocumentRoot_Mixed();
+	EAttribute getDocumentRoot_Mixed();
 
 	/**
 	 * Returns the meta object for the map '{@link org.archstudio.xadl3.archlight_3_0.DocumentRoot#getXMLNSPrefixMap
@@ -283,7 +283,7 @@ public interface Archlight_3_0Package extends EPackage {
 	 * @see #getDocumentRoot()
 	 * @generated
 	 */
-			EReference getDocumentRoot_XMLNSPrefixMap();
+	EReference getDocumentRoot_XMLNSPrefixMap();
 
 	/**
 	 * Returns the meta object for the map '{@link org.archstudio.xadl3.archlight_3_0.DocumentRoot#getXSISchemaLocation
@@ -294,7 +294,7 @@ public interface Archlight_3_0Package extends EPackage {
 	 * @see #getDocumentRoot()
 	 * @generated
 	 */
-			EReference getDocumentRoot_XSISchemaLocation();
+	EReference getDocumentRoot_XSISchemaLocation();
 
 	/**
 	 * Returns the meta object for the containment reference '
@@ -306,7 +306,7 @@ public interface Archlight_3_0Package extends EPackage {
 	 * @see #getDocumentRoot()
 	 * @generated
 	 */
-			EReference getDocumentRoot_Archlight();
+	EReference getDocumentRoot_Archlight();
 
 	/**
 	 * Returns the meta object for class '{@link org.archstudio.xadl3.archlight_3_0.Test <em>Test</em>}'. <!--
@@ -316,7 +316,7 @@ public interface Archlight_3_0Package extends EPackage {
 	 * @see org.archstudio.xadl3.archlight_3_0.Test
 	 * @generated
 	 */
-			EClass getTest();
+	EClass getTest();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link org.archstudio.xadl3.archlight_3_0.Test#getExt
@@ -327,7 +327,7 @@ public interface Archlight_3_0Package extends EPackage {
 	 * @see #getTest()
 	 * @generated
 	 */
-			EReference getTest_Ext();
+	EReference getTest_Ext();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.archstudio.xadl3.archlight_3_0.Test#isEnabled
@@ -338,7 +338,7 @@ public interface Archlight_3_0Package extends EPackage {
 	 * @see #getTest()
 	 * @generated
 	 */
-			EAttribute getTest_Enabled();
+	EAttribute getTest_Enabled();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.archstudio.xadl3.archlight_3_0.Test#getId <em>Id</em>}'.
@@ -349,7 +349,7 @@ public interface Archlight_3_0Package extends EPackage {
 	 * @see #getTest()
 	 * @generated
 	 */
-			EAttribute getTest_Id();
+	EAttribute getTest_Id();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.archstudio.xadl3.archlight_3_0.Test#getName <em>Name</em>}
@@ -360,7 +360,7 @@ public interface Archlight_3_0Package extends EPackage {
 	 * @see #getTest()
 	 * @generated
 	 */
-			EAttribute getTest_Name();
+	EAttribute getTest_Name();
 
 	/**
 	 * Returns the factory that creates the instances of the model. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -368,7 +368,7 @@ public interface Archlight_3_0Package extends EPackage {
 	 * @return the factory that creates the instances of the model.
 	 * @generated
 	 */
-			Archlight_3_0Factory getArchlight_3_0Factory();
+	Archlight_3_0Factory getArchlight_3_0Factory();
 
 	/**
 	 * <!-- begin-user-doc --> Defines literals for the meta objects that represent

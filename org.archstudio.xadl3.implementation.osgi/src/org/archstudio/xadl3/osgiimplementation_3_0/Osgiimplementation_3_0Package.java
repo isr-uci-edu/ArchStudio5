@@ -120,7 +120,7 @@ public interface Osgiimplementation_3_0Package extends EPackage {
 	 * @see org.archstudio.xadl3.osgiimplementation_3_0.OSGiImplementation
 	 * @generated
 	 */
-			EClass getOSGiImplementation();
+	EClass getOSGiImplementation();
 
 	/**
 	 * Returns the meta object for the containment reference list '
@@ -132,7 +132,7 @@ public interface Osgiimplementation_3_0Package extends EPackage {
 	 * @see #getOSGiImplementation()
 	 * @generated
 	 */
-			EReference getOSGiImplementation_Ext();
+	EReference getOSGiImplementation_Ext();
 
 	/**
 	 * Returns the meta object for the attribute '
@@ -144,7 +144,7 @@ public interface Osgiimplementation_3_0Package extends EPackage {
 	 * @see #getOSGiImplementation()
 	 * @generated
 	 */
-			EAttribute getOSGiImplementation_Bundle();
+	EAttribute getOSGiImplementation_Bundle();
 
 	/**
 	 * Returns the factory that creates the instances of the model. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -152,7 +152,7 @@ public interface Osgiimplementation_3_0Package extends EPackage {
 	 * @return the factory that creates the instances of the model.
 	 * @generated
 	 */
-			Osgiimplementation_3_0Factory getOsgiimplementation_3_0Factory();
+	Osgiimplementation_3_0Factory getOsgiimplementation_3_0Factory();
 
 	/**
 	 * <!-- begin-user-doc --> Defines literals for the meta objects that represent

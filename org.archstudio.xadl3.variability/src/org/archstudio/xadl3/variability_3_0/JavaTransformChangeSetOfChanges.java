@@ -17,24 +17,23 @@ package org.archstudio.xadl3.variability_3_0;
  * @model extendedMetaData="name='JavaTransformChangeSetOfChanges' kind='elementOnly'"
  * @generated
  */
-public interface JavaTransformChangeSetOfChanges extends
-		TransformChangeSetOfChanges {
-					/**
-					 * Returns the value of the '<em><b>Bundle</b></em>' attribute. <!-- begin-user-doc -->
-					 * <p>
-					 * If the meaning of the '<em>Bundle</em>' attribute isn't clear, there really should be more of a
-					 * description here...
-					 * </p>
-					 * <!-- end-user-doc -->
-					 * 
-					 * @return the value of the '<em>Bundle</em>' attribute.
-					 * @see #setBundle(String)
-					 * @see org.archstudio.xadl3.variability_3_0.Variability_3_0Package#getJavaTransformChangeSetOfChanges_Bundle()
-					 * @model dataType="org.eclipse.emf.ecore.xml.type.String" extendedMetaData=
-					 *        "kind='attribute' name='bundle' namespace='##targetNamespace'"
-					 * @generated
-					 */
-					String getBundle();
+public interface JavaTransformChangeSetOfChanges extends TransformChangeSetOfChanges {
+	/**
+	 * Returns the value of the '<em><b>Bundle</b></em>' attribute. <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Bundle</em>' attribute isn't clear, there really should be more of a description
+	 * here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the value of the '<em>Bundle</em>' attribute.
+	 * @see #setBundle(String)
+	 * @see org.archstudio.xadl3.variability_3_0.Variability_3_0Package#getJavaTransformChangeSetOfChanges_Bundle()
+	 * @model dataType="org.eclipse.emf.ecore.xml.type.String" extendedMetaData=
+	 *        "kind='attribute' name='bundle' namespace='##targetNamespace'"
+	 * @generated
+	 */
+	String getBundle();
 
 	/**
 	 * Sets the value of the '{@link org.archstudio.xadl3.variability_3_0.JavaTransformChangeSetOfChanges#getBundle
@@ -44,7 +43,7 @@ public interface JavaTransformChangeSetOfChanges extends
 	 * @see #getBundle()
 	 * @generated
 	 */
-			void setBundle(String value);
+	void setBundle(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Class</b></em>' attribute. <!-- begin-user-doc -->
@@ -61,7 +60,7 @@ public interface JavaTransformChangeSetOfChanges extends
 	 *        "kind='attribute' name='class' namespace='##targetNamespace'"
 	 * @generated
 	 */
-			String getClass_();
+	String getClass_();
 
 	/**
 	 * Sets the value of the '{@link org.archstudio.xadl3.variability_3_0.JavaTransformChangeSetOfChanges#getClass_
@@ -71,6 +70,6 @@ public interface JavaTransformChangeSetOfChanges extends
 	 * @see #getClass_()
 	 * @generated
 	 */
-			void setClass(String value);
+	void setClass(String value);
 
 } // JavaTransformChangeSetOfChanges

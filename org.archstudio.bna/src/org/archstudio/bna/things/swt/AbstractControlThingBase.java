@@ -29,16 +29,8 @@ public abstract class AbstractControlThingBase extends org.archstudio.bna.things
 		return get(org.archstudio.bna.facets.IHasBoundingBox.BOUNDING_BOX_KEY);
 	}
 
-	/* package */ org.eclipse.swt.graphics.Rectangle getRawBoundingBox() {
-		return getRaw(org.archstudio.bna.facets.IHasBoundingBox.BOUNDING_BOX_KEY);
-	}
-
 	@Override
 	public void setBoundingBox(org.eclipse.swt.graphics.Rectangle boundingBox) {
 		set(org.archstudio.bna.facets.IHasBoundingBox.BOUNDING_BOX_KEY, boundingBox);
-	}
-
-	/* package */ org.eclipse.swt.graphics.Rectangle setRawBoundingBox(org.eclipse.swt.graphics.Rectangle boundingBox) {
-		return setRaw(org.archstudio.bna.facets.IHasBoundingBox.BOUNDING_BOX_KEY, boundingBox);
 	}
 }

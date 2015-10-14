@@ -41,17 +41,9 @@ public abstract class MarqueeBoxBorderThingBase extends org.archstudio.bna.thing
 		return get(org.archstudio.bna.facets.IHasBoundingBox.BOUNDING_BOX_KEY);
 	}
 
-	/* package */ org.eclipse.swt.graphics.Rectangle getRawBoundingBox() {
-		return getRaw(org.archstudio.bna.facets.IHasBoundingBox.BOUNDING_BOX_KEY);
-	}
-
 	@Override
 	public void setBoundingBox(org.eclipse.swt.graphics.Rectangle boundingBox) {
 		set(org.archstudio.bna.facets.IHasBoundingBox.BOUNDING_BOX_KEY, boundingBox);
-	}
-
-	/* package */ org.eclipse.swt.graphics.Rectangle setRawBoundingBox(org.eclipse.swt.graphics.Rectangle boundingBox) {
-		return setRaw(org.archstudio.bna.facets.IHasBoundingBox.BOUNDING_BOX_KEY, boundingBox);
 	}
 
 	@Override
@@ -59,17 +51,9 @@ public abstract class MarqueeBoxBorderThingBase extends org.archstudio.bna.thing
 		return get(org.archstudio.bna.facets.IHasRotatingOffset.ROTATING_OFFSET_KEY);
 	}
 
-	/* package */ int getRawRotatingOffset() {
-		return getRaw(org.archstudio.bna.facets.IHasRotatingOffset.ROTATING_OFFSET_KEY);
-	}
-
 	@Override
 	public void setRotatingOffset(int rotatingOffset) {
 		set(org.archstudio.bna.facets.IHasRotatingOffset.ROTATING_OFFSET_KEY, rotatingOffset);
-	}
-
-	/* package */ int setRawRotatingOffset(int rotatingOffset) {
-		return setRaw(org.archstudio.bna.facets.IHasRotatingOffset.ROTATING_OFFSET_KEY, rotatingOffset);
 	}
 
 	@Override
@@ -77,16 +61,8 @@ public abstract class MarqueeBoxBorderThingBase extends org.archstudio.bna.thing
 		return get(org.archstudio.bna.facets.IHasRotatingOffset.TICKS_PER_INCREMENT_KEY);
 	}
 
-	/* package */ int getRawTicksPerIncrement() {
-		return getRaw(org.archstudio.bna.facets.IHasRotatingOffset.TICKS_PER_INCREMENT_KEY);
-	}
-
 	@Override
 	public void setTicksPerIncrement(int ticksPerIncrement) {
 		set(org.archstudio.bna.facets.IHasRotatingOffset.TICKS_PER_INCREMENT_KEY, ticksPerIncrement);
-	}
-
-	/* package */ int setRawTicksPerIncrement(int ticksPerIncrement) {
-		return setRaw(org.archstudio.bna.facets.IHasRotatingOffset.TICKS_PER_INCREMENT_KEY, ticksPerIncrement);
 	}
 }

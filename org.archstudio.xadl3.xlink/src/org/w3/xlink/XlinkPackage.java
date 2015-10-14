@@ -126,7 +126,7 @@ public interface XlinkPackage extends EPackage {
 	 * @see org.w3.xlink.DocumentRoot
 	 * @generated
 	 */
-			EClass getDocumentRoot();
+	EClass getDocumentRoot();
 
 	/**
 	 * Returns the meta object for the attribute list '{@link org.w3.xlink.DocumentRoot#getMixed <em>Mixed</em>}'. <!--
@@ -137,7 +137,7 @@ public interface XlinkPackage extends EPackage {
 	 * @see #getDocumentRoot()
 	 * @generated
 	 */
-			EAttribute getDocumentRoot_Mixed();
+	EAttribute getDocumentRoot_Mixed();
 
 	/**
 	 * Returns the meta object for the map '{@link org.w3.xlink.DocumentRoot#getXMLNSPrefixMap <em>XMLNS Prefix Map</em>
@@ -148,7 +148,7 @@ public interface XlinkPackage extends EPackage {
 	 * @see #getDocumentRoot()
 	 * @generated
 	 */
-			EReference getDocumentRoot_XMLNSPrefixMap();
+	EReference getDocumentRoot_XMLNSPrefixMap();
 
 	/**
 	 * Returns the meta object for the map '{@link org.w3.xlink.DocumentRoot#getXSISchemaLocation
@@ -159,7 +159,7 @@ public interface XlinkPackage extends EPackage {
 	 * @see #getDocumentRoot()
 	 * @generated
 	 */
-			EReference getDocumentRoot_XSISchemaLocation();
+	EReference getDocumentRoot_XSISchemaLocation();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.w3.xlink.DocumentRoot#getHref <em>Href</em>}'. <!--
@@ -170,7 +170,7 @@ public interface XlinkPackage extends EPackage {
 	 * @see #getDocumentRoot()
 	 * @generated
 	 */
-			EAttribute getDocumentRoot_Href();
+	EAttribute getDocumentRoot_Href();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.w3.xlink.DocumentRoot#getType <em>Type</em>}'. <!--
@@ -181,7 +181,7 @@ public interface XlinkPackage extends EPackage {
 	 * @see #getDocumentRoot()
 	 * @generated
 	 */
-			EAttribute getDocumentRoot_Type();
+	EAttribute getDocumentRoot_Type();
 
 	/**
 	 * Returns the factory that creates the instances of the model. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -189,7 +189,7 @@ public interface XlinkPackage extends EPackage {
 	 * @return the factory that creates the instances of the model.
 	 * @generated
 	 */
-			XlinkFactory getXlinkFactory();
+	XlinkFactory getXlinkFactory();
 
 	/**
 	 * <!-- begin-user-doc --> Defines literals for the meta objects that represent

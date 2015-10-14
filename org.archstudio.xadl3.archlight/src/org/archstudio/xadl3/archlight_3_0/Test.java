@@ -24,21 +24,21 @@ import org.eclipse.emf.ecore.EObject;
  * @generated
  */
 public interface Test extends EObject {
-			/**
-			 * Returns the value of the '<em><b>Ext</b></em>' containment reference list. The list contents are of type
-			 * {@link org.archstudio.xadl3.xadlcore_3_0.Extension}. <!-- begin-user-doc -->
-			 * <p>
-			 * If the meaning of the '<em>Ext</em>' containment reference list isn't clear, there really should be more
-			 * of a description here...
-			 * </p>
-			 * <!-- end-user-doc -->
-			 * 
-			 * @return the value of the '<em>Ext</em>' containment reference list.
-			 * @see org.archstudio.xadl3.archlight_3_0.Archlight_3_0Package#getTest_Ext()
-			 * @model containment="true" extendedMetaData="kind='element' name='ext' namespace='##targetNamespace'"
-			 * @generated
-			 */
-			EList<Extension> getExt();
+	/**
+	 * Returns the value of the '<em><b>Ext</b></em>' containment reference list. The list contents are of type
+	 * {@link org.archstudio.xadl3.xadlcore_3_0.Extension}. <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Ext</em>' containment reference list isn't clear, there really should be more of a
+	 * description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the value of the '<em>Ext</em>' containment reference list.
+	 * @see org.archstudio.xadl3.archlight_3_0.Archlight_3_0Package#getTest_Ext()
+	 * @model containment="true" extendedMetaData="kind='element' name='ext' namespace='##targetNamespace'"
+	 * @generated
+	 */
+	EList<Extension> getExt();
 
 	/**
 	 * Returns the value of the '<em><b>Enabled</b></em>' attribute. <!-- begin-user-doc -->
@@ -57,7 +57,7 @@ public interface Test extends EObject {
 	 *        "kind='attribute' name='enabled' namespace='##targetNamespace'"
 	 * @generated
 	 */
-			boolean isEnabled();
+	boolean isEnabled();
 
 	/**
 	 * Sets the value of the '{@link org.archstudio.xadl3.archlight_3_0.Test#isEnabled <em>Enabled</em>}' attribute.
@@ -69,7 +69,7 @@ public interface Test extends EObject {
 	 * @see #isEnabled()
 	 * @generated
 	 */
-			void setEnabled(boolean value);
+	void setEnabled(boolean value);
 
 	/**
 	 * Unsets the value of the '{@link org.archstudio.xadl3.archlight_3_0.Test#isEnabled <em>Enabled</em>}' attribute.
@@ -80,7 +80,7 @@ public interface Test extends EObject {
 	 * @see #setEnabled(boolean)
 	 * @generated
 	 */
-			void unsetEnabled();
+	void unsetEnabled();
 
 	/**
 	 * Returns whether the value of the '{@link org.archstudio.xadl3.archlight_3_0.Test#isEnabled <em>Enabled</em>}'
@@ -92,7 +92,7 @@ public interface Test extends EObject {
 	 * @see #setEnabled(boolean)
 	 * @generated
 	 */
-			boolean isSetEnabled();
+	boolean isSetEnabled();
 
 	/**
 	 * Returns the value of the '<em><b>Id</b></em>' attribute. <!-- begin-user-doc -->
@@ -108,7 +108,7 @@ public interface Test extends EObject {
 	 *        "kind='attribute' name='id' namespace='##targetNamespace'"
 	 * @generated
 	 */
-			String getId();
+	String getId();
 
 	/**
 	 * Sets the value of the '{@link org.archstudio.xadl3.archlight_3_0.Test#getId <em>Id</em>}' attribute. <!--
@@ -118,7 +118,7 @@ public interface Test extends EObject {
 	 * @see #getId()
 	 * @generated
 	 */
-			void setId(String value);
+	void setId(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Name</b></em>' attribute. <!-- begin-user-doc -->
@@ -134,7 +134,7 @@ public interface Test extends EObject {
 	 *        "kind='attribute' name='name' namespace='##targetNamespace'"
 	 * @generated
 	 */
-			String getName();
+	String getName();
 
 	/**
 	 * Sets the value of the '{@link org.archstudio.xadl3.archlight_3_0.Test#getName <em>Name</em>}' attribute. <!--
@@ -144,6 +144,6 @@ public interface Test extends EObject {
 	 * @see #getName()
 	 * @generated
 	 */
-			void setName(String value);
+	void setName(String value);
 
 } // Test

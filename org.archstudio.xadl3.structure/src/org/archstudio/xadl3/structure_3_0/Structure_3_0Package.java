@@ -693,7 +693,7 @@ public interface Structure_3_0Package extends EPackage {
 	 * @see org.archstudio.xadl3.structure_3_0.Brick
 	 * @generated
 	 */
-			EClass getBrick();
+	EClass getBrick();
 
 	/**
 	 * Returns the meta object for the containment reference list '
@@ -705,7 +705,7 @@ public interface Structure_3_0Package extends EPackage {
 	 * @see #getBrick()
 	 * @generated
 	 */
-			EReference getBrick_Interface();
+	EReference getBrick_Interface();
 
 	/**
 	 * Returns the meta object for the containment reference '
@@ -717,7 +717,7 @@ public interface Structure_3_0Package extends EPackage {
 	 * @see #getBrick()
 	 * @generated
 	 */
-			EReference getBrick_SubStructure();
+	EReference getBrick_SubStructure();
 
 	/**
 	 * Returns the meta object for the containment reference list '
@@ -729,7 +729,7 @@ public interface Structure_3_0Package extends EPackage {
 	 * @see #getBrick()
 	 * @generated
 	 */
-			EReference getBrick_Ext();
+	EReference getBrick_Ext();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.archstudio.xadl3.structure_3_0.Brick#getId <em>Id</em>}'.
@@ -740,7 +740,7 @@ public interface Structure_3_0Package extends EPackage {
 	 * @see #getBrick()
 	 * @generated
 	 */
-			EAttribute getBrick_Id();
+	EAttribute getBrick_Id();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.archstudio.xadl3.structure_3_0.Brick#getName <em>Name</em>}
@@ -751,7 +751,7 @@ public interface Structure_3_0Package extends EPackage {
 	 * @see #getBrick()
 	 * @generated
 	 */
-			EAttribute getBrick_Name();
+	EAttribute getBrick_Name();
 
 	/**
 	 * Returns the meta object for class '{@link org.archstudio.xadl3.structure_3_0.Component <em>Component</em>}'. <!--
@@ -761,7 +761,7 @@ public interface Structure_3_0Package extends EPackage {
 	 * @see org.archstudio.xadl3.structure_3_0.Component
 	 * @generated
 	 */
-			EClass getComponent();
+	EClass getComponent();
 
 	/**
 	 * Returns the meta object for class '{@link org.archstudio.xadl3.structure_3_0.Connector <em>Connector</em>}'. <!--
@@ -771,7 +771,7 @@ public interface Structure_3_0Package extends EPackage {
 	 * @see org.archstudio.xadl3.structure_3_0.Connector
 	 * @generated
 	 */
-			EClass getConnector();
+	EClass getConnector();
 
 	/**
 	 * Returns the meta object for class '{@link org.archstudio.xadl3.structure_3_0.DocumentRoot <em>Document Root</em>}
@@ -781,7 +781,7 @@ public interface Structure_3_0Package extends EPackage {
 	 * @see org.archstudio.xadl3.structure_3_0.DocumentRoot
 	 * @generated
 	 */
-			EClass getDocumentRoot();
+	EClass getDocumentRoot();
 
 	/**
 	 * Returns the meta object for the attribute list '{@link org.archstudio.xadl3.structure_3_0.DocumentRoot#getMixed
@@ -792,7 +792,7 @@ public interface Structure_3_0Package extends EPackage {
 	 * @see #getDocumentRoot()
 	 * @generated
 	 */
-			EAttribute getDocumentRoot_Mixed();
+	EAttribute getDocumentRoot_Mixed();
 
 	/**
 	 * Returns the meta object for the map '{@link org.archstudio.xadl3.structure_3_0.DocumentRoot#getXMLNSPrefixMap
@@ -803,7 +803,7 @@ public interface Structure_3_0Package extends EPackage {
 	 * @see #getDocumentRoot()
 	 * @generated
 	 */
-			EReference getDocumentRoot_XMLNSPrefixMap();
+	EReference getDocumentRoot_XMLNSPrefixMap();
 
 	/**
 	 * Returns the meta object for the map '{@link org.archstudio.xadl3.structure_3_0.DocumentRoot#getXSISchemaLocation
@@ -814,7 +814,7 @@ public interface Structure_3_0Package extends EPackage {
 	 * @see #getDocumentRoot()
 	 * @generated
 	 */
-			EReference getDocumentRoot_XSISchemaLocation();
+	EReference getDocumentRoot_XSISchemaLocation();
 
 	/**
 	 * Returns the meta object for the containment reference '
@@ -826,7 +826,7 @@ public interface Structure_3_0Package extends EPackage {
 	 * @see #getDocumentRoot()
 	 * @generated
 	 */
-			EReference getDocumentRoot_Structure();
+	EReference getDocumentRoot_Structure();
 
 	/**
 	 * Returns the meta object for class '{@link org.archstudio.xadl3.structure_3_0.Interface <em>Interface</em>}'. <!--
@@ -836,7 +836,7 @@ public interface Structure_3_0Package extends EPackage {
 	 * @see org.archstudio.xadl3.structure_3_0.Interface
 	 * @generated
 	 */
-			EClass getInterface();
+	EClass getInterface();
 
 	/**
 	 * Returns the meta object for the containment reference list '
@@ -848,7 +848,7 @@ public interface Structure_3_0Package extends EPackage {
 	 * @see #getInterface()
 	 * @generated
 	 */
-			EReference getInterface_Ext();
+	EReference getInterface_Ext();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.archstudio.xadl3.structure_3_0.Interface#getDirection
@@ -859,7 +859,7 @@ public interface Structure_3_0Package extends EPackage {
 	 * @see #getInterface()
 	 * @generated
 	 */
-			EAttribute getInterface_Direction();
+	EAttribute getInterface_Direction();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.archstudio.xadl3.structure_3_0.Interface#getId <em>Id</em>}
@@ -870,7 +870,7 @@ public interface Structure_3_0Package extends EPackage {
 	 * @see #getInterface()
 	 * @generated
 	 */
-			EAttribute getInterface_Id();
+	EAttribute getInterface_Id();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.archstudio.xadl3.structure_3_0.Interface#getName
@@ -881,7 +881,7 @@ public interface Structure_3_0Package extends EPackage {
 	 * @see #getInterface()
 	 * @generated
 	 */
-			EAttribute getInterface_Name();
+	EAttribute getInterface_Name();
 
 	/**
 	 * Returns the meta object for class '{@link org.archstudio.xadl3.structure_3_0.InterfaceMapping
@@ -891,7 +891,7 @@ public interface Structure_3_0Package extends EPackage {
 	 * @see org.archstudio.xadl3.structure_3_0.InterfaceMapping
 	 * @generated
 	 */
-			EClass getInterfaceMapping();
+	EClass getInterfaceMapping();
 
 	/**
 	 * Returns the meta object for the reference '
@@ -903,7 +903,7 @@ public interface Structure_3_0Package extends EPackage {
 	 * @see #getInterfaceMapping()
 	 * @generated
 	 */
-			EReference getInterfaceMapping_OuterInterfaceLink();
+	EReference getInterfaceMapping_OuterInterfaceLink();
 
 	/**
 	 * Returns the meta object for the reference '
@@ -915,7 +915,7 @@ public interface Structure_3_0Package extends EPackage {
 	 * @see #getInterfaceMapping()
 	 * @generated
 	 */
-			EReference getInterfaceMapping_InnerInterfaceLink();
+	EReference getInterfaceMapping_InnerInterfaceLink();
 
 	/**
 	 * Returns the meta object for the containment reference list '
@@ -927,7 +927,7 @@ public interface Structure_3_0Package extends EPackage {
 	 * @see #getInterfaceMapping()
 	 * @generated
 	 */
-			EReference getInterfaceMapping_Ext();
+	EReference getInterfaceMapping_Ext();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.archstudio.xadl3.structure_3_0.InterfaceMapping#getId
@@ -938,7 +938,7 @@ public interface Structure_3_0Package extends EPackage {
 	 * @see #getInterfaceMapping()
 	 * @generated
 	 */
-			EAttribute getInterfaceMapping_Id();
+	EAttribute getInterfaceMapping_Id();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.archstudio.xadl3.structure_3_0.InterfaceMapping#getName
@@ -949,7 +949,7 @@ public interface Structure_3_0Package extends EPackage {
 	 * @see #getInterfaceMapping()
 	 * @generated
 	 */
-			EAttribute getInterfaceMapping_Name();
+	EAttribute getInterfaceMapping_Name();
 
 	/**
 	 * Returns the meta object for class '{@link org.archstudio.xadl3.structure_3_0.Link <em>Link</em>}'. <!--
@@ -959,7 +959,7 @@ public interface Structure_3_0Package extends EPackage {
 	 * @see org.archstudio.xadl3.structure_3_0.Link
 	 * @generated
 	 */
-			EClass getLink();
+	EClass getLink();
 
 	/**
 	 * Returns the meta object for the reference '{@link org.archstudio.xadl3.structure_3_0.Link#getPoint1
@@ -970,7 +970,7 @@ public interface Structure_3_0Package extends EPackage {
 	 * @see #getLink()
 	 * @generated
 	 */
-			EReference getLink_Point1();
+	EReference getLink_Point1();
 
 	/**
 	 * Returns the meta object for the reference '{@link org.archstudio.xadl3.structure_3_0.Link#getPoint2
@@ -981,7 +981,7 @@ public interface Structure_3_0Package extends EPackage {
 	 * @see #getLink()
 	 * @generated
 	 */
-			EReference getLink_Point2();
+	EReference getLink_Point2();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link org.archstudio.xadl3.structure_3_0.Link#getExt
@@ -992,7 +992,7 @@ public interface Structure_3_0Package extends EPackage {
 	 * @see #getLink()
 	 * @generated
 	 */
-			EReference getLink_Ext();
+	EReference getLink_Ext();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.archstudio.xadl3.structure_3_0.Link#getId <em>Id</em>}'.
@@ -1003,7 +1003,7 @@ public interface Structure_3_0Package extends EPackage {
 	 * @see #getLink()
 	 * @generated
 	 */
-			EAttribute getLink_Id();
+	EAttribute getLink_Id();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.archstudio.xadl3.structure_3_0.Link#getName <em>Name</em>}
@@ -1014,7 +1014,7 @@ public interface Structure_3_0Package extends EPackage {
 	 * @see #getLink()
 	 * @generated
 	 */
-			EAttribute getLink_Name();
+	EAttribute getLink_Name();
 
 	/**
 	 * Returns the meta object for class '{@link org.archstudio.xadl3.structure_3_0.Structure <em>Structure</em>}'. <!--
@@ -1024,7 +1024,7 @@ public interface Structure_3_0Package extends EPackage {
 	 * @see org.archstudio.xadl3.structure_3_0.Structure
 	 * @generated
 	 */
-			EClass getStructure();
+	EClass getStructure();
 
 	/**
 	 * Returns the meta object for the containment reference list '
@@ -1036,7 +1036,7 @@ public interface Structure_3_0Package extends EPackage {
 	 * @see #getStructure()
 	 * @generated
 	 */
-			EReference getStructure_Component();
+	EReference getStructure_Component();
 
 	/**
 	 * Returns the meta object for the containment reference list '
@@ -1048,7 +1048,7 @@ public interface Structure_3_0Package extends EPackage {
 	 * @see #getStructure()
 	 * @generated
 	 */
-			EReference getStructure_Connector();
+	EReference getStructure_Connector();
 
 	/**
 	 * Returns the meta object for the containment reference list '
@@ -1060,7 +1060,7 @@ public interface Structure_3_0Package extends EPackage {
 	 * @see #getStructure()
 	 * @generated
 	 */
-			EReference getStructure_Link();
+	EReference getStructure_Link();
 
 	/**
 	 * Returns the meta object for the containment reference list '
@@ -1072,7 +1072,7 @@ public interface Structure_3_0Package extends EPackage {
 	 * @see #getStructure()
 	 * @generated
 	 */
-			EReference getStructure_Ext();
+	EReference getStructure_Ext();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.archstudio.xadl3.structure_3_0.Structure#getId <em>Id</em>}
@@ -1083,7 +1083,7 @@ public interface Structure_3_0Package extends EPackage {
 	 * @see #getStructure()
 	 * @generated
 	 */
-			EAttribute getStructure_Id();
+	EAttribute getStructure_Id();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.archstudio.xadl3.structure_3_0.Structure#getName
@@ -1094,7 +1094,7 @@ public interface Structure_3_0Package extends EPackage {
 	 * @see #getStructure()
 	 * @generated
 	 */
-			EAttribute getStructure_Name();
+	EAttribute getStructure_Name();
 
 	/**
 	 * Returns the meta object for class '{@link org.archstudio.xadl3.structure_3_0.SubStructure <em>Sub Structure</em>}
@@ -1104,7 +1104,7 @@ public interface Structure_3_0Package extends EPackage {
 	 * @see org.archstudio.xadl3.structure_3_0.SubStructure
 	 * @generated
 	 */
-			EClass getSubStructure();
+	EClass getSubStructure();
 
 	/**
 	 * Returns the meta object for the reference '
@@ -1116,7 +1116,7 @@ public interface Structure_3_0Package extends EPackage {
 	 * @see #getSubStructure()
 	 * @generated
 	 */
-			EReference getSubStructure_InnerStructureLink();
+	EReference getSubStructure_InnerStructureLink();
 
 	/**
 	 * Returns the meta object for the containment reference list '
@@ -1128,7 +1128,7 @@ public interface Structure_3_0Package extends EPackage {
 	 * @see #getSubStructure()
 	 * @generated
 	 */
-			EReference getSubStructure_InterfaceMapping();
+	EReference getSubStructure_InterfaceMapping();
 
 	/**
 	 * Returns the meta object for the containment reference list '
@@ -1140,7 +1140,7 @@ public interface Structure_3_0Package extends EPackage {
 	 * @see #getSubStructure()
 	 * @generated
 	 */
-			EReference getSubStructure_Ext();
+	EReference getSubStructure_Ext();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.archstudio.xadl3.structure_3_0.SubStructure#getId
@@ -1151,7 +1151,7 @@ public interface Structure_3_0Package extends EPackage {
 	 * @see #getSubStructure()
 	 * @generated
 	 */
-			EAttribute getSubStructure_Id();
+	EAttribute getSubStructure_Id();
 
 	/**
 	 * Returns the meta object for enum '{@link org.archstudio.xadl3.structure_3_0.Direction <em>Direction</em>}'. <!--
@@ -1161,7 +1161,7 @@ public interface Structure_3_0Package extends EPackage {
 	 * @see org.archstudio.xadl3.structure_3_0.Direction
 	 * @generated
 	 */
-			EEnum getDirection();
+	EEnum getDirection();
 
 	/**
 	 * Returns the meta object for data type '{@link org.archstudio.xadl3.structure_3_0.Direction
@@ -1173,7 +1173,7 @@ public interface Structure_3_0Package extends EPackage {
 	 *        "name='Direction:Object' baseType='Direction'"
 	 * @generated
 	 */
-			EDataType getDirectionObject();
+	EDataType getDirectionObject();
 
 	/**
 	 * Returns the factory that creates the instances of the model. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -1181,7 +1181,7 @@ public interface Structure_3_0Package extends EPackage {
 	 * @return the factory that creates the instances of the model.
 	 * @generated
 	 */
-			Structure_3_0Factory getStructure_3_0Factory();
+	Structure_3_0Factory getStructure_3_0Factory();
 
 	/**
 	 * <!-- begin-user-doc --> Defines literals for the meta objects that represent

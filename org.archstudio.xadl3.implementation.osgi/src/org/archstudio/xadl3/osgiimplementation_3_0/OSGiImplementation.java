@@ -22,21 +22,21 @@ import org.eclipse.emf.common.util.EList;
  * @generated
  */
 public interface OSGiImplementation extends Implementation {
-			/**
-			 * Returns the value of the '<em><b>Ext</b></em>' containment reference list. The list contents are of type
-			 * {@link org.archstudio.xadl3.xadlcore_3_0.Extension}. <!-- begin-user-doc -->
-			 * <p>
-			 * If the meaning of the '<em>Ext</em>' containment reference list isn't clear, there really should be more
-			 * of a description here...
-			 * </p>
-			 * <!-- end-user-doc -->
-			 * 
-			 * @return the value of the '<em>Ext</em>' containment reference list.
-			 * @see org.archstudio.xadl3.osgiimplementation_3_0.Osgiimplementation_3_0Package#getOSGiImplementation_Ext()
-			 * @model containment="true" extendedMetaData="kind='element' name='ext' namespace='##targetNamespace'"
-			 * @generated
-			 */
-			EList<Extension> getExt();
+	/**
+	 * Returns the value of the '<em><b>Ext</b></em>' containment reference list. The list contents are of type
+	 * {@link org.archstudio.xadl3.xadlcore_3_0.Extension}. <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Ext</em>' containment reference list isn't clear, there really should be more of a
+	 * description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the value of the '<em>Ext</em>' containment reference list.
+	 * @see org.archstudio.xadl3.osgiimplementation_3_0.Osgiimplementation_3_0Package#getOSGiImplementation_Ext()
+	 * @model containment="true" extendedMetaData="kind='element' name='ext' namespace='##targetNamespace'"
+	 * @generated
+	 */
+	EList<Extension> getExt();
 
 	/**
 	 * Returns the value of the '<em><b>Bundle</b></em>' attribute. <!-- begin-user-doc -->
@@ -53,7 +53,7 @@ public interface OSGiImplementation extends Implementation {
 	 *        "kind='attribute' name='bundle' namespace='##targetNamespace'"
 	 * @generated
 	 */
-			String getBundle();
+	String getBundle();
 
 	/**
 	 * Sets the value of the '{@link org.archstudio.xadl3.osgiimplementation_3_0.OSGiImplementation#getBundle
@@ -63,6 +63,6 @@ public interface OSGiImplementation extends Implementation {
 	 * @see #getBundle()
 	 * @generated
 	 */
-			void setBundle(String value);
+	void setBundle(String value);
 
 } // OSGiImplementation

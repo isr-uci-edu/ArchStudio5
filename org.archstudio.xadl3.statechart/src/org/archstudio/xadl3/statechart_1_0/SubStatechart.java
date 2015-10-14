@@ -18,24 +18,23 @@ import org.eclipse.emf.ecore.EObject;
  * @model extendedMetaData="name='SubStatechart' kind='elementOnly'"
  * @generated
  */
-public interface SubStatechart extends
-		EObject {
-					/**
-					 * Returns the value of the '<em><b>Inner Statechart</b></em>' reference. <!-- begin-user-doc -->
-					 * <p>
-					 * If the meaning of the '<em>Inner Statechart</em>' reference isn't clear, there really should be
-					 * more of a description here...
-					 * </p>
-					 * <!-- end-user-doc -->
-					 * 
-					 * @return the value of the '<em>Inner Statechart</em>' reference.
-					 * @see #setInnerStatechart(Statechart)
-					 * @see org.archstudio.xadl3.statechart_1_0.Statechart_1_0Package#getSubStatechart_InnerStatechart()
-					 * @model resolveProxies="false" required="true" extendedMetaData=
-					 *        "kind='element' name='innerStatechart' namespace='##targetNamespace'"
-					 * @generated
-					 */
-					Statechart getInnerStatechart();
+public interface SubStatechart extends EObject {
+	/**
+	 * Returns the value of the '<em><b>Inner Statechart</b></em>' reference. <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Inner Statechart</em>' reference isn't clear, there really should be more of a
+	 * description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the value of the '<em>Inner Statechart</em>' reference.
+	 * @see #setInnerStatechart(Statechart)
+	 * @see org.archstudio.xadl3.statechart_1_0.Statechart_1_0Package#getSubStatechart_InnerStatechart()
+	 * @model resolveProxies="false" required="true" extendedMetaData=
+	 *        "kind='element' name='innerStatechart' namespace='##targetNamespace'"
+	 * @generated
+	 */
+	Statechart getInnerStatechart();
 
 	/**
 	 * Sets the value of the '{@link org.archstudio.xadl3.statechart_1_0.SubStatechart#getInnerStatechart
@@ -45,7 +44,7 @@ public interface SubStatechart extends
 	 * @see #getInnerStatechart()
 	 * @generated
 	 */
-			void setInnerStatechart(Statechart value);
+	void setInnerStatechart(Statechart value);
 
 	/**
 	 * Returns the value of the '<em><b>Id</b></em>' attribute. <!-- begin-user-doc -->
@@ -61,7 +60,7 @@ public interface SubStatechart extends
 	 *        "kind='attribute' name='id' namespace='##targetNamespace'"
 	 * @generated
 	 */
-			String getId();
+	String getId();
 
 	/**
 	 * Sets the value of the '{@link org.archstudio.xadl3.statechart_1_0.SubStatechart#getId <em>Id</em>}' attribute.
@@ -71,6 +70,6 @@ public interface SubStatechart extends
 	 * @see #getId()
 	 * @generated
 	 */
-			void setId(String value);
+	void setId(String value);
 
 } // SubStatechart

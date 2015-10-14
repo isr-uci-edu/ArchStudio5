@@ -135,7 +135,7 @@ public interface Prolog_3_0Package extends EPackage {
 	 * @see org.archstudio.xadl3.prolog_3_0.PrologExtension
 	 * @generated
 	 */
-			EClass getPrologExtension();
+	EClass getPrologExtension();
 
 	/**
 	 * Returns the meta object for the containment reference list '
@@ -147,7 +147,7 @@ public interface Prolog_3_0Package extends EPackage {
 	 * @see #getPrologExtension()
 	 * @generated
 	 */
-			EReference getPrologExtension_Statement();
+	EReference getPrologExtension_Statement();
 
 	/**
 	 * Returns the meta object for class '{@link org.archstudio.xadl3.prolog_3_0.Statement <em>Statement</em>}'. <!--
@@ -157,7 +157,7 @@ public interface Prolog_3_0Package extends EPackage {
 	 * @see org.archstudio.xadl3.prolog_3_0.Statement
 	 * @generated
 	 */
-			EClass getStatement();
+	EClass getStatement();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.archstudio.xadl3.prolog_3_0.Statement#getValue
@@ -168,7 +168,7 @@ public interface Prolog_3_0Package extends EPackage {
 	 * @see #getStatement()
 	 * @generated
 	 */
-			EAttribute getStatement_Value();
+	EAttribute getStatement_Value();
 
 	/**
 	 * Returns the factory that creates the instances of the model. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -176,7 +176,7 @@ public interface Prolog_3_0Package extends EPackage {
 	 * @return the factory that creates the instances of the model.
 	 * @generated
 	 */
-			Prolog_3_0Factory getProlog_3_0Factory();
+	Prolog_3_0Factory getProlog_3_0Factory();
 
 	/**
 	 * <!-- begin-user-doc --> Defines literals for the meta objects that represent

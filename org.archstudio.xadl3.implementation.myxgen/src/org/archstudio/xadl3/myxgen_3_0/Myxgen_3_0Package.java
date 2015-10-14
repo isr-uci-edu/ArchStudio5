@@ -107,7 +107,7 @@ public interface Myxgen_3_0Package extends EPackage {
 	 * @see org.archstudio.xadl3.myxgen_3_0.MyxGen
 	 * @generated
 	 */
-			EClass getMyxGen();
+	EClass getMyxGen();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.archstudio.xadl3.myxgen_3_0.MyxGen#getBrickID
@@ -118,7 +118,7 @@ public interface Myxgen_3_0Package extends EPackage {
 	 * @see #getMyxGen()
 	 * @generated
 	 */
-			EAttribute getMyxGen_BrickID();
+	EAttribute getMyxGen_BrickID();
 
 	/**
 	 * Returns the factory that creates the instances of the model. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -126,7 +126,7 @@ public interface Myxgen_3_0Package extends EPackage {
 	 * @return the factory that creates the instances of the model.
 	 * @generated
 	 */
-			Myxgen_3_0Factory getMyxgen_3_0Factory();
+	Myxgen_3_0Factory getMyxgen_3_0Factory();
 
 	/**
 	 * <!-- begin-user-doc --> Defines literals for the meta objects that represent

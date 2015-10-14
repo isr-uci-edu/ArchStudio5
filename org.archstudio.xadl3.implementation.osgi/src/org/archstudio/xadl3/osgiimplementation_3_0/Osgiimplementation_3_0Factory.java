@@ -26,7 +26,7 @@ public interface Osgiimplementation_3_0Factory extends EFactory {
 	 * @return a new object of class '<em>OS Gi Implementation</em>'.
 	 * @generated
 	 */
-			OSGiImplementation createOSGiImplementation();
+	OSGiImplementation createOSGiImplementation();
 
 	/**
 	 * Returns the package supported by this factory. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -34,6 +34,6 @@ public interface Osgiimplementation_3_0Factory extends EFactory {
 	 * @return the package supported by this factory.
 	 * @generated
 	 */
-			Osgiimplementation_3_0Package getOsgiimplementation_3_0Package();
+	Osgiimplementation_3_0Package getOsgiimplementation_3_0Package();
 
 } // Osgiimplementation_3_0Factory

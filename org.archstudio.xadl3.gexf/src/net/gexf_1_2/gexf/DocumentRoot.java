@@ -50,24 +50,23 @@ import net.gexf_1_2.viz.ThicknessContent;
  * @model extendedMetaData="name='' kind='mixed'"
  * @generated
  */
-public interface DocumentRoot extends
-		EObject {
-					/**
-					 * Returns the value of the '<em><b>Mixed</b></em>' attribute list. The list contents are of type
-					 * {@link org.eclipse.emf.ecore.util.FeatureMap.Entry}. <!-- begin-user-doc -->
-					 * <p>
-					 * If the meaning of the '<em>Mixed</em>' attribute list isn't clear, there really should be more of
-					 * a description here...
-					 * </p>
-					 * <!-- end-user-doc -->
-					 * 
-					 * @return the value of the '<em>Mixed</em>' attribute list.
-					 * @see net.gexf_1_2.gexf.GexfPackage#getDocumentRoot_Mixed()
-					 * @model unique="false" dataType="org.eclipse.emf.ecore.EFeatureMapEntry" many="true"
-					 *        extendedMetaData="kind='elementWildcard' name=':mixed'"
-					 * @generated
-					 */
-					FeatureMap getMixed();
+public interface DocumentRoot extends EObject {
+	/**
+	 * Returns the value of the '<em><b>Mixed</b></em>' attribute list. The list contents are of type
+	 * {@link org.eclipse.emf.ecore.util.FeatureMap.Entry}. <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Mixed</em>' attribute list isn't clear, there really should be more of a description
+	 * here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the value of the '<em>Mixed</em>' attribute list.
+	 * @see net.gexf_1_2.gexf.GexfPackage#getDocumentRoot_Mixed()
+	 * @model unique="false" dataType="org.eclipse.emf.ecore.EFeatureMapEntry" many="true" extendedMetaData=
+	 *        "kind='elementWildcard' name=':mixed'"
+	 * @generated
+	 */
+	FeatureMap getMixed();
 
 	/**
 	 * Returns the value of the '<em><b>XMLNS Prefix Map</b></em>' map. The key is of type {@link java.lang.String}, and
@@ -85,7 +84,7 @@ public interface DocumentRoot extends
 	 *        transient="true" extendedMetaData="kind='attribute' name='xmlns:prefix'"
 	 * @generated
 	 */
-			EMap<String, String> getXMLNSPrefixMap();
+	EMap<String, String> getXMLNSPrefixMap();
 
 	/**
 	 * Returns the value of the '<em><b>XSI Schema Location</b></em>' map. The key is of type {@link java.lang.String},
@@ -103,7 +102,7 @@ public interface DocumentRoot extends
 	 *        transient="true" extendedMetaData="kind='attribute' name='xsi:schemaLocation'"
 	 * @generated
 	 */
-			EMap<String, String> getXSISchemaLocation();
+	EMap<String, String> getXSISchemaLocation();
 
 	/**
 	 * Returns the value of the '<em><b>Attribute</b></em>' containment reference. <!-- begin-user-doc -->
@@ -120,7 +119,7 @@ public interface DocumentRoot extends
 	 *        "kind='element' name='attribute' namespace='##targetNamespace'"
 	 * @generated
 	 */
-			AttributeContent getAttribute();
+	AttributeContent getAttribute();
 
 	/**
 	 * Sets the value of the '{@link net.gexf_1_2.gexf.DocumentRoot#getAttribute <em>Attribute</em>}' containment
@@ -130,7 +129,7 @@ public interface DocumentRoot extends
 	 * @see #getAttribute()
 	 * @generated
 	 */
-			void setAttribute(AttributeContent value);
+	void setAttribute(AttributeContent value);
 
 	/**
 	 * Returns the value of the '<em><b>Attributes</b></em>' containment reference. <!-- begin-user-doc -->
@@ -147,7 +146,7 @@ public interface DocumentRoot extends
 	 *        "kind='element' name='attributes' namespace='##targetNamespace'"
 	 * @generated
 	 */
-			AttributesContent getAttributes();
+	AttributesContent getAttributes();
 
 	/**
 	 * Sets the value of the '{@link net.gexf_1_2.gexf.DocumentRoot#getAttributes <em>Attributes</em>}' containment
@@ -157,7 +156,7 @@ public interface DocumentRoot extends
 	 * @see #getAttributes()
 	 * @generated
 	 */
-			void setAttributes(AttributesContent value);
+	void setAttributes(AttributesContent value);
 
 	/**
 	 * Returns the value of the '<em><b>Attvalue</b></em>' containment reference. <!-- begin-user-doc -->
@@ -174,7 +173,7 @@ public interface DocumentRoot extends
 	 *        "kind='element' name='attvalue' namespace='##targetNamespace'"
 	 * @generated
 	 */
-			AttvalueType getAttvalue();
+	AttvalueType getAttvalue();
 
 	/**
 	 * Sets the value of the '{@link net.gexf_1_2.gexf.DocumentRoot#getAttvalue <em>Attvalue</em>}' containment
@@ -184,7 +183,7 @@ public interface DocumentRoot extends
 	 * @see #getAttvalue()
 	 * @generated
 	 */
-			void setAttvalue(AttvalueType value);
+	void setAttvalue(AttvalueType value);
 
 	/**
 	 * Returns the value of the '<em><b>Attvalues</b></em>' containment reference. <!-- begin-user-doc -->
@@ -201,7 +200,7 @@ public interface DocumentRoot extends
 	 *        "kind='element' name='attvalues' namespace='##targetNamespace'"
 	 * @generated
 	 */
-			AttvaluesContent getAttvalues();
+	AttvaluesContent getAttvalues();
 
 	/**
 	 * Sets the value of the '{@link net.gexf_1_2.gexf.DocumentRoot#getAttvalues <em>Attvalues</em>}' containment
@@ -211,7 +210,7 @@ public interface DocumentRoot extends
 	 * @see #getAttvalues()
 	 * @generated
 	 */
-			void setAttvalues(AttvaluesContent value);
+	void setAttvalues(AttvaluesContent value);
 
 	/**
 	 * Returns the value of the '<em><b>Color</b></em>' containment reference. <!-- begin-user-doc -->
@@ -228,7 +227,7 @@ public interface DocumentRoot extends
 	 *        "kind='element' name='color' namespace='##targetNamespace'"
 	 * @generated
 	 */
-			ColorContent getColor();
+	ColorContent getColor();
 
 	/**
 	 * Sets the value of the '{@link net.gexf_1_2.gexf.DocumentRoot#getColor <em>Color</em>}' containment reference.
@@ -238,7 +237,7 @@ public interface DocumentRoot extends
 	 * @see #getColor()
 	 * @generated
 	 */
-			void setColor(ColorContent value);
+	void setColor(ColorContent value);
 
 	/**
 	 * Returns the value of the '<em><b>Creator</b></em>' attribute. <!-- begin-user-doc -->
@@ -256,7 +255,7 @@ public interface DocumentRoot extends
 	 *        "kind='element' name='creator' namespace='##targetNamespace'"
 	 * @generated
 	 */
-			String getCreator();
+	String getCreator();
 
 	/**
 	 * Sets the value of the '{@link net.gexf_1_2.gexf.DocumentRoot#getCreator <em>Creator</em>}' attribute. <!--
@@ -266,7 +265,7 @@ public interface DocumentRoot extends
 	 * @see #getCreator()
 	 * @generated
 	 */
-			void setCreator(String value);
+	void setCreator(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Default</b></em>' attribute. <!-- begin-user-doc -->
@@ -284,7 +283,7 @@ public interface DocumentRoot extends
 	 *        "kind='element' name='default' namespace='##targetNamespace'"
 	 * @generated
 	 */
-			String getDefault();
+	String getDefault();
 
 	/**
 	 * Sets the value of the '{@link net.gexf_1_2.gexf.DocumentRoot#getDefault <em>Default</em>}' attribute. <!--
@@ -294,7 +293,7 @@ public interface DocumentRoot extends
 	 * @see #getDefault()
 	 * @generated
 	 */
-			void setDefault(String value);
+	void setDefault(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Description</b></em>' attribute. <!-- begin-user-doc -->
@@ -312,7 +311,7 @@ public interface DocumentRoot extends
 	 *        "kind='element' name='description' namespace='##targetNamespace'"
 	 * @generated
 	 */
-			String getDescription();
+	String getDescription();
 
 	/**
 	 * Sets the value of the '{@link net.gexf_1_2.gexf.DocumentRoot#getDescription <em>Description</em>}' attribute.
@@ -322,7 +321,7 @@ public interface DocumentRoot extends
 	 * @see #getDescription()
 	 * @generated
 	 */
-			void setDescription(String value);
+	void setDescription(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Edge</b></em>' containment reference. <!-- begin-user-doc -->
@@ -339,7 +338,7 @@ public interface DocumentRoot extends
 	 *        "kind='element' name='edge' namespace='##targetNamespace'"
 	 * @generated
 	 */
-			EdgeContent getEdge();
+	EdgeContent getEdge();
 
 	/**
 	 * Sets the value of the '{@link net.gexf_1_2.gexf.DocumentRoot#getEdge <em>Edge</em>}' containment reference. <!--
@@ -349,7 +348,7 @@ public interface DocumentRoot extends
 	 * @see #getEdge()
 	 * @generated
 	 */
-			void setEdge(EdgeContent value);
+	void setEdge(EdgeContent value);
 
 	/**
 	 * Returns the value of the '<em><b>Edges</b></em>' containment reference. <!-- begin-user-doc -->
@@ -366,7 +365,7 @@ public interface DocumentRoot extends
 	 *        "kind='element' name='edges' namespace='##targetNamespace'"
 	 * @generated
 	 */
-			EdgesContent getEdges();
+	EdgesContent getEdges();
 
 	/**
 	 * Sets the value of the '{@link net.gexf_1_2.gexf.DocumentRoot#getEdges <em>Edges</em>}' containment reference.
@@ -376,7 +375,7 @@ public interface DocumentRoot extends
 	 * @see #getEdges()
 	 * @generated
 	 */
-			void setEdges(EdgesContent value);
+	void setEdges(EdgesContent value);
 
 	/**
 	 * Returns the value of the '<em><b>Gexf</b></em>' containment reference. <!-- begin-user-doc -->
@@ -393,7 +392,7 @@ public interface DocumentRoot extends
 	 *        "kind='element' name='gexf' namespace='##targetNamespace'"
 	 * @generated
 	 */
-			GexfContent getGexf();
+	GexfContent getGexf();
 
 	/**
 	 * Sets the value of the '{@link net.gexf_1_2.gexf.DocumentRoot#getGexf <em>Gexf</em>}' containment reference. <!--
@@ -403,7 +402,7 @@ public interface DocumentRoot extends
 	 * @see #getGexf()
 	 * @generated
 	 */
-			void setGexf(GexfContent value);
+	void setGexf(GexfContent value);
 
 	/**
 	 * Returns the value of the '<em><b>Graph</b></em>' containment reference. <!-- begin-user-doc -->
@@ -420,7 +419,7 @@ public interface DocumentRoot extends
 	 *        "kind='element' name='graph' namespace='##targetNamespace'"
 	 * @generated
 	 */
-			GraphContent getGraph();
+	GraphContent getGraph();
 
 	/**
 	 * Sets the value of the '{@link net.gexf_1_2.gexf.DocumentRoot#getGraph <em>Graph</em>}' containment reference.
@@ -430,7 +429,7 @@ public interface DocumentRoot extends
 	 * @see #getGraph()
 	 * @generated
 	 */
-			void setGraph(GraphContent value);
+	void setGraph(GraphContent value);
 
 	/**
 	 * Returns the value of the '<em><b>Keywords</b></em>' attribute. <!-- begin-user-doc -->
@@ -448,7 +447,7 @@ public interface DocumentRoot extends
 	 *        "kind='element' name='keywords' namespace='##targetNamespace'"
 	 * @generated
 	 */
-			String getKeywords();
+	String getKeywords();
 
 	/**
 	 * Sets the value of the '{@link net.gexf_1_2.gexf.DocumentRoot#getKeywords <em>Keywords</em>}' attribute. <!--
@@ -458,7 +457,7 @@ public interface DocumentRoot extends
 	 * @see #getKeywords()
 	 * @generated
 	 */
-			void setKeywords(String value);
+	void setKeywords(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Meta</b></em>' containment reference. <!-- begin-user-doc -->
@@ -475,7 +474,7 @@ public interface DocumentRoot extends
 	 *        "kind='element' name='meta' namespace='##targetNamespace'"
 	 * @generated
 	 */
-			MetaContent getMeta();
+	MetaContent getMeta();
 
 	/**
 	 * Sets the value of the '{@link net.gexf_1_2.gexf.DocumentRoot#getMeta <em>Meta</em>}' containment reference. <!--
@@ -485,7 +484,7 @@ public interface DocumentRoot extends
 	 * @see #getMeta()
 	 * @generated
 	 */
-			void setMeta(MetaContent value);
+	void setMeta(MetaContent value);
 
 	/**
 	 * Returns the value of the '<em><b>Node</b></em>' containment reference. <!-- begin-user-doc -->
@@ -502,7 +501,7 @@ public interface DocumentRoot extends
 	 *        "kind='element' name='node' namespace='##targetNamespace'"
 	 * @generated
 	 */
-			NodeContent getNode();
+	NodeContent getNode();
 
 	/**
 	 * Sets the value of the '{@link net.gexf_1_2.gexf.DocumentRoot#getNode <em>Node</em>}' containment reference. <!--
@@ -512,7 +511,7 @@ public interface DocumentRoot extends
 	 * @see #getNode()
 	 * @generated
 	 */
-			void setNode(NodeContent value);
+	void setNode(NodeContent value);
 
 	/**
 	 * Returns the value of the '<em><b>Nodes</b></em>' containment reference. <!-- begin-user-doc -->
@@ -529,7 +528,7 @@ public interface DocumentRoot extends
 	 *        "kind='element' name='nodes' namespace='##targetNamespace'"
 	 * @generated
 	 */
-			NodesContent getNodes();
+	NodesContent getNodes();
 
 	/**
 	 * Sets the value of the '{@link net.gexf_1_2.gexf.DocumentRoot#getNodes <em>Nodes</em>}' containment reference.
@@ -539,7 +538,7 @@ public interface DocumentRoot extends
 	 * @see #getNodes()
 	 * @generated
 	 */
-			void setNodes(NodesContent value);
+	void setNodes(NodesContent value);
 
 	/**
 	 * Returns the value of the '<em><b>Options</b></em>' attribute. <!-- begin-user-doc -->
@@ -557,7 +556,7 @@ public interface DocumentRoot extends
 	 *        "kind='element' name='options' namespace='##targetNamespace'"
 	 * @generated
 	 */
-			String getOptions();
+	String getOptions();
 
 	/**
 	 * Sets the value of the '{@link net.gexf_1_2.gexf.DocumentRoot#getOptions <em>Options</em>}' attribute. <!--
@@ -567,7 +566,7 @@ public interface DocumentRoot extends
 	 * @see #getOptions()
 	 * @generated
 	 */
-			void setOptions(String value);
+	void setOptions(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Parent</b></em>' containment reference. <!-- begin-user-doc -->
@@ -584,7 +583,7 @@ public interface DocumentRoot extends
 	 *        "kind='element' name='parent' namespace='##targetNamespace'"
 	 * @generated
 	 */
-			ParentType getParent();
+	ParentType getParent();
 
 	/**
 	 * Sets the value of the '{@link net.gexf_1_2.gexf.DocumentRoot#getParent <em>Parent</em>}' containment reference.
@@ -594,7 +593,7 @@ public interface DocumentRoot extends
 	 * @see #getParent()
 	 * @generated
 	 */
-			void setParent(ParentType value);
+	void setParent(ParentType value);
 
 	/**
 	 * Returns the value of the '<em><b>Parents</b></em>' containment reference. <!-- begin-user-doc -->
@@ -611,7 +610,7 @@ public interface DocumentRoot extends
 	 *        "kind='element' name='parents' namespace='##targetNamespace'"
 	 * @generated
 	 */
-			ParentsContent getParents();
+	ParentsContent getParents();
 
 	/**
 	 * Sets the value of the '{@link net.gexf_1_2.gexf.DocumentRoot#getParents <em>Parents</em>}' containment reference.
@@ -621,7 +620,7 @@ public interface DocumentRoot extends
 	 * @see #getParents()
 	 * @generated
 	 */
-			void setParents(ParentsContent value);
+	void setParents(ParentsContent value);
 
 	/**
 	 * Returns the value of the '<em><b>Position</b></em>' containment reference. <!-- begin-user-doc -->
@@ -638,7 +637,7 @@ public interface DocumentRoot extends
 	 *        "kind='element' name='position' namespace='##targetNamespace'"
 	 * @generated
 	 */
-			PositionContent getPosition();
+	PositionContent getPosition();
 
 	/**
 	 * Sets the value of the '{@link net.gexf_1_2.gexf.DocumentRoot#getPosition <em>Position</em>}' containment
@@ -648,7 +647,7 @@ public interface DocumentRoot extends
 	 * @see #getPosition()
 	 * @generated
 	 */
-			void setPosition(PositionContent value);
+	void setPosition(PositionContent value);
 
 	/**
 	 * Returns the value of the '<em><b>Size</b></em>' containment reference. <!-- begin-user-doc -->
@@ -665,7 +664,7 @@ public interface DocumentRoot extends
 	 *        "kind='element' name='size' namespace='##targetNamespace'"
 	 * @generated
 	 */
-			SizeContent getSize();
+	SizeContent getSize();
 
 	/**
 	 * Sets the value of the '{@link net.gexf_1_2.gexf.DocumentRoot#getSize <em>Size</em>}' containment reference. <!--
@@ -675,7 +674,7 @@ public interface DocumentRoot extends
 	 * @see #getSize()
 	 * @generated
 	 */
-			void setSize(SizeContent value);
+	void setSize(SizeContent value);
 
 	/**
 	 * Returns the value of the '<em><b>Spell</b></em>' containment reference. <!-- begin-user-doc -->
@@ -692,7 +691,7 @@ public interface DocumentRoot extends
 	 *        "kind='element' name='spell' namespace='##targetNamespace'"
 	 * @generated
 	 */
-			SpellType getSpell();
+	SpellType getSpell();
 
 	/**
 	 * Sets the value of the '{@link net.gexf_1_2.gexf.DocumentRoot#getSpell <em>Spell</em>}' containment reference.
@@ -702,7 +701,7 @@ public interface DocumentRoot extends
 	 * @see #getSpell()
 	 * @generated
 	 */
-			void setSpell(SpellType value);
+	void setSpell(SpellType value);
 
 	/**
 	 * Returns the value of the '<em><b>Spells</b></em>' containment reference. <!-- begin-user-doc -->
@@ -719,7 +718,7 @@ public interface DocumentRoot extends
 	 *        "kind='element' name='spells' namespace='##targetNamespace'"
 	 * @generated
 	 */
-			SpellsContent getSpells();
+	SpellsContent getSpells();
 
 	/**
 	 * Sets the value of the '{@link net.gexf_1_2.gexf.DocumentRoot#getSpells <em>Spells</em>}' containment reference.
@@ -729,7 +728,7 @@ public interface DocumentRoot extends
 	 * @see #getSpells()
 	 * @generated
 	 */
-			void setSpells(SpellsContent value);
+	void setSpells(SpellsContent value);
 
 	/**
 	 * Returns the value of the '<em><b>Thickness</b></em>' containment reference. <!-- begin-user-doc -->
@@ -746,7 +745,7 @@ public interface DocumentRoot extends
 	 *        "kind='element' name='thickness' namespace='##targetNamespace'"
 	 * @generated
 	 */
-			ThicknessContent getThickness();
+	ThicknessContent getThickness();
 
 	/**
 	 * Sets the value of the '{@link net.gexf_1_2.gexf.DocumentRoot#getThickness <em>Thickness</em>}' containment
@@ -756,6 +755,6 @@ public interface DocumentRoot extends
 	 * @see #getThickness()
 	 * @generated
 	 */
-			void setThickness(ThicknessContent value);
+	void setThickness(ThicknessContent value);
 
 } // DocumentRoot

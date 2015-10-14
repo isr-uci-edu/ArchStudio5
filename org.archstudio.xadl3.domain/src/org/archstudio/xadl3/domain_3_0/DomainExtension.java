@@ -19,24 +19,23 @@ import org.archstudio.xadl3.xadlcore_3_0.Extension;
  * @model extendedMetaData="name='DomainExtension' kind='elementOnly'"
  * @generated
  */
-public interface DomainExtension extends
-		Extension {
-					/**
-					 * Returns the value of the '<em><b>Domain</b></em>' containment reference. <!-- begin-user-doc -->
-					 * <p>
-					 * If the meaning of the '<em>Domain</em>' containment reference isn't clear, there really should be
-					 * more of a description here...
-					 * </p>
-					 * <!-- end-user-doc -->
-					 * 
-					 * @return the value of the '<em>Domain</em>' containment reference.
-					 * @see #setDomain(Domain)
-					 * @see org.archstudio.xadl3.domain_3_0.Domain_3_0Package#getDomainExtension_Domain()
-					 * @model containment="true" required="true" extendedMetaData=
-					 *        "kind='element' name='domain' namespace='##targetNamespace'"
-					 * @generated
-					 */
-					Domain getDomain();
+public interface DomainExtension extends Extension {
+	/**
+	 * Returns the value of the '<em><b>Domain</b></em>' containment reference. <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Domain</em>' containment reference isn't clear, there really should be more of a
+	 * description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the value of the '<em>Domain</em>' containment reference.
+	 * @see #setDomain(Domain)
+	 * @see org.archstudio.xadl3.domain_3_0.Domain_3_0Package#getDomainExtension_Domain()
+	 * @model containment="true" required="true" extendedMetaData=
+	 *        "kind='element' name='domain' namespace='##targetNamespace'"
+	 * @generated
+	 */
+	Domain getDomain();
 
 	/**
 	 * Sets the value of the '{@link org.archstudio.xadl3.domain_3_0.DomainExtension#getDomain <em>Domain</em>}'
@@ -46,6 +45,6 @@ public interface DomainExtension extends
 	 * @see #getDomain()
 	 * @generated
 	 */
-			void setDomain(Domain value);
+	void setDomain(Domain value);
 
 } // DomainExtension

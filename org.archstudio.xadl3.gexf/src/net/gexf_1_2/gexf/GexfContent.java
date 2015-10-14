@@ -22,21 +22,21 @@ import org.eclipse.emf.ecore.EObject;
  * @generated
  */
 public interface GexfContent extends EObject {
-			/**
-			 * Returns the value of the '<em><b>Meta</b></em>' containment reference. <!-- begin-user-doc -->
-			 * <p>
-			 * If the meaning of the '<em>Meta</em>' containment reference isn't clear, there really should be more of a
-			 * description here...
-			 * </p>
-			 * <!-- end-user-doc -->
-			 * 
-			 * @return the value of the '<em>Meta</em>' containment reference.
-			 * @see #setMeta(MetaContent)
-			 * @see net.gexf_1_2.gexf.GexfPackage#getGexfContent_Meta()
-			 * @model containment="true" extendedMetaData="kind='element' name='meta' namespace='##targetNamespace'"
-			 * @generated
-			 */
-			MetaContent getMeta();
+	/**
+	 * Returns the value of the '<em><b>Meta</b></em>' containment reference. <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Meta</em>' containment reference isn't clear, there really should be more of a
+	 * description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the value of the '<em>Meta</em>' containment reference.
+	 * @see #setMeta(MetaContent)
+	 * @see net.gexf_1_2.gexf.GexfPackage#getGexfContent_Meta()
+	 * @model containment="true" extendedMetaData="kind='element' name='meta' namespace='##targetNamespace'"
+	 * @generated
+	 */
+	MetaContent getMeta();
 
 	/**
 	 * Sets the value of the '{@link net.gexf_1_2.gexf.GexfContent#getMeta <em>Meta</em>}' containment reference. <!--
@@ -46,7 +46,7 @@ public interface GexfContent extends EObject {
 	 * @see #getMeta()
 	 * @generated
 	 */
-			void setMeta(MetaContent value);
+	void setMeta(MetaContent value);
 
 	/**
 	 * Returns the value of the '<em><b>Graph</b></em>' containment reference. <!-- begin-user-doc -->
@@ -63,7 +63,7 @@ public interface GexfContent extends EObject {
 	 *        "kind='element' name='graph' namespace='##targetNamespace'"
 	 * @generated
 	 */
-			GraphContent getGraph();
+	GraphContent getGraph();
 
 	/**
 	 * Sets the value of the '{@link net.gexf_1_2.gexf.GexfContent#getGraph <em>Graph</em>}' containment reference. <!--
@@ -73,7 +73,7 @@ public interface GexfContent extends EObject {
 	 * @see #getGraph()
 	 * @generated
 	 */
-			void setGraph(GraphContent value);
+	void setGraph(GraphContent value);
 
 	/**
 	 * Returns the value of the '<em><b>Variant</b></em>' attribute. <!-- begin-user-doc -->
@@ -89,7 +89,7 @@ public interface GexfContent extends EObject {
 	 * @model dataType="org.eclipse.emf.ecore.xml.type.String" extendedMetaData="kind='attribute' name='variant'"
 	 * @generated
 	 */
-			String getVariant();
+	String getVariant();
 
 	/**
 	 * Sets the value of the '{@link net.gexf_1_2.gexf.GexfContent#getVariant <em>Variant</em>}' attribute. <!--
@@ -99,7 +99,7 @@ public interface GexfContent extends EObject {
 	 * @see #getVariant()
 	 * @generated
 	 */
-			void setVariant(String value);
+	void setVariant(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Version</b></em>' attribute. The literals are from the enumeration
@@ -119,7 +119,7 @@ public interface GexfContent extends EObject {
 	 * @model unsettable="true" required="true" extendedMetaData="kind='attribute' name='version'"
 	 * @generated
 	 */
-			VersionType getVersion();
+	VersionType getVersion();
 
 	/**
 	 * Sets the value of the '{@link net.gexf_1_2.gexf.GexfContent#getVersion <em>Version</em>}' attribute. <!--
@@ -132,7 +132,7 @@ public interface GexfContent extends EObject {
 	 * @see #getVersion()
 	 * @generated
 	 */
-			void setVersion(VersionType value);
+	void setVersion(VersionType value);
 
 	/**
 	 * Unsets the value of the '{@link net.gexf_1_2.gexf.GexfContent#getVersion <em>Version</em>}' attribute. <!--
@@ -143,7 +143,7 @@ public interface GexfContent extends EObject {
 	 * @see #setVersion(VersionType)
 	 * @generated
 	 */
-			void unsetVersion();
+	void unsetVersion();
 
 	/**
 	 * Returns whether the value of the '{@link net.gexf_1_2.gexf.GexfContent#getVersion <em>Version</em>}' attribute is
@@ -155,6 +155,6 @@ public interface GexfContent extends EObject {
 	 * @see #setVersion(VersionType)
 	 * @generated
 	 */
-			boolean isSetVersion();
+	boolean isSetVersion();
 
 } // GexfContent

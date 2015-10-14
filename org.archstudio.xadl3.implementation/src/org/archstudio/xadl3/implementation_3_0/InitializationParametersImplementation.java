@@ -20,24 +20,22 @@ import org.eclipse.emf.common.util.EList;
  * @model extendedMetaData="name='InitializationParametersImplementation' kind='elementOnly'"
  * @generated
  */
-public interface InitializationParametersImplementation extends
-		Implementation {
-					/**
-					 * Returns the value of the '<em><b>Initialization Parameter</b></em>' containment reference list.
-					 * The list contents are of type
-					 * {@link org.archstudio.xadl3.implementation_3_0.InitializationParameter}. <!-- begin-user-doc -->
-					 * <p>
-					 * If the meaning of the '<em>Initialization Parameter</em>' containment reference list isn't clear,
-					 * there really should be more of a description here...
-					 * </p>
-					 * <!-- end-user-doc -->
-					 * 
-					 * @return the value of the '<em>Initialization Parameter</em>' containment reference list.
-					 * @see org.archstudio.xadl3.implementation_3_0.Implementation_3_0Package#getInitializationParametersImplementation_InitializationParameter()
-					 * @model containment="true" extendedMetaData=
-					 *        "kind='element' name='initializationParameter' namespace='##targetNamespace'"
-					 * @generated
-					 */
-					EList<InitializationParameter> getInitializationParameter();
+public interface InitializationParametersImplementation extends Implementation {
+	/**
+	 * Returns the value of the '<em><b>Initialization Parameter</b></em>' containment reference list. The list contents
+	 * are of type {@link org.archstudio.xadl3.implementation_3_0.InitializationParameter}. <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Initialization Parameter</em>' containment reference list isn't clear, there really
+	 * should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the value of the '<em>Initialization Parameter</em>' containment reference list.
+	 * @see org.archstudio.xadl3.implementation_3_0.Implementation_3_0Package#getInitializationParametersImplementation_InitializationParameter()
+	 * @model containment="true" extendedMetaData=
+	 *        "kind='element' name='initializationParameter' namespace='##targetNamespace'"
+	 * @generated
+	 */
+	EList<InitializationParameter> getInitializationParameter();
 
 } // InitializationParametersImplementation

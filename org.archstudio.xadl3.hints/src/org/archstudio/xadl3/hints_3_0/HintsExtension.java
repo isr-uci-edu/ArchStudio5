@@ -21,20 +21,20 @@ import org.eclipse.emf.common.util.EList;
  * @generated
  */
 public interface HintsExtension extends Extension {
-			/**
-			 * Returns the value of the '<em><b>Hint</b></em>' containment reference list. The list contents are of type
-			 * {@link org.archstudio.xadl3.hints_3_0.Hint}. <!-- begin-user-doc -->
-			 * <p>
-			 * If the meaning of the '<em>Hint</em>' containment reference list isn't clear, there really should be more
-			 * of a description here...
-			 * </p>
-			 * <!-- end-user-doc -->
-			 * 
-			 * @return the value of the '<em>Hint</em>' containment reference list.
-			 * @see org.archstudio.xadl3.hints_3_0.Hints_3_0Package#getHintsExtension_Hint()
-			 * @model containment="true" extendedMetaData="kind='element' name='hint' namespace='##targetNamespace'"
-			 * @generated
-			 */
-			EList<Hint> getHint();
+	/**
+	 * Returns the value of the '<em><b>Hint</b></em>' containment reference list. The list contents are of type
+	 * {@link org.archstudio.xadl3.hints_3_0.Hint}. <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Hint</em>' containment reference list isn't clear, there really should be more of a
+	 * description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the value of the '<em>Hint</em>' containment reference list.
+	 * @see org.archstudio.xadl3.hints_3_0.Hints_3_0Package#getHintsExtension_Hint()
+	 * @model containment="true" extendedMetaData="kind='element' name='hint' namespace='##targetNamespace'"
+	 * @generated
+	 */
+	EList<Hint> getHint();
 
 } // HintsExtension

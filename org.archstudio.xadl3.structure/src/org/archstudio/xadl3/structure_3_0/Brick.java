@@ -29,22 +29,21 @@ import org.eclipse.emf.ecore.EObject;
  * @generated
  */
 public interface Brick extends EObject {
-			/**
-			 * Returns the value of the '<em><b>Interface</b></em>' containment reference list. The list contents are of
-			 * type {@link org.archstudio.xadl3.structure_3_0.Interface}. <!-- begin-user-doc -->
-			 * <p>
-			 * If the meaning of the '<em>Interface</em>' containment reference list isn't clear, there really should be
-			 * more of a description here...
-			 * </p>
-			 * <!-- end-user-doc -->
-			 * 
-			 * @return the value of the '<em>Interface</em>' containment reference list.
-			 * @see org.archstudio.xadl3.structure_3_0.Structure_3_0Package#getBrick_Interface()
-			 * @model containment="true" extendedMetaData=
-			 *        "kind='element' name='interface' namespace='##targetNamespace'"
-			 * @generated
-			 */
-			EList<Interface> getInterface();
+	/**
+	 * Returns the value of the '<em><b>Interface</b></em>' containment reference list. The list contents are of type
+	 * {@link org.archstudio.xadl3.structure_3_0.Interface}. <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Interface</em>' containment reference list isn't clear, there really should be more of
+	 * a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the value of the '<em>Interface</em>' containment reference list.
+	 * @see org.archstudio.xadl3.structure_3_0.Structure_3_0Package#getBrick_Interface()
+	 * @model containment="true" extendedMetaData="kind='element' name='interface' namespace='##targetNamespace'"
+	 * @generated
+	 */
+	EList<Interface> getInterface();
 
 	/**
 	 * Returns the value of the '<em><b>Sub Structure</b></em>' containment reference. <!-- begin-user-doc -->
@@ -60,7 +59,7 @@ public interface Brick extends EObject {
 	 * @model containment="true" extendedMetaData="kind='element' name='subStructure' namespace='##targetNamespace'"
 	 * @generated
 	 */
-			SubStructure getSubStructure();
+	SubStructure getSubStructure();
 
 	/**
 	 * Sets the value of the '{@link org.archstudio.xadl3.structure_3_0.Brick#getSubStructure <em>Sub Structure</em>}'
@@ -70,7 +69,7 @@ public interface Brick extends EObject {
 	 * @see #getSubStructure()
 	 * @generated
 	 */
-			void setSubStructure(SubStructure value);
+	void setSubStructure(SubStructure value);
 
 	/**
 	 * Returns the value of the '<em><b>Ext</b></em>' containment reference list. The list contents are of type
@@ -86,7 +85,7 @@ public interface Brick extends EObject {
 	 * @model containment="true" extendedMetaData="kind='element' name='ext' namespace='##targetNamespace'"
 	 * @generated
 	 */
-			EList<Extension> getExt();
+	EList<Extension> getExt();
 
 	/**
 	 * Returns the value of the '<em><b>Id</b></em>' attribute. <!-- begin-user-doc -->
@@ -102,7 +101,7 @@ public interface Brick extends EObject {
 	 *        "kind='attribute' name='id' namespace='##targetNamespace'"
 	 * @generated
 	 */
-			String getId();
+	String getId();
 
 	/**
 	 * Sets the value of the '{@link org.archstudio.xadl3.structure_3_0.Brick#getId <em>Id</em>}' attribute. <!--
@@ -112,7 +111,7 @@ public interface Brick extends EObject {
 	 * @see #getId()
 	 * @generated
 	 */
-			void setId(String value);
+	void setId(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Name</b></em>' attribute. <!-- begin-user-doc -->
@@ -128,7 +127,7 @@ public interface Brick extends EObject {
 	 *        "kind='attribute' name='name' namespace='##targetNamespace'"
 	 * @generated
 	 */
-			String getName();
+	String getName();
 
 	/**
 	 * Sets the value of the '{@link org.archstudio.xadl3.structure_3_0.Brick#getName <em>Name</em>}' attribute. <!--
@@ -138,6 +137,6 @@ public interface Brick extends EObject {
 	 * @see #getName()
 	 * @generated
 	 */
-			void setName(String value);
+	void setName(String value);
 
 } // Brick

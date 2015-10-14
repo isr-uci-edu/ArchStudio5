@@ -42,17 +42,9 @@ public abstract class ReshapeHandleThingBase extends org.archstudio.bna.things.A
 		return get(org.archstudio.bna.facets.IHasAnchorPoint.ANCHOR_POINT_KEY);
 	}
 
-	/* package */ java.awt.geom.Point2D getRawAnchorPoint() {
-		return getRaw(org.archstudio.bna.facets.IHasAnchorPoint.ANCHOR_POINT_KEY);
-	}
-
 	@Override
 	public void setAnchorPoint(java.awt.geom.Point2D anchorPoint) {
 		set(org.archstudio.bna.facets.IHasAnchorPoint.ANCHOR_POINT_KEY, anchorPoint);
-	}
-
-	/* package */ java.awt.geom.Point2D setRawAnchorPoint(java.awt.geom.Point2D anchorPoint) {
-		return setRaw(org.archstudio.bna.facets.IHasAnchorPoint.ANCHOR_POINT_KEY, anchorPoint);
 	}
 
 	@Override
@@ -60,19 +52,9 @@ public abstract class ReshapeHandleThingBase extends org.archstudio.bna.things.A
 		return get(org.archstudio.bna.facets.IHasColor.COLOR_KEY);
 	}
 
-	/* package */ @Nullable
-			org.eclipse.swt.graphics.RGB getRawColor() {
-		return getRaw(org.archstudio.bna.facets.IHasColor.COLOR_KEY);
-	}
-
 	@Override
 	public void setColor(@Nullable org.eclipse.swt.graphics.RGB color) {
 		set(org.archstudio.bna.facets.IHasColor.COLOR_KEY, color);
-	}
-
-	/* package */ @Nullable
-			org.eclipse.swt.graphics.RGB setRawColor(@Nullable org.eclipse.swt.graphics.RGB color) {
-		return setRaw(org.archstudio.bna.facets.IHasColor.COLOR_KEY, color);
 	}
 
 	@Override
@@ -80,16 +62,8 @@ public abstract class ReshapeHandleThingBase extends org.archstudio.bna.things.A
 		return get(org.archstudio.bna.facets.IHasSize.SIZE_KEY);
 	}
 
-	/* package */ java.awt.Dimension getRawSize() {
-		return getRaw(org.archstudio.bna.facets.IHasSize.SIZE_KEY);
-	}
-
 	@Override
 	public void setSize(java.awt.Dimension size) {
 		set(org.archstudio.bna.facets.IHasSize.SIZE_KEY, size);
-	}
-
-	/* package */ java.awt.Dimension setRawSize(java.awt.Dimension size) {
-		return setRaw(org.archstudio.bna.facets.IHasSize.SIZE_KEY, size);
 	}
 }

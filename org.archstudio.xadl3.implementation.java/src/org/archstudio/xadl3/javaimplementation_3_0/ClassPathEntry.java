@@ -23,21 +23,21 @@ import org.eclipse.emf.ecore.EObject;
  * @generated
  */
 public interface ClassPathEntry extends EObject {
-			/**
-			 * Returns the value of the '<em><b>Ext</b></em>' containment reference list. The list contents are of type
-			 * {@link org.archstudio.xadl3.xadlcore_3_0.Extension}. <!-- begin-user-doc -->
-			 * <p>
-			 * If the meaning of the '<em>Ext</em>' containment reference list isn't clear, there really should be more
-			 * of a description here...
-			 * </p>
-			 * <!-- end-user-doc -->
-			 * 
-			 * @return the value of the '<em>Ext</em>' containment reference list.
-			 * @see org.archstudio.xadl3.javaimplementation_3_0.Javaimplementation_3_0Package#getClassPathEntry_Ext()
-			 * @model containment="true" extendedMetaData="kind='element' name='ext' namespace='##targetNamespace'"
-			 * @generated
-			 */
-			EList<Extension> getExt();
+	/**
+	 * Returns the value of the '<em><b>Ext</b></em>' containment reference list. The list contents are of type
+	 * {@link org.archstudio.xadl3.xadlcore_3_0.Extension}. <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Ext</em>' containment reference list isn't clear, there really should be more of a
+	 * description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the value of the '<em>Ext</em>' containment reference list.
+	 * @see org.archstudio.xadl3.javaimplementation_3_0.Javaimplementation_3_0Package#getClassPathEntry_Ext()
+	 * @model containment="true" extendedMetaData="kind='element' name='ext' namespace='##targetNamespace'"
+	 * @generated
+	 */
+	EList<Extension> getExt();
 
 	/**
 	 * Returns the value of the '<em><b>Entry</b></em>' attribute. <!-- begin-user-doc -->
@@ -54,7 +54,7 @@ public interface ClassPathEntry extends EObject {
 	 *        "kind='attribute' name='entry' namespace='##targetNamespace'"
 	 * @generated
 	 */
-			String getEntry();
+	String getEntry();
 
 	/**
 	 * Sets the value of the '{@link org.archstudio.xadl3.javaimplementation_3_0.ClassPathEntry#getEntry <em>Entry</em>}
@@ -64,7 +64,7 @@ public interface ClassPathEntry extends EObject {
 	 * @see #getEntry()
 	 * @generated
 	 */
-			void setEntry(String value);
+	void setEntry(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Id</b></em>' attribute. <!-- begin-user-doc -->
@@ -80,7 +80,7 @@ public interface ClassPathEntry extends EObject {
 	 *        "kind='attribute' name='id' namespace='##targetNamespace'"
 	 * @generated
 	 */
-			String getId();
+	String getId();
 
 	/**
 	 * Sets the value of the '{@link org.archstudio.xadl3.javaimplementation_3_0.ClassPathEntry#getId <em>Id</em>}'
@@ -90,6 +90,6 @@ public interface ClassPathEntry extends EObject {
 	 * @see #getId()
 	 * @generated
 	 */
-			void setId(String value);
+	void setId(String value);
 
 } // ClassPathEntry

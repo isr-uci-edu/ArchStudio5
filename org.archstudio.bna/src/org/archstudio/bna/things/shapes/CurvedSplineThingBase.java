@@ -78,14 +78,8 @@ public abstract class CurvedSplineThingBase extends org.archstudio.bna.things.Ab
 		return get(org.archstudio.bna.facets.IHasAnchorPoint.ANCHOR_POINT_KEY);
 	}
 
-	/* package */ java.awt.geom.Point2D getRawAnchorPoint() {
-		return getRaw(org.archstudio.bna.facets.IHasAnchorPoint.ANCHOR_POINT_KEY);
-	}/* package */ void setAnchorPoint(java.awt.geom.Point2D anchorPoint) {
+	/* package */ void setAnchorPoint(java.awt.geom.Point2D anchorPoint) {
 		set(org.archstudio.bna.facets.IHasAnchorPoint.ANCHOR_POINT_KEY, anchorPoint);
-	}
-
-	/* package */ java.awt.geom.Point2D setRawAnchorPoint(java.awt.geom.Point2D anchorPoint) {
-		return setRaw(org.archstudio.bna.facets.IHasAnchorPoint.ANCHOR_POINT_KEY, anchorPoint);
 	}
 
 	@Override
@@ -93,19 +87,9 @@ public abstract class CurvedSplineThingBase extends org.archstudio.bna.things.Ab
 		return get(org.archstudio.bna.facets.IHasArrowheads.ARROWHEAD_1_COLOR_KEY);
 	}
 
-	/* package */ @Nullable
-			org.eclipse.swt.graphics.RGB getRawArrowhead1Color() {
-		return getRaw(org.archstudio.bna.facets.IHasArrowheads.ARROWHEAD_1_COLOR_KEY);
-	}
-
 	@Override
 	public void setArrowhead1Color(@Nullable org.eclipse.swt.graphics.RGB arrowhead1Color) {
 		set(org.archstudio.bna.facets.IHasArrowheads.ARROWHEAD_1_COLOR_KEY, arrowhead1Color);
-	}
-
-	/* package */ @Nullable
-			org.eclipse.swt.graphics.RGB setRawArrowhead1Color(@Nullable org.eclipse.swt.graphics.RGB arrowhead1Color) {
-		return setRaw(org.archstudio.bna.facets.IHasArrowheads.ARROWHEAD_1_COLOR_KEY, arrowhead1Color);
 	}
 
 	@Override
@@ -113,20 +97,9 @@ public abstract class CurvedSplineThingBase extends org.archstudio.bna.things.Ab
 		return get(org.archstudio.bna.facets.IHasArrowheads.ARROWHEAD_1_EDGE_COLOR_KEY);
 	}
 
-	/* package */ @Nullable
-			org.eclipse.swt.graphics.RGB getRawArrowhead1EdgeColor() {
-		return getRaw(org.archstudio.bna.facets.IHasArrowheads.ARROWHEAD_1_EDGE_COLOR_KEY);
-	}
-
 	@Override
 	public void setArrowhead1EdgeColor(@Nullable org.eclipse.swt.graphics.RGB arrowhead1EdgeColor) {
 		set(org.archstudio.bna.facets.IHasArrowheads.ARROWHEAD_1_EDGE_COLOR_KEY, arrowhead1EdgeColor);
-	}
-
-	/* package */ @Nullable
-			org.eclipse.swt.graphics.RGB
-					setRawArrowhead1EdgeColor(@Nullable org.eclipse.swt.graphics.RGB arrowhead1EdgeColor) {
-		return setRaw(org.archstudio.bna.facets.IHasArrowheads.ARROWHEAD_1_EDGE_COLOR_KEY, arrowhead1EdgeColor);
 	}
 
 	@Override
@@ -134,17 +107,9 @@ public abstract class CurvedSplineThingBase extends org.archstudio.bna.things.Ab
 		return get(org.archstudio.bna.facets.IHasArrowheads.ARROWHEAD_1_LENGTH_KEY);
 	}
 
-	/* package */ int getRawArrowhead1Length() {
-		return getRaw(org.archstudio.bna.facets.IHasArrowheads.ARROWHEAD_1_LENGTH_KEY);
-	}
-
 	@Override
 	public void setArrowhead1Length(int arrowhead1Length) {
 		set(org.archstudio.bna.facets.IHasArrowheads.ARROWHEAD_1_LENGTH_KEY, arrowhead1Length);
-	}
-
-	/* package */ int setRawArrowhead1Length(int arrowhead1Length) {
-		return setRaw(org.archstudio.bna.facets.IHasArrowheads.ARROWHEAD_1_LENGTH_KEY, arrowhead1Length);
 	}
 
 	@Override
@@ -152,18 +117,9 @@ public abstract class CurvedSplineThingBase extends org.archstudio.bna.things.Ab
 		return get(org.archstudio.bna.facets.IHasArrowheads.ARROWHEAD_1_SHAPE_KEY);
 	}
 
-	/* package */ org.archstudio.bna.constants.ArrowheadShape getRawArrowhead1Shape() {
-		return getRaw(org.archstudio.bna.facets.IHasArrowheads.ARROWHEAD_1_SHAPE_KEY);
-	}
-
 	@Override
 	public void setArrowhead1Shape(org.archstudio.bna.constants.ArrowheadShape arrowhead1Shape) {
 		set(org.archstudio.bna.facets.IHasArrowheads.ARROWHEAD_1_SHAPE_KEY, arrowhead1Shape);
-	}
-
-	/* package */ org.archstudio.bna.constants.ArrowheadShape
-			setRawArrowhead1Shape(org.archstudio.bna.constants.ArrowheadShape arrowhead1Shape) {
-		return setRaw(org.archstudio.bna.facets.IHasArrowheads.ARROWHEAD_1_SHAPE_KEY, arrowhead1Shape);
 	}
 
 	@Override
@@ -171,17 +127,9 @@ public abstract class CurvedSplineThingBase extends org.archstudio.bna.things.Ab
 		return get(org.archstudio.bna.facets.IHasArrowheads.ARROWHEAD_1_WIDTH_KEY);
 	}
 
-	/* package */ int getRawArrowhead1Width() {
-		return getRaw(org.archstudio.bna.facets.IHasArrowheads.ARROWHEAD_1_WIDTH_KEY);
-	}
-
 	@Override
 	public void setArrowhead1Width(int arrowhead1Width) {
 		set(org.archstudio.bna.facets.IHasArrowheads.ARROWHEAD_1_WIDTH_KEY, arrowhead1Width);
-	}
-
-	/* package */ int setRawArrowhead1Width(int arrowhead1Width) {
-		return setRaw(org.archstudio.bna.facets.IHasArrowheads.ARROWHEAD_1_WIDTH_KEY, arrowhead1Width);
 	}
 
 	@Override
@@ -189,19 +137,9 @@ public abstract class CurvedSplineThingBase extends org.archstudio.bna.things.Ab
 		return get(org.archstudio.bna.facets.IHasArrowheads.ARROWHEAD_2_COLOR_KEY);
 	}
 
-	/* package */ @Nullable
-			org.eclipse.swt.graphics.RGB getRawArrowhead2Color() {
-		return getRaw(org.archstudio.bna.facets.IHasArrowheads.ARROWHEAD_2_COLOR_KEY);
-	}
-
 	@Override
 	public void setArrowhead2Color(@Nullable org.eclipse.swt.graphics.RGB arrowhead2Color) {
 		set(org.archstudio.bna.facets.IHasArrowheads.ARROWHEAD_2_COLOR_KEY, arrowhead2Color);
-	}
-
-	/* package */ @Nullable
-			org.eclipse.swt.graphics.RGB setRawArrowhead2Color(@Nullable org.eclipse.swt.graphics.RGB arrowhead2Color) {
-		return setRaw(org.archstudio.bna.facets.IHasArrowheads.ARROWHEAD_2_COLOR_KEY, arrowhead2Color);
 	}
 
 	@Override
@@ -209,20 +147,9 @@ public abstract class CurvedSplineThingBase extends org.archstudio.bna.things.Ab
 		return get(org.archstudio.bna.facets.IHasArrowheads.ARROWHEAD_2_EDGE_COLOR_KEY);
 	}
 
-	/* package */ @Nullable
-			org.eclipse.swt.graphics.RGB getRawArrowhead2EdgeColor() {
-		return getRaw(org.archstudio.bna.facets.IHasArrowheads.ARROWHEAD_2_EDGE_COLOR_KEY);
-	}
-
 	@Override
 	public void setArrowhead2EdgeColor(@Nullable org.eclipse.swt.graphics.RGB arrowhead2EdgeColor) {
 		set(org.archstudio.bna.facets.IHasArrowheads.ARROWHEAD_2_EDGE_COLOR_KEY, arrowhead2EdgeColor);
-	}
-
-	/* package */ @Nullable
-			org.eclipse.swt.graphics.RGB
-					setRawArrowhead2EdgeColor(@Nullable org.eclipse.swt.graphics.RGB arrowhead2EdgeColor) {
-		return setRaw(org.archstudio.bna.facets.IHasArrowheads.ARROWHEAD_2_EDGE_COLOR_KEY, arrowhead2EdgeColor);
 	}
 
 	@Override
@@ -230,17 +157,9 @@ public abstract class CurvedSplineThingBase extends org.archstudio.bna.things.Ab
 		return get(org.archstudio.bna.facets.IHasArrowheads.ARROWHEAD_2_LENGTH_KEY);
 	}
 
-	/* package */ int getRawArrowhead2Length() {
-		return getRaw(org.archstudio.bna.facets.IHasArrowheads.ARROWHEAD_2_LENGTH_KEY);
-	}
-
 	@Override
 	public void setArrowhead2Length(int arrowhead2Length) {
 		set(org.archstudio.bna.facets.IHasArrowheads.ARROWHEAD_2_LENGTH_KEY, arrowhead2Length);
-	}
-
-	/* package */ int setRawArrowhead2Length(int arrowhead2Length) {
-		return setRaw(org.archstudio.bna.facets.IHasArrowheads.ARROWHEAD_2_LENGTH_KEY, arrowhead2Length);
 	}
 
 	@Override
@@ -248,18 +167,9 @@ public abstract class CurvedSplineThingBase extends org.archstudio.bna.things.Ab
 		return get(org.archstudio.bna.facets.IHasArrowheads.ARROWHEAD_2_SHAPE_KEY);
 	}
 
-	/* package */ org.archstudio.bna.constants.ArrowheadShape getRawArrowhead2Shape() {
-		return getRaw(org.archstudio.bna.facets.IHasArrowheads.ARROWHEAD_2_SHAPE_KEY);
-	}
-
 	@Override
 	public void setArrowhead2Shape(org.archstudio.bna.constants.ArrowheadShape arrowhead2Shape) {
 		set(org.archstudio.bna.facets.IHasArrowheads.ARROWHEAD_2_SHAPE_KEY, arrowhead2Shape);
-	}
-
-	/* package */ org.archstudio.bna.constants.ArrowheadShape
-			setRawArrowhead2Shape(org.archstudio.bna.constants.ArrowheadShape arrowhead2Shape) {
-		return setRaw(org.archstudio.bna.facets.IHasArrowheads.ARROWHEAD_2_SHAPE_KEY, arrowhead2Shape);
 	}
 
 	@Override
@@ -267,17 +177,9 @@ public abstract class CurvedSplineThingBase extends org.archstudio.bna.things.Ab
 		return get(org.archstudio.bna.facets.IHasArrowheads.ARROWHEAD_2_WIDTH_KEY);
 	}
 
-	/* package */ int getRawArrowhead2Width() {
-		return getRaw(org.archstudio.bna.facets.IHasArrowheads.ARROWHEAD_2_WIDTH_KEY);
-	}
-
 	@Override
 	public void setArrowhead2Width(int arrowhead2Width) {
 		set(org.archstudio.bna.facets.IHasArrowheads.ARROWHEAD_2_WIDTH_KEY, arrowhead2Width);
-	}
-
-	/* package */ int setRawArrowhead2Width(int arrowhead2Width) {
-		return setRaw(org.archstudio.bna.facets.IHasArrowheads.ARROWHEAD_2_WIDTH_KEY, arrowhead2Width);
 	}
 
 	@Override
@@ -285,14 +187,8 @@ public abstract class CurvedSplineThingBase extends org.archstudio.bna.things.Ab
 		return get(org.archstudio.bna.facets.IHasBoundingBox.BOUNDING_BOX_KEY);
 	}
 
-	/* package */ org.eclipse.swt.graphics.Rectangle getRawBoundingBox() {
-		return getRaw(org.archstudio.bna.facets.IHasBoundingBox.BOUNDING_BOX_KEY);
-	}/* package */ void setBoundingBox(org.eclipse.swt.graphics.Rectangle boundingBox) {
+	/* package */ void setBoundingBox(org.eclipse.swt.graphics.Rectangle boundingBox) {
 		set(org.archstudio.bna.facets.IHasBoundingBox.BOUNDING_BOX_KEY, boundingBox);
-	}
-
-	/* package */ org.eclipse.swt.graphics.Rectangle setRawBoundingBox(org.eclipse.swt.graphics.Rectangle boundingBox) {
-		return setRaw(org.archstudio.bna.facets.IHasBoundingBox.BOUNDING_BOX_KEY, boundingBox);
 	}
 
 	@Override
@@ -300,17 +196,9 @@ public abstract class CurvedSplineThingBase extends org.archstudio.bna.things.Ab
 		return get(org.archstudio.bna.facets.IHasCurve.CURVE_KEY);
 	}
 
-	/* package */ int getRawCurve() {
-		return getRaw(org.archstudio.bna.facets.IHasCurve.CURVE_KEY);
-	}
-
 	@Override
 	public void setCurve(int curve) {
 		set(org.archstudio.bna.facets.IHasCurve.CURVE_KEY, curve);
-	}
-
-	/* package */ int setRawCurve(int curve) {
-		return setRaw(org.archstudio.bna.facets.IHasCurve.CURVE_KEY, curve);
 	}
 
 	@Override
@@ -318,19 +206,9 @@ public abstract class CurvedSplineThingBase extends org.archstudio.bna.things.Ab
 		return get(org.archstudio.bna.facets.IHasEdgeColor.EDGE_COLOR_KEY);
 	}
 
-	/* package */ @Nullable
-			org.eclipse.swt.graphics.RGB getRawEdgeColor() {
-		return getRaw(org.archstudio.bna.facets.IHasEdgeColor.EDGE_COLOR_KEY);
-	}
-
 	@Override
 	public void setEdgeColor(@Nullable org.eclipse.swt.graphics.RGB edgeColor) {
 		set(org.archstudio.bna.facets.IHasEdgeColor.EDGE_COLOR_KEY, edgeColor);
-	}
-
-	/* package */ @Nullable
-			org.eclipse.swt.graphics.RGB setRawEdgeColor(@Nullable org.eclipse.swt.graphics.RGB edgeColor) {
-		return setRaw(org.archstudio.bna.facets.IHasEdgeColor.EDGE_COLOR_KEY, edgeColor);
 	}
 
 	@Override
@@ -338,17 +216,9 @@ public abstract class CurvedSplineThingBase extends org.archstudio.bna.things.Ab
 		return get(org.archstudio.bna.facets.IHasEndpoints.ENDPOINT_1_KEY);
 	}
 
-	/* package */ java.awt.geom.Point2D getRawEndpoint1() {
-		return getRaw(org.archstudio.bna.facets.IHasEndpoints.ENDPOINT_1_KEY);
-	}
-
 	@Override
 	public void setEndpoint1(java.awt.geom.Point2D endpoint1) {
 		set(org.archstudio.bna.facets.IHasEndpoints.ENDPOINT_1_KEY, endpoint1);
-	}
-
-	/* package */ java.awt.geom.Point2D setRawEndpoint1(java.awt.geom.Point2D endpoint1) {
-		return setRaw(org.archstudio.bna.facets.IHasEndpoints.ENDPOINT_1_KEY, endpoint1);
 	}
 
 	@Override
@@ -356,17 +226,9 @@ public abstract class CurvedSplineThingBase extends org.archstudio.bna.things.Ab
 		return get(org.archstudio.bna.facets.IHasEndpoints.ENDPOINT_2_KEY);
 	}
 
-	/* package */ java.awt.geom.Point2D getRawEndpoint2() {
-		return getRaw(org.archstudio.bna.facets.IHasEndpoints.ENDPOINT_2_KEY);
-	}
-
 	@Override
 	public void setEndpoint2(java.awt.geom.Point2D endpoint2) {
 		set(org.archstudio.bna.facets.IHasEndpoints.ENDPOINT_2_KEY, endpoint2);
-	}
-
-	/* package */ java.awt.geom.Point2D setRawEndpoint2(java.awt.geom.Point2D endpoint2) {
-		return setRaw(org.archstudio.bna.facets.IHasEndpoints.ENDPOINT_2_KEY, endpoint2);
 	}
 
 	@Override
@@ -374,17 +236,9 @@ public abstract class CurvedSplineThingBase extends org.archstudio.bna.things.Ab
 		return get(org.archstudio.bna.facets.IHasGlow.GLOW_ALPHA_KEY);
 	}
 
-	/* package */ double getRawGlowAlpha() {
-		return getRaw(org.archstudio.bna.facets.IHasGlow.GLOW_ALPHA_KEY);
-	}
-
 	@Override
 	public void setGlowAlpha(double glowAlpha) {
 		set(org.archstudio.bna.facets.IHasGlow.GLOW_ALPHA_KEY, glowAlpha);
-	}
-
-	/* package */ double setRawGlowAlpha(double glowAlpha) {
-		return setRaw(org.archstudio.bna.facets.IHasGlow.GLOW_ALPHA_KEY, glowAlpha);
 	}
 
 	@Override
@@ -392,19 +246,9 @@ public abstract class CurvedSplineThingBase extends org.archstudio.bna.things.Ab
 		return get(org.archstudio.bna.facets.IHasGlow.GLOW_COLOR_KEY);
 	}
 
-	/* package */ @Nullable
-			org.eclipse.swt.graphics.RGB getRawGlowColor() {
-		return getRaw(org.archstudio.bna.facets.IHasGlow.GLOW_COLOR_KEY);
-	}
-
 	@Override
 	public void setGlowColor(@Nullable org.eclipse.swt.graphics.RGB glowColor) {
 		set(org.archstudio.bna.facets.IHasGlow.GLOW_COLOR_KEY, glowColor);
-	}
-
-	/* package */ @Nullable
-			org.eclipse.swt.graphics.RGB setRawGlowColor(@Nullable org.eclipse.swt.graphics.RGB glowColor) {
-		return setRaw(org.archstudio.bna.facets.IHasGlow.GLOW_COLOR_KEY, glowColor);
 	}
 
 	@Override
@@ -412,17 +256,9 @@ public abstract class CurvedSplineThingBase extends org.archstudio.bna.things.Ab
 		return get(org.archstudio.bna.facets.IHasGlow.GLOW_WIDTH_KEY);
 	}
 
-	/* package */ int getRawGlowWidth() {
-		return getRaw(org.archstudio.bna.facets.IHasGlow.GLOW_WIDTH_KEY);
-	}
-
 	@Override
 	public void setGlowWidth(int glowWidth) {
 		set(org.archstudio.bna.facets.IHasGlow.GLOW_WIDTH_KEY, glowWidth);
-	}
-
-	/* package */ int setRawGlowWidth(int glowWidth) {
-		return setRaw(org.archstudio.bna.facets.IHasGlow.GLOW_WIDTH_KEY, glowWidth);
 	}
 
 	@Override
@@ -430,18 +266,9 @@ public abstract class CurvedSplineThingBase extends org.archstudio.bna.things.Ab
 		return get(org.archstudio.bna.facets.IHasLineStyle.LINE_STYLE_KEY);
 	}
 
-	/* package */ org.archstudio.swtutils.constants.LineStyle getRawLineStyle() {
-		return getRaw(org.archstudio.bna.facets.IHasLineStyle.LINE_STYLE_KEY);
-	}
-
 	@Override
 	public void setLineStyle(org.archstudio.swtutils.constants.LineStyle lineStyle) {
 		set(org.archstudio.bna.facets.IHasLineStyle.LINE_STYLE_KEY, lineStyle);
-	}
-
-	/* package */ org.archstudio.swtutils.constants.LineStyle
-			setRawLineStyle(org.archstudio.swtutils.constants.LineStyle lineStyle) {
-		return setRaw(org.archstudio.bna.facets.IHasLineStyle.LINE_STYLE_KEY, lineStyle);
 	}
 
 	@Override
@@ -449,17 +276,9 @@ public abstract class CurvedSplineThingBase extends org.archstudio.bna.things.Ab
 		return get(org.archstudio.bna.facets.IHasLineWidth.LINE_WIDTH_KEY);
 	}
 
-	/* package */ int getRawLineWidth() {
-		return getRaw(org.archstudio.bna.facets.IHasLineWidth.LINE_WIDTH_KEY);
-	}
-
 	@Override
 	public void setLineWidth(int lineWidth) {
 		set(org.archstudio.bna.facets.IHasLineWidth.LINE_WIDTH_KEY, lineWidth);
-	}
-
-	/* package */ int setRawLineWidth(int lineWidth) {
-		return setRaw(org.archstudio.bna.facets.IHasLineWidth.LINE_WIDTH_KEY, lineWidth);
 	}
 
 	@Override
@@ -467,18 +286,9 @@ public abstract class CurvedSplineThingBase extends org.archstudio.bna.things.Ab
 		return get(org.archstudio.bna.facets.IHasLoopOrientation.LOOP_ORIENTATION_KEY);
 	}
 
-	/* package */ org.archstudio.swtutils.constants.Orientation getRawLoopOrientation() {
-		return getRaw(org.archstudio.bna.facets.IHasLoopOrientation.LOOP_ORIENTATION_KEY);
-	}
-
 	@Override
 	public void setLoopOrientation(org.archstudio.swtutils.constants.Orientation loopOrientation) {
 		set(org.archstudio.bna.facets.IHasLoopOrientation.LOOP_ORIENTATION_KEY, loopOrientation);
-	}
-
-	/* package */ org.archstudio.swtutils.constants.Orientation
-			setRawLoopOrientation(org.archstudio.swtutils.constants.Orientation loopOrientation) {
-		return setRaw(org.archstudio.bna.facets.IHasLoopOrientation.LOOP_ORIENTATION_KEY, loopOrientation);
 	}
 
 	@Override
@@ -486,17 +296,9 @@ public abstract class CurvedSplineThingBase extends org.archstudio.bna.things.Ab
 		return get(org.archstudio.bna.facets.IHasRotatingOffset.ROTATING_OFFSET_KEY);
 	}
 
-	/* package */ int getRawRotatingOffset() {
-		return getRaw(org.archstudio.bna.facets.IHasRotatingOffset.ROTATING_OFFSET_KEY);
-	}
-
 	@Override
 	public void setRotatingOffset(int rotatingOffset) {
 		set(org.archstudio.bna.facets.IHasRotatingOffset.ROTATING_OFFSET_KEY, rotatingOffset);
-	}
-
-	/* package */ int setRawRotatingOffset(int rotatingOffset) {
-		return setRaw(org.archstudio.bna.facets.IHasRotatingOffset.ROTATING_OFFSET_KEY, rotatingOffset);
 	}
 
 	@Override
@@ -504,17 +306,9 @@ public abstract class CurvedSplineThingBase extends org.archstudio.bna.things.Ab
 		return get(org.archstudio.bna.facets.IHasSelected.SELECTED_KEY);
 	}
 
-	/* package */ boolean isRawSelected() {
-		return getRaw(org.archstudio.bna.facets.IHasSelected.SELECTED_KEY);
-	}
-
 	@Override
 	public void setSelected(boolean selected) {
 		set(org.archstudio.bna.facets.IHasSelected.SELECTED_KEY, selected);
-	}
-
-	/* package */ boolean isRawSelected(boolean selected) {
-		return setRaw(org.archstudio.bna.facets.IHasSelected.SELECTED_KEY, selected);
 	}
 
 	@Override
@@ -522,17 +316,9 @@ public abstract class CurvedSplineThingBase extends org.archstudio.bna.things.Ab
 		return get(org.archstudio.bna.facets.IHasSpacing.SPACING_KEY);
 	}
 
-	/* package */ int getRawSpacing() {
-		return getRaw(org.archstudio.bna.facets.IHasSpacing.SPACING_KEY);
-	}
-
 	@Override
 	public void setSpacing(int spacing) {
 		set(org.archstudio.bna.facets.IHasSpacing.SPACING_KEY, spacing);
-	}
-
-	/* package */ int setRawSpacing(int spacing) {
-		return setRaw(org.archstudio.bna.facets.IHasSpacing.SPACING_KEY, spacing);
 	}
 
 	@Override
@@ -540,16 +326,8 @@ public abstract class CurvedSplineThingBase extends org.archstudio.bna.things.Ab
 		return get(org.archstudio.bna.facets.IHasRotatingOffset.TICKS_PER_INCREMENT_KEY);
 	}
 
-	/* package */ int getRawTicksPerIncrement() {
-		return getRaw(org.archstudio.bna.facets.IHasRotatingOffset.TICKS_PER_INCREMENT_KEY);
-	}
-
 	@Override
 	public void setTicksPerIncrement(int ticksPerIncrement) {
 		set(org.archstudio.bna.facets.IHasRotatingOffset.TICKS_PER_INCREMENT_KEY, ticksPerIncrement);
-	}
-
-	/* package */ int setRawTicksPerIncrement(int ticksPerIncrement) {
-		return setRaw(org.archstudio.bna.facets.IHasRotatingOffset.TICKS_PER_INCREMENT_KEY, ticksPerIncrement);
 	}
 }

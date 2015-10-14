@@ -20,23 +20,21 @@ import org.eclipse.emf.ecore.EObject;
  * @model extendedMetaData="name='spell_._type' kind='empty'"
  * @generated
  */
-public interface SpellType extends
-		EObject {
-					/**
-					 * Returns the value of the '<em><b>End</b></em>' attribute. <!-- begin-user-doc -->
-					 * <p>
-					 * If the meaning of the '<em>End</em>' attribute isn't clear, there really should be more of a
-					 * description here...
-					 * </p>
-					 * <!-- end-user-doc -->
-					 * 
-					 * @return the value of the '<em>End</em>' attribute.
-					 * @see #setEnd(Object)
-					 * @see net.gexf_1_2.gexf.GexfPackage#getSpellType_End()
-					 * @model dataType="net.gexf_1_2.gexf.TimeType" extendedMetaData="kind='attribute' name='end'"
-					 * @generated
-					 */
-					Object getEnd();
+public interface SpellType extends EObject {
+	/**
+	 * Returns the value of the '<em><b>End</b></em>' attribute. <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>End</em>' attribute isn't clear, there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the value of the '<em>End</em>' attribute.
+	 * @see #setEnd(Object)
+	 * @see net.gexf_1_2.gexf.GexfPackage#getSpellType_End()
+	 * @model dataType="net.gexf_1_2.gexf.TimeType" extendedMetaData="kind='attribute' name='end'"
+	 * @generated
+	 */
+	Object getEnd();
 
 	/**
 	 * Sets the value of the '{@link net.gexf_1_2.gexf.SpellType#getEnd <em>End</em>}' attribute. <!-- begin-user-doc
@@ -46,7 +44,7 @@ public interface SpellType extends
 	 * @see #getEnd()
 	 * @generated
 	 */
-			void setEnd(Object value);
+	void setEnd(Object value);
 
 	/**
 	 * Returns the value of the '<em><b>Endopen</b></em>' attribute. <!-- begin-user-doc -->
@@ -62,7 +60,7 @@ public interface SpellType extends
 	 * @model dataType="net.gexf_1_2.gexf.TimeType" extendedMetaData="kind='attribute' name='endopen'"
 	 * @generated
 	 */
-			Object getEndopen();
+	Object getEndopen();
 
 	/**
 	 * Sets the value of the '{@link net.gexf_1_2.gexf.SpellType#getEndopen <em>Endopen</em>}' attribute. <!--
@@ -72,7 +70,7 @@ public interface SpellType extends
 	 * @see #getEndopen()
 	 * @generated
 	 */
-			void setEndopen(Object value);
+	void setEndopen(Object value);
 
 	/**
 	 * Returns the value of the '<em><b>Start</b></em>' attribute. <!-- begin-user-doc -->
@@ -88,7 +86,7 @@ public interface SpellType extends
 	 * @model dataType="net.gexf_1_2.gexf.TimeType" extendedMetaData="kind='attribute' name='start'"
 	 * @generated
 	 */
-			Object getStart();
+	Object getStart();
 
 	/**
 	 * Sets the value of the '{@link net.gexf_1_2.gexf.SpellType#getStart <em>Start</em>}' attribute. <!--
@@ -98,7 +96,7 @@ public interface SpellType extends
 	 * @see #getStart()
 	 * @generated
 	 */
-			void setStart(Object value);
+	void setStart(Object value);
 
 	/**
 	 * Returns the value of the '<em><b>Startopen</b></em>' attribute. <!-- begin-user-doc -->
@@ -114,7 +112,7 @@ public interface SpellType extends
 	 * @model dataType="net.gexf_1_2.gexf.TimeType" extendedMetaData="kind='attribute' name='startopen'"
 	 * @generated
 	 */
-			Object getStartopen();
+	Object getStartopen();
 
 	/**
 	 * Sets the value of the '{@link net.gexf_1_2.gexf.SpellType#getStartopen <em>Startopen</em>}' attribute. <!--
@@ -124,6 +122,6 @@ public interface SpellType extends
 	 * @see #getStartopen()
 	 * @generated
 	 */
-			void setStartopen(Object value);
+	void setStartopen(Object value);
 
 } // SpellType

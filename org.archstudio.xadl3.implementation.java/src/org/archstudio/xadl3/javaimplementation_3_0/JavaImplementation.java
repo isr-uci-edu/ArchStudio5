@@ -23,22 +23,22 @@ import org.eclipse.emf.common.util.EList;
  * @generated
  */
 public interface JavaImplementation extends Implementation {
-			/**
-			 * Returns the value of the '<em><b>Main Class</b></em>' containment reference. <!-- begin-user-doc -->
-			 * <p>
-			 * If the meaning of the '<em>Main Class</em>' containment reference isn't clear, there really should be
-			 * more of a description here...
-			 * </p>
-			 * <!-- end-user-doc -->
-			 * 
-			 * @return the value of the '<em>Main Class</em>' containment reference.
-			 * @see #setMainClass(JavaClass)
-			 * @see org.archstudio.xadl3.javaimplementation_3_0.Javaimplementation_3_0Package#getJavaImplementation_MainClass()
-			 * @model containment="true" required="true" extendedMetaData=
-			 *        "kind='element' name='mainClass' namespace='##targetNamespace'"
-			 * @generated
-			 */
-			JavaClass getMainClass();
+	/**
+	 * Returns the value of the '<em><b>Main Class</b></em>' containment reference. <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Main Class</em>' containment reference isn't clear, there really should be more of a
+	 * description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the value of the '<em>Main Class</em>' containment reference.
+	 * @see #setMainClass(JavaClass)
+	 * @see org.archstudio.xadl3.javaimplementation_3_0.Javaimplementation_3_0Package#getJavaImplementation_MainClass()
+	 * @model containment="true" required="true" extendedMetaData=
+	 *        "kind='element' name='mainClass' namespace='##targetNamespace'"
+	 * @generated
+	 */
+	JavaClass getMainClass();
 
 	/**
 	 * Sets the value of the '{@link org.archstudio.xadl3.javaimplementation_3_0.JavaImplementation#getMainClass
@@ -48,7 +48,7 @@ public interface JavaImplementation extends Implementation {
 	 * @see #getMainClass()
 	 * @generated
 	 */
-			void setMainClass(JavaClass value);
+	void setMainClass(JavaClass value);
 
 	/**
 	 * Returns the value of the '<em><b>Aux Class</b></em>' containment reference list. The list contents are of type
@@ -64,7 +64,7 @@ public interface JavaImplementation extends Implementation {
 	 * @model containment="true" extendedMetaData="kind='element' name='auxClass' namespace='##targetNamespace'"
 	 * @generated
 	 */
-			EList<JavaClass> getAuxClass();
+	EList<JavaClass> getAuxClass();
 
 	/**
 	 * Returns the value of the '<em><b>Ext</b></em>' containment reference list. The list contents are of type
@@ -80,6 +80,6 @@ public interface JavaImplementation extends Implementation {
 	 * @model containment="true" extendedMetaData="kind='element' name='ext' namespace='##targetNamespace'"
 	 * @generated
 	 */
-			EList<Extension> getExt();
+	EList<Extension> getExt();
 
 } // JavaImplementation

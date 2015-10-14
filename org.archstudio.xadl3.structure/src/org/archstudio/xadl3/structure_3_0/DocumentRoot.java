@@ -22,24 +22,23 @@ import org.eclipse.emf.ecore.util.FeatureMap;
  * @model extendedMetaData="name='' kind='mixed'"
  * @generated
  */
-public interface DocumentRoot extends
-		EObject {
-					/**
-					 * Returns the value of the '<em><b>Mixed</b></em>' attribute list. The list contents are of type
-					 * {@link org.eclipse.emf.ecore.util.FeatureMap.Entry}. <!-- begin-user-doc -->
-					 * <p>
-					 * If the meaning of the '<em>Mixed</em>' attribute list isn't clear, there really should be more of
-					 * a description here...
-					 * </p>
-					 * <!-- end-user-doc -->
-					 * 
-					 * @return the value of the '<em>Mixed</em>' attribute list.
-					 * @see org.archstudio.xadl3.structure_3_0.Structure_3_0Package#getDocumentRoot_Mixed()
-					 * @model unique="false" dataType="org.eclipse.emf.ecore.EFeatureMapEntry" many="true"
-					 *        extendedMetaData="kind='elementWildcard' name=':mixed'"
-					 * @generated
-					 */
-					FeatureMap getMixed();
+public interface DocumentRoot extends EObject {
+	/**
+	 * Returns the value of the '<em><b>Mixed</b></em>' attribute list. The list contents are of type
+	 * {@link org.eclipse.emf.ecore.util.FeatureMap.Entry}. <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Mixed</em>' attribute list isn't clear, there really should be more of a description
+	 * here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the value of the '<em>Mixed</em>' attribute list.
+	 * @see org.archstudio.xadl3.structure_3_0.Structure_3_0Package#getDocumentRoot_Mixed()
+	 * @model unique="false" dataType="org.eclipse.emf.ecore.EFeatureMapEntry" many="true" extendedMetaData=
+	 *        "kind='elementWildcard' name=':mixed'"
+	 * @generated
+	 */
+	FeatureMap getMixed();
 
 	/**
 	 * Returns the value of the '<em><b>XMLNS Prefix Map</b></em>' map. The key is of type {@link java.lang.String}, and
@@ -57,7 +56,7 @@ public interface DocumentRoot extends
 	 *        transient="true" extendedMetaData="kind='attribute' name='xmlns:prefix'"
 	 * @generated
 	 */
-			EMap<String, String> getXMLNSPrefixMap();
+	EMap<String, String> getXMLNSPrefixMap();
 
 	/**
 	 * Returns the value of the '<em><b>XSI Schema Location</b></em>' map. The key is of type {@link java.lang.String},
@@ -75,7 +74,7 @@ public interface DocumentRoot extends
 	 *        transient="true" extendedMetaData="kind='attribute' name='xsi:schemaLocation'"
 	 * @generated
 	 */
-			EMap<String, String> getXSISchemaLocation();
+	EMap<String, String> getXSISchemaLocation();
 
 	/**
 	 * Returns the value of the '<em><b>Structure</b></em>' containment reference. <!-- begin-user-doc --> <!--
@@ -90,7 +89,7 @@ public interface DocumentRoot extends
 	 *        "kind='element' name='structure' namespace='##targetNamespace' affiliation='http://www.archstudio.org/xadl3/schemas/xadlcore-3.0.xsd#topLevelElement'"
 	 * @generated
 	 */
-			Structure getStructure();
+	Structure getStructure();
 
 	/**
 	 * Sets the value of the '{@link org.archstudio.xadl3.structure_3_0.DocumentRoot#getStructure <em>Structure</em>}'
@@ -100,6 +99,6 @@ public interface DocumentRoot extends
 	 * @see #getStructure()
 	 * @generated
 	 */
-			void setStructure(Structure value);
+	void setStructure(Structure value);
 
 } // DocumentRoot

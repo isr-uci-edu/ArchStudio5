@@ -26,7 +26,7 @@ public interface Implementation_3_0Factory extends EFactory {
 	 * @return a new object of class '<em>Implementation Extension</em>'.
 	 * @generated
 	 */
-			ImplementationExtension createImplementationExtension();
+	ImplementationExtension createImplementationExtension();
 
 	/**
 	 * Returns a new object of class '<em>Initialization Parameter</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -34,7 +34,7 @@ public interface Implementation_3_0Factory extends EFactory {
 	 * @return a new object of class '<em>Initialization Parameter</em>'.
 	 * @generated
 	 */
-			InitializationParameter createInitializationParameter();
+	InitializationParameter createInitializationParameter();
 
 	/**
 	 * Returns a new object of class '<em>Initialization Parameters Implementation</em>'. <!-- begin-user-doc --> <!--
@@ -43,7 +43,7 @@ public interface Implementation_3_0Factory extends EFactory {
 	 * @return a new object of class '<em>Initialization Parameters Implementation</em>'.
 	 * @generated
 	 */
-			InitializationParametersImplementation createInitializationParametersImplementation();
+	InitializationParametersImplementation createInitializationParametersImplementation();
 
 	/**
 	 * Returns the package supported by this factory. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -51,6 +51,6 @@ public interface Implementation_3_0Factory extends EFactory {
 	 * @return the package supported by this factory.
 	 * @generated
 	 */
-			Implementation_3_0Package getImplementation_3_0Package();
+	Implementation_3_0Package getImplementation_3_0Package();
 
 } // Implementation_3_0Factory

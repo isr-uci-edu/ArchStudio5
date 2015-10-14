@@ -25,7 +25,7 @@ public interface Archlight_3_0Factory extends EFactory {
 	 * @return a new object of class '<em>Archlight</em>'.
 	 * @generated
 	 */
-			Archlight createArchlight();
+	Archlight createArchlight();
 
 	/**
 	 * Returns a new object of class '<em>Document Root</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -33,7 +33,7 @@ public interface Archlight_3_0Factory extends EFactory {
 	 * @return a new object of class '<em>Document Root</em>'.
 	 * @generated
 	 */
-			DocumentRoot createDocumentRoot();
+	DocumentRoot createDocumentRoot();
 
 	/**
 	 * Returns a new object of class '<em>Test</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -41,7 +41,7 @@ public interface Archlight_3_0Factory extends EFactory {
 	 * @return a new object of class '<em>Test</em>'.
 	 * @generated
 	 */
-			Test createTest();
+	Test createTest();
 
 	/**
 	 * Returns the package supported by this factory. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -49,6 +49,6 @@ public interface Archlight_3_0Factory extends EFactory {
 	 * @return the package supported by this factory.
 	 * @generated
 	 */
-			Archlight_3_0Package getArchlight_3_0Package();
+	Archlight_3_0Package getArchlight_3_0Package();
 
 } // Archlight_3_0Factory

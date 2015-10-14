@@ -30,22 +30,22 @@ import org.eclipse.emf.ecore.EObject;
  * @generated
  */
 public interface InterfaceMapping extends EObject {
-			/**
-			 * Returns the value of the '<em><b>Outer Interface Link</b></em>' reference. <!-- begin-user-doc -->
-			 * <p>
-			 * If the meaning of the '<em>Outer Interface Link</em>' reference isn't clear, there really should be more
-			 * of a description here...
-			 * </p>
-			 * <!-- end-user-doc -->
-			 * 
-			 * @return the value of the '<em>Outer Interface Link</em>' reference.
-			 * @see #setOuterInterfaceLink(Interface)
-			 * @see org.archstudio.xadl3.structure_3_0.Structure_3_0Package#getInterfaceMapping_OuterInterfaceLink()
-			 * @model resolveProxies="false" required="true" extendedMetaData=
-			 *        "kind='element' name='outerInterfaceLink' namespace='##targetNamespace'"
-			 * @generated
-			 */
-			Interface getOuterInterfaceLink();
+	/**
+	 * Returns the value of the '<em><b>Outer Interface Link</b></em>' reference. <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Outer Interface Link</em>' reference isn't clear, there really should be more of a
+	 * description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the value of the '<em>Outer Interface Link</em>' reference.
+	 * @see #setOuterInterfaceLink(Interface)
+	 * @see org.archstudio.xadl3.structure_3_0.Structure_3_0Package#getInterfaceMapping_OuterInterfaceLink()
+	 * @model resolveProxies="false" required="true" extendedMetaData=
+	 *        "kind='element' name='outerInterfaceLink' namespace='##targetNamespace'"
+	 * @generated
+	 */
+	Interface getOuterInterfaceLink();
 
 	/**
 	 * Sets the value of the '{@link org.archstudio.xadl3.structure_3_0.InterfaceMapping#getOuterInterfaceLink
@@ -55,7 +55,7 @@ public interface InterfaceMapping extends EObject {
 	 * @see #getOuterInterfaceLink()
 	 * @generated
 	 */
-			void setOuterInterfaceLink(Interface value);
+	void setOuterInterfaceLink(Interface value);
 
 	/**
 	 * Returns the value of the '<em><b>Inner Interface Link</b></em>' reference. <!-- begin-user-doc -->
@@ -72,7 +72,7 @@ public interface InterfaceMapping extends EObject {
 	 *        "kind='element' name='innerInterfaceLink' namespace='##targetNamespace'"
 	 * @generated
 	 */
-			Interface getInnerInterfaceLink();
+	Interface getInnerInterfaceLink();
 
 	/**
 	 * Sets the value of the '{@link org.archstudio.xadl3.structure_3_0.InterfaceMapping#getInnerInterfaceLink
@@ -82,7 +82,7 @@ public interface InterfaceMapping extends EObject {
 	 * @see #getInnerInterfaceLink()
 	 * @generated
 	 */
-			void setInnerInterfaceLink(Interface value);
+	void setInnerInterfaceLink(Interface value);
 
 	/**
 	 * Returns the value of the '<em><b>Ext</b></em>' containment reference list. The list contents are of type
@@ -98,7 +98,7 @@ public interface InterfaceMapping extends EObject {
 	 * @model containment="true" extendedMetaData="kind='element' name='ext' namespace='##targetNamespace'"
 	 * @generated
 	 */
-			EList<Extension> getExt();
+	EList<Extension> getExt();
 
 	/**
 	 * Returns the value of the '<em><b>Id</b></em>' attribute. <!-- begin-user-doc -->
@@ -114,7 +114,7 @@ public interface InterfaceMapping extends EObject {
 	 *        "kind='attribute' name='id' namespace='##targetNamespace'"
 	 * @generated
 	 */
-			String getId();
+	String getId();
 
 	/**
 	 * Sets the value of the '{@link org.archstudio.xadl3.structure_3_0.InterfaceMapping#getId <em>Id</em>}' attribute.
@@ -124,7 +124,7 @@ public interface InterfaceMapping extends EObject {
 	 * @see #getId()
 	 * @generated
 	 */
-			void setId(String value);
+	void setId(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Name</b></em>' attribute. <!-- begin-user-doc -->
@@ -140,7 +140,7 @@ public interface InterfaceMapping extends EObject {
 	 *        "kind='attribute' name='name' namespace='##targetNamespace'"
 	 * @generated
 	 */
-			String getName();
+	String getName();
 
 	/**
 	 * Sets the value of the '{@link org.archstudio.xadl3.structure_3_0.InterfaceMapping#getName <em>Name</em>}'
@@ -150,6 +150,6 @@ public interface InterfaceMapping extends EObject {
 	 * @see #getName()
 	 * @generated
 	 */
-			void setName(String value);
+	void setName(String value);
 
 } // InterfaceMapping

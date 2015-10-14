@@ -40,24 +40,23 @@ import net.gexf_1_2.viz.SizeContent;
  * @model extendedMetaData="name='node-content' kind='elementOnly'"
  * @generated
  */
-public interface NodeContent extends
-		EObject {
-					/**
-					 * Returns the value of the '<em><b>Group</b></em>' attribute list. The list contents are of type
-					 * {@link org.eclipse.emf.ecore.util.FeatureMap.Entry}. <!-- begin-user-doc -->
-					 * <p>
-					 * If the meaning of the '<em>Group</em>' attribute list isn't clear, there really should be more of
-					 * a description here...
-					 * </p>
-					 * <!-- end-user-doc -->
-					 * 
-					 * @return the value of the '<em>Group</em>' attribute list.
-					 * @see net.gexf_1_2.gexf.GexfPackage#getNodeContent_Group()
-					 * @model unique="false" dataType="org.eclipse.emf.ecore.EFeatureMapEntry" many="true"
-					 *        extendedMetaData="kind='group' name='group:0'"
-					 * @generated
-					 */
-					FeatureMap getGroup();
+public interface NodeContent extends EObject {
+	/**
+	 * Returns the value of the '<em><b>Group</b></em>' attribute list. The list contents are of type
+	 * {@link org.eclipse.emf.ecore.util.FeatureMap.Entry}. <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Group</em>' attribute list isn't clear, there really should be more of a description
+	 * here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the value of the '<em>Group</em>' attribute list.
+	 * @see net.gexf_1_2.gexf.GexfPackage#getNodeContent_Group()
+	 * @model unique="false" dataType="org.eclipse.emf.ecore.EFeatureMapEntry" many="true" extendedMetaData=
+	 *        "kind='group' name='group:0'"
+	 * @generated
+	 */
+	FeatureMap getGroup();
 
 	/**
 	 * Returns the value of the '<em><b>Attvalues</b></em>' containment reference list. The list contents are of type
@@ -74,7 +73,7 @@ public interface NodeContent extends
 	 *        "kind='element' name='attvalues' namespace='##targetNamespace' group='#group:0'"
 	 * @generated
 	 */
-			EList<AttvaluesContent> getAttvalues();
+	EList<AttvaluesContent> getAttvalues();
 
 	/**
 	 * Returns the value of the '<em><b>Spells</b></em>' containment reference list. The list contents are of type
@@ -91,7 +90,7 @@ public interface NodeContent extends
 	 *        "kind='element' name='spells' namespace='##targetNamespace' group='#group:0'"
 	 * @generated
 	 */
-			EList<SpellsContent> getSpells();
+	EList<SpellsContent> getSpells();
 
 	/**
 	 * Returns the value of the '<em><b>Nodes</b></em>' containment reference list. The list contents are of type
@@ -108,7 +107,7 @@ public interface NodeContent extends
 	 *        "kind='element' name='nodes' namespace='##targetNamespace' group='#group:0'"
 	 * @generated
 	 */
-			EList<NodesContent> getNodes();
+	EList<NodesContent> getNodes();
 
 	/**
 	 * Returns the value of the '<em><b>Edges</b></em>' containment reference list. The list contents are of type
@@ -125,7 +124,7 @@ public interface NodeContent extends
 	 *        "kind='element' name='edges' namespace='##targetNamespace' group='#group:0'"
 	 * @generated
 	 */
-			EList<EdgesContent> getEdges();
+	EList<EdgesContent> getEdges();
 
 	/**
 	 * Returns the value of the '<em><b>Parents</b></em>' containment reference list. The list contents are of type
@@ -142,7 +141,7 @@ public interface NodeContent extends
 	 *        "kind='element' name='parents' namespace='##targetNamespace' group='#group:0'"
 	 * @generated
 	 */
-			EList<ParentsContent> getParents();
+	EList<ParentsContent> getParents();
 
 	/**
 	 * Returns the value of the '<em><b>Color</b></em>' containment reference list. The list contents are of type
@@ -159,7 +158,7 @@ public interface NodeContent extends
 	 *        "kind='element' name='color' namespace='##targetNamespace' group='#group:0'"
 	 * @generated
 	 */
-			EList<ColorContent> getColor();
+	EList<ColorContent> getColor();
 
 	/**
 	 * Returns the value of the '<em><b>Position</b></em>' containment reference list. The list contents are of type
@@ -176,7 +175,7 @@ public interface NodeContent extends
 	 *        "kind='element' name='position' namespace='##targetNamespace' group='#group:0'"
 	 * @generated
 	 */
-			EList<PositionContent> getPosition();
+	EList<PositionContent> getPosition();
 
 	/**
 	 * Returns the value of the '<em><b>Size</b></em>' containment reference list. The list contents are of type
@@ -193,7 +192,7 @@ public interface NodeContent extends
 	 *        "kind='element' name='size' namespace='##targetNamespace' group='#group:0'"
 	 * @generated
 	 */
-			EList<SizeContent> getSize();
+	EList<SizeContent> getSize();
 
 	/**
 	 * Returns the value of the '<em><b>Shape</b></em>' containment reference list. The list contents are of type
@@ -210,7 +209,7 @@ public interface NodeContent extends
 	 *        "kind='element' name='shape' namespace='##targetNamespace' group='#group:0'"
 	 * @generated
 	 */
-			EList<NodeShapeContent> getShape();
+	EList<NodeShapeContent> getShape();
 
 	/**
 	 * Returns the value of the '<em><b>End</b></em>' attribute. <!-- begin-user-doc -->
@@ -225,7 +224,7 @@ public interface NodeContent extends
 	 * @model dataType="net.gexf_1_2.gexf.TimeType" extendedMetaData="kind='attribute' name='end'"
 	 * @generated
 	 */
-			Object getEnd();
+	Object getEnd();
 
 	/**
 	 * Sets the value of the '{@link net.gexf_1_2.gexf.NodeContent#getEnd <em>End</em>}' attribute. <!-- begin-user-doc
@@ -235,7 +234,7 @@ public interface NodeContent extends
 	 * @see #getEnd()
 	 * @generated
 	 */
-			void setEnd(Object value);
+	void setEnd(Object value);
 
 	/**
 	 * Returns the value of the '<em><b>Endopen</b></em>' attribute. <!-- begin-user-doc -->
@@ -251,7 +250,7 @@ public interface NodeContent extends
 	 * @model dataType="net.gexf_1_2.gexf.TimeType" extendedMetaData="kind='attribute' name='endopen'"
 	 * @generated
 	 */
-			Object getEndopen();
+	Object getEndopen();
 
 	/**
 	 * Sets the value of the '{@link net.gexf_1_2.gexf.NodeContent#getEndopen <em>Endopen</em>}' attribute. <!--
@@ -261,7 +260,7 @@ public interface NodeContent extends
 	 * @see #getEndopen()
 	 * @generated
 	 */
-			void setEndopen(Object value);
+	void setEndopen(Object value);
 
 	/**
 	 * Returns the value of the '<em><b>Id</b></em>' attribute. <!-- begin-user-doc -->
@@ -276,7 +275,7 @@ public interface NodeContent extends
 	 * @model dataType="net.gexf_1_2.gexf.IdType" required="true" extendedMetaData="kind='attribute' name='id'"
 	 * @generated
 	 */
-			Object getId();
+	Object getId();
 
 	/**
 	 * Sets the value of the '{@link net.gexf_1_2.gexf.NodeContent#getId <em>Id</em>}' attribute. <!-- begin-user-doc
@@ -286,7 +285,7 @@ public interface NodeContent extends
 	 * @see #getId()
 	 * @generated
 	 */
-			void setId(Object value);
+	void setId(Object value);
 
 	/**
 	 * Returns the value of the '<em><b>Label</b></em>' attribute. <!-- begin-user-doc -->
@@ -302,7 +301,7 @@ public interface NodeContent extends
 	 * @model dataType="org.eclipse.emf.ecore.xml.type.Token" extendedMetaData="kind='attribute' name='label'"
 	 * @generated
 	 */
-			String getLabel();
+	String getLabel();
 
 	/**
 	 * Sets the value of the '{@link net.gexf_1_2.gexf.NodeContent#getLabel <em>Label</em>}' attribute. <!--
@@ -312,7 +311,7 @@ public interface NodeContent extends
 	 * @see #getLabel()
 	 * @generated
 	 */
-			void setLabel(String value);
+	void setLabel(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Pid</b></em>' attribute. <!-- begin-user-doc -->
@@ -327,7 +326,7 @@ public interface NodeContent extends
 	 * @model dataType="net.gexf_1_2.gexf.IdType" extendedMetaData="kind='attribute' name='pid'"
 	 * @generated
 	 */
-			Object getPid();
+	Object getPid();
 
 	/**
 	 * Sets the value of the '{@link net.gexf_1_2.gexf.NodeContent#getPid <em>Pid</em>}' attribute. <!-- begin-user-doc
@@ -337,7 +336,7 @@ public interface NodeContent extends
 	 * @see #getPid()
 	 * @generated
 	 */
-			void setPid(Object value);
+	void setPid(Object value);
 
 	/**
 	 * Returns the value of the '<em><b>Start</b></em>' attribute. <!-- begin-user-doc -->
@@ -353,7 +352,7 @@ public interface NodeContent extends
 	 * @model dataType="net.gexf_1_2.gexf.TimeType" extendedMetaData="kind='attribute' name='start'"
 	 * @generated
 	 */
-			Object getStart();
+	Object getStart();
 
 	/**
 	 * Sets the value of the '{@link net.gexf_1_2.gexf.NodeContent#getStart <em>Start</em>}' attribute. <!--
@@ -363,7 +362,7 @@ public interface NodeContent extends
 	 * @see #getStart()
 	 * @generated
 	 */
-			void setStart(Object value);
+	void setStart(Object value);
 
 	/**
 	 * Returns the value of the '<em><b>Startopen</b></em>' attribute. <!-- begin-user-doc -->
@@ -379,7 +378,7 @@ public interface NodeContent extends
 	 * @model dataType="net.gexf_1_2.gexf.TimeType" extendedMetaData="kind='attribute' name='startopen'"
 	 * @generated
 	 */
-			Object getStartopen();
+	Object getStartopen();
 
 	/**
 	 * Sets the value of the '{@link net.gexf_1_2.gexf.NodeContent#getStartopen <em>Startopen</em>}' attribute. <!--
@@ -389,6 +388,6 @@ public interface NodeContent extends
 	 * @see #getStartopen()
 	 * @generated
 	 */
-			void setStartopen(Object value);
+	void setStartopen(Object value);
 
 } // NodeContent

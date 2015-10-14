@@ -20,24 +20,23 @@ import org.eclipse.emf.ecore.EObject;
  * @model extendedMetaData="name='Hint' kind='elementOnly'"
  * @generated
  */
-public interface Hint extends
-		EObject {
-					/**
-					 * Returns the value of the '<em><b>Value</b></em>' containment reference. <!-- begin-user-doc -->
-					 * <p>
-					 * If the meaning of the '<em>Value</em>' containment reference isn't clear, there really should be
-					 * more of a description here...
-					 * </p>
-					 * <!-- end-user-doc -->
-					 * 
-					 * @return the value of the '<em>Value</em>' containment reference.
-					 * @see #setValue(Value)
-					 * @see org.archstudio.xadl3.hints_3_0.Hints_3_0Package#getHint_Value()
-					 * @model containment="true" required="true" extendedMetaData=
-					 *        "kind='element' name='value' namespace='##targetNamespace'"
-					 * @generated
-					 */
-					Value getValue();
+public interface Hint extends EObject {
+	/**
+	 * Returns the value of the '<em><b>Value</b></em>' containment reference. <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Value</em>' containment reference isn't clear, there really should be more of a
+	 * description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the value of the '<em>Value</em>' containment reference.
+	 * @see #setValue(Value)
+	 * @see org.archstudio.xadl3.hints_3_0.Hints_3_0Package#getHint_Value()
+	 * @model containment="true" required="true" extendedMetaData=
+	 *        "kind='element' name='value' namespace='##targetNamespace'"
+	 * @generated
+	 */
+	Value getValue();
 
 	/**
 	 * Sets the value of the '{@link org.archstudio.xadl3.hints_3_0.Hint#getValue <em>Value</em>}' containment
@@ -47,7 +46,7 @@ public interface Hint extends
 	 * @see #getValue()
 	 * @generated
 	 */
-			void setValue(Value value);
+	void setValue(Value value);
 
 	/**
 	 * Returns the value of the '<em><b>Hint</b></em>' attribute. <!-- begin-user-doc -->
@@ -63,7 +62,7 @@ public interface Hint extends
 	 *        "kind='attribute' name='hint' namespace='##targetNamespace'"
 	 * @generated
 	 */
-			String getHint();
+	String getHint();
 
 	/**
 	 * Sets the value of the '{@link org.archstudio.xadl3.hints_3_0.Hint#getHint <em>Hint</em>}' attribute. <!--
@@ -73,7 +72,7 @@ public interface Hint extends
 	 * @see #getHint()
 	 * @generated
 	 */
-			void setHint(String value);
+	void setHint(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Name</b></em>' attribute. <!-- begin-user-doc -->
@@ -89,7 +88,7 @@ public interface Hint extends
 	 *        "kind='attribute' name='name' namespace='##targetNamespace'"
 	 * @generated
 	 */
-			String getName();
+	String getName();
 
 	/**
 	 * Sets the value of the '{@link org.archstudio.xadl3.hints_3_0.Hint#getName <em>Name</em>}' attribute. <!--
@@ -99,6 +98,6 @@ public interface Hint extends
 	 * @see #getName()
 	 * @generated
 	 */
-			void setName(String value);
+	void setName(String value);
 
 } // Hint

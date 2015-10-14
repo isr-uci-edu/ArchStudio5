@@ -46,17 +46,9 @@ public abstract class DirectionalLabelThingBase extends org.archstudio.bna.thing
 		return get(org.archstudio.bna.facets.IHasBoundingBox.BOUNDING_BOX_KEY);
 	}
 
-	/* package */ org.eclipse.swt.graphics.Rectangle getRawBoundingBox() {
-		return getRaw(org.archstudio.bna.facets.IHasBoundingBox.BOUNDING_BOX_KEY);
-	}
-
 	@Override
 	public void setBoundingBox(org.eclipse.swt.graphics.Rectangle boundingBox) {
 		set(org.archstudio.bna.facets.IHasBoundingBox.BOUNDING_BOX_KEY, boundingBox);
-	}
-
-	/* package */ org.eclipse.swt.graphics.Rectangle setRawBoundingBox(org.eclipse.swt.graphics.Rectangle boundingBox) {
-		return setRaw(org.archstudio.bna.facets.IHasBoundingBox.BOUNDING_BOX_KEY, boundingBox);
 	}
 
 	@Override
@@ -64,19 +56,9 @@ public abstract class DirectionalLabelThingBase extends org.archstudio.bna.thing
 		return get(org.archstudio.bna.facets.IHasColor.COLOR_KEY);
 	}
 
-	/* package */ @Nullable
-			org.eclipse.swt.graphics.RGB getRawColor() {
-		return getRaw(org.archstudio.bna.facets.IHasColor.COLOR_KEY);
-	}
-
 	@Override
 	public void setColor(@Nullable org.eclipse.swt.graphics.RGB color) {
 		set(org.archstudio.bna.facets.IHasColor.COLOR_KEY, color);
-	}
-
-	/* package */ @Nullable
-			org.eclipse.swt.graphics.RGB setRawColor(@Nullable org.eclipse.swt.graphics.RGB color) {
-		return setRaw(org.archstudio.bna.facets.IHasColor.COLOR_KEY, color);
 	}
 
 	@Override
@@ -84,17 +66,9 @@ public abstract class DirectionalLabelThingBase extends org.archstudio.bna.thing
 		return get(org.archstudio.bna.facets.IHasFlow.FLOW_KEY);
 	}
 
-	/* package */ org.archstudio.swtutils.constants.Flow getRawFlow() {
-		return getRaw(org.archstudio.bna.facets.IHasFlow.FLOW_KEY);
-	}
-
 	@Override
 	public void setFlow(org.archstudio.swtutils.constants.Flow flow) {
 		set(org.archstudio.bna.facets.IHasFlow.FLOW_KEY, flow);
-	}
-
-	/* package */ org.archstudio.swtutils.constants.Flow setRawFlow(org.archstudio.swtutils.constants.Flow flow) {
-		return setRaw(org.archstudio.bna.facets.IHasFlow.FLOW_KEY, flow);
 	}
 
 	@Override
@@ -102,17 +76,9 @@ public abstract class DirectionalLabelThingBase extends org.archstudio.bna.thing
 		return get(org.archstudio.bna.facets.IHasLocalInsets.LOCAL_INSETS_KEY);
 	}
 
-	/* package */ java.awt.Insets getRawLocalInsets() {
-		return getRaw(org.archstudio.bna.facets.IHasLocalInsets.LOCAL_INSETS_KEY);
-	}
-
 	@Override
 	public void setLocalInsets(java.awt.Insets localInsets) {
 		set(org.archstudio.bna.facets.IHasLocalInsets.LOCAL_INSETS_KEY, localInsets);
-	}
-
-	/* package */ java.awt.Insets setRawLocalInsets(java.awt.Insets localInsets) {
-		return setRaw(org.archstudio.bna.facets.IHasLocalInsets.LOCAL_INSETS_KEY, localInsets);
 	}
 
 	@Override
@@ -120,17 +86,8 @@ public abstract class DirectionalLabelThingBase extends org.archstudio.bna.thing
 		return get(org.archstudio.bna.facets.IHasOrientation.ORIENTATION_KEY);
 	}
 
-	/* package */ org.archstudio.swtutils.constants.Orientation getRawOrientation() {
-		return getRaw(org.archstudio.bna.facets.IHasOrientation.ORIENTATION_KEY);
-	}
-
 	@Override
 	public void setOrientation(org.archstudio.swtutils.constants.Orientation orientation) {
 		set(org.archstudio.bna.facets.IHasOrientation.ORIENTATION_KEY, orientation);
-	}
-
-	/* package */ org.archstudio.swtutils.constants.Orientation
-			setRawOrientation(org.archstudio.swtutils.constants.Orientation orientation) {
-		return setRaw(org.archstudio.bna.facets.IHasOrientation.ORIENTATION_KEY, orientation);
 	}
 }

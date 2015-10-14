@@ -25,24 +25,22 @@ import org.eclipse.emf.ecore.EObject;
  * @model extendedMetaData="name='attributes-content' kind='elementOnly'"
  * @generated
  */
-public interface AttributesContent extends
-		EObject {
-					/**
-					 * Returns the value of the '<em><b>Attribute</b></em>' containment reference list. The list
-					 * contents are of type {@link net.gexf_1_2.gexf.AttributeContent}. <!-- begin-user-doc -->
-					 * <p>
-					 * If the meaning of the '<em>Attribute</em>' containment reference list isn't clear, there really
-					 * should be more of a description here...
-					 * </p>
-					 * <!-- end-user-doc -->
-					 * 
-					 * @return the value of the '<em>Attribute</em>' containment reference list.
-					 * @see net.gexf_1_2.gexf.GexfPackage#getAttributesContent_Attribute()
-					 * @model containment="true" extendedMetaData=
-					 *        "kind='element' name='attribute' namespace='##targetNamespace'"
-					 * @generated
-					 */
-					EList<AttributeContent> getAttribute();
+public interface AttributesContent extends EObject {
+	/**
+	 * Returns the value of the '<em><b>Attribute</b></em>' containment reference list. The list contents are of type
+	 * {@link net.gexf_1_2.gexf.AttributeContent}. <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Attribute</em>' containment reference list isn't clear, there really should be more of
+	 * a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the value of the '<em>Attribute</em>' containment reference list.
+	 * @see net.gexf_1_2.gexf.GexfPackage#getAttributesContent_Attribute()
+	 * @model containment="true" extendedMetaData="kind='element' name='attribute' namespace='##targetNamespace'"
+	 * @generated
+	 */
+	EList<AttributeContent> getAttribute();
 
 	/**
 	 * Returns the value of the '<em><b>Class</b></em>' attribute. The literals are from the enumeration
@@ -62,7 +60,7 @@ public interface AttributesContent extends
 	 * @model unsettable="true" required="true" extendedMetaData="kind='attribute' name='class'"
 	 * @generated
 	 */
-			ClassType getClass_();
+	ClassType getClass_();
 
 	/**
 	 * Sets the value of the '{@link net.gexf_1_2.gexf.AttributesContent#getClass_ <em>Class</em>}' attribute. <!--
@@ -75,7 +73,7 @@ public interface AttributesContent extends
 	 * @see #getClass_()
 	 * @generated
 	 */
-			void setClass(ClassType value);
+	void setClass(ClassType value);
 
 	/**
 	 * Unsets the value of the '{@link net.gexf_1_2.gexf.AttributesContent#getClass_ <em>Class</em>}' attribute. <!--
@@ -86,7 +84,7 @@ public interface AttributesContent extends
 	 * @see #setClass(ClassType)
 	 * @generated
 	 */
-			void unsetClass();
+	void unsetClass();
 
 	/**
 	 * Returns whether the value of the '{@link net.gexf_1_2.gexf.AttributesContent#getClass_ <em>Class</em>}' attribute
@@ -98,7 +96,7 @@ public interface AttributesContent extends
 	 * @see #setClass(ClassType)
 	 * @generated
 	 */
-			boolean isSetClass();
+	boolean isSetClass();
 
 	/**
 	 * Returns the value of the '<em><b>End</b></em>' attribute. <!-- begin-user-doc -->
@@ -113,7 +111,7 @@ public interface AttributesContent extends
 	 * @model dataType="net.gexf_1_2.gexf.TimeType" extendedMetaData="kind='attribute' name='end'"
 	 * @generated
 	 */
-			Object getEnd();
+	Object getEnd();
 
 	/**
 	 * Sets the value of the '{@link net.gexf_1_2.gexf.AttributesContent#getEnd <em>End</em>}' attribute. <!--
@@ -123,7 +121,7 @@ public interface AttributesContent extends
 	 * @see #getEnd()
 	 * @generated
 	 */
-			void setEnd(Object value);
+	void setEnd(Object value);
 
 	/**
 	 * Returns the value of the '<em><b>Endopen</b></em>' attribute. <!-- begin-user-doc -->
@@ -139,7 +137,7 @@ public interface AttributesContent extends
 	 * @model dataType="net.gexf_1_2.gexf.TimeType" extendedMetaData="kind='attribute' name='endopen'"
 	 * @generated
 	 */
-			Object getEndopen();
+	Object getEndopen();
 
 	/**
 	 * Sets the value of the '{@link net.gexf_1_2.gexf.AttributesContent#getEndopen <em>Endopen</em>}' attribute. <!--
@@ -149,7 +147,7 @@ public interface AttributesContent extends
 	 * @see #getEndopen()
 	 * @generated
 	 */
-			void setEndopen(Object value);
+	void setEndopen(Object value);
 
 	/**
 	 * Returns the value of the '<em><b>Mode</b></em>' attribute. The literals are from the enumeration
@@ -168,7 +166,7 @@ public interface AttributesContent extends
 	 * @model unsettable="true" extendedMetaData="kind='attribute' name='mode'"
 	 * @generated
 	 */
-			ModeType getMode();
+	ModeType getMode();
 
 	/**
 	 * Sets the value of the '{@link net.gexf_1_2.gexf.AttributesContent#getMode <em>Mode</em>}' attribute. <!--
@@ -181,7 +179,7 @@ public interface AttributesContent extends
 	 * @see #getMode()
 	 * @generated
 	 */
-			void setMode(ModeType value);
+	void setMode(ModeType value);
 
 	/**
 	 * Unsets the value of the '{@link net.gexf_1_2.gexf.AttributesContent#getMode <em>Mode</em>}' attribute. <!--
@@ -192,7 +190,7 @@ public interface AttributesContent extends
 	 * @see #setMode(ModeType)
 	 * @generated
 	 */
-			void unsetMode();
+	void unsetMode();
 
 	/**
 	 * Returns whether the value of the '{@link net.gexf_1_2.gexf.AttributesContent#getMode <em>Mode</em>}' attribute is
@@ -204,7 +202,7 @@ public interface AttributesContent extends
 	 * @see #setMode(ModeType)
 	 * @generated
 	 */
-			boolean isSetMode();
+	boolean isSetMode();
 
 	/**
 	 * Returns the value of the '<em><b>Start</b></em>' attribute. <!-- begin-user-doc -->
@@ -220,7 +218,7 @@ public interface AttributesContent extends
 	 * @model dataType="net.gexf_1_2.gexf.TimeType" extendedMetaData="kind='attribute' name='start'"
 	 * @generated
 	 */
-			Object getStart();
+	Object getStart();
 
 	/**
 	 * Sets the value of the '{@link net.gexf_1_2.gexf.AttributesContent#getStart <em>Start</em>}' attribute. <!--
@@ -230,7 +228,7 @@ public interface AttributesContent extends
 	 * @see #getStart()
 	 * @generated
 	 */
-			void setStart(Object value);
+	void setStart(Object value);
 
 	/**
 	 * Returns the value of the '<em><b>Startopen</b></em>' attribute. <!-- begin-user-doc -->
@@ -246,7 +244,7 @@ public interface AttributesContent extends
 	 * @model dataType="net.gexf_1_2.gexf.TimeType" extendedMetaData="kind='attribute' name='startopen'"
 	 * @generated
 	 */
-			Object getStartopen();
+	Object getStartopen();
 
 	/**
 	 * Sets the value of the '{@link net.gexf_1_2.gexf.AttributesContent#getStartopen <em>Startopen</em>}' attribute.
@@ -256,6 +254,6 @@ public interface AttributesContent extends
 	 * @see #getStartopen()
 	 * @generated
 	 */
-			void setStartopen(Object value);
+	void setStartopen(Object value);
 
 } // AttributesContent

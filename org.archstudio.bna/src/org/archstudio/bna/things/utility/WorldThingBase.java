@@ -39,17 +39,9 @@ public abstract class WorldThingBase extends org.archstudio.bna.things.AbstractT
 		return get(org.archstudio.bna.facets.IHasBoundingBox.BOUNDING_BOX_KEY);
 	}
 
-	/* package */ org.eclipse.swt.graphics.Rectangle getRawBoundingBox() {
-		return getRaw(org.archstudio.bna.facets.IHasBoundingBox.BOUNDING_BOX_KEY);
-	}
-
 	@Override
 	public void setBoundingBox(org.eclipse.swt.graphics.Rectangle boundingBox) {
 		set(org.archstudio.bna.facets.IHasBoundingBox.BOUNDING_BOX_KEY, boundingBox);
-	}
-
-	/* package */ org.eclipse.swt.graphics.Rectangle setRawBoundingBox(org.eclipse.swt.graphics.Rectangle boundingBox) {
-		return setRaw(org.archstudio.bna.facets.IHasBoundingBox.BOUNDING_BOX_KEY, boundingBox);
 	}
 
 	@Override
@@ -57,18 +49,8 @@ public abstract class WorldThingBase extends org.archstudio.bna.things.AbstractT
 		return get(org.archstudio.bna.facets.IHasWorld.WORLD_KEY);
 	}
 
-	/* package */ @Nullable
-			org.archstudio.bna.IBNAWorld getRawWorld() {
-		return getRaw(org.archstudio.bna.facets.IHasWorld.WORLD_KEY);
-	}
-
 	@Override
 	public void setWorld(@Nullable org.archstudio.bna.IBNAWorld world) {
 		set(org.archstudio.bna.facets.IHasWorld.WORLD_KEY, world);
-	}
-
-	/* package */ @Nullable
-			org.archstudio.bna.IBNAWorld setRawWorld(@Nullable org.archstudio.bna.IBNAWorld world) {
-		return setRaw(org.archstudio.bna.facets.IHasWorld.WORLD_KEY, world);
 	}
 }

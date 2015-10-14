@@ -52,17 +52,9 @@ public abstract class BoundedLabelThingBase extends org.archstudio.bna.things.Ab
 		return get(org.archstudio.bna.facets.IHasBoundingBox.BOUNDING_BOX_KEY);
 	}
 
-	/* package */ org.eclipse.swt.graphics.Rectangle getRawBoundingBox() {
-		return getRaw(org.archstudio.bna.facets.IHasBoundingBox.BOUNDING_BOX_KEY);
-	}
-
 	@Override
 	public void setBoundingBox(org.eclipse.swt.graphics.Rectangle boundingBox) {
 		set(org.archstudio.bna.facets.IHasBoundingBox.BOUNDING_BOX_KEY, boundingBox);
-	}
-
-	/* package */ org.eclipse.swt.graphics.Rectangle setRawBoundingBox(org.eclipse.swt.graphics.Rectangle boundingBox) {
-		return setRaw(org.archstudio.bna.facets.IHasBoundingBox.BOUNDING_BOX_KEY, boundingBox);
 	}
 
 	@Override
@@ -70,19 +62,9 @@ public abstract class BoundedLabelThingBase extends org.archstudio.bna.things.Ab
 		return get(org.archstudio.bna.facets.IHasColor.COLOR_KEY);
 	}
 
-	/* package */ @Nullable
-			org.eclipse.swt.graphics.RGB getRawColor() {
-		return getRaw(org.archstudio.bna.facets.IHasColor.COLOR_KEY);
-	}
-
 	@Override
 	public void setColor(@Nullable org.eclipse.swt.graphics.RGB color) {
 		set(org.archstudio.bna.facets.IHasColor.COLOR_KEY, color);
-	}
-
-	/* package */ @Nullable
-			org.eclipse.swt.graphics.RGB setRawColor(@Nullable org.eclipse.swt.graphics.RGB color) {
-		return setRaw(org.archstudio.bna.facets.IHasColor.COLOR_KEY, color);
 	}
 
 	@Override
@@ -90,17 +72,9 @@ public abstract class BoundedLabelThingBase extends org.archstudio.bna.things.Ab
 		return get(org.archstudio.bna.facets.IHasFontData.DONT_INCREASE_FONT_SIZE_KEY);
 	}
 
-	/* package */ boolean isRawDontIncreaseFontSize() {
-		return getRaw(org.archstudio.bna.facets.IHasFontData.DONT_INCREASE_FONT_SIZE_KEY);
-	}
-
 	@Override
 	public void setDontIncreaseFontSize(boolean dontIncreaseFontSize) {
 		set(org.archstudio.bna.facets.IHasFontData.DONT_INCREASE_FONT_SIZE_KEY, dontIncreaseFontSize);
-	}
-
-	/* package */ boolean isRawDontIncreaseFontSize(boolean dontIncreaseFontSize) {
-		return setRaw(org.archstudio.bna.facets.IHasFontData.DONT_INCREASE_FONT_SIZE_KEY, dontIncreaseFontSize);
 	}
 
 	@Override
@@ -108,17 +82,9 @@ public abstract class BoundedLabelThingBase extends org.archstudio.bna.things.Ab
 		return get(org.archstudio.bna.facets.IHasFontData.FONT_NAME_KEY);
 	}
 
-	/* package */ java.lang.String getRawFontName() {
-		return getRaw(org.archstudio.bna.facets.IHasFontData.FONT_NAME_KEY);
-	}
-
 	@Override
 	public void setFontName(java.lang.String fontName) {
 		set(org.archstudio.bna.facets.IHasFontData.FONT_NAME_KEY, fontName);
-	}
-
-	/* package */ java.lang.String setRawFontName(java.lang.String fontName) {
-		return setRaw(org.archstudio.bna.facets.IHasFontData.FONT_NAME_KEY, fontName);
 	}
 
 	@Override
@@ -126,17 +92,9 @@ public abstract class BoundedLabelThingBase extends org.archstudio.bna.things.Ab
 		return get(org.archstudio.bna.facets.IHasFontData.FONT_SIZE_KEY);
 	}
 
-	/* package */ int getRawFontSize() {
-		return getRaw(org.archstudio.bna.facets.IHasFontData.FONT_SIZE_KEY);
-	}
-
 	@Override
 	public void setFontSize(int fontSize) {
 		set(org.archstudio.bna.facets.IHasFontData.FONT_SIZE_KEY, fontSize);
-	}
-
-	/* package */ int setRawFontSize(int fontSize) {
-		return setRaw(org.archstudio.bna.facets.IHasFontData.FONT_SIZE_KEY, fontSize);
 	}
 
 	@Override
@@ -144,18 +102,9 @@ public abstract class BoundedLabelThingBase extends org.archstudio.bna.things.Ab
 		return get(org.archstudio.bna.facets.IHasFontData.FONT_STYLE_KEY);
 	}
 
-	/* package */ org.archstudio.swtutils.constants.FontStyle getRawFontStyle() {
-		return getRaw(org.archstudio.bna.facets.IHasFontData.FONT_STYLE_KEY);
-	}
-
 	@Override
 	public void setFontStyle(org.archstudio.swtutils.constants.FontStyle fontStyle) {
 		set(org.archstudio.bna.facets.IHasFontData.FONT_STYLE_KEY, fontStyle);
-	}
-
-	/* package */ org.archstudio.swtutils.constants.FontStyle
-			setRawFontStyle(org.archstudio.swtutils.constants.FontStyle fontStyle) {
-		return setRaw(org.archstudio.bna.facets.IHasFontData.FONT_STYLE_KEY, fontStyle);
 	}
 
 	@Override
@@ -163,18 +112,9 @@ public abstract class BoundedLabelThingBase extends org.archstudio.bna.things.Ab
 		return get(org.archstudio.bna.facets.IHasHorizontalAlignment.HORIZONTAL_ALIGNMENT_KEY);
 	}
 
-	/* package */ org.archstudio.swtutils.constants.HorizontalAlignment getRawHorizontalAlignment() {
-		return getRaw(org.archstudio.bna.facets.IHasHorizontalAlignment.HORIZONTAL_ALIGNMENT_KEY);
-	}
-
 	@Override
 	public void setHorizontalAlignment(org.archstudio.swtutils.constants.HorizontalAlignment horizontalAlignment) {
 		set(org.archstudio.bna.facets.IHasHorizontalAlignment.HORIZONTAL_ALIGNMENT_KEY, horizontalAlignment);
-	}
-
-	/* package */ org.archstudio.swtutils.constants.HorizontalAlignment
-			setRawHorizontalAlignment(org.archstudio.swtutils.constants.HorizontalAlignment horizontalAlignment) {
-		return setRaw(org.archstudio.bna.facets.IHasHorizontalAlignment.HORIZONTAL_ALIGNMENT_KEY, horizontalAlignment);
 	}
 
 	@Override
@@ -182,17 +122,9 @@ public abstract class BoundedLabelThingBase extends org.archstudio.bna.things.Ab
 		return get(org.archstudio.bna.facets.IHasText.TEXT_KEY);
 	}
 
-	/* package */ java.lang.String getRawText() {
-		return getRaw(org.archstudio.bna.facets.IHasText.TEXT_KEY);
-	}
-
 	@Override
 	public void setText(java.lang.String text) {
 		set(org.archstudio.bna.facets.IHasText.TEXT_KEY, text);
-	}
-
-	/* package */ java.lang.String setRawText(java.lang.String text) {
-		return setRaw(org.archstudio.bna.facets.IHasText.TEXT_KEY, text);
 	}
 
 	@Override
@@ -200,17 +132,8 @@ public abstract class BoundedLabelThingBase extends org.archstudio.bna.things.Ab
 		return get(org.archstudio.bna.facets.IHasVerticalAlignment.VERTICAL_ALIGNMENT_KEY);
 	}
 
-	/* package */ org.archstudio.swtutils.constants.VerticalAlignment getRawVerticalAlignment() {
-		return getRaw(org.archstudio.bna.facets.IHasVerticalAlignment.VERTICAL_ALIGNMENT_KEY);
-	}
-
 	@Override
 	public void setVerticalAlignment(org.archstudio.swtutils.constants.VerticalAlignment verticalAlignment) {
 		set(org.archstudio.bna.facets.IHasVerticalAlignment.VERTICAL_ALIGNMENT_KEY, verticalAlignment);
-	}
-
-	/* package */ org.archstudio.swtutils.constants.VerticalAlignment
-			setRawVerticalAlignment(org.archstudio.swtutils.constants.VerticalAlignment verticalAlignment) {
-		return setRaw(org.archstudio.bna.facets.IHasVerticalAlignment.VERTICAL_ALIGNMENT_KEY, verticalAlignment);
 	}
 }

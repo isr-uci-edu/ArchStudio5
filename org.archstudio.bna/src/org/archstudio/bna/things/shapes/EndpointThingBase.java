@@ -65,17 +65,9 @@ public abstract class EndpointThingBase extends org.archstudio.bna.things.Abstra
 		return get(org.archstudio.bna.facets.IHasAlpha.ALPHA_KEY);
 	}
 
-	/* package */ double getRawAlpha() {
-		return getRaw(org.archstudio.bna.facets.IHasAlpha.ALPHA_KEY);
-	}
-
 	@Override
 	public void setAlpha(double alpha) {
 		set(org.archstudio.bna.facets.IHasAlpha.ALPHA_KEY, alpha);
-	}
-
-	/* package */ double setRawAlpha(double alpha) {
-		return setRaw(org.archstudio.bna.facets.IHasAlpha.ALPHA_KEY, alpha);
 	}
 
 	@Override
@@ -83,17 +75,9 @@ public abstract class EndpointThingBase extends org.archstudio.bna.things.Abstra
 		return get(org.archstudio.bna.facets.IHasAnchorPoint.ANCHOR_POINT_KEY);
 	}
 
-	/* package */ java.awt.geom.Point2D getRawAnchorPoint() {
-		return getRaw(org.archstudio.bna.facets.IHasAnchorPoint.ANCHOR_POINT_KEY);
-	}
-
 	@Override
 	public void setAnchorPoint(java.awt.geom.Point2D anchorPoint) {
 		set(org.archstudio.bna.facets.IHasAnchorPoint.ANCHOR_POINT_KEY, anchorPoint);
-	}
-
-	/* package */ java.awt.geom.Point2D setRawAnchorPoint(java.awt.geom.Point2D anchorPoint) {
-		return setRaw(org.archstudio.bna.facets.IHasAnchorPoint.ANCHOR_POINT_KEY, anchorPoint);
 	}
 
 	@Override
@@ -101,14 +85,8 @@ public abstract class EndpointThingBase extends org.archstudio.bna.things.Abstra
 		return get(org.archstudio.bna.facets.IHasBoundingBox.BOUNDING_BOX_KEY);
 	}
 
-	/* package */ org.eclipse.swt.graphics.Rectangle getRawBoundingBox() {
-		return getRaw(org.archstudio.bna.facets.IHasBoundingBox.BOUNDING_BOX_KEY);
-	}/* package */ void setBoundingBox(org.eclipse.swt.graphics.Rectangle boundingBox) {
+	/* package */ void setBoundingBox(org.eclipse.swt.graphics.Rectangle boundingBox) {
 		set(org.archstudio.bna.facets.IHasBoundingBox.BOUNDING_BOX_KEY, boundingBox);
-	}
-
-	/* package */ org.eclipse.swt.graphics.Rectangle setRawBoundingBox(org.eclipse.swt.graphics.Rectangle boundingBox) {
-		return setRaw(org.archstudio.bna.facets.IHasBoundingBox.BOUNDING_BOX_KEY, boundingBox);
 	}
 
 	@Override
@@ -116,19 +94,9 @@ public abstract class EndpointThingBase extends org.archstudio.bna.things.Abstra
 		return get(org.archstudio.bna.facets.IHasColor.COLOR_KEY);
 	}
 
-	/* package */ @Nullable
-			org.eclipse.swt.graphics.RGB getRawColor() {
-		return getRaw(org.archstudio.bna.facets.IHasColor.COLOR_KEY);
-	}
-
 	@Override
 	public void setColor(@Nullable org.eclipse.swt.graphics.RGB color) {
 		set(org.archstudio.bna.facets.IHasColor.COLOR_KEY, color);
-	}
-
-	/* package */ @Nullable
-			org.eclipse.swt.graphics.RGB setRawColor(@Nullable org.eclipse.swt.graphics.RGB color) {
-		return setRaw(org.archstudio.bna.facets.IHasColor.COLOR_KEY, color);
 	}
 
 	@Override
@@ -136,17 +104,9 @@ public abstract class EndpointThingBase extends org.archstudio.bna.things.Abstra
 		return get(org.archstudio.bna.facets.IHasCount.COUNT_KEY);
 	}
 
-	/* package */ int getRawCount() {
-		return getRaw(org.archstudio.bna.facets.IHasCount.COUNT_KEY);
-	}
-
 	@Override
 	public void setCount(int count) {
 		set(org.archstudio.bna.facets.IHasCount.COUNT_KEY, count);
-	}
-
-	/* package */ int setRawCount(int count) {
-		return setRaw(org.archstudio.bna.facets.IHasCount.COUNT_KEY, count);
 	}
 
 	@Override
@@ -154,19 +114,9 @@ public abstract class EndpointThingBase extends org.archstudio.bna.things.Abstra
 		return get(org.archstudio.bna.facets.IHasEdgeColor.EDGE_COLOR_KEY);
 	}
 
-	/* package */ @Nullable
-			org.eclipse.swt.graphics.RGB getRawEdgeColor() {
-		return getRaw(org.archstudio.bna.facets.IHasEdgeColor.EDGE_COLOR_KEY);
-	}
-
 	@Override
 	public void setEdgeColor(@Nullable org.eclipse.swt.graphics.RGB edgeColor) {
 		set(org.archstudio.bna.facets.IHasEdgeColor.EDGE_COLOR_KEY, edgeColor);
-	}
-
-	/* package */ @Nullable
-			org.eclipse.swt.graphics.RGB setRawEdgeColor(@Nullable org.eclipse.swt.graphics.RGB edgeColor) {
-		return setRaw(org.archstudio.bna.facets.IHasEdgeColor.EDGE_COLOR_KEY, edgeColor);
 	}
 
 	@Override
@@ -174,17 +124,9 @@ public abstract class EndpointThingBase extends org.archstudio.bna.things.Abstra
 		return get(org.archstudio.bna.facets.IHasGlow.GLOW_ALPHA_KEY);
 	}
 
-	/* package */ double getRawGlowAlpha() {
-		return getRaw(org.archstudio.bna.facets.IHasGlow.GLOW_ALPHA_KEY);
-	}
-
 	@Override
 	public void setGlowAlpha(double glowAlpha) {
 		set(org.archstudio.bna.facets.IHasGlow.GLOW_ALPHA_KEY, glowAlpha);
-	}
-
-	/* package */ double setRawGlowAlpha(double glowAlpha) {
-		return setRaw(org.archstudio.bna.facets.IHasGlow.GLOW_ALPHA_KEY, glowAlpha);
 	}
 
 	@Override
@@ -192,19 +134,9 @@ public abstract class EndpointThingBase extends org.archstudio.bna.things.Abstra
 		return get(org.archstudio.bna.facets.IHasGlow.GLOW_COLOR_KEY);
 	}
 
-	/* package */ @Nullable
-			org.eclipse.swt.graphics.RGB getRawGlowColor() {
-		return getRaw(org.archstudio.bna.facets.IHasGlow.GLOW_COLOR_KEY);
-	}
-
 	@Override
 	public void setGlowColor(@Nullable org.eclipse.swt.graphics.RGB glowColor) {
 		set(org.archstudio.bna.facets.IHasGlow.GLOW_COLOR_KEY, glowColor);
-	}
-
-	/* package */ @Nullable
-			org.eclipse.swt.graphics.RGB setRawGlowColor(@Nullable org.eclipse.swt.graphics.RGB glowColor) {
-		return setRaw(org.archstudio.bna.facets.IHasGlow.GLOW_COLOR_KEY, glowColor);
 	}
 
 	@Override
@@ -212,17 +144,9 @@ public abstract class EndpointThingBase extends org.archstudio.bna.things.Abstra
 		return get(org.archstudio.bna.facets.IHasGlow.GLOW_WIDTH_KEY);
 	}
 
-	/* package */ int getRawGlowWidth() {
-		return getRaw(org.archstudio.bna.facets.IHasGlow.GLOW_WIDTH_KEY);
-	}
-
 	@Override
 	public void setGlowWidth(int glowWidth) {
 		set(org.archstudio.bna.facets.IHasGlow.GLOW_WIDTH_KEY, glowWidth);
-	}
-
-	/* package */ int setRawGlowWidth(int glowWidth) {
-		return setRaw(org.archstudio.bna.facets.IHasGlow.GLOW_WIDTH_KEY, glowWidth);
 	}
 
 	@Override
@@ -230,17 +154,9 @@ public abstract class EndpointThingBase extends org.archstudio.bna.things.Abstra
 		return get(org.archstudio.bna.facets.IHasGradientFilled.GRADIENT_FILLED_KEY);
 	}
 
-	/* package */ boolean isRawGradientFilled() {
-		return getRaw(org.archstudio.bna.facets.IHasGradientFilled.GRADIENT_FILLED_KEY);
-	}
-
 	@Override
 	public void setGradientFilled(boolean gradientFilled) {
 		set(org.archstudio.bna.facets.IHasGradientFilled.GRADIENT_FILLED_KEY, gradientFilled);
-	}
-
-	/* package */ boolean isRawGradientFilled(boolean gradientFilled) {
-		return setRaw(org.archstudio.bna.facets.IHasGradientFilled.GRADIENT_FILLED_KEY, gradientFilled);
 	}
 
 	@Override
@@ -248,18 +164,9 @@ public abstract class EndpointThingBase extends org.archstudio.bna.things.Abstra
 		return get(org.archstudio.bna.facets.IHasLineStyle.LINE_STYLE_KEY);
 	}
 
-	/* package */ org.archstudio.swtutils.constants.LineStyle getRawLineStyle() {
-		return getRaw(org.archstudio.bna.facets.IHasLineStyle.LINE_STYLE_KEY);
-	}
-
 	@Override
 	public void setLineStyle(org.archstudio.swtutils.constants.LineStyle lineStyle) {
 		set(org.archstudio.bna.facets.IHasLineStyle.LINE_STYLE_KEY, lineStyle);
-	}
-
-	/* package */ org.archstudio.swtutils.constants.LineStyle
-			setRawLineStyle(org.archstudio.swtutils.constants.LineStyle lineStyle) {
-		return setRaw(org.archstudio.bna.facets.IHasLineStyle.LINE_STYLE_KEY, lineStyle);
 	}
 
 	@Override
@@ -267,17 +174,9 @@ public abstract class EndpointThingBase extends org.archstudio.bna.things.Abstra
 		return get(org.archstudio.bna.facets.IHasLineWidth.LINE_WIDTH_KEY);
 	}
 
-	/* package */ int getRawLineWidth() {
-		return getRaw(org.archstudio.bna.facets.IHasLineWidth.LINE_WIDTH_KEY);
-	}
-
 	@Override
 	public void setLineWidth(int lineWidth) {
 		set(org.archstudio.bna.facets.IHasLineWidth.LINE_WIDTH_KEY, lineWidth);
-	}
-
-	/* package */ int setRawLineWidth(int lineWidth) {
-		return setRaw(org.archstudio.bna.facets.IHasLineWidth.LINE_WIDTH_KEY, lineWidth);
 	}
 
 	@Override
@@ -285,17 +184,9 @@ public abstract class EndpointThingBase extends org.archstudio.bna.things.Abstra
 		return get(org.archstudio.bna.facets.IHasMinimumSize.MINIMUM_SIZE_KEY);
 	}
 
-	/* package */ java.awt.Dimension getRawMinimumSize() {
-		return getRaw(org.archstudio.bna.facets.IHasMinimumSize.MINIMUM_SIZE_KEY);
-	}
-
 	@Override
 	public void setMinimumSize(java.awt.Dimension minimumSize) {
 		set(org.archstudio.bna.facets.IHasMinimumSize.MINIMUM_SIZE_KEY, minimumSize);
-	}
-
-	/* package */ java.awt.Dimension setRawMinimumSize(java.awt.Dimension minimumSize) {
-		return setRaw(org.archstudio.bna.facets.IHasMinimumSize.MINIMUM_SIZE_KEY, minimumSize);
 	}
 
 	@Override
@@ -303,17 +194,9 @@ public abstract class EndpointThingBase extends org.archstudio.bna.things.Abstra
 		return get(org.archstudio.bna.facets.IHasRotatingOffset.ROTATING_OFFSET_KEY);
 	}
 
-	/* package */ int getRawRotatingOffset() {
-		return getRaw(org.archstudio.bna.facets.IHasRotatingOffset.ROTATING_OFFSET_KEY);
-	}
-
 	@Override
 	public void setRotatingOffset(int rotatingOffset) {
 		set(org.archstudio.bna.facets.IHasRotatingOffset.ROTATING_OFFSET_KEY, rotatingOffset);
-	}
-
-	/* package */ int setRawRotatingOffset(int rotatingOffset) {
-		return setRaw(org.archstudio.bna.facets.IHasRotatingOffset.ROTATING_OFFSET_KEY, rotatingOffset);
 	}
 
 	@Override
@@ -321,17 +204,9 @@ public abstract class EndpointThingBase extends org.archstudio.bna.things.Abstra
 		return get(org.archstudio.bna.facets.IHasRoundCorners.ROUND_CORNERS_KEY);
 	}
 
-	/* package */ java.awt.Dimension getRawRoundCorners() {
-		return getRaw(org.archstudio.bna.facets.IHasRoundCorners.ROUND_CORNERS_KEY);
-	}
-
 	@Override
 	public void setRoundCorners(java.awt.Dimension roundCorners) {
 		set(org.archstudio.bna.facets.IHasRoundCorners.ROUND_CORNERS_KEY, roundCorners);
-	}
-
-	/* package */ java.awt.Dimension setRawRoundCorners(java.awt.Dimension roundCorners) {
-		return setRaw(org.archstudio.bna.facets.IHasRoundCorners.ROUND_CORNERS_KEY, roundCorners);
 	}
 
 	@Override
@@ -339,19 +214,9 @@ public abstract class EndpointThingBase extends org.archstudio.bna.things.Abstra
 		return get(org.archstudio.bna.facets.IHasSecondaryColor.SECONDARY_COLOR_KEY);
 	}
 
-	/* package */ @Nullable
-			org.eclipse.swt.graphics.RGB getRawSecondaryColor() {
-		return getRaw(org.archstudio.bna.facets.IHasSecondaryColor.SECONDARY_COLOR_KEY);
-	}
-
 	@Override
 	public void setSecondaryColor(@Nullable org.eclipse.swt.graphics.RGB secondaryColor) {
 		set(org.archstudio.bna.facets.IHasSecondaryColor.SECONDARY_COLOR_KEY, secondaryColor);
-	}
-
-	/* package */ @Nullable
-			org.eclipse.swt.graphics.RGB setRawSecondaryColor(@Nullable org.eclipse.swt.graphics.RGB secondaryColor) {
-		return setRaw(org.archstudio.bna.facets.IHasSecondaryColor.SECONDARY_COLOR_KEY, secondaryColor);
 	}
 
 	@Override
@@ -359,17 +224,9 @@ public abstract class EndpointThingBase extends org.archstudio.bna.things.Abstra
 		return get(org.archstudio.bna.facets.IHasSelected.SELECTED_KEY);
 	}
 
-	/* package */ boolean isRawSelected() {
-		return getRaw(org.archstudio.bna.facets.IHasSelected.SELECTED_KEY);
-	}
-
 	@Override
 	public void setSelected(boolean selected) {
 		set(org.archstudio.bna.facets.IHasSelected.SELECTED_KEY, selected);
-	}
-
-	/* package */ boolean isRawSelected(boolean selected) {
-		return setRaw(org.archstudio.bna.facets.IHasSelected.SELECTED_KEY, selected);
 	}
 
 	@Override
@@ -377,17 +234,9 @@ public abstract class EndpointThingBase extends org.archstudio.bna.things.Abstra
 		return get(org.archstudio.bna.facets.IHasSize.SIZE_KEY);
 	}
 
-	/* package */ java.awt.Dimension getRawSize() {
-		return getRaw(org.archstudio.bna.facets.IHasSize.SIZE_KEY);
-	}
-
 	@Override
 	public void setSize(java.awt.Dimension size) {
 		set(org.archstudio.bna.facets.IHasSize.SIZE_KEY, size);
-	}
-
-	/* package */ java.awt.Dimension setRawSize(java.awt.Dimension size) {
-		return setRaw(org.archstudio.bna.facets.IHasSize.SIZE_KEY, size);
 	}
 
 	@Override
@@ -395,16 +244,8 @@ public abstract class EndpointThingBase extends org.archstudio.bna.things.Abstra
 		return get(org.archstudio.bna.facets.IHasRotatingOffset.TICKS_PER_INCREMENT_KEY);
 	}
 
-	/* package */ int getRawTicksPerIncrement() {
-		return getRaw(org.archstudio.bna.facets.IHasRotatingOffset.TICKS_PER_INCREMENT_KEY);
-	}
-
 	@Override
 	public void setTicksPerIncrement(int ticksPerIncrement) {
 		set(org.archstudio.bna.facets.IHasRotatingOffset.TICKS_PER_INCREMENT_KEY, ticksPerIncrement);
-	}
-
-	/* package */ int setRawTicksPerIncrement(int ticksPerIncrement) {
-		return setRaw(org.archstudio.bna.facets.IHasRotatingOffset.TICKS_PER_INCREMENT_KEY, ticksPerIncrement);
 	}
 }

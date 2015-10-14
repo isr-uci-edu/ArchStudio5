@@ -243,7 +243,7 @@ public interface Javaimplementation_3_0Package extends EPackage {
 	 * @see org.archstudio.xadl3.javaimplementation_3_0.ClassPathEntry
 	 * @generated
 	 */
-			EClass getClassPathEntry();
+	EClass getClassPathEntry();
 
 	/**
 	 * Returns the meta object for the containment reference list '
@@ -255,7 +255,7 @@ public interface Javaimplementation_3_0Package extends EPackage {
 	 * @see #getClassPathEntry()
 	 * @generated
 	 */
-			EReference getClassPathEntry_Ext();
+	EReference getClassPathEntry_Ext();
 
 	/**
 	 * Returns the meta object for the attribute '
@@ -267,7 +267,7 @@ public interface Javaimplementation_3_0Package extends EPackage {
 	 * @see #getClassPathEntry()
 	 * @generated
 	 */
-			EAttribute getClassPathEntry_Entry();
+	EAttribute getClassPathEntry_Entry();
 
 	/**
 	 * Returns the meta object for the attribute '
@@ -279,7 +279,7 @@ public interface Javaimplementation_3_0Package extends EPackage {
 	 * @see #getClassPathEntry()
 	 * @generated
 	 */
-			EAttribute getClassPathEntry_Id();
+	EAttribute getClassPathEntry_Id();
 
 	/**
 	 * Returns the meta object for class '{@link org.archstudio.xadl3.javaimplementation_3_0.JavaClass
@@ -289,7 +289,7 @@ public interface Javaimplementation_3_0Package extends EPackage {
 	 * @see org.archstudio.xadl3.javaimplementation_3_0.JavaClass
 	 * @generated
 	 */
-			EClass getJavaClass();
+	EClass getJavaClass();
 
 	/**
 	 * Returns the meta object for the containment reference list '
@@ -301,7 +301,7 @@ public interface Javaimplementation_3_0Package extends EPackage {
 	 * @see #getJavaClass()
 	 * @generated
 	 */
-			EReference getJavaClass_ClassPathEntry();
+	EReference getJavaClass_ClassPathEntry();
 
 	/**
 	 * Returns the meta object for the containment reference list '
@@ -313,7 +313,7 @@ public interface Javaimplementation_3_0Package extends EPackage {
 	 * @see #getJavaClass()
 	 * @generated
 	 */
-			EReference getJavaClass_Ext();
+	EReference getJavaClass_Ext();
 
 	/**
 	 * Returns the meta object for the attribute '
@@ -325,7 +325,7 @@ public interface Javaimplementation_3_0Package extends EPackage {
 	 * @see #getJavaClass()
 	 * @generated
 	 */
-			EAttribute getJavaClass_ClassName();
+	EAttribute getJavaClass_ClassName();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.archstudio.xadl3.javaimplementation_3_0.JavaClass#getId
@@ -336,7 +336,7 @@ public interface Javaimplementation_3_0Package extends EPackage {
 	 * @see #getJavaClass()
 	 * @generated
 	 */
-			EAttribute getJavaClass_Id();
+	EAttribute getJavaClass_Id();
 
 	/**
 	 * Returns the meta object for class '{@link org.archstudio.xadl3.javaimplementation_3_0.JavaImplementation
@@ -346,7 +346,7 @@ public interface Javaimplementation_3_0Package extends EPackage {
 	 * @see org.archstudio.xadl3.javaimplementation_3_0.JavaImplementation
 	 * @generated
 	 */
-			EClass getJavaImplementation();
+	EClass getJavaImplementation();
 
 	/**
 	 * Returns the meta object for the containment reference '
@@ -358,7 +358,7 @@ public interface Javaimplementation_3_0Package extends EPackage {
 	 * @see #getJavaImplementation()
 	 * @generated
 	 */
-			EReference getJavaImplementation_MainClass();
+	EReference getJavaImplementation_MainClass();
 
 	/**
 	 * Returns the meta object for the containment reference list '
@@ -370,7 +370,7 @@ public interface Javaimplementation_3_0Package extends EPackage {
 	 * @see #getJavaImplementation()
 	 * @generated
 	 */
-			EReference getJavaImplementation_AuxClass();
+	EReference getJavaImplementation_AuxClass();
 
 	/**
 	 * Returns the meta object for the containment reference list '
@@ -382,7 +382,7 @@ public interface Javaimplementation_3_0Package extends EPackage {
 	 * @see #getJavaImplementation()
 	 * @generated
 	 */
-			EReference getJavaImplementation_Ext();
+	EReference getJavaImplementation_Ext();
 
 	/**
 	 * Returns the factory that creates the instances of the model. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -390,7 +390,7 @@ public interface Javaimplementation_3_0Package extends EPackage {
 	 * @return the factory that creates the instances of the model.
 	 * @generated
 	 */
-			Javaimplementation_3_0Factory getJavaimplementation_3_0Factory();
+	Javaimplementation_3_0Factory getJavaimplementation_3_0Factory();
 
 	/**
 	 * <!-- begin-user-doc --> Defines literals for the meta objects that represent

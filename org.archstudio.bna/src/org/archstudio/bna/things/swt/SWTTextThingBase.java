@@ -35,16 +35,8 @@ public abstract class SWTTextThingBase extends org.archstudio.bna.things.swt.Abs
 		return get(org.archstudio.bna.facets.IHasText.TEXT_KEY);
 	}
 
-	/* package */ java.lang.String getRawText() {
-		return getRaw(org.archstudio.bna.facets.IHasText.TEXT_KEY);
-	}
-
 	@Override
 	public void setText(java.lang.String text) {
 		set(org.archstudio.bna.facets.IHasText.TEXT_KEY, text);
-	}
-
-	/* package */ java.lang.String setRawText(java.lang.String text) {
-		return setRaw(org.archstudio.bna.facets.IHasText.TEXT_KEY, text);
 	}
 }

@@ -21,21 +21,21 @@ import org.eclipse.emf.ecore.EObject;
  * @generated
  */
 public interface Behavior extends EObject {
-			/**
-			 * Returns the value of the '<em><b>Ext</b></em>' containment reference list. The list contents are of type
-			 * {@link org.archstudio.xadl3.xadlcore_3_0.Extension}. <!-- begin-user-doc -->
-			 * <p>
-			 * If the meaning of the '<em>Ext</em>' containment reference list isn't clear, there really should be more
-			 * of a description here...
-			 * </p>
-			 * <!-- end-user-doc -->
-			 * 
-			 * @return the value of the '<em>Ext</em>' containment reference list.
-			 * @see org.archstudio.xadl3.statechart_1_0.Statechart_1_0Package#getBehavior_Ext()
-			 * @model containment="true" extendedMetaData="kind='element' name='ext' namespace='##targetNamespace'"
-			 * @generated
-			 */
-			EList<Extension> getExt();
+	/**
+	 * Returns the value of the '<em><b>Ext</b></em>' containment reference list. The list contents are of type
+	 * {@link org.archstudio.xadl3.xadlcore_3_0.Extension}. <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Ext</em>' containment reference list isn't clear, there really should be more of a
+	 * description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the value of the '<em>Ext</em>' containment reference list.
+	 * @see org.archstudio.xadl3.statechart_1_0.Statechart_1_0Package#getBehavior_Ext()
+	 * @model containment="true" extendedMetaData="kind='element' name='ext' namespace='##targetNamespace'"
+	 * @generated
+	 */
+	EList<Extension> getExt();
 
 	/**
 	 * Returns the value of the '<em><b>Id</b></em>' attribute. <!-- begin-user-doc -->
@@ -51,7 +51,7 @@ public interface Behavior extends EObject {
 	 *        "kind='attribute' name='id' namespace='##targetNamespace'"
 	 * @generated
 	 */
-			String getId();
+	String getId();
 
 	/**
 	 * Sets the value of the '{@link org.archstudio.xadl3.statechart_1_0.Behavior#getId <em>Id</em>}' attribute. <!--
@@ -61,6 +61,6 @@ public interface Behavior extends EObject {
 	 * @see #getId()
 	 * @generated
 	 */
-			void setId(String value);
+	void setId(String value);
 
 } // Behavior

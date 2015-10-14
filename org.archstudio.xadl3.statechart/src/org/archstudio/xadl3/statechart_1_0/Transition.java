@@ -24,24 +24,22 @@ import org.eclipse.emf.ecore.EObject;
  * @model extendedMetaData="name='Transition' kind='elementOnly'"
  * @generated
  */
-public interface Transition extends
-		EObject {
-					/**
-					 * Returns the value of the '<em><b>From</b></em>' reference. <!-- begin-user-doc -->
-					 * <p>
-					 * If the meaning of the '<em>From</em>' reference isn't clear, there really should be more of a
-					 * description here...
-					 * </p>
-					 * <!-- end-user-doc -->
-					 * 
-					 * @return the value of the '<em>From</em>' reference.
-					 * @see #setFrom(PseudoState)
-					 * @see org.archstudio.xadl3.statechart_1_0.Statechart_1_0Package#getTransition_From()
-					 * @model resolveProxies="false" required="true" extendedMetaData=
-					 *        "kind='element' name='from' namespace='##targetNamespace'"
-					 * @generated
-					 */
-					PseudoState getFrom();
+public interface Transition extends EObject {
+	/**
+	 * Returns the value of the '<em><b>From</b></em>' reference. <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>From</em>' reference isn't clear, there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the value of the '<em>From</em>' reference.
+	 * @see #setFrom(PseudoState)
+	 * @see org.archstudio.xadl3.statechart_1_0.Statechart_1_0Package#getTransition_From()
+	 * @model resolveProxies="false" required="true" extendedMetaData=
+	 *        "kind='element' name='from' namespace='##targetNamespace'"
+	 * @generated
+	 */
+	PseudoState getFrom();
 
 	/**
 	 * Sets the value of the '{@link org.archstudio.xadl3.statechart_1_0.Transition#getFrom <em>From</em>}' reference.
@@ -51,7 +49,7 @@ public interface Transition extends
 	 * @see #getFrom()
 	 * @generated
 	 */
-			void setFrom(PseudoState value);
+	void setFrom(PseudoState value);
 
 	/**
 	 * Returns the value of the '<em><b>To</b></em>' reference. <!-- begin-user-doc -->
@@ -67,7 +65,7 @@ public interface Transition extends
 	 *        "kind='element' name='to' namespace='##targetNamespace'"
 	 * @generated
 	 */
-			PseudoState getTo();
+	PseudoState getTo();
 
 	/**
 	 * Sets the value of the '{@link org.archstudio.xadl3.statechart_1_0.Transition#getTo <em>To</em>}' reference. <!--
@@ -77,7 +75,7 @@ public interface Transition extends
 	 * @see #getTo()
 	 * @generated
 	 */
-			void setTo(PseudoState value);
+	void setTo(PseudoState value);
 
 	/**
 	 * Returns the value of the '<em><b>Constraint</b></em>' containment reference. <!-- begin-user-doc -->
@@ -93,7 +91,7 @@ public interface Transition extends
 	 * @model containment="true" extendedMetaData="kind='element' name='constraint' namespace='##targetNamespace'"
 	 * @generated
 	 */
-			Constraint getConstraint();
+	Constraint getConstraint();
 
 	/**
 	 * Sets the value of the '{@link org.archstudio.xadl3.statechart_1_0.Transition#getConstraint <em>Constraint</em>}'
@@ -103,7 +101,7 @@ public interface Transition extends
 	 * @see #getConstraint()
 	 * @generated
 	 */
-			void setConstraint(Constraint value);
+	void setConstraint(Constraint value);
 
 	/**
 	 * Returns the value of the '<em><b>Ext</b></em>' containment reference list. The list contents are of type
@@ -119,7 +117,7 @@ public interface Transition extends
 	 * @model containment="true" extendedMetaData="kind='element' name='ext' namespace='##targetNamespace'"
 	 * @generated
 	 */
-			EList<Extension> getExt();
+	EList<Extension> getExt();
 
 	/**
 	 * Returns the value of the '<em><b>Id</b></em>' attribute. <!-- begin-user-doc -->
@@ -135,7 +133,7 @@ public interface Transition extends
 	 *        "kind='attribute' name='id' namespace='##targetNamespace'"
 	 * @generated
 	 */
-			String getId();
+	String getId();
 
 	/**
 	 * Sets the value of the '{@link org.archstudio.xadl3.statechart_1_0.Transition#getId <em>Id</em>}' attribute. <!--
@@ -145,7 +143,7 @@ public interface Transition extends
 	 * @see #getId()
 	 * @generated
 	 */
-			void setId(String value);
+	void setId(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Name</b></em>' attribute. <!-- begin-user-doc -->
@@ -161,7 +159,7 @@ public interface Transition extends
 	 *        "kind='attribute' name='name' namespace='##targetNamespace'"
 	 * @generated
 	 */
-			String getName();
+	String getName();
 
 	/**
 	 * Sets the value of the '{@link org.archstudio.xadl3.statechart_1_0.Transition#getName <em>Name</em>}' attribute.
@@ -171,6 +169,6 @@ public interface Transition extends
 	 * @see #getName()
 	 * @generated
 	 */
-			void setName(String value);
+	void setName(String value);
 
 } // Transition

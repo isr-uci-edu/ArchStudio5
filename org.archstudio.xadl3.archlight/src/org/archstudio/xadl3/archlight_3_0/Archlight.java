@@ -22,21 +22,21 @@ import org.eclipse.emf.ecore.EObject;
  * @generated
  */
 public interface Archlight extends EObject {
-			/**
-			 * Returns the value of the '<em><b>Test</b></em>' containment reference list. The list contents are of type
-			 * {@link org.archstudio.xadl3.archlight_3_0.Test}. <!-- begin-user-doc -->
-			 * <p>
-			 * If the meaning of the '<em>Test</em>' containment reference list isn't clear, there really should be more
-			 * of a description here...
-			 * </p>
-			 * <!-- end-user-doc -->
-			 * 
-			 * @return the value of the '<em>Test</em>' containment reference list.
-			 * @see org.archstudio.xadl3.archlight_3_0.Archlight_3_0Package#getArchlight_Test()
-			 * @model containment="true" extendedMetaData="kind='element' name='test' namespace='##targetNamespace'"
-			 * @generated
-			 */
-			EList<Test> getTest();
+	/**
+	 * Returns the value of the '<em><b>Test</b></em>' containment reference list. The list contents are of type
+	 * {@link org.archstudio.xadl3.archlight_3_0.Test}. <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Test</em>' containment reference list isn't clear, there really should be more of a
+	 * description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the value of the '<em>Test</em>' containment reference list.
+	 * @see org.archstudio.xadl3.archlight_3_0.Archlight_3_0Package#getArchlight_Test()
+	 * @model containment="true" extendedMetaData="kind='element' name='test' namespace='##targetNamespace'"
+	 * @generated
+	 */
+	EList<Test> getTest();
 
 	/**
 	 * Returns the value of the '<em><b>Ext</b></em>' containment reference list. The list contents are of type
@@ -52,6 +52,6 @@ public interface Archlight extends EObject {
 	 * @model containment="true" extendedMetaData="kind='element' name='ext' namespace='##targetNamespace'"
 	 * @generated
 	 */
-			EList<Extension> getExt();
+	EList<Extension> getExt();
 
 } // Archlight

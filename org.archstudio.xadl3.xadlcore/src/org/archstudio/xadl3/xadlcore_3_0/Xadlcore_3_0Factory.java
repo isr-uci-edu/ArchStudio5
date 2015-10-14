@@ -25,7 +25,7 @@ public interface Xadlcore_3_0Factory extends EFactory {
 	 * @return a new object of class '<em>Document Root</em>'.
 	 * @generated
 	 */
-			DocumentRoot createDocumentRoot();
+	DocumentRoot createDocumentRoot();
 
 	/**
 	 * Returns a new object of class '<em>Simple Link</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -33,7 +33,7 @@ public interface Xadlcore_3_0Factory extends EFactory {
 	 * @return a new object of class '<em>Simple Link</em>'.
 	 * @generated
 	 */
-			SimpleLink createSimpleLink();
+	SimpleLink createSimpleLink();
 
 	/**
 	 * Returns a new object of class '<em>XADL Type</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -41,7 +41,7 @@ public interface Xadlcore_3_0Factory extends EFactory {
 	 * @return a new object of class '<em>XADL Type</em>'.
 	 * @generated
 	 */
-			XADLType createXADLType();
+	XADLType createXADLType();
 
 	/**
 	 * Returns the package supported by this factory. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -49,6 +49,6 @@ public interface Xadlcore_3_0Factory extends EFactory {
 	 * @return the package supported by this factory.
 	 * @generated
 	 */
-			Xadlcore_3_0Package getXadlcore_3_0Package();
+	Xadlcore_3_0Package getXadlcore_3_0Package();
 
 } // Xadlcore_3_0Factory

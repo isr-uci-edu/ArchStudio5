@@ -21,21 +21,21 @@ import org.eclipse.emf.ecore.EObject;
  * @generated
  */
 public interface Value extends EObject {
-			/**
-			 * Returns the value of the '<em><b>Value</b></em>' containment reference list. The list contents are of
-			 * type {@link org.archstudio.xadl3.hints_3_0.Value}. <!-- begin-user-doc -->
-			 * <p>
-			 * If the meaning of the '<em>Value</em>' containment reference list isn't clear, there really should be
-			 * more of a description here...
-			 * </p>
-			 * <!-- end-user-doc -->
-			 * 
-			 * @return the value of the '<em>Value</em>' containment reference list.
-			 * @see org.archstudio.xadl3.hints_3_0.Hints_3_0Package#getValue_Value()
-			 * @model containment="true" extendedMetaData="kind='element' name='value' namespace='##targetNamespace'"
-			 * @generated
-			 */
-			EList<Value> getValue();
+	/**
+	 * Returns the value of the '<em><b>Value</b></em>' containment reference list. The list contents are of type
+	 * {@link org.archstudio.xadl3.hints_3_0.Value}. <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Value</em>' containment reference list isn't clear, there really should be more of a
+	 * description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the value of the '<em>Value</em>' containment reference list.
+	 * @see org.archstudio.xadl3.hints_3_0.Hints_3_0Package#getValue_Value()
+	 * @model containment="true" extendedMetaData="kind='element' name='value' namespace='##targetNamespace'"
+	 * @generated
+	 */
+	EList<Value> getValue();
 
 	/**
 	 * Returns the value of the '<em><b>Data</b></em>' attribute. <!-- begin-user-doc -->
@@ -51,7 +51,7 @@ public interface Value extends EObject {
 	 *        "kind='attribute' name='data' namespace='##targetNamespace'"
 	 * @generated
 	 */
-			String getData();
+	String getData();
 
 	/**
 	 * Sets the value of the '{@link org.archstudio.xadl3.hints_3_0.Value#getData <em>Data</em>}' attribute. <!--
@@ -61,7 +61,7 @@ public interface Value extends EObject {
 	 * @see #getData()
 	 * @generated
 	 */
-			void setData(String value);
+	void setData(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Type</b></em>' attribute. <!-- begin-user-doc -->
@@ -77,7 +77,7 @@ public interface Value extends EObject {
 	 *        "kind='attribute' name='type' namespace='##targetNamespace'"
 	 * @generated
 	 */
-			String getType();
+	String getType();
 
 	/**
 	 * Sets the value of the '{@link org.archstudio.xadl3.hints_3_0.Value#getType <em>Type</em>}' attribute. <!--
@@ -87,6 +87,6 @@ public interface Value extends EObject {
 	 * @see #getType()
 	 * @generated
 	 */
-			void setType(String value);
+	void setType(String value);
 
 } // Value

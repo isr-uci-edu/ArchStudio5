@@ -25,7 +25,7 @@ public interface Hints_3_0Factory extends EFactory {
 	 * @return a new object of class '<em>Hint</em>'.
 	 * @generated
 	 */
-			Hint createHint();
+	Hint createHint();
 
 	/**
 	 * Returns a new object of class '<em>Hints Extension</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -33,7 +33,7 @@ public interface Hints_3_0Factory extends EFactory {
 	 * @return a new object of class '<em>Hints Extension</em>'.
 	 * @generated
 	 */
-			HintsExtension createHintsExtension();
+	HintsExtension createHintsExtension();
 
 	/**
 	 * Returns a new object of class '<em>Value</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -41,7 +41,7 @@ public interface Hints_3_0Factory extends EFactory {
 	 * @return a new object of class '<em>Value</em>'.
 	 * @generated
 	 */
-			Value createValue();
+	Value createValue();
 
 	/**
 	 * Returns the package supported by this factory. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -49,6 +49,6 @@ public interface Hints_3_0Factory extends EFactory {
 	 * @return the package supported by this factory.
 	 * @generated
 	 */
-			Hints_3_0Package getHints_3_0Package();
+	Hints_3_0Package getHints_3_0Package();
 
 } // Hints_3_0Factory

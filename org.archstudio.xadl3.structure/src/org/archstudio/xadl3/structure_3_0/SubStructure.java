@@ -28,22 +28,22 @@ import org.eclipse.emf.ecore.EObject;
  * @generated
  */
 public interface SubStructure extends EObject {
-			/**
-			 * Returns the value of the '<em><b>Inner Structure Link</b></em>' reference. <!-- begin-user-doc -->
-			 * <p>
-			 * If the meaning of the '<em>Inner Structure Link</em>' reference isn't clear, there really should be more
-			 * of a description here...
-			 * </p>
-			 * <!-- end-user-doc -->
-			 * 
-			 * @return the value of the '<em>Inner Structure Link</em>' reference.
-			 * @see #setInnerStructureLink(Structure)
-			 * @see org.archstudio.xadl3.structure_3_0.Structure_3_0Package#getSubStructure_InnerStructureLink()
-			 * @model resolveProxies="false" required="true" extendedMetaData=
-			 *        "kind='element' name='innerStructureLink' namespace='##targetNamespace'"
-			 * @generated
-			 */
-			Structure getInnerStructureLink();
+	/**
+	 * Returns the value of the '<em><b>Inner Structure Link</b></em>' reference. <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Inner Structure Link</em>' reference isn't clear, there really should be more of a
+	 * description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the value of the '<em>Inner Structure Link</em>' reference.
+	 * @see #setInnerStructureLink(Structure)
+	 * @see org.archstudio.xadl3.structure_3_0.Structure_3_0Package#getSubStructure_InnerStructureLink()
+	 * @model resolveProxies="false" required="true" extendedMetaData=
+	 *        "kind='element' name='innerStructureLink' namespace='##targetNamespace'"
+	 * @generated
+	 */
+	Structure getInnerStructureLink();
 
 	/**
 	 * Sets the value of the '{@link org.archstudio.xadl3.structure_3_0.SubStructure#getInnerStructureLink
@@ -53,7 +53,7 @@ public interface SubStructure extends EObject {
 	 * @see #getInnerStructureLink()
 	 * @generated
 	 */
-			void setInnerStructureLink(Structure value);
+	void setInnerStructureLink(Structure value);
 
 	/**
 	 * Returns the value of the '<em><b>Interface Mapping</b></em>' containment reference list. The list contents are of
@@ -69,7 +69,7 @@ public interface SubStructure extends EObject {
 	 * @model containment="true" extendedMetaData="kind='element' name='interfaceMapping' namespace='##targetNamespace'"
 	 * @generated
 	 */
-			EList<InterfaceMapping> getInterfaceMapping();
+	EList<InterfaceMapping> getInterfaceMapping();
 
 	/**
 	 * Returns the value of the '<em><b>Ext</b></em>' containment reference list. The list contents are of type
@@ -85,7 +85,7 @@ public interface SubStructure extends EObject {
 	 * @model containment="true" extendedMetaData="kind='element' name='ext' namespace='##targetNamespace'"
 	 * @generated
 	 */
-			EList<Extension> getExt();
+	EList<Extension> getExt();
 
 	/**
 	 * Returns the value of the '<em><b>Id</b></em>' attribute. <!-- begin-user-doc -->
@@ -101,7 +101,7 @@ public interface SubStructure extends EObject {
 	 *        "kind='attribute' name='id' namespace='##targetNamespace'"
 	 * @generated
 	 */
-			String getId();
+	String getId();
 
 	/**
 	 * Sets the value of the '{@link org.archstudio.xadl3.structure_3_0.SubStructure#getId <em>Id</em>}' attribute. <!--
@@ -111,6 +111,6 @@ public interface SubStructure extends EObject {
 	 * @see #getId()
 	 * @generated
 	 */
-			void setId(String value);
+	void setId(String value);
 
 } // SubStructure
