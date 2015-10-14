@@ -20,14 +20,14 @@ public class MarqueeBoxBorderThingPeer<T extends MarqueeBoxBorderThing> extends 
 
 	@Override
 	public boolean draw(Rectangle localBounds, IUIResources r) {
-		Rectangle lbb = cm.worldToLocal(t.getRawBoundingBox());
+		Rectangle lbb = cm.worldToLocal(t.getBoundingBox());
 		if (!localBounds.intersects(lbb)) {
 			return false;
 		}
 
 		Shape localShape = new Rectangle2D.Double(lbb.x, lbb.y, lbb.width, lbb.height);
 
-		r.selectShape(localShape, t.getRawRotatingOffset());
+		r.selectShape(localShape, t.getRotatingOffset());
 
 		return true;
 	}

@@ -37,10 +37,10 @@ public class SplineThing extends SplineThingBase {
 	}
 
 	protected void updateProperties() {
-		List<Point2D> points = Lists.newArrayListWithCapacity(getRawMidpoints().size() + 2);
-		points.add(getRawEndpoint1());
-		points.addAll(getRawMidpoints());
-		points.add(getRawEndpoint2());
+		List<Point2D> points = Lists.newArrayListWithCapacity(getMidpoints().size() + 2);
+		points.add(getEndpoint1());
+		points.addAll(getMidpoints());
+		points.add(getEndpoint2());
 		double x1 = Double.POSITIVE_INFINITY;
 		double y1 = Double.POSITIVE_INFINITY;
 		double x2 = Double.NEGATIVE_INFINITY;
@@ -55,8 +55,8 @@ public class SplineThing extends SplineThingBase {
 		int iy = SystemUtils.floor(y1);
 		int iw = SystemUtils.ceil(x2 - ix);
 		int ih = SystemUtils.ceil(y2 - iy);
-		setRawPoints(points);
-		setRawBoundingBox(new Rectangle(ix, iy, iw, ih));
+		setPoints(points);
+		setBoundingBox(new Rectangle(ix, iy, iw, ih));
 	}
 
 	@Override
@@ -76,22 +76,22 @@ public class SplineThing extends SplineThingBase {
 			p.setLocation(p.getX() + dx, p.getY() + dy);
 		}
 
-		setRawEndpoint1(points.get(0));
-		setRawMidpoints(points.subList(1, points.size() - 1));
-		setRawEndpoint2(points.get(points.size() - 1));
+		setEndpoint1(points.get(0));
+		setMidpoints(points.subList(1, points.size() - 1));
+		setEndpoint2(points.get(points.size() - 1));
 	}
 
 	@Override
 	public Point2D getSecondaryPoint(IBNAModel model, StickPointLogic stickLogic, IThingKey<Point2D> pointKey) {
 		if (pointKey.equals(ENDPOINT_1_KEY)) {
-			List<? extends Point2D> points = getRawPoints();
+			List<? extends Point2D> points = getPoints();
 			if (points.size() > 2) {
 				return points.get(1);
 			}
 			return stickLogic.getStuckPoint(this, ENDPOINT_2_KEY, points.get(1));
 		}
 		if (pointKey.equals(ENDPOINT_2_KEY)) {
-			List<? extends Point2D> points = getRawPoints();
+			List<? extends Point2D> points = getPoints();
 			if (points.size() > 2) {
 				return points.get(points.size() - 2);
 			}
@@ -102,6 +102,6 @@ public class SplineThing extends SplineThingBase {
 
 	@Override
 	public boolean shouldIncrementRotatingOffset() {
-		return isRawSelected();
+		return isSelected();
 	}
 }

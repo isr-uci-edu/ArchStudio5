@@ -30,7 +30,7 @@ public class CurvedSplineThingPeer<T extends CurvedSplineThing> extends Abstract
 
 	@Override
 	public boolean draw(Rectangle localBounds, IUIResources r) {
-		Rectangle lbb = cm.worldToLocal(t.getRawBoundingBox());
+		Rectangle lbb = cm.worldToLocal(t.getBoundingBox());
 		lbb.width += 2;
 		lbb.height += 2;
 		if (!lbb.intersects(localBounds)) {
@@ -42,45 +42,45 @@ public class CurvedSplineThingPeer<T extends CurvedSplineThing> extends Abstract
 		}
 
 		Shape localShape = BNAUtils.worldToLocal(cm, t.shape);
-		ArrowheadShape arrowhead1 = (t.getRawArrowhead1Color() != null || t.getRawArrowhead1EdgeColor() != null)
-				&& t.getRawArrowhead1Shape() != ArrowheadShape.NONE ? t.getRawArrowhead1Shape() : ArrowheadShape.NONE;
+		ArrowheadShape arrowhead1 = (t.getArrowhead1Color() != null || t.getArrowhead1EdgeColor() != null)
+				&& t.getArrowhead1Shape() != ArrowheadShape.NONE ? t.getArrowhead1Shape() : ArrowheadShape.NONE;
 		Shape localArrowhead1 = BNAUtils.worldToLocal(
 				cm,
-				ShapeUtils.createArrowhead(arrowhead1, t.getRawEndpoint1(), t.endpoint1StemPoint,
-						t.getRawArrowhead1Width(), t.getRawArrowhead1Length()));
-		ArrowheadShape arrowhead2 = (t.getRawArrowhead2Color() != null || t.getRawArrowhead2EdgeColor() != null)
-				&& t.getRawArrowhead2Shape() != ArrowheadShape.NONE ? t.getRawArrowhead2Shape() : ArrowheadShape.NONE;
+				ShapeUtils.createArrowhead(arrowhead1, t.getEndpoint1(), t.endpoint1StemPoint,
+						t.getArrowhead1Width(), t.getArrowhead1Length()));
+		ArrowheadShape arrowhead2 = (t.getArrowhead2Color() != null || t.getArrowhead2EdgeColor() != null)
+				&& t.getArrowhead2Shape() != ArrowheadShape.NONE ? t.getArrowhead2Shape() : ArrowheadShape.NONE;
 		Shape localArrowhead2 = BNAUtils.worldToLocal(
 				cm,
-				ShapeUtils.createArrowhead(arrowhead2, t.getRawEndpoint2(), t.endpoint2StemPoint,
-						t.getRawArrowhead2Width(), t.getRawArrowhead2Length()));
+				ShapeUtils.createArrowhead(arrowhead2, t.getEndpoint2(), t.endpoint2StemPoint,
+						t.getArrowhead2Width(), t.getArrowhead2Length()));
 
-		RGB glowColor = t.getRawGlowColor();
+		RGB glowColor = t.getGlowColor();
 		if (glowColor != null) {
-			r.glowShape(localShape, glowColor, t.getRawGlowWidth(), t.getRawGlowAlpha());
+			r.glowShape(localShape, glowColor, t.getGlowWidth(), t.getGlowAlpha());
 			if (arrowhead1 != ArrowheadShape.NONE) {
-				r.glowShape(localArrowhead1, glowColor, t.getRawGlowWidth(), t.getRawGlowAlpha());
+				r.glowShape(localArrowhead1, glowColor, t.getGlowWidth(), t.getGlowAlpha());
 			}
 			if (arrowhead2 != ArrowheadShape.NONE) {
-				r.glowShape(localArrowhead2, glowColor, t.getRawGlowWidth(), t.getRawGlowAlpha());
+				r.glowShape(localArrowhead2, glowColor, t.getGlowWidth(), t.getGlowAlpha());
 			}
 		}
 		if (t.isSelected()) {
-			int offset = t.getRawRotatingOffset();
+			int offset = t.getRotatingOffset();
 			r.selectShape(localShape, offset);
 		}
 		{
-			RGB arrowhead1Color = arrowhead1.isFilled() ? t.getRawArrowhead1Color() : null;
+			RGB arrowhead1Color = arrowhead1.isFilled() ? t.getArrowhead1Color() : null;
 			if (arrowhead1Color != null) {
 				r.fillShape(localArrowhead1, arrowhead1Color, null, 1);
 			}
-			RGB arrowhead2Color = arrowhead2.isFilled() ? t.getRawArrowhead2Color() : null;
+			RGB arrowhead2Color = arrowhead2.isFilled() ? t.getArrowhead2Color() : null;
 			if (arrowhead2Color != null) {
 				r.fillShape(localArrowhead2, arrowhead2Color, null, 1);
 			}
 		}
 		if (t.isSelected()) {
-			int offset = t.getRawRotatingOffset();
+			int offset = t.getRotatingOffset();
 			if (arrowhead1.isEdged()) {
 				r.selectShape(localArrowhead1, offset);
 			}
@@ -89,27 +89,27 @@ public class CurvedSplineThingPeer<T extends CurvedSplineThing> extends Abstract
 			}
 		}
 		else {
-			r.drawShape(localShape, t.getRawEdgeColor(), t.getRawLineWidth(), t.getRawLineStyle(), 1);
-			RGB arrowhead1Color = arrowhead1.isEdged() ? t.getRawArrowhead1EdgeColor() : null;
+			r.drawShape(localShape, t.getEdgeColor(), t.getLineWidth(), t.getLineStyle(), 1);
+			RGB arrowhead1Color = arrowhead1.isEdged() ? t.getArrowhead1EdgeColor() : null;
 			if (arrowhead1Color != null) {
-				r.drawShape(localArrowhead1, arrowhead1Color, t.getRawLineWidth(), t.getRawLineStyle(), 1);
+				r.drawShape(localArrowhead1, arrowhead1Color, t.getLineWidth(), t.getLineStyle(), 1);
 			}
-			RGB arrowhead2Color = arrowhead2.isEdged() ? t.getRawArrowhead2EdgeColor() : null;
+			RGB arrowhead2Color = arrowhead2.isEdged() ? t.getArrowhead2EdgeColor() : null;
 			if (arrowhead2Color != null) {
-				r.drawShape(localArrowhead2, arrowhead2Color, t.getRawLineWidth(), t.getRawLineStyle(), 1);
+				r.drawShape(localArrowhead2, arrowhead2Color, t.getLineWidth(), t.getLineStyle(), 1);
 			}
 		}
 
 		if (DEBUG) {
 			Point2D a;
-			a = cm.worldToLocal(t.getRawAnchorPoint());
+			a = cm.worldToLocal(t.getAnchorPoint());
 			r.fillShape(new Ellipse2D.Double(a.getX() - 3, a.getY() - 3, 6, 6), new RGB(255, 0, 0), null, 1);
-			a = cm.worldToLocal(t.getRawEndpoint1());
+			a = cm.worldToLocal(t.getEndpoint1());
 			r.fillShape(new Ellipse2D.Double(a.getX() - 3, a.getY() - 3, 6, 6), new RGB(255, 128, 0), null, 1);
 			a = cm.worldToLocal(t.endpoint1StemPoint);
 			r.drawShape(new Ellipse2D.Double(a.getX() - 3, a.getY() - 3, 6, 6), new RGB(255, 128, 0), 1,
 					LineStyle.SOLID, 1);
-			a = cm.worldToLocal(t.getRawEndpoint2());
+			a = cm.worldToLocal(t.getEndpoint2());
 			r.fillShape(new Ellipse2D.Double(a.getX() - 3, a.getY() - 3, 6, 6), new RGB(255, 64, 255), null, 1);
 			a = cm.worldToLocal(t.endpoint2StemPoint);
 			r.drawShape(new Ellipse2D.Double(a.getX() - 3, a.getY() - 3, 6, 6), new RGB(255, 64, 255), 1,

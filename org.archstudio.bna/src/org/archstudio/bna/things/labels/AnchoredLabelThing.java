@@ -25,8 +25,8 @@ public class AnchoredLabelThing extends AnchoredLabelThingBase {
 	protected void initProperties() {
 		super.initProperties();
 		addShapeModifyingKey(IHasText.TEXT_KEY);
-		Point2D ap = getRawAnchorPoint();
-		setRawBoundingBox(new Rectangle(SystemUtils.round(ap.getX()), SystemUtils.round(ap.getY()), 0, 0));
+		Point2D ap = getAnchorPoint();
+		setBoundingBox(new Rectangle(SystemUtils.round(ap.getX()), SystemUtils.round(ap.getY()), 0, 0));
 	}
 
 	@Override

@@ -19,8 +19,8 @@ public class RectangleThing extends RectangleThingBase {
 
 	@Override
 	public Shape getStickyShape() {
-		Rectangle r = getRawBoundingBox();
-		Dimension arc = getRawRoundCorners();
+		Rectangle r = getBoundingBox();
+		Dimension arc = getRoundCorners();
 		if (arc.getWidth() == 0 && arc.getHeight() == 0) {
 			return new Rectangle2D.Float(r.x, r.y, r.width, r.height);
 		}
@@ -29,12 +29,12 @@ public class RectangleThing extends RectangleThingBase {
 
 	@Override
 	public boolean shouldIncrementRotatingOffset() {
-		return isRawSelected();
+		return isSelected();
 	}
 
 	@Override
 	public Point getReferencePoint() {
-		Rectangle r = getRawBoundingBox();
+		Rectangle r = getBoundingBox();
 		return new Point(r.x + r.width / 2, r.y + r.height / 2);
 	}
 

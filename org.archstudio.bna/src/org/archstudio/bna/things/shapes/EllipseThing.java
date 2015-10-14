@@ -17,18 +17,18 @@ public class EllipseThing extends EllipseThingBase {
 
 	@Override
 	public Shape getStickyShape() {
-		Rectangle r = getRawBoundingBox();
+		Rectangle r = getBoundingBox();
 		return new Ellipse2D.Float(r.x, r.y, r.width, r.height);
 	}
 
 	@Override
 	public boolean shouldIncrementRotatingOffset() {
-		return isRawSelected();
+		return isSelected();
 	}
 
 	@Override
 	public Point getReferencePoint() {
-		Rectangle r = getRawBoundingBox();
+		Rectangle r = getBoundingBox();
 		return new Point(r.x + r.width / 2, r.y + r.height / 2);
 	}
 

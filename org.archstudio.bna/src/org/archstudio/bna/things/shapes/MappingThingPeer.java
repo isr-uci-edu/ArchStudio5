@@ -27,19 +27,19 @@ public class MappingThingPeer<T extends MappingThing> extends AbstractThingPeer<
 			return false;
 		}
 
-		Point2D lp1 = cm.worldToLocal(t.getRawAnchorPoint());
-		Point2D lp2 = iView.getCoordinateMapper().worldToLocal(t.getRawInternalPoint());
+		Point2D lp1 = cm.worldToLocal(t.getAnchorPoint());
+		Point2D lp2 = iView.getCoordinateMapper().worldToLocal(t.getInternalPoint());
 
 		Shape localShape = new Line2D.Double(lp1.getX(), lp1.getY(), lp2.getX(), lp2.getY());
 
-		RGB glowColor = t.getRawGlowColor();
+		RGB glowColor = t.getGlowColor();
 		if (glowColor != null) {
-			r.glowShape(localShape, glowColor, t.getRawGlowWidth(), t.getRawGlowAlpha());
+			r.glowShape(localShape, glowColor, t.getGlowWidth(), t.getGlowAlpha());
 		}
 
-		r.drawShape(localShape, t.getRawEdgeColor(), t.getRawLineWidth(), t.getRawLineStyle(), 1);
-		if (t.isRawSelected()) {
-			r.selectShape(localShape, t.getRawRotatingOffset());
+		r.drawShape(localShape, t.getEdgeColor(), t.getLineWidth(), t.getLineStyle(), 1);
+		if (t.isSelected()) {
+			r.selectShape(localShape, t.getRotatingOffset());
 		}
 
 		return true;

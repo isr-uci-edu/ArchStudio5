@@ -25,28 +25,28 @@ public class EllipseThingPeer<T extends EllipseThing> extends AbstractThingPeer<
 
 	@Override
 	public boolean draw(Rectangle localBounds, IUIResources r) {
-		Rectangle lbb = cm.worldToLocal(t.getRawBoundingBox());
+		Rectangle lbb = cm.worldToLocal(t.getBoundingBox());
 		if (!localBounds.intersects(lbb)) {
 			return false;
 		}
 
 		Shape localShape = createLocalShape(lbb, 0);
 
-		RGB glowColor = t.getRawGlowColor();
+		RGB glowColor = t.getGlowColor();
 		if (glowColor != null) {
-			r.glowShape(localShape, glowColor, t.getRawGlowWidth(), t.getRawGlowAlpha());
+			r.glowShape(localShape, glowColor, t.getGlowWidth(), t.getGlowAlpha());
 		}
-		RGB color = t.getRawColor();
+		RGB color = t.getColor();
 		if (color != null) {
-			r.fillShape(localShape, color, t.isRawGradientFilled() ? t.getRawSecondaryColor() : null, t.getRawAlpha());
+			r.fillShape(localShape, color, t.isGradientFilled() ? t.getSecondaryColor() : null, t.getAlpha());
 		}
-		r.drawShape(localShape, t.getRawEdgeColor(), t.getRawLineWidth(), t.getRawLineStyle(), 1);
-		for (int count = t.getRawCount() - 1; count > 0; count--) {
-			r.drawShape(createLocalShape(lbb, count * 2 * t.getRawLineWidth()), t.getRawEdgeColor(),
-					t.getRawLineWidth(), t.getRawLineStyle(), 1);
+		r.drawShape(localShape, t.getEdgeColor(), t.getLineWidth(), t.getLineStyle(), 1);
+		for (int count = t.getCount() - 1; count > 0; count--) {
+			r.drawShape(createLocalShape(lbb, count * 2 * t.getLineWidth()), t.getEdgeColor(),
+					t.getLineWidth(), t.getLineStyle(), 1);
 		}
-		if (t.isRawSelected()) {
-			r.selectShape(localShape, t.getRawRotatingOffset());
+		if (t.isSelected()) {
+			r.selectShape(localShape, t.getRotatingOffset());
 		}
 
 		return true;
@@ -54,8 +54,8 @@ public class EllipseThingPeer<T extends EllipseThing> extends AbstractThingPeer<
 
 	@Override
 	public boolean drawShadow(Rectangle localBounds, IUIResources r) {
-		if (t.getRawGlowColor() == null && t.getColor() != null) {
-			Rectangle lbb = cm.worldToLocal(t.getRawBoundingBox());
+		if (t.getGlowColor() == null && t.getColor() != null) {
+			Rectangle lbb = cm.worldToLocal(t.getBoundingBox());
 			if (!localBounds.intersects(lbb)) {
 				return false;
 			}
@@ -71,7 +71,7 @@ public class EllipseThingPeer<T extends EllipseThing> extends AbstractThingPeer<
 	public boolean isInThing(ICoordinate location) {
 		Point worldPoint = location.getWorldPoint();
 
-		Rectangle wbb = t.getRawBoundingBox();
+		Rectangle wbb = t.getBoundingBox();
 		if (!wbb.contains(worldPoint)) {
 			return false;
 		}

@@ -16,8 +16,8 @@ public class UserNotificationThing extends UserNotificationThingBase {
 	@Override
 	protected void initProperties() {
 		super.initProperties();
-		setRawLife(TIME_TO_LIVE);
-		setRawColor(new RGB(255, 255, 128));
-		setRawSecondaryColor(new RGB(192, 192, 128));
+		setLife(TIME_TO_LIVE);
+		setColor(new RGB(255, 255, 128));
+		setSecondaryColor(new RGB(192, 192, 128));
 	}
 }

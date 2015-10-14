@@ -177,7 +177,7 @@ public class NumericSurfaceGraphThing extends NumericSurfaceGraphThingBase {
 		Rectangle r = getBoundingBox();
 		r.x += value.x - oldReferencePoint.x;
 		r.y += value.y - oldReferencePoint.y;
-		setRawBoundingBox(r);
+		setBoundingBox(r);
 	}
 
 }

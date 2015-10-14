@@ -23,7 +23,7 @@ public class PolygonThingPeer<T extends PolygonThing> extends AbstractThingPeer<
 
 	Shape createLocalShape() {
 		Path2D path = new Path2D.Double();
-		List<? extends Point2D> points = t.getRawPoints();
+		List<? extends Point2D> points = t.getPoints();
 		if (points.size() > 0) {
 			Point2D point = cm.worldToLocal(points.get(0));
 			path.moveTo(point.getX(), point.getY());
@@ -38,26 +38,26 @@ public class PolygonThingPeer<T extends PolygonThing> extends AbstractThingPeer<
 
 	@Override
 	public boolean draw(Rectangle localBounds, IUIResources r) {
-		Rectangle lbb = cm.worldToLocal(t.getRawBoundingBox());
+		Rectangle lbb = cm.worldToLocal(t.getBoundingBox());
 		if (!localBounds.intersects(lbb)) {
 			return false;
 		}
 
 		Shape localShape = createLocalShape();
 
-		RGB glowColor = t.getRawGlowColor();
+		RGB glowColor = t.getGlowColor();
 		if (glowColor != null) {
-			r.glowShape(localShape, glowColor, t.getRawGlowWidth(), t.getRawGlowAlpha());
+			r.glowShape(localShape, glowColor, t.getGlowWidth(), t.getGlowAlpha());
 		}
-		RGB color = t.getRawColor();
+		RGB color = t.getColor();
 		if (color != null) {
-			r.fillShape(localShape, color, t.isRawGradientFilled() ? t.getRawSecondaryColor() : null, t.getRawAlpha());
+			r.fillShape(localShape, color, t.isGradientFilled() ? t.getSecondaryColor() : null, t.getAlpha());
 		}
-		if (t.isRawSelected()) {
-			r.selectShape(localShape, t.getRawRotatingOffset());
+		if (t.isSelected()) {
+			r.selectShape(localShape, t.getRotatingOffset());
 		}
 		else {
-			r.drawShape(localShape, t.getRawEdgeColor(), t.getRawLineWidth(), t.getRawLineStyle(), 1);
+			r.drawShape(localShape, t.getEdgeColor(), t.getLineWidth(), t.getLineStyle(), 1);
 		}
 
 		return true;
@@ -65,8 +65,8 @@ public class PolygonThingPeer<T extends PolygonThing> extends AbstractThingPeer<
 
 	@Override
 	public boolean drawShadow(Rectangle localBounds, IUIResources r) {
-		if (t.getRawGlowColor() == null && t.getColor() != null) {
-			Rectangle lbb = cm.worldToLocal(t.getRawBoundingBox());
+		if (t.getGlowColor() == null && t.getColor() != null) {
+			Rectangle lbb = cm.worldToLocal(t.getBoundingBox());
 			if (!localBounds.intersects(lbb)) {
 				return false;
 			}
@@ -82,7 +82,7 @@ public class PolygonThingPeer<T extends PolygonThing> extends AbstractThingPeer<
 	public boolean isInThing(ICoordinate location) {
 		Point worldPoint = location.getWorldPoint();
 
-		Rectangle wbb = t.getRawBoundingBox();
+		Rectangle wbb = t.getBoundingBox();
 		if (!wbb.contains(worldPoint)) {
 			return false;
 		}

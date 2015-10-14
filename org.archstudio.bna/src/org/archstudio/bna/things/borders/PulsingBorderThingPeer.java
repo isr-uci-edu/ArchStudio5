@@ -20,16 +20,16 @@ public class PulsingBorderThingPeer<T extends PulsingBorderThing> extends Abstra
 
 	@Override
 	public boolean draw(Rectangle localBounds, IUIResources r) {
-		Rectangle lbb = cm.worldToLocal(t.getRawBoundingBox());
+		Rectangle lbb = cm.worldToLocal(t.getBoundingBox());
 		if (!localBounds.intersects(lbb)) {
 			return false;
 		}
 
-		int offset = t.getRotatingOffset() % MAX_ROTATION * t.getRawGlowWidth() / 4 - 4;
+		int offset = t.getRotatingOffset() % MAX_ROTATION * t.getGlowWidth() / 4 - 4;
 		Shape localShape = new Rectangle2D.Double(lbb.x - offset, lbb.y - offset, lbb.width + 2 * offset, lbb.height
 				+ 2 * offset);
 
-		r.glowShape(localShape, t.getRawGlowColor(), t.getRawGlowWidth(), t.getRawGlowAlpha());
+		r.glowShape(localShape, t.getGlowColor(), t.getGlowWidth(), t.getGlowAlpha());
 
 		return true;
 	}

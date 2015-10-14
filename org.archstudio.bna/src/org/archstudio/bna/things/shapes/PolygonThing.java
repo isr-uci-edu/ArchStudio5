@@ -45,7 +45,7 @@ public class PolygonThing extends PolygonThingBase {
 		double y1 = Double.POSITIVE_INFINITY;
 		double x2 = Double.NEGATIVE_INFINITY;
 		double y2 = Double.NEGATIVE_INFINITY;
-		for (Point2D p : getRawPoints()) {
+		for (Point2D p : getPoints()) {
 			x1 = Math.min(x1, p.getX());
 			y1 = Math.min(y1, p.getY());
 			x2 = Math.max(x2, p.getX());
@@ -75,18 +75,18 @@ public class PolygonThing extends PolygonThingBase {
 			p.setLocation(p.getX() + dx, p.getY() + dy);
 		}
 
-		setRawPoints(points);
+		setPoints(points);
 	}
 
 	@Override
 	public boolean shouldIncrementRotatingOffset() {
-		return isRawSelected();
+		return isSelected();
 	}
 
 	@Override
 	public Shape getStickyShape() {
 		Path2D path = new Path2D.Double();
-		List<? extends Point2D> points = getRawPoints();
+		List<? extends Point2D> points = getPoints();
 		if (points.size() > 0) {
 			Point2D point = points.get(0);
 			path.moveTo(point.getX(), point.getY());

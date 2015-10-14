@@ -160,7 +160,7 @@ public class NumericSurfaceGraphThingPeer<T extends NumericSurfaceGraphThing> ex
 
 	@Override
 	public void draw(GC gc, Rectangle localBounds, ISWTResources r) {
-		Rectangle lbb = cm.worldToLocal(t.getRawBoundingBox());
+		Rectangle lbb = cm.worldToLocal(t.getBoundingBox());
 		if (!lbb.intersects(localBounds)) {
 			return;
 		}
@@ -174,26 +174,26 @@ public class NumericSurfaceGraphThingPeer<T extends NumericSurfaceGraphThing> ex
 
 	@Override
 	public void draw(GL2ES2 gl, Rectangle localBounds, IJOGLResources r) {
-		Rectangle lbb = cm.worldToLocal(t.getRawBoundingBox());
+		Rectangle lbb = cm.worldToLocal(t.getBoundingBox());
 		if (!lbb.intersects(localBounds)) {
 			return;
 		}
 
 		PMVMatrix glMatrix = r.getMatrix();
 
-		Data thingData = t.getRawData();
+		Data thingData = t.getData();
 		boolean flipData = false;
-		int xRotation = SystemUtils.loop(0, t.getRawXRotation(), 360);
-		int yRotation = SystemUtils.loop(0, t.getRawYRotation(), 360);
-		NumericAxis xMajorAxis = !flipData ? t.getRawXMajorAxis() : t.getYMajorAxis();
-		NumericAxis xMinorAxis = !flipData ? t.getRawXMinorAxis() : t.getYMinorAxis();
-		NumericAxis yMajorAxis = !flipData ? t.getRawYMajorAxis() : t.getXMajorAxis();
-		NumericAxis yMinorAxis = !flipData ? t.getRawYMinorAxis() : t.getXMinorAxis();
-		zMajorAxis = t.getRawZMajorAxis();
-		zMinorAxis = t.getRawZMinorAxis();
-		gridLinesAlpha = t.getRawGridAlpha();
-		minorContourAlpha = t.getRawMinorContourAlpha();
-		majorContourAlpha = t.getRawMajorContourAlpha();
+		int xRotation = SystemUtils.loop(0, t.getXRotation(), 360);
+		int yRotation = SystemUtils.loop(0, t.getYRotation(), 360);
+		NumericAxis xMajorAxis = !flipData ? t.getXMajorAxis() : t.getYMajorAxis();
+		NumericAxis xMinorAxis = !flipData ? t.getXMinorAxis() : t.getYMinorAxis();
+		NumericAxis yMajorAxis = !flipData ? t.getYMajorAxis() : t.getXMajorAxis();
+		NumericAxis yMinorAxis = !flipData ? t.getYMinorAxis() : t.getXMinorAxis();
+		zMajorAxis = t.getZMajorAxis();
+		zMinorAxis = t.getZMinorAxis();
+		gridLinesAlpha = t.getGridAlpha();
+		minorContourAlpha = t.getMinorContourAlpha();
+		majorContourAlpha = t.getMajorContourAlpha();
 
 		updateMinorAxis(xMajorAxis, xMinorAxis);
 		updateMinorAxis(yMajorAxis, yMinorAxis);
@@ -214,7 +214,7 @@ public class NumericSurfaceGraphThingPeer<T extends NumericSurfaceGraphThing> ex
 		cacheValidConditions.add(minorContourAlpha > 0);
 		cacheValidConditions.add(majorContourAlpha > 0);
 		// don't use the local bounding box as it can vary slightly depending on location
-		cacheValidConditions.add(BNAUtils.toDimension(t.getRawBoundingBox()));
+		cacheValidConditions.add(BNAUtils.toDimension(t.getBoundingBox()));
 		cacheValidConditions.add(cm.getLocalScale());
 
 		if (!this.cacheValidConditions.equals(cacheValidConditions)) {
@@ -630,8 +630,8 @@ public class NumericSurfaceGraphThingPeer<T extends NumericSurfaceGraphThing> ex
 			r.drawText(font, label, x, y, new RGB(0, 0, 0), 1);
 		}
 
-		if (t.isRawSelected()) {
-			r.selectShape(new Rectangle2D.Double(lbb.x, lbb.y, lbb.width, lbb.height), t.getRawRotatingOffset());
+		if (t.isSelected()) {
+			r.selectShape(new Rectangle2D.Double(lbb.x, lbb.y, lbb.width, lbb.height), t.getRotatingOffset());
 		}
 	}
 
@@ -780,6 +780,6 @@ public class NumericSurfaceGraphThingPeer<T extends NumericSurfaceGraphThing> ex
 
 	@Override
 	public boolean isInThing(ICoordinate location) {
-		return t.getRawBoundingBox().contains(location.getWorldPoint());
+		return t.getBoundingBox().contains(location.getWorldPoint());
 	}
 }

@@ -30,31 +30,31 @@ public class EndpointThing extends EndpointThingBase {
 	}
 
 	protected void updateProperties() {
-		Point2D anchor = getRawAnchorPoint();
-		Dimension size = getRawSize();
+		Point2D anchor = getAnchorPoint();
+		Dimension size = getSize();
 		int x = SystemUtils.round(anchor.getX() - (double) size.width / 2);
 		int y = SystemUtils.round(anchor.getY() - (double) size.height / 2);
-		setRawBoundingBox(new Rectangle(x, y, size.width, size.height));
+		setBoundingBox(new Rectangle(x, y, size.width, size.height));
 	}
 
 	@Override
 	public Point getReferencePoint() {
-		return BNAUtils.toPoint(getRawAnchorPoint());
+		return BNAUtils.toPoint(getAnchorPoint());
 	}
 
 	@Override
 	public void setReferencePoint(Point value) {
-		setRawAnchorPoint(BNAUtils.toPoint2D(value));
+		setAnchorPoint(BNAUtils.toPoint2D(value));
 	}
 
 	@Override
 	public boolean shouldIncrementRotatingOffset() {
-		return isRawSelected();
+		return isSelected();
 	}
 
 	@Override
 	public Shape getStickyShape() {
-		return BNAUtils.toRectangle2D(getRawBoundingBox());
+		return BNAUtils.toRectangle2D(getBoundingBox());
 	}
 
 }

@@ -14,7 +14,7 @@ public class DirectionalLabelThing extends DirectionalLabelThingBase {
 
 	@Override
 	public Point getReferencePoint() {
-		Rectangle r = getRawBoundingBox();
+		Rectangle r = getBoundingBox();
 		return new Point(r.x + r.width / 2, r.y + r.height / 2);
 	}
 
@@ -24,7 +24,7 @@ public class DirectionalLabelThing extends DirectionalLabelThingBase {
 		Rectangle r = getBoundingBox();
 		r.x += value.x - oldReferencePoint.x;
 		r.y += value.y - oldReferencePoint.y;
-		setRawBoundingBox(r);
+		setBoundingBox(r);
 	}
 
 }

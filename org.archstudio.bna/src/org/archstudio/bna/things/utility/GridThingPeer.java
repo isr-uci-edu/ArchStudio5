@@ -28,17 +28,17 @@ public class GridThingPeer<T extends GridThing> extends AbstractThingPeer<T> {
 			return false;
 		}
 
-		GridDisplayType gridDisplayType = t.getRawGridDisplayType();
+		GridDisplayType gridDisplayType = t.getGridDisplayType();
 		if (gridDisplayType == GridDisplayType.NONE) {
 			return false;
 		}
 
-		int worldGridStep = t.getRawGridSpacing();
+		int worldGridStep = t.getGridSpacing();
 		while (worldGridStep * cm.getLocalScale() <= 8) {
 			worldGridStep *= 2;
 		}
 
-		RGB color = t.getRawEdgeColor();
+		RGB color = t.getEdgeColor();
 		if (color != null) {
 
 			Rectangle lClip = new Rectangle(localBounds.x, localBounds.y, localBounds.width, localBounds.height);

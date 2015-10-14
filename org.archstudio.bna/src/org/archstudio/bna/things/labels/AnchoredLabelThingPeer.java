@@ -40,13 +40,13 @@ public class AnchoredLabelThingPeer<T extends AnchoredLabelThing> extends Abstra
 			return false;
 		}
 
-		int angle = t.getRawAngle();
-		HorizontalAlignment horizontal = t.getRawHorizontalAlignment();
-		VerticalAlignment vertical = t.getRawVerticalAlignment();
+		int angle = t.getAngle();
+		HorizontalAlignment horizontal = t.getHorizontalAlignment();
+		VerticalAlignment vertical = t.getVerticalAlignment();
 
-		Point2D ap = t.getRawAnchorPoint();
-		Point2D ip = t.getRawIndicatorPoint();
-		Font font = r.getFont(t.getRawFontName(), t.getRawFontStyle(), t.getRawFontSize());
+		Point2D ap = t.getAnchorPoint();
+		Point2D ip = t.getIndicatorPoint();
+		Font font = r.getFont(t.getFontName(), t.getFontStyle(), t.getFontSize());
 		Dimension size = r.getTextSize(font, text);
 		double offsetX = -size.width / 2d + horizontal.getDelta() * (size.width / 2d);
 		double offsetY = -size.height / 2d + vertical.getDelta() * (size.height / 2d);
@@ -58,15 +58,15 @@ public class AnchoredLabelThingPeer<T extends AnchoredLabelThing> extends Abstra
 		transform.rotate(Math.PI * angle / 180);
 		Path2D boundsPath = new Path2D.Double(bounds);
 		boundsPath.transform(transform);
-		t.setRawBoundingBox(BNAUtils.toRectangle(boundsPath.getBounds()));
+		t.setBoundingBox(BNAUtils.toRectangle(boundsPath.getBounds()));
 
-		RGB color = t.getRawColor();
+		RGB color = t.getColor();
 		if (color != null) {
 
 			Point2D lap = cm.worldToLocal(ap);
 			Point2D lip = ip != null ? cm.worldToLocal(ip) : null;
-			int lfontsize = (int) (t.getRawFontSize() * cm.getLocalScale());
-			Font lfont = lfontsize > 2 ? r.getFont(t.getRawFontName(), t.getRawFontStyle(), lfontsize) : null;
+			int lfontsize = (int) (t.getFontSize() * cm.getLocalScale());
+			Font lfont = lfontsize > 2 ? r.getFont(t.getFontName(), t.getFontStyle(), lfontsize) : null;
 			Dimension lsize = lfont == null ? new Dimension(0, 0) : r.getTextSize(lfont, text);
 			double loffsetX = -lsize.width / 2d + horizontal.getDelta() * (lsize.width / 2d);
 			double loffsetY = -lsize.height / 2d + vertical.getDelta() * (lsize.height / 2d);
@@ -86,13 +86,13 @@ public class AnchoredLabelThingPeer<T extends AnchoredLabelThing> extends Abstra
 
 				r.pushMatrix(lap.getX(), lap.getY(), Math.PI * angle / 180);
 				try {
-					r.drawText(lfont, text, loffsetX, loffsetY, t.getRawColor(), 1);
+					r.drawText(lfont, text, loffsetX, loffsetY, t.getColor(), 1);
 				}
 				finally {
 					r.popMatrix();
 				}
 
-				RGB edgeColor = t.getRawEdgeColor();
+				RGB edgeColor = t.getEdgeColor();
 				if (lip != null && edgeColor != null) {
 					double spacing = SPACING * cm.getLocalScale();
 					Point2D lap2d1 = new Point2D.Double(lbounds.getMinX() - spacing, lbounds.getCenterY());
@@ -104,14 +104,14 @@ public class AnchoredLabelThingPeer<T extends AnchoredLabelThing> extends Abstra
 					double dist2 = lap2d2.distance(lip2D);
 					Point2D fromPoint = dist1 < dist2 ? lap2d1 : lap2d2;
 					Line2D.Double line = new Line2D.Double(fromPoint, lip2D);
-					r.drawShape(line, edgeColor, t.getRawLineWidth(), t.getRawLineStyle(), 1);
+					r.drawShape(line, edgeColor, t.getLineWidth(), t.getLineStyle(), 1);
 				}
 			}
 			else {
 				lastTextLocalShape = new Rectangle2D.Double(lap.getX() - 2, lap.getY() - 2, 4, 4);
 				if (lip != null) {
 					Line2D.Double line = new Line2D.Double(lip, lap);
-					r.drawShape(line, t.getRawEdgeColor(), t.getRawLineWidth(), t.getRawLineStyle(), 1);
+					r.drawShape(line, t.getEdgeColor(), t.getLineWidth(), t.getLineStyle(), 1);
 				}
 			}
 		}

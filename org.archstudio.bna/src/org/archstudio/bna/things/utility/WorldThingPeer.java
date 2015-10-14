@@ -34,9 +34,9 @@ public class WorldThingPeer<T extends WorldThing> extends AbstractThingPeer<T> i
 	@Override
 	public IBNAView getInnerView() {
 		IBNAView iView = null;
-		Rectangle lbb = cm.worldToLocal(t.getRawBoundingBox());
+		Rectangle lbb = cm.worldToLocal(t.getBoundingBox());
 		if (lbb.height >= 5 && lbb.width >= 5) {
-			IBNAWorld iWorld = t.getRawWorld();
+			IBNAWorld iWorld = t.getWorld();
 			if (iWorld != null) {
 
 				// determine the offset and scale for the inner view
@@ -86,7 +86,7 @@ public class WorldThingPeer<T extends WorldThing> extends AbstractThingPeer<T> i
 
 	@Override
 	public boolean draw(Rectangle localBounds, IUIResources r) {
-		Rectangle lbb = cm.worldToLocal(t.getRawBoundingBox());
+		Rectangle lbb = cm.worldToLocal(t.getBoundingBox());
 		if (!localBounds.intersects(lbb)) {
 			return false;
 		}
@@ -103,7 +103,7 @@ public class WorldThingPeer<T extends WorldThing> extends AbstractThingPeer<T> i
 	public boolean isInThing(ICoordinate location) {
 		Point worldPoint = location.getWorldPoint();
 
-		Rectangle wbb = t.getRawBoundingBox();
+		Rectangle wbb = t.getBoundingBox();
 		if (!wbb.contains(worldPoint)) {
 			return false;
 		}

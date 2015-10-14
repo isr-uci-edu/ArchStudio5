@@ -100,12 +100,12 @@ public class DirectionalLabelThingPeer<T extends DirectionalLabelThing> extends 
 
 	@Override
 	public boolean draw(Rectangle localBounds, IUIResources r) {
-		Rectangle lbb = cm.worldToLocal(t.getRawBoundingBox());
+		Rectangle lbb = cm.worldToLocal(t.getBoundingBox());
 		if (!localBounds.intersects(lbb)) {
 			return false;
 		}
 
-		Insets insets = t.getRawLocalInsets();
+		Insets insets = t.getLocalInsets();
 		lbb.x += insets.left;
 		lbb.y += insets.top;
 		lbb.width -= insets.left + insets.right;
@@ -113,17 +113,17 @@ public class DirectionalLabelThingPeer<T extends DirectionalLabelThing> extends 
 
 		//r.drawShape(BNAUtils.toRectangle2D(lbb), new RGB(255, 0, 0), 1);
 
-		flow = t.getRawFlow();
+		flow = t.getFlow();
 		if (flow == Flow.NONE) {
 			return false;
 		}
 
-		orientation = t.getRawOrientation();
+		orientation = t.getOrientation();
 		if (orientation == Orientation.NONE) {
 			return false;
 		}
 
-		RGB color = t.getRawColor();
+		RGB color = t.getColor();
 		if (color != null) {
 
 			int n = 1;
@@ -228,6 +228,6 @@ public class DirectionalLabelThingPeer<T extends DirectionalLabelThing> extends 
 
 	@Override
 	public boolean isInThing(ICoordinate location) {
-		return t.getRawBoundingBox().contains(location.getWorldPoint());
+		return t.getBoundingBox().contains(location.getWorldPoint());
 	}
 }

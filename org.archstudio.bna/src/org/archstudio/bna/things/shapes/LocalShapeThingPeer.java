@@ -26,10 +26,10 @@ public class LocalShapeThingPeer<T extends LocalShapeThing> extends AbstractThin
 	}
 
 	protected Shape createLocalShape() {
-		Path2D shape = new Path2D.Double(t.getRawShape());
-		Dimension size = t.getRawSize();
+		Path2D shape = new Path2D.Double(t.getShape());
+		Dimension size = t.getSize();
 		shape.transform(AffineTransform.getScaleInstance(size.getWidth(), size.getHeight()));
-		Point2D localPoint = cm.worldToLocal(t.getRawAnchorPoint());
+		Point2D localPoint = cm.worldToLocal(t.getAnchorPoint());
 		shape.transform(AffineTransform.getTranslateInstance(localPoint.getX(), localPoint.getY()));
 		return shape;
 	}
@@ -38,19 +38,19 @@ public class LocalShapeThingPeer<T extends LocalShapeThing> extends AbstractThin
 	public boolean draw(Rectangle localBounds, IUIResources r) {
 		Shape localShape = createLocalShape();
 
-		RGB glowColor = t.getRawGlowColor();
+		RGB glowColor = t.getGlowColor();
 		if (glowColor != null) {
-			r.glowShape(localShape, glowColor, t.getRawGlowWidth(), t.getRawGlowAlpha());
+			r.glowShape(localShape, glowColor, t.getGlowWidth(), t.getGlowAlpha());
 		}
-		RGB color = t.getRawColor();
+		RGB color = t.getColor();
 		if (color != null) {
-			r.fillShape(localShape, color, t.isRawGradientFilled() ? t.getRawSecondaryColor() : null, t.getRawAlpha());
+			r.fillShape(localShape, color, t.isGradientFilled() ? t.getSecondaryColor() : null, t.getAlpha());
 		}
-		if (t.isRawSelected()) {
-			r.selectShape(localShape, t.getRawRotatingOffset());
+		if (t.isSelected()) {
+			r.selectShape(localShape, t.getRotatingOffset());
 		}
 		else {
-			r.drawShape(localShape, t.getRawEdgeColor(), t.getRawLineWidth(), t.getRawLineStyle(), 1);
+			r.drawShape(localShape, t.getEdgeColor(), t.getLineWidth(), t.getLineStyle(), 1);
 		}
 
 		return true;
@@ -58,7 +58,7 @@ public class LocalShapeThingPeer<T extends LocalShapeThing> extends AbstractThin
 
 	@Override
 	public boolean drawShadow(Rectangle localBounds, IUIResources r) {
-		if (t.getRawGlowColor() == null && t.getColor() != null) {
+		if (t.getGlowColor() == null && t.getColor() != null) {
 			Shape localShape = createLocalShape();
 			if (!localBounds.intersects(BNAUtils.toRectangle(localShape.getBounds2D()))) {
 				return false;

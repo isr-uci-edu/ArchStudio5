@@ -12,7 +12,7 @@ public class LocalShapeThing extends LocalShapeThingBase {
 
 	@Override
 	public boolean shouldIncrementRotatingOffset() {
-		return isRawSelected();
+		return isSelected();
 	}
 
 }

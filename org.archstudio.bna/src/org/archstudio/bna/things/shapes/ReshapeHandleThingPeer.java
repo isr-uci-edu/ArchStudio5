@@ -20,8 +20,8 @@ public class ReshapeHandleThingPeer<T extends ReshapeHandleThing> extends Abstra
 	}
 
 	Shape createLocalShape() {
-		Point2D ap = cm.worldToLocal(t.getRawAnchorPoint());
-		Dimension size = t.getRawSize();
+		Point2D ap = cm.worldToLocal(t.getAnchorPoint());
+		Dimension size = t.getSize();
 		return new Rectangle2D.Double(ap.getX() - size.width / 2, ap.getY() - size.height / 2, size.width, size.height);
 	}
 
@@ -30,7 +30,7 @@ public class ReshapeHandleThingPeer<T extends ReshapeHandleThing> extends Abstra
 
 		Shape localShape = createLocalShape();
 
-		r.fillShape(localShape, t.getRawColor(), null, 1);
+		r.fillShape(localShape, t.getColor(), null, 1);
 
 		return true;
 	}

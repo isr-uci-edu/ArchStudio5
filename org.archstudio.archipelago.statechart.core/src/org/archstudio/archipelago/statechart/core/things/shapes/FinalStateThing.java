@@ -17,7 +17,7 @@ public class FinalStateThing extends FinalStateThingBase {
 
 	@Override
 	public Point getReferencePoint() {
-		Rectangle r = getRawBoundingBox();
+		Rectangle r = getBoundingBox();
 		return new Point(r.x + r.width / 2, r.y + r.height / 2);
 	}
 
@@ -27,17 +27,17 @@ public class FinalStateThing extends FinalStateThingBase {
 		Rectangle r = getBoundingBox();
 		r.x += value.x - oldReferencePoint.x;
 		r.y += value.y - oldReferencePoint.y;
-		setRawBoundingBox(r);
+		setBoundingBox(r);
 	}
 
 	@Override
 	public boolean shouldIncrementRotatingOffset() {
-		return isRawSelected();
+		return isSelected();
 	}
 
 	@Override
 	public Shape getStickyShape() {
-		Rectangle r = getRawBoundingBox();
+		Rectangle r = getBoundingBox();
 		return new Ellipse2D.Double(r.x, r.y, r.width, r.height);
 	}
 

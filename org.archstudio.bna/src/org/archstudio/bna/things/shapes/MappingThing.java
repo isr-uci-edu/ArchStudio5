@@ -12,7 +12,7 @@ public class MappingThing extends MappingThingBase {
 
 	@Override
 	public boolean shouldIncrementRotatingOffset() {
-		return isRawSelected();
+		return isSelected();
 	}
 
 }

@@ -67,12 +67,12 @@ public class BoundedLabelThingPeer<T extends BoundedLabelThing> extends Abstract
 			float totalWidth = 0;
 			float totalHeight = 0;
 
-			String text = t.getRawText();
+			String text = t.getText();
 			int minFontSize = MIN_FONT_SIZE;
 			int originalMinFontSize = minFontSize;
 			int maxFontSize = t.getFontSize();
 
-			breakWidthsFont = r.getFont(t.getRawFontName(), t.getRawFontStyle(), maxFontSize);
+			breakWidthsFont = r.getFont(t.getFontName(), t.getFontStyle(), maxFontSize);
 			/*
 			 * Here, we list the set of conditions under which the cache is valid. When one of the conditions changes,
 			 * the cache must be recalculated. This is done by creating a list of the conditions then comparing it to
@@ -108,7 +108,7 @@ public class BoundedLabelThingPeer<T extends BoundedLabelThing> extends Abstract
 					trialFontSize = (maxFontSize + minFontSize + 1) / 2;
 				}
 
-				font = r.getFont(t.getRawFontName(), t.getRawFontStyle(), trialFontSize);
+				font = r.getFont(t.getFontName(), t.getFontStyle(), trialFontSize);
 				lines.clear();
 				lineWidths.clear();
 				FontMetrics metrics = r.getFontMetrics(font);
@@ -184,7 +184,7 @@ public class BoundedLabelThingPeer<T extends BoundedLabelThing> extends Abstract
 
 	@Override
 	public boolean draw(Rectangle localBounds, IUIResources r) {
-		Rectangle lbb = cm.worldToLocal(t.getRawBoundingBox());
+		Rectangle lbb = cm.worldToLocal(t.getBoundingBox());
 		if (!lbb.intersects(localBounds)) {
 			return false;
 		}
@@ -193,19 +193,19 @@ public class BoundedLabelThingPeer<T extends BoundedLabelThing> extends Abstract
 			return false;
 		}
 
-		RGB color = t.getRawColor();
+		RGB color = t.getColor();
 		if (color != null) {
 
 			List<Object> layoutDataCacheConditions = Lists.newArrayList();
-			layoutDataCacheConditions.add(t.getRawText());
-			layoutDataCacheConditions.add(t.getRawFontName());
-			layoutDataCacheConditions.add(t.getRawFontStyle());
-			layoutDataCacheConditions.add(t.getRawFontSize());
-			layoutDataCacheConditions.add(t.isRawDontIncreaseFontSize());
+			layoutDataCacheConditions.add(t.getText());
+			layoutDataCacheConditions.add(t.getFontName());
+			layoutDataCacheConditions.add(t.getFontStyle());
+			layoutDataCacheConditions.add(t.getFontSize());
+			layoutDataCacheConditions.add(t.isDontIncreaseFontSize());
 			layoutDataCacheConditions.add(r.isAntialiasText());
 			layoutDataCacheConditions.add(r.getClass());
 			// don't use the local bounding box as it can vary slightly depending on location
-			layoutDataCacheConditions.add(BNAUtils.toDimension(t.getRawBoundingBox()));
+			layoutDataCacheConditions.add(BNAUtils.toDimension(t.getBoundingBox()));
 			layoutDataCacheConditions.add(cm.getLocalScale());
 			if (!layoutDataCacheConditions.equals(this.layoutDataCacheConditions)) {
 				this.layoutDataCacheConditions = layoutDataCacheConditions;
@@ -215,7 +215,7 @@ public class BoundedLabelThingPeer<T extends BoundedLabelThing> extends Abstract
 			if (layoutData.font != null) {
 				float scale = 1.0f;
 				float y = lbb.y;
-				switch (t.getRawVerticalAlignment()) {
+				switch (t.getVerticalAlignment()) {
 				case BOTTOM:
 					y += lbb.height - layoutData.totalHeight * scale;
 					break;
@@ -228,7 +228,7 @@ public class BoundedLabelThingPeer<T extends BoundedLabelThing> extends Abstract
 				for (int i = 0; i < layoutData.lines.size(); i++) {
 					String line = layoutData.lines.get(i);
 					float x = lbb.x;
-					switch (t.getRawHorizontalAlignment()) {
+					switch (t.getHorizontalAlignment()) {
 					case RIGHT:
 						x += lbb.width - layoutData.lineWidths.get(i) * scale;
 						break;
@@ -249,6 +249,6 @@ public class BoundedLabelThingPeer<T extends BoundedLabelThing> extends Abstract
 
 	@Override
 	public boolean isInThing(ICoordinate location) {
-		return t.getRawBoundingBox().contains(location.getWorldPoint());
+		return t.getBoundingBox().contains(location.getWorldPoint());
 	}
 }

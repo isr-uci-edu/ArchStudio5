@@ -22,7 +22,7 @@ public class FinalStateThingPeer<T extends FinalStateThing> extends AbstractThin
 
 	@Override
 	public boolean draw(Rectangle localBounds, IUIResources r) {
-		Rectangle lbb = cm.worldToLocal(t.getRawBoundingBox());
+		Rectangle lbb = cm.worldToLocal(t.getBoundingBox());
 		if (!localBounds.intersects(lbb)) {
 			return false;
 		}
@@ -33,10 +33,10 @@ public class FinalStateThingPeer<T extends FinalStateThing> extends AbstractThin
 				* delta + 1);
 
 		r.fillShape(outerShape, new RGB(255, 255, 255), null, 1);
-		r.fillShape(innerShape, t.getRawColor(), t.isRawGradientFilled() ? t.getRawSecondaryColor() : null, 1);
-		r.drawShape(outerShape, t.getRawEdgeColor(), t.getRawLineWidth(), t.getRawLineStyle(), 1);
+		r.fillShape(innerShape, t.getColor(), t.isGradientFilled() ? t.getSecondaryColor() : null, 1);
+		r.drawShape(outerShape, t.getEdgeColor(), t.getLineWidth(), t.getLineStyle(), 1);
 		if (t.isSelected()) {
-			r.selectShape(outerShape, t.getRawRotatingOffset());
+			r.selectShape(outerShape, t.getRotatingOffset());
 		}
 
 		return true;
@@ -44,8 +44,8 @@ public class FinalStateThingPeer<T extends FinalStateThing> extends AbstractThin
 
 	@Override
 	public boolean drawShadow(Rectangle localBounds, IUIResources r) {
-		if (t.getRawGlowColor() == null) {
-			Rectangle lbb = cm.worldToLocal(t.getRawBoundingBox());
+		if (t.getGlowColor() == null) {
+			Rectangle lbb = cm.worldToLocal(t.getBoundingBox());
 			if (!localBounds.intersects(lbb)) {
 				return false;
 			}
@@ -59,7 +59,7 @@ public class FinalStateThingPeer<T extends FinalStateThing> extends AbstractThin
 
 	@Override
 	public boolean isInThing(ICoordinate location) {
-		Rectangle r = t.getRawBoundingBox();
+		Rectangle r = t.getBoundingBox();
 		return new Ellipse2D.Double(r.x, r.y, r.width, r.height).contains(BNAUtils.toPoint2D(location.getWorldPoint()));
 	}
 

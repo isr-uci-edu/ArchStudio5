@@ -27,9 +27,9 @@ public class UserNotificationThingPeer<T extends UserNotificationThing> extends 
 	@Override
 	public boolean draw(Rectangle localBounds, IUIResources r) {
 
-		Point2D lap = cm.worldToLocal(t.getRawAnchorPoint());
+		Point2D lap = cm.worldToLocal(t.getAnchorPoint());
 		String text = t.getText().trim();
-		Font font = r.getFont(t.getRawFontName(), t.getRawFontStyle(), t.getRawFontSize());
+		Font font = r.getFont(t.getFontName(), t.getFontStyle(), t.getFontSize());
 		Dimension size = r.getTextSize(font, text);
 
 		Rectangle2D.Double localShape = new Rectangle2D.Double(lap.getX() - size.width / 2, lap.getY() - size.height
@@ -46,8 +46,8 @@ public class UserNotificationThingPeer<T extends UserNotificationThing> extends 
 			r.fillShape(localShape, t.getColor(), t.isGradientFilled() ? t.getSecondaryColor() : null, alpha);
 		}
 
-		r.drawShape(localShape, t.getRawEdgeColor(), 1, LineStyle.SOLID, 1);
-		r.drawText(font, text, localShape.x + SPACING, localShape.y + SPACING, t.getRawEdgeColor(), 1);
+		r.drawShape(localShape, t.getEdgeColor(), 1, LineStyle.SOLID, 1);
+		r.drawText(font, text, localShape.x + SPACING, localShape.y + SPACING, t.getEdgeColor(), 1);
 
 		return true;
 	}
