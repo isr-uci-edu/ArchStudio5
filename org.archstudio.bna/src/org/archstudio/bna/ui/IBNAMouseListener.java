@@ -8,6 +8,9 @@ import org.archstudio.bna.IThing;
 import org.archstudio.bna.constants.MouseType;
 import org.eclipse.swt.events.MouseEvent;
 
+/**
+ * @deprecated Use {@link IBNAMouseClickListener2}
+ */
 public interface IBNAMouseListener {
 
 	public void mouseUp(IBNAView view, MouseType type, MouseEvent evt, List<IThing> things, ICoordinate location);

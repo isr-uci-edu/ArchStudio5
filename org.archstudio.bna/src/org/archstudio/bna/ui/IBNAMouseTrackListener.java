@@ -8,6 +8,10 @@ import org.archstudio.bna.IThing;
 import org.archstudio.bna.constants.MouseType;
 import org.eclipse.swt.events.MouseEvent;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public interface IBNAMouseTrackListener {
 
 	public void mouseEnter(IBNAView view, MouseType type, MouseEvent evt, List<IThing> things, ICoordinate location);

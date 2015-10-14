@@ -8,6 +8,10 @@ import org.archstudio.bna.IThing;
 import org.archstudio.bna.constants.MouseType;
 import org.eclipse.swt.events.MouseEvent;
 
+/**
+ * @deprecated Use {@link IBNAMouseWheelListener2}.
+ */
+@Deprecated
 public interface IBNAMouseWheelListener {
 
 	public void mouseVerticalWheel(IBNAView view, MouseType type, MouseEvent e, List<IThing> t, ICoordinate location);

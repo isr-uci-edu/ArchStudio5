@@ -1,6 +1,7 @@
 package org.archstudio.bna.ui.utils;
 
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.archstudio.bna.IBNAView;
@@ -18,17 +19,24 @@ import org.archstudio.bna.constants.MouseType;
 import org.archstudio.bna.facets.IHasWorld;
 import org.archstudio.bna.facets.peers.IHasInnerViewPeer;
 import org.archstudio.bna.logics.events.WorldThingExternalEventsLogic;
+import org.archstudio.bna.logics.tracking.ThingTypeTrackingLogic;
 import org.archstudio.bna.things.utility.EnvironmentPropertiesThing;
+import org.archstudio.bna.ui.IBNAAllEventsListener2;
 import org.archstudio.bna.ui.IBNADragAndDropListener;
 import org.archstudio.bna.ui.IBNAFocusListener;
 import org.archstudio.bna.ui.IBNAKeyListener;
+import org.archstudio.bna.ui.IBNAKeyListener2;
 import org.archstudio.bna.ui.IBNAMagnifyGestureListener;
 import org.archstudio.bna.ui.IBNAMenuListener;
+import org.archstudio.bna.ui.IBNAMenuListener2;
 import org.archstudio.bna.ui.IBNAMouseClickListener;
+import org.archstudio.bna.ui.IBNAMouseClickListener2;
 import org.archstudio.bna.ui.IBNAMouseListener;
 import org.archstudio.bna.ui.IBNAMouseMoveListener;
+import org.archstudio.bna.ui.IBNAMouseMoveListener2;
 import org.archstudio.bna.ui.IBNAMouseTrackListener;
 import org.archstudio.bna.ui.IBNAMouseWheelListener;
+import org.archstudio.bna.ui.IBNAMouseWheelListener2;
 import org.archstudio.bna.ui.IBNAPanGestureListener;
 import org.archstudio.bna.ui.IBNARotateGestureListener;
 import org.archstudio.bna.ui.IBNASwipeGestureListener;
@@ -37,9 +45,12 @@ import org.archstudio.bna.ui.IBNAUI;
 import org.archstudio.bna.ui.IUIResources;
 import org.archstudio.bna.utils.BNARenderingSettings;
 import org.archstudio.bna.utils.BNAUtils;
+import org.archstudio.bna.utils.BNAUtils2;
+import org.archstudio.bna.utils.BNAUtils2.ThingsAtLocation;
 import org.archstudio.bna.utils.DefaultCoordinate;
 import org.archstudio.sysutils.Finally;
 import org.archstudio.sysutils.SystemUtils;
+import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -60,13 +71,23 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 
+@SuppressWarnings("deprecation")
 public abstract class AbstractBNAUI implements IBNAUI {
+
+	public static void addMenuSeparators(IMenuManager menuMgr) {
+		menuMgr.add(new Separator(IBNAMenuListener2.NEW_ELEMENTS_GROUP));
+		menuMgr.add(new Separator(IBNAMenuListener2.PRIMARY_PROPERTIES_GROUP));
+		menuMgr.add(new Separator(IBNAMenuListener2.SECONDARY_PROPERTIES_GROUP));
+		menuMgr.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
+		menuMgr.add(new Separator(IBNAMenuListener2.FINAL_ENTRIES_GROUP));
+	}
 
 	public boolean DEBUG = false;
 	public boolean PROFILE = false;
-	protected static final LoadingCache<Object, AtomicLong> profileStats = CacheBuilder.newBuilder().weakKeys()
-			.build(new CacheLoader<Object, AtomicLong>() {
+	protected static final LoadingCache<Object, AtomicLong> profileStats =
+			CacheBuilder.newBuilder().weakKeys().build(new CacheLoader<Object, AtomicLong>() {
 				@Override
 				public AtomicLong load(Object input) {
 					return new AtomicLong();
@@ -80,6 +101,7 @@ public abstract class AbstractBNAUI implements IBNAUI {
 	protected IBNAView eventView = null;
 	protected IBNAView focusedView = null;
 	protected IBNAView capturedView = null;
+	protected IBNAView capturedView2 = null;
 
 	public AbstractBNAUI(IBNAView view) {
 		this.view = view;
@@ -103,6 +125,11 @@ public abstract class AbstractBNAUI implements IBNAUI {
 	}
 
 	protected void mouseEventSWT(MouseType type, MouseEvent e) {
+		mouseEventSWT2(type, e);
+		mouseEventSWT1(type, e);
+	}
+
+	protected void mouseEventSWT1(MouseType type, MouseEvent e) {
 		try (Finally lock = BNAUtils.lock()) {
 			if (DEBUG) {
 				if (type != MouseType.MOVE) {
@@ -117,8 +144,8 @@ public abstract class AbstractBNAUI implements IBNAUI {
 					}
 					try {
 						IBNAView view = capturedView;
-						ICoordinate location = DefaultCoordinate.forLocal(new Point(e.x, e.y),
-								view.getCoordinateMapper());
+						ICoordinate location =
+								DefaultCoordinate.forLocal(new Point(e.x, e.y), view.getCoordinateMapper());
 						List<IThing> things = view.getThingsAt(location);
 
 						for (IBNAMouseListener logic : capturedView.getBNAWorld().getThingLogicManager()
@@ -301,6 +328,256 @@ public abstract class AbstractBNAUI implements IBNAUI {
 		}
 	}
 
+	private static class RelevantLogic<T> {
+		final IBNAView view;
+		final ICoordinate location;
+		final T logic;
+
+		public RelevantLogic(IBNAView view, Point localPoint, T logic) {
+			this.view = view;
+			this.location = DefaultCoordinate.forLocal(localPoint, view.getCoordinateMapper());
+			this.logic = logic;
+		}
+	}
+
+	/**
+	 * Retrieves the list of logics for a given view and additionally ones that implement {@link IBNAAllEventsListener2}
+	 *
+	 * @param eventView
+	 *            The view from which all logics should always be returned regardless of whether they implement
+	 *            {@link IBNAAllEventsListener2}.
+	 * @param localPoint
+	 *            The local point that should be used to create the {@link ICoordinate location} associated with a
+	 *            view's logic.
+	 * @param type
+	 *            The interface that the logic should implement.
+	 * @return All logics that are either in the given view or that implement {@link IBNAAllEventsListener2}.
+	 */
+	private <T> Iterable<RelevantLogic<T>> getAllLogics(IBNAView eventView, Point localPoint, Class<T> type) {
+		Set<IBNAWorld> worldsSearched = Sets.newHashSet();
+		List<IBNAView> viewsToSearch = Lists.newLinkedList();
+		List<RelevantLogic<T>> logicsFound = Lists.newArrayList();
+		if (eventView != null) {
+			viewsToSearch.add(eventView);
+		}
+		viewsToSearch.add(this.view);
+		while (!viewsToSearch.isEmpty()) {
+			IBNAView view = viewsToSearch.remove(0);
+			if (worldsSearched.add(view.getBNAWorld())) {
+				// Add mouse logics.
+				for (T logic : view.getBNAWorld().getThingLogicManager().getThingLogics(type)) {
+					if (view == eventView) {
+						logicsFound.add(new RelevantLogic<T>(view, localPoint, logic));
+					}
+					else if (logic instanceof IBNAAllEventsListener2) {
+						logicsFound.add(new RelevantLogic<T>(view, localPoint, logic));
+					}
+				}
+				// Search world things.
+				ThingTypeTrackingLogic typeLogic =
+						view.getBNAWorld().getThingLogicManager().addThingLogic(ThingTypeTrackingLogic.class);
+				for (IHasWorld worldThing : typeLogic.getThings(IHasWorld.class)) {
+					IBNAWorld world = worldThing.getWorld();
+					if (world != null) {
+						IThingPeer<?> peer = view.getThingPeer(worldThing);
+						if (peer instanceof IHasInnerViewPeer) {
+							IBNAView innerView = ((IHasInnerViewPeer<?>) peer).getInnerView();
+							if (innerView != null) {
+								viewsToSearch.add(innerView);
+							}
+						}
+					}
+				}
+			}
+		}
+		return logicsFound;
+	}
+
+	/**
+	 * Processes mouse events according to the discussion in
+	 * {@link BNAUtils2#getThingsAtLocation(IBNAView, ICoordinate)}.
+	 */
+	protected void mouseEventSWT2(MouseType type, MouseEvent e) {
+		try (Finally lock = BNAUtils.lock()) {
+			if (DEBUG) {
+				if (type != MouseType.MOVE) {
+					System.err.println(type + " " + e);
+				}
+			}
+			try {
+				switch (type) {
+				case DOWN: {
+					ICoordinate location = DefaultCoordinate.forLocal(new Point(e.x, e.y), view.getCoordinateMapper());
+					ThingsAtLocation thingsAtLocation = BNAUtils2.getThingsAtLocation(view, location);
+					for (RelevantLogic<IBNAMouseClickListener2> mouseLogic : getAllLogics(
+							capturedView2 = thingsAtLocation.getView(), new Point(e.x, e.y),
+							IBNAMouseClickListener2.class)) {
+						try {
+							long time = System.nanoTime();
+							mouseLogic.logic.mouseDown(mouseLogic.view, type, e, mouseLogic.location, thingsAtLocation);
+							if (PROFILE) {
+								time = System.nanoTime() - time;
+								profileStats.get(mouseLogic.logic).addAndGet(time);
+							}
+						}
+						catch (Throwable t) {
+							t.printStackTrace();
+						}
+					}
+				}
+					break;
+				case CLICK: {
+					try {
+						ICoordinate location =
+								DefaultCoordinate.forLocal(new Point(e.x, e.y), view.getCoordinateMapper());
+						ThingsAtLocation thingsAtLocation = BNAUtils2.getThingsAtLocation(view, location);
+						for (RelevantLogic<IBNAMouseClickListener2> mouseLogic : getAllLogics(
+								capturedView2 = thingsAtLocation.getView(), new Point(e.x, e.y),
+								IBNAMouseClickListener2.class)) {
+							try {
+								long time = System.nanoTime();
+								mouseLogic.logic.mouseClick(mouseLogic.view, type, e, mouseLogic.location,
+										thingsAtLocation);
+								if (PROFILE) {
+									time = System.nanoTime() - time;
+									profileStats.get(mouseLogic.logic).addAndGet(time);
+								}
+							}
+							catch (Throwable t) {
+								t.printStackTrace();
+							}
+						}
+					}
+					finally {
+						capturedView2 = null;
+					}
+				}
+					break;
+				case VERTICAL_WHEEL: {
+					ICoordinate location = DefaultCoordinate.forLocal(new Point(e.x, e.y), view.getCoordinateMapper());
+					ThingsAtLocation thingsAtLocation = BNAUtils2.getThingsAtLocation(view, location);
+					for (RelevantLogic<IBNAMouseWheelListener2> mouseLogic : getAllLogics(thingsAtLocation.getView(),
+							new Point(e.x, e.y), IBNAMouseWheelListener2.class)) {
+						try {
+							long time = System.nanoTime();
+							mouseLogic.logic.mouseVerticalWheel(mouseLogic.view, type, e, mouseLogic.location,
+									thingsAtLocation);
+							if (PROFILE) {
+								time = System.nanoTime() - time;
+								profileStats.get(mouseLogic.logic).addAndGet(time);
+							}
+						}
+						catch (Throwable t) {
+							t.printStackTrace();
+						}
+					}
+				}
+					break;
+				case HORIZONTAL_WHEEL: {
+					ICoordinate location = DefaultCoordinate.forLocal(new Point(e.x, e.y), view.getCoordinateMapper());
+					ThingsAtLocation thingsAtLocation = BNAUtils2.getThingsAtLocation(view, location);
+					for (RelevantLogic<IBNAMouseWheelListener2> mouseLogic : getAllLogics(thingsAtLocation.getView(),
+							new Point(e.x, e.y), IBNAMouseWheelListener2.class)) {
+						try {
+							long time = System.nanoTime();
+							mouseLogic.logic.mouseHorizontalWheel(mouseLogic.view, type, e, mouseLogic.location,
+									thingsAtLocation);
+							if (PROFILE) {
+								time = System.nanoTime() - time;
+								profileStats.get(mouseLogic.logic).addAndGet(time);
+							}
+						}
+						catch (Throwable t) {
+							t.printStackTrace();
+						}
+					}
+				}
+					break;
+				case UP:
+				case MOVE:
+					mouseEventSWT2Captured(type, e);
+					break;
+				case ENTER:
+				case EXIT:
+					// Do nothing.
+					break;
+				}
+			}
+			catch (Exception ex) {
+				handleException(ex);
+			}
+		}
+
+	}
+
+	protected void mouseEventSWT2Captured(MouseType type, MouseEvent e) {
+		try (Finally lock = BNAUtils.lock()) {
+			IBNAView view = capturedView2 != null ? capturedView2 : this.view;
+			ICoordinate location = DefaultCoordinate.forLocal(new Point(e.x, e.y), view.getCoordinateMapper());
+			ThingsAtLocation thingsAtLocation = BNAUtils2.getThingsAtLocation(view, location);
+			try {
+				switch (type) {
+				case UP: {
+					try {
+						for (RelevantLogic<IBNAMouseClickListener2> mouseLogic : getAllLogics(view, new Point(e.x, e.y),
+								IBNAMouseClickListener2.class)) {
+							try {
+								long time = System.nanoTime();
+								mouseLogic.logic.mouseUp(mouseLogic.view, type, e, mouseLogic.location,
+										thingsAtLocation);
+								if (PROFILE) {
+									time = System.nanoTime() - time;
+									profileStats.get(mouseLogic.logic).addAndGet(time);
+								}
+							}
+							catch (Throwable t) {
+								t.printStackTrace();
+							}
+						}
+					}
+					finally {
+						if (e.button == 0) {
+							capturedView2 = null;
+						}
+					}
+				}
+					break;
+				case MOVE: {
+					for (RelevantLogic<IBNAMouseMoveListener2> mouseLogic : getAllLogics(view, new Point(e.x, e.y),
+							IBNAMouseMoveListener2.class)) {
+						try {
+							long time = System.nanoTime();
+							mouseLogic.logic.mouseMove(mouseLogic.view, type, e, mouseLogic.location, thingsAtLocation);
+							if (PROFILE) {
+								time = System.nanoTime() - time;
+								profileStats.get(mouseLogic.logic).addAndGet(time);
+							}
+						}
+						catch (Throwable t) {
+							t.printStackTrace();
+						}
+					}
+				}
+					break;
+				case DOWN: // Fall through.
+				case CLICK: // Fall through.
+				case VERTICAL_WHEEL: // Fall through.
+				case HORIZONTAL_WHEEL: // Fall through.
+					throw new IllegalArgumentException();
+				case ENTER:
+				case EXIT:
+					// Unimplemented.
+					break;
+				default:
+					break;
+				}
+			}
+			catch (Exception ex) {
+				handleException(ex);
+			}
+		}
+	}
+
 	private IBNAView getInnerView(IBNAView view, ICoordinate location) {
 		while (true) {
 			IThing thing = SystemUtils.firstOrNull(view.getThingsAt(location));
@@ -310,7 +587,9 @@ public abstract class AbstractBNAUI implements IBNAUI {
 					IThingPeer<?> peer = view.getThingPeer(thing);
 					if (peer instanceof IHasInnerViewPeer<?>) {
 						view = ((IHasInnerViewPeer<?>) peer).getInnerView();
-						location = DefaultCoordinate.forLocal(location.getLocalPoint(), view.getCoordinateMapper());
+						if (view != null) {
+							location = DefaultCoordinate.forLocal(location.getLocalPoint(), view.getCoordinateMapper());
+						}
 						continue;
 					}
 				}
@@ -429,6 +708,11 @@ public abstract class AbstractBNAUI implements IBNAUI {
 	}
 
 	protected void keyEventSWT(KeyType type, KeyEvent e) {
+		keyEventSWT2(type, e);
+		keyEventSWT1(type, e);
+	}
+
+	protected void keyEventSWT1(KeyType type, KeyEvent e) {
 		try (Finally lock = BNAUtils.lock()) {
 			if (DEBUG) {
 				System.err.println(type + " " + e);
@@ -481,6 +765,54 @@ public abstract class AbstractBNAUI implements IBNAUI {
 		}
 	}
 
+	/**
+	 * Sends key events to the top level view as well as logics implementing {@link IBNAAllEventsListener2}.
+	 */
+	protected void keyEventSWT2(KeyType type, KeyEvent e) {
+		try (Finally lock = BNAUtils.lock()) {
+			if (DEBUG) {
+				System.err.println(type + " " + e);
+			}
+			IBNAView view = capturedView2 != null ? capturedView2 : this.view;
+			switch (type) {
+			case PRESSED: {
+				for (RelevantLogic<IBNAKeyListener2> mouseLogic : getAllLogics(view, new Point(0, 0),
+						IBNAKeyListener2.class)) {
+					try {
+						long time = System.nanoTime();
+						mouseLogic.logic.keyPressed(mouseLogic.view, type, e);
+						if (PROFILE) {
+							time = System.nanoTime() - time;
+							profileStats.get(mouseLogic.logic).addAndGet(time);
+						}
+					}
+					catch (Throwable t) {
+						t.printStackTrace();
+					}
+				}
+			}
+				break;
+			case RELEASED: {
+				for (RelevantLogic<IBNAKeyListener2> mouseLogic : getAllLogics(view, new Point(0, 0),
+						IBNAKeyListener2.class)) {
+					try {
+						long time = System.nanoTime();
+						mouseLogic.logic.keyReleased(mouseLogic.view, type, e);
+						if (PROFILE) {
+							time = System.nanoTime() - time;
+							profileStats.get(mouseLogic.logic).addAndGet(time);
+						}
+					}
+					catch (Throwable t) {
+						t.printStackTrace();
+					}
+				}
+			}
+				break;
+			}
+		}
+	}
+
 	protected void focusEventSWT(FocusType type, FocusEvent e) {
 		try (Finally lock = BNAUtils.lock()) {
 			if (DEBUG) {
@@ -527,13 +859,42 @@ public abstract class AbstractBNAUI implements IBNAUI {
 	}
 
 	protected void menuEventSWT(MenuDetectEvent e) {
+		MenuManager menuMgr = null;
+		try {
+			menuMgr = new MenuManager("BNA Popup Menu");
+			addMenuSeparators(menuMgr);
+			Menu menu = menuMgr.createContextMenu(eventControl);
+
+			menuEventSWT2(e, menuMgr, menu);
+			menuEventSWT1(e, menuMgr, menu);
+
+			Point menuLocation = new Point(e.x, e.y);
+			if (e.detail == SWT.MENU_KEYBOARD) {
+				menuLocation = eventControl.toDisplay(new Point(5, 5));
+			}
+			menu.setLocation(menuLocation.x, menuLocation.y);
+			menu.setVisible(true);
+			Display display = eventControl.getDisplay();
+			while (!menu.isDisposed() && menu.isVisible()) {
+				if (!display.readAndDispatch()) {
+					display.sleep();
+				}
+			}
+		}
+		finally {
+			if (menuMgr != null) {
+				menuMgr.dispose();
+			}
+		}
+	}
+
+	protected void menuEventSWT1(MenuDetectEvent e, MenuManager menuMgr, Menu menu) {
 		try (Finally lock = BNAUtils.lock()) {
 			if (DEBUG) {
 				System.err.println(e);
 			}
 			ICoordinate location;
 			List<IThing> things;
-			Point menuLocation = new Point(e.x, e.y);
 			if (e.detail == SWT.MENU_MOUSE) {
 				Point p = eventControl.toControl(e.x, e.y);
 				location = DefaultCoordinate.forLocal(new Point(p.x, p.y), view.getCoordinateMapper());
@@ -541,7 +902,6 @@ public abstract class AbstractBNAUI implements IBNAUI {
 				things = view.getThingsAt(location);
 			}
 			else if (e.detail == SWT.MENU_KEYBOARD) {
-				menuLocation = eventControl.toDisplay(new Point(5, 5));
 				location = DefaultCoordinate.forLocal(new Point(0, 0), view.getCoordinateMapper());
 				things = Lists.newArrayList();
 			}
@@ -549,43 +909,54 @@ public abstract class AbstractBNAUI implements IBNAUI {
 				throw new IllegalArgumentException("Unrecognized menu detail: " + e.detail);
 			}
 
-			MenuManager menuMgr = null;
-			try {
-				menuMgr = new MenuManager("BNA Popup Menu");
-				menuMgr.add(new Separator(IBNAMenuListener.NEW_ELEMENTS_GROUP));
-				menuMgr.add(new Separator(IBNAMenuListener.PRIMARY_PROPERTIES_GROUP));
-				menuMgr.add(new Separator(IBNAMenuListener.SECONDARY_PROPERTIES_GROUP));
-				menuMgr.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
-				menuMgr.add(new Separator(IBNAMenuListener.FINAL_ENTRIES_GROUP));
-				Menu menu = menuMgr.createContextMenu(eventControl);
-				IHasWorld world = SystemUtils.firstOrNull(things, IHasWorld.class);
-				if (world != null && world.getWorld() != null) {
-					logics.addThingLogic(WorldThingExternalEventsLogic.class).proxy(IBNAMenuListener.class)
-							.fillMenu(view, things, location, menuMgr);
-				}
-				for (IBNAMenuListener logic : logics.getThingLogics(IBNAMenuListener.class)) {
-					try {
-						logic.fillMenu(view, things, location, menuMgr);
-					}
-					catch (Throwable t) {
-						t.printStackTrace();
-					}
-				}
-
-				menu.setLocation(menuLocation.x, menuLocation.y);
-				menu.setVisible(true);
-
-				Display display = eventControl.getDisplay();
-				while (!menu.isDisposed() && menu.isVisible()) {
-					if (!display.readAndDispatch()) {
-						display.sleep();
-					}
-				}
-
+			IHasWorld world = SystemUtils.firstOrNull(things, IHasWorld.class);
+			if (world != null && world.getWorld() != null) {
+				logics.addThingLogic(WorldThingExternalEventsLogic.class).proxy(IBNAMenuListener.class).fillMenu(view,
+						things, location, menuMgr);
 			}
-			finally {
-				if (menuMgr != null) {
-					menuMgr.dispose();
+			for (IBNAMenuListener logic : logics.getThingLogics(IBNAMenuListener.class)) {
+				try {
+					logic.fillMenu(view, things, location, menuMgr);
+				}
+				catch (Throwable t) {
+					t.printStackTrace();
+				}
+			}
+		}
+	}
+
+	protected void menuEventSWT2(MenuDetectEvent e, MenuManager menuMgr, Menu menu) {
+		try (Finally lock = BNAUtils.lock()) {
+			if (DEBUG) {
+				System.err.println(e);
+			}
+			Point p = eventControl.toControl(e.x, e.y);
+			ICoordinate location = DefaultCoordinate.forLocal(new Point(p.x, p.y), view.getCoordinateMapper());
+			ThingsAtLocation thingsAtLocation = BNAUtils2.getThingsAtLocation(view, location);
+			IBNAView view = thingsAtLocation.getView();
+			if (e.detail == SWT.MENU_MOUSE) {
+				location = DefaultCoordinate.forLocal(new Point(p.x, p.y), view.getCoordinateMapper());
+				EnvironmentPropertiesThing.createIn(world).setNewThingSpot(location.getWorldPoint());
+			}
+			else if (e.detail == SWT.MENU_KEYBOARD) {
+				location = DefaultCoordinate.forLocal(new Point(0, 0), view.getCoordinateMapper());
+			}
+			else {
+				throw new IllegalArgumentException("Unrecognized menu detail: " + e.detail);
+			}
+
+			for (RelevantLogic<IBNAMenuListener2> mouseLogic : getAllLogics(view, new Point(0, 0),
+					IBNAMenuListener2.class)) {
+				try {
+					long time = System.nanoTime();
+					mouseLogic.logic.fillMenu(mouseLogic.view, mouseLogic.location, thingsAtLocation, menuMgr);
+					if (PROFILE) {
+						time = System.nanoTime() - time;
+						profileStats.get(mouseLogic.logic).addAndGet(time);
+					}
+				}
+				catch (Throwable t) {
+					t.printStackTrace();
 				}
 			}
 		}
