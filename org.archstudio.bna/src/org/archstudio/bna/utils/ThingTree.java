@@ -138,7 +138,7 @@ class ThingTree {
 		Node childNode = getNode(t);
 		Node afterNode = getNode(afterThing);
 		if (childNode.parent != afterNode.parent) {
-			throw new IllegalArgumentException("Things do not share a parent!");
+			reparent(afterNode.parent.t, t);
 		}
 		int afterIndex = afterNode.parent.children.indexOf(afterNode);
 		move(childNode, afterIndex + 1);
@@ -148,7 +148,7 @@ class ThingTree {
 		Node childNode = getNode(t);
 		Node beforeNode = getNode(beforeThing);
 		if (childNode.parent != beforeNode.parent) {
-			throw new IllegalArgumentException("Things do not share a parent!");
+			reparent(beforeNode.parent.t, t);
 		}
 		int beforeIndex = beforeNode.parent.children.indexOf(beforeNode);
 		move(childNode, beforeIndex);
