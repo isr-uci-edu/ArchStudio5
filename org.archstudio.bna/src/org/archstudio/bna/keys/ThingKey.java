@@ -1,7 +1,5 @@
 package org.archstudio.bna.keys;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.Polygon;
@@ -37,7 +35,7 @@ import com.google.common.collect.Sets;
 
 /**
  * Captures a key that stores a value in an {@link IThing}.
- * 
+ *
  * @param <V>
  *            The type of value stored by the key, e.g., a Rectangle, RGB, an Integer, etc.
  */
@@ -46,12 +44,12 @@ public class ThingKey<V> extends AbstractThingKey<V> {
 
 	@SuppressWarnings("unchecked")
 	public static final <V> IThingKey<V> create(Object id) {
-		return create(id, (Function<V, V>) any(), false);
+		return create(id, (Function<V, V>) CLONE_FUNCTION, false);
 	}
 
 	@SuppressWarnings("unchecked")
 	public static final <V> IThingKey<V> create(Object id, boolean nullable) {
-		return identity(new ThingKey<V>(id, (Function<V, V>) any(), nullable));
+		return identity(new ThingKey<V>(id, (Function<V, V>) CLONE_FUNCTION, nullable));
 	}
 
 	public static final <V> IThingKey<V> create(Object id, Function<V, V> cloneFunction) {
@@ -62,7 +60,7 @@ public class ThingKey<V> extends AbstractThingKey<V> {
 		return identity(new ThingKey<V>(id, cloneFunction, nullable));
 	}
 
-	private static Function<?, ?> CLONE_FUNCTION = new Function<Object, Object>() {
+	private static Function<Object, Object> CLONE_FUNCTION = new Function<Object, Object>() {
 		@SuppressWarnings("unchecked")
 		@Override
 		public Object apply(Object input) {
@@ -91,9 +89,24 @@ public class ThingKey<V> extends AbstractThingKey<V> {
 	};
 
 	/* package */static FastMap<Class<?>, Function<?, ?>> CLONE_FUNCTIONS = new FastMap<>(true);
+
 	static {
-		CLONE_FUNCTIONS.put(List.class, list(any()));
-		CLONE_FUNCTIONS.put(Set.class, set(any()));
+		CLONE_FUNCTIONS.put(List.class, new Function<List<Object>, List<Object>>() {
+			@Override
+			public List<Object> apply(List<Object> input) {
+				List<Object> list = Lists.newArrayListWithExpectedSize(input.size());
+				list.addAll(Collections2.transform(input, CLONE_FUNCTION));
+				return list;
+			}
+		});
+		CLONE_FUNCTIONS.put(Set.class, new Function<Set<Object>, Set<Object>>() {
+			@Override
+			public Set<Object> apply(Set<Object> input) {
+				Set<Object> set = Sets.newHashSetWithExpectedSize(input.size());
+				set.addAll(Collections2.transform(input, CLONE_FUNCTION));
+				return set;
+			}
+		});
 		CLONE_FUNCTIONS.put(CloneableObject.class, new Function<CloneableObject, CloneableObject>() {
 			@Override
 			public CloneableObject apply(CloneableObject input) {
@@ -163,8 +176,8 @@ public class ThingKey<V> extends AbstractThingKey<V> {
 		CLONE_FUNCTIONS.put(Polygon.class, new Function<Polygon, Polygon>() {
 			@Override
 			public Polygon apply(Polygon input) {
-				return new Polygon(Arrays.copyOf(input.xpoints, input.npoints), Arrays.copyOf(input.ypoints,
-						input.npoints), input.npoints);
+				return new Polygon(Arrays.copyOf(input.xpoints, input.npoints),
+						Arrays.copyOf(input.ypoints, input.npoints), input.npoints);
 			}
 		});
 		CLONE_FUNCTIONS.put(QuadCurve2D.class, new Function<QuadCurve2D, QuadCurve2D>() {
@@ -200,38 +213,8 @@ public class ThingKey<V> extends AbstractThingKey<V> {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static final <V> Function<V, V> any() {
-		return (Function<V, V>) CLONE_FUNCTION;
-	}
-
-	@SuppressWarnings("unchecked")
-	public static final <V> Function<List<V>, List<V>> list(Function<V, V> cloneFunction) {
-		// any() will be null if CLONE_FUNCTION is not yet initialized
-		final Function<V, V> finalCloneFunction = cloneFunction != null ? cloneFunction
-				: (Function<V, V>) checkNotNull(any());
-		return new Function<List<V>, List<V>>() {
-			@Override
-			public List<V> apply(List<V> input) {
-				List<V> list = Lists.newArrayListWithExpectedSize(input.size());
-				list.addAll(Collections2.transform(input, finalCloneFunction));
-				return list;
-			}
-		};
-	}
-
-	@SuppressWarnings("unchecked")
-	public static final <V> Function<Set<V>, Set<V>> set(Function<V, V> cloneFunction) {
-		// any() will be null if CLONE_FUNCTION is not yet initialized
-		final Function<V, V> finalCloneFunction = cloneFunction != null ? cloneFunction
-				: (Function<V, V>) checkNotNull(any());
-		return new Function<Set<V>, Set<V>>() {
-			@Override
-			public Set<V> apply(Set<V> input) {
-				Set<V> set = Sets.newHashSetWithExpectedSize(input.size());
-				set.addAll(Collections2.transform(input, finalCloneFunction));
-				return set;
-			}
-		};
+	public static <T> T cloneValue(T value) {
+		return ((Function<T, T>) CLONE_FUNCTION).apply(value);
 	}
 
 	protected ThingKey(Object id, @Nullable Function<V, V> cloneFunction, boolean nullable) {

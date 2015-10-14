@@ -97,7 +97,7 @@ public class NumericSurfaceGraphThing extends NumericSurfaceGraphThingBase {
 				clone.values = values.clone();
 				clone.colors = new RGB[colors.length];
 				for (int i = 0; i < colors.length; i++) {
-					clone.colors[i] = ThingKey.<RGB> any().apply(colors[i]);
+					clone.colors[i] = ThingKey.cloneValue(colors[i]);
 				}
 				return clone;
 			}

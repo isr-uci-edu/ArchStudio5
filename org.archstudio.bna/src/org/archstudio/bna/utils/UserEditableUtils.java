@@ -18,19 +18,18 @@ import com.google.common.collect.Sets;
 
 public class UserEditableUtils {
 
-	private static final IThingKey<Set<String>> USER_EDITABLE_QUALITIES_KEY = ThingKey.create("userEditableQualities",
-			ThingKey.<String> set(null));
+	private static final IThingKey<Set<String>> USER_EDITABLE_QUALITIES_KEY = ThingKey.create("userEditableQualities");
 
 	public static void addEditableQualities(final IThing thing, final String... qualities) {
-		Set<String> newEditableQualities = Sets.newHashSet(thing.get(USER_EDITABLE_QUALITIES_KEY,
-				Sets.<String> newHashSet()));
+		Set<String> newEditableQualities =
+				Sets.newHashSet(thing.get(USER_EDITABLE_QUALITIES_KEY, Sets.<String> newHashSet()));
 		newEditableQualities.addAll(Arrays.asList(qualities));
 		thing.set(USER_EDITABLE_QUALITIES_KEY, newEditableQualities);
 	}
 
 	public static void removeEditableQualities(final IThing thing, final String... qualities) {
-		Set<String> newEditableQualities = Sets.newHashSet(thing.get(USER_EDITABLE_QUALITIES_KEY,
-				Collections.<String> emptySet()));
+		Set<String> newEditableQualities =
+				Sets.newHashSet(thing.get(USER_EDITABLE_QUALITIES_KEY, Collections.<String> emptySet()));
 		newEditableQualities.removeAll(Arrays.asList(qualities));
 		thing.set(USER_EDITABLE_QUALITIES_KEY, newEditableQualities);
 	}
