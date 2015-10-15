@@ -14,9 +14,10 @@ import org.archstudio.bna.facets.IHasMutableSelected;
 import org.archstudio.bna.facets.IHasSelected;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.things.utility.EnvironmentPropertiesThing;
-import org.archstudio.bna.ui.IBNAMenuListener;
+import org.archstudio.bna.ui.IBNAMenuListener2;
 import org.archstudio.bna.utils.BNAAction;
 import org.archstudio.bna.utils.BNAUtils;
+import org.archstudio.bna.utils.BNAUtils2.ThingsAtLocation;
 import org.archstudio.bna.utils.GridUtils;
 import org.archstudio.bna.utils.UserEditableUtils;
 import org.archstudio.swtutils.SWTWidgetUtils;
@@ -41,7 +42,7 @@ import org.eclipse.ui.actions.ActionFactory;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
-public class XadlCopyPasteLogic extends AbstractThingLogic implements IBNAMenuListener, IBNAModelListener {
+public class XadlCopyPasteLogic extends AbstractThingLogic implements IBNAMenuListener2, IBNAModelListener {
 
 	protected final IXArchADT xarch;
 	protected final IActionBars actionBars;
@@ -244,7 +245,7 @@ public class XadlCopyPasteLogic extends AbstractThingLogic implements IBNAMenuLi
 	}
 
 	@Override
-	public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager menu) {
+	public void fillMenu(IBNAView view, ICoordinate location, ThingsAtLocation things, IMenuManager menu) {
 		BNAUtils.checkLock();
 
 		menu.add(new BNAAction("Cut") {
