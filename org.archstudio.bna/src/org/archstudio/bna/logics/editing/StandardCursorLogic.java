@@ -1,26 +1,23 @@
 package org.archstudio.bna.logics.editing;
 
-import static org.archstudio.sysutils.SystemUtils.firstOrNull;
-
-import java.util.List;
-
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.constants.MouseType;
 import org.archstudio.bna.facets.IHasStandardCursor;
-import org.archstudio.bna.facets.IHasWorld;
 import org.archstudio.bna.logics.AbstractThingLogic;
-import org.archstudio.bna.ui.IBNAMouseListener;
-import org.archstudio.bna.ui.IBNAMouseMoveListener;
+import org.archstudio.bna.ui.IBNAAllEventsListener2;
+import org.archstudio.bna.ui.IBNAMouseClickListener2;
+import org.archstudio.bna.ui.IBNAMouseMoveListener2;
 import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.BNAUtils;
+import org.archstudio.bna.utils.BNAUtils2.ThingsAtLocation;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseEvent;
-import org.eclipse.swt.widgets.Control;
 
-public class StandardCursorLogic extends AbstractThingLogic implements IBNAMouseListener, IBNAMouseMoveListener {
+public class StandardCursorLogic extends AbstractThingLogic
+		implements IBNAMouseClickListener2, IBNAMouseMoveListener2, IBNAAllEventsListener2 {
 
 	boolean isDown = false;
 	boolean downOnCursor = false;
@@ -30,52 +27,67 @@ public class StandardCursorLogic extends AbstractThingLogic implements IBNAMouse
 	}
 
 	@Override
-	public void mouseDown(IBNAView view, MouseType type, MouseEvent evt, List<IThing> things, ICoordinate location) {
+	public void mouseDown(IBNAView view, MouseType type, MouseEvent evt, ICoordinate location,
+			ThingsAtLocation thingsAtLocation) {
 		BNAUtils.checkLock();
+
+		// only handle events for the top world
+		if (view.getParentView() != null) {
+			return;
+		}
 
 		isDown = true;
 	}
 
 	@Override
-	public void mouseUp(IBNAView view, MouseType type, MouseEvent evt, List<IThing> things, ICoordinate location) {
+	public void mouseUp(IBNAView view, MouseType type, MouseEvent evt, ICoordinate location,
+			ThingsAtLocation thingsAtLocation) {
 		BNAUtils.checkLock();
 
+		// only handle events for the top world
+		if (view.getParentView() != null) {
+			return;
+		}
+
 		isDown = false;
-		updateCursor(view, evt, things, location);
+		updateCursor(view, evt, location, thingsAtLocation);
 	}
 
 	@Override
-	public void mouseMove(IBNAView view, MouseType type, MouseEvent evt, List<IThing> things, ICoordinate location) {
+	public void mouseClick(IBNAView view, MouseType type, MouseEvent evt, ICoordinate location,
+			ThingsAtLocation thingsAtLocation) {
+	}
+
+	@Override
+	public void mouseMove(IBNAView view, MouseType type, MouseEvent evt, ICoordinate location,
+			ThingsAtLocation thingsAtLocation) {
 		BNAUtils.checkLock();
 
+		// only handle events for the top world
+		if (view.getParentView() != null) {
+			return;
+		}
+
 		if (!isDown) {
-			updateCursor(view, evt, things, location);
+			updateCursor(view, evt, location, thingsAtLocation);
 		}
 	}
 
-	protected void updateCursor(IBNAView view, MouseEvent evt, List<IThing> things, ICoordinate location) {
-		IThing thing = firstOrNull(things);
-		if (thing instanceof IHasWorld && ((IHasWorld) thing).getWorld() != null) {
-			// let sub world logics deal with it
-			return;
-		}
+	protected void updateCursor(IBNAView view, MouseEvent evt, ICoordinate location,
+			ThingsAtLocation thingsAtLocation) {
 		int cursor = SWT.NONE;
-		Object src = evt.getSource();
-		if (src != null && src instanceof Control) {
-			Control control = (Control) src;
-			if (control != null && !control.isDisposed()) {
-				IThing cursorThing = Assemblies.getThingWithProperty(model, firstOrNull(things),
-						IHasStandardCursor.STANDARD_CURSOR_KEY);
-				if (cursorThing != null) {
-					cursor = cursorThing.get(IHasStandardCursor.STANDARD_CURSOR_KEY);
-				}
-				if (cursor == SWT.NONE) {
-					control.setCursor(null);
-				}
-				else {
-					control.setCursor(evt.display.getSystemCursor(cursor));
-				}
+		if (thingsAtLocation.getThing() != null) {
+			IThing cursorThing = Assemblies.getThingWithProperty(thingsAtLocation.getThingAtLocation().getModel(),
+					thingsAtLocation.getThingAtLocation().getThing(), IHasStandardCursor.STANDARD_CURSOR_KEY);
+			if (cursorThing != null) {
+				cursor = cursorThing.get(IHasStandardCursor.STANDARD_CURSOR_KEY);
 			}
+		}
+		if (cursor == SWT.NONE) {
+			view.getBNAUI().getComposite().setCursor(null);
+		}
+		else {
+			view.getBNAUI().getComposite().setCursor(evt.display.getSystemCursor(cursor));
 		}
 	}
 }
