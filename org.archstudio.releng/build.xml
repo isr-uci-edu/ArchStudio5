@@ -119,18 +119,6 @@
 			</syspropertyset>
 		</buckminster>
 
-		<buckminster location="${buckminster.home}" workspace="${workspace}" failonerror="false">
-			<arg value="build" />
-			<arg value="--clean" />
-			<arg value="--continueonerror" />
-			<arg value="--thorough" />
-			<arg value="-P" />
-			<arg value="${ant.dir}/defaults/buckminster.properties" />
-			<syspropertyset>
-				<propertyset refid="buckminster.properties" />
-			</syspropertyset>
-		</buckminster>
-
 		<loadresource property="relative.workspace">
 			<string>${workspace}</string>
 			<filterchain>
@@ -143,33 +131,49 @@
 				<replaceregex pattern="^/" replace="" />
 			</filterchain>
 		</loadresource>
-		<subant target="build-xtend" genericantfile="${ant.file}">
-			<dirset dir="/">
-				<include name="${relative.workspace}/**/*" />
-				<include name="${relative.git.clone.dir}/**/*" />
-				<present targetdir="/" present="both">
-					<mapper type="regexp" from="(.*)" to="\1/.project" />
-				</present>
-				<present targetdir="/" present="both">
-					<mapper type="regexp" from="(.*)" to="\1/xtend-gen" />
-				</present>
-			</dirset>
-			<propertyset>
-				<propertyset refid="buckminster.properties" />
-				<propertyref regex=".*" />
-			</propertyset>
-		</subant>
-
-		<buckminster location="${buckminster.home}" workspace="${workspace}">
-			<arg value="build" />
-			<arg value="--clean" />
-			<arg value="--thorough" />
-			<arg value="-P" />
-			<arg value="${ant.dir}/defaults/buckminster.properties" />
-			<syspropertyset>
-				<propertyset refid="buckminster.properties" />
-			</syspropertyset>
-		</buckminster>
+		<retry retrycount="3">
+			<sequential>
+				<buckminster location="${buckminster.home}" workspace="${workspace}" failonerror="false">
+					<arg value="build" />
+					<arg value="--clean" />
+					<arg value="--continueonerror" />
+					<arg value="--thorough" />
+					<arg value="-P" />
+					<arg value="${ant.dir}/defaults/buckminster.properties" />
+					<syspropertyset>
+						<propertyset refid="buckminster.properties" />
+					</syspropertyset>
+				</buckminster>
+	
+				<subant target="build-xtend" genericantfile="${ant.file}" failonerror="false">
+					<dirset dir="/">
+						<include name="${relative.workspace}/**/*" />
+						<include name="${relative.git.clone.dir}/**/*" />
+						<present targetdir="/" present="both">
+							<mapper type="regexp" from="(.*)" to="\1/.project" />
+						</present>
+						<present targetdir="/" present="both">
+							<mapper type="regexp" from="(.*)" to="\1/xtend-gen" />
+						</present>
+					</dirset>
+					<propertyset>
+						<propertyset refid="buckminster.properties" />
+						<propertyref regex=".*" />
+					</propertyset>
+				</subant>
+	
+				<buckminster location="${buckminster.home}" workspace="${workspace}">
+					<arg value="build" />
+					<arg value="--clean" />
+					<arg value="--thorough" />
+					<arg value="-P" />
+					<arg value="${ant.dir}/defaults/buckminster.properties" />
+					<syspropertyset>
+						<propertyset refid="buckminster.properties" />
+					</syspropertyset>
+				</buckminster>
+			</sequential>
+		</retry>
 
 		<buckminster location="${buckminster.home}" workspace="${workspace}">
 			<arg value="perform" />
