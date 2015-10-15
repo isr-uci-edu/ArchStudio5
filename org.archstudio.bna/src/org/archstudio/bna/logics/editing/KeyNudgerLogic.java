@@ -7,7 +7,8 @@ import org.archstudio.bna.constants.KeyType;
 import org.archstudio.bna.facets.IHasMutableReferencePoint;
 import org.archstudio.bna.facets.IHasReferencePoint;
 import org.archstudio.bna.logics.AbstractThingLogic;
-import org.archstudio.bna.ui.IBNAKeyListener;
+import org.archstudio.bna.ui.IBNAAllEventsListener2;
+import org.archstudio.bna.ui.IBNAKeyListener2;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.GridUtils;
 import org.archstudio.bna.utils.UserEditableUtils;
@@ -17,7 +18,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.graphics.Point;
 
-public class KeyNudgerLogic extends AbstractThingLogic implements IBNAKeyListener {
+public class KeyNudgerLogic extends AbstractThingLogic implements IBNAKeyListener2, IBNAAllEventsListener2 {
 
 	public KeyNudgerLogic(IBNAWorld world) {
 		super(world);
@@ -40,14 +41,11 @@ public class KeyNudgerLogic extends AbstractThingLogic implements IBNAKeyListene
 					if (t instanceof IHasReferencePoint) {
 						nudged = true;
 						nudge(o, distance, (IHasReferencePoint) t);
-						//if(gridSpacing != 0){
-						//	GridUtils.rectifyToGrid(gridSpacing, (IRelativeMovable)t);
-						//}
 					}
 				}
 				if (nudged) {
-					Runnable redoRunnable = BNAOperations.takeSnapshotOfLocations(model,
-							BNAUtils.getSelectedThings(model));
+					Runnable redoRunnable =
+							BNAOperations.takeSnapshotOfLocations(model, BNAUtils.getSelectedThings(model));
 					BNAOperations.runnable("Nudge", undoRunnable, redoRunnable, false);
 				}
 			}

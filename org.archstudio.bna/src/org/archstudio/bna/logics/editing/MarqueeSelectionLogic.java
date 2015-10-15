@@ -1,27 +1,25 @@
 package org.archstudio.bna.logics.editing;
 
-import java.util.List;
-
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.ICoordinate;
-import org.archstudio.bna.IThing;
 import org.archstudio.bna.constants.MouseType;
 import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.facets.IHasMutableSelected;
 import org.archstudio.bna.logics.background.RotatingOffsetLogic;
 import org.archstudio.bna.logics.tracking.ThingTypeTrackingLogic;
 import org.archstudio.bna.things.borders.MarqueeBoxBorderThing;
-import org.archstudio.bna.ui.IBNAMouseListener;
-import org.archstudio.bna.ui.IBNAMouseMoveListener;
+import org.archstudio.bna.ui.IBNAMouseClickListener2;
+import org.archstudio.bna.ui.IBNAMouseMoveListener2;
 import org.archstudio.bna.utils.BNAUtils;
+import org.archstudio.bna.utils.BNAUtils2.ThingsAtLocation;
 import org.archstudio.bna.utils.UserEditableUtils;
 import org.archstudio.sysutils.Finally;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 
-public class MarqueeSelectionLogic extends SelectionLogic implements IBNAMouseListener, IBNAMouseMoveListener {
+public class MarqueeSelectionLogic extends SelectionLogic implements IBNAMouseClickListener2, IBNAMouseMoveListener2 {
 
 	protected final ThingTypeTrackingLogic typeLogic;
 
@@ -45,7 +43,8 @@ public class MarqueeSelectionLogic extends SelectionLogic implements IBNAMouseLi
 	}
 
 	@Override
-	public void mouseDown(IBNAView view, MouseType type, MouseEvent evt, List<IThing> t, ICoordinate location) {
+	public void mouseDown(IBNAView view, MouseType type, MouseEvent evt, ICoordinate location,
+			ThingsAtLocation thingsAtLocation) {
 		BNAUtils.checkLock();
 
 		if (marqueeSelection != null) {
@@ -53,9 +52,10 @@ public class MarqueeSelectionLogic extends SelectionLogic implements IBNAMouseLi
 			marqueeSelection = null;
 		}
 		if (evt.button == 1) {
-			if (t.isEmpty()) {
+			if (thingsAtLocation.getThingAtLocation() == null) {
 				setWorldWithSelectionFocus(world);
-				initDownWorldPoint = location.getWorldPoint();
+				initDownWorldPoint =
+						view.getCoordinateMapper().localToWorld(thingsAtLocation.getOriginalLocation().getLocalPoint());
 				marqueeSelection = model.addThing(new MarqueeBoxBorderThing(null));
 				marqueeSelection.setBoundingBox(new Rectangle(initDownWorldPoint.x, initDownWorldPoint.y, 1, 1));
 			}
@@ -63,11 +63,12 @@ public class MarqueeSelectionLogic extends SelectionLogic implements IBNAMouseLi
 	}
 
 	@Override
-	public void mouseMove(IBNAView view, MouseType type, MouseEvent evt, List<IThing> things, ICoordinate location) {
+	public void mouseMove(IBNAView view, MouseType type, MouseEvent evt, ICoordinate location,
+			ThingsAtLocation thingsAtLocation) {
 		BNAUtils.checkLock();
 
 		if (marqueeSelection != null) {
-			Point worldPoint = location.getWorldPoint();
+			Point worldPoint = view.getCoordinateMapper().localToWorld(new Point(evt.x, evt.y));
 			int x1 = Math.min(initDownWorldPoint.x, worldPoint.x);
 			int x2 = Math.max(initDownWorldPoint.x, worldPoint.x);
 			int y1 = Math.min(initDownWorldPoint.y, worldPoint.y);
@@ -77,7 +78,8 @@ public class MarqueeSelectionLogic extends SelectionLogic implements IBNAMouseLi
 	}
 
 	@Override
-	public void mouseUp(IBNAView view, MouseType type, MouseEvent evt, List<IThing> t, ICoordinate location) {
+	public void mouseUp(IBNAView view, MouseType type, MouseEvent evt, ICoordinate location,
+			ThingsAtLocation thingsAtLocation) {
 		BNAUtils.checkLock();
 
 		try {
@@ -114,5 +116,10 @@ public class MarqueeSelectionLogic extends SelectionLogic implements IBNAMouseLi
 				marqueeSelection = null;
 			}
 		}
+	}
+
+	@Override
+	public void mouseClick(IBNAView view, MouseType type, MouseEvent evt, ICoordinate location,
+			ThingsAtLocation thingsAtLocation) {
 	}
 }
