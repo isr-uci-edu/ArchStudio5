@@ -18,6 +18,7 @@ import org.archstudio.bna.facets.IHasWorld;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.logics.tracking.ThingTypeTrackingLogic;
 import org.archstudio.bna.things.utility.WorldThingPeer;
+import org.archstudio.bna.ui.IBNAAllEventsListener2;
 import org.archstudio.bna.ui.IBNADragAndDropListener;
 import org.archstudio.bna.ui.IBNAFocusListener;
 import org.archstudio.bna.ui.IBNAMagnifyGestureListener;
@@ -39,6 +40,10 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 
+/**
+ * @Deprecated This is replaced by the use of {@link IBNAAllEventsListener2}.
+ */
+@SuppressWarnings("deprecation")
 public class WorldThingExternalEventsLogic extends AbstractThingLogic {
 
 	public boolean PROFILE = false;
