@@ -1,17 +1,16 @@
 package org.archstudio.bna.logics.information;
 
-import java.util.List;
-
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.ICoordinate;
-import org.archstudio.bna.IThing;
 import org.archstudio.bna.constants.KeyType;
 import org.archstudio.bna.logics.AbstractThingLogic;
-import org.archstudio.bna.ui.IBNAKeyListener;
-import org.archstudio.bna.ui.IBNAMenuListener;
+import org.archstudio.bna.ui.IBNAAllEventsListener2;
+import org.archstudio.bna.ui.IBNAKeyListener2;
+import org.archstudio.bna.ui.IBNAMenuListener2;
 import org.archstudio.bna.utils.BNAAction;
 import org.archstudio.bna.utils.BNAUtils;
+import org.archstudio.bna.utils.BNAUtils2.ThingsAtLocation;
 import org.archstudio.swtutils.FindDialog;
 import org.archstudio.swtutils.IFinder;
 import org.eclipse.jface.action.IAction;
@@ -23,7 +22,8 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.IWorkbenchActionConstants;
 
-public class FindDialogLogic extends AbstractThingLogic implements IBNAKeyListener, IBNAMenuListener {
+public class FindDialogLogic extends AbstractThingLogic
+		implements IBNAKeyListener2, IBNAAllEventsListener2, IBNAMenuListener2 {
 
 	protected IFinder<IBNAView> finder = null;
 	protected FindDialog<IBNAView> fd = null;
@@ -51,9 +51,10 @@ public class FindDialogLogic extends AbstractThingLogic implements IBNAKeyListen
 	}
 
 	@Override
-	public void fillMenu(final IBNAView view, List<IThing> things, final ICoordinate location, IMenuManager menu) {
+	public void fillMenu(final IBNAView view, final ICoordinate location, ThingsAtLocation thingsAtLocation,
+			IMenuManager menu) {
 		BNAUtils.checkLock();
-
+		// Only respond if we are the top-level view.
 		if (view.getParentView() == null) {
 			IAction findAction = new BNAAction("Find...") {
 
