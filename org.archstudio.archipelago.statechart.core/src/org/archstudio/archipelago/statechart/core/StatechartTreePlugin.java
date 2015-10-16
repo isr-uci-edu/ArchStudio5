@@ -24,7 +24,6 @@ import org.archstudio.archipelago.statechart.core.logics.MapStateLogic;
 import org.archstudio.archipelago.statechart.core.logics.MapTransitionLogic;
 import org.archstudio.archipelago.statechart.core.logics.NewElementLogic;
 import org.archstudio.archipelago.statechart.core.logics.StatechartDropLogic;
-import org.archstudio.archipelago.statechart.core.logics.StatechartEditColorLogic;
 import org.archstudio.bna.BNACanvas;
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAView;
@@ -38,6 +37,7 @@ import org.archstudio.bna.logics.background.RotatingOffsetLogic;
 import org.archstudio.bna.logics.editing.AlignAndDistributeLogic;
 import org.archstudio.bna.logics.editing.ClickSelectionLogic;
 import org.archstudio.bna.logics.editing.DragMovableLogic;
+import org.archstudio.bna.logics.editing.EditColorLogic;
 import org.archstudio.bna.logics.editing.EditTextLogic;
 import org.archstudio.bna.logics.editing.ExportImageLogic;
 import org.archstudio.bna.logics.editing.KeyNudgerLogic;
@@ -161,8 +161,8 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 				}
 				if (parentElement instanceof FolderNode
 						&& ((FolderNode) parentElement).getType().equals(FOLDER_NODE_TYPE)) {
-					return ArchipelagoUtils.combine(childrenFromPreviousProvider, XadlUtils
-							.getAllSubstitutionGroupElementsByTag(xarch,
+					return ArchipelagoUtils.combine(childrenFromPreviousProvider,
+							XadlUtils.getAllSubstitutionGroupElementsByTag(xarch,
 									(ObjRef) ((FolderNode) parentElement).getParent(), "topLevelElement",
 									TOP_LEVEL_ELEMENT_NAME));
 				}
@@ -219,8 +219,8 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 											@Override
 											public void run() {
 												ObjRef newObjRef = XadlUtils.create(xarch, ELEMENT_TYPE);
-												xarch.set(newObjRef, "id", UIDGenerator.generateUID(ELEMENT_LABEL_NAME)
-														+ "-");
+												xarch.set(newObjRef, "id",
+														UIDGenerator.generateUID(ELEMENT_LABEL_NAME) + "-");
 												XadlUtils.setName(xarch, newObjRef, "[New " + ELEMENT_LABEL_NAME + "]");
 												XArchADTOperations.add("Add " + ELEMENT_LABEL_NAME, xarch,
 														(ObjRef) fn.getParent(), XADL_FEATURE_NAME, newObjRef);
@@ -335,8 +335,8 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 			@Override
 			public void dragStart(DragSourceEvent event) {
 				if (event.data != null && event.data instanceof ObjRef) {
-					if (XadlUtils.isInstanceOf(xarch, (ObjRef) event.data, DND_SOURCE)) {
-						//For dropping statecharts on states; only allow if we're editing a statechart.
+					if (XadlUtils.isInstanceOf(xarch, event.data, DND_SOURCE)) {
+						// For dropping statecharts on states; only allow if we're editing a statechart.
 						BNACanvas bnaCanvas = ArchipelagoUtils.getBNACanvas(editor);
 						IBNAView view = bnaCanvas.getBNAView();
 						if (bnaCanvas != null) {
@@ -386,8 +386,8 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 					}
 				}
 				if (structureRefList.size() > 0) {
-					IStructuredSelection ss = ArchipelagoUtils.addToSelection(viewer.getSelection(),
-							structureRefList.toArray());
+					IStructuredSelection ss =
+							ArchipelagoUtils.addToSelection(viewer.getSelection(), structureRefList.toArray());
 					viewer.setSelection(ss, true);
 				}
 			}
@@ -491,13 +491,13 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 						GridThing gridThing = (GridThing) fbnaWorld.getBNAModel().getThing(GridThing.class);
 						if (gridThing != null) {
 							gridThing.setGridSpacing(prefs.getInt(ArchipelagoConstants.PREF_GRID_SPACING));
-							gridThing.setGridDisplayType(GridDisplayType.valueOf(prefs
-									.getString(ArchipelagoConstants.PREF_GRID_DISPLAY_TYPE)));
+							gridThing.setGridDisplayType(GridDisplayType
+									.valueOf(prefs.getString(ArchipelagoConstants.PREF_GRID_DISPLAY_TYPE)));
 						}
-						AvailableUI availableUI = AvailableUI
-								.valueOf(prefs.getString(ArchipelagoConstants.PREF_BNA_UI));
-						IBNAUI bnaUI = (IBNAUI) availableUI.getBNAUIClass().getConstructors()[0].newInstance(bnaCanvas
-								.getBNAView());
+						AvailableUI availableUI =
+								AvailableUI.valueOf(prefs.getString(ArchipelagoConstants.PREF_BNA_UI));
+						IBNAUI bnaUI = (IBNAUI) availableUI.getBNAUIClass().getConstructors()[0]
+								.newInstance(bnaCanvas.getBNAView());
 						bnaCanvas.setBNAUI(bnaUI);
 					}
 					catch (InvocationTargetException | IllegalAccessException | InstantiationException e) {
@@ -526,12 +526,13 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 		}
 	}
 
-	public static IBNAWorld setupEditor(Services services, IXArchADT xarch, ObjRef documentRootRef, ObjRef structureRef) {
+	public static IBNAWorld setupEditor(Services services, IXArchADT xarch, ObjRef documentRootRef,
+			ObjRef structureRef) {
 		try (Finally lock = BNAUtils.lock()) {
 			// this cache is important for handling recursive worlds
 			if (services.has(IArchipelagoTreeNodeDataCache.class)) {
-				IBNAWorld bnaWorld = (IBNAWorld) services.get(IArchipelagoTreeNodeDataCache.class).getData(
-						documentRootRef, structureRef, "statecharts");
+				IBNAWorld bnaWorld = (IBNAWorld) services.get(IArchipelagoTreeNodeDataCache.class)
+						.getData(documentRootRef, structureRef, "statecharts");
 				if (bnaWorld != null) {
 					return bnaWorld;
 				}
@@ -562,13 +563,13 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 
 			logics.addThingLogic(new MapStateLogic(world, services, xarch, structureRef, "state[@type='state']", //
 					new Dimension(6 * 24, 4 * 24), 1, prefix + "Loading States"));
-			logics.addThingLogic(new MapInitialStateLogic(world, services, xarch, structureRef,
-					"state[@type='initial']", //
-					new Dimension(4 * 24 / 3, 4 * 24 / 3), prefix + "Loading States"));
+			logics.addThingLogic(
+					new MapInitialStateLogic(world, services, xarch, structureRef, "state[@type='initial']", //
+							new Dimension(4 * 24 / 3, 4 * 24 / 3), prefix + "Loading States"));
 			logics.addThingLogic(new MapFinalStateLogic(world, services, xarch, structureRef, "state[@type='final']", //
 					new Dimension(4 * 24 / 3, 4 * 24 / 3), prefix + "Loading States"));
-			logics.addThingLogic(new MapTransitionLogic(world, xarch, structureRef, "transition", prefix
-					+ "Loading Transitions"));
+			logics.addThingLogic(
+					new MapTransitionLogic(world, xarch, structureRef, "transition", prefix + "Loading Transitions"));
 
 			// generic logics -- alphabetized
 
@@ -580,8 +581,8 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 			logics.addThingLogic(MarqueeSelectionLogic.class);
 			logics.addThingLogic(PanAndZoomLogic.class);
 			logics.addThingLogic(ReshapeRectangleLogic.class);
-			logics.addThingLogic(ReshapeSplineLogic.class).addReshapeSplineGuides(
-					new XadlReshapeSplineGuide(xarch, Statechart_1_0Package.Literals.TRANSITION,
+			logics.addThingLogic(ReshapeSplineLogic.class)
+					.addReshapeSplineGuides(new XadlReshapeSplineGuide(xarch, Statechart_1_0Package.Literals.TRANSITION,
 							Statechart_1_0Package.Literals.PSEUDO_STATE, IHasEndpoints.ENDPOINT_1_KEY,
 							IHasEndpoints.ENDPOINT_2_KEY));
 			logics.addThingLogic(RotatingOffsetLogic.class);
@@ -594,10 +595,10 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 
 			logics.addThingLogic(new NewElementLogic(world, xarch, services.get(IResources.class), structureRef));
 			logics.addThingLogic(EditTextLogic.class);
-			logics.addThingLogic(new StatechartEditColorLogic(world, xarch));
+			logics.addThingLogic(EditColorLogic.class);
 			logics.addThingLogic(ShowHideTagsLogic.class);
-			logics.addThingLogic(new XadlCopyPasteLogic(world, xarch, services.get(IArchipelagoEditorPane.class)
-					.getActionBars()));
+			logics.addThingLogic(
+					new XadlCopyPasteLogic(world, xarch, services.get(IArchipelagoEditorPane.class).getActionBars()));
 			logics.addThingLogic(new RemoveElementLogic(world, xarch));
 			logics.addThingLogic(RotaterLogic.class);
 			logics.addThingLogic(AlignAndDistributeLogic.class);

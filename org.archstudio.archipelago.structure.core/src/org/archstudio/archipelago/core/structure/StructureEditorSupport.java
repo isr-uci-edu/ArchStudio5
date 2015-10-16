@@ -30,6 +30,7 @@ import org.archstudio.bna.logics.coordinating.StickPointLogic;
 import org.archstudio.bna.logics.editing.AlignAndDistributeLogic;
 import org.archstudio.bna.logics.editing.ClickSelectionLogic;
 import org.archstudio.bna.logics.editing.DragMovableLogic;
+import org.archstudio.bna.logics.editing.EditColorLogic;
 import org.archstudio.bna.logics.editing.EditFlowLogic;
 import org.archstudio.bna.logics.editing.EditTextLogic;
 import org.archstudio.bna.logics.editing.ExportImageLogic;
@@ -93,10 +94,10 @@ import org.eclipse.swt.widgets.Composite;
 
 public class StructureEditorSupport {
 
-	//For tree node cache
+	// For tree node cache
 	public static final String BNA_WORLD_KEY = "world";
 
-	//For editor pane properties
+	// For editor pane properties
 	public static final String EDITING_BNA_COMPOSITE_KEY = "bnaComposite";
 
 	public static void setupEditor(Services services, IXArchADT xarch, ObjRef structureRef) {
@@ -156,13 +157,13 @@ public class StructureEditorSupport {
 						GridThing gridThing = GridThing.getIn(world);
 						if (gridThing != null) {
 							gridThing.setGridSpacing(prefs.getInt(ArchipelagoConstants.PREF_GRID_SPACING));
-							gridThing.setGridDisplayType(GridDisplayType.valueOf(prefs
-									.getString(ArchipelagoConstants.PREF_GRID_DISPLAY_TYPE)));
+							gridThing.setGridDisplayType(GridDisplayType
+									.valueOf(prefs.getString(ArchipelagoConstants.PREF_GRID_DISPLAY_TYPE)));
 						}
-						AvailableUI availableUI = AvailableUI
-								.valueOf(prefs.getString(ArchipelagoConstants.PREF_BNA_UI));
-						IBNAUI bnaUI = (IBNAUI) availableUI.getBNAUIClass().getConstructors()[0].newInstance(bnaCanvas
-								.getBNAView());
+						AvailableUI availableUI =
+								AvailableUI.valueOf(prefs.getString(ArchipelagoConstants.PREF_BNA_UI));
+						IBNAUI bnaUI = (IBNAUI) availableUI.getBNAUIClass().getConstructors()[0]
+								.newInstance(bnaCanvas.getBNAView());
 						bnaCanvas.setBNAUI(bnaUI);
 					}
 					catch (InvocationTargetException | IllegalAccessException | InstantiationException e) {
@@ -191,12 +192,13 @@ public class StructureEditorSupport {
 		}
 	}
 
-	public static IBNAWorld setupWorld(Services services, IXArchADT xarch, ObjRef documentRootRef, ObjRef structureRef) {
+	public static IBNAWorld setupWorld(Services services, IXArchADT xarch, ObjRef documentRootRef,
+			ObjRef structureRef) {
 		try (Finally lock = BNAUtils.lock()) {
 
 			if (services.has(IArchipelagoTreeNodeDataCache.class)) {
-				IBNAWorld world = (IBNAWorld) services.get(IArchipelagoTreeNodeDataCache.class).getData(
-						documentRootRef, structureRef, BNA_WORLD_KEY);
+				IBNAWorld world = (IBNAWorld) services.get(IArchipelagoTreeNodeDataCache.class).getData(documentRootRef,
+						structureRef, BNA_WORLD_KEY);
 				if (world != null) {
 					return world;
 				}
@@ -217,7 +219,7 @@ public class StructureEditorSupport {
 
 			setupWorld(services, xarch, documentRootRef, structureRef, world);
 
-			//AS.eventBus.fireArchipelagoEvent(new StructureEvents.WorldCreatedEvent(structureRef, world));
+			// AS.eventBus.fireArchipelagoEvent(new StructureEvents.WorldCreatedEvent(structureRef, world));
 
 			return world;
 		}
@@ -240,23 +242,21 @@ public class StructureEditorSupport {
 
 		String prefix = "" + XadlUtils.getName(xarch, structureRef) + ": ";
 
-		logics.addThingLogic(new MapBrickLogic(world, services, xarch, structureRef,
-				"component", //
+		logics.addThingLogic(new MapBrickLogic(world, services, xarch, structureRef, "component", //
 				new Dimension(120, 80), ArchipelagoStructureConstants.PREF_DEFAULT_COMPONENT_COLOR, 2,
 				ArchipelagoStructureConstants.PREF_DEFAULT_COMPONENT_FONT, prefix + "Loading Components"));
-		logics.addThingLogic(new MapInterfaceLogic(world, xarch, structureRef, "component/interface", prefix
-				+ "Loading Component Interfaces"));
-		logics.addThingLogic(new MapMappingsLogic(world, xarch, structureRef,
-				"component/subStructure/interfaceMapping", prefix + "Loading Component Substructure Links"));
+		logics.addThingLogic(new MapInterfaceLogic(world, xarch, structureRef, "component/interface",
+				prefix + "Loading Component Interfaces"));
+		logics.addThingLogic(new MapMappingsLogic(world, xarch, structureRef, "component/subStructure/interfaceMapping",
+				prefix + "Loading Component Substructure Links"));
 
-		logics.addThingLogic(new MapBrickLogic(world, services, xarch, structureRef,
-				"connector", //
+		logics.addThingLogic(new MapBrickLogic(world, services, xarch, structureRef, "connector", //
 				new Dimension(240, 36), ArchipelagoStructureConstants.PREF_DEFAULT_CONNECTOR_COLOR, 1,
 				ArchipelagoStructureConstants.PREF_DEFAULT_CONNECTOR_FONT, prefix + "Loading Connectors"));
-		logics.addThingLogic(new MapInterfaceLogic(world, xarch, structureRef, "connector/interface", prefix
-				+ "Loading Connector Interfaces"));
-		logics.addThingLogic(new MapMappingsLogic(world, xarch, structureRef,
-				"connector/subStructure/interfaceMapping", prefix + "Loading Component Substructure Links"));
+		logics.addThingLogic(new MapInterfaceLogic(world, xarch, structureRef, "connector/interface",
+				prefix + "Loading Connector Interfaces"));
+		logics.addThingLogic(new MapMappingsLogic(world, xarch, structureRef, "connector/subStructure/interfaceMapping",
+				prefix + "Loading Component Substructure Links"));
 
 		logics.addThingLogic(new MapLinkLogic(world, xarch, structureRef, "link", prefix + "Loading Links"));
 
@@ -270,8 +270,8 @@ public class StructureEditorSupport {
 		logics.addThingLogic(MarqueeSelectionLogic.class);
 		logics.addThingLogic(PanAndZoomLogic.class);
 		logics.addThingLogic(ReshapeRectangleLogic.class);
-		logics.addThingLogic(ReshapeSplineLogic.class).addReshapeSplineGuides(
-				new XadlReshapeSplineGuide(xarch, Structure_3_0Package.Literals.LINK,
+		logics.addThingLogic(ReshapeSplineLogic.class)
+				.addReshapeSplineGuides(new XadlReshapeSplineGuide(xarch, Structure_3_0Package.Literals.LINK,
 						Structure_3_0Package.Literals.INTERFACE, IHasEndpoints.ENDPOINT_1_KEY,
 						IHasEndpoints.ENDPOINT_2_KEY));
 		logics.addThingLogic(RotatingOffsetLogic.class);
@@ -286,23 +286,24 @@ public class StructureEditorSupport {
 		logics.addThingLogic(new StructureNewInterfaceLogic(world, xarch, services.get(IResources.class)));
 		logics.addThingLogic(new StructureNewInterfaceMappingLogic(world, xarch, services.get(IResources.class)));
 		logics.addThingLogic(EditTextLogic.class);
-		logics.addThingLogic(new StructureEditColorLogic(world, xarch));
+		logics.addThingLogic(EditColorLogic.class);
 		logics.addThingLogic(EditFlowLogic.class);
 		logics.addThingLogic(new StructureAssignMyxGenLogic(world, xarch));
 		logics.addThingLogic(ShowHideTagsLogic.class);
 		logics.addThingLogic(new FindDialogLogic(world, new ArchipelagoFinder(xarch, services.get(IResources.class))));
-		logics.addThingLogic(new XadlCopyPasteLogic(world, xarch, services.get(IArchipelagoEditorPane.class)
-				.getActionBars()));
+		logics.addThingLogic(
+				new XadlCopyPasteLogic(world, xarch, services.get(IArchipelagoEditorPane.class).getActionBars()));
 		logics.addThingLogic(new RemoveElementLogic(world, xarch));
 		logics.addThingLogic(RotaterLogic.class);
 		logics.addThingLogic(AlignAndDistributeLogic.class);
 		logics.addThingLogic(RectifyToGridLogic.class);
-		logics.addThingLogic(new StructureGraphLayoutLogic(world, xarch, services.get(IResources.class), services
-				.get(IGraphLayout.class), structureRef));
+		logics.addThingLogic(new StructureGraphLayoutLogic(world, xarch, services.get(IResources.class),
+				services.get(IGraphLayout.class), structureRef));
 		logics.addThingLogic(new ExportImportGexf(world) {
 			@Override
 			protected boolean isNodeOfInterest(IBNAModel model, IThing node) {
-				return Assemblies.getEditableThing(model, node, IHasBoundingBox.class, IHasMutableSize.USER_MAY_RESIZE) == node;
+				return Assemblies.getEditableThing(model, node, IHasBoundingBox.class,
+						IHasMutableSize.USER_MAY_RESIZE) == node;
 			}
 
 			@Override
@@ -316,7 +317,8 @@ public class StructureEditorSupport {
 		logics.addThingLogic(new ExportImportDot(world) {
 			@Override
 			protected boolean isNodeOfInterest(IBNAModel model, IThing node) {
-				return Assemblies.getEditableThing(model, node, IHasBoundingBox.class, IHasMutableSize.USER_MAY_RESIZE) == node;
+				return Assemblies.getEditableThing(model, node, IHasBoundingBox.class,
+						IHasMutableSize.USER_MAY_RESIZE) == node;
 			}
 
 			@Override
