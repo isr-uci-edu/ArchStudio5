@@ -11,11 +11,12 @@ import org.archstudio.bna.IThing;
 import org.archstudio.bna.facets.IHasAnchorPoint;
 import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.logics.AbstractThingLogic;
-import org.archstudio.bna.ui.IBNAMenuListener;
+import org.archstudio.bna.ui.IBNAMenuListener2;
 import org.archstudio.bna.utils.BNAAction;
 import org.archstudio.bna.utils.BNAAlignUtils;
 import org.archstudio.bna.utils.BNADistributeUtils;
 import org.archstudio.bna.utils.BNAUtils;
+import org.archstudio.bna.utils.BNAUtils2.ThingsAtLocation;
 import org.archstudio.swtutils.constants.HorizontalAlignment;
 import org.archstudio.swtutils.constants.VerticalAlignment;
 import org.eclipse.jface.action.IAction;
@@ -27,7 +28,7 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IWorkbenchActionConstants;
 
-public class AlignAndDistributeLogic extends AbstractThingLogic implements IBNAMenuListener {
+public class AlignAndDistributeLogic extends AbstractThingLogic implements IBNAMenuListener2 {
 
 	protected ImageRegistry imageRegistry = null;
 
@@ -78,8 +79,11 @@ public class AlignAndDistributeLogic extends AbstractThingLogic implements IBNAM
 	}
 
 	@Override
-	public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager menu) {
+	public void fillMenu(IBNAView view, ICoordinate location, ThingsAtLocation things, IMenuManager menu) {
 		BNAUtils.checkLock();
+		if (things.getViewAtLocation() != null) {
+			return;
+		}
 
 		if (imageRegistry == null) {
 			loadImages(view);
@@ -92,7 +96,7 @@ public class AlignAndDistributeLogic extends AbstractThingLogic implements IBNAM
 
 		final List<IThing> thingsToEditList = new ArrayList<IThing>();
 
-		//Make sure at least two things have either an anchor point or bounding box
+		// Make sure at least two things have either an anchor point or bounding box
 		for (IThing st : selectedThings) {
 			if (st instanceof IHasBoundingBox || st instanceof IHasAnchorPoint) {
 				thingsToEditList.add(st);
@@ -174,52 +178,52 @@ public class AlignAndDistributeLogic extends AbstractThingLogic implements IBNAM
 
 		IMenuManager distributeMenu = new MenuManager("Distribute");
 
-		IAction distributeHorizontalLoose = new BNAAction("Distribute Horizontal Loose",
-				imageRegistry.getDescriptor(DISTRIBUTE_HORIZONTAL_LOOSE)) {
+		IAction distributeHorizontalLoose =
+				new BNAAction("Distribute Horizontal Loose", imageRegistry.getDescriptor(DISTRIBUTE_HORIZONTAL_LOOSE)) {
 
-			@Override
-			public void runWithLock() {
-				BNADistributeUtils.distributeHorizontalLoose(thingsToEdit);
-				BNAOperations.runnable("Distribute", undoRunnable,
-						BNAOperations.takeSnapshotOfLocations(model, thingsToEditList), false);
-			}
-		};
+					@Override
+					public void runWithLock() {
+						BNADistributeUtils.distributeHorizontalLoose(thingsToEdit);
+						BNAOperations.runnable("Distribute", undoRunnable,
+								BNAOperations.takeSnapshotOfLocations(model, thingsToEditList), false);
+					}
+				};
 		distributeMenu.add(distributeHorizontalLoose);
 
-		IAction distributeHorizontalTight = new BNAAction("Distribute Horizontal Tight",
-				imageRegistry.getDescriptor(DISTRIBUTE_HORIZONTAL_TIGHT)) {
+		IAction distributeHorizontalTight =
+				new BNAAction("Distribute Horizontal Tight", imageRegistry.getDescriptor(DISTRIBUTE_HORIZONTAL_TIGHT)) {
 
-			@Override
-			public void runWithLock() {
-				BNADistributeUtils.distributeHorizontalTight(thingsToEdit);
-				BNAOperations.runnable("Distribute", undoRunnable,
-						BNAOperations.takeSnapshotOfLocations(model, thingsToEditList), false);
-			}
-		};
+					@Override
+					public void runWithLock() {
+						BNADistributeUtils.distributeHorizontalTight(thingsToEdit);
+						BNAOperations.runnable("Distribute", undoRunnable,
+								BNAOperations.takeSnapshotOfLocations(model, thingsToEditList), false);
+					}
+				};
 		distributeMenu.add(distributeHorizontalTight);
 
-		IAction distributeVerticalLoose = new BNAAction("Distribute Vertical Loose",
-				imageRegistry.getDescriptor(DISTRIBUTE_VERTICAL_LOOSE)) {
+		IAction distributeVerticalLoose =
+				new BNAAction("Distribute Vertical Loose", imageRegistry.getDescriptor(DISTRIBUTE_VERTICAL_LOOSE)) {
 
-			@Override
-			public void runWithLock() {
-				BNADistributeUtils.distributeVerticalLoose(thingsToEdit);
-				BNAOperations.runnable("Distribute", undoRunnable,
-						BNAOperations.takeSnapshotOfLocations(model, thingsToEditList), false);
-			}
-		};
+					@Override
+					public void runWithLock() {
+						BNADistributeUtils.distributeVerticalLoose(thingsToEdit);
+						BNAOperations.runnable("Distribute", undoRunnable,
+								BNAOperations.takeSnapshotOfLocations(model, thingsToEditList), false);
+					}
+				};
 		distributeMenu.add(distributeVerticalLoose);
 
-		IAction distributeVerticalTight = new BNAAction("Distribute Vertical Tight",
-				imageRegistry.getDescriptor(DISTRIBUTE_VERTICAL_TIGHT)) {
+		IAction distributeVerticalTight =
+				new BNAAction("Distribute Vertical Tight", imageRegistry.getDescriptor(DISTRIBUTE_VERTICAL_TIGHT)) {
 
-			@Override
-			public void runWithLock() {
-				BNADistributeUtils.distributeVerticalTight(thingsToEdit);
-				BNAOperations.runnable("Distribute", undoRunnable,
-						BNAOperations.takeSnapshotOfLocations(model, thingsToEditList), false);
-			}
-		};
+					@Override
+					public void runWithLock() {
+						BNADistributeUtils.distributeVerticalTight(thingsToEdit);
+						BNAOperations.runnable("Distribute", undoRunnable,
+								BNAOperations.takeSnapshotOfLocations(model, thingsToEditList), false);
+					}
+				};
 		distributeMenu.add(distributeVerticalTight);
 
 		menu.add(alignMenu);
