@@ -10,7 +10,8 @@ Bundle-Version: 5.0.2.qualifier
 Export-Package: org.archstudio.eclipse.ui,
  org.archstudio.eclipse.ui.editors,
  org.archstudio.eclipse.ui.views
-Require-Bundle: org.archstudio.eclipse,
+Require-Bundle: org.archstudio.bna,
+ org.archstudio.eclipse,
  org.archstudio.eclipse.core,
  org.archstudio.editormanager,
  org.archstudio.filemanager,
@@ -30,5 +31,4 @@ Require-Bundle: org.archstudio.eclipse,
  org.eclipse.emf.common,
  org.eclipse.ui,
  org.eclipse.ui.ide,
- org.eclipse.ui.views,
- org.archstudio.bna
+ org.eclipse.ui.views
