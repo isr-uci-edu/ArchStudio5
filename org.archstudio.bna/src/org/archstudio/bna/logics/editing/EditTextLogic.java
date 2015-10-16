@@ -5,7 +5,6 @@ import static org.archstudio.sysutils.SystemUtils.firstOrNull;
 
 import java.awt.geom.Point2D;
 import java.util.Collection;
-import java.util.List;
 
 import org.archstudio.bna.BNAModelEvent;
 import org.archstudio.bna.IBNAModelListener;
@@ -23,11 +22,13 @@ import org.archstudio.bna.keys.ThingKey;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.logics.information.ToolTipLogic;
 import org.archstudio.bna.things.swt.SWTTextThing;
-import org.archstudio.bna.ui.IBNAKeyListener;
-import org.archstudio.bna.ui.IBNAMenuListener;
+import org.archstudio.bna.ui.IBNAAllEventsListener2;
+import org.archstudio.bna.ui.IBNAKeyListener2;
+import org.archstudio.bna.ui.IBNAMenuListener2;
 import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.BNAAction;
 import org.archstudio.bna.utils.BNAUtils;
+import org.archstudio.bna.utils.BNAUtils2.ThingsAtLocation;
 import org.archstudio.bna.utils.UserEditableUtils;
 import org.archstudio.sysutils.SystemUtils;
 import org.eclipse.jface.action.IMenuManager;
@@ -37,7 +38,8 @@ import org.eclipse.swt.graphics.Rectangle;
 
 import com.google.common.collect.Iterables;
 
-public class EditTextLogic extends AbstractThingLogic implements IBNAMenuListener, IBNAModelListener, IBNAKeyListener {
+public class EditTextLogic extends AbstractThingLogic
+		implements IBNAModelListener, IBNAMenuListener2, IBNAKeyListener2, IBNAAllEventsListener2 {
 
 	private static final class EditTextLogicData {
 		public final Object thingID;
@@ -54,14 +56,19 @@ public class EditTextLogic extends AbstractThingLogic implements IBNAMenuListene
 	}
 
 	@Override
-	public void fillMenu(final IBNAView view, List<IThing> things, final ICoordinate location, IMenuManager m) {
+	public void fillMenu(IBNAView view, ICoordinate location, ThingsAtLocation thingsAtLocation, IMenuManager m) {
 		BNAUtils.checkLock();
-
+		if (thingsAtLocation.getThingAtLocation() == null) {
+			return;
+		}
+		if (thingsAtLocation.getView() != view) {
+			return;
+		}
 		if (Iterables.size(BNAUtils.getSelectedThings(view.getBNAWorld().getBNAModel())) <= 1) {
-			IThing editThing = Assemblies.getEditableThing(model, firstOrNull(things), IHasMutableText.class,
+			IThing editThing = Assemblies.getEditableThing(model, thingsAtLocation.getThing(), IHasMutableText.class,
 					IHasMutableText.USER_MAY_EDIT_TEXT);
 			if (editThing == null) {
-				editThing = Assemblies.getEditableThing(model, firstOrNull(things), IThing.class,
+				editThing = Assemblies.getEditableThing(model, thingsAtLocation.getThing(), IThing.class,
 						IHasMutableToolTip.USER_MAY_EDIT_TOOL_TIP);
 			}
 			if (editThing != null) {

@@ -10,10 +10,11 @@ import org.archstudio.bna.IThing;
 import org.archstudio.bna.facets.IHasColor;
 import org.archstudio.bna.facets.IHasMutableColor;
 import org.archstudio.bna.logics.AbstractThingLogic;
-import org.archstudio.bna.ui.IBNAMenuListener;
+import org.archstudio.bna.ui.IBNAMenuListener2;
 import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.BNAAction;
 import org.archstudio.bna.utils.BNAUtils;
+import org.archstudio.bna.utils.BNAUtils2.ThingsAtLocation;
 import org.archstudio.swtutils.SWTWidgetUtils;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
@@ -25,7 +26,7 @@ import org.eclipse.ui.IWorkbenchActionConstants;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
-public class EditColorLogic extends AbstractThingLogic implements IBNAMenuListener {
+public class EditColorLogic extends AbstractThingLogic implements IBNAMenuListener2 {
 
 	protected static RGB copiedRGB = null;
 
@@ -34,9 +35,12 @@ public class EditColorLogic extends AbstractThingLogic implements IBNAMenuListen
 	}
 
 	@Override
-	public void fillMenu(final IBNAView view, List<IThing> things, ICoordinate location, IMenuManager menu) {
+	public void fillMenu(final IBNAView view, ICoordinate location, ThingsAtLocation thingsAtLocation,
+			IMenuManager menu) {
 		BNAUtils.checkLock();
-
+		if (thingsAtLocation.getThingAtLocation() == null) {
+			return;
+		}
 		final List<IHasMutableColor> editableColoredThings = Lists.newArrayList();
 		final List<IHasColor> coloredThings = Lists.newArrayList();
 
@@ -97,12 +101,6 @@ public class EditColorLogic extends AbstractThingLogic implements IBNAMenuListen
 		}
 
 		m.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
-
-		appendMenu(view, things, location, m, editableColoredThings, coloredThings);
-	}
-
-	protected void appendMenu(final IBNAView view, List<IThing> things, ICoordinate location, IMenuManager menu,
-			List<IHasMutableColor> editableColoredThings, List<IHasColor> coloredThings) {
 	}
 
 	protected void chooseAndAssignColor(IBNAView view, Iterable<IHasMutableColor> thingsToEdit, RGB initialRGB) {
