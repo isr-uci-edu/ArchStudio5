@@ -2,14 +2,11 @@ package org.archstudio.bna.logics.editing;
 
 import static org.archstudio.sysutils.SystemUtils.firstOrNull;
 
-import java.util.List;
-
 import org.archstudio.bna.BNAModelEvent;
 import org.archstudio.bna.IBNAModelListener;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.ICoordinate;
-import org.archstudio.bna.IThing;
 import org.archstudio.bna.constants.StickyMode;
 import org.archstudio.bna.facets.IHasIndicatorPoint;
 import org.archstudio.bna.facets.IHasMutableAngle;
@@ -26,10 +23,11 @@ import org.archstudio.bna.logics.coordinating.DynamicStickPointLogic;
 import org.archstudio.bna.logics.coordinating.MirrorValueLogic;
 import org.archstudio.bna.logics.tracking.ThingValueTrackingLogic;
 import org.archstudio.bna.things.labels.AnchoredLabelThing;
-import org.archstudio.bna.ui.IBNAMenuListener;
+import org.archstudio.bna.ui.IBNAMenuListener2;
 import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.BNAAction;
 import org.archstudio.bna.utils.BNAUtils;
+import org.archstudio.bna.utils.BNAUtils2.ThingsAtLocation;
 import org.archstudio.bna.utils.UserEditableUtils;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
@@ -37,7 +35,7 @@ import org.eclipse.swt.graphics.RGB;
 
 import com.google.common.collect.Lists;
 
-public class ShowHideTagsLogic extends AbstractThingLogic implements IBNAMenuListener, IBNAModelListener {
+public class ShowHideTagsLogic extends AbstractThingLogic implements IBNAMenuListener2, IBNAModelListener {
 
 	public static final String USER_MAY_SHOW_HIDE_TAG = "userMayShowHideTag";
 
@@ -60,12 +58,11 @@ public class ShowHideTagsLogic extends AbstractThingLogic implements IBNAMenuLis
 	}
 
 	@Override
-	public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager menu) {
+	public void fillMenu(IBNAView view, ICoordinate location, ThingsAtLocation thingsAtLocation, IMenuManager menu) {
 		BNAUtils.checkLock();
-
-		if (!things.isEmpty()) {
-			final IHasStickyShape st = Assemblies.getEditableThing(model, firstOrNull(things), IHasStickyShape.class,
-					USER_MAY_SHOW_HIDE_TAG);
+		if (thingsAtLocation.getThingAtLocation() != null) {
+			final IHasStickyShape st = Assemblies.getEditableThing(model, thingsAtLocation.getThing(),
+					IHasStickyShape.class, USER_MAY_SHOW_HIDE_TAG);
 			if (st != null) {
 				final AnchoredLabelThing tt = getTag(st);
 				// lookup tags for thing
