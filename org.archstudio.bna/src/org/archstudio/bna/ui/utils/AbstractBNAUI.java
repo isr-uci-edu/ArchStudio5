@@ -586,11 +586,13 @@ public abstract class AbstractBNAUI implements IBNAUI {
 				if (world != null) {
 					IThingPeer<?> peer = view.getThingPeer(thing);
 					if (peer instanceof IHasInnerViewPeer<?>) {
-						view = ((IHasInnerViewPeer<?>) peer).getInnerView();
-						if (view != null) {
+						IBNAView innerView = ((IHasInnerViewPeer<?>) peer).getInnerView();
+						if (innerView != null) {
+							view = innerView;
 							location = DefaultCoordinate.forLocal(location.getLocalPoint(), view.getCoordinateMapper());
+							continue;
 						}
-						continue;
+						break;
 					}
 				}
 			}
