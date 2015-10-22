@@ -254,7 +254,7 @@ public final class XArchRelativePathTracker implements IXArchADTModelListener {
   /**
    * The set of ObjRefs that have been added, with the list of ObjRefs connecting them to the
    * {@link #rootRef}. Keeping track of the ObjRefs from the rootRef is important because it allows
-   * us to remove added ObjRefs if one of their their ancestors connecting it to {@link #rootRef} is
+   * us to remove added ObjRefs if one of their ancestors connecting them to {@link #rootRef} is
    * removed.
    */
   private final Map<ObjRef, List<ObjRef>> addedObjRefToLineageRefs = Maps.newHashMap();
@@ -343,10 +343,10 @@ public final class XArchRelativePathTracker implements IXArchADTModelListener {
    *        inclusive.
    * @param addedRef The ObjRef that has been added.
    */
-  protected void fireProcessAdd(ObjRef addedRef, List<ObjRef> ancestorsToRoot) {
+  protected void fireProcessAdd(List<ObjRef> descendantRefs, ObjRef addedRef) {
     for (IXArchRelativePathTrackerListener l : listeners) {
       try {
-        l.processAdd(ancestorsToRoot, addedRef);
+        l.processAdd(descendantRefs, addedRef);
       } catch (Throwable t) {
         t.printStackTrace();
       }
@@ -355,20 +355,19 @@ public final class XArchRelativePathTracker implements IXArchADTModelListener {
 
   /**
    * Fires an
-   * {@link IXArchRelativePathTrackerListener#processUpdate(List, String, ObjRef, XArchADTModelEvent)
-   * update event} to the listeners of XPath query results.
+   * {@link IXArchRelativePathTrackerListener#processUpdate(List, ObjRef, XArchADTModelEvent) update
+   * event} to the listeners of XPath query results.
    *
    * @param descendantRefs The descendant refs starting with the rootRef leading to modifiedRef,
    *        inclusive.
-   * @param descendantPath The string path from rootRef to addedRef.
    * @param modifiedRef The ObjRef that was modified.
    * @param relativeEvt The relative event, rooted in the modified Ref.
    */
-  protected void fireProcessUpdate(List<ObjRef> descendantRefs, String descendantPath,
-      ObjRef modifiedRef, XArchADTModelEvent relEvt) {
+  protected void fireProcessUpdate(List<ObjRef> descendantRefs, ObjRef modifiedRef,
+      XArchADTModelEvent relEvt) {
     for (IXArchRelativePathTrackerListener l : listeners) {
       try {
-        l.processUpdate(descendantRefs, descendantPath, modifiedRef, relEvt);
+        l.processUpdate(descendantRefs, modifiedRef, relEvt);
       } catch (Throwable t) {
         t.printStackTrace();
       }
@@ -477,7 +476,7 @@ public final class XArchRelativePathTracker implements IXArchADTModelListener {
     positiveObjRefs.put(objRef, descendantRefs.size() - 2);
     if (descendantRefs.size() == xPath.size() + 1) {
       if (addedObjRefToLineageRefs.put(objRef, descendantRefs) == null) {
-        fireProcessAdd(objRef, Lists.reverse(descendantRefs));
+        fireProcessAdd(descendantRefs, objRef);
       }
       return;
     }
@@ -733,8 +732,7 @@ public final class XArchRelativePathTracker implements IXArchADTModelListener {
                 subPath(evt.getSourcePath(), addedRefIndex), evt.getFeatureName(),
                 evt.getOldValue(), subPath(evt.getOldValuePath(), addedRefIndex), evt.getNewValue(),
                 subPath(evt.getNewValuePath(), addedRefIndex));
-            fireProcessUpdate(relEvt.getSourceAncestors(), relEvt.getSourcePath(), addedRef,
-                relEvt);
+            fireProcessUpdate(descendants, addedRef, relEvt);
           }
         }
       }

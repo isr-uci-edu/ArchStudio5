@@ -8,7 +8,7 @@ import org.archstudio.xarchadt.XArchADTModelEvent;
 /**
  * A listener for {@link XArchRelativePathTracker}. Note, it is guaranteed that for any ObjRef,
  * {@link #processAdd(List, ObjRef)} will be called first, then any number of
- * {@link #processUpdate(List, String, ObjRef, XArchADTModelEvent)}'s and finally
+ * {@link #processUpdate(List, ObjRef, XArchADTModelEvent)}'s and finally
  * {@link #processRemove(List, ObjRef)}.
  */
 public interface IXArchRelativePathTrackerListener {
@@ -27,11 +27,10 @@ public interface IXArchRelativePathTrackerListener {
    *
    * @param descendantRefs The descendant refs starting with the rootRef leading to modifiedRef,
    *        inclusive.
-   * @param descendantPath The string path from rootRef to addedRef.
    * @param modifiedRef The ObjRef that was modified.
    * @param relativeEvt The relative event, rooted in the modified Ref.
    */
-  public void processUpdate(List<ObjRef> descendantRefs, String descendantPath, ObjRef modifiedRef,
+  public void processUpdate(List<ObjRef> descendantRefs, ObjRef modifiedRef,
       XArchADTModelEvent relativeEvt);
 
   /**

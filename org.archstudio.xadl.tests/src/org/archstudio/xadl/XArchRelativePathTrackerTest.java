@@ -95,19 +95,30 @@ public class XArchRelativePathTrackerTest extends TestCase {
 	private void initTracker(ObjRef rootRef, String xPath) {
 		tracker = new XArchRelativePathTracker(xarch, rootRef, xPath, false);
 		tracker.addTrackerListener(new IXArchRelativePathTrackerListener() {
+			private void checkDescendants(List<ObjRef> descendantRefs) {
+				for (int i = 1; i < descendantRefs.size(); ++i) {
+					ObjRef parentRef = xarch.getParent(descendantRefs.get(i));
+					if (parentRef != null) {
+						assertEquals(descendantRefs.get(i - 1), parentRef);
+					}
+				}
+			}
+
 			@Override
 			public void processAdd(List<ObjRef> descendantRefs, ObjRef addedRef) {
+				checkDescendants(descendantRefs);
 				results.add("A:" + addedRef);
 			}
 
 			@Override
-			public void processUpdate(List<ObjRef> descendantRefs, String descendantPath, ObjRef modifiedRef,
-					XArchADTModelEvent relativeEvt) {
-				results.add("U:" + modifiedRef + ":" + descendantPath);
+			public void processUpdate(List<ObjRef> descendantRefs, ObjRef modifiedRef, XArchADTModelEvent relativeEvt) {
+				checkDescendants(descendantRefs);
+				results.add("U:" + modifiedRef + ":" + relativeEvt.getSourcePath());
 			}
 
 			@Override
 			public void processRemove(List<ObjRef> descendantRefs, ObjRef objRef) {
+				checkDescendants(descendantRefs);
 				results.add("R:" + objRef);
 			}
 		});

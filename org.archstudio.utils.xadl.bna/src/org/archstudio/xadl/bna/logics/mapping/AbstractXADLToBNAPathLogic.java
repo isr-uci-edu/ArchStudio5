@@ -55,7 +55,7 @@ public abstract class AbstractXADLToBNAPathLogic<T extends IThing> extends Abstr
 		/**
 		 * Updates the BNA Assembly/Thing from the xADL ObjRef
 		 * 
-		 * @see AbstractXADLToBNAThingLogic#updateThing(List, String, ObjRef, XArchADTModelEvent, IThing)
+		 * @see AbstractXADLToBNAThingLogic#updateThing(List, ObjRef, XArchADTModelEvent, IThing)
 		 */
 		public void updateBNA(ObjRef objRef, String xadlPath, XArchADTModelEvent evt, T rootThing) {
 		}
@@ -93,12 +93,12 @@ public abstract class AbstractXADLToBNAPathLogic<T extends IThing> extends Abstr
 	 * Propagate the xADL event to all of the {@link IBNAUpdater}s registered with this class, which each do small
 	 * updates.
 	 * 
-	 * @see AbstractXADLToBNAThingLogic#updateThing(List, String, ObjRef, XArchADTModelEvent, IThing)
+	 * @see AbstractXADLToBNAThingLogic#updateThing(List, ObjRef, XArchADTModelEvent, IThing)
 	 */
 
 	@Override
-	protected void updateThing(List<ObjRef> descendantRefs, String descendantPath, ObjRef objRef,
-			XArchADTModelEvent evt, T thing) {
+	protected void updateThing(List<ObjRef> descendantRefs, ObjRef objRef, XArchADTModelEvent evt,
+			T thing) {
 		if (evt == null) {
 			for (IBNAUpdater bnaUpdater : xADLPathBNAUpdaters.values()) {
 				bnaUpdater.updateBNA(objRef, null, evt, thing);

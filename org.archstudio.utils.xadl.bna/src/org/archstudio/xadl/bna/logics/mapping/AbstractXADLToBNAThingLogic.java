@@ -103,8 +103,7 @@ public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends Abst
 
 	/**
 	 * Takes the newly added ObjRef, translates it into a BNA Assembly through a call to {@link #addThing(List, ObjRef)}
-	 * and updates the BNA Assembly through a call to
-	 * {@link #updateThing(List, String, ObjRef, XArchADTModelEvent, IThing)}
+	 * and updates the BNA Assembly through a call to {@link #updateThing(List, ObjRef, XArchADTModelEvent, IThing)}
 	 */
 
 	@Override
@@ -114,7 +113,7 @@ public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends Abst
 			T thing = addThing(descendantRefs, objRef);
 			if (thing != null) {
 				applyDefaults(thing);
-				updateThing(descendantRefs, null, objRef, null, thing);
+				updateThing(descendantRefs, objRef, null, thing);
 				// note which ObjRef the thing represents
 				thing.set(IHasObjRef.OBJREF_KEY, objRef);
 				// mark the thing as originating from, and being by this logic
@@ -136,16 +135,15 @@ public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends Abst
 
 	/**
 	 * Finds any BNA Assemblies that correspond to the modified ObjRef and updates them through calls to
-	 * {@link #updateThing(List, String, ObjRef, XArchADTModelEvent, IThing)}
+	 * {@link #updateThing(List, ObjRef, XArchADTModelEvent, IThing)}
 	 */
 	@Override
 	@SuppressWarnings("unchecked")
-	public void processUpdate(final List<ObjRef> descendantRefs, final String descendantPath, final ObjRef objRef,
-			final XArchADTModelEvent evt) {
+	public void processUpdate(final List<ObjRef> descendantRefs, final ObjRef objRef, final XArchADTModelEvent evt) {
 		try (Finally lock = BNAUtils.lock(); Finally bulkChange = model.beginBulkChange();) {
 			for (IThing t : valueLogic.getThings(IHasObjRef.OBJREF_KEY, objRef, MAPPING_KEY,
 					AbstractXADLToBNAThingLogic.this)) {
-				updateThing(descendantRefs, descendantPath, objRef, evt, (T) t);
+				updateThing(descendantRefs, objRef, evt, (T) t);
 			}
 		}
 	}
@@ -194,7 +192,7 @@ public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends Abst
 	/**
 	 * Creates the BNA Assembly that represents the given ObjRef. Note that this class should merely create the assembly
 	 * and not configure it with information from the ObjRef, that functionality is reserved for
-	 * {@link #updateThing(List, String, ObjRef, XArchADTModelEvent, IThing)}
+	 * {@link #updateThing(List, ObjRef, XArchADTModelEvent, IThing)}
 	 *
 	 * @param descendantRefs
 	 *            The ObjRefs from the rootObjRef to the objRef
@@ -203,8 +201,7 @@ public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends Abst
 	 * @return The thing that was created to represent the ObjRef, or <code>null</code> if no thing should be added for
 	 *         the given objRef.
 	 */
-	protected abstract @Nullable
-	T addThing(List<ObjRef> descendantRefs, ObjRef objRef);
+	protected abstract @Nullable T addThing(List<ObjRef> descendantRefs, ObjRef objRef);
 
 	/**
 	 * Updates the Thing returned from {@link #addThing(List, ObjRef)} to reflect information stored in the ObjRef and
@@ -213,9 +210,6 @@ public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends Abst
 	 *
 	 * @param descendantRefs
 	 *            The ObjRefs from the rootObjRef to the objRef
-	 * @param descendantPath
-	 *            The {@link XArchADTPath} from the rootObjRef to the objRef, <code>null</code> when called initially
-	 *            from {@link #addThing(List, ObjRef)}
 	 * @param objRef
 	 *            The objRef that is represented by the Thing in the BNA model
 	 * @param evt
@@ -224,8 +218,7 @@ public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends Abst
 	 * @param thing
 	 *            The BNA Thing that represents the ObjRef.
 	 */
-	protected void updateThing(List<ObjRef> descendantRefs, @Nullable String descendantPath, ObjRef objRef,
-			@Nullable XArchADTModelEvent evt, T thing) {
+	protected void updateThing(List<ObjRef> descendantRefs, ObjRef objRef, @Nullable XArchADTModelEvent evt, T thing) {
 	}
 
 	/**
