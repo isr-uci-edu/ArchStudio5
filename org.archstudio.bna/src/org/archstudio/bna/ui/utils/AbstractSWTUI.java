@@ -14,7 +14,11 @@ import org.archstudio.bna.constants.KeyType;
 import org.archstudio.bna.constants.MouseType;
 import org.archstudio.bna.ui.IBNAUI;
 import org.archstudio.bna.ui.IUITransferProvider;
+import org.archstudio.bna.utils.BNAUtils;
+import org.archstudio.bna.utils.BNAUtils2;
+import org.archstudio.bna.utils.BNAUtils2.ThingsAtLocation;
 import org.archstudio.bna.utils.DefaultCoordinate;
+import org.archstudio.sysutils.Finally;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.Platform;
@@ -150,28 +154,43 @@ public abstract class AbstractSWTUI extends AbstractBNAUI implements IBNAUI {
 	class SWTDropTargetListener implements DropTargetListener {
 
 		protected void dndEvent(DNDType type, DropTargetEvent e) {
-			try {
-				Point p = swtComposite.toControl(e.x, e.y);
-				ICoordinate location = DefaultCoordinate.forLocal(new Point(p.x, p.y), view.getCoordinateMapper());
-				List<IThing> things = view.getThingsAt(location);
+			try (Finally lock = BNAUtils.lock()) {
 				DNDData data = new DNDData();
-				e.detail = DND.DROP_NONE;
 				TransferData td = e.currentDataType;
-				for (Transfer t : swtDropTarget.getTransfer()) {
-					if (t.isSupportedType(td)) {
-						for (Object o : transferProviders.get(t).getData(td)) {
-							data.addData(o);
+				for (IUITransferProvider provider : transferProviders.values()) {
+					if (provider.isSupportedType(td)) {
+						try {
+							provider.addData(td, data);
+						}
+						catch (Exception e1) {
+							e1.printStackTrace();
 						}
 					}
 				}
-				AbstractSWTUI.this.dndEvent(type, data, things, location);
+				Point p = swtComposite.toControl(e.x, e.y);
+				ICoordinate location = DefaultCoordinate.forLocal(new Point(p.x, p.y), view.getCoordinateMapper());
+				try {
+					ThingsAtLocation thingsAtLocation = BNAUtils2.getThingsAtLocation(view, location);
+					dndEvent2(view, type, data, location, thingsAtLocation);
+				}
+				catch (Exception e1) {
+					e1.printStackTrace();
+				}
+				try {
+					List<IThing> things = view.getThingsAt(location);
+					dndEvent1(type, data, things, location);
+				}
+				catch (Exception e1) {
+					e1.printStackTrace();
+				}
 				e.detail = data.getDropType().toSWTDNDDropOperation();
 			}
-			catch (Exception ex) {
-				handleException(ex);
+			catch (Exception e2) {
+				e2.printStackTrace();
 			}
 		}
 
+		@SuppressWarnings("deprecation")
 		@Override
 		public void dragEnter(DropTargetEvent e) {
 			dndEvent(DNDType.ENTER, e);
@@ -187,6 +206,7 @@ public abstract class AbstractSWTUI extends AbstractBNAUI implements IBNAUI {
 			dndEvent(DNDType.DRAG, e);
 		}
 
+		@SuppressWarnings("deprecation")
 		@Override
 		public void dragLeave(DropTargetEvent e) {
 			dndEvent(DNDType.EXIT, e);
@@ -226,8 +246,8 @@ public abstract class AbstractSWTUI extends AbstractBNAUI implements IBNAUI {
 					String bundleName = configurationElement.getDeclaringExtension().getContributor().getName();
 					try {
 						Class<?> packageClass = Platform.getBundle(bundleName).loadClass(transferClassName);
-						IUITransferProvider provider = (IUITransferProvider) packageClass.newInstance();
-						transferProviders.put(provider.getTransferInstance(), provider);
+						Transfer provider = (Transfer) packageClass.getMethod("getInstance").invoke(null);
+						transferProviders.put(provider, (IUITransferProvider) provider);
 					}
 					catch (Exception e) {
 						e.printStackTrace();

@@ -43,7 +43,7 @@
    <extension
          point="org.archstudio.bna.dndtransferprovider">
       <DNDTransferProvider
-            class="org.archstudio.archipelago.core.ObjRefTransferProvider">
+            class="org.archstudio.archipelago.core.ObjRefTransfer">
       </DNDTransferProvider>
    </extension>
 

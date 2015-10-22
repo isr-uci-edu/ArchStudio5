@@ -10,6 +10,7 @@ import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThingLogicManager;
 import org.archstudio.bna.IThingPeer;
+import org.archstudio.bna.constants.DNDActionType;
 import org.archstudio.bna.constants.DNDData;
 import org.archstudio.bna.constants.DNDType;
 import org.archstudio.bna.constants.FocusType;
@@ -23,6 +24,7 @@ import org.archstudio.bna.logics.tracking.ThingTypeTrackingLogic;
 import org.archstudio.bna.things.utility.EnvironmentPropertiesThing;
 import org.archstudio.bna.ui.IBNAAllEventsListener2;
 import org.archstudio.bna.ui.IBNADragAndDropListener;
+import org.archstudio.bna.ui.IBNADragAndDropListener2;
 import org.archstudio.bna.ui.IBNAFocusListener;
 import org.archstudio.bna.ui.IBNAKeyListener;
 import org.archstudio.bna.ui.IBNAKeyListener2;
@@ -925,7 +927,7 @@ public abstract class AbstractBNAUI implements IBNAUI {
 		}
 	}
 
-	protected void dndEvent(DNDType type, DNDData data, List<IThing> things, ICoordinate location) {
+	protected void dndEvent1(DNDType type, DNDData data, List<IThing> things, ICoordinate location) {
 		try (Finally lock = BNAUtils.lock()) {
 			if (DEBUG) {
 				System.err.println(type + " " + data);
@@ -984,6 +986,56 @@ public abstract class AbstractBNAUI implements IBNAUI {
 						if (PROFILE) {
 							time = System.nanoTime() - time;
 							profileStats.get(logic).addAndGet(time);
+						}
+					}
+					catch (Throwable x) {
+						x.printStackTrace();
+					}
+				}
+				break;
+			}
+		}
+	}
+
+	protected void dndEvent2(IBNAView view, DNDType type, DNDData data, ICoordinate location,
+			ThingsAtLocation thingsAtLocation) {
+		try (Finally lock = BNAUtils.lock()) {
+			switch (type) {
+			case ENTER: // Deprecated.
+				break;
+			case DRAG:
+				for (RelevantLogic<IBNADragAndDropListener2> dndLogic : getAllLogics(view, new Point(0, 0),
+						IBNADragAndDropListener2.class)) {
+					try {
+						long time = System.nanoTime();
+						dndLogic.logic.drag(dndLogic.view, type, data, dndLogic.location, thingsAtLocation);
+						if (PROFILE) {
+							time = System.nanoTime() - time;
+							profileStats.get(dndLogic.logic).addAndGet(time);
+						}
+					}
+					catch (Throwable x) {
+						x.printStackTrace();
+					}
+				}
+				break;
+			case EXIT: // Deprecated.
+				break;
+			case DROP:
+				for (RelevantLogic<IBNADragAndDropListener2> dndLogic : getAllLogics(view, new Point(0, 0),
+						IBNADragAndDropListener2.class)) {
+					try {
+						EnvironmentPropertiesThing.createIn(dndLogic.view.getBNAWorld())
+								.setNewThingSpot(dndLogic.location.getWorldPoint());
+						long time = System.nanoTime();
+						data.resetDropType();
+						dndLogic.logic.drag(dndLogic.view, type, data, dndLogic.location, thingsAtLocation);
+						if (data.getDropType().ordinal() > DNDActionType.NONE.ordinal()) {
+							dndLogic.logic.drop(dndLogic.view, type, data, dndLogic.location, thingsAtLocation);
+						}
+						if (PROFILE) {
+							time = System.nanoTime() - time;
+							profileStats.get(dndLogic.logic).addAndGet(time);
 						}
 					}
 					catch (Throwable x) {

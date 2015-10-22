@@ -8,6 +8,10 @@ import org.archstudio.bna.IThing;
 import org.archstudio.bna.constants.DNDData;
 import org.archstudio.bna.constants.DNDType;
 
+/**
+ * @deprecated Use {@link IBNADragAndDropListener2}.
+ */
+@Deprecated
 public interface IBNADragAndDropListener {
 
 	public void dragEnter(IBNAView view, DNDType type, DNDData data, List<IThing> things, ICoordinate location);

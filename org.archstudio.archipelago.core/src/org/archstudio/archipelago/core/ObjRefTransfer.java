@@ -3,6 +3,8 @@ package org.archstudio.archipelago.core;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import org.archstudio.bna.constants.DNDData;
+import org.archstudio.bna.ui.IUITransferProvider;
 import org.archstudio.xarchadt.ObjRef;
 import org.eclipse.swt.dnd.ByteArrayTransfer;
 import org.eclipse.swt.dnd.TransferData;
@@ -11,10 +13,10 @@ import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.collect.Lists;
 
-public class ObjRefTransfer extends ByteArrayTransfer {
+public class ObjRefTransfer extends ByteArrayTransfer implements IUITransferProvider {
 
-	private Cache<ObjRef, Object> transferredObjRefs = CacheBuilder.newBuilder().expireAfterWrite(12, TimeUnit.HOURS)
-			.build();
+	private static Cache<ObjRef, Object> transferredObjRefs =
+			CacheBuilder.newBuilder().expireAfterWrite(12, TimeUnit.HOURS).build();
 	private static final String OBJREF_TYPE_NAME = ObjRefTransfer.class.getName();
 	private static final int OBJREF_TYPE_ID = registerType(OBJREF_TYPE_NAME);
 	private static final String TRANSFER_PREFIX = OBJREF_TYPE_NAME + ":";
@@ -29,11 +31,22 @@ public class ObjRefTransfer extends ByteArrayTransfer {
 	}
 
 	@Override
+	public void addData(TransferData transferData, DNDData dndData) {
+		List<ObjRef> objRefs = nativeToJava(transferData);
+		if (objRefs != null) {
+			dndData.addData(objRefs);
+			if (objRefs.size() > 0) {
+				dndData.addData(objRefs.get(0));
+			}
+		}
+	}
+
+	@Override
 	public void javaToNative(Object object, TransferData transferData) {
 		if (object != null && isSupportedType(transferData)) {
 			if (object instanceof Iterable<?>) {
 				Iterable<?> refs = (Iterable<?>) object;
-				StringBuffer sb = new StringBuffer();
+				StringBuilder sb = new StringBuilder();
 				sb.append(TRANSFER_PREFIX);
 				boolean first = false;
 				for (Object ref : refs) {
@@ -52,7 +65,7 @@ public class ObjRefTransfer extends ByteArrayTransfer {
 			}
 			else if (object instanceof ObjRef) {
 				ObjRef ref = (ObjRef) object;
-				StringBuffer sb = new StringBuffer();
+				StringBuilder sb = new StringBuilder();
 				sb.append(TRANSFER_PREFIX);
 				sb.append(ref.getUID());
 				super.javaToNative(sb.toString().getBytes(), transferData);

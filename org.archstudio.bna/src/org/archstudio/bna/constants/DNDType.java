@@ -3,8 +3,8 @@ package org.archstudio.bna.constants;
 import org.eclipse.swt.dnd.DND;
 
 public enum DNDType {
-	ENTER(DND.DragEnter), //
-	EXIT(DND.DragLeave), //
+	@Deprecated ENTER(DND.DragEnter), //
+	@Deprecated EXIT(DND.DragLeave), //
 	DRAG(DND.DragOver), //
 	DROP(DND.Drop);
 
