@@ -411,6 +411,15 @@ public final class XArchRelativePathTracker implements IXArchADTModelListener {
   }
 
   /**
+   * Returns the number of segments parsed from the xPath.
+   *
+   * @return the number of segments parsed from the xPath.
+   */
+  public int getNumXPathSegments() {
+    return xPath.size();
+  }
+
+  /**
    * Starts monitoring, including scanning for existing ObjRefs and firing an
    * {@link IXArchRelativePathTrackerListener#processAdd(List, ObjRef) add event} for each.
    */

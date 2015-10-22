@@ -2,6 +2,7 @@ package org.archstudio.xadl.bna.logics.mapping;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 import org.archstudio.bna.BNAModelEvent;
 import org.archstudio.bna.IBNAWorld;
@@ -9,6 +10,11 @@ import org.archstudio.bna.IThing;
 import org.archstudio.bna.keys.IThingKey;
 import org.archstudio.bna.utils.BNAPath;
 import org.archstudio.bna.utils.BNAPathKey;
+import org.archstudio.bna.utils.BNAUtils;
+import org.archstudio.sysutils.Finally;
+import org.archstudio.xadl.IXArchRelativePathTrackerListener;
+import org.archstudio.xadl.XArchRelativePathTracker;
+import org.archstudio.xadl.bna.facets.IHasObjRef;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
 import org.archstudio.xarchadt.XArchADTModelEvent;
@@ -16,6 +22,7 @@ import org.eclipse.jdt.annotation.Nullable;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.google.common.collect.Multimap;
 
 /**
@@ -23,7 +30,7 @@ import com.google.common.collect.Multimap;
  * will be reflected in the BNA Assembly, and changes to things in the BNA Assembly will be reflected in the xADL
  * ObjRef. As opposed to {@link AbstractXADLToBNAThingLogic} which synchronizes ObjRefs and BNA Assemblies at a very
  * coarse level, this class breaks synchronization into little pieces--an attribute, an ancestor, etc.
- * 
+ *
  * @param <T>
  *            The type of BNA Assembly/Thing that will be created by this class to represent targeted ObjRefs, see
  *            {@link #addThing(List, ObjRef)}
@@ -32,7 +39,7 @@ public abstract class AbstractXADLToBNAPathLogic<T extends IThing> extends Abstr
 
 	/**
 	 * Translates XADL attribute values (e.g., a Direction) to BNA values (e.g., a Flow) and vice versa.
-	 * 
+	 *
 	 * @param <X>
 	 *            the xADL type
 	 * @param <B>
@@ -54,7 +61,7 @@ public abstract class AbstractXADLToBNAPathLogic<T extends IThing> extends Abstr
 
 		/**
 		 * Updates the BNA Assembly/Thing from the xADL ObjRef
-		 * 
+		 *
 		 * @see AbstractXADLToBNAThingLogic#updateThing(List, ObjRef, XArchADTModelEvent, IThing)
 		 */
 		public void updateBNA(ObjRef objRef, String xadlPath, XArchADTModelEvent evt, T rootThing) {
@@ -66,7 +73,7 @@ public abstract class AbstractXADLToBNAPathLogic<T extends IThing> extends Abstr
 
 		/**
 		 * Updates the xADL ObjRef from the BNA Assembly/Thing
-		 * 
+		 *
 		 * @see AbstractXADLToBNAThingLogic#storeThingData(ObjRef, IThing, BNAPath, BNAModelEvent)
 		 */
 		public void updateXADL(T rootThing, BNAPath relativeBNAPath, BNAModelEvent evt, ObjRef objRef) {
@@ -79,6 +86,7 @@ public abstract class AbstractXADLToBNAPathLogic<T extends IThing> extends Abstr
 	}
 
 	private final Multimap<String, IBNAUpdater> xADLPathBNAUpdaters = ArrayListMultimap.create();
+	private final Map<XArchRelativePathTracker, IBNAUpdater> xADLXPathBNAUpdaters = Maps.newHashMap();
 	private final Multimap<BNAPathKey, IXADLUpdater> bnaPathXADLUpdaters = ArrayListMultimap.create();
 
 	protected void addBNAUpdater(String xADLPath, IBNAUpdater bnaUpdater) {
@@ -89,18 +97,69 @@ public abstract class AbstractXADLToBNAPathLogic<T extends IThing> extends Abstr
 		bnaPathXADLUpdaters.put(BNAPathKey.create(bnaPath, key), xadlUpdater);
 	}
 
+	protected void addXPathBNAUpdater(final String xADLXPath, final IBNAUpdater bnaUpdater) {
+		XArchRelativePathTracker subTracker = new XArchRelativePathTracker(xarch, tracker.getRootObjRef(),
+				tracker.getXPath() + "/" + xADLXPath, false);
+		subTracker.addTrackerListener(new IXArchRelativePathTrackerListener() {
+			@Override
+			public void processUpdate(List<ObjRef> descendantRefs, ObjRef modifiedRef, XArchADTModelEvent relativeEvt) {
+				fireUpdate(descendantRefs, relativeEvt);
+			}
+
+			@Override
+			public void processRemove(List<ObjRef> descendantRefs, ObjRef removedRef) {
+				fireUpdate(descendantRefs, null);
+			}
+
+			@Override
+			public void processAdd(List<ObjRef> descendantRefs, ObjRef addedRef) {
+				fireUpdate(descendantRefs, null);
+			}
+
+			@SuppressWarnings("unchecked")
+			private void fireUpdate(List<ObjRef> descendantRefs, XArchADTModelEvent relativeEvt) {
+				try (Finally lock = BNAUtils.lock()) {
+					ObjRef objRef = descendantRefs.get(tracker.getNumXPathSegments());
+					for (IThing t : valueLogic.getThings(IHasObjRef.OBJREF_KEY, objRef, MAPPING_KEY,
+							AbstractXADLToBNAPathLogic.this)) {
+						bnaUpdater.updateBNA(objRef, xADLXPath, relativeEvt, (T) t);
+					}
+				}
+			}
+		});
+		xADLXPathBNAUpdaters.put(subTracker, bnaUpdater);
+	}
+
+	@Override
+	public void init() {
+		super.init();
+		for (XArchRelativePathTracker subTracker : xADLXPathBNAUpdaters.keySet()) {
+			subTracker.startScanning();
+		}
+	}
+
+	@Override
+	public void handleXArchADTModelEvent(XArchADTModelEvent evt) {
+		super.handleXArchADTModelEvent(evt);
+		for (XArchRelativePathTracker subTracker : xADLXPathBNAUpdaters.keySet()) {
+			subTracker.handleXArchADTModelEvent(evt);
+		}
+	}
+
 	/**
 	 * Propagate the xADL event to all of the {@link IBNAUpdater}s registered with this class, which each do small
 	 * updates.
-	 * 
+	 *
 	 * @see AbstractXADLToBNAThingLogic#updateThing(List, ObjRef, XArchADTModelEvent, IThing)
 	 */
 
 	@Override
-	protected void updateThing(List<ObjRef> descendantRefs, ObjRef objRef, XArchADTModelEvent evt,
-			T thing) {
+	protected void updateThing(List<ObjRef> descendantRefs, ObjRef objRef, XArchADTModelEvent evt, T thing) {
 		if (evt == null) {
 			for (IBNAUpdater bnaUpdater : xADLPathBNAUpdaters.values()) {
+				bnaUpdater.updateBNA(objRef, null, evt, thing);
+			}
+			for (IBNAUpdater bnaUpdater : xADLXPathBNAUpdaters.values()) {
 				bnaUpdater.updateBNA(objRef, null, evt, thing);
 			}
 		}
@@ -127,14 +186,14 @@ public abstract class AbstractXADLToBNAPathLogic<T extends IThing> extends Abstr
 	/**
 	 * Propagate the BNA event to the relevant {@link IXADLUpdater}s, each of which knows how to respond to a specific
 	 * Thing within the BNA Assembly.
-	 * 
+	 *
 	 * @see AbstractXADLToBNAThingLogic#storeThingData(ObjRef, IThing, BNAPath, BNAModelEvent)
 	 */
 
 	@Override
 	protected void storeThingData(ObjRef objRef, T rootThing, BNAPath relativeBNAPath, BNAModelEvent evt) {
-		for (IXADLUpdater xadlUpdater : bnaPathXADLUpdaters.get(BNAPathKey.create(relativeBNAPath, evt.getThingEvent()
-				.getPropertyName()))) {
+		for (IXADLUpdater xadlUpdater : bnaPathXADLUpdaters
+				.get(BNAPathKey.create(relativeBNAPath, evt.getThingEvent().getPropertyName()))) {
 			xadlUpdater.updateXADL(rootThing, relativeBNAPath, evt, objRef);
 		}
 	}
@@ -143,7 +202,7 @@ public abstract class AbstractXADLToBNAPathLogic<T extends IThing> extends Abstr
 	 * Adds the appropriate updaters to synchronize a single xADL attribute or ObjRef with a BNA Thing property,
 	 * possibly translating the value in the process. Cycles are prevented as described in
 	 * {@link AbstractXADLToBNAThingLogic}
-	 * 
+	 *
 	 * @param xADLAttributeName
 	 *            The name of the xADL attribute to synchronize with the BNA Thing's property
 	 * @param translator
@@ -222,7 +281,7 @@ public abstract class AbstractXADLToBNAPathLogic<T extends IThing> extends Abstr
 
 	/**
 	 * Specifies a specific value to set on all mapped things.
-	 * 
+	 *
 	 * @param targetThingPath
 	 *            The path from the root BNA Assembly to the specific thing part that is to store the translated
 	 *            property
@@ -246,7 +305,7 @@ public abstract class AbstractXADLToBNAPathLogic<T extends IThing> extends Abstr
 
 	/**
 	 * Sets the objRefKey property to the specified ancestor of the mapped thing.
-	 * 
+	 *
 	 * @param targetThingPath
 	 *            The path from the root BNA Assembly to the specific thing part that is to store the translated
 	 *            property
@@ -255,7 +314,8 @@ public abstract class AbstractXADLToBNAPathLogic<T extends IThing> extends Abstr
 	 * @param index
 	 *            The ancestor index starting from the mapped objRef (&gt>=0) or from the root ObjRef (&lt;0)
 	 */
-	protected void setAncestorObjRef(final BNAPath targetThingPath, final IThingKey<ObjRef> objRefKey, final int index) {
+	protected void setAncestorObjRef(final BNAPath targetThingPath, final IThingKey<ObjRef> objRefKey,
+			final int index) {
 		xADLPathBNAUpdaters.put("", new IBNAUpdater() {
 
 			@Override
@@ -273,85 +333,4 @@ public abstract class AbstractXADLToBNAPathLogic<T extends IThing> extends Abstr
 			}
 		});
 	}
-
-	protected <X extends Serializable, B> void syncXAttribute(final String xADLAttributeXPath,
-			@Nullable final IXADLToBNATranslator<X, B> translator, final B defaultBNAValue,
-			final BNAPath targetThingPath, final IThingKey<B> thingValueKey, final boolean reverse) {
-		System.err.println("Warning: ignoring " + xADLAttributeXPath); // TODO: Implement xADLAttributeXPath
-		//bnaUpdaters.add(new IBNAUpdater() {
-		//
-		//	@SuppressWarnings("unchecked")
-		//	
-		//	public void updateBNA(ObjRef objRef, XArchADTPath xadlPath, XArchADTModelEvent evt, IThing rootThing) {
-		//		IThing targetThing = BNAPath.resolve(getBNAModel(), rootThing, targetThingPath);
-		//		if (targetThing != null) {
-		//			B thingValue;
-		//			X xadlValue = (X) xarch.get(objRef, xADLAttributeName);
-		//			if (xadlValue == null) {
-		//				thingValue = defaultBNAValue;
-		//			}
-		//			else {
-		//				if (translator != null) {
-		//					thingValue = translator.toBNAValue(xadlValue);
-		//				}
-		//				else {
-		//					thingValue = (B) xadlValue;
-		//				}
-		//			}
-		//			targetThing.set(thingValueKey, thingValue);
-		//		}
-		//	}
-		//});
-		//
-		//if (reverse) {
-		//	bnaPathXADLUpdaters.put(targetThingPath, new IXADLUpdater() {
-		//
-		//		@SuppressWarnings("unchecked")
-		//		
-		//		public  void updateXADL(IThing rootThing,
-		//				BNAPath relativeBNAPath, BNAModelEvent evt, ObjRef objRef) {
-		//			if (thingValueKey.equals(evt.getThingEvent().getPropertyName())) {
-		//				Object value = evt.getThingEvent().getNewPropertyValue();
-		//				if (translator != null) {
-		//					value = translator.toXadlValue((B) value);
-		//				}
-		//				if (value == null) {
-		//					xarch.clear(objRef, xADLAttributeName);
-		//				}
-		//				else {
-		//					xarch.set(objRef, xADLAttributeName, (Serializable) value);
-		//				}
-		//			}
-		//		}
-		//	});
-		//}
-	}
-
-	//	/**
-	//	 * Sets a property on the BNA Thing equal to the given ancestor of the thing.
-	//	 * @param ancestorIndex
-	//	 * @param targetThingPath
-	//	 * @param thingValueKey
-	//	 */
-	//	
-	//	protected void loadAncestor(final int ancestorIndex, final BNAPath targetThingPath,
-	//			final IThingKey<ObjRef> thingValueKey) {
-	//
-	//		bnaUpdaters.add(new IBNAUpdater() {
-	//
-	//			
-	//			public void updateBNA(ObjRef objRef, XArchADTPath xadlPath, XArchADTModelEvent evt, IThing rootThing) {
-	//				IThing targetThing = BNAPath.resolve(getBNAModel(), rootThing, targetThingPath);
-	//				if (targetThing != null) {
-	//					List<ObjRef> ancestorRefs = xarch.getAllAncestors(objRef);
-	//					ObjRef ancestorRef = null;
-	//					if (ancestorIndex < ancestorRefs.size()) {
-	//						ancestorRef = ancestorRefs.get(ancestorIndex);
-	//					}
-	//					targetThing.set(thingValueKey, ancestorRef);
-	//				}
-	//			}
-	//		});
-	//	}
-
 }

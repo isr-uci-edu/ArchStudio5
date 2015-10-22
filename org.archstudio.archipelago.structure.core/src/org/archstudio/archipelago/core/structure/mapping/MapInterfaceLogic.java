@@ -1,7 +1,5 @@
 package org.archstudio.archipelago.core.structure.mapping;
 
-import static org.archstudio.bna.constants.StickyMode.EDGE;
-
 import java.util.List;
 
 import org.archstudio.archipelago.core.ArchipelagoConstants;
@@ -31,8 +29,6 @@ import org.archstudio.sysutils.Finally;
 import org.archstudio.xadl.bna.facets.IHasXArchID;
 import org.archstudio.xadl.bna.logics.mapping.AbstractXADLToBNAPathLogic;
 import org.archstudio.xadl.bna.logics.mapping.SynchronizeThingIDAndObjRefLogic;
-import org.archstudio.xadl3.domain_3_0.DomainType;
-import org.archstudio.xadl3.domain_3_0.Domain_3_0Package;
 import org.archstudio.xadl3.structure_3_0.Direction;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
@@ -41,35 +37,19 @@ import org.eclipse.jface.util.PropertyChangeEvent;
 
 public class MapInterfaceLogic extends AbstractXADLToBNAPathLogic<EndpointThing> implements IPropertyChangeListener {
 
-	private static final IXADLToBNATranslator<Direction, Flow> DIRECTION_TO_FLOW = new IXADLToBNATranslator<Direction, Flow>() {
+	private static final IXADLToBNATranslator<Direction, Flow> DIRECTION_TO_FLOW =
+			new IXADLToBNATranslator<Direction, Flow>() {
 
-		@Override
-		public Flow toBNAValue(Direction xadlValue) {
-			return Flow.valueOf(xadlValue.getName().toUpperCase());
-		}
+				@Override
+				public Flow toBNAValue(Direction xadlValue) {
+					return Flow.valueOf(xadlValue.getName().toUpperCase());
+				}
 
-		@Override
-		public Direction toXadlValue(Flow value) {
-			return Direction.valueOf(value.name().toUpperCase());
-		}
-	};
-
-	private static final IXADLToBNATranslator<String, StickyMode> DOMAIN_TO_STICKY_MODE = new IXADLToBNATranslator<String, StickyMode>() {
-
-		@Override
-		public StickyMode toBNAValue(String xadlValue) {
-			if (xadlValue == null) {
-				return EDGE;
-			}
-			// TODO: add necessary sticky modes
-			return DomainType.TOP.equals(xadlValue) ? StickyMode.EDGE : StickyMode.EDGE;
-		};
-
-		@Override
-		public String toXadlValue(StickyMode value) {
-			throw new UnsupportedOperationException();
-		};
-	};
+				@Override
+				public Direction toXadlValue(Flow value) {
+					return Direction.valueOf(value.name().toUpperCase());
+				}
+			};
 
 	protected final SynchronizeThingIDAndObjRefLogic syncLogic;
 	protected final ReparentToThingIDLogic reparentLogic;
@@ -78,7 +58,8 @@ public class MapInterfaceLogic extends AbstractXADLToBNAPathLogic<EndpointThing>
 
 	protected int defaultLineWidth;
 
-	public MapInterfaceLogic(IBNAWorld world, IXArchADT xarch, ObjRef rootObjRef, String objRefPath, String description) {
+	public MapInterfaceLogic(IBNAWorld world, IXArchADT xarch, ObjRef rootObjRef, String objRefPath,
+			String description) {
 		super(world, xarch, rootObjRef, objRefPath);
 		syncLogic = logics.addThingLogic(SynchronizeThingIDAndObjRefLogic.class);
 		reparentLogic = logics.addThingLogic(ReparentToThingIDLogic.class);
@@ -89,9 +70,6 @@ public class MapInterfaceLogic extends AbstractXADLToBNAPathLogic<EndpointThing>
 				IHasFlow.FLOW_KEY, true);
 		syncValue("id", null, null, BNAPath.create(), IHasXArchID.XARCH_ID_KEY, true);
 		syncValue("name", null, "[no name]", BNAPath.create(), IHasToolTip.TOOL_TIP_KEY, true);
-		syncXAttribute("ext[*[namespace-uri()='" + Domain_3_0Package.eNS_URI + "']]/domain/type",
-				DOMAIN_TO_STICKY_MODE, null, BNAPath.emptyPath(),
-				stickLogic.getStickyModeKey(IHasAnchorPoint.ANCHOR_POINT_KEY), false);
 
 		loadPreferences();
 
@@ -147,8 +125,8 @@ public class MapInterfaceLogic extends AbstractXADLToBNAPathLogic<EndpointThing>
 		thing.set(syncLogic.syncObjRefKeyToThingIDKey(reparentLogic.getReparentToThingKey()), descendantRefs.get(1));
 
 		/* orient to the parent thing */
-		Assemblies.DIRECTION_KEY.get(thing, model).set(
-				syncLogic.syncObjRefKeyToThingIDKey(reorientLogic.getReorientToThingKey()), descendantRefs.get(1));
+		Assemblies.DIRECTION_KEY.get(thing, model)
+				.set(syncLogic.syncObjRefKeyToThingIDKey(reorientLogic.getReorientToThingKey()), descendantRefs.get(1));
 
 		thing.set(stickLogic.getStickyModeKey(IHasAnchorPoint.ANCHOR_POINT_KEY), StickyMode.EDGE);
 		thing.set(syncLogic.syncObjRefKeyToThingIDKey(stickLogic.getStickyThingKey(IHasAnchorPoint.ANCHOR_POINT_KEY)),
