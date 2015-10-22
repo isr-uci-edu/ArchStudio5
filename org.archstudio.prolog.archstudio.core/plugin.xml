@@ -2,12 +2,6 @@
 <?eclipse version="3.4"?>
 <plugin>
    <extension
-         point="org.archstudio.archipelago">
-      <ArchipelagoTreePlugin
-            class="org.archstudio.prolog.archstudio.ArchipelagoTreePlugin">
-      </ArchipelagoTreePlugin>
-   </extension>
-   <extension
          point="org.archstudio.myxgen.brick">
       <brick
             class="org.archstudio.prolog.archstudio.PrologMyxComponent"
@@ -86,7 +80,7 @@
       </Operation>
       <Operation
             class="org.archstudio.prolog.archstudio.ops.PopulateAscending"
-            name="populateascending">
+            name="populate_ascending">
       </Operation>
    </extension>
    <extension
@@ -97,6 +91,12 @@
             reset(_) :- type(X, _), alpha(X, 1.0), clear_highlight(X).
          </Statement>
       </Statements>
+   </extension>
+   <extension
+         point="org.archstudio.archipelago2.outlines">
+      <MenuContributor
+            class="org.archstudio.prolog.archstudio.ArchipelagoTreeMenuContributor">
+      </MenuContributor>
    </extension>
 
 </plugin>

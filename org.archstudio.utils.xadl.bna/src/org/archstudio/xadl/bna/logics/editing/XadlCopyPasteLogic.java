@@ -37,6 +37,7 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.ui.IActionBars;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.ActionFactory;
 
 import com.google.common.collect.Lists;
@@ -45,19 +46,19 @@ import com.google.common.collect.Maps;
 public class XadlCopyPasteLogic extends AbstractThingLogic implements IBNAMenuListener2, IBNAModelListener {
 
 	protected final IXArchADT xarch;
-	protected final IActionBars actionBars;
 	protected static final XArchADTCopyPaste copyPaste = new XArchADTCopyPaste();
 	protected final Map<ObjRef, Integer> selectAndMoveObjRefs = Maps.newHashMap();
 	protected int pasteOffset = 0;
 
-	public XadlCopyPasteLogic(IBNAWorld world, IXArchADT xarch, final IActionBars actionBars) {
+	public XadlCopyPasteLogic(IBNAWorld world, IXArchADT xarch) {
 		super(world);
 		this.xarch = xarch;
-		this.actionBars = actionBars;
 
 		SWTWidgetUtils.async(Display.getDefault(), new Runnable() {
 			@Override
 			public void run() {
+				IActionBars actionBars = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
+						.getActiveEditor().getEditorSite().getActionBars();
 				actionBars.setGlobalActionHandler(ActionFactory.CUT.getId(), new BNAAction() {
 
 					@Override
@@ -126,6 +127,8 @@ public class XadlCopyPasteLogic extends AbstractThingLogic implements IBNAMenuLi
 		SWTWidgetUtils.async(Display.getDefault(), new Runnable() {
 			@Override
 			public void run() {
+				IActionBars actionBars = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
+						.getActiveEditor().getEditorSite().getActionBars();
 				actionBars.setGlobalActionHandler(ActionFactory.CUT.getId(), null);
 				actionBars.setGlobalActionHandler(ActionFactory.COPY.getId(), null);
 				actionBars.setGlobalActionHandler(ActionFactory.PASTE.getId(), null);

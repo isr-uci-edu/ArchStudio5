@@ -2,24 +2,28 @@
 <?eclipse version="3.4"?>
 <plugin>
    <extension
-         point="org.archstudio.archipelago">
-      <ArchipelagoTreePlugin
-            class="org.archstudio.archipelago.statechart.core.StatechartTreePlugin">
-      </ArchipelagoTreePlugin>
+         point="org.archstudio.archipelago2.outlines">
+      <Path
+            name="Statecharts">
+      </Path>
+      <ContentProvider
+            class="org.archstudio.archipelago2.ext.statecharts.outline.StatechartsContentProvider">
+      </ContentProvider>
+      <MenuContributor
+            class="org.archstudio.archipelago2.ext.statecharts.outline.StatechartsMenuContributor">
+      </MenuContributor>
    </extension>
    <extension
-         point="org.eclipse.ui.preferencePages">
-      <page
-            category="org.archstudio.archipelago.core.prefs.ArchipelagoPreferencePanel"
-            class="org.archstudio.archipelago.statechart.core.StatechartPreferences"
-            id="org.archstudio.archipelago.statechart.core.page1"
+         point="org.archstudio.archipelago2.editors">
+      <Editor
+            class="org.archstudio.archipelago2.ext.statecharts.StatechartEditor"
             name="Statechart">
-      </page>
+      </Editor>
    </extension>
    <extension
          point="org.archstudio.bna.thingdefinition">
       <Package
-            name="org.archstudio.archipelago.statechart.core.things.shapes">
+            name="org.archstudio.archipelago2.ext.statecharts.things">
          <Thing
                name="FinalState">
             <ImplementsFacet
@@ -45,6 +49,15 @@
             </ImplementsFacet>
          </Thing>
       </Package>
+   </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            category="org.archstudio.archipelago2.Archipelago2Preferences"
+            class="org.archstudio.archipelago2.ext.statecharts.StatechartPreferences"
+            id="org.archstudio.archipelago2.ext.statecharts.StatechartPreferences"
+            name="Statechart">
+      </page>
    </extension>
 
 </plugin>

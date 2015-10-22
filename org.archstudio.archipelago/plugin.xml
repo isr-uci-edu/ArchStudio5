@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
 <plugin>
-   <extension-point id="org.archstudio.archipelago" name="ArchipelagoPlugins" schema="schema/org.archstudio.archipelago.exsd"/>
-
+   <extension-point id="org.archstudio.archipelago2.outlines" name="outlines" schema="schema/org.archstudio.archipelago2.outlines.exsd"/>
+   <extension-point id="org.archstudio.archipelago2.editors" name="editors" schema="schema/org.archstudio.archipelago2.editors.exsd"/>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            category="org.archstudio.rootpreferences.core.ArchStudioPreferencePanel"
+            class="org.archstudio.archipelago2.Archipelago2Preferences"
+            id="org.archstudio.archipelago2.Archipelago2Preferences"
+            name="Archipelago">
+      </page>
+   </extension>
+   <extension
+         point="org.archstudio.bna.dndtransferprovider">
+      <DNDTransferProvider
+            class="org.archstudio.archipelago2.ObjRefTransfer">
+      </DNDTransferProvider>
+      <DNDTransferProvider
+            class="org.archstudio.archipelago2.OutlineElementTransfer">
+      </DNDTransferProvider>
+   </extension>
 </plugin>

@@ -6,7 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import org.archstudio.archipelago.core.ObjRefTransfer;
+import org.archstudio.archipelago2.ObjRefTransfer;
 import org.archstudio.eclipse.ui.views.AbstractArchStudioView;
 import org.archstudio.myx.fw.MyxRegistry;
 import org.archstudio.swtutils.SWTWidgetUtils;

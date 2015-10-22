@@ -4,9 +4,9 @@
    <extension
          point="org.archstudio.myxgen.brick">
       <brick
-            class="org.archstudio.archipelago.core.ArchipelagoMyxComponent"
-            id="org.archstudio.archipelago.core.ArchipelagoMyxComponent"
-            name="Archipelago Impl"
+            class="org.archstudio.archipelago2.core.Archipelago2MyxComponent"
+            id="org.archstudio.archipelago2.core.Archipelago2MyxComponent"
+            name="Archipelago v2.0 Impl"
             parentBrick="org.archstudio.eclipse.ui.editors.AbstractArchStudioEditorMyxComponent">
          <interface
                class="org.archstudio.graphlayout.IGraphLayout"
@@ -23,28 +23,20 @@
    <extension
          point="org.eclipse.ui.editors">
       <editor
-            class="org.archstudio.archipelago.core.ArchipelagoEditor"
+            class="org.archstudio.archipelago2.core.Archipelago2Editor"
             default="false"
             extensions="xml"
-            icon="src/org/archstudio/archipelago/core/res/archstudio-icon-16x16.png"
-            id="org.archstudio.archipelago.core.ArchipelagoEditor"
-            name="Archipelago">
+            icon="res/archstudio-icon-16x16.png"
+            id="org.archstudio.archipelago2.core.Archipelago2Editor"
+            name="Archipelago v2.0">
       </editor>
    </extension>
    <extension
-         point="org.eclipse.ui.preferencePages">
-      <page
-            category="org.archstudio.rootpreferences.core.ArchStudioPreferencePanel"
-            class="org.archstudio.archipelago.core.prefs.ArchipelagoPreferencePanel"
-            id="org.archstudio.archipelago.core.prefs.ArchipelagoPreferencePanel"
+         point="org.archstudio.archipelago2.editors">
+      <Editor
+            class="org.archstudio.archipelago2.core.editors.Archipelago2DefaultEditor"
             name="Archipelago">
-      </page>
-   </extension>
-   <extension
-         point="org.archstudio.bna.dndtransferprovider">
-      <DNDTransferProvider
-            class="org.archstudio.archipelago.core.ObjRefTransfer">
-      </DNDTransferProvider>
+      </Editor>
    </extension>
 
 </plugin>

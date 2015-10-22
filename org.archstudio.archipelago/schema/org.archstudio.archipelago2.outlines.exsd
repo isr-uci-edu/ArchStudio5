@@ -1,0 +1,173 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Schema file written by PDE -->
+<schema targetNamespace="org.archstudio.archipelago2" xmlns="http://www.w3.org/2001/XMLSchema">
+<annotation>
+      <appinfo>
+         <meta.schema plugin="org.archstudio.archipelago2" id="org.archstudio.archipelago2.outlines" name="outlines"/>
+      </appinfo>
+      <documentation>
+         Provides information about Archipelago editor and outline plugins.
+      </documentation>
+   </annotation>
+
+   <element name="extension">
+      <annotation>
+         <appinfo>
+            <meta.element />
+         </appinfo>
+      </annotation>
+      <complexType>
+         <sequence>
+            <element ref="Path" minOccurs="0" maxOccurs="unbounded"/>
+            <element ref="ContentProvider" minOccurs="0" maxOccurs="unbounded"/>
+            <element ref="LabelProvider" minOccurs="0" maxOccurs="unbounded"/>
+            <element ref="LabelDecorator" minOccurs="0" maxOccurs="unbounded"/>
+            <element ref="MenuContributor" minOccurs="0" maxOccurs="unbounded"/>
+         </sequence>
+         <attribute name="point" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="id" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="name" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appinfo>
+                  <meta.attribute translatable="true"/>
+               </appinfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="Path">
+      <complexType>
+         <attribute name="name" type="string">
+            <annotation>
+               <documentation>
+                  A path from the root of the tree to display in the results. Nodes are separated by &apos;/&apos;.
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="ContentProvider">
+      <annotation>
+         <documentation>
+            A content provider for the Archipelago outline view.
+         </documentation>
+      </annotation>
+      <complexType>
+         <attribute name="class" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appinfo>
+                  <meta.attribute kind="java" basedOn="org.archstudio.archipelago2.AbstractArchipelago2ContentProvider:org.archstudio.archipelago2.IArchipelagoContentProvider"/>
+               </appinfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="LabelProvider">
+      <annotation>
+         <documentation>
+            A label provider for the Archipelago outline view.
+         </documentation>
+      </annotation>
+      <complexType>
+         <attribute name="class" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appinfo>
+                  <meta.attribute kind="java" basedOn="org.archstudio.archipelago2.AbstractArchipelago2LabelProvider:org.archstudio.archipelago2.IArchipelago2LabelProvider"/>
+               </appinfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="LabelDecorator">
+      <complexType>
+         <attribute name="class" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appinfo>
+                  <meta.attribute kind="java" basedOn="org.archstudio.archipelago2.AbstractArchipelago2LabelDecorator:org.archstudio.archipelago2.IArchipelago2LabelDecorator"/>
+               </appinfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="MenuContributor">
+      <complexType>
+         <attribute name="class" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appinfo>
+                  <meta.attribute kind="java" basedOn="org.archstudio.archipelago2.AbstractArchipelago2MenuContributor:org.archstudio.archipelago2.IArchipelago2MenuContributor"/>
+               </appinfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <annotation>
+      <appinfo>
+         <meta.section type="since"/>
+      </appinfo>
+      <documentation>
+         [Enter the first release in which this extension point appears.]
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appinfo>
+         <meta.section type="examples"/>
+      </appinfo>
+      <documentation>
+         [Enter extension point usage example here.]
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appinfo>
+         <meta.section type="apiinfo"/>
+      </appinfo>
+      <documentation>
+         [Enter API information here.]
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appinfo>
+         <meta.section type="implementation"/>
+      </appinfo>
+      <documentation>
+         [Enter information about supplied implementation of this extension point.]
+      </documentation>
+   </annotation>
+
+
+</schema>

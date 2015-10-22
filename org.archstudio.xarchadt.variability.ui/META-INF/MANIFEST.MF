@@ -7,7 +7,7 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-SymbolicName: org.archstudio.xarchadt.variability.ui;singleton:=true
 Bundle-Vendor: archstudio.org
 Bundle-Version: 5.0.2.qualifier
-Require-Bundle: org.archstudio.archipelago.core,
+Require-Bundle: org.archstudio.archipelago,
  org.archstudio.eclipse.ui,
  org.archstudio.guava,
  org.archstudio.myx.fw,

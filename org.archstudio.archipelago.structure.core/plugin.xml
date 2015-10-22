@@ -2,19 +2,32 @@
 <?eclipse version="3.4"?>
 <plugin>
    <extension
-         point="org.eclipse.ui.preferencePages">
-      <page
-            category="org.archstudio.archipelago.core.prefs.ArchipelagoPreferencePanel"
-            class="org.archstudio.archipelago.core.prefs.structure.ArchipelagoStructurePreferencePanel"
-            id="org.archstudio.archipelago.core.prefs.structure.ArchipelagoStructurePreferencePanel"
-            name="Structure">
-      </page>
+         point="org.archstudio.archipelago2.outlines">
+      <Path
+            name="Structures">
+      </Path>
+      <ContentProvider
+            class="org.archstudio.archipelago2.ext.structures.outline.StructuresContentProvider">
+      </ContentProvider>
+      <MenuContributor
+            class="org.archstudio.archipelago2.ext.structures.outline.StructuresMenuContributor">
+      </MenuContributor>
    </extension>
    <extension
-         point="org.archstudio.archipelago">
-      <ArchipelagoTreePlugin
-            class="org.archstudio.archipelago.core.structure.StructureTreePlugin">
-      </ArchipelagoTreePlugin>
+         point="org.archstudio.archipelago2.editors">
+      <Editor
+            class="org.archstudio.archipelago2.ext.structures.StructureEditor"
+            name="Structure">
+      </Editor>
+   </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            category="org.archstudio.archipelago2.Archipelago2Preferences"
+            class="org.archstudio.archipelago2.ext.structures.StructurePreferences"
+            id="org.archstudio.archipelago2.ext.structures.StructurePreferences"
+            name="Structure">
+      </page>
    </extension>
 
 </plugin>

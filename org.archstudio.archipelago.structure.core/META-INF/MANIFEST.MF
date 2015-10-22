@@ -1,46 +1,27 @@
 Manifest-Version: 1.0
 Bundle-ActivationPolicy: lazy
-Bundle-Activator: org.archstudio.archipelago.structure.core.Activator
+Bundle-Activator: org.archstudio.archipelago2.ext.structures.Activator
 Bundle-ManifestVersion: 2
-Bundle-Name: ArchStudio Archipelago Structure Core
+Bundle-Name: ArchStudio Archipelago Structures Extension
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-SymbolicName: org.archstudio.archipelago.structure.core;singleton:=true
 Bundle-Vendor: archstudio.org
 Bundle-Version: 5.0.2.qualifier
-Export-Package: org.archstudio.archipelago.core.prefs.structure,
- org.archstudio.archipelago.core.structure,
- org.archstudio.archipelago.core.structure.mapping
+Export-Package: org.archstudio.archipelago2.ext.structures,
+ org.archstudio.archipelago2.ext.structures.logics,
+ org.archstudio.archipelago2.ext.structures.outline,
+ org.archstudio.archipelago2.ext.structures.utils
 Require-Bundle: org.archstudio.archipelago,
- org.archstudio.archipelago.core,
  org.archstudio.archipelago.statechart.core,
- org.archstudio.bna,
  org.archstudio.eclipse.core,
- org.archstudio.eclipse.ui,
- org.archstudio.filemanager,
- org.archstudio.graphlayout,
- org.archstudio.guava,
- org.archstudio.launcher,
  org.archstudio.myx.fw,
- org.archstudio.myx.myxgen,
- org.archstudio.myxgen,
- org.archstudio.myxgen.core,
- org.archstudio.resources,
  org.archstudio.utils.bna.dot,
  org.archstudio.utils.bna.gexf,
- org.archstudio.utils.swt,
- org.archstudio.utils.system,
+ org.archstudio.utils.resources.swt,
  org.archstudio.utils.xadl,
  org.archstudio.utils.xadl.bna,
- org.archstudio.utils.xadl.myx,
- org.archstudio.utils.xadl.swt,
  org.archstudio.xadl3.domain,
- org.archstudio.xadl3.implementation.lookup,
- org.archstudio.xadl3.implementation.myxgen,
  org.archstudio.xadl3.statechart,
- org.archstudio.xadl3.structure,
- org.archstudio.xarchadt,
- org.archstudio.xarchadt.core,
- org.archstudio.xarchadt.variability,
  org.eclipse.core.runtime,
  org.eclipse.jdt.annotation;bundle-version="[1.1.0,2.0.0)";resolution:=optional,
  org.eclipse.ui

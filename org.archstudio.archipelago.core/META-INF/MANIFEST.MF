@@ -1,46 +1,25 @@
 Manifest-Version: 1.0
 Bundle-ActivationPolicy: lazy
-Bundle-Activator: org.archstudio.archipelago.core.Activator
+Bundle-Activator: org.archstudio.archipelago2.core.Activator
 Bundle-ManifestVersion: 2
-Bundle-Name: ArchStudio Archipelago Core
+Bundle-Name: ArchStudio Archipelago v2.0 Core
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-SymbolicName: org.archstudio.archipelago.core;singleton:=true
 Bundle-Vendor: archstudio.org
 Bundle-Version: 5.0.2.qualifier
-Export-Package: org.archstudio.archipelago.core,
- org.archstudio.archipelago.core.prefs,
- org.archstudio.archipelago.core.util
 Require-Bundle: org.archstudio.archipelago,
- org.archstudio.bna,
- org.archstudio.eclipse,
  org.archstudio.eclipse.core,
  org.archstudio.eclipse.ui,
  org.archstudio.editormanager,
  org.archstudio.filemanager,
+ org.archstudio.filemanager,
  org.archstudio.graphlayout,
- org.archstudio.guava,
  org.archstudio.launcher,
- org.archstudio.myx.fw,
  org.archstudio.myxgen,
- org.archstudio.myxgen.core,
- org.archstudio.prolog,
  org.archstudio.resources,
- org.archstudio.utils.swt,
- org.archstudio.utils.system,
+ org.archstudio.utils.resources,
+ org.archstudio.utils.resources.swt,
  org.archstudio.utils.xadl,
- org.archstudio.utils.xadl.bna,
- org.archstudio.utils.xadl.swt,
- org.archstudio.xadl3.domain,
- org.archstudio.xadl3.hints,
- org.archstudio.xadl3.implementation,
- org.archstudio.xadl3.implementation.lookup,
- org.archstudio.xadl3.implementation.myxgen,
- org.archstudio.xadl3.structure,
- org.archstudio.xarchadt,
- org.archstudio.xarchadt.core,
- org.archstudio.xarchadt.variability,
- org.eclipse.core.resources,
  org.eclipse.core.runtime,
  org.eclipse.ui,
- org.eclipse.ui.ide,
  org.eclipse.ui.views
