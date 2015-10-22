@@ -620,13 +620,16 @@ public class BNAUtils2 {
 						if (innerThingsAtLocation.viewAtLocation != null) {
 							thingsAtLocation.viewAtLocation = innerThingsAtLocation.viewAtLocation;
 						}
+						thingsAtLocation.backgroundThingAtLocation = innerThingsAtLocation.backgroundThingAtLocation;
 					}
 				}
 			}
 			else {
 				if (passedThroughWorld && Assemblies.getThingOfType(view.getBNAWorld().getBNAModel(), thing,
 						IHasWorld.class) != null) {
-					thingsAtLocation.backgroundThingAtLocation = new ThingReference(view, thing);
+					if (thingsAtLocation.backgroundThingAtLocation == null) {
+						thingsAtLocation.backgroundThingAtLocation = new ThingReference(view, thing);
+					}
 					return thingsAtLocation;
 				}
 				thingsAtLocation.viewAtLocation = null;
