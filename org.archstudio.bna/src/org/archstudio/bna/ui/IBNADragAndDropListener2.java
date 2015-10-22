@@ -11,13 +11,13 @@ import org.eclipse.swt.dnd.DropTargetListener;
 import org.eclipse.swt.dnd.Transfer;
 
 /**
- * A BNA drag/drop listener that uses the logic described in
- * {@link BNAUtils2#getThingsAtLocation(IBNAView, ICoordinate)} to guide which world logics will be called for drag/drop
- * events. If the event is associated with a view, then the view's world's logics are used, otherwise the thing's
- * world's logics are used. If the logic implements {@link IBNAAllEventsListener2}, then it will always receive events.
+ * Logics that implement this interface receive drag/drop events. Only the logics in the targeted view (according to
+ * logic described in {@link BNAUtils2#getThingsAtLocation(IBNAView, ICoordinate)}) will receive events unless a logic
+ * implements {@link IBNAAllEventsListener2}, in which case it will always receive events regardless of which view the
+ * user is interacting with.
  * <p>
  * Note: All {@link Transfer} providers must implement {@link IUITransferProvider} and be registered with the
- * org.archstudio.bna.dndtransferprovider plugin extension.
+ * org.archstudio.bna.dndtransferprovider plug-in extension.
  *
  * @author sahendrickson@gmail.com (Scott A. Hendrickson)
  */

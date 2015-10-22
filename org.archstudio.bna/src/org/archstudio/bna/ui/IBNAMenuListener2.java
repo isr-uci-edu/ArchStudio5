@@ -9,9 +9,9 @@ import org.eclipse.jface.action.MenuManager;
 import org.eclipse.ui.IWorkbenchActionConstants;
 
 /**
- * A BNA menu listener that uses the logic described in {@link BNAUtils2#getThingsAtLocation(IBNAView, ICoordinate)} to
- * guide which world logics will be called for menu events. If the event is associated with a view, then the view's
- * world's logics are used, otherwise the thing's world's logics are used.
+ * Logics that implement this interface provide context menu entries for BNA. Only the logics in the targeted view
+ * (according to logic described in {@link BNAUtils2#getThingsAtLocation(IBNAView, ICoordinate)}) will be queried to
+ * provide menu items unless a logic implements {@link IBNAAllEventsListener2}, in which case it will always be queried.
  *
  * @author sahendrickson@gmail.com (Scott A. Hendrickson)
  */

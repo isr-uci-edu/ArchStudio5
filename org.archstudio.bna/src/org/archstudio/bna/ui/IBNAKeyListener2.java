@@ -5,8 +5,9 @@ import org.archstudio.bna.constants.KeyType;
 import org.eclipse.swt.events.KeyEvent;
 
 /**
- * A BNA key listener. Only the top level world receives key events unless the logic also implements
- * {@link IBNAAllEventsListener2}, in which case the logic will always receive key events no matter what world it is in.
+ * Logics that implement this interface receive keyboard events. Only the top-level view logics will receive events
+ * unless a logic implements {@link IBNAAllEventsListener2}, in which case it will always receive events regardless of
+ * which view it is in.
  *
  * @author sahendrickson@gmail.com (Scott A. Hendrickson)
  */

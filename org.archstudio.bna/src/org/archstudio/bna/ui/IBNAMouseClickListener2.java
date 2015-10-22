@@ -8,10 +8,10 @@ import org.archstudio.bna.utils.BNAUtils2.ThingsAtLocation;
 import org.eclipse.swt.events.MouseEvent;
 
 /**
- * A mouse click listener that is called only when the user is interacting with this view. See
- * {@link BNAUtils2#getThingsAtLocation(IBNAView, ICoordinate)} for a discussion of what view the user is interacting
- * with. If the logic implements {@link IBNAAllEventsListener2} then this logic will always be called event if the
- * user is not interacting with its view.
+ * Logics that implement this interface receive mouse click events. Only the logics in the targeted view (according to
+ * logic described in {@link BNAUtils2#getThingsAtLocation(IBNAView, ICoordinate)}) will receive events unless a logic
+ * implements {@link IBNAAllEventsListener2}, in which case it will always receive events regardless of which view the
+ * user is interacting with.
  *
  * @author sahendrickson@gmail.com (Scott A. Hendrickson)
  */
