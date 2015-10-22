@@ -51,7 +51,6 @@ import org.archstudio.bna.utils.DefaultCoordinate;
 import org.archstudio.sysutils.Finally;
 import org.archstudio.sysutils.SystemUtils;
 import org.eclipse.jface.action.IMenuManager;
-import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
@@ -63,8 +62,6 @@ import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Menu;
 import org.eclipse.ui.IWorkbenchActionConstants;
 
 import com.google.common.cache.CacheBuilder;
@@ -860,55 +857,24 @@ public abstract class AbstractBNAUI implements IBNAUI {
 		}
 	}
 
-	protected void menuEventSWT(MenuDetectEvent e) {
-		MenuManager menuMgr = null;
-		try {
-			menuMgr = new MenuManager("BNA Popup Menu");
-			addMenuSeparators(menuMgr);
-			Menu menu = menuMgr.createContextMenu(eventControl);
-
-			menuEventSWT2(e, menuMgr, menu);
-			menuEventSWT1(e, menuMgr, menu);
-
-			Point menuLocation = new Point(e.x, e.y);
-			if (e.detail == SWT.MENU_KEYBOARD) {
-				menuLocation = eventControl.toDisplay(new Point(5, 5));
-			}
-			menu.setLocation(menuLocation.x, menuLocation.y);
-			menu.setVisible(true);
-			Display display = eventControl.getDisplay();
-			while (!menu.isDisposed() && menu.isVisible()) {
-				if (!display.readAndDispatch()) {
-					display.sleep();
-				}
-			}
-		}
-		finally {
-			if (menuMgr != null) {
-				menuMgr.dispose();
-			}
-		}
+	protected void menuEventSWT(MenuDetectEvent e, IMenuManager menuMgr) {
+		addMenuSeparators(menuMgr);
+		menuEventSWT2(e, menuMgr);
+		menuEventSWT1(e, menuMgr);
 	}
 
-	protected void menuEventSWT1(MenuDetectEvent e, MenuManager menuMgr, Menu menu) {
+	protected void menuEventSWT1(MenuDetectEvent e, IMenuManager menuMgr) {
 		try (Finally lock = BNAUtils.lock()) {
 			if (DEBUG) {
 				System.err.println(e);
 			}
-			ICoordinate location;
-			List<IThing> things;
-			if (e.detail == SWT.MENU_MOUSE) {
+			ICoordinate location = DefaultCoordinate.forLocal(new Point(0, 0), view.getCoordinateMapper());
+			List<IThing> things = Lists.newArrayList();
+			if (e != null && e.detail == SWT.MENU_MOUSE) {
 				Point p = eventControl.toControl(e.x, e.y);
 				location = DefaultCoordinate.forLocal(new Point(p.x, p.y), view.getCoordinateMapper());
 				EnvironmentPropertiesThing.createIn(world).setNewThingSpot(location.getWorldPoint());
 				things = view.getThingsAt(location);
-			}
-			else if (e.detail == SWT.MENU_KEYBOARD) {
-				location = DefaultCoordinate.forLocal(new Point(0, 0), view.getCoordinateMapper());
-				things = Lists.newArrayList();
-			}
-			else {
-				throw new IllegalArgumentException("Unrecognized menu detail: " + e.detail);
 			}
 
 			IHasWorld world = SystemUtils.firstOrNull(things, IHasWorld.class);
@@ -927,29 +893,24 @@ public abstract class AbstractBNAUI implements IBNAUI {
 		}
 	}
 
-	protected void menuEventSWT2(MenuDetectEvent e, MenuManager menuMgr, Menu menu) {
+	protected void menuEventSWT2(MenuDetectEvent e, IMenuManager menuMgr) {
 		try (Finally lock = BNAUtils.lock()) {
 			if (DEBUG) {
 				System.err.println(e);
 			}
 			Point p = eventControl.toControl(e.x, e.y);
-			ICoordinate location = DefaultCoordinate.forLocal(new Point(p.x, p.y), view.getCoordinateMapper());
+			ICoordinate location = DefaultCoordinate.forLocal(new Point(0, 0), view.getCoordinateMapper());
+			if (e != null && e.detail == SWT.MENU_MOUSE) {
+				location = DefaultCoordinate.forLocal(new Point(p.x, p.y), view.getCoordinateMapper());
+			}
 			ThingsAtLocation thingsAtLocation = BNAUtils2.getThingsAtLocation(view, location);
 			IBNAView view = thingsAtLocation.getView();
-			if (e.detail == SWT.MENU_MOUSE) {
-				location = DefaultCoordinate.forLocal(new Point(p.x, p.y), view.getCoordinateMapper());
-				EnvironmentPropertiesThing.createIn(world).setNewThingSpot(location.getWorldPoint());
-			}
-			else if (e.detail == SWT.MENU_KEYBOARD) {
-				location = DefaultCoordinate.forLocal(new Point(0, 0), view.getCoordinateMapper());
-			}
-			else {
-				throw new IllegalArgumentException("Unrecognized menu detail: " + e.detail);
-			}
 
 			for (RelevantLogic<IBNAMenuListener2> mouseLogic : getAllLogics(view, new Point(0, 0),
 					IBNAMenuListener2.class)) {
 				try {
+					EnvironmentPropertiesThing.createIn(mouseLogic.view.getBNAWorld())
+							.setNewThingSpot(mouseLogic.location.getWorldPoint());
 					long time = System.nanoTime();
 					mouseLogic.logic.fillMenu(mouseLogic.view, mouseLogic.location, thingsAtLocation, menuMgr);
 					if (PROFILE) {

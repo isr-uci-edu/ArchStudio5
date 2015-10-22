@@ -18,6 +18,9 @@ import org.archstudio.bna.utils.DefaultCoordinate;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.jface.action.IMenuListener;
+import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.action.MenuManager;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.dnd.DND;
 import org.eclipse.swt.dnd.DropTarget;
@@ -40,6 +43,7 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
+import org.eclipse.swt.widgets.Menu;
 
 import com.google.common.collect.Maps;
 
@@ -143,27 +147,6 @@ public abstract class AbstractSWTUI extends AbstractBNAUI implements IBNAUI {
 		}
 	}
 
-	class SWTMenuDetectListener implements MenuDetectListener {
-		/**
-		 * On Cocoa the menu appears twice. To prevent this, we filter out a second menu attempt immediately after the
-		 * first.
-		 */
-		private long lastMenuTimeMillis = System.currentTimeMillis() - 250;
-
-		@Override
-		public void menuDetected(MenuDetectEvent e) {
-			if (System.currentTimeMillis() - lastMenuTimeMillis <= 100) {
-				return;
-			}
-			try {
-				menuEventSWT(e);
-			}
-			finally {
-				lastMenuTimeMillis = System.currentTimeMillis();
-			}
-		}
-	}
-
 	class SWTDropTargetListener implements DropTargetListener {
 
 		protected void dndEvent(DNDType type, DropTargetEvent e) {
@@ -259,11 +242,29 @@ public abstract class AbstractSWTUI extends AbstractBNAUI implements IBNAUI {
 			swtComposite.addMouseTrackListener(new SWTMouseTrackListener());
 			swtComposite.addKeyListener(new SWTKeyListener());
 			swtComposite.addFocusListener(new SWTFocusListener());
-			swtComposite.addMenuDetectListener(new SWTMenuDetectListener());
 			swtComposite.addListener(SWT.MouseHorizontalWheel, new SWTMouseEventListener(MouseType.HORIZONTAL_WHEEL));
 			swtComposite.addListener(SWT.MouseVerticalWheel, new SWTMouseEventListener(MouseType.VERTICAL_WHEEL));
 			swtComposite.addListener(SWT.Gesture, new SWTGestureEventListener());
 			swtDropTarget.addDropListener(new SWTDropTargetListener());
+
+			// Register menu.
+			final MenuDetectEvent[] menuDetectEvent = new MenuDetectEvent[1];
+			swtComposite.addMenuDetectListener(new MenuDetectListener() {
+				@Override
+				public void menuDetected(MenuDetectEvent e) {
+					menuDetectEvent[0] = e;
+				}
+			});
+			MenuManager menuMgr = new MenuManager();
+			menuMgr.setRemoveAllWhenShown(true);
+			menuMgr.addMenuListener(new IMenuListener() {
+				@Override
+				public void menuAboutToShow(IMenuManager manager) {
+					menuEventSWT(menuDetectEvent[0], manager);
+				}
+			});
+			Menu menu = menuMgr.createContextMenu(swtComposite);
+			swtComposite.setMenu(menu);
 		}
 	}
 
