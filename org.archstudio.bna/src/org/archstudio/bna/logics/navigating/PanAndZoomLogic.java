@@ -26,6 +26,7 @@ import org.archstudio.bna.ui.IBNATrackGestureListener;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.BNAUtils2.ThingsAtLocation;
 import org.archstudio.bna.utils.DefaultCoordinate;
+import org.archstudio.sysutils.SystemUtils;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
@@ -47,6 +48,8 @@ public class PanAndZoomLogic extends AbstractThingLogic
 	protected static final int PAN_BUTTON = 2; // middle button
 	protected static boolean inGesture = false;
 	protected static double originalScale = 1;
+	protected static double minScale = Math.pow(2, -10);
+	protected static double maxScale = Math.pow(2, 10);
 	protected static Set<Composite> registeredComposites = Sets.newHashSet();
 	protected static Listener preventScrollListener = new Listener() {
 		@Override
@@ -176,8 +179,8 @@ public class PanAndZoomLogic extends AbstractThingLogic
 
 		IMutableCoordinateMapper mcm = castOrNull(view.getCoordinateMapper(), IMutableCoordinateMapper.class);
 		if (mcm != null) {
-			mcm.setLocalScaleAndAlign(originalScale * e.magnification, location.getLocalPoint(),
-					location.getWorldPoint());
+			mcm.setLocalScaleAndAlign(SystemUtils.bound(minScale, originalScale * e.magnification, maxScale),
+					location.getLocalPoint(), location.getWorldPoint());
 		}
 	}
 
@@ -251,7 +254,8 @@ public class PanAndZoomLogic extends AbstractThingLogic
 			double oldPower = Math.log(oldScale) / Math.log(Math.sqrt(2));
 			double newPower = oldPower + delta;
 			double newScale = Math.pow(Math.sqrt(2), newPower);
-			mcm.setLocalScaleAndAlign(newScale, location.getLocalPoint(), location.getWorldPoint());
+			mcm.setLocalScaleAndAlign(SystemUtils.bound(minScale, newScale, maxScale), location.getLocalPoint(),
+					location.getWorldPoint());
 		}
 	}
 }
