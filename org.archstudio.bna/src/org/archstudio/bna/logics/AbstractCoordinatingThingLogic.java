@@ -165,4 +165,8 @@ public abstract class AbstractCoordinatingThingLogic<T extends Updater> extends 
 			// do nothing
 		}
 	}
+
+	protected Collection<T> getUpdatersTrackingThing(Object thingID) {
+		return FastMap.getCollection(updatersTrackingThings, thingID);
+	}
 }

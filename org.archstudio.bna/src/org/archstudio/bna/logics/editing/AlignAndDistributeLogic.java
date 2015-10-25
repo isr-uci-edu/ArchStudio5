@@ -8,9 +8,10 @@ import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
-import org.archstudio.bna.facets.IHasAnchorPoint;
-import org.archstudio.bna.facets.IHasBoundingBox;
+import org.archstudio.bna.facets.IHasMutableAnchorPoint;
+import org.archstudio.bna.facets.IHasMutableBoundingBox;
 import org.archstudio.bna.logics.AbstractThingLogic;
+import org.archstudio.bna.logics.coordinating.StickPointLogic;
 import org.archstudio.bna.ui.IBNAMenuListener2;
 import org.archstudio.bna.utils.BNAAction;
 import org.archstudio.bna.utils.BNAAlignUtils;
@@ -19,17 +20,16 @@ import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.BNAUtils2.ThingsAtLocation;
 import org.archstudio.swtutils.constants.HorizontalAlignment;
 import org.archstudio.swtutils.constants.VerticalAlignment;
-import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
-import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.ui.IWorkbenchActionConstants;
+
+import com.google.common.collect.Collections2;
+import com.google.common.collect.Lists;
 
 public class AlignAndDistributeLogic extends AbstractThingLogic implements IBNAMenuListener2 {
-
 	protected ImageRegistry imageRegistry = null;
 
 	protected static final String ALIGN_LEFT = "alignLeft";
@@ -44,8 +44,11 @@ public class AlignAndDistributeLogic extends AbstractThingLogic implements IBNAM
 	protected static final String DISTRIBUTE_VERTICAL_LOOSE = "distributeVerticalLoose";
 	protected static final String DISTRIBUTE_VERTICAL_TIGHT = "distributeVerticalTight";
 
+	final StickPointLogic stickLogic;
+
 	public AlignAndDistributeLogic(IBNAWorld world) {
 		super(world);
+		stickLogic = logics.getThingLogic(StickPointLogic.class);
 	}
 
 	protected void loadImages(IBNAView view) {
@@ -72,7 +75,6 @@ public class AlignAndDistributeLogic extends AbstractThingLogic implements IBNAM
 	@Override
 	public void dispose() {
 		BNAUtils.checkLock();
-
 		if (imageRegistry != null) {
 			imageRegistry.dispose();
 		}
@@ -81,153 +83,141 @@ public class AlignAndDistributeLogic extends AbstractThingLogic implements IBNAM
 	@Override
 	public void fillMenu(IBNAView view, ICoordinate location, ThingsAtLocation things, IMenuManager menu) {
 		BNAUtils.checkLock();
-		if (things.getViewAtLocation() != null) {
-			return;
-		}
-
 		if (imageRegistry == null) {
 			loadImages(view);
 		}
 
+		// Make sure at least two things have either an anchor point or bounding box.
 		Collection<IThing> selectedThings = BNAUtils.getSelectedThings(view.getBNAWorld().getBNAModel());
-		if (selectedThings.size() < 2) {
-			return;
-		}
-
 		final List<IThing> thingsToEditList = new ArrayList<IThing>();
-
-		// Make sure at least two things have either an anchor point or bounding box
 		for (IThing st : selectedThings) {
-			if (st instanceof IHasBoundingBox || st instanceof IHasAnchorPoint) {
+			if (st instanceof IHasMutableBoundingBox || st instanceof IHasMutableAnchorPoint) {
 				thingsToEditList.add(st);
 			}
 		}
-		if (thingsToEditList.size() < 2) {
-			return;
+		if (thingsToEditList.size() > 2) {
+			final IThing[] thingsToEdit = thingsToEditList.toArray(new IThing[thingsToEditList.size()]);
+			final Runnable undoRunnable = BNAOperations.takeSnapshotOfLocations(model, thingsToEditList);
+
+			IMenuManager alignMenu = new MenuManager("Align");
+			alignMenu.add(new BNAAction("Align &Top", imageRegistry.getDescriptor(ALIGN_TOP)) {
+				@Override
+				public void runWithLock() {
+					BNAAlignUtils.align(thingsToEdit, VerticalAlignment.TOP);
+					BNAOperations.runnable("Align", undoRunnable,
+							BNAOperations.takeSnapshotOfLocations(model, thingsToEditList), false);
+				}
+			});
+			alignMenu.add(new BNAAction("Align &Middle", imageRegistry.getDescriptor(ALIGN_MIDDLE)) {
+				@Override
+				public void runWithLock() {
+					BNAAlignUtils.align(thingsToEdit, VerticalAlignment.MIDDLE);
+					BNAOperations.runnable("Align", undoRunnable,
+							BNAOperations.takeSnapshotOfLocations(model, thingsToEditList), false);
+				}
+			});
+			alignMenu.add(new BNAAction("Align &Bottom", imageRegistry.getDescriptor(ALIGN_BOTTOM)) {
+				@Override
+				public void runWithLock() {
+					BNAAlignUtils.align(thingsToEdit, VerticalAlignment.BOTTOM);
+					BNAOperations.runnable("Align", undoRunnable,
+							BNAOperations.takeSnapshotOfLocations(model, thingsToEditList), false);
+				}
+			});
+			alignMenu.add(new BNAAction("Align &Left", imageRegistry.getDescriptor(ALIGN_LEFT)) {
+				@Override
+				public void runWithLock() {
+					BNAAlignUtils.align(thingsToEdit, HorizontalAlignment.LEFT);
+					BNAOperations.runnable("Align", undoRunnable,
+							BNAOperations.takeSnapshotOfLocations(model, thingsToEditList), false);
+				}
+			});
+			alignMenu.add(new BNAAction("Align &Center", imageRegistry.getDescriptor(ALIGN_CENTER)) {
+				@Override
+				public void runWithLock() {
+					BNAAlignUtils.align(thingsToEdit, HorizontalAlignment.CENTER);
+					BNAOperations.runnable("Align", undoRunnable,
+							BNAOperations.takeSnapshotOfLocations(model, thingsToEditList), false);
+				}
+			});
+			alignMenu.add(new BNAAction("Align &Right", imageRegistry.getDescriptor(ALIGN_RIGHT)) {
+				@Override
+				public void runWithLock() {
+					BNAAlignUtils.align(thingsToEdit, HorizontalAlignment.RIGHT);
+					BNAOperations.runnable("Align", undoRunnable,
+							BNAOperations.takeSnapshotOfLocations(model, thingsToEditList), false);
+				}
+			});
+			menu.add(alignMenu);
+
+			IMenuManager distributeMenu = new MenuManager("Distribute");
+			distributeMenu.add(new BNAAction("Distribute Horizontal Loose",
+					imageRegistry.getDescriptor(DISTRIBUTE_HORIZONTAL_LOOSE)) {
+				@Override
+				public void runWithLock() {
+					BNADistributeUtils.distributeHorizontalLoose(thingsToEdit);
+					BNAOperations.runnable("Distribute", undoRunnable,
+							BNAOperations.takeSnapshotOfLocations(model, thingsToEditList), false);
+				}
+			});
+			distributeMenu.add(new BNAAction("Distribute Horizontal Tight",
+					imageRegistry.getDescriptor(DISTRIBUTE_HORIZONTAL_TIGHT)) {
+				@Override
+				public void runWithLock() {
+					BNADistributeUtils.distributeHorizontalTight(thingsToEdit);
+					BNAOperations.runnable("Distribute", undoRunnable,
+							BNAOperations.takeSnapshotOfLocations(model, thingsToEditList), false);
+				}
+			});
+			distributeMenu.add(
+					new BNAAction("Distribute Vertical Loose", imageRegistry.getDescriptor(DISTRIBUTE_VERTICAL_LOOSE)) {
+						@Override
+						public void runWithLock() {
+							BNADistributeUtils.distributeVerticalLoose(thingsToEdit);
+							BNAOperations.runnable("Distribute", undoRunnable,
+									BNAOperations.takeSnapshotOfLocations(model, thingsToEditList), false);
+						}
+					});
+			distributeMenu.add(
+					new BNAAction("Distribute Vertical Tight", imageRegistry.getDescriptor(DISTRIBUTE_VERTICAL_TIGHT)) {
+						@Override
+						public void runWithLock() {
+							BNADistributeUtils.distributeVerticalTight(thingsToEdit);
+							BNAOperations.runnable("Distribute", undoRunnable,
+									BNAOperations.takeSnapshotOfLocations(model, thingsToEditList), false);
+						}
+					});
+			menu.add(distributeMenu);
 		}
-		final IThing[] thingsToEdit = thingsToEditList.toArray(new IThing[thingsToEditList.size()]);
-		final Runnable undoRunnable = BNAOperations.takeSnapshotOfLocations(model, thingsToEditList);
 
-		IMenuManager alignMenu = new MenuManager("Align");
+		// Select all things if nothing is selected.
+		Collection<IThing> thingsToFlip = Lists.newArrayList(BNAUtils.getSelectedThings(model));
+		if (thingsToFlip.isEmpty()) {
+			thingsToFlip.addAll(model.getAllThings());
+		}
+		thingsToFlip = Collections2.filter(thingsToFlip, BNAAlignUtils.FLIP_THING_PREDICATE);
+		if (thingsToFlip.size() >= 1) {
+			final Collection<IThing> finalThingsToFlip = thingsToFlip;
+			final Runnable undoRunnable = BNAOperations.takeSnapshotOfLocations(model, thingsToEditList);
 
-		IAction alignTop = new BNAAction("Align &Top", imageRegistry.getDescriptor(ALIGN_TOP)) {
-
-			@Override
-			public void runWithLock() {
-				BNAAlignUtils.align(thingsToEdit, VerticalAlignment.TOP);
-				BNAOperations.runnable("Align", undoRunnable,
-						BNAOperations.takeSnapshotOfLocations(model, thingsToEditList), false);
-			}
-		};
-		alignMenu.add(alignTop);
-
-		IAction alignMiddle = new BNAAction("Align &Middle", imageRegistry.getDescriptor(ALIGN_MIDDLE)) {
-
-			@Override
-			public void runWithLock() {
-				BNAAlignUtils.align(thingsToEdit, VerticalAlignment.MIDDLE);
-				BNAOperations.runnable("Align", undoRunnable,
-						BNAOperations.takeSnapshotOfLocations(model, thingsToEditList), false);
-			}
-		};
-		alignMenu.add(alignMiddle);
-
-		IAction alignBottom = new BNAAction("Align &Bottom", imageRegistry.getDescriptor(ALIGN_BOTTOM)) {
-
-			@Override
-			public void runWithLock() {
-				BNAAlignUtils.align(thingsToEdit, VerticalAlignment.BOTTOM);
-				BNAOperations.runnable("Align", undoRunnable,
-						BNAOperations.takeSnapshotOfLocations(model, thingsToEditList), false);
-			}
-		};
-		alignMenu.add(alignBottom);
-
-		IAction alignLeft = new BNAAction("Align &Left", imageRegistry.getDescriptor(ALIGN_LEFT)) {
-
-			@Override
-			public void runWithLock() {
-				BNAAlignUtils.align(thingsToEdit, HorizontalAlignment.LEFT);
-				BNAOperations.runnable("Align", undoRunnable,
-						BNAOperations.takeSnapshotOfLocations(model, thingsToEditList), false);
-			}
-		};
-		alignMenu.add(alignLeft);
-
-		IAction alignCenter = new BNAAction("Align &Center", imageRegistry.getDescriptor(ALIGN_CENTER)) {
-
-			@Override
-			public void runWithLock() {
-				BNAAlignUtils.align(thingsToEdit, HorizontalAlignment.CENTER);
-				BNAOperations.runnable("Align", undoRunnable,
-						BNAOperations.takeSnapshotOfLocations(model, thingsToEditList), false);
-			}
-		};
-		alignMenu.add(alignCenter);
-
-		IAction alignRight = new BNAAction("Align &Right", imageRegistry.getDescriptor(ALIGN_RIGHT)) {
-
-			@Override
-			public void runWithLock() {
-				BNAAlignUtils.align(thingsToEdit, HorizontalAlignment.RIGHT);
-				BNAOperations.runnable("Align", undoRunnable,
-						BNAOperations.takeSnapshotOfLocations(model, thingsToEditList), false);
-			}
-		};
-		alignMenu.add(alignRight);
-
-		IMenuManager distributeMenu = new MenuManager("Distribute");
-
-		IAction distributeHorizontalLoose =
-				new BNAAction("Distribute Horizontal Loose", imageRegistry.getDescriptor(DISTRIBUTE_HORIZONTAL_LOOSE)) {
-
-					@Override
-					public void runWithLock() {
-						BNADistributeUtils.distributeHorizontalLoose(thingsToEdit);
-						BNAOperations.runnable("Distribute", undoRunnable,
-								BNAOperations.takeSnapshotOfLocations(model, thingsToEditList), false);
-					}
-				};
-		distributeMenu.add(distributeHorizontalLoose);
-
-		IAction distributeHorizontalTight =
-				new BNAAction("Distribute Horizontal Tight", imageRegistry.getDescriptor(DISTRIBUTE_HORIZONTAL_TIGHT)) {
-
-					@Override
-					public void runWithLock() {
-						BNADistributeUtils.distributeHorizontalTight(thingsToEdit);
-						BNAOperations.runnable("Distribute", undoRunnable,
-								BNAOperations.takeSnapshotOfLocations(model, thingsToEditList), false);
-					}
-				};
-		distributeMenu.add(distributeHorizontalTight);
-
-		IAction distributeVerticalLoose =
-				new BNAAction("Distribute Vertical Loose", imageRegistry.getDescriptor(DISTRIBUTE_VERTICAL_LOOSE)) {
-
-					@Override
-					public void runWithLock() {
-						BNADistributeUtils.distributeVerticalLoose(thingsToEdit);
-						BNAOperations.runnable("Distribute", undoRunnable,
-								BNAOperations.takeSnapshotOfLocations(model, thingsToEditList), false);
-					}
-				};
-		distributeMenu.add(distributeVerticalLoose);
-
-		IAction distributeVerticalTight =
-				new BNAAction("Distribute Vertical Tight", imageRegistry.getDescriptor(DISTRIBUTE_VERTICAL_TIGHT)) {
-
-					@Override
-					public void runWithLock() {
-						BNADistributeUtils.distributeVerticalTight(thingsToEdit);
-						BNAOperations.runnable("Distribute", undoRunnable,
-								BNAOperations.takeSnapshotOfLocations(model, thingsToEditList), false);
-					}
-				};
-		distributeMenu.add(distributeVerticalTight);
-
-		menu.add(alignMenu);
-		menu.add(distributeMenu);
-		menu.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
+			IMenuManager flipMenu = new MenuManager("Flip");
+			flipMenu.add(new BNAAction("Flip &Vertically", imageRegistry.getDescriptor(ALIGN_MIDDLE)) {
+				@Override
+				public void runWithLock() {
+					BNAAlignUtils.flip(stickLogic, finalThingsToFlip, false);
+					BNAOperations.runnable("Flip Vertically", undoRunnable,
+							BNAOperations.takeSnapshotOfLocations(model, finalThingsToFlip), false);
+				}
+			});
+			flipMenu.add(new BNAAction("Flip &Horizontally", imageRegistry.getDescriptor(ALIGN_CENTER)) {
+				@Override
+				public void runWithLock() {
+					BNAAlignUtils.flip(stickLogic, finalThingsToFlip, true);
+					BNAOperations.runnable("Flip Horizontally", undoRunnable,
+							BNAOperations.takeSnapshotOfLocations(model, finalThingsToFlip), false);
+				}
+			});
+			menu.add(flipMenu);
+		}
 	}
 }

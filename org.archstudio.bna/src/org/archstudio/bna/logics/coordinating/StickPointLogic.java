@@ -5,6 +5,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import java.awt.Shape;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
+import java.util.List;
 import java.util.Set;
 
 import org.archstudio.bna.IBNAModel;
@@ -27,6 +28,7 @@ import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
 @NonNullByDefault
@@ -48,7 +50,14 @@ public class StickPointLogic extends AbstractCoordinatingThingLogic<PointUpdater
 
 	}
 
-	public class PointUpdater extends AbstractCoordinatingThingLogic.Updater {
+	@NonNullByDefault
+	public static interface IStuckThing {
+		public IThing getStuckThing();
+
+		public IThingKey<Point2D> getStuckPointKey();
+	}
+
+	public class PointUpdater extends AbstractCoordinatingThingLogic.Updater implements IStuckThing {
 
 		final Object pointThingID;
 		final IThingKey<Point2D> pointKey;
@@ -64,6 +73,20 @@ public class StickPointLogic extends AbstractCoordinatingThingLogic<PointUpdater
 			this.stickyMode = stickyMode;
 			this.stickyThingID = stickyThing.getID();
 			this.stickyShape = stickyThing.getStickyShape();
+		}
+
+		@Override
+		public IThing getStuckThing() {
+			IThing thing = model.getThing(pointThingID);
+			if (thing == null) {
+				throw new NullPointerException();
+			}
+			return thing;
+		}
+
+		@Override
+		public IThingKey<Point2D> getStuckPointKey() {
+			return pointKey;
 		}
 
 		@Override
@@ -387,6 +410,10 @@ public class StickPointLogic extends AbstractCoordinatingThingLogic<PointUpdater
 			}
 		}
 		return stuckPoint;
+	}
+
+	public List<IStuckThing> getStuckThings(IHasStickyShape stickyThing) {
+		return Lists.<IStuckThing> newArrayList(getUpdatersTrackingThing(stickyThing.getID()));
 	}
 
 	public boolean isLoopingPoint(IThing pointThing, IThingKey<Point2D> endpoint1Key, IThingKey<Point2D> endpoint2Key) {
