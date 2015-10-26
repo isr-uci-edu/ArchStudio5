@@ -838,6 +838,59 @@
             hints_3_0:name="color"/>
       </structure_3_0:ext>
     </structure_3_0:component>
+    <structure_3_0:component structure_3_0:id="GraphLayout" structure_3_0:name="Graph Layout">
+      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="GraphLayout_xarch"
+          structure_3_0:name="xarch">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.xarchadt.IXArchADT"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="xarch"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+          <hints_3_0:hint hints_3_0:hint="java.awt.geom.Point2D:1,4647855552934707200,4648488871632306176"
+              hints_3_0:name="location"/>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Rectangle:523,595,10,10"
+              hints_3_0:name="bounds"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="in" structure_3_0:id="GraphLayout_graphLayout"
+          structure_3_0:name="graphLayout">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="bottom"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.graphlayout.IGraphLayout"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="graphLayout"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+          <hints_3_0:hint hints_3_0:hint="java.awt.geom.Point2D:1,4648699977864839168,4649333296562438144"
+              hints_3_0:name="location"/>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Rectangle:619,691,10,10"
+              hints_3_0:name="bounds"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+        <implementation_3_0:implementation xsi:type="myxgen_3_0:MyxGen">
+          <myxgen_3_0:brickID>org.archstudio.graphlayout.core.GraphLayoutMyxComponent</myxgen_3_0:brickID>
+        </implementation_3_0:implementation>
+      </structure_3_0:ext>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Rectangle:504,600,144,96"
+            hints_3_0:name="bounds"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.RGB:197,203,245"
+            hints_3_0:name="assembly-background/color"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.RGB:197,203,245"
+            hints_3_0:name="color"/>
+      </structure_3_0:ext>
+    </structure_3_0:component>
     <structure_3_0:component structure_3_0:id="TestADT" structure_3_0:name="Test ADT">
       <structure_3_0:interface structure_3_0:direction="in" structure_3_0:id="TestADT_tests"
           structure_3_0:name="tests">
@@ -1410,6 +1463,22 @@
     </structure_3_0:component>
     <structure_3_0:component structure_3_0:id="ffa80104-7bc6719a-572f1ed7-727c0052"
         structure_3_0:name="Archipelago v2.0">
+      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="ffa80104-7bc6719a-d25126ef-727c0054"
+          structure_3_0:name="graphLayout">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              implementation_3_0:id="ffa80104-7bc6e415-14a05faa-727c006b" lookupimplementation_3_0:lookup="graphLayout"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+          <hints_3_0:hint hints_3_0:hint="java.awt.geom.Point2D:1,4647855552934707200,4653203577492209664"
+              hints_3_0:name="location"/>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Rectangle:523,1243,10,10"
+              hints_3_0:name="bounds"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
       <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="ffa80104-7bc6719a-c0fb2904-727c0056"
           structure_3_0:name="xarch">
         <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
@@ -2304,6 +2373,17 @@
         <hints_3_0:hint hints_3_0:hint="List{}:" hints_3_0:name="midpoints"/>
       </structure_3_0:ext>
     </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="xArchADT_xarch_to_GraphLayout_xarch" structure_3_0:name="xArch ADT.xarch-to-Graph Layout.xarch">
+      <structure_3_0:point1>0a534964-f32cad30-bf7aa3cb-7f300008</structure_3_0:point1>
+      <structure_3_0:point2>GraphLayout_xarch</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:hint="java.awt.geom.Point2D:1,4644257274266083958,4643862126702624768"
+            hints_3_0:name="endpoint1"/>
+        <hints_3_0:hint hints_3_0:hint="java.awt.geom.Point2D:1,4647825104920399557,4648444891167195136"
+            hints_3_0:name="endpoint2"/>
+        <hints_3_0:hint hints_3_0:hint="List{}:" hints_3_0:name="midpoints"/>
+      </structure_3_0:ext>
+    </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="xArchADT_xarch_to_AIMLauncher_xarch" structure_3_0:name="xArch ADT.xarch-to-AIM Launcher.xarch">
       <structure_3_0:point1>0a534964-f32cad30-bf7aa3cb-7f300008</structure_3_0:point1>
       <structure_3_0:point2>AIMLauncher_xarch</structure_3_0:point2>
@@ -2956,6 +3036,17 @@
         <hints_3_0:hint hints_3_0:hint="java.awt.geom.Point2D:1,4648936372864811008,4653181587259654144"
             hints_3_0:name="endpoint1"/>
         <hints_3_0:hint hints_3_0:hint="java.awt.geom.Point2D:1,4652979826875957248,4643862126702624768"
+            hints_3_0:name="endpoint2"/>
+        <hints_3_0:hint hints_3_0:hint="List{}:" hints_3_0:name="midpoints"/>
+      </structure_3_0:ext>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="ffa80104-7bc67199-3a4b33d5-727c0050" structure_3_0:name="Graph Layout.graphLayout-to-Archipelago.graphLayout">
+      <structure_3_0:point1>GraphLayout_graphLayout</structure_3_0:point1>
+      <structure_3_0:point2>ffa80104-7bc6719a-d25126ef-727c0054</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:hint="java.awt.geom.Point2D:1,4648692329088298118,4649377277027549184"
+            hints_3_0:name="endpoint1"/>
+        <hints_3_0:hint hints_3_0:hint="java.awt.geom.Point2D:1,4647863201711248250,4653181587259654144"
             hints_3_0:name="endpoint2"/>
         <hints_3_0:hint hints_3_0:hint="List{}:" hints_3_0:name="midpoints"/>
       </structure_3_0:ext>

@@ -8,6 +8,16 @@
             id="org.archstudio.archipelago2.core.Archipelago2MyxComponent"
             name="Archipelago v2.0 Impl"
             parentBrick="org.archstudio.eclipse.ui.editors.AbstractArchStudioEditorMyxComponent">
+         <interface
+               class="org.archstudio.graphlayout.IGraphLayout"
+               delegate="variable"
+               direction="out"
+               domain="top"
+               getter="true"
+               id="graphLayout"
+               name="graphLayout"
+               single="true">
+         </interface>
       </brick>
    </extension>
    <extension
