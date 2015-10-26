@@ -24,4 +24,7 @@ Require-Bundle: org.archstudio.archipelago,
  org.archstudio.xadl3.statechart,
  org.eclipse.core.runtime,
  org.eclipse.jdt.annotation;bundle-version="[1.1.0,2.0.0)";resolution:=optional,
- org.eclipse.ui
+ org.eclipse.ui,
+ org.archstudio.xadl3.implementation.myxgen,
+ org.archstudio.myx.myxgen,
+ org.archstudio.myxgen.core

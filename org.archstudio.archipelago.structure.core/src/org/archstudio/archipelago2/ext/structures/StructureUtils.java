@@ -5,6 +5,7 @@ import java.util.Map;
 import org.archstudio.archipelago2.Activator;
 import org.archstudio.archipelago2.MyxRegistryToProxyLogicDelegate;
 import org.archstudio.archipelago2.ext.statecharts.logics.UpdateStatechartSpecLogic;
+import org.archstudio.archipelago2.ext.structures.logics.AssignMyxGenLogic;
 import org.archstudio.archipelago2.ext.structures.logics.MapComponentLogic;
 import org.archstudio.archipelago2.ext.structures.logics.MapConnectorLogic;
 import org.archstudio.archipelago2.ext.structures.logics.MapInterfaceLogic;
@@ -132,6 +133,7 @@ public class StructureUtils extends AbstractThingLogic {
     logics.addThingLogic(new UpdateStatechartSpecLogic(world, xarch));
     logics.addThingLogic(new XadlCopyPasteLogic(world, xarch));
     logics.addThingLogic(new RemoveElementLogic(world, xarch));
+    logics.addThingLogic(new AssignMyxGenLogic(world, xarch));
     logics.addThingLogic(EditTextLogic.class);
     logics.addThingLogic(EditFlowLogic.class);
     logics.addThingLogic(EditColorLogic.class);
