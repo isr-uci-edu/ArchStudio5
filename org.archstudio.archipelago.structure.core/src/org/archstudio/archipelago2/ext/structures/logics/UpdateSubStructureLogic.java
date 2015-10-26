@@ -51,6 +51,9 @@ public class UpdateSubStructureLogic extends AbstractThingLogic
   @Override
   public void drag(IBNAView view, DNDType type, DNDData data, ICoordinate location,
       ThingsAtLocation thingsAtLocation) {
+    if (view.getBNAWorld() != world) {
+      return;
+    }
     if (thingsAtLocation.getBackgroundThingAtLocation() != null) {
       ThingReference thingRef = thingsAtLocation.getBackgroundThingAtLocation();
       if (thingRef.getView().getBNAWorld() == world) {
@@ -74,6 +77,9 @@ public class UpdateSubStructureLogic extends AbstractThingLogic
   @Override
   public void drop(IBNAView view, DNDType type, DNDData data, ICoordinate location,
       ThingsAtLocation thingsAtLocation) {
+    if (view.getBNAWorld() != world) {
+      return;
+    }
     if (thingsAtLocation.getBackgroundThingAtLocation() != null) {
       ThingReference thingRef = thingsAtLocation.getBackgroundThingAtLocation();
       if (thingRef.getView().getBNAWorld() == world) {
@@ -97,6 +103,9 @@ public class UpdateSubStructureLogic extends AbstractThingLogic
   @Override
   public void fillMenu(IBNAView view, ICoordinate location, ThingsAtLocation thingsAtLocation,
       IMenuManager menuManager) {
+    if (view.getBNAWorld() != world) {
+      return;
+    }
     if (thingsAtLocation.getBackgroundThingAtLocation() != null) {
       ThingReference thingRef = thingsAtLocation.getBackgroundThingAtLocation();
       if (thingRef.getView().getBNAWorld() == world) {
