@@ -12,6 +12,7 @@ import org.archstudio.bna.facets.IHasMutableEndpoints;
 import org.archstudio.bna.facets.IHasMutableMidpoints;
 import org.archstudio.bna.facets.IHasMutableReferencePoint;
 import org.archstudio.bna.facets.IHasMutableSize;
+import org.archstudio.bna.facets.IHasReferencePoint;
 import org.archstudio.bna.things.utility.GridThing;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
@@ -38,12 +39,19 @@ public class GridUtils {
 					&& UserEditableUtils.isEditableForAllQualities(t, IHasMutableMidpoints.USER_MAY_MOVE_MIDPOINTS)) {
 				rectifyToGrid(gridSpacing, (IHasMutableMidpoints) t);
 			}
-			if (t instanceof IHasMutableBoundingBox
-					&& UserEditableUtils.isEditableForAnyQualities(t, IHasMutableSize.USER_MAY_RESIZE)) {
-				rectifyToGrid(gridSpacing, (IHasMutableBoundingBox) t);
+			if (t instanceof IHasMutableBoundingBox) {
+				if (UserEditableUtils.isEditableForAllQualities(t, IHasMutableReferencePoint.USER_MAY_MOVE,
+						IHasMutableSize.USER_MAY_RESIZE)) {
+					rectifyToGrid(gridSpacing, (IHasMutableBoundingBox) t);
+				}
+				else if (t instanceof IHasMutableReferencePoint
+						&& UserEditableUtils.isEditableForAllQualities(t, IHasMutableReferencePoint.USER_MAY_MOVE)) {
+					Point p = ((IHasReferencePoint) t).getReferencePoint();
+					((IHasReferencePoint) t).setReferencePoint(snapToGrid(gridSpacing, p));
+				}
 			}
 			if (t instanceof IHasMutableAnchorPoint
-					&& UserEditableUtils.isEditableForAnyQualities(t, IHasMutableReferencePoint.USER_MAY_MOVE)) {
+					&& UserEditableUtils.isEditableForAllQualities(t, IHasMutableReferencePoint.USER_MAY_MOVE)) {
 				rectifyToGrid(gridSpacing, (IHasMutableAnchorPoint) t);
 			}
 		}
